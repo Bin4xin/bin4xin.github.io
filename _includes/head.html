@@ -1,0 +1,33 @@
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="{{ site.about  }}">
+{% if site.google_verify %}
+    <meta name="google-site-verification" content="{{ site.google_verify }}">
+{% endif %}
+<link rel="shortcut icon" href="{{ "/assets/img/favicon.png" | prepend: site.baseurl }}">
+<link type="application/atom+xml" rel="alternate" href="{{ "/feed.xml" | prepend: site.baseurl }}" title="{{ site.title }}" />
+
+{% capture page_title %}{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}{% endcapture %}
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{{ page_title }}" />
+<meta property="og:description" content="{{ site.about  }}" />
+<meta property="og:image" content="{{ site.url }}{{ site.baseurl }}/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="{{ site.url }}{{ site.baseurl }}{{ page.url }}" />
+
+<title>{{ page_title }}</title>
+
+<!-- Bootstrap core CSS -->
+<link href="{{ "/assets/css/bootstrap.css" | prepend: site.baseurl }}" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="{{ "/assets/css/style.css" | prepend: site.baseurl }}" rel="stylesheet">
+<link href="{{ "/assets/css/font-awesome.min.css" | prepend: site.baseurl }}" rel="stylesheet">
+<link href="{{ "/assets/css/font-awesome-v4-shims.min.css" | prepend: site.baseurl }}" rel="stylesheet">
+
+<script src="{{ "/assets/js/jquery.min.js" | prepend: site.baseurl }}"></script>
+<script src="{{ "/assets/js/bootstrap.min.js" | prepend: site.baseurl }}"></script>
+</head>
