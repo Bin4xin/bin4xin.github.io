@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="本站由哨兵安全实验室支持创办">
+
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="©「哨兵」| Sentry Security" />
+
+
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="「信息搜集」:漫谈一些在内网的信息搜集技巧 | ©「哨兵」| Sentry Security" />
+<meta property="og:description" content="本站由哨兵安全实验室支持创办" />
+<meta property="og:image" content="http://localhost:80/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="http://localhost:80/blog/2020/walkthrough/insideNet/" />
+
+<title>「信息搜集」:漫谈一些在内网的信息搜集技巧 | ©「哨兵」| Sentry Security</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+</head>
+
+
+    <body>
+        <!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><!--
+   --><picture>
+  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
+  
+  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
+  </picture>
+ Sentry Security</a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/">HOME</a></li>
+        <li class="active"><a href="/blog/">BLOG</a></li>
+        <li><a href="http://wiki.sentrylab.cn">WIKI</a></li>
+        <li><a href="https://about.sentrylab.cn">ABOUT ME</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+
+            <div class="container mtb">
+    <div class="row">
+        <! -- SINGLE POST -->
+        <div class="col-lg-8">
+            <! -- Blog Post  -->
+            <a href="/blog/2020/walkthrough/insideNet/"><h3 class="ctitle">「信息搜集」:漫谈一些在内网的信息搜集技巧</h3></a>
+            <p><csmall>Jun 8, 2020. | By: Bin4xin</csmall></p>
+            <div class="post-content"> 
+            <p>经历过几次HW行动，每次HW都运气较好可以拿到服务器，于是每次公司的内网渗透的任务就交给我，记录一下对于内网的信息搜集过程，以及在此过程中我自己所积累的小技巧。</p>
+
+<h2 id="passwd">passwd</h2>
+
+<p>一般来说通过<code class="language-plaintext highlighter-rouge">shiro</code>和<code class="language-plaintext highlighter-rouge">struts2</code>拿到的shell基本都是root，很多人都会直接去读取passwd文件，其实并不可取。下面展示一下2核4G服务器跑hash文件的过程。一般是跑不出来的，hash过程较难逆，除非存在彩虹表，一般都跑不出来。</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hashcat <span class="nt">-m</span> 1800 <span class="nt">-a</span> 0 <span class="nt">-o</span> found.txt linux-root.txt /usr/share/john/password.lst <span class="nt">--force</span>
+hashcat <span class="o">(</span>v4.0.1<span class="o">)</span> starting...
+
+OpenCL Platform <span class="c">#1: The pocl project</span>
+<span class="o">====================================</span>
+<span class="k">*</span> Device <span class="c">#1: pthread-Intel(R) Xeon(R) Platinum 8163 CPU @ 2.50GHz, 256/738 MB allocatable, 1MCU</span>
+
+Hashes: 2 digests<span class="p">;</span> 2 unique digests, 2 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
+Rules: 1
+
+Applicable optimizers:
+<span class="k">*</span> Zero-Byte
+<span class="k">*</span> Uses-64-Bit
+
+Password length minimum: 0
+Password length maximum: 256
+
+ATTENTION! Pure <span class="o">(</span>unoptimized<span class="o">)</span> OpenCL kernels selected.
+This enables cracking passwords and salts <span class="o">&gt;</span> length 32 but <span class="k">for </span>the price of drastical reduced performance.
+If you want to switch to optimized OpenCL kernels, append <span class="nt">-O</span> to your commandline.
+
+Watchdog: Hardware monitoring interface not found on your system.
+Watchdog: Temperature abort trigger disabled.
+Watchdog: Temperature retain trigger disabled.
+
+<span class="k">*</span> Device <span class="c">#1: build_opts '-I /usr/share/hashcat/OpenCL -D VENDOR_ID=64 -D CUDA_ARCH=0 -D AMD_ROCM=0 -D VECT_SIZE=8 -D DEVICE_TYPE=2 -D DGST_R0=0 -D DGST_R1=1 -D DGST_R2=2 -D DGST_R3=3 -D DGST_ELEM=16 -D KERN_TYPE=1800 -D _unroll'</span>
+<span class="k">*</span> Device <span class="c">#1: Kernel m01800.8f866878.kernel not found in cache! Building may take a while...</span>
+
+</code></pre></div></div>
+<p>继续 :(</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>s]tatus <span class="o">[</span>p]ause <span class="o">[</span>r]esume <span class="o">[</span>b]ypass <span class="o">[</span>c]heckpoint <span class="o">[</span>q]uit <span class="o">=&gt;</span> Dictionary cache built:
+<span class="k">*</span> Filename..: /usr/share/john/password.lst
+<span class="k">*</span> Passwords.: 3559
+<span class="k">*</span> Bytes.....: 26325
+<span class="k">*</span> Keyspace..: 3559
+<span class="k">*</span> Runtime...: 0 secs
+
+- Device <span class="c">#1: autotuned kernel-accel to 128</span>
+- Device <span class="c">#1: autotuned kernel-loops to 128</span>
+<span class="o">[</span>s]tatus <span class="o">[</span>p]ause <span class="o">[</span>r]esume <span class="o">[</span>b]ypass <span class="o">[</span>c]heckpoint <span class="o">[</span>q]uit <span class="o">=&gt;</span> <span class="o">[</span>s]tatus <span class="o">[</span>p]ause <span class="o">[</span>r]esume <span class="o">[</span>b]ypass <span class="o">[</span>c]heckpoApproaching final keyspace - workload adjusted.
+
+Session..........: hashcat
+Status...........: Exhausted
+Hash.Type........: sha512crypt <span class="nv">$6$,</span> SHA512 <span class="o">(</span>Unix<span class="o">)</span>
+Hash.Target......: linux-root.txt
+Time.Started.....: Mon Jun  8 11:29:25 2020 <span class="o">(</span>23 secs<span class="o">)</span>
+Time.Estimated...: Mon Jun  8 11:29:48 2020 <span class="o">(</span>0 secs<span class="o">)</span>
+Guess.Base.......: File <span class="o">(</span>/usr/share/john/password.lst<span class="o">)</span>
+Guess.Queue......: 1/1 <span class="o">(</span>100.00%<span class="o">)</span>
+Speed.Dev.#1.....:      311 H/s <span class="o">(</span>8.82ms<span class="o">)</span>
+Recovered........: 0/2 <span class="o">(</span>0.00%<span class="o">)</span> Digests, 0/2 <span class="o">(</span>0.00%<span class="o">)</span> Salts
+Progress.........: 7118/7118 <span class="o">(</span>100.00%<span class="o">)</span>
+Rejected.........: 0/7118 <span class="o">(</span>0.00%<span class="o">)</span>
+Restore.Point....: 3559/3559 <span class="o">(</span>100.00%<span class="o">)</span>
+Candidates.#1....: doom2 -&gt; sss
+HWMon.Dev.#1.....: N/A
+
+Started: Mon Jun  8 11:28:50 2020
+Stopped: Mon Jun  8 11:29:49 2020
+</code></pre></div></div>
+<p>一般建议可以以root用户新建用户来维持权限，或者是写入<code class="language-plaintext highlighter-rouge">corntab</code>计划来定时反弹shell。实操中几乎很少有运维、开发去检查定时计划的反弹shell脚本，所以基本上可以满足后持续渗透的条件。</p>
+
+<h2 id="信息搜集阶段">信息搜集阶段</h2>
+
+<ul>
+  <li>配置文件</li>
+</ul>
+
+<p>数据库配置信息 通过mybatis等配置文件就可以拿到内网中对应的数据库机器，一般都是低权限，运气好可以拿到高权限。运气再好一点存在高权限的mssql数据库可以尝试连接一下尝试<code class="language-plaintext highlighter-rouge">xp_cmd_shell</code>来执行命令。</p>
+
+<blockquote>
+  <p><strong>有的时候拿到的机器或多或少存在一些特殊情况，比如docker机器、单纯的一个数据库机器，那么就尽力而为去做一些搜集工作，特别是docker机器，除了跑的服务，机器里面太干净了，基本没有什么可以利用的地方。</strong></p>
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>在当前目录下搜索存在字符为<span class="s1">'mysql'</span>的文件
+<span class="nb">grep</span> <span class="nt">-rn</span> <span class="s2">"mysql"</span> <span class="nb">.</span>
+<span class="o">=======</span>
+查看对应系统的敏感配置文件
+<span class="nb">cat </span>static/scripts/tinymce/js/tinymce/plugins/jbimages/ci/application/config/database.php
+<span class="o">=======</span>
+curl ifconfig.me
+120.25.13.49
+</code></pre></div>  </div>
+</blockquote>
+
+<p>我们通过web层面拿到的机器，一般都是web服务器，即存在各种jar包，所以服务器里会存放大量配置文件</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span>|grep java
+
+netstat <span class="nt">-ANTUP</span>
+</code></pre></div></div>
+<p>通过进程任务可以查找到部署jar包的目录和相对应依赖，大部分运维和开发都习惯于在根目录下新建data目录或者是非系统文件夹下的目录存在web的依赖jar包，我们就可以从这点做突破口。查看一下端口开放情况和对应的目录位置，有一些shell的基础就可以搜集到这些信息。</p>
+
+<ul>
+  <li>bash_history</li>
+</ul>
+
+<p>命令执行历史文件一般建议必看，里面会存着一些意想不到的内容，下面截取一小部分我在内网实战中发现的惊喜：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>su root
+crontab <span class="nt">-e</span>
+su rppt
+su root
+crontab <span class="nt">-e</span>
+crontab <span class="nt">-l</span>
+ll
+<span class="nb">cd </span>domain/
+ll
+<span class="nb">cd </span>nexus3/
+ll
+<span class="nb">cd </span>nexus-3.12.0-01
+ll
+<span class="nb">cd </span>bin/
+./nexus start
+pactera@575
+<span class="nb">cd </span>domain/
+ll
+<span class="nb">cd </span>nexus3/
+</code></pre></div></div>
+<p>注意<code class="language-plaintext highlighter-rouge">./nexus start</code>和<code class="language-plaintext highlighter-rouge">cd domain/</code>两条命令中间的那个“命令”，对，没错那个是sudoer用户的密码，su切换直接就拥有root权限。我们分析一下为什么出现这样的现象：个人认为是在运行nexus程序是需要密码来提升权限，然后输入者在等待过程中没有发现输入密码的shell还没有回显出来就输入了密码，从而导致密码被系统当作执行命令记录进了history文件。</p>
+
+<hr />
+<p><strong>发现这个后，我第一时间去看了自己服务器和自己的mac本上的历史文件，搜索机器密码关键词，同时也存在这样的现象明文密码存在了里面</strong></p>
+
+<p><strong>醍醐灌顶</strong></p>
+
+<p>总结下来，内网的信息收集需要的是细心。</p>
+
+<h3 id="内网穿透">内网穿透</h3>
+<p>在写之前我们需要明确一点，就是我们所需要的内网目标是什么？
+而内网穿透和内网代理的分别在哪里？
+在什么情况我们需要做内网穿透，什么时候我们需要做内网代理？</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 reGeorgSocksProxy.py <span class="nt">-p</span> 9999 <span class="nt">-l</span> 0.0.0.0 <span class="nt">-u</span> https://www.pgyer.com/tunnel.nosocket.php
+</code></pre></div></div>
+<p>内网穿透就是针对一个机器下的某一个特定端口，通过流量转发的形式把端口暴露在公网上，举个例子，我们拿下了一个linux机器，很巧这个机器是运维机器，我们发现了大量的运维账号密码。
+又然后，发现windows的远程登录服务即3389端口，所以我们在这个时候可以使用端口服务转发的技巧，把端口流量转发到一个我们可控公网的端口上（如33890），那么我们在对我们自己可控公网的端口上进行数据请求的时候，就是在对这个windows机器的数据请求，所以我们可以很轻松的使用我们的到的账号和密码来连接对应的windows机器。</p>
+
+<p>所以我们做内网穿透的最终目的，很显然是：
+我们在已知某个内网服务器的敏感信息（如3389远程连接账号密码、3306连接账号密码），而我们在内网又无法使用windows机器远程连接、mysql-client软件对我们所得到的信息进行明确验证时，那么这个时候我们可以使用内网穿透即流量转发的手段来进行进一步验证。</p>
+
+<h2 id="内网代理">内网代理</h2>
+<p>内网代理，顾名思义就是我们自己可控的本机，通过各种代理方法（s5、s4），把拿下的内网服务器当作流量转发的一个中间跳板，对内网进行一系列我们想做的事情。这种情况下，我们的代理机器在内网没有具体的一个身份，只是我们通过代理的方式把我们对内网所发出的流量通过内网可控服务器向内网进行请求。</p>
+
+<h3 id="frp代理">frp代理</h3>
+<p>极力推荐。挂了代理就已经进入了内网，十分方便。只需要配置vps（frps）端，拿下shell后下载frpc客户端，启动服务就可以。
+windows：proxifier
+linux：frpc</p>
+
+<h3 id="lcx代理">lcx代理</h3>
+<p>没用过，听过。</p>
+
+
+            </div>
+            <div class="spacing"></div>
+        </div><! --/col-lg-8 -->
+        
+        <div class="col-lg-3">
+    <h4>Subscribe</h4>
+    <div class="hline"></div>
+        <p>
+        <p class="rss-subscribe"><i class="fa fa-rss"></i> Subscribe to this blog <a href="/feed.xml">via RSS</a>.</p>
+        </p>
+    <div class="spacing"></div>
+    <h4>Categories</h4>
+    <div class="hline"></div>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Web</a>
+            <span class="badge badge-theme pull-right">12</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 漏洞复现</a>
+            <span class="badge badge-theme pull-right">12</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 渗透</a>
+            <span class="badge badge-theme pull-right">10</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Vulnhub</a>
+            <span class="badge badge-theme pull-right">10</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 安全工具</a>
+            <span class="badge badge-theme pull-right">6</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 笔记</a>
+            <span class="badge badge-theme pull-right">40</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 软件移植</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Arm</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 主动防御</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 技巧</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Android reverse</a>
+            <span class="badge badge-theme pull-right">6</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 排错</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Waf</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Maven</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 代码审计</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Python</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 机器学习</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Terminal</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Docker</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Cve</a>
+            <span class="badge badge-theme pull-right">9</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Sql-inject</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Bash</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 内网</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 信息搜集</a>
+            <span class="badge badge-theme pull-right">7</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Fuzz</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Src</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Vulnhub</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Php</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+
+    <div class="spacing"></div>
+
+    <h4>Popular Tags</h4>
+    <div class="hline"></div>
+    <p>
+        
+            <a class="btn btn-theme" href="" role="button">Web (12)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">漏洞复现 (12)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">渗透 (10)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Vulnhub (10)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">安全工具 (6)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">笔记 (40)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">软件移植 (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Arm (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">主动防御 (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">技巧 (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Android reverse (6)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">排错 (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Waf (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Maven (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">代码审计 (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Python (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">机器学习 (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Terminal (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Docker (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Cve (9)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Sql-inject (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Bash (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">内网 (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">信息搜集 (7)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Fuzz (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Src (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Vulnhub (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Php (1)</a>	         
+        
+    </p>
+</div>
+
+
+    </div><! --/row -->
+</div><! --/container -->
+
+
+        <div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <p>本站由哨兵安全实验室支持创办</p>
+                <p class="thuhidden">个人感谢<em>@TUNA协会</em>的开源代码</p>
+        <p class="thuhidden">Powered by <a href="https://github.com/Bin4xin">Bin4xin</a> &amp; <a title="open code from TUNA mirror-web." href="https://github.com/tuna/mirror-web"><em>这里是开源代码库</em></a>.</p>
+            </div>
+
+            <div class="col-sm-4">
+              <h4>有个不成熟的建议？联系：</h4>
+                  <div class="thuhidden">
+                    <ul class="social">
+                      <li>
+                      <a><i class="fa fa-envelope"></i> chihou.pro@gmail.com</a>
+                      </li>
+                      <!-- <li>
+                      IRC: <a href="https://webchat.freenode.net/?channels=%23tuna">#tuna at freenode</a>
+                      </li> -->
+                      <li>
+                      <a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> GitHub </a>
+                      </li>
+                      <!-- <li>
+                      <a href="http://weibo.com/u/5402274706"><i class="fa fa-weibo"></i> 新浪微博</a>
+                      </li> -->
+                    </ul>
+                  </div>
+                </div>
+            <!-- aaa-->
+            <div class="col-sm-4">
+              <picture>
+  <img src="/assets/img/logo-white.jpg" srcset="/assets/img/logo-white.png 1x, /assets/img/logo-white@2x.png 2x, /assets/img/logo-white@3x.png 3x, /assets/img/logo-white@4x.png 4x" />
+  </picture>
+
+              <p style="color: #384452"> The best team on the planet. </p>
+            </div>
+        </div><!--/row -->
+    </div><!--/container -->
+</div><!--/footerwrap -->
+
+    </body>
+</html>

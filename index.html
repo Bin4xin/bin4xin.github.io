@@ -1,57 +1,112 @@
----
-layout: default
-permalink: /
----
+<!DOCTYPE html>
+<html>
 
-<div id="service">
+    <head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="本站由哨兵安全实验室支持创办">
+
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="©「哨兵」| Sentry Security" />
+
+
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="©「哨兵」| Sentry Security" />
+<meta property="og:description" content="本站由哨兵安全实验室支持创办" />
+<meta property="og:image" content="http://localhost:80/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="http://localhost:80/" />
+
+<title>©「哨兵」| Sentry Security</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+</head>
+
+
+    <body>
+        <!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><!--
+   --><picture>
+  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
+  
+  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
+  </picture>
+ Sentry Security</a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">HOME</a></li>
+        <li ><a href="/blog/">BLOG</a></li>
+        <li><a href="http://wiki.sentrylab.cn">WIKI</a></li>
+        <li><a href="https://about.sentrylab.cn">ABOUT ME</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+
+            <div id="service">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h2># 线上服务 </h2>
+        <h2># ERRORS团队 </h2>
       </div>
     </div>
     <div class="row centered" id="service-list">
+      
       <div class="col-md-3 col-xs-6">
-        <a href="https://mirrors.tuna.tsinghua.edu.cn/">{% include pic.html name="service/mirrors" %}</a>
-        <h4>开源镜像站 <a href="https://mirrors.tuna.tsinghua.edu.cn/"><i class="fa fa-hand-o-right"></i></a></h4>
-        <p>多快好省</p>
+        <a href="https://www.vulbox.com/whitehats/trancer"><picture>
+  <img src="/assets/img/errors/trancer.jpg" srcset="" />
+  </picture>
+</a>
+        <h4>trancer <a href="https://www.vulbox.com/whitehats/trancer"><i class="fa fa-hand-o-right"></i></a></h4>
+        <p>东风骤起惹青丝，暗香疏影犹不觉</p>
+      </div>
+
+      <div class="col-md-3 col-xs-6">
+        <a href="https://www.vulbox.com/whitehats/Gyp1991"><picture>
+  <img src="/assets/img/errors/Gyp1991.jpg" srcset="" />
+  </picture>
+</a>
+        <h4>Gyp1991 <a href="https://www.vulbox.com/whitehats/Gyp1991"><i class="fa fa-hand-o-right"></i></a></h4>
+        <p>会当凌绝顶，一览众山小</p>
+      </div>
+      
+      <div class="col-md-3 col-xs-6">
+        <a href="https://www.vulbox.com/whitehats/bin4xin"><picture>
+  <img src="/assets/img/errors/bin4xin.jpg" srcset="" />
+  </picture>
+</a>
+        <h4>Bin4xin <a href="https://www.vulbox.com/whitehats/bin4xin"><i class="fa fa-hand-o-right"></i></a></h4>
+        <p>天意似将颁大任，微躯何厌忍饥寒</p>
       </div>
       <div class="col-md-3 col-xs-6">
-        <a href="{{ "/help/dns/" | prepend: site.baseurl }}">{% include pic.html name="service/dns" %}</a>
-        <h4>DNS666 <a href="{{ "/help/dns/" | prepend: site.baseurl }}"><i class="fa fa-hand-o-right"></i></a></h4>
-        <p>101.6.6.6 / 2001:da8::666</p>
-      </div>
-      <div class="col-md-3 col-xs-6">
-        <a href="{{ "/help/ntp/" | prepend: site.baseurl }}">{% include pic.html name="service/ntp" %}</a>
-        <h4>网络授时 <a href="{{ "/help/ntp/" | prepend: site.baseurl }}"><i class="fa fa-hand-o-right"></i></a></h4>
-        <p>准时准点</p>
-      </div>
-{% unless site.isthu %}
-      <div class="col-md-3 col-xs-6">
-        <a href="https://fishroom.tuna.moe/">{% include pic.html name="service/fishroom" %}</a>
-        <h4>鱼屋 <a href="https://fishroom.tuna.moe/"><i class="fa fa-hand-o-right"></i></a></h4>
-        <p>一起聊天</p>
-      </div>
-      <div class="col-md-3 col-xs-6">
-        <a href="https://live.tuna.tsinghua.edu.cn/">{% include pic.html name="service/live" %}</a>
-        <h4>直播 <a href="https://live.tuna.tsinghua.edu.cn/"><i class="fa fa-hand-o-right"></i></a></h4>
-        <p>TUNA TV</p>
-      </div>
-      <div class="col-md-3 col-xs-6">
-        <a href="http://dm.tuna.moe/">{% include pic.html name="service/danmaku" %}</a>
-        <h4>弹幕 <a href="http://dm.tuna.moe/"><i class="fa fa-hand-o-right"></i></a></h4>
-        <p>互动演讲</p>
-      </div>
-      <div class="col-md-3 col-xs-6">
-        <a href="{{ "/cal/" | prepend: site.baseurl }}">{% include pic.html name="service/calendar" %}</a>
-        <h4>活动日历 <a href="{{ "/cal/" | prepend: site.baseurl }}"><i class="fa fa-hand-o-right"></i></a></h4>
-        <p>不要错过活动</p>
-      </div>
-{% endunless %}
-      <div class="col-md-3 col-xs-6">
-        <a href="https://github.com/tuna/issues/">{% include pic.html name="service/issues" %}</a>
-        <h4>Issues <a href="https://github.com/tuna/issues/"><i class="fa fa-hand-o-right"></i></a></h4>
-        <p>Bug 提交/意见反馈</p>
+        <a href="https://www.vulbox.com/whitehats/somecat"><picture>
+  <img src="/assets/img/errors/somecat.jpg" srcset="" />
+  </picture>
+</a>
+        <h4>somecat <a href="https://www.vulbox.com/whitehats/somecat"><i class="fa fa-hand-o-right"></i></a></h4>
+        <p>小楼一夜听春雨，深巷明朝卖杏花</p>
       </div>
     </div>
   </div><!--/container -->
@@ -60,85 +115,302 @@ permalink: /
 <div class="container">
   <div class="row">
     <div id="recent-events" class="col-md-6 col-md-push-6">
-      <h2> # 活动公告 </h2> 
-      {% for event in site.categories['event'] limit:5 %} 
-      <div class="event" data-event-date="{{event.date | date: "%F"}}">
+      <h2> # 置顶文章 </h2> 
+       
+      <div class="event" data-event-date="2021-01-01">
         <div class="event-title">
-          <a href="{{ event.url | prepend: site.baseurl }}">
-             <h4>{{ event.title }}</h4>
+          <a href="/event/2021/sentry-lab-markdown-usage/">
+             <h4>更新于2021/02/09-「置顶文章速览」</h4>
           </a>
         </div>
         <div class="event-meta">
-          <span><strong>时间: </strong>{{event.date | date: "%F"}}{% if event.time %} {{event.time}} {% endif %}</span>
-          <span><strong>地点:</strong> {{event.place}}</span>
+          <span><strong>时间: </strong>2021-01-01 14:35-00:30 </span>
+          <span><strong>地点:</strong> 安庆·安徽</span>
           <span class="event-status">
           </span>
-        {% if event.video or event.slides or event.youtube or event.audio %}
-        <br>
-        <span><strong>资源链接: </strong></span>
-        {% if event.audio %}
-        <a data-toggle="tooltip" title="录音下载" class="label label-info" href="{{event.audio}}" target="_blank"><i class="fa fa-headphones-alt fa-fw"></i></a>
-        {% endif %}
-        {% if event.video %}
-        <a data-toggle="tooltip" title="录像下载" class="label label-info" href="{{event.video}}" target="_blank"><i class="fa fa-video fa-fw"></i></a>
-        {% endif %}
-        {% if event.youtube %}
-        <a data-toggle="tooltip" title="YouTube 在线播放" class="label label-info" href="{{event.youtube}}" target="_blank"><i class="fa fa-youtube fa-fw"></i></a>
-        {% endif %}
-        {% if event.slides %}
-        <a data-toggle="tooltip" title="讲稿下载" class="label label-info" href="{{event.slides}}" target="_blank"><i class="fa fa-file-alt fa-fw"></i></a>
-        {% endif %}
-        {% endif %}
+        
         </div>
         <div class="event-abstract">
-        {{ event.excerpt | strip_html | truncate: 240, '...'}}
+        
+
+
+  「哨兵安全」：markdown用法一览，手打wiki以便使用SentryLab「markdown」
+    
+      放置于公告窗口置顶下：SentryLab「markdown」语法介绍&amp;批注
+    
+  
+  2021/02/04：已更新「我的研究」栏目文章：
+    
+      「分享」ModsecWAF：老牌开源waf的绕过历程
+      分享：Different Shiro Framework deserialization anal...
         </div>
       </div>
-      {% endfor %} 
+       
+      <div class="event" data-event-date="2020-04-10">
+        <div class="event-title">
+          <a href="/event/2020/hou-hei-xue-post/">
+             <h4>《厚黑学》:转载</h4>
+          </a>
+        </div>
+        <div class="event-meta">
+          <span><strong>时间: </strong>2020-04-10 22:00-22:30 </span>
+          <span><strong>地点:</strong> 合肥·安徽</span>
+          <span class="event-status">
+          </span>
+        
+        </div>
+        <div class="event-abstract">
+         《 厚 黑 学 》
+·李宗吾·
+(1879-1944)
+　　我自读书识字以来，就想为英雄豪杰，求之四书五经，茫无所得，求之诸子百家，与夫廿四史，仍无所得，以为古之为英雄豪杰者，必有不传之秘，不过吾人生性愚鲁，寻他不出罢了。穷索冥搜，忘寝废食，如是者有年，一旦偶然想起三国时几个人物，不觉恍然大悟曰：得之矣，得之矣，古之为英雄豪杰者，不过面厚心黑而已。
+
+　　三国英雄，首推曹操，他的特长，全在心黑：他杀吕伯奢，杀孔融，杀杨修，杀董承伏完，又杀皇后皇子，悍然不顾，并且明目张...
+        </div>
+      </div>
+       
+      <div class="event" data-event-date="2020-02-24">
+        <div class="event-title">
+          <a href="/event/2020/how-to-preview-datas/">
+             <h4>「机器学习」：谈谈有关数据预处理中的小技巧-Excel分列</h4>
+          </a>
+        </div>
+        <div class="event-meta">
+          <span><strong>时间: </strong>2020-02-24 16:00-16:11 </span>
+          <span><strong>地点:</strong> 合肥·安徽</span>
+          <span class="event-status">
+          </span>
+        
+        </div>
+        <div class="event-abstract">
+        问题引出
+
+  
+    hadoop,hive等输出数据导出为csv文件
+
+    
+      
+        解决：用表格软件打开的数据文件，数据都保存在同一列；通过一些小技巧把一列的数据分成我们所需要的列数。
+      
+      
+        写论文的时候遇到的问题：
+        
+          hadoop1.0.3
+          使用hadoop对数据进行map-reduce操作后，在终端上呈现的形式：
+            1...
+        </div>
+      </div>
+       
+      <div class="event" data-event-date="2019-09-11">
+        <div class="event-title">
+          <a href="/event/2019/first-day/">
+             <h4>「起源」：我与ERRORS</h4>
+          </a>
+        </div>
+        <div class="event-meta">
+          <span><strong>时间: </strong>2019-09-11 19:30-20:00 </span>
+          <span><strong>地点:</strong> 合肥·安徽</span>
+          <span class="event-status">
+          </span>
+        
+        </div>
+        <div class="event-abstract">
+        摘要：想自己做个人博客已经不是一天两天了。正好，最近闲了下来，趁着年前有时间，来把这个事情了结掉。（文尾有彩蛋～）
+
+我以初中物理的思路简单构思了一下这个站，简称三个W：What+Why+How
+
+WHAT？是什么
+我其实也一直在纠结，搭建一个这样的博客的意义何在，难道是这样一个刀枪不入的却又孤独的独角戏吗？显然不是，因为这并不是一个没有温度的博客，每篇文章内都倾注了我的心血；同时在我对这些过程进行复现、记录时，对于shell command的掌握、理解又进一步加深。所...
+        </div>
+      </div>
+       
       <div>
-        <a href={{"/events/"|prepend: site.baseurl}}><i class="fa fa-hand-o-right"></i> 所有活动</a>
+        <a href=/events/><i class="fa fa-hand-o-right"></i> MORE</a>
       </div>
     </div>
     <div id="recent-posts" class="col-md-6 col-md-pull-6">
-      <h2> # 最近文章 </h2> 
-      {% for post in site.categories['blog'] limit:5 %} 
+      <h2> # 博客窗口 </h2> 
+       
       <div class="post">
         <div class="post-title">
-          <a href="{{ post.url | prepend: site.baseurl }}">
-             <h4><i class="fa fa-file-text-o"></i> {{ post.title }}</h4>
+          <a href="/blog/GainPower/walkthrough/">
+             <h4><i class="fa fa-file-text-o"></i> GainPower靶场渗透历程</h4>
           </a>
         </div>
         <div class="post-meta">
-          {{post.author}}, {{post.date | date: "%Y-%-m-%-d"}}
+          Bin4xin, 2020-12-2
         </div>
         <div class="post-abstract">
-        {{ post.excerpt | strip_html | truncate: 240, '...'}}
+        
+  employee1:ssh banner发现问题；
+    
+      根据提示获得低权限shell
+    
+  
+  employee64:考验脚本编写能力（ssh爆破）
+    
+      bash脚本批量连接
+    
+  
+  programmer:获取sudo shell
+    
+      通过unshare切换到sudo用户
+      $ su - employee64
+      $ sudo -u programmer unshare
+...
         </div>
       </div>
-      {% endfor %} 
+       
+      <div class="post">
+        <div class="post-title">
+          <a href="/blog/2020/php-depoly/">
+             <h4><i class="fa fa-file-text-o"></i> PHP:部署的一揽子问题</h4>
+          </a>
+        </div>
+        <div class="post-meta">
+          Bin4xin, 2020-11-25
+        </div>
+        <div class="post-abstract">
+        [Wed Nov 25 17:19:33.475439 2020] [php7:notice] [pid 11872] [client 10.211.55.2:53568] PHP Notice:  Undefined index: step in /var/www/
+html/code/BabyOnline1/setup/setupwizard.php on line 4 [Wed Nov 25 17:19:33.475577 2020] [php7:error] [...
+        </div>
+      </div>
+       
+      <div class="post">
+        <div class="post-title">
+          <a href="/blog/2020/Oracle-sql/">
+             <h4><i class="fa fa-file-text-o"></i> 随笔记：Oracle数据库的渗透测试</h4>
+          </a>
+        </div>
+        <div class="post-meta">
+          Bin4xin, 2020-10-29
+        </div>
+        <div class="post-abstract">
+        使用docker进行oracle数据库渗透测试，环境如下：
+
+docker启动oracle
+
+参考链接：Oracle爆错手工注入
+
+渗透常用语句：
+
+
+1 当前用户权限 
+select * from session_roles
+2 当前数据库版本 
+select banner from sys.v_$version where rownum=1
+3 服务器出口IP 
+用utl_http.request 可以实现
+4 服务器监听IP d
+select utl_inaddr...
+        </div>
+      </div>
+       
+      <div class="post">
+        <div class="post-title">
+          <a href="/blog/2020/think-about-cyber-security/">
+             <h4><i class="fa fa-file-text-o"></i> 有关于网络安全行业的一些思考</h4>
+          </a>
+        </div>
+        <div class="post-meta">
+          Bin4xin, 2020-9-25
+        </div>
+        <div class="post-abstract">
+        Under construction
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+       
+      <div class="post">
+        <div class="post-title">
+          <a href="/blog/2020/Spring-boot/">
+             <h4><i class="fa fa-file-text-o"></i> 不得不谈的：「Spring Boot」未授权渗透</h4>
+          </a>
+        </div>
+        <div class="post-meta">
+          Bin4xin edit.Source From LandGrey, 2020-9-25
+        </div>
+        <div class="post-abstract">
+        Spring Boot Vulnerability Exploit CheckList
+
+Spring Boot 相关漏洞学习资料，利用方法和技巧合集，黑盒安全评估 check list
+
+声明
+
+这是转载地址，
+若作者介意请联系：「chihou.pro@gmail.com」删除转载文章
+
+目录
+
+
+  Spring Boot Vulnerability Exploit CheckList
+    
+      零：路由和版本
+        
+          0x...
+        </div>
+      </div>
+       
       <div>
-        <a href={{"/blog/"|prepend: site.baseurl}}><i class="fa fa-hand-o-right"></i> 所有文章</a>
+        <a href=/blog/><i class="fa fa-hand-o-right"></i> MORE</a>
       </div>
     </div>
   </div>
-  <!-- <div class="row">
+  <div class="row">
   <div id="join-tuna" class="col-md-12">
     <h2> # 加入我们 </h2> 
-    <h4>订阅邮件列表</h4>
-    <p>发送任意内容邮件到 <a href="mailto:tuna-general+subscribe@googlegroups.com">tuna-general+subscribe@googlegroups.com</a>, 并回复确认邮件。</p>
-    <h4>加入 Telegram 群组</h4>
-    <p>详见页面底部的联系方式。</p>
-    <h4>如果你是清华学生</h4>
-    <p>除了上面的步骤，请填写 <a href="https://join.tuna.tsinghua.edu.cn/">这个表单</a>，并在 <a href="http://shetuan.student.tsinghua.edu.cn/f/ckstzy/20140027">校团委社团部平台</a> 点击 "我要加入" 加入协会。</p>
+    <p>盒子团队申请 <a>https://www.vulbox.com/team/ERRORS</a></p>
+    <p>或者邮件联系 <a>chihou.pro@gmail.com</a></p>
   </div>
-  </div> -->
+  </div>
 </div>
 
 <div id="join-button" class="visible-xs">
   <div class="container">
     <div class="row">
       <div class="btn-group btn-group-justified col-xs-12">
-        <a class="btn btn-large btn-success" href="https://join.tuna.tsinghua.edu.cn/"> 加入TUNA / Join Us </a>
+        <a class="btn btn-large btn-success" href="https://www.vulbox.com/team/ERRORS"> 加入ERRORS / Join Us </a>
       </div>
     </div>
   </div>
@@ -190,3 +462,47 @@ $(document).ready(function(){
 <!--
 vim: ts=2 sts=2 sw=2 expandtab
 -->
+
+
+        <div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <p>本站由哨兵安全实验室支持创办</p>
+                <p class="thuhidden">个人感谢<em>@TUNA协会</em>的开源代码</p>
+        <p class="thuhidden">Powered by <a href="https://github.com/Bin4xin">Bin4xin</a> &amp; <a title="open code from TUNA mirror-web." href="https://github.com/tuna/mirror-web"><em>这里是开源代码库</em></a>.</p>
+            </div>
+
+            <div class="col-sm-4">
+              <h4>有个不成熟的建议？联系：</h4>
+                  <div class="thuhidden">
+                    <ul class="social">
+                      <li>
+                      <a><i class="fa fa-envelope"></i> chihou.pro@gmail.com</a>
+                      </li>
+                      <!-- <li>
+                      IRC: <a href="https://webchat.freenode.net/?channels=%23tuna">#tuna at freenode</a>
+                      </li> -->
+                      <li>
+                      <a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> GitHub </a>
+                      </li>
+                      <!-- <li>
+                      <a href="http://weibo.com/u/5402274706"><i class="fa fa-weibo"></i> 新浪微博</a>
+                      </li> -->
+                    </ul>
+                  </div>
+                </div>
+            <!-- aaa-->
+            <div class="col-sm-4">
+              <picture>
+  <img src="/assets/img/logo-white.jpg" srcset="/assets/img/logo-white.png 1x, /assets/img/logo-white@2x.png 2x, /assets/img/logo-white@3x.png 3x, /assets/img/logo-white@4x.png 4x" />
+  </picture>
+
+              <p style="color: #384452"> The best team on the planet. </p>
+            </div>
+        </div><!--/row -->
+    </div><!--/container -->
+</div><!--/footerwrap -->
+
+    </body>
+</html>

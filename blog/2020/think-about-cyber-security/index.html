@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="本站由哨兵安全实验室支持创办">
+
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="©「哨兵」| Sentry Security" />
+
+
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="有关于网络安全行业的一些思考 | ©「哨兵」| Sentry Security" />
+<meta property="og:description" content="本站由哨兵安全实验室支持创办" />
+<meta property="og:image" content="http://localhost:80/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="http://localhost:80/blog/2020/think-about-cyber-security/" />
+
+<title>有关于网络安全行业的一些思考 | ©「哨兵」| Sentry Security</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+</head>
+
+
+    <body>
+        <!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><!--
+   --><picture>
+  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
+  
+  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
+  </picture>
+ Sentry Security</a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/">HOME</a></li>
+        <li class="active"><a href="/blog/">BLOG</a></li>
+        <li><a href="http://wiki.sentrylab.cn">WIKI</a></li>
+        <li><a href="https://about.sentrylab.cn">ABOUT ME</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+
+            <div class="container mtb">
+    <div class="row">
+        <! -- SINGLE POST -->
+        <div class="col-lg-8">
+            <! -- Blog Post  -->
+            <a href="/blog/2020/think-about-cyber-security/"><h3 class="ctitle">有关于网络安全行业的一些思考</h3></a>
+            <p><csmall>Sep 25, 2020. | By: Bin4xin</csmall></p>
+            <div class="post-content"> 
+            <h3 id="under-construction">Under construction</h3>
+<hr />
+
+<div class="d-none d-sm-block position-absolute col-5 col-md-4 col-lg-3 bottom-0 right-0 mr-lg-5 mb-md-n4">
+
+<!-- this is a gap between text and pics:) -->
+</div>
+
+<div class="d-none d-sm-block position-absolute col-5 col-md-4 col-lg-3 bottom-0 right-0 mr-lg-5 mb-md-n4">
+
+<!-- this is a gap between text and pics:) -->
+</div>
+<div class="d-none d-sm-block position-absolute col-5 col-md-4 col-lg-3 bottom-0 right-0 mr-lg-5 mb-md-n4">
+
+<!-- this is a gap between text and pics:) -->
+</div>
+
+<div class="d-none d-sm-block position-absolute col-5 col-md-4 col-lg-3 bottom-0 right-0 mr-lg-5 mb-md-n4">
+<div class="width-full">
+<svg viewBox="0 0 300 305" class="width-fit">
+<defs>
+<mask id="https___github_githubassets_com_images_modules_site_home_astro-mona-alpha_jpg">
+<image width="300" height="305" href="/assets/img/post-bg/astro-mona-alpha.jpg"></image>
+</mask>
+</defs>
+<image mask="url(#https___github_githubassets_com_images_modules_site_home_astro-mona-alpha_jpg)" width="300" height="305" href="/assets/img/post-bg/astro-mona.jpg"></image>
+</svg>
+</div>
+</div>
+
+<!--	oopos！被你发现了！
+* it工作人员（包括运维、开发等等）公司内的矛盾
+
+* 软件开发和传统安全公司之间的矛盾
+
+网络防火墙作为访问控制设备，主要工作在OSI模型三、四层，基于IP报文进行检测。只是对端口做限制，对TCP协议做封堵。
+其产品设计无需理解HTTP会话，也就决定了无法理解Web应用程序语言如HTML、SQL语言。因此，它不可能对HTTP通讯进行输入验证或攻击规则分析。针对Web网站的恶意攻击绝大部分都将封装为HTTP请求，从80或443端口顺利通过防火墙检测。 
+一些定位比较综合、提供丰富功能的防火墙，也具备一定程度的应用层防御能力，如能根据TCP会话异常性及攻击特征阻止网络层的攻击，通过IP分拆和组合也能判断是否有攻击隐藏在多个数据包中，但从根本上说他仍然无法理解HTTP会话，难以应对如SQL注入、跨站脚本、cookie窃取、网页篡改等应用层攻击。 
+web应用防火墙能在应用层理解分析HTTP会话，因此能有效的防止各类应用层攻击，同时他向下兼容，具备网络防火墙的功能。 -->
+
+<html>
+<head>
+	<title></title>
+<!-- <link href="/assets/css/bg.css" rel="stylesheet"> -->
+<script>
+var consoleConfig = {
+welcome: '\n哈？(づ｡◕‿‿◕｡)づ！你在偷看什么。本文还在"思考"中...\n',
+theme: '\n1、it工作人员（包括运维、开发等等）公司内的矛盾\n2、软件开发和传统安全公司之间的矛盾  \n\n源码:https://github.com/Bin4xin/bin4xin.github.io \n\n如果喜欢可以 %c star%c  %c支持一下%c  ❤️~\n',
+
+};
+
+var consoleInfo = (function(consoleConfig) {
+console.log('%c' + consoleConfig.welcome, 'color: #6190e8');
+console.log('%c' + consoleConfig.theme, 'color: #6190e8;','padding: 0 5px;color: #fff;background: #6190e8;','color: #6190e8;','padding: 0 5px;color: #fff;background: #6190e8;','color: #6190e8;');
+console.log('%c' + consoleConfig.qrcode, 'color: #6190e8');
+console.log('%c' + consoleConfig.search, 'color: #6190e8');
+
+}(consoleConfig));</script>
+</head>
+<body>
+
+</body>
+</html>
+
+            </div>
+            <div class="spacing"></div>
+        </div><! --/col-lg-8 -->
+        
+        <div class="col-lg-3">
+    <h4>Subscribe</h4>
+    <div class="hline"></div>
+        <p>
+        <p class="rss-subscribe"><i class="fa fa-rss"></i> Subscribe to this blog <a href="/feed.xml">via RSS</a>.</p>
+        </p>
+    <div class="spacing"></div>
+    <h4>Categories</h4>
+    <div class="hline"></div>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Web</a>
+            <span class="badge badge-theme pull-right">12</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 漏洞复现</a>
+            <span class="badge badge-theme pull-right">12</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 渗透</a>
+            <span class="badge badge-theme pull-right">10</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Vulnhub</a>
+            <span class="badge badge-theme pull-right">10</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 安全工具</a>
+            <span class="badge badge-theme pull-right">6</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 笔记</a>
+            <span class="badge badge-theme pull-right">40</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 软件移植</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Arm</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 主动防御</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 技巧</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Android reverse</a>
+            <span class="badge badge-theme pull-right">6</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 排错</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Waf</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Maven</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 代码审计</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Python</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 机器学习</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Terminal</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Docker</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Cve</a>
+            <span class="badge badge-theme pull-right">9</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Sql-inject</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Bash</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 内网</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 信息搜集</a>
+            <span class="badge badge-theme pull-right">7</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Fuzz</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Src</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Vulnhub</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Php</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+
+    <div class="spacing"></div>
+
+    <h4>Popular Tags</h4>
+    <div class="hline"></div>
+    <p>
+        
+            <a class="btn btn-theme" href="" role="button">Web (12)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">漏洞复现 (12)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">渗透 (10)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Vulnhub (10)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">安全工具 (6)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">笔记 (40)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">软件移植 (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Arm (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">主动防御 (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">技巧 (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Android reverse (6)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">排错 (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Waf (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Maven (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">代码审计 (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Python (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">机器学习 (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Terminal (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Docker (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Cve (9)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Sql-inject (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Bash (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">内网 (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">信息搜集 (7)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Fuzz (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Src (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Vulnhub (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Php (1)</a>	         
+        
+    </p>
+</div>
+
+
+    </div><! --/row -->
+</div><! --/container -->
+
+
+        <div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <p>本站由哨兵安全实验室支持创办</p>
+                <p class="thuhidden">个人感谢<em>@TUNA协会</em>的开源代码</p>
+        <p class="thuhidden">Powered by <a href="https://github.com/Bin4xin">Bin4xin</a> &amp; <a title="open code from TUNA mirror-web." href="https://github.com/tuna/mirror-web"><em>这里是开源代码库</em></a>.</p>
+            </div>
+
+            <div class="col-sm-4">
+              <h4>有个不成熟的建议？联系：</h4>
+                  <div class="thuhidden">
+                    <ul class="social">
+                      <li>
+                      <a><i class="fa fa-envelope"></i> chihou.pro@gmail.com</a>
+                      </li>
+                      <!-- <li>
+                      IRC: <a href="https://webchat.freenode.net/?channels=%23tuna">#tuna at freenode</a>
+                      </li> -->
+                      <li>
+                      <a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> GitHub </a>
+                      </li>
+                      <!-- <li>
+                      <a href="http://weibo.com/u/5402274706"><i class="fa fa-weibo"></i> 新浪微博</a>
+                      </li> -->
+                    </ul>
+                  </div>
+                </div>
+            <!-- aaa-->
+            <div class="col-sm-4">
+              <picture>
+  <img src="/assets/img/logo-white.jpg" srcset="/assets/img/logo-white.png 1x, /assets/img/logo-white@2x.png 2x, /assets/img/logo-white@3x.png 3x, /assets/img/logo-white@4x.png 4x" />
+  </picture>
+
+              <p style="color: #384452"> The best team on the planet. </p>
+            </div>
+        </div><!--/row -->
+    </div><!--/container -->
+</div><!--/footerwrap -->
+
+    </body>
+</html>

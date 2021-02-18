@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="本站由哨兵安全实验室支持创办">
+
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="©「哨兵」| Sentry Security" />
+
+
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="nginx和jekyll | ©「哨兵」| Sentry Security" />
+<meta property="og:description" content="本站由哨兵安全实验室支持创办" />
+<meta property="og:image" content="http://localhost:80/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="http://localhost:80/blog/2019/nginx/with/jekyll-site/" />
+
+<title>nginx和jekyll | ©「哨兵」| Sentry Security</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+</head>
+
+
+    <body>
+        <!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><!--
+   --><picture>
+  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
+  
+  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
+  </picture>
+ Sentry Security</a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/">HOME</a></li>
+        <li class="active"><a href="/blog/">BLOG</a></li>
+        <li><a href="http://wiki.sentrylab.cn">WIKI</a></li>
+        <li><a href="https://about.sentrylab.cn">ABOUT ME</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+
+            <div class="container mtb">
+    <div class="row">
+        <! -- SINGLE POST -->
+        <div class="col-lg-8">
+            <! -- Blog Post  -->
+            <a href="/blog/2019/nginx/with/jekyll-site/"><h3 class="ctitle">nginx和jekyll</h3></a>
+            <p><csmall>Nov 22, 2019. | By: Bin4xin</csmall></p>
+            <div class="post-content"> 
+            <ul>
+  <li>摘要：webrick真是不省心啊。还是nginx大法好～</li>
+</ul>
+
+<p>使用nginx作为jekyll博客的服务启动容器介绍：</p>
+
+<h2 id="1jekyll如何工作">1.jekyll如何工作</h2>
+
+<p>首先先从用户角度解释一下我理解中的jekyll服务的运行原理<br />
+<code class="language-plaintext highlighter-rouge">1.编写markdown文档-&gt;2.markdown解析-&gt;3.jekyll运行生成web站点文件</code></p>
+
+<p>所以我们直接去找站点文件夹，把web站点文件夹复制到nginx的根目录下就好了</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /your-jekyll-web/
+ls                   #我们可以看到_site/文件夹，这个文件夹就是web站点文件夹
+cd _site/
+vi 2019-01-01-your-article-title.markdown
+cp _site/ /var/www/html/ -r
+nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+systemctl start nginx
+curl localhost
+</code></pre></div></div>
+<p>测试nginx完毕没有问题，既可以直接启动nginx。然后看一下本地页面，如果出现本地页面就是调试完成了。</p>
+
+<h2 id="2配置nginx-server">2.配置nginx-server</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat /etc/nginx/nginx.conf
+中间略去，直接看server区块
+server {
+        listen       80;
+        server_name  ip;     #修改这里，如果这里你是公网ip，修改成公网ip就可以啦。
+        #charset koi8-r;
+        #access_log  logs/host.access.log  main;
+		 
+		root   /home/www/_site/;
+
+        location / {
+			 #try_files $uri $uri/ /index.php$is_args$args;
+            index  index.html index.htm;
+        				}
+ location ~ \.php{          ＃这里是定位到输入php的页面解析代码，如果不需要可以直接注释掉。
+				index  index.php index.html;
+				include /etc/nginx/snippets/fastcgi-php.conf;
+				fastcgi_pass unix:/etc/init.d/php7.3-fpm;
+					}
+
+	# deny access to .htaccess files, if Apache's document root
+	# concurs with nginx's one
+	#
+	location ~ /\.ht {
+		deny all;
+		}
+        #error_page  404              /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page   500 502 503 504  /50x.html;
+        #location = /50x.html {
+         #   root   /usr/share/nginx/html;
+
+		}
+}
+</code></pre></div></div>
+<p>同样测试一下，没问题就可以了。
+这个时候就可以看一下公网地址是不是已经可以访问上了，访问上就没什么问题了。维护博客就可以通过markdown文件的形式post到服务器上用jekyll解析就可以访问了。</p>
+
+<blockquote>
+  <p>希望你们自己也能动手试试看。<code class="language-plaintext highlighter-rouge">么么哒</code></p>
+</blockquote>
+
+
+            </div>
+            <div class="spacing"></div>
+        </div><! --/col-lg-8 -->
+        
+        <div class="col-lg-3">
+    <h4>Subscribe</h4>
+    <div class="hline"></div>
+        <p>
+        <p class="rss-subscribe"><i class="fa fa-rss"></i> Subscribe to this blog <a href="/feed.xml">via RSS</a>.</p>
+        </p>
+    <div class="spacing"></div>
+    <h4>Categories</h4>
+    <div class="hline"></div>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Web</a>
+            <span class="badge badge-theme pull-right">12</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 漏洞复现</a>
+            <span class="badge badge-theme pull-right">12</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 渗透</a>
+            <span class="badge badge-theme pull-right">10</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Vulnhub</a>
+            <span class="badge badge-theme pull-right">10</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 安全工具</a>
+            <span class="badge badge-theme pull-right">6</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 笔记</a>
+            <span class="badge badge-theme pull-right">40</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 软件移植</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Arm</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 主动防御</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 技巧</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Android reverse</a>
+            <span class="badge badge-theme pull-right">6</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 排错</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Waf</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Maven</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 代码审计</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Python</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 机器学习</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Terminal</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Docker</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Cve</a>
+            <span class="badge badge-theme pull-right">9</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Sql-inject</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Bash</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 内网</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 信息搜集</a>
+            <span class="badge badge-theme pull-right">7</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Fuzz</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Src</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Vulnhub</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Php</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+
+    <div class="spacing"></div>
+
+    <h4>Popular Tags</h4>
+    <div class="hline"></div>
+    <p>
+        
+            <a class="btn btn-theme" href="" role="button">Web (12)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">漏洞复现 (12)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">渗透 (10)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Vulnhub (10)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">安全工具 (6)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">笔记 (40)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">软件移植 (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Arm (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">主动防御 (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">技巧 (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Android reverse (6)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">排错 (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Waf (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Maven (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">代码审计 (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Python (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">机器学习 (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Terminal (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Docker (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Cve (9)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Sql-inject (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Bash (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">内网 (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">信息搜集 (7)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Fuzz (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Src (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Vulnhub (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Php (1)</a>	         
+        
+    </p>
+</div>
+
+
+    </div><! --/row -->
+</div><! --/container -->
+
+
+        <div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <p>本站由哨兵安全实验室支持创办</p>
+                <p class="thuhidden">个人感谢<em>@TUNA协会</em>的开源代码</p>
+        <p class="thuhidden">Powered by <a href="https://github.com/Bin4xin">Bin4xin</a> &amp; <a title="open code from TUNA mirror-web." href="https://github.com/tuna/mirror-web"><em>这里是开源代码库</em></a>.</p>
+            </div>
+
+            <div class="col-sm-4">
+              <h4>有个不成熟的建议？联系：</h4>
+                  <div class="thuhidden">
+                    <ul class="social">
+                      <li>
+                      <a><i class="fa fa-envelope"></i> chihou.pro@gmail.com</a>
+                      </li>
+                      <!-- <li>
+                      IRC: <a href="https://webchat.freenode.net/?channels=%23tuna">#tuna at freenode</a>
+                      </li> -->
+                      <li>
+                      <a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> GitHub </a>
+                      </li>
+                      <!-- <li>
+                      <a href="http://weibo.com/u/5402274706"><i class="fa fa-weibo"></i> 新浪微博</a>
+                      </li> -->
+                    </ul>
+                  </div>
+                </div>
+            <!-- aaa-->
+            <div class="col-sm-4">
+              <picture>
+  <img src="/assets/img/logo-white.jpg" srcset="/assets/img/logo-white.png 1x, /assets/img/logo-white@2x.png 2x, /assets/img/logo-white@3x.png 3x, /assets/img/logo-white@4x.png 4x" />
+  </picture>
+
+              <p style="color: #384452"> The best team on the planet. </p>
+            </div>
+        </div><!--/row -->
+    </div><!--/container -->
+</div><!--/footerwrap -->
+
+    </body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="本站由哨兵安全实验室支持创办">
+
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="©「哨兵」| Sentry Security" />
+
+
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="PHP:部署的一揽子问题 | ©「哨兵」| Sentry Security" />
+<meta property="og:description" content="本站由哨兵安全实验室支持创办" />
+<meta property="og:image" content="http://localhost:80/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="http://localhost:80/blog/2020/php-depoly/" />
+
+<title>PHP:部署的一揽子问题 | ©「哨兵」| Sentry Security</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+</head>
+
+
+    <body>
+        <!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><!--
+   --><picture>
+  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
+  
+  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
+  </picture>
+ Sentry Security</a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/">HOME</a></li>
+        <li class="active"><a href="/blog/">BLOG</a></li>
+        <li><a href="http://wiki.sentrylab.cn">WIKI</a></li>
+        <li><a href="https://about.sentrylab.cn">ABOUT ME</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+
+            <div class="container mtb">
+    <div class="row">
+        <! -- SINGLE POST -->
+        <div class="col-lg-8">
+            <! -- Blog Post  -->
+            <a href="/blog/2020/php-depoly/"><h3 class="ctitle">PHP:部署的一揽子问题</h3></a>
+            <p><csmall>Nov 25, 2020. | By: Bin4xin</csmall></p>
+            <div class="post-content"> 
+            <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>Wed Nov 25 17:19:33.475439 2020] <span class="o">[</span>php7:notice] <span class="o">[</span>pid 11872] <span class="o">[</span>client 10.211.55.2:53568] PHP Notice:  Undefined index: step <span class="k">in</span> /var/www/
+html/code/BabyOnline1/setup/setupwizard.php on line 4 <span class="o">[</span>Wed Nov 25 17:19:33.475577 2020] <span class="o">[</span>php7:error] <span class="o">[</span>pid 11872] <span class="o">[</span>client 10.211.55.2:53568] 
+PHP Fatal error:  Uncaught Error: Class <span class="s1">'DOMDocument'</span> not found <span class="k">in</span> /var/www/html/code/BabyOnline1/setup/setupwizard.php:46<span class="se">\n</span>
+Stack trace:<span class="se">\n</span><span class="c">#0 {main}\n  thrown in /var/www/html/code/BabyOnline1/setup/setupwizard.php on line 46</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Wed Nov 25 17:21:46.224793 2020] [php7:error] [pid 11882] [client 10.211.55.2:53602] PHP Fatal error:  Uncaught Error: 
+Call to undefined function mysqli_connect() in 
+
+/var/www/html/code/BabyOnline1/utility/mysqli5.php:39\nStack trace:\n#0 /var/www/html/code/BabyOnline1/utility/fun.class.php(281): 
+Conn-&gt;__construct('localhost', '3306', 'root', 'tsinglink', 'qx_bbol', 'UTF8', true)\n#1 /var/www/html/code/BabyOnline1/utility/fun.class.php
+(255): Utility-&gt;CreateDBConnect('localhost', '3306', 'root', 'tsinglink', 'qx_bbol', 'UTF8')\n#2 /var/www/html/code/BabyOnline1/platform/php/
+ini.php(41): Utility-&gt;__construct()\n#3 /var/www/html/code/BabyOnline1/platform/php/plat_manage.php(5): require_once('/var/www/html/c...')
+\n#4 {main}\n  thrown in /var/www/html/code/BabyOnline1/utility/mysqli5.php on line 39, referer: http://10.211.55.4/platform/
+</code></pre></div></div>
+<p>提示在<code class="language-plaintext highlighter-rouge">/var/www/html/code/BabyOnline1/utility/fun.class.php(281)</code>文件、
+<code class="language-plaintext highlighter-rouge">/var/www/html/code/BabyOnline1/platform/php/ini.php(41)</code>文件
+<code class="language-plaintext highlighter-rouge">/var/www/html/code/BabyOnline1/utility/mysqli5.php on line 39</code>文件</p>
+
+<p>第一个fun.class.php文件是实现的日志写入数据库的功能；</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function WriterToDB($typeid,$clientAddress,$datetime,$file,$line,$function,$content)
+	{
+		global $utility;
+		if(is_array($content))
+		{
+			$conn = $utility-&gt;CreateDBConnect($_SESSION["DB"]["Host"],$_SESSION["DB"]["Port"],$_SESSION["DB"]["User"],$_SESSION["DB"]["Password"],$_SESSION["DB"]["Name"],$_SESSION["DB"]["Character"]);
+			$conn-&gt;Query("INSERT INTO `NMIOperationLog` (`Index`,`Operation`,`OperationTime`,`Description`,`ManageDomainUserInfo_Index`,`ManageDomain_Index`,`ManageDomainUserInfo_Identity`,`ManageDomains`,`SqlScript`)VALUES(null,'".$content["Operation"]."','".$content["OperationTime"]."','".addslashes($content["Description"])."','".$content["ManageDomainUserInfo_Index"]."','".$content["ManageDomain_Index"]."','".$content["ManageDomainUserInfo_Identity"]."','".$content["ManageDomains"]."','".addslashes($content["SqlScript"])."') ");
+	
+			//$log-&gt;Writer(1,"NMI",strftime("%Y-%m-%d %H:%M:%S",time()),__FILE__,__LINE__,__FUNCTION__,mysql_error());
+			
+		}
+		return true;
+	}
+</code></pre></div></div>
+<p>连库WriterToDB实现功能如上；同样的<code class="language-plaintext highlighter-rouge">ini.php</code>同样定义了数据库的配置信息包括类型、url和连接信息：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>define('LOGSAVETYPE',1);
+define('LOGLEVEL',1);
+
+define('DB_TYPE', "mysql"); 
+define('IMAGE_URL', "http://61.191.35.32:8580/BabyOnline/");
+define('DB_SOURCEFILE_PATH',dirname(dirname(dirname(__FILE__)))."/utility/dbsource.ini");
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">dbsource.ini</code>文件里面则详细配置了jdbc的配置信息，就不单独放出来了；再来看看最后一个文件，同样是连接数据库，然后发现了一些有趣的：
+随意捡了一些构造函数：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function QueryRecordCount($sqlstr)
+	{
+		if($this-&gt;connect)
+		{
+			unset($row);
+			$row=$this-&gt;FetchArray($this-&gt;Query("SELECT count(1) as RecordCount FROM ".$sqlstr." "));
+			return ($row['RecordCount'] &gt; 0 ? $row['RecordCount'] : 0);
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+
+if($link-&gt;FetchArray($link-&gt;query("SELECT * FROM User WHERE `Identity`='$UserId' AND AreaCode='$AreaCode'")))
+    {
+    ···
+    }
+</code></pre></div></div>
+<p>咳咳，跑偏了，以上来看就直接修改ini文件就行了。</p>
+
+            </div>
+            <div class="spacing"></div>
+        </div><! --/col-lg-8 -->
+        
+        <div class="col-lg-3">
+    <h4>Subscribe</h4>
+    <div class="hline"></div>
+        <p>
+        <p class="rss-subscribe"><i class="fa fa-rss"></i> Subscribe to this blog <a href="/feed.xml">via RSS</a>.</p>
+        </p>
+    <div class="spacing"></div>
+    <h4>Categories</h4>
+    <div class="hline"></div>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Web</a>
+            <span class="badge badge-theme pull-right">12</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 漏洞复现</a>
+            <span class="badge badge-theme pull-right">12</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 渗透</a>
+            <span class="badge badge-theme pull-right">10</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Vulnhub</a>
+            <span class="badge badge-theme pull-right">10</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 安全工具</a>
+            <span class="badge badge-theme pull-right">6</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 笔记</a>
+            <span class="badge badge-theme pull-right">40</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 软件移植</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Arm</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 主动防御</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 技巧</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Android reverse</a>
+            <span class="badge badge-theme pull-right">6</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 排错</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Waf</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Maven</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 代码审计</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Python</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 机器学习</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Terminal</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Docker</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Cve</a>
+            <span class="badge badge-theme pull-right">9</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Sql-inject</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Bash</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 内网</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 信息搜集</a>
+            <span class="badge badge-theme pull-right">7</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Fuzz</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Src</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Vulnhub</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Php</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+
+    <div class="spacing"></div>
+
+    <h4>Popular Tags</h4>
+    <div class="hline"></div>
+    <p>
+        
+            <a class="btn btn-theme" href="" role="button">Web (12)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">漏洞复现 (12)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">渗透 (10)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Vulnhub (10)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">安全工具 (6)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">笔记 (40)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">软件移植 (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Arm (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">主动防御 (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">技巧 (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Android reverse (6)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">排错 (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Waf (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Maven (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">代码审计 (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Python (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">机器学习 (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Terminal (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Docker (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Cve (9)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Sql-inject (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Bash (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">内网 (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">信息搜集 (7)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Fuzz (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Src (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Vulnhub (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Php (1)</a>	         
+        
+    </p>
+</div>
+
+
+    </div><! --/row -->
+</div><! --/container -->
+
+
+        <div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <p>本站由哨兵安全实验室支持创办</p>
+                <p class="thuhidden">个人感谢<em>@TUNA协会</em>的开源代码</p>
+        <p class="thuhidden">Powered by <a href="https://github.com/Bin4xin">Bin4xin</a> &amp; <a title="open code from TUNA mirror-web." href="https://github.com/tuna/mirror-web"><em>这里是开源代码库</em></a>.</p>
+            </div>
+
+            <div class="col-sm-4">
+              <h4>有个不成熟的建议？联系：</h4>
+                  <div class="thuhidden">
+                    <ul class="social">
+                      <li>
+                      <a><i class="fa fa-envelope"></i> chihou.pro@gmail.com</a>
+                      </li>
+                      <!-- <li>
+                      IRC: <a href="https://webchat.freenode.net/?channels=%23tuna">#tuna at freenode</a>
+                      </li> -->
+                      <li>
+                      <a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> GitHub </a>
+                      </li>
+                      <!-- <li>
+                      <a href="http://weibo.com/u/5402274706"><i class="fa fa-weibo"></i> 新浪微博</a>
+                      </li> -->
+                    </ul>
+                  </div>
+                </div>
+            <!-- aaa-->
+            <div class="col-sm-4">
+              <picture>
+  <img src="/assets/img/logo-white.jpg" srcset="/assets/img/logo-white.png 1x, /assets/img/logo-white@2x.png 2x, /assets/img/logo-white@3x.png 3x, /assets/img/logo-white@4x.png 4x" />
+  </picture>
+
+              <p style="color: #384452"> The best team on the planet. </p>
+            </div>
+        </div><!--/row -->
+    </div><!--/container -->
+</div><!--/footerwrap -->
+
+    </body>
+</html>

