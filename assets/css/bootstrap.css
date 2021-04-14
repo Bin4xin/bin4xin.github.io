@@ -6831,4 +6831,13 @@ button.close {
     display: none !important;
   }
 }
+.gray{
+  /*grayscale(val):val值越大灰度就越深*/
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  filter: grayscale(100%);
+  filter: gray;
+}
 /*# sourceMappingURL=bootstrap.css.map */
