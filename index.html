@@ -231,6 +231,96 @@ WHAT？是什么
        
       <div class="post">
         <div class="post-title">
+          <a href="/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-II/">
+             <h4><i class="fa fa-file-text-o"></i> 《基于Modbus协议与KingView实现Openplc仿真通讯（2）- 靶场攻击流量分析》</h4>
+          </a>
+        </div>
+        <div class="post-meta">
+          Bin4xin, 2021-5-7
+        </div>
+        <div class="post-abstract">
+        # WireShark流量分析
+
+网上已经有大佬上传wireshark流量文件，就不重复造轮子去流量了，直接下载下来对照poc代码分析看看：
+
+
+  点击下载：sxd0216/attack-packets
+    
+      14、16帧为client向server请求流量，具体如下图：
+      15、17帧为server返回给client确认流量，具体流量可自行下载分析
+    
+  
+
+
+
+
+# 模拟攻击启停
+
+
+
+
+        </div>
+      </div>
+       
+      <div class="post">
+        <div class="post-title">
+          <a href="/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-I/">
+             <h4><i class="fa fa-file-text-o"></i> 《基于Modbus协议与KingView实现Openplc仿真通讯（1）- 仿真通讯靶场搭建》</h4>
+          </a>
+        </div>
+        <div class="post-meta">
+          Bin4xin, 2021-5-7
+        </div>
+        <div class="post-abstract">
+        
+  基于Modbus协议与KingView实现Openplc仿真通讯 - 通讯靶场网络示意图如下
+
+
+
+
+# OpenPLC on Linux
+
+
+  OpenPLC环境搭建
+    
+      点击以了解OpenPLC
+    
+  
+
+
+$ mkdir ICWR &amp;&amp; cd ICWR
+$ git clone https://github.com/thiagoralves/OpenPLC_v3.git
+$ cd OpenPLC_v3
+$ ./ins...
+        </div>
+      </div>
+       
+      <div class="post">
+        <div class="post-title">
+          <a href="/blog/2021/yonyou-nc6.5-java-underser/">
+             <h4><i class="fa fa-file-text-o"></i> [UPDATING...]用友NC6.5java反序列化</h4>
+          </a>
+        </div>
+        <div class="post-meta">
+          Bin4xin, 2021-3-13
+        </div>
+        <div class="post-abstract">
+        零：用友nc6.5反序列化依赖jar包
+
+
+  部分依赖jar包在安装完nc6.5系统后，一般在C://yonyou//home//lib//目录下，前提需要有nc6.5的安装包；或者下载仓库内的依赖包：
+    
+      点击以了解yonyou-nc6.5-lib
+        
+          本机运行环境
+  ```
+  java version “1.8.0_181”
+  Java(TM) SE Runtime Environment (build 1...
+        </div>
+      </div>
+       
+      <div class="post">
+        <div class="post-title">
           <a href="/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/">
              <h4><i class="fa fa-file-text-o"></i> CST 2021年 4月14日 星期三：一次朔源事件的记录</h4>
           </a>
@@ -282,105 +372,6 @@ WHAT？是什么
 说些没用的：
 
 过年回来后，忙里偷闲与学校网安实验室的孩子们开了一次线下交流会，交流会的主要内容就是总结寒假以来的学习过程和心得汇报；因为年纪较小，基本都是刚大一、大二，所以...
-        </div>
-      </div>
-       
-      <div class="post">
-        <div class="post-title">
-          <a href="/blog/GainPower/walkthrough/">
-             <h4><i class="fa fa-file-text-o"></i> GainPower靶场渗透历程</h4>
-          </a>
-        </div>
-        <div class="post-meta">
-          Bin4xin, 2020-12-2
-        </div>
-        <div class="post-abstract">
-        
-  employee1:ssh banner发现问题；
-    
-      根据提示获得低权限shell
-    
-  
-  employee64:考验脚本编写能力（ssh爆破）
-    
-      bash脚本批量连接
-    
-  
-  programmer:获取sudo shell
-    
-      通过unshare切换到sudo用户
-      $ su - employee64
-      $ sudo -u programmer unshare
-...
-        </div>
-      </div>
-       
-      <div class="post">
-        <div class="post-title">
-          <a href="/blog/2020/php-depoly/">
-             <h4><i class="fa fa-file-text-o"></i> PHP:部署的一揽子问题</h4>
-          </a>
-        </div>
-        <div class="post-meta">
-          Bin4xin, 2020-11-25
-        </div>
-        <div class="post-abstract">
-        [Wed Nov 25 17:19:33.475439 2020] [php7:notice] [pid 11872] [client 10.211.55.2:53568] PHP Notice:  Undefined index: step in /var/www/
-html/code/BabyOnline1/setup/setupwizard.php on line 4 [Wed Nov 25 17:19:33.475577 2020] [php7:error] [...
-        </div>
-      </div>
-       
-      <div class="post">
-        <div class="post-title">
-          <a href="/blog/2020/think-about-cyber-security/">
-             <h4><i class="fa fa-file-text-o"></i> 有关于网络安全行业的一些思考</h4>
-          </a>
-        </div>
-        <div class="post-meta">
-          Bin4xin, 2020-9-25
-        </div>
-        <div class="post-abstract">
-        Under construction
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-在当今网络安全行业趋于商业化的时代，如何能够保持一颗赤忱之心：
-
-
-  当今网络安全之趋势，当在国家安全的大前提下：
-    
-      
-        教育行业应作为网络安全的”活水源头”，为这个年轻的行业输入足够的年轻血液，所以在此刻：
-  应当充分发挥教育职能的同时，对当下应用型、研究型专业的莘莘学子做有必要的引导；
-  因为当下很多学生、教师在当下行业无法认清...
         </div>
       </div>
        

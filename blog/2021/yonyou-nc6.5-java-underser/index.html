@@ -14,12 +14,12 @@
 
 <!-- Open Graph metadata -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="nginx和jekyll | ©「哨兵」| Sentry Security" />
+<meta property="og:title" content="[UPDATING...]用友NC6.5java反序列化 | ©「哨兵」| Sentry Security" />
 <meta property="og:description" content="本站由哨兵安全实验室支持创办" />
 <meta property="og:image" content="http://localhost:80/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
-<meta property="og:url" content="http://localhost:80/blog/2019/nginx/with/jekyll-site/" />
+<meta property="og:url" content="http://localhost:80/blog/2021/yonyou-nc6.5-java-underser/" />
 
-<title>nginx和jekyll | ©「哨兵」| Sentry Security</title>
+<title>[UPDATING...]用友NC6.5java反序列化 | ©「哨兵」| Sentry Security</title>
 
 <!-- Bootstrap core CSS -->
 <link href="/assets/css/bootstrap.css" rel="stylesheet">
@@ -70,80 +70,41 @@
         <! -- SINGLE POST -->
         <div class="col-lg-8">
             <! -- Blog Post  -->
-            <a href="/blog/2019/nginx/with/jekyll-site/"><h3 class="ctitle">nginx和jekyll</h3></a>
-            <p><csmall>Nov 22, 2019. | By: Bin4xin</csmall></p>
+            <a href="/blog/2021/yonyou-nc6.5-java-underser/"><h3 class="ctitle">[UPDATING...]用友NC6.5java反序列化</h3></a>
+            <p><csmall>Mar 13, 2021. | By: Bin4xin</csmall></p>
             <div class="post-content"> 
-            <ul>
-  <li>摘要：webrick真是不省心啊。还是nginx大法好～</li>
+            <h2 id="零用友nc65反序列化依赖jar包">零：用友nc6.5反序列化依赖jar包</h2>
+
+<ul>
+  <li>部分依赖jar包在安装完nc6.5系统后，一般在<code class="language-plaintext highlighter-rouge">C://yonyou//home//lib//</code>目录下，前提需要有nc6.5的安装包；或者下载仓库内的依赖包：
+    <ul>
+      <li><em><a href="https://github.com/Bin4xin/bigger-than-bigger/tree/yonyou-ncv6.5/yonyou-nc6.5-lib/README.MD">点击以了解yonyou-nc6.5-lib</a></em>
+        <ul>
+          <li>本机运行环境
+  ```
+  java version “1.8.0_181”
+  Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+  Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)</li>
+        </ul>
+
+        <p>javac 1.8.0_181
+  ```</p>
+      </li>
+    </ul>
+  </li>
+  <li>学习教程<a href="https://github.com/Bin4xin/bigger-than-bigger/blob/master/yonyou-nc6.5-lib/README.MD"><em>README</em></a></li>
 </ul>
 
-<p>使用nginx作为jekyll博客的服务启动容器介绍：</p>
+<h3 id="0x01下载">0x01：下载</h3>
 
-<h2 id="1jekyll如何工作">1.jekyll如何工作</h2>
+<ul>
+  <li>单jar包：点击<a href="https://github.com/Bin4xin/bigger-than-bigger/blob/master/yonyou-nc6.5-lib/ncdepend.jar"><em>ncdepend.jar</em></a>链接 -&gt; Download.</li>
+  <li>整包<a href="https://github.com/Bin4xin/bigger-than-bigger/releases/tag/yonyou-ncv6.5"><em>yonyou-NCv6.5-lib.zip</em></a>链接 -&gt; 单击链接下载</li>
+</ul>
 
-<p>首先先从用户角度解释一下我理解中的jekyll服务的运行原理<br />
-<code class="language-plaintext highlighter-rouge">1.编写markdown文档-&gt;2.markdown解析-&gt;3.jekyll运行生成web站点文件</code></p>
-
-<p>所以我们直接去找站点文件夹，把web站点文件夹复制到nginx的根目录下就好了</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /your-jekyll-web/
-ls                   #我们可以看到_site/文件夹，这个文件夹就是web站点文件夹
-cd _site/
-vi 2019-01-01-your-article-title.markdown
-cp _site/ /var/www/html/ -r
-nginx -t
-nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-nginx: configuration file /etc/nginx/nginx.conf test is successful
-systemctl start nginx
-curl localhost
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[anonymous] DEBUG  - Invoke nc.bs.framework.server.RemoteMetaContext.lookup write info to server spend time: 188 
+Exception in thread "main" nc.bs.framework.exception.FrameworkIOException: Remote request error
 </code></pre></div></div>
-<p>测试nginx完毕没有问题，既可以直接启动nginx。然后看一下本地页面，如果出现本地页面就是调试完成了。</p>
-
-<h2 id="2配置nginx-server">2.配置nginx-server</h2>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat /etc/nginx/nginx.conf
-中间略去，直接看server区块
-server {
-        listen       80;
-        server_name  ip;     #修改这里，如果这里你是公网ip，修改成公网ip就可以啦。
-        #charset koi8-r;
-        #access_log  logs/host.access.log  main;
-		 
-		root   /home/www/_site/;
-
-        location / {
-			 #try_files $uri $uri/ /index.php$is_args$args;
-            index  index.html index.htm;
-        				}
- location ~ \.php{          ＃这里是定位到输入php的页面解析代码，如果不需要可以直接注释掉。
-				index  index.php index.html;
-				include /etc/nginx/snippets/fastcgi-php.conf;
-				fastcgi_pass unix:/etc/init.d/php7.3-fpm;
-					}
-
-	# deny access to .htaccess files, if Apache's document root
-	# concurs with nginx's one
-	#
-	location ~ /\.ht {
-		deny all;
-		}
-        #error_page  404              /404.html;
-
-        # redirect server error pages to the static page /50x.html
-        #
-        error_page   500 502 503 504  /50x.html;
-        #location = /50x.html {
-         #   root   /usr/share/nginx/html;
-
-		}
-}
-</code></pre></div></div>
-<p>同样测试一下，没问题就可以了。
-这个时候就可以看一下公网地址是不是已经可以访问上了，访问上就没什么问题了。维护博客就可以通过markdown文件的形式post到服务器上用jekyll解析就可以访问了。</p>
-
-<blockquote>
-  <p>希望你们自己也能动手试试看。<code class="language-plaintext highlighter-rouge">么么哒</code></p>
-</blockquote>
 
 
             </div>

