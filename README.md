@@ -4,6 +4,10 @@
 
 Source code for [www-sentrylab-web](https://www.sentrylab.cn/).
 
+- *Project Log:*
+    - 2021年 5月10日 星期一 10时01分01秒 CST ：
+        - `_inculde/footer.html`新增访客统计；
+
 
 ## 运行 Demo
 
