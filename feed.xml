@@ -6,8 +6,8 @@
     <description>哨兵安全实验室</description>
     <link>https://www.sentrylab.cn/</link>
     <atom:link href="https://sentrylab.cn/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 15 May 2021 00:14:34 +0800</pubDate>
-    <lastBuildDate>Sat, 15 May 2021 00:14:34 +0800</lastBuildDate>
+    <pubDate>Sun, 16 May 2021 18:28:04 +0800</pubDate>
+    <lastBuildDate>Sun, 16 May 2021 18:28:04 +0800</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
     
       <item>
@@ -345,17 +345,17 @@ $ ./openplc_editor.sh
 &lt;ul&gt;
   &lt;li&gt;部分依赖jar包在安装完nc6.5系统后，一般在&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;C://yonyou//home//lib//&lt;/code&gt;目录下，前提需要有nc6.5的安装包；或者下载仓库内的依赖包：
     &lt;ul&gt;
-      &lt;li&gt;&lt;em&gt;&lt;a href=&quot;https://github.com/Bin4xin/bigger-than-bigger/tree/yonyou-ncv6.5/yonyou-nc6.5-lib/README.MD&quot;&gt;点击以了解yonyou-nc6.5-lib&lt;/a&gt;&lt;/em&gt;
+      &lt;li&gt;&lt;em&gt;&lt;a href=&quot;https://github.com/Bin4xin/bigger-than-bigger/blob/master/yonyou-nc6.5-lib/README.MD&quot;&gt;点击以了解yonyou-nc6.5-lib&lt;/a&gt;&lt;/em&gt;
         &lt;ul&gt;
-          &lt;li&gt;本机运行环境
-  ```
-  java version “1.8.0_181”
-  Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
-  Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)&lt;/li&gt;
+          &lt;li&gt;本机运行环境&lt;/li&gt;
         &lt;/ul&gt;
 
-        &lt;p&gt;javac 1.8.0_181
-  ```&lt;/p&gt;
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  java version &quot;1.8.0_181&quot;
+  Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+  Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+
+  javac 1.8.0_181
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
