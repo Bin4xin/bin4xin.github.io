@@ -6,8 +6,8 @@
     <description>哨兵安全实验室</description>
     <link>https://www.sentrylab.cn/</link>
     <atom:link href="https://sentrylab.cn/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 17 May 2021 23:40:25 +0800</pubDate>
-    <lastBuildDate>Mon, 17 May 2021 23:40:25 +0800</lastBuildDate>
+    <pubDate>Tue, 18 May 2021 10:57:32 +0800</pubDate>
+    <lastBuildDate>Tue, 18 May 2021 10:57:32 +0800</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
     
       <item>
@@ -286,7 +286,7 @@ $ ./openplc_editor.sh
     &lt;tr&gt;
       &lt;td&gt;2021/02/09&lt;/td&gt;
       &lt;td&gt;修复显示错误&lt;/td&gt;
-      &lt;td&gt;修改于&lt;a href=&quot;/feed.xml&quot;&gt;订阅&lt;/a&gt;的不匹配问题；&lt;/td&gt;
+      &lt;td&gt;修改于&lt;a href=&quot;/feed.xml&quot;&gt;订阅&lt;/a&gt;的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;post.url&lt;/code&gt;不匹配问题；&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt; &lt;/td&gt;
