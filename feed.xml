@@ -6,8 +6,8 @@
     <description>哨兵安全实验室</description>
     <link>https://www.sentrylab.cn/</link>
     <atom:link href="https://sentrylab.cn/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 09 Jun 2021 00:16:16 +0800</pubDate>
-    <lastBuildDate>Wed, 09 Jun 2021 00:16:16 +0800</lastBuildDate>
+    <pubDate>Fri, 11 Jun 2021 22:17:11 +0800</pubDate>
+    <lastBuildDate>Fri, 11 Jun 2021 22:17:11 +0800</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
     
       <item>
@@ -986,17 +986,21 @@ if($link-&amp;gt;FetchArray($link-&amp;gt;query(&quot;SELECT * FROM User WHERE `
         <title>daily: daily post test article😃</title>
         <description>&lt;p&gt;&lt;i class=&quot;fa fa-quote-left&quot;&gt;&lt;/i&gt; 明治时代后期，在先后赢得中日甲午战争、日俄战争的胜利之后，日本越发膨胀起来。&lt;/p&gt;
 
-&lt;p&gt;朝野都认为，日本是一个了不起的民族，“大日本主义”风 行一时。这种意识形态鼓动着民众的民族主义，推动着日本对外扩张。
-可是，却有一个日本人勇敢地站出来主张“小日本主义”，“通过改革内政，促进个人自由和活力，立足于产业主义，以达到利国富民之目的”。&lt;/p&gt;
-
-&lt;p&gt;他尖锐地批判说，“大日本主义是把军事力量和武力征服放在首位的军国主义、专制主义、国家主义”，核心是“军事立国论”，对国家有害无益。&lt;/p&gt;
-
-&lt;p&gt;这个敢于反对主流意见的人，就是石桥湛山。在日渐走向疯狂的近代日 本历史上，他是一个引人注目的“异类”。他的故事是日本近代史的另一条线索，是日本理性力量的标志。
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;朝野都认为，日本是一个了不起的民族，”大日本主义”风行一时，这种意识形态鼓动着民众的民族主义，推动着日本对外扩张。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;可是，却有一个日本人勇敢地站出来主张 “小日本主义”，”通过改革内政，促进个人自由和活力，立足于产业主义，以达到利国富民之目的”。他尖锐地批判说，”大日本主义是把军事力量和武力征服放在首位的军国主义、专制主义、国家主义”，核心是”军事立国论”，对国家有害无益。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;这个敢于反对主流意见的人，就是石桥湛山。在日渐走向疯狂的近代日本历史上，他是一个引人注目的”异类”。他的故事是日本近代史的另一条线索，是日本理性力量的标志。
 &lt;i class=&quot;fa fa-quote-right&quot;&gt;&lt;/i&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;center&gt; —— 摘自 ：《国 家 的 歧 路：日 本 帝 国 毁 灭 之 迷》 · 第二章 《 转向 - &quot; 非 国 民 &quot; 》 马 国 川&lt;/center&gt;
+&lt;p&gt;摘自：《 国 家 的 歧 路：日 本 帝 国 毁 灭 之 迷 》 ·  第二章 《 转 向 - “ 非 国 民 “ 》 马 国 川&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/daily/IMG_0570.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Wed, 11 Nov 2020 00:00:00 +0800</pubDate>
         <link> https://www.sentrylab.cn/daily/test/</link>
@@ -1010,7 +1014,6 @@ if($link-&amp;gt;FetchArray($link-&amp;gt;query(&quot;SELECT * FROM User WHERE `
       <item>
         <title>blog: 有关于网络安全行业的一些思考</title>
         <description>&lt;h3 id=&quot;under-construction&quot;&gt;Under construction&lt;/h3&gt;
-&lt;hr /&gt;
 
 &lt;div class=&quot;d-none d-sm-block position-absolute col-5 col-md-4 col-lg-3 bottom-0 right-0 mr-lg-5 mb-md-n4&quot;&gt;
 
@@ -1083,20 +1086,21 @@ if($link-&amp;gt;FetchArray($link-&amp;gt;query(&quot;SELECT * FROM User WHERE `
 
 &lt;h2 id=&quot;零当下网络安全行业ctf赛事之我见&quot;&gt;零、当下网络安全行业CTF赛事之我见&lt;/h2&gt;
 
-&lt;!--	oopos！被你发现了！
-* it工作人员（包括运维、开发等等）公司内的矛盾
+&lt;p&gt;oopos！被你发现了！&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;it工作人员（包括运维、开发等等）公司内的矛盾&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;软件开发和传统安全公司之间的矛盾&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-* 软件开发和传统安全公司之间的矛盾
-
-网络防火墙作为访问控制设备，主要工作在OSI模型三、四层，基于IP报文进行检测。只是对端口做限制，对TCP协议做封堵。
+&lt;p&gt;网络防火墙作为访问控制设备，主要工作在OSI模型三、四层，基于IP报文进行检测。只是对端口做限制，对TCP协议做封堵。
 其产品设计无需理解HTTP会话，也就决定了无法理解Web应用程序语言如HTML、SQL语言。因此，它不可能对HTTP通讯进行输入验证或攻击规则分析。针对Web网站的恶意攻击绝大部分都将封装为HTTP请求，从80或443端口顺利通过防火墙检测。 
 一些定位比较综合、提供丰富功能的防火墙，也具备一定程度的应用层防御能力，如能根据TCP会话异常性及攻击特征阻止网络层的攻击，通过IP分拆和组合也能判断是否有攻击隐藏在多个数据包中，但从根本上说他仍然无法理解HTTP会话，难以应对如SQL注入、跨站脚本、cookie窃取、网页篡改等应用层攻击。 
-web应用防火墙能在应用层理解分析HTTP会话，因此能有效的防止各类应用层攻击，同时他向下兼容，具备网络防火墙的功能。 --&gt;
+web应用防火墙能在应用层理解分析HTTP会话，因此能有效的防止各类应用层攻击，同时他向下兼容，具备网络防火墙的功能。&lt;/p&gt;
 
-&lt;html&gt;
-&lt;head&gt;
-	&lt;title&gt;&lt;/title&gt;
-&lt;!-- &lt;link href=&quot;/assets/css/bg.css&quot; rel=&quot;stylesheet&quot;&gt; --&gt;
 &lt;script&gt;
 var consoleConfig = {
 welcome: '\n哈？(づ｡◕‿‿◕｡)づ！你在偷看什么。本文还在&quot;思考&quot;中...\n',
@@ -1111,11 +1115,7 @@ console.log('%c' + consoleConfig.qrcode, 'color: #6190e8');
 console.log('%c' + consoleConfig.search, 'color: #6190e8');
 
 }(consoleConfig));&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
 
-&lt;/body&gt;
-&lt;/html&gt;
 </description>
         <pubDate>Fri, 25 Sep 2020 00:00:00 +0800</pubDate>
         <link> https://www.sentrylab.cn/blog/2020/think-about-cyber-security/</link>
