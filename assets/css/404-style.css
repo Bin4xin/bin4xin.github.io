@@ -258,6 +258,28 @@ body {
       background-image: -webkit-image-set(url("/assets/img/missing-dark.png") 1x, url("/assets/img/missing-dark@2x.png") 2x, url("/assets/img/missing-dark@3x.png") 3x, url("/assets/img/missing-dark@4x.png") 4x);
       background-image: image-set(url("/assets/img/missing-dark.png") 1x, url("/assets/img/missing-dark@2x.png") 2x, url("/assets/img/missing-dark@3x.png") 3x, url("/assets/img/missing-dark@4x.png") 4x); } }
 
+.not-found-shadow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: .5;
+  filter: grayscale(0.2);
+  background-image: url(/assets/img/post-pic/shadow-show.png);
+  background-image: -webkit-image-set(url("/assets/img/post-pic/shadow-show.png"));
+  background-image: image-set(url("/assets/img/post-pic/shadow-show.png")); }
+  @media (prefers-color-scheme: dark) {
+    .not-found-shadow {
+      opacity: 1;
+      filter: none;
+      background-image: url(/assets/img/post-pic/shadow-show.png);
+      background-image: -webkit-image-set(url("/assets/img/post-pic/shadow-show.png"));
+      background-image: image-set(url("/assets/img/post-pic/shadow-show.png")); } }
+
 .nonthu .not-found-bg {
   background-image: none; }
 
