@@ -24,87 +24,196 @@
 
 /*
 *
-*search button css style
+*categories <div / Span> theme detected. 
 *
 */
 
 /* fallback */
-@font-face {
-	font-family: 'Material Icons';
-	font-style: normal;
-	font-weight: 400;
-	src: url(https://fonts.gstatic.com/s/materialicons/v90/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
-}
 
-.material-icons {
-	font-family: 'Material Icons';
-	font-weight: normal;
-	font-style: normal;
-	font-size: 24px;
-	line-height: 1;
-	letter-spacing: normal;
-	text-transform: none;
-	display: inline-block;
-	white-space: nowrap;
-	word-wrap: normal;
-	direction: ltr;
-	-moz-font-feature-settings: 'liga';
-	-moz-osx-font-smoothing: grayscale;
-}
-
-
-.search {
-	position: relative;
-	height: 20px;
-	text-align: right;
-	line-height: 30px;
-	padding-right: 5px;
-}
-
-.search .search-icon {
-	float: right;
-	height: 100%;
-	margin: 0 10px;
-	line-height: 30px;
-	cursor: pointer;
-	user-select: none;
-}
-
-.search .search-input {
-	float: right;
-	width: 30%;
-	height: 30px;
-	line-height: 30px;
-	margin: 0;
-	border: 2px solid #ddd;
-	border-radius: 10px;
-	box-sizing: border-box;
-}
-
-.search .search-clear {
-	display: none;
-}
-
-.search .search-results {
-	display: block;
-	z-index: 1000;
-	position: absolute;
-	top: 30px;
-	right: 50px;
-	width: 50%;
-	max-height: 400px;
-	overflow: auto;
-	text-align: left;
-	border-radius: 5px;
-	background: #ccc;
-	box-shadow: 0 .3rem .5rem #333;
-}
-
-.search .search-results .result-item {
-	background: aqua;
-	color: #000;
-	margin: 5px;
-	padding: 3px;
-	border-radius: 3px;
-	cursor: pointer;
+@media (prefers-color-scheme: dark) {
+  html:not([mode]),
+  html[mode="dark"] {
+    --main-wrapper-bg: rgb(27, 27, 30);
+    --body-bg: var(--main-wrapper-bg);
+    --topbar-wrapper-bg: rgb(39, 40, 43);
+    --search-wrapper-bg: rgb(34, 34, 39);
+    --search-icon-color: rgb(100, 102, 105);
+    --input-focus-border-color: rgb(112, 114, 115);
+    --mask-bg: rgb(68, 69, 70);
+    --footer-bg-color: var(--main-wrapper-bg);
+    --text-color: rgb(175, 176, 177);
+    --heading-color: #cccccc;
+    --text-muted-color: rgb(107, 116, 124);
+    --link-color: rgb(138, 180, 248);
+    --link-underline-color: rgb(82, 108, 150);
+    --main-border-color: rgb(44, 45, 45);
+    --button-bg: rgb(39, 40, 43);
+    --blockquote-border-color: rgb(66, 66, 66);
+    --blockquote-text-color: rgb(117, 117, 117);
+    --btn-border-color: rgb(63, 65, 68);
+    --btn-backtotop-color: var(--text-color);
+    --btn-backtotop-border-color: var(--btn-border-color);
+    --btn-box-shadow: var(--main-wrapper-bg);
+    --card-header-bg: rgb(51, 50, 50);
+    --label-color: rgb(108, 117, 125);
+    --checkbox-color: rgb(118 120 121);
+    --checkbox-checked-color: var(--link-color);
+    --nav-cursor-color: rgb(183, 182, 182);
+    --sidebar-bg: radial-gradient(circle, #242424 0%, #1d1f27 100%);
+    --topbar-text-color: var(--text-color);
+    --post-list-text-color: rgb(175, 176, 177);
+    --btn-patinator-text-color: var(--text-color);
+    --btn-paginator-hover-color: rgb(64, 65, 66);
+    --btn-active-bg: rgba(28, 52, 94, 1);
+    --btn-active-border-color: rgb(66, 94, 138);
+    --btn-text-color: var(--text-color);
+    --btn-paginator-border-color: var(--btn-border-color);
+    --btn-paginator-shadow: var(--main-wrapper-bg);
+    --pin-bg: rgb(34 35 37);
+    --pin-color: inherit;
+    --toc-highlight: rgb(116, 178, 243);
+    --tag-bg: rgb(41, 40, 40);
+    --tag-hover: rgb(43, 56, 62);
+    --tb-odd-bg: rgba(42, 47, 53, 0.52);
+    --tb-even-bg: rgb(31, 31, 34);
+    --tb-border-color: var(--tb-odd-bg);
+    --footnote-target-bg: rgb(63, 81, 181);
+    --btn-share-color: #6c757d;
+    --btn-share-hover-color: #bfc1ca;
+    --relate-post-date: var(--text-muted-color);
+    --card-bg: rgb(39, 40, 43);
+    --card-border-color: rgb(53, 53, 60);
+    --card-box-shadow: var(--main-wrapper-bg);
+    --tag-border: rgb(59, 79, 88);
+    --tag-shadow: rgb(32, 33, 33);
+    --search-tag-bg: var(--tag-bg);
+    --dash-color: rgb(63, 65, 68);
+    --categories-border: rgb(64, 66, 69);
+    --categories-hover-bg: rgb(73, 75, 76);
+    --timeline-node-bg: rgb(150, 152, 156);
+    --timeline-color: rgb(63, 65, 68);
+    --timeline-year-dot-color: var(--timeline-color);
+    --footer-link: rgb(171, 171, 171);
+  }
+  html:not([mode]) .post-content img,
+  html[mode="dark"] .post-content img {
+    filter: brightness(90%);
+  }
+  html:not([mode]) hr,
+  html[mode="dark"] hr {
+    border-color: var(--main-border-color);
+  }
+  html:not([mode]) nav[data-toggle="toc"] .nav-link.active,
+  html:not([mode]) nav[data-toggle="toc"] .nav-link.active:focus,
+  html:not([mode]) nav[data-toggle="toc"] .nav-link.active:hover,
+  html:not([mode]) nav[data-toggle="toc"] .nav > li > a:focus,
+  html:not([mode]) nav[data-toggle="toc"] .nav > li > a:hover,
+  html[mode="dark"] nav[data-toggle="toc"] .nav-link.active,
+  html[mode="dark"] nav[data-toggle="toc"] .nav-link.active:focus,
+  html[mode="dark"] nav[data-toggle="toc"] .nav-link.active:hover,
+  html[mode="dark"] nav[data-toggle="toc"] .nav > li > a:focus,
+  html[mode="dark"] nav[data-toggle="toc"] .nav > li > a:hover {
+    color: var(--toc-highlight) !important;
+    border-left-color: var(--toc-highlight) !important;
+  }
+  html:not([mode]) .categories.card,
+  html:not([mode]) .list-group-item,
+  html[mode="dark"] .categories.card,
+  html[mode="dark"] .list-group-item {
+    background-color: var(--card-bg);
+  }
+  html:not([mode]) .categories .card-header,
+  html[mode="dark"] .categories .card-header {
+    background-color: var(--card-header-bg);
+  }
+  html:not([mode]) .categories .list-group-item,
+  html[mode="dark"] .categories .list-group-item {
+    border-left: none;
+    border-right: none;
+    padding-left: 2rem;
+    border-color: var(--categories-border);
+  }
+  html:not([mode]) .categories .list-group-item:last-child,
+  html[mode="dark"] .categories .list-group-item:last-child {
+    border-bottom-color: var(--card-bg);
+  }
+  html:not([mode]) #archives li:nth-child(odd),
+  html[mode="dark"] #archives li:nth-child(odd) {
+    background-image: linear-gradient(
+      to left,
+      #1a1a1e,
+      #27272d,
+      #27272d,
+      #27272d,
+      #1a1a1e
+    );
+  }
+  html:not([mode]) .mode-toggle,
+  html[mode="dark"] .mode-toggle {
+    transform: rotateY(180deg);
+  }
+  html[mode="light"] {
+    --body-bg: #fafafa;
+    --mask-bg: #c1c3c5;
+    --main-wrapper-bg: white;
+    --main-border-color: #f3f3f3;
+    --btn-border-color: #e9ecef;
+    --text-color: #34343c;
+    --heading-color: black;
+    --blockquote-border-color: #eee;
+    --blockquote-text-color: #9a9a9a;
+    --link-color: #2a408e;
+    --link-underline-color: #dee2e6;
+    --text-muted-color: gray;
+    --tb-odd-bg: #fbfcfd;
+    --tb-border-color: #eaeaea;
+    --button-bg: #fff;
+    --btn-backtotop-color: #686868;
+    --btn-backtotop-border-color: #f1f1f1;
+    --btn-box-shadow: #eaeaea;
+    --checkbox-color: #c5c5c5;
+    --checkbox-checked-color: #07a8f7;
+    --sidebar-bg: radial-gradient(
+      circle,
+      rgba(42, 30, 107, 1) 0%,
+      rgba(35, 37, 46, 1) 100%
+    );
+    --nav-cursor-color: #fcfcfc;
+    --topbar-wrapper-bg: white;
+    --topbar-text-color: rgb(78, 78, 78);
+    --search-wrapper-bg: #f5f5f5;
+    --search-tag-bg: #f8f9fa;
+    --search-icon-color: #c2c6cc;
+    --input-focus-border-color: var(--btn-border-color);
+    --post-list-text-color: dimgray;
+    --btn-patinator-text-color: #555555;
+    --btn-paginator-hover-color: #e9ecef;
+    --btn-active-bg: #2a408e;
+    --btn-active-border-color: #007bff;
+    --btn-text-color: #f8f8f8;
+    --btn-paginator-border-color: #f1f1f1;
+    --btn-paginator-shadow: #4b92d2;
+    --pin-bg: #f5f5f5;
+    --pin-color: #999fa4;
+    --btn-share-hover-color: var(--link-color);
+    --card-border-color: #f1f1f1;
+    --card-box-shadow: rgba(234, 234, 234, 0.7686274509803922);
+    --label-color: #616161;
+    --relate-post-date: rgba(30, 55, 70, 0.4);
+    --tag-bg: rgba(0, 0, 0, 0.075);
+    --tag-border: #dee2e6;
+    --tag-shadow: var(--btn-border-color);
+    --tag-hover: rgb(222, 226, 230);
+    --categories-hover-bg: var(--btn-border-color);
+    --dash-color: silver;
+    --timeline-color: rgba(0, 0, 0, 0.075);
+    --timeline-node-bg: #c2c6cc;
+    --timeline-year-dot-color: #ffffff;
+    --footer-bg-color: #ffffff;
+    --footnote-target-bg: lightcyan;
+    --footer-link: #424242;
+  }
+  html[mode="light"] .mode-toggle {
+    transform: none;
+  }
 }
