@@ -66,6 +66,9 @@
       <ul class="nav navbar-nav">
         <li ><a href="/">HOME</a></li>
         <li class="active"><a href="/blog/">BLOG</a></li>
+        <li ><a href="/events/">EVENTS</a></li>
+        <!-- <li ><a href="/events/">events</a></li> -->
+        <li ><a href="/categories/">CATEGORIES</a></li>
         <li ><a href="/daily/">DAILY</a></li>
         <li><a href="https://about.sentrylab.cn">ABOUT ME</a></li>
       </ul>
@@ -76,13 +79,25 @@
 
             <div class="container mtb">
     <div class="row">
-        <! -- SINGLE POST -->
+        <!-- SINGLE POST -->
         <div class="col-lg-8">
-            <! -- Blog Post  -->
+            <!-- Blog Post  -->
             <a href="/blog/2019/minUv2/"><h3 class="ctitle">「渗透」SVG的神秘力量：minUv2</h3></a>
             <p><csmall>Sep 1, 2019. | By: Bin4xin</csmall></p>
             <div class="post-content"> 
-            <h1 id="序言">序言</h1>
+            <ul>
+  <li>categories:
+    <ul>
+      <li>blog</li>
+      <li>Web</li>
+      <li>漏洞复现</li>
+      <li>渗透</li>
+      <li>vulnhub</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="序言">序言</h1>
 <p>hello,各位。最近闲来无事，工作之余偷偷用公司电脑测试入侵了一个linux靶机，遂记录下。（手动狗头）
 这个靶机本身难度适中，复现了svg的代码执行漏洞且要求对linux的系统命令较为熟悉；svg大体来说是一种图像文件格式，基于XML，由W3C联盟进行开发的，支持网页打开，编辑方便等。可以自行深入搜索~各位大佬见笑。</p>
 <h2 id="一靶机简介">一、靶机简介</h2>
@@ -171,7 +186,7 @@
 
             </div>
             <div class="spacing"></div>
-        </div><! --/col-lg-8 -->
+        </div><!--/col-lg-8 -->
         
         <div class="col-lg-3">
     <h4>Subscribe/订阅</h4>
@@ -182,6 +197,18 @@
     <div class="spacing"></div>
     <h4>Categories/分类目录</h4>
     <div class="hline"></div>
+        
+        <div class="post-meta mb-3">
+          <i class="far fa-folder-open fa-fw mr-1"></i>
+          
+            <a href='/blog/'>blog</a>/
+            <a href='/web/'>Web</a>/
+            <a href='/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/'>漏洞复现</a>/
+            <a href='/%E6%B8%97%E9%80%8F/'>渗透</a>/
+            <a href='/vulnhub/'>vulnhub</a>
+        </div>
+        
+        <p>
     <details>
         
         <p>
@@ -398,8 +425,8 @@
 </div>
 
 
-    </div><! --/row -->
-</div><! --/container -->
+    </div><!--/row -->
+</div><!--/container -->
 
 
         <div id="footerwrap">

@@ -6,8 +6,8 @@
     <description>哨兵安全实验室</description>
     <link>https://www.sentrylab.cn/</link>
     <atom:link href="https://sentrylab.cn/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 20 Jun 2021 03:11:34 +0800</pubDate>
-    <lastBuildDate>Sun, 20 Jun 2021 03:11:34 +0800</lastBuildDate>
+    <pubDate>Sat, 26 Jun 2021 00:38:18 +0800</pubDate>
+    <lastBuildDate>Sat, 26 Jun 2021 00:38:18 +0800</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
     
       <item>
@@ -289,8 +289,8 @@
 &lt;/table&gt;
 </description>
         <pubDate>Wed, 02 Jun 2021 00:00:00 +0800</pubDate>
-        <link> https://www.sentrylab.cn/event/2021/06/02/sentry-lab-markdown-usage.html</link>
-        <guid isPermaLink="true">/event/2021/06/02/sentry-lab-markdown-usage.html</guid>
+        <link> https://www.sentrylab.cn/event/2021/sentry-lab-markdown-usage/</link>
+        <guid isPermaLink="true">/event/2021/sentry-lab-markdown-usage/</guid>
         
         <category>笔记</category>
         
@@ -983,7 +983,7 @@ if($link-&amp;gt;FetchArray($link-&amp;gt;query(&quot;SELECT * FROM User WHERE `
       </item>
     
       <item>
-        <title>daily: daily post test article😃</title>
+        <title>daily: 谈谈被日本抛弃的 公 · 知 · 们</title>
         <description>&lt;p&gt;&lt;i class=&quot;fa fa-quote-left&quot;&gt;&lt;/i&gt; 明治时代后期，在先后赢得中日甲午战争、日俄战争的胜利之后，日本越发膨胀起来。&lt;/p&gt;
 
 &lt;ul&gt;
@@ -1003,8 +1003,8 @@ if($link-&amp;gt;FetchArray($link-&amp;gt;query(&quot;SELECT * FROM User WHERE `
 
 </description>
         <pubDate>Wed, 11 Nov 2020 00:00:00 +0800</pubDate>
-        <link> https://www.sentrylab.cn/daily/test/</link>
-        <guid isPermaLink="true">/daily/test/</guid>
+        <link> https://www.sentrylab.cn/daily/2020/daily-post-test-article/</link>
+        <guid isPermaLink="true">/daily/2020/daily-post-test-article/</guid>
         
         
         <category>daily</category>
