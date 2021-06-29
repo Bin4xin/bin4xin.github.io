@@ -14,11 +14,11 @@
 
 <!-- Open Graph metadata -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="nginx和jekyll | ©「哨兵」| Sentry Security" />
+<meta property="og:title" content="多子域：JEKYLL优雅地部署于NGINX | ©「哨兵」| Sentry Security" />
 <meta property="og:description" content="本站由哨兵安全实验室支持创办" />
 <meta property="og:image" content="http://localhost:80/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
 <meta property="og:url" content="http://localhost:80/blog/2019/nginx/with/jekyll-site/" />
-<title> nginx和jekyll | ©「哨兵」| Sentry Security | Sentrylab</title>
+<title> 多子域：JEKYLL优雅地部署于NGINX | ©「哨兵」| Sentry Security | Sentrylab</title>
 
 <link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
 <script src="/assets/js/pace.min.js"></script>
@@ -67,7 +67,6 @@
         <li ><a href="/">HOME</a></li>
         <li class="active"><a href="/blog/">BLOG</a></li>
         <li ><a href="/events/">EVENTS</a></li>
-        <!-- <li ><a href="/events/">events</a></li> -->
         <li ><a href="/categories/">CATEGORIES</a></li>
         <li ><a href="/daily/">DAILY</a></li>
         <li><a href="https://about.sentrylab.cn">ABOUT ME</a></li>
@@ -82,10 +81,20 @@
         <!-- SINGLE POST -->
         <div class="col-lg-8">
             <!-- Blog Post  -->
-            <a href="/blog/2019/nginx/with/jekyll-site/"><h3 class="ctitle">nginx和jekyll</h3></a>
+            <a href="/blog/2019/nginx/with/jekyll-site/"><h3 class="ctitle">多子域：JEKYLL优雅地部署于NGINX</h3></a>
             <p><csmall>Nov 22, 2019. | By: Bin4xin</csmall></p>
             <div class="post-content"> 
-            <ul>
+            <hr />
+
+<p>于 <em>2021年 6月27日 星期日 20时19分07秒 CST</em>修改，个人建议</p>
+
+<p><i class="fa fa-quote-left"></i>优雅地使用<i class="fa fa-quote-right"></i></p>
+
+<p>nginx配置文件，使得nginx文件配置更加容易移植、运维….</p>
+
+<hr />
+
+<ul>
   <li>摘要：webrick真是不省心啊。还是nginx大法好～</li>
 </ul>
 
@@ -93,19 +102,20 @@
 
 <h2 id="1jekyll如何工作">1.jekyll如何工作</h2>
 
-<p>首先先从用户角度解释一下我理解中的jekyll服务的运行原理<br />
-<code class="language-plaintext highlighter-rouge">1.编写markdown文档-&gt;2.markdown解析-&gt;3.jekyll运行生成web站点文件</code></p>
+<p>首先先从用户角度解释一下我理解中的jekyll服务的运行原理</p>
+
+<p><code class="language-plaintext highlighter-rouge">1.编写markdown文档 -&gt; 2.markdown解析 -&gt; 3.jekyll运行生成web站点文件</code></p>
 
 <p>所以我们直接去找站点文件夹，把web站点文件夹复制到nginx的根目录下就好了</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /your-jekyll-web/
-ls                   #我们可以看到_site/文件夹，这个文件夹就是web站点文件夹
-cd _site/
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /your-jekyll-web/
+<span class="nb">ls</span>                   
+<span class="c">#我们可以看到_site/文件夹，这个文件夹就是web站点文件夹</span>
+<span class="nb">cd </span>_site/
 vi 2019-01-01-your-article-title.markdown
-cp _site/ /var/www/html/ -r
-nginx -t
+<span class="nb">cp </span>_site/ /var/www/html/ <span class="nt">-r</span>
+nginx <span class="nt">-t</span>
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
-nginx: configuration file /etc/nginx/nginx.conf test is successful
+nginx: configuration file /etc/nginx/nginx.conf <span class="nb">test </span>is successful
 systemctl start nginx
 curl localhost
 </code></pre></div></div>
@@ -320,7 +330,7 @@ server {
     
         <p>
             <i class="fa fa-angle-right"></i> Daily
-            <span class="badge badge-theme pull-right">1</span>
+            <span class="badge badge-theme pull-right">2</span>
         </p>
     
         <p>
@@ -389,7 +399,7 @@ server {
         
             <a class="btn btn-theme" href="" role="button">Vulnhub (2)</a>
         
-            <a class="btn btn-theme" href="" role="button">Daily (1)</a>
+            <a class="btn btn-theme" href="" role="button">Daily (2)</a>
         
             <a class="btn btn-theme" href="" role="button">Php (1)</a>
         
