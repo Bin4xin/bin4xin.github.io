@@ -16,8 +16,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="置顶文章 | ©「哨兵」| Sentry Security" />
 <meta property="og:description" content="本站由哨兵安全实验室支持创办" />
-<meta property="og:image" content="http://localhost:80/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
-<meta property="og:url" content="http://localhost:80/events/" />
+<meta property="og:image" content="http://localhost:81/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="http://localhost:81/events/" />
 <title> 置顶文章 | ©「哨兵」| Sentry Security | Sentrylab</title>
 
 <link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
@@ -184,7 +184,7 @@
     <tr>
       <td> </td>
       <td><center><i class="fa fa-quote-right"></i></center></td>
-      <td><a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> GitHub </a>项目：<a href="https://github.com/Bin4xin/B4xinSynchronize"><i class="fa fa-link"></i><em>B4xinSynchronize</em></a></td>
+      <td><a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> GitHub </a>项目：<a href="https://github.com/Bin4xin/B4xinSynchronize"><i class="fa fa-link"></i> <em>B4xinSynchronize</em></a></td>
     </tr>
     <tr>
       <td>2021/05/14</td>
@@ -224,7 +224,7 @@
     <tr>
       <td> </td>
       <td><center><kbd><i class="fa fa-plus-circle"></i></kbd></center></td>
-      <td><a href="https://about.sentrylab.cn/help/inspur-Cluster-Engine-V4.0-code-aduit-walkthrough/"><i class="fa fa-link"></i>《浪潮ClusterEngineV4.0代码审计历程》</a></td>
+      <td><a href="https://about.sentrylab.cn/help/inspur-Cluster-Engine-V4.0-code-aduit-walkthrough/"><i class="fa fa-link"></i> 《浪潮ClusterEngineV4.0代码审计历程》</a></td>
     </tr>
     <tr>
       <td>2021/06/18</td>
@@ -239,22 +239,32 @@
     <tr>
       <td> </td>
       <td> </td>
-      <td><a href="/events/"><i class="fa fa-link"></i><em>ENVENTS</em></a> - <a href="/categories/"><i class="fa fa-link"></i><em>CATEGORIES</em></a> - <a href="/daily/"><i class="fa fa-link"></i><em>DAILY</em></a></td>
+      <td><a href="/events/"><i class="fa fa-link"></i> <em>ENVENTS</em></a> - <a href="/categories/"><i class="fa fa-link"></i> <em>CATEGORIES</em></a> - <a href="/daily/"><i class="fa fa-link"></i> <em>DAILY</em></a></td>
     </tr>
     <tr>
       <td>2021/07/02</td>
       <td><center><kbd><i class="fa fa-plus-circle"></i></kbd></center></td>
-      <td><a href="https://about.sentrylab.cn/help/JRMP-Gadget/"><i class="fa fa-link"></i>《Shiro框架深入利用：JRMP-Gadget利用链浅析》</a></td>
+      <td><a href="https://about.sentrylab.cn/help/JRMP-Gadget/"><i class="fa fa-link"></i> 《Shiro框架深入利用：JRMP-Gadget利用链浅析》</a></td>
     </tr>
     <tr>
       <td> </td>
       <td><center><kbd><i class="fa fa-plus-circle"></i></kbd></center></td>
-      <td>尝试使用 <a href="https://imgbb.com/"><i class="fa fa-link"></i><em>imgbb</em></a> 作为图床外链服务</td>
+      <td>尝试使用 <a href="https://imgbb.com/"><i class="fa fa-link"></i> <em>imgbb</em></a> 作为图床外链服务</td>
     </tr>
     <tr>
       <td> </td>
       <td><center><kbd><i class="fa fa-wrench"></i></kbd></center></td>
-      <td>修复 <a href="/daily/"><i class="fa fa-link"></i><em>DAILY</em></a> 页面图片展示异常的问题</td>
+      <td>修复 <a href="/daily/"><i class="fa fa-link"></i> <em>DAILY</em></a> 页面图片展示异常的问题</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><center><kbd><i class="fa fa-plus-circle"></i></kbd></center></td>
+      <td>添加评论模块</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td>经测试评论暂时没有问题，但基于<code class="language-plaintext highlighter-rouge">Github Reference</code>的评论暂时没有实现面向对象</td>
     </tr>
     <tr>
       <td> </td>
@@ -623,11 +633,11 @@ $(document).ready(function(){
         <p class="thuhidden">Powered by <a href="https://github.com/Bin4xin">Bin4xin</a> &amp; <a title="open code from TUNA mirror-web." href="https://github.com/tuna/mirror-web"><em>这里是开源代码库</em></a>.</p>
 
             <p class="share">
-                          <a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i></a>
-                          <a href="#"><i class="fa fa-twitter"></i></a>
-                          <a href="#"><i class="fa fa-facebook"></i></a>
-                          <a href="#"><i class="fa fa-tumblr"></i></a>
-                          <a href="#"><i class="fa fa-google-plus"></i></a>    
+              <a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i></a>
+              <a href="#"><i class="fa fa-twitter"></i></a>
+              <a href="#"><i class="fa fa-facebook"></i></a>
+              <a href="#"><i class="fa fa-tumblr"></i></a>
+              <a href="#"><i class="fa fa-google-plus"></i></a>    
             </p>
 
             </div>
@@ -641,13 +651,15 @@ $(document).ready(function(){
                       </li>
                       </ul>
                       <!-- <h6>SHARE:</h6> -->
-                      <ul><li><a href="https://profile-counter.glitch.me/bin4xin.github.io/count.svg"> <em>∑ <csmall>(Bin4xin's GitHub & bin4xin.github.io & SentrySec pages) (Visitor/time)</csmall></em> </a>
-                    <ul>
+                      <ul>
+                        <li>
+                          <a><em>∑ <csmall>(Bin4xin's GitHub & bin4xin.github.io & SentrySec pages) (Visitor/time)</csmall></em> </a>
+                        <ul>
                         <li>
                             <img src="https://profile-counter.glitch.me/bin4xin.github.io/count.svg" style="max-width:100%;">
-                        </li>
-                    </ul>
-                </li></ul>
+                          </li>
+                          </ul>
+                        </li></ul>
                   </div>
             </div>
             <!-- aaa-->
