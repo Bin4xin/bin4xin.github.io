@@ -114,6 +114,7 @@ d-----         2020/1/9     11:03                target
 <p>如上，关键pom属性；<br />
 上面可以看到maven构建的pom.xml文件。输入命令<code class="language-plaintext highlighter-rouge">mvn help:effective-pom</code><br />
 Maven 将会开始处理并显示 <code class="language-plaintext highlighter-rouge">effective-pom</code>。如下：</p>
+
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS G:<span class="se">\y</span>j-work<span class="se">\j</span>ava-code<span class="se">\j</span>eeplus-open&gt; mvn <span class="nb">help</span>:effective-pom
 <span class="o">[</span>INFO] Scanning <span class="k">for </span>projects...
 <span class="o">[</span>WARNING]
@@ -333,108 +334,30 @@ RawContentLength  : 19162
 <hr />
 
 <h3 id="其他">其他</h3>
-<p>上面是Maven创建一个标准化的Java项目，举例：即部署一个maven的项目，我们可以通过上面的方式来进行。更多时候，对于我来说，我高频率使用maven是在对于漏洞的验证和利用阶段，即网上公开的<code class="language-plaintext highlighter-rouge">java poc</code>代码诸如此类，显而易见我更倾向于使用java的poc代码而非python代码，由于python语言本身的优势，纵观网上很多<code class="language-plaintext highlighter-rouge">python poc</code>在我看来，对于我们理解漏洞原理本身无实际意义，我并不是说python的poc代码不好，而是这门语言太便利了以至于我们可以很方便去复现一个漏洞，这样会导致人们尤其是刚入门的小白很少去思考甚至不思考。</p>
 
-<p>废话不多说，回到本小结上来：</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>E:<span class="se">\j</span>ava<span class="se">\h</span>adoop&gt; mvn archetype:generate <span class="nt">-D</span> <span class="nv">archetypeGroupId</span><span class="o">=</span>org.apache.maven.archetypes <span class="nt">-D</span> <span class="nv">groupId</span><span class="o">=</span>org.conan.myhadoop.mr <span class="nt">-D</span> <span class="nv">artifactId</span><span class="o">=</span>myHadoop <span class="nt">-D</span> <span class="nv">packageName</span><span class="o">=</span>org.conan.myhadoop.mr <span class="nt">-D</span> <span class="nv">version</span><span class="o">=</span>1.0-SNAPSHOT <span class="nt">-D</span> <span class="nv">interactiveMode</span><span class="o">=</span><span class="nb">false
-</span>回显如下：
-<span class="o">[</span>INFO] Scanning <span class="k">for </span>projects...
-<span class="o">[</span>INFO]
-<span class="o">[</span>INFO] <span class="nt">------------------</span>&lt; org.apache.maven:standalone-pom <span class="o">&gt;</span><span class="nt">-------------------</span>
-<span class="o">[</span>INFO] Building Maven Stub Project <span class="o">(</span>No POM<span class="o">)</span> 1
-<span class="o">[</span>INFO] <span class="nt">--------------------------------</span><span class="o">[</span> pom <span class="o">]</span><span class="nt">---------------------------------</span>
-<span class="o">[</span>INFO]
-<span class="o">[</span>INFO] <span class="o">&gt;&gt;&gt;</span> maven-archetype-plugin:3.1.2:generate <span class="o">(</span>default-cli<span class="o">)</span> <span class="o">&gt;</span> generate-sources @ standalone-pom <span class="o">&gt;&gt;&gt;</span>
-<span class="o">[</span>INFO]
-<span class="o">[</span>INFO] <span class="o">&lt;&lt;&lt;</span> maven-archetype-plugin:3.1.2:generate <span class="o">(</span>default-cli<span class="o">)</span> &lt; generate-sources @ standalone-pom <span class="o">&lt;&lt;&lt;</span>
-<span class="o">[</span>INFO]
-<span class="o">[</span>INFO]
-<span class="o">[</span>INFO] <span class="nt">---</span> maven-archetype-plugin:3.1.2:generate <span class="o">(</span>default-cli<span class="o">)</span> @ standalone-pom <span class="nt">---</span>
-<span class="o">[</span>INFO] Generating project <span class="k">in </span>Batch mode
-<span class="o">[</span>WARNING] No archetype found <span class="k">in </span>remote catalog. Defaulting to internal catalog
-<span class="o">[</span>INFO] No archetype defined. Using maven-archetype-quickstart <span class="o">(</span>org.apache.maven.archetypes:maven-archetype-quickstart:1.0<span class="o">)</span>
-<span class="o">[</span>INFO] <span class="nt">----------------------------------------------------------------------------</span>
-<span class="o">[</span>INFO] Using following parameters <span class="k">for </span>creating project from Old <span class="o">(</span>1.x<span class="o">)</span> Archetype: maven-archetype-quickstart:1.0
-<span class="o">[</span>INFO] <span class="nt">----------------------------------------------------------------------------</span>
-<span class="o">[</span>INFO] Parameter: basedir, Value: E:<span class="se">\j</span>ava<span class="se">\h</span>adoop
-<span class="o">[</span>INFO] Parameter: package, Value: org.conan.myhadoop.mr
-<span class="o">[</span>INFO] Parameter: groupId, Value: org.conan.myhadoop.mr
-<span class="o">[</span>INFO] Parameter: artifactId, Value: myHadoop
-<span class="o">[</span>INFO] Parameter: packageName, Value: org.conan.myhadoop.mr
-<span class="o">[</span>INFO] Parameter: version, Value: 1.0-SNAPSHOT
-<span class="o">[</span>INFO] project created from Old <span class="o">(</span>1.x<span class="o">)</span> Archetype <span class="k">in </span><span class="nb">dir</span>: E:<span class="se">\j</span>ava<span class="se">\h</span>adoop<span class="se">\m</span>yHadoop
-<span class="o">[</span>INFO] <span class="nt">------------------------------------------------------------------------</span>
-<span class="o">[</span>INFO] BUILD SUCCESS
-<span class="o">[</span>INFO] <span class="nt">------------------------------------------------------------------------</span>
-<span class="o">[</span>INFO] Total <span class="nb">time</span>:  3.491 s
-<span class="o">[</span>INFO] Finished at: 2020-02-13T14:35:21+08:00
-<span class="o">[</span>INFO] <span class="nt">------------------------------------------------------------------------</span>
-</code></pre></div></div>
+<p>上面是Maven创建一个标准化的Java项目，举例：即部署一个maven的项目，我们可以通过上面的方式来进行。</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PS E:<span class="se">\j</span>ava<span class="se">\h</span>adoop&gt; <span class="nb">cd</span> .<span class="se">\m</span>yHadoop<span class="se">\</span>
-PS E:<span class="se">\j</span>ava<span class="se">\h</span>adoop<span class="se">\m</span>yHadoop&gt; mvn clean <span class="nb">install</span>
-<span class="o">[</span>INFO] Scanning <span class="k">for </span>projects...
-<span class="o">[</span>INFO]
-<span class="o">[</span>INFO] <span class="nt">-------------------</span>&lt; org.conan.myhadoop.mr:myHadoop <span class="o">&gt;</span><span class="nt">-------------------</span>
-<span class="o">[</span>INFO] Building myHadoop 1.0-SNAPSHOT
-<span class="o">[</span>INFO] <span class="nt">--------------------------------</span><span class="o">[</span> jar <span class="o">]</span><span class="nt">---------------------------------</span>
-<span class="o">[</span>INFO]
-<span class="o">[</span>INFO] <span class="nt">---</span> maven-clean-plugin:2.5:clean <span class="o">(</span>default-clean<span class="o">)</span> @ myHadoop <span class="nt">---</span>
-<span class="o">[</span>INFO]
-<span class="o">[</span>INFO] <span class="nt">---</span> maven-resources-plugin:2.6:resources <span class="o">(</span>default-resources<span class="o">)</span> @ myHadoop <span class="nt">---</span>
-<span class="o">[</span>WARNING] Using platform encoding <span class="o">(</span>GBK actually<span class="o">)</span> to copy filtered resources, i.e. build is platform dependent!
-<span class="o">[</span>INFO] skip non existing resourceDirectory E:<span class="se">\j</span>ava<span class="se">\h</span>adoop<span class="se">\m</span>yHadoop<span class="se">\s</span>rc<span class="se">\m</span>ain<span class="se">\r</span>esources
-<span class="o">[</span>INFO]
-<span class="o">[</span>INFO] <span class="nt">---</span> maven-compiler-plugin:3.1:compile <span class="o">(</span>default-compile<span class="o">)</span> @ myHadoop <span class="nt">---</span>
-<span class="o">[</span>INFO] Changes detected - recompiling the module!
-<span class="o">[</span>WARNING] File encoding has not been <span class="nb">set</span>, using platform encoding GBK, i.e. build is platform dependent!
-<span class="o">[</span>INFO] Compiling 1 <span class="nb">source </span>file to E:<span class="se">\j</span>ava<span class="se">\h</span>adoop<span class="se">\m</span>yHadoop<span class="se">\t</span>arget<span class="se">\c</span>lasses
-<span class="o">[</span>INFO]
-<span class="o">[</span>INFO] <span class="nt">---</span> maven-resources-plugin:2.6:testResources <span class="o">(</span>default-testResources<span class="o">)</span> @ myHadoop <span class="nt">---</span>
-<span class="o">[</span>WARNING] Using platform encoding <span class="o">(</span>GBK actually<span class="o">)</span> to copy filtered resources, i.e. build is platform dependent!
-<span class="o">[</span>INFO] skip non existing resourceDirectory E:<span class="se">\j</span>ava<span class="se">\h</span>adoop<span class="se">\m</span>yHadoop<span class="se">\s</span>rc<span class="se">\t</span>est<span class="se">\r</span>esources
-<span class="o">[</span>INFO]
-<span class="o">[</span>INFO] <span class="nt">---</span> maven-compiler-plugin:3.1:testCompile <span class="o">(</span>default-testCompile<span class="o">)</span> @ myHadoop <span class="nt">---</span>
-<span class="o">[</span>INFO] Changes detected - recompiling the module!
-<span class="o">[</span>WARNING] File encoding has not been <span class="nb">set</span>, using platform encoding GBK, i.e. build is platform dependent!
-<span class="o">[</span>INFO] Compiling 1 <span class="nb">source </span>file to E:<span class="se">\j</span>ava<span class="se">\h</span>adoop<span class="se">\m</span>yHadoop<span class="se">\t</span>arget<span class="se">\t</span>est-classes
-<span class="o">[</span>INFO]
-<span class="o">[</span>INFO] <span class="nt">---</span> maven-surefire-plugin:2.12.4:test <span class="o">(</span>default-test<span class="o">)</span> @ myHadoop <span class="nt">---</span>
-<span class="o">[</span>INFO] Surefire report directory: E:<span class="se">\j</span>ava<span class="se">\h</span>adoop<span class="se">\m</span>yHadoop<span class="se">\t</span>arget<span class="se">\s</span>urefire-reports
-Downloading from alimaven: http://maven.aliyun.com/nexus/content/groups/public/org/apache/maven/surefire/surefire-junit3/2.12.4/surefire-junit3-2.12.4.pom
-Downloaded from alimaven: http://maven.aliyun.com/nexus/content/groups/public/org/apache/maven/surefire/surefire-junit3/2.12.4/surefire-junit3-2.12.4.pom <span class="o">(</span>1.7 kB at 2.0 kB/s<span class="o">)</span>
-Downloading from alimaven: http://maven.aliyun.com/nexus/content/groups/public/org/apache/maven/surefire/surefire-providers/2.12.4/surefire-providers-2.12.4.pom
-Downloaded from alimaven: http://maven.aliyun.com/nexus/content/groups/public/org/apache/maven/surefire/surefire-providers/2.12.4/surefire-providers-2.12.4.pom <span class="o">(</span>2.3 kB at 7.4 kB/s<span class="o">)</span>
-Downloading from alimaven: http://maven.aliyun.com/nexus/content/groups/public/org/apache/maven/surefire/surefire-junit3/2.12.4/surefire-junit3-2.12.4.jar
-Downloaded from alimaven: http://maven.aliyun.com/nexus/content/groups/public/org/apache/maven/surefire/surefire-junit3/2.12.4/surefire-junit3-2.12.4.jar <span class="o">(</span>26 kB at 60 kB/s<span class="o">)</span>
+<p>更多时候，对于我来说，我高频率使用maven是在对于漏洞的验证和利用阶段，即网上公开的<code class="language-plaintext highlighter-rouge">java poc</code>代码诸如此类，显而易见我更倾向于使用java的poc代码而非python代码。</p>
 
-<span class="nt">-------------------------------------------------------</span>
- T E S T S
-<span class="nt">-------------------------------------------------------</span>
-Running org.conan.myhadoop.mr.AppTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.02 sec
+<p>而由于python语言本身的优势，纵观网上很多<code class="language-plaintext highlighter-rouge">python poc</code>在我看来，对于我们理解漏洞原理本身无实际意义，我并不是说python的poc代码不好，而是这门语言太便利了以至于我们可以很方便去复现一个漏洞，这样会导致人们尤其是刚入门的小白很少去思考甚至不思考。</p>
 
-Results :
-
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
-
-<span class="o">[</span>INFO]
-<span class="o">[</span>INFO] <span class="nt">---</span> maven-jar-plugin:2.4:jar <span class="o">(</span>default-jar<span class="o">)</span> @ myHadoop <span class="nt">---</span>
-<span class="o">[</span>INFO] Building jar: E:<span class="se">\j</span>ava<span class="se">\h</span>adoop<span class="se">\m</span>yHadoop<span class="se">\t</span>arget<span class="se">\m</span>yHadoop-1.0-SNAPSHOT.jar
-<span class="o">[</span>INFO]
-<span class="o">[</span>INFO] <span class="nt">---</span> maven-install-plugin:2.4:install <span class="o">(</span>default-install<span class="o">)</span> @ myHadoop <span class="nt">---</span>
-<span class="o">[</span>INFO] Installing E:<span class="se">\j</span>ava<span class="se">\h</span>adoop<span class="se">\m</span>yHadoop<span class="se">\t</span>arget<span class="se">\m</span>yHadoop-1.0-SNAPSHOT.jar to D:<span class="se">\W</span>orkspace<span class="se">\.</span>m2<span class="se">\r</span>epository<span class="se">\o</span>rg<span class="se">\c</span>onan<span class="se">\m</span>yhadoop<span class="se">\m</span>r<span class="se">\m</span>yHadoop<span class="se">\1</span>.0-SNAPSHOT<span class="se">\m</span>yHadoop-1.0-SNAPSHOT.jar
-<span class="o">[</span>INFO] Installing E:<span class="se">\j</span>ava<span class="se">\h</span>adoop<span class="se">\m</span>yHadoop<span class="se">\p</span>om.xml to D:<span class="se">\W</span>orkspace<span class="se">\.</span>m2<span class="se">\r</span>epository<span class="se">\o</span>rg<span class="se">\c</span>onan<span class="se">\m</span>yhadoop<span class="se">\m</span>r<span class="se">\m</span>yHadoop<span class="se">\1</span>.0-SNAPSHOT<span class="se">\m</span>yHadoop-1.0-SNAPSHOT.pom
-<span class="o">[</span>INFO] <span class="nt">------------------------------------------------------------------------</span>
-<span class="o">[</span>INFO] BUILD SUCCESS
-<span class="o">[</span>INFO] <span class="nt">------------------------------------------------------------------------</span>
-<span class="o">[</span>INFO] Total <span class="nb">time</span>:  6.062 s
-<span class="o">[</span>INFO] Finished at: 2020-02-13T14:36:02+08:00
-<span class="o">[</span>INFO] <span class="nt">------------------------------------------------------------------------</span>
-</code></pre></div></div>
+<p>以上。</p>
 
             </div>
             <div class="spacing"></div>
+            <div>
+	<div class="hline"></div>
+	<h3><em>#</em> 申明</h3>
+	<div class="spacing"></div>
+	<h4><em>By: Bin4xin.</em></h4>
+	<h4>转载请申明本文链接：<a href="/blog/2020/maven/build/mavaProject/" target="_blank"> 「代码审计」:Maven构建Jeeplus项目</a></h4>
+
+	<h3><em># Any Questions</em></h3>
+	<div class="spacing"></div>
+	<h4> >_ 对本文进行提问：<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?permalink=https://github.com/Bin4xin/bin4xin.github.io/blob/1b4fffa6232dc6ffa2cece8be0d6c39e0c5f9cfe/blog/2020/maven/build/mavaProject/index.html%23L84" target="_blank"> <em><li class="fa fa-github"></li> Reference in new issue.</em></a></h4>
+
+	<h4> >_ 对本文进行留言：<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?permalink=https://bin4xin.github.io/blog/2020/maven/build/mavaProject/" target="_blank"> <em><li class="fa fa-github"></li> Leave a Comment.</em></a></h4>
+</div>
         </div><!--/col-lg-8 -->
         
         <div class="col-lg-3">
@@ -450,10 +373,10 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
         <div class="post-meta mb-3">
           <i class="far fa-folder-open fa-fw mr-1"></i>
           
-            <a href='/blog/'>blog</a>/
-            <a href='/%E7%AC%94%E8%AE%B0/'>笔记</a>/
-            <a href='/maven/'>Maven</a>/
-            <a href='/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/'>代码审计</a>/
+            <a href='/blog/'>blog</a>
+            <a href='/%E7%AC%94%E8%AE%B0/'>笔记</a>
+            <a href='/maven/'>Maven</a>
+            <a href='/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/'>代码审计</a>
             <a href='/web/'>Web</a>
         </div>
         
@@ -467,27 +390,27 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     
         <p>
             <i class="fa fa-angle-right"></i> 漏洞复现
-            <span class="badge badge-theme pull-right">14</span>
+            <span class="badge badge-theme pull-right">9</span>
         </p>
     
         <p>
             <i class="fa fa-angle-right"></i> 渗透
-            <span class="badge badge-theme pull-right">10</span>
+            <span class="badge badge-theme pull-right">8</span>
         </p>
     
         <p>
             <i class="fa fa-angle-right"></i> Vulnhub
-            <span class="badge badge-theme pull-right">10</span>
-        </p>
-    
-        <p>
-            <i class="fa fa-angle-right"></i> 安全工具
             <span class="badge badge-theme pull-right">6</span>
         </p>
     
         <p>
+            <i class="fa fa-angle-right"></i> 安全工具
+            <span class="badge badge-theme pull-right">5</span>
+        </p>
+    
+        <p>
             <i class="fa fa-angle-right"></i> 笔记
-            <span class="badge badge-theme pull-right">44</span>
+            <span class="badge badge-theme pull-right">33</span>
         </p>
     
         <p>
@@ -512,7 +435,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     
         <p>
             <i class="fa fa-angle-right"></i> Android reverse
-            <span class="badge badge-theme pull-right">6</span>
+            <span class="badge badge-theme pull-right">4</span>
         </p>
     
         <p>
@@ -537,11 +460,6 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     
         <p>
             <i class="fa fa-angle-right"></i> Python
-            <span class="badge badge-theme pull-right">2</span>
-        </p>
-    
-        <p>
-            <i class="fa fa-angle-right"></i> 机器学习
             <span class="badge badge-theme pull-right">1</span>
         </p>
     
@@ -557,12 +475,12 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     
         <p>
             <i class="fa fa-angle-right"></i> Cve
-            <span class="badge badge-theme pull-right">9</span>
+            <span class="badge badge-theme pull-right">3</span>
         </p>
     
         <p>
             <i class="fa fa-angle-right"></i> Sql-inject
-            <span class="badge badge-theme pull-right">2</span>
+            <span class="badge badge-theme pull-right">1</span>
         </p>
     
         <p>
@@ -577,7 +495,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
     
         <p>
             <i class="fa fa-angle-right"></i> 信息搜集
-            <span class="badge badge-theme pull-right">8</span>
+            <span class="badge badge-theme pull-right">6</span>
         </p>
     
         <p>
@@ -586,13 +504,13 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
         </p>
     
         <p>
-            <i class="fa fa-angle-right"></i> Src
-            <span class="badge badge-theme pull-right">3</span>
+            <i class="fa fa-angle-right"></i> Vulnhub
+            <span class="badge badge-theme pull-right">1</span>
         </p>
     
         <p>
-            <i class="fa fa-angle-right"></i> Vulnhub
-            <span class="badge badge-theme pull-right">2</span>
+            <i class="fa fa-angle-right"></i> Src
+            <span class="badge badge-theme pull-right">1</span>
         </p>
     
         <p>
@@ -600,29 +518,24 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
             <span class="badge badge-theme pull-right">2</span>
         </p>
     
-        <p>
-            <i class="fa fa-angle-right"></i> Php
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-    
     </details>
     <div class="spacing"></div>
 
-    <h4>Popular Tags/热门标签</h4>
+    <h4>Tags/标签</h4>
     <div class="hline"></div>
     <p>
         
             <a class="btn btn-theme" href="" role="button">Web (12)</a>
         
-            <a class="btn btn-theme" href="" role="button">漏洞复现 (14)</a>
+            <a class="btn btn-theme" href="" role="button">漏洞复现 (9)</a>
         
-            <a class="btn btn-theme" href="" role="button">渗透 (10)</a>
+            <a class="btn btn-theme" href="" role="button">渗透 (8)</a>
         
-            <a class="btn btn-theme" href="" role="button">Vulnhub (10)</a>
+            <a class="btn btn-theme" href="" role="button">Vulnhub (6)</a>
         
-            <a class="btn btn-theme" href="" role="button">安全工具 (6)</a>
+            <a class="btn btn-theme" href="" role="button">安全工具 (5)</a>
         
-            <a class="btn btn-theme" href="" role="button">笔记 (44)</a>
+            <a class="btn btn-theme" href="" role="button">笔记 (33)</a>
         
             <a class="btn btn-theme" href="" role="button">软件移植 (2)</a>
         
@@ -632,7 +545,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
         
             <a class="btn btn-theme" href="" role="button">技巧 (3)</a>
         
-            <a class="btn btn-theme" href="" role="button">Android reverse (6)</a>
+            <a class="btn btn-theme" href="" role="button">Android reverse (4)</a>
         
             <a class="btn btn-theme" href="" role="button">排错 (3)</a>
         
@@ -642,39 +555,59 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
         
             <a class="btn btn-theme" href="" role="button">代码审计 (2)</a>
         
-            <a class="btn btn-theme" href="" role="button">Python (2)</a>
-        
-            <a class="btn btn-theme" href="" role="button">机器学习 (1)</a>
+            <a class="btn btn-theme" href="" role="button">Python (1)</a>
         
             <a class="btn btn-theme" href="" role="button">Terminal (1)</a>
         
             <a class="btn btn-theme" href="" role="button">Docker (3)</a>
         
-            <a class="btn btn-theme" href="" role="button">Cve (9)</a>
+            <a class="btn btn-theme" href="" role="button">Cve (3)</a>
         
-            <a class="btn btn-theme" href="" role="button">Sql-inject (2)</a>
+            <a class="btn btn-theme" href="" role="button">Sql-inject (1)</a>
         
             <a class="btn btn-theme" href="" role="button">Bash (2)</a>
         
             <a class="btn btn-theme" href="" role="button">内网 (1)</a>
         
-            <a class="btn btn-theme" href="" role="button">信息搜集 (8)</a>
+            <a class="btn btn-theme" href="" role="button">信息搜集 (6)</a>
         
             <a class="btn btn-theme" href="" role="button">Fuzz (1)</a>
         
-            <a class="btn btn-theme" href="" role="button">Src (3)</a>
+            <a class="btn btn-theme" href="" role="button">Vulnhub (1)</a>
         
-            <a class="btn btn-theme" href="" role="button">Vulnhub (2)</a>
+            <a class="btn btn-theme" href="" role="button">Src (1)</a>
         
             <a class="btn btn-theme" href="" role="button">Daily (2)</a>
         
-            <a class="btn btn-theme" href="" role="button">Php (1)</a>
-        
     </p>
+    <div class="spacing"></div>
+
+    <h4>Article Directory/文章目录</h4>
+    <div class="hline"></div>
+    <p>
+        <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h3"><a href="#1-maven构建">1. Maven构建</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#11-effective-pom构建">1.1 effective-pom构建</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#2-properties文件配置">2 properties文件配置</a></li>
+<li class="toc-entry toc-h3"><a href="#3-maven测试">3 maven测试</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#31-test">3.1 test</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#32-clean-package">3.2 clean package</a></li>
+<li class="toc-entry toc-h3"><a href="#验证部署">验证部署</a></li>
+<li class="toc-entry toc-h3"><a href="#其他">其他</a></li>
+</ul>
+    </p>
+
 </div>
 
 
     </div><!--/row -->
+        
 </div><!--/container -->
 
 
@@ -685,13 +618,14 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
                 <p>本站由哨兵安全实验室支持创办</p>
                 <p class="thuhidden">个人感谢<em>@TUNA协会</em>的开源代码</p>
         <p class="thuhidden">Powered by <a href="https://github.com/Bin4xin">Bin4xin</a> &amp; <a title="open code from TUNA mirror-web." href="https://github.com/tuna/mirror-web"><em>这里是开源代码库</em></a>.</p>
-                <ul><li><a href="https://profile-counter.glitch.me/bin4xin.github.io/count.svg"> <em>∑ (Bin4xin's GitHub & bin4xin.github.io & SentrySec pages) (Visitor/time)</em> </a>
-                    <ul>
-                        <li>
-                            <img src="https://profile-counter.glitch.me/bin4xin.github.io/count.svg" style="max-width:100%;">
-                        </li>
-                    </ul>
-                </li></ul>
+
+            <p class="share">
+                          <a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i></a>
+                          <a href="#"><i class="fa fa-twitter"></i></a>
+                          <a href="#"><i class="fa fa-facebook"></i></a>
+                          <a href="#"><i class="fa fa-tumblr"></i></a>
+                          <a href="#"><i class="fa fa-google-plus"></i></a>    
+            </p>
 
             </div>
 
@@ -702,19 +636,17 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
                       <li>
                       <a><i class="fa fa-envelope"></i> chihou.pro@gmail.com</a>
                       </li>
-                      <!-- <li>
-                      IRC: <a href="https://webchat.freenode.net/?channels=%23tuna">#tuna at freenode</a>
-                      </li> -->
-                      <li>
-                      <a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> GitHub </a>
-                      </li>
-                      <!-- <li>
-                      <a href="http://weibo.com/u/5402274706"><i class="fa fa-weibo"></i> 新浪微博</a>
-                      </li> -->
-
+                      </ul>
+                      <!-- <h6>SHARE:</h6> -->
+                      <ul><li><a href="https://profile-counter.glitch.me/bin4xin.github.io/count.svg"> <em>∑ <csmall>(Bin4xin's GitHub & bin4xin.github.io & SentrySec pages) (Visitor/time)</csmall></em> </a>
+                    <ul>
+                        <li>
+                            <img src="https://profile-counter.glitch.me/bin4xin.github.io/count.svg" style="max-width:100%;">
+                        </li>
                     </ul>
+                </li></ul>
                   </div>
-                </div>
+            </div>
             <!-- aaa-->
             <div class="col-sm-4">
               <picture>

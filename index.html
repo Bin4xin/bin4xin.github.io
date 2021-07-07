@@ -123,18 +123,22 @@
 
 <div class="container">
   <div class="row">
-    <div id="recent-events" class="col-md-6 col-md-push-6">
+    <div  class="col-md-6 col-md-push-6">
       <h2> # 置顶文章 </h2> 
        
-      <div class="event" data-event-date="2021-06-02">
+      <div class="event" data-event-date="2021-07-05">
         <div class="event-title">
           <a href="/event/2021/sentry-lab-markdown-usage/">
-             <h4>置顶文章速览 - 更新于2021/06/02</h4>
+             <h4>置顶文章速览 - 更新于2021/07/05</h4>
           </a>
         </div>
         <div class="event-meta">
-          <span><strong>时间: </strong>2021-06-02 14:35-00:30 </span>
-          <span><strong>地点:</strong> 安庆·安徽</span>
+          <span><strong>时间: </strong>2021-07-05</span>
+<!--           <span><strong>地点:</strong> </span> -->
+          <span class="event-tags">
+            
+          </span>
+          
           <span class="event-status">
           </span>
         
@@ -143,48 +147,33 @@
         
 
 
+ 点击以展开置顶文章速览导航树（打算弃用） 
+
+已删除
 
 
+ 置顶文章速览导航表格展示
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 点击以展开置顶文章速览导航树
-
-
-  「哨兵安全」：markdown用法一览，手打wiki以便使用SentryLab「markdown」
+  
     
-      放置于公告窗口置顶下：SentryLab「markdown」语法介绍&amp;批注
+      时间
+      操作
+      书签
     
   
-  2021/02/04：已更新「我的研究」栏目文章：
+  
     
-      1、分享：ModsecWAF：老牌开源waf的绕过历程
+      2021/02/05
+      
+      《SentryLab「markdown」语法介绍&amp;批注》
+    
+    
+       
+      
+      《分享：ModsecWAF：老牌开源waf的绕过历程》
+    
+    
      ...
         </div>
       </div>
@@ -196,8 +185,12 @@
           </a>
         </div>
         <div class="event-meta">
-          <span><strong>时间: </strong>2020-04-10 22:00-22:30 </span>
-          <span><strong>地点:</strong> 合肥·安徽</span>
+          <span><strong>时间: </strong>2020-04-10</span>
+<!--           <span><strong>地点:</strong> </span> -->
+          <span class="event-tags">
+            
+          </span>
+          
           <span class="event-status">
           </span>
         
@@ -219,8 +212,12 @@
           </a>
         </div>
         <div class="event-meta">
-          <span><strong>时间: </strong>2020-02-24 16:00-16:11 </span>
-          <span><strong>地点:</strong> 合肥·安徽</span>
+          <span><strong>时间: </strong>2020-02-24</span>
+<!--           <span><strong>地点:</strong> </span> -->
+          <span class="event-tags">
+            
+          </span>
+          
           <span class="event-status">
           </span>
         
@@ -251,8 +248,12 @@
           </a>
         </div>
         <div class="event-meta">
-          <span><strong>时间: </strong>2019-09-11 19:30-20:00 </span>
-          <span><strong>地点:</strong> 合肥·安徽</span>
+          <span><strong>时间: </strong>2019-09-11</span>
+<!--           <span><strong>地点:</strong> </span> -->
+          <span class="event-tags">
+            
+          </span>
+          
           <span class="event-status">
           </span>
         
@@ -468,17 +469,7 @@ $(document).ready(function(){
 
   }();
 
-  $('#recent-events .event').each(function() {
-    // console.log($(this).attr("data-event-date"));
-    var event_date = Date.parse($(this).attr("data-event-date")),
-        label = "";
-    if (today > event_date) {
-      label = "<span class='label label-info'>Finished</span>";
-    } else {
-      label = "<span class='label label-warning'>Upcoming</span>";
-    }
-    $(this).find(".event-status").append(label);
-  });
+
 });
 </script>
 
@@ -500,13 +491,14 @@ vim: ts=2 sts=2 sw=2 expandtab
                 <p>本站由哨兵安全实验室支持创办</p>
                 <p class="thuhidden">个人感谢<em>@TUNA协会</em>的开源代码</p>
         <p class="thuhidden">Powered by <a href="https://github.com/Bin4xin">Bin4xin</a> &amp; <a title="open code from TUNA mirror-web." href="https://github.com/tuna/mirror-web"><em>这里是开源代码库</em></a>.</p>
-                <ul><li><a href="https://profile-counter.glitch.me/bin4xin.github.io/count.svg"> <em>∑ (Bin4xin's GitHub & bin4xin.github.io & SentrySec pages) (Visitor/time)</em> </a>
-                    <ul>
-                        <li>
-                            <img src="https://profile-counter.glitch.me/bin4xin.github.io/count.svg" style="max-width:100%;">
-                        </li>
-                    </ul>
-                </li></ul>
+
+            <p class="share">
+                          <a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i></a>
+                          <a href="#"><i class="fa fa-twitter"></i></a>
+                          <a href="#"><i class="fa fa-facebook"></i></a>
+                          <a href="#"><i class="fa fa-tumblr"></i></a>
+                          <a href="#"><i class="fa fa-google-plus"></i></a>    
+            </p>
 
             </div>
 
@@ -517,19 +509,17 @@ vim: ts=2 sts=2 sw=2 expandtab
                       <li>
                       <a><i class="fa fa-envelope"></i> chihou.pro@gmail.com</a>
                       </li>
-                      <!-- <li>
-                      IRC: <a href="https://webchat.freenode.net/?channels=%23tuna">#tuna at freenode</a>
-                      </li> -->
-                      <li>
-                      <a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> GitHub </a>
-                      </li>
-                      <!-- <li>
-                      <a href="http://weibo.com/u/5402274706"><i class="fa fa-weibo"></i> 新浪微博</a>
-                      </li> -->
-
+                      </ul>
+                      <!-- <h6>SHARE:</h6> -->
+                      <ul><li><a href="https://profile-counter.glitch.me/bin4xin.github.io/count.svg"> <em>∑ <csmall>(Bin4xin's GitHub & bin4xin.github.io & SentrySec pages) (Visitor/time)</csmall></em> </a>
+                    <ul>
+                        <li>
+                            <img src="https://profile-counter.glitch.me/bin4xin.github.io/count.svg" style="max-width:100%;">
+                        </li>
                     </ul>
+                </li></ul>
                   </div>
-                </div>
+            </div>
             <!-- aaa-->
             <div class="col-sm-4">
               <picture>

@@ -88,88 +88,213 @@
 
 <p>于 <em>2021年 6月27日 星期日 20时19分07秒 CST</em>修改，个人建议</p>
 
-<p><i class="fa fa-quote-left"></i>优雅地使用<i class="fa fa-quote-right"></i></p>
+<p><i class="fa fa-quote-left"></i>优雅地使用：<i class="fa fa-quote-right"></i></p>
 
-<p>nginx配置文件，使得nginx文件配置更加容易移植、运维….</p>
+<ul>
+  <li>阐述Jekyll的工作问题；</li>
+  <li>解决多子域问题：nginx配置文件，使得nginx文件配置更加容易移植、运维….</li>
+  <li>解决Web代码更新问题：<a href="https://git-scm.com/">Git</a>  <a href="/#">X</a> <a href="https://github.com/Bin4xin/B4xinSynchronize">B4xinSynchronize</a><i class="fa fa-github"></i></li>
+</ul>
 
 <hr />
 
-<ul>
-  <li>摘要：webrick真是不省心啊。还是nginx大法好～</li>
-</ul>
-
 <p>使用nginx作为jekyll博客的服务启动容器介绍：</p>
 
-<h2 id="1jekyll如何工作">1.jekyll如何工作</h2>
+<h2 id="零jekyll如何工作">零：Jekyll如何工作</h2>
 
 <p>首先先从用户角度解释一下我理解中的jekyll服务的运行原理</p>
 
 <p><code class="language-plaintext highlighter-rouge">1.编写markdown文档 -&gt; 2.markdown解析 -&gt; 3.jekyll运行生成web站点文件</code></p>
 
 <p>所以我们直接去找站点文件夹，把web站点文件夹复制到nginx的根目录下就好了</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /your-jekyll-web/
-<span class="nb">ls</span>                   
-<span class="c">#我们可以看到_site/文件夹，这个文件夹就是web站点文件夹</span>
-<span class="nb">cd </span>_site/
-vi 2019-01-01-your-article-title.markdown
-<span class="nb">cp </span>_site/ /var/www/html/ <span class="nt">-r</span>
-nginx <span class="nt">-t</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> /your-jekyll-web/
+<span class="nv">$ </span><span class="nb">ls</span>
+<span class="nv">$ </span><span class="nb">cd </span>_site/
+<span class="nv">$ </span>vi 2019-01-01-your-article-title.markdown
+<span class="nv">$ </span><span class="nb">cp </span>_site/ /var/www/html/ <span class="nt">-r</span>
+<span class="nv">$ </span>nginx <span class="nt">-t</span>
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf <span class="nb">test </span>is successful
 systemctl start nginx
-curl localhost
+<span class="nv">$ </span>curl localhost
 </code></pre></div></div>
 <p>测试nginx完毕没有问题，既可以直接启动nginx。然后看一下本地页面，如果出现本地页面就是调试完成了。</p>
 
-<h2 id="2配置nginx-server">2.配置nginx-server</h2>
+<h2 id="一配置nginx-server">一：配置Nginx-Server</h2>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat /etc/nginx/nginx.conf
-中间略去，直接看server区块
-server {
-        listen       80;
-        server_name  ip;     #修改这里，如果这里你是公网ip，修改成公网ip就可以啦。
-        #charset koi8-r;
-        #access_log  logs/host.access.log  main;
-		 
-		root   /home/www/_site/;
+<p>Nginx的使用自不必多说；这里想要传达出的是一些关于如何优雅的来配置Nginx：</p>
 
-        location / {
-			 #try_files $uri $uri/ /index.php$is_args$args;
-            index  index.html index.htm;
-        				}
- location ~ \.php{          ＃这里是定位到输入php的页面解析代码，如果不需要可以直接注释掉。
-				index  index.php index.html;
-				include /etc/nginx/snippets/fastcgi-php.conf;
-				fastcgi_pass unix:/etc/init.d/php7.3-fpm;
-					}
+<ul>
+  <li>A子域：<code class="language-plaintext highlighter-rouge">$ vi /{path/to/nginx/dir}/sites-enabled/A</code></li>
+</ul>
 
-	# deny access to .htaccess files, if Apache's document root
-	# concurs with nginx's one
-	#
-	location ~ /\.ht {
-		deny all;
-		}
-        #error_page  404              /404.html;
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server <span class="o">{</span>
+    <span class="c">#listen 80 default_server;</span>
+    <span class="c">#listen [::]:80 default_server;</span>
+    location / <span class="o">{</span>
+    root /<span class="o">{</span>path/to/your/www/dir<span class="o">}</span>/about<span class="p">;</span>
+    index  index.html index.htm<span class="p">;</span>
+    try_files <span class="nv">$uri</span> <span class="nv">$uri</span>/ <span class="o">=</span>404<span class="p">;</span>
+    <span class="o">}</span>
 
-        # redirect server error pages to the static page /50x.html
-        #
-        error_page   500 502 503 504  /50x.html;
-        #location = /50x.html {
-         #   root   /usr/share/nginx/html;
+    error_page  404 403 500 502 503 504  /404.html<span class="p">;</span>
 
-		}
-}
+    location <span class="o">=</span> /404.html <span class="o">{</span>
+        root   /<span class="o">{</span>path/to/your/www/dir<span class="o">}</span>/about<span class="p">;</span>
+    <span class="o">}</span>
+
+    listen  443<span class="p">;</span>
+    ssl on<span class="p">;</span> 
+    server_name A.domain.com<span class="p">;</span>
+        
+    ssl_certificate      /etc/nginx/<span class="o">{</span>path/to/your/cert<span class="o">}</span>/.crt<span class="p">;</span>
+    ssl_certificate_key  /etc/nginx/<span class="o">{</span>path/to/your/key<span class="o">}</span>/.key<span class="p">;</span>
+    ssl_session_cache    shared:SSL:1m<span class="p">;</span>
+    ssl_session_timeout  5m<span class="p">;</span>
+    ssl_ciphers  ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4<span class="p">;</span>
+    ssl_prefer_server_ciphers  on<span class="p">;</span>
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2<span class="p">;</span>
+<span class="o">}</span>
 </code></pre></div></div>
-<p>同样测试一下，没问题就可以了。
-这个时候就可以看一下公网地址是不是已经可以访问上了，访问上就没什么问题了。维护博客就可以通过markdown文件的形式post到服务器上用jekyll解析就可以访问了。</p>
 
-<blockquote>
-  <p>希望你们自己也能动手试试看。<code class="language-plaintext highlighter-rouge">么么哒</code></p>
-</blockquote>
+<ul>
+  <li>B子域 <code class="language-plaintext highlighter-rouge">$ vi /{path/to/nginx/dir}/sites-enabled/B</code> 后，同样配置就好</li>
+</ul>
+
+<p>同样测试一下，没问题就可以了，希望你们自己也能动手试试看。以上</p>
+
+<h2 id="二代码更新---b4xinsync">二：代码更新 - <em>B4xinSync</em></h2>
+
+<h3 id="-2x01-什么是b4xinsynchronize"># 2x01 什么是<em>B4xinSynchronize</em></h3>
+
+<ul>
+  <li>功能
+    <ul>
+      <li>基于双端<strong>代码同步</strong>脚本，让您的git仅是或否</li>
+      <li><em>Let your git only yes or no</em></li>
+    </ul>
+  </li>
+  <li>适用场景
+    <ul>
+      <li>将本地调试完成的代码拷贝到工作目录（如jekyll、github）；</li>
+      <li>将工作目录的代码push至github仓库或服务端；</li>
+      <li>服务端自动更新git上传代码。</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="-2x02-解决方案"># 2x02 解决方案</h3>
+
+<p>修改 <code class="language-plaintext highlighter-rouge">B4xinSynchronize/bash/config/user_config.sh</code>，注意事项：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">options_project_{i}</code>的值连接符为下划线，{i}自定义</li>
+  <li>dw模式目录需加入<code class="language-plaintext highlighter-rouge">gitPath、buildPath</code>，否则会报<code class="language-plaintext highlighter-rouge">Invalid</code>，sw模式同理</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">##project : $your_repo_name</span>
+options_<span class="nv">$your_repo_name_</span><span class="o">{</span>i<span class="o">}=</span><span class="s2">"your_repo_name"</span>
+_<span class="k">${</span><span class="nv">run_mode</span><span class="k">}</span>_<span class="nv">$your_repo_name_gitPath</span><span class="o">=</span><span class="s2">"/path/to/your/repo/name"</span>
+_<span class="k">${</span><span class="nv">run_mode</span><span class="k">}</span>_<span class="nv">$your_repo_name_buildPath</span><span class="s2">"/path/to/your/build/project/"</span>
+
+<span class="c">##example:</span>
+
+<span class="c">## dw mode project 0: bin4xin_github_io options</span>
+<span class="nv">options_project_0</span><span class="o">=</span><span class="s2">"bin4xin_github_io"</span>
+<span class="nv">_dw_bin4xin_github_io_gitPath</span><span class="o">=</span><span class="s2">"/Users/bin4xin/blog/github-code/bin4xin.github.io"</span>
+<span class="nv">_dw_bin4xin_github_io_buildPath</span><span class="o">=</span><span class="s2">"/Users/bin4xin/blog/SENTRYLAB-WWW-WEB/_site"</span>
+<span class="c"># sw mode project 4: B4xinSynchronize options</span>
+<span class="nv">options_project_4</span><span class="o">=</span><span class="s2">"B4xinSynchronize"</span>
+<span class="nv">_sw_B4xinSynchronize_gitPath</span><span class="o">=</span><span class="s2">"/Users/bin4xin/blog/github-code/B4xinSynchronize"</span>
+</code></pre></div></div>
+
+<ul>
+  <li>bash终端命令
+    <ul>
+      <li>client端</li>
+    </ul>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  $ brew install gawk
+  $ git clone https://github.com/Bin4xin/B4xinSynchronize.git
+  $ cd B4xinSynchronize/bash
+  $ bash Sclient.sh [dw/sw]
+  ● [Info] Are you sure?(y/n): 
+  ● [Info] Running mode is: sw mode now
+  looks you have var files now!
+  ● [Info] Detected [Repo 0]: bin4xin_github_io
+  ● [Info] Detected [Repo 1]: bin4xin_gitee_io
+  ● [Info] Detected [Repo 2]: sentrylab_tokyo_www
+  ● [Info] Detected [Repo 3]: sentrylab_tokyo_about
+  ● [Info] Detected [Repo 4]: B4xinSynchronize
+  ● [Info] Detected [Repo 5]: sweet_ysoserial
+  ● [Info] Detected [Repo 6]: Bin4xin
+  ● [Info] Detected [Repo 7]: bigger_than_bigger
+  ● [Info] Detected [Repo 8]: Industrial_Control_Wiki_Record
+  Choose your Repos option (default option: 0)[0/1/..] : 4
+  This is a valid git repository 
+  (but the current working directory may not be the top level.  Check the output of the git rev-parse command if you care)
+  ● [Info] Directly jumping to Synchronize update...
+  /Users/bin4xin/blog/github-code/B4xinSynchronize
+  ● [Info] Synchronize update is running in /Users/bin4xin/blog/github-code/B4xinSynchronize
+  ● [Info] Synchronize update is running... 
+  [master bb5fdd0] Tue, 18 May 2021 23:39:57 +0800 commit by B4xinSynchronize.
+   2 files changed, 8 insertions(+), 8 deletions(-)
+  Enumerating objects: 9, done.
+  Counting objects: 100% (9/9), done.
+  Delta compression using up to 8 threads
+  Compressing objects: 100% (5/5), done.
+  Writing objects: 100% (5/5), 573 bytes | 573.00 KiB/s, done.
+  Total 5 (delta 4), reused 0 (delta 0), pack-reused 0
+  remote: Resolving deltas: 100% (4/4), completed with 4 local objects.
+  To https://github.com/Bin4xin/B4xinSynchronize.git
+     21314fc..bb5fdd0  master -&gt; master
+</code></pre></div>    </div>
+    <ul>
+      <li>server端</li>
+    </ul>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  $ bash Sserver.sh [/path/to/git/workspace/]
+   ● 运行中... 
+  任务进行中: [Crontab定时计划备份] [写入Crontab定时计划] [执行Crontab定时计划]
+  备份您的当前的Crontab计划
+  执行添加最新的Crontab计划：
+  [==================================================&gt;]    
+  [备份计划] &gt;&gt; [crontab -l &gt; config/golbal_var.sh.]...
+   ● [Info]任务1: [Crontab定时计划备份] ----------&gt; DONE..... 
+  [写入计划] &gt;&gt; [config/golbal_var.sh]...
+   ● [Info]任务2: [写入Crontab定时计划] ----------&gt; DONE..... 
+  [执行计划] &lt;&lt; [config/golbal_var.sh]...
+   ● [Info]任务3: [执行Crontab定时计划] ----------&gt; DONE..... 
+
+  当前最新Crontab计划表为：
+  ╔═══════════════════════════════╗
+  ║   * * * * * git checkout -f   ║
+  ╚═══════════════════════════════╝
+  ALL DONE...
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="-2x03-其他"># 2x03 其他</h3>
+
+<p>其他相关介绍可以参考<a href="https://github.com/Bin4xin/B4xinSynchronize">B4xinSynchronize 仓库介绍</a><i class="fa fa-github"></i></p>
 
 
             </div>
             <div class="spacing"></div>
+            <div>
+	<div class="hline"></div>
+	<h3><em>#</em> 申明</h3>
+	<div class="spacing"></div>
+	<h4><em>By: Bin4xin.</em></h4>
+	<h4>转载请申明本文链接：<a href="/blog/2019/nginx/with/jekyll-site/" target="_blank"> 多子域：JEKYLL优雅地部署于NGINX</a></h4>
+
+	<h3><em># Any Questions</em></h3>
+	<div class="spacing"></div>
+	<h4> >_ 对本文进行提问：<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?permalink=https://github.com/Bin4xin/bin4xin.github.io/blob/1b4fffa6232dc6ffa2cece8be0d6c39e0c5f9cfe/blog/2019/nginx/with/jekyll-site/index.html%23L84" target="_blank"> <em><li class="fa fa-github"></li> Reference in new issue.</em></a></h4>
+
+	<h4> >_ 对本文进行留言：<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?permalink=https://bin4xin.github.io/blog/2019/nginx/with/jekyll-site/" target="_blank"> <em><li class="fa fa-github"></li> Leave a Comment.</em></a></h4>
+</div>
         </div><!--/col-lg-8 -->
         
         <div class="col-lg-3">
@@ -185,8 +310,8 @@ server {
         <div class="post-meta mb-3">
           <i class="far fa-folder-open fa-fw mr-1"></i>
           
-            <a href='/blog/'>blog</a>/
-            <a href='/web/'>Web</a>/
+            <a href='/blog/'>blog</a>
+            <a href='/web/'>Web</a>
             <a href='/%E6%8A%80%E5%B7%A7/'>技巧</a>
         </div>
         
@@ -200,27 +325,27 @@ server {
     
         <p>
             <i class="fa fa-angle-right"></i> 漏洞复现
-            <span class="badge badge-theme pull-right">14</span>
+            <span class="badge badge-theme pull-right">9</span>
         </p>
     
         <p>
             <i class="fa fa-angle-right"></i> 渗透
-            <span class="badge badge-theme pull-right">10</span>
+            <span class="badge badge-theme pull-right">8</span>
         </p>
     
         <p>
             <i class="fa fa-angle-right"></i> Vulnhub
-            <span class="badge badge-theme pull-right">10</span>
-        </p>
-    
-        <p>
-            <i class="fa fa-angle-right"></i> 安全工具
             <span class="badge badge-theme pull-right">6</span>
         </p>
     
         <p>
+            <i class="fa fa-angle-right"></i> 安全工具
+            <span class="badge badge-theme pull-right">5</span>
+        </p>
+    
+        <p>
             <i class="fa fa-angle-right"></i> 笔记
-            <span class="badge badge-theme pull-right">44</span>
+            <span class="badge badge-theme pull-right">33</span>
         </p>
     
         <p>
@@ -245,7 +370,7 @@ server {
     
         <p>
             <i class="fa fa-angle-right"></i> Android reverse
-            <span class="badge badge-theme pull-right">6</span>
+            <span class="badge badge-theme pull-right">4</span>
         </p>
     
         <p>
@@ -270,11 +395,6 @@ server {
     
         <p>
             <i class="fa fa-angle-right"></i> Python
-            <span class="badge badge-theme pull-right">2</span>
-        </p>
-    
-        <p>
-            <i class="fa fa-angle-right"></i> 机器学习
             <span class="badge badge-theme pull-right">1</span>
         </p>
     
@@ -290,12 +410,12 @@ server {
     
         <p>
             <i class="fa fa-angle-right"></i> Cve
-            <span class="badge badge-theme pull-right">9</span>
+            <span class="badge badge-theme pull-right">3</span>
         </p>
     
         <p>
             <i class="fa fa-angle-right"></i> Sql-inject
-            <span class="badge badge-theme pull-right">2</span>
+            <span class="badge badge-theme pull-right">1</span>
         </p>
     
         <p>
@@ -310,7 +430,7 @@ server {
     
         <p>
             <i class="fa fa-angle-right"></i> 信息搜集
-            <span class="badge badge-theme pull-right">8</span>
+            <span class="badge badge-theme pull-right">6</span>
         </p>
     
         <p>
@@ -319,13 +439,13 @@ server {
         </p>
     
         <p>
-            <i class="fa fa-angle-right"></i> Src
-            <span class="badge badge-theme pull-right">3</span>
+            <i class="fa fa-angle-right"></i> Vulnhub
+            <span class="badge badge-theme pull-right">1</span>
         </p>
     
         <p>
-            <i class="fa fa-angle-right"></i> Vulnhub
-            <span class="badge badge-theme pull-right">2</span>
+            <i class="fa fa-angle-right"></i> Src
+            <span class="badge badge-theme pull-right">1</span>
         </p>
     
         <p>
@@ -333,29 +453,24 @@ server {
             <span class="badge badge-theme pull-right">2</span>
         </p>
     
-        <p>
-            <i class="fa fa-angle-right"></i> Php
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-    
     </details>
     <div class="spacing"></div>
 
-    <h4>Popular Tags/热门标签</h4>
+    <h4>Tags/标签</h4>
     <div class="hline"></div>
     <p>
         
             <a class="btn btn-theme" href="" role="button">Web (12)</a>
         
-            <a class="btn btn-theme" href="" role="button">漏洞复现 (14)</a>
+            <a class="btn btn-theme" href="" role="button">漏洞复现 (9)</a>
         
-            <a class="btn btn-theme" href="" role="button">渗透 (10)</a>
+            <a class="btn btn-theme" href="" role="button">渗透 (8)</a>
         
-            <a class="btn btn-theme" href="" role="button">Vulnhub (10)</a>
+            <a class="btn btn-theme" href="" role="button">Vulnhub (6)</a>
         
-            <a class="btn btn-theme" href="" role="button">安全工具 (6)</a>
+            <a class="btn btn-theme" href="" role="button">安全工具 (5)</a>
         
-            <a class="btn btn-theme" href="" role="button">笔记 (44)</a>
+            <a class="btn btn-theme" href="" role="button">笔记 (33)</a>
         
             <a class="btn btn-theme" href="" role="button">软件移植 (2)</a>
         
@@ -365,7 +480,7 @@ server {
         
             <a class="btn btn-theme" href="" role="button">技巧 (3)</a>
         
-            <a class="btn btn-theme" href="" role="button">Android reverse (6)</a>
+            <a class="btn btn-theme" href="" role="button">Android reverse (4)</a>
         
             <a class="btn btn-theme" href="" role="button">排错 (3)</a>
         
@@ -375,39 +490,54 @@ server {
         
             <a class="btn btn-theme" href="" role="button">代码审计 (2)</a>
         
-            <a class="btn btn-theme" href="" role="button">Python (2)</a>
-        
-            <a class="btn btn-theme" href="" role="button">机器学习 (1)</a>
+            <a class="btn btn-theme" href="" role="button">Python (1)</a>
         
             <a class="btn btn-theme" href="" role="button">Terminal (1)</a>
         
             <a class="btn btn-theme" href="" role="button">Docker (3)</a>
         
-            <a class="btn btn-theme" href="" role="button">Cve (9)</a>
+            <a class="btn btn-theme" href="" role="button">Cve (3)</a>
         
-            <a class="btn btn-theme" href="" role="button">Sql-inject (2)</a>
+            <a class="btn btn-theme" href="" role="button">Sql-inject (1)</a>
         
             <a class="btn btn-theme" href="" role="button">Bash (2)</a>
         
             <a class="btn btn-theme" href="" role="button">内网 (1)</a>
         
-            <a class="btn btn-theme" href="" role="button">信息搜集 (8)</a>
+            <a class="btn btn-theme" href="" role="button">信息搜集 (6)</a>
         
             <a class="btn btn-theme" href="" role="button">Fuzz (1)</a>
         
-            <a class="btn btn-theme" href="" role="button">Src (3)</a>
+            <a class="btn btn-theme" href="" role="button">Vulnhub (1)</a>
         
-            <a class="btn btn-theme" href="" role="button">Vulnhub (2)</a>
+            <a class="btn btn-theme" href="" role="button">Src (1)</a>
         
             <a class="btn btn-theme" href="" role="button">Daily (2)</a>
         
-            <a class="btn btn-theme" href="" role="button">Php (1)</a>
-        
     </p>
+    <div class="spacing"></div>
+
+    <h4>Article Directory/文章目录</h4>
+    <div class="hline"></div>
+    <p>
+        <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#零jekyll如何工作">零：Jekyll如何工作</a></li>
+<li class="toc-entry toc-h2"><a href="#一配置nginx-server">一：配置Nginx-Server</a></li>
+<li class="toc-entry toc-h2"><a href="#二代码更新---b4xinsync">二：代码更新 - B4xinSync</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#-2x01-什么是b4xinsynchronize"># 2x01 什么是B4xinSynchronize</a></li>
+<li class="toc-entry toc-h3"><a href="#-2x02-解决方案"># 2x02 解决方案</a></li>
+<li class="toc-entry toc-h3"><a href="#-2x03-其他"># 2x03 其他</a></li>
+</ul>
+</li>
+</ul>
+    </p>
+
 </div>
 
 
     </div><!--/row -->
+        
 </div><!--/container -->
 
 
@@ -418,13 +548,14 @@ server {
                 <p>本站由哨兵安全实验室支持创办</p>
                 <p class="thuhidden">个人感谢<em>@TUNA协会</em>的开源代码</p>
         <p class="thuhidden">Powered by <a href="https://github.com/Bin4xin">Bin4xin</a> &amp; <a title="open code from TUNA mirror-web." href="https://github.com/tuna/mirror-web"><em>这里是开源代码库</em></a>.</p>
-                <ul><li><a href="https://profile-counter.glitch.me/bin4xin.github.io/count.svg"> <em>∑ (Bin4xin's GitHub & bin4xin.github.io & SentrySec pages) (Visitor/time)</em> </a>
-                    <ul>
-                        <li>
-                            <img src="https://profile-counter.glitch.me/bin4xin.github.io/count.svg" style="max-width:100%;">
-                        </li>
-                    </ul>
-                </li></ul>
+
+            <p class="share">
+                          <a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i></a>
+                          <a href="#"><i class="fa fa-twitter"></i></a>
+                          <a href="#"><i class="fa fa-facebook"></i></a>
+                          <a href="#"><i class="fa fa-tumblr"></i></a>
+                          <a href="#"><i class="fa fa-google-plus"></i></a>    
+            </p>
 
             </div>
 
@@ -435,19 +566,17 @@ server {
                       <li>
                       <a><i class="fa fa-envelope"></i> chihou.pro@gmail.com</a>
                       </li>
-                      <!-- <li>
-                      IRC: <a href="https://webchat.freenode.net/?channels=%23tuna">#tuna at freenode</a>
-                      </li> -->
-                      <li>
-                      <a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> GitHub </a>
-                      </li>
-                      <!-- <li>
-                      <a href="http://weibo.com/u/5402274706"><i class="fa fa-weibo"></i> 新浪微博</a>
-                      </li> -->
-
+                      </ul>
+                      <!-- <h6>SHARE:</h6> -->
+                      <ul><li><a href="https://profile-counter.glitch.me/bin4xin.github.io/count.svg"> <em>∑ <csmall>(Bin4xin's GitHub & bin4xin.github.io & SentrySec pages) (Visitor/time)</csmall></em> </a>
+                    <ul>
+                        <li>
+                            <img src="https://profile-counter.glitch.me/bin4xin.github.io/count.svg" style="max-width:100%;">
+                        </li>
                     </ul>
+                </li></ul>
                   </div>
-                </div>
+            </div>
             <!-- aaa-->
             <div class="col-sm-4">
               <picture>

