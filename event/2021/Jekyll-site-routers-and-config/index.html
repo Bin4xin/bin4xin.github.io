@@ -14,11 +14,11 @@
 
 <!-- Open Graph metadata -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="日常 | ©「哨兵」| Sentry Security" />
+<meta property="og:title" content="「Jekyll | SentrySec. Lab」技术栈相关一揽子教程 | ©「哨兵」| Sentry Security" />
 <meta property="og:description" content="本站由哨兵安全实验室支持创办" />
 <meta property="og:image" content="http://localhost:80/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
-<meta property="og:url" content="http://localhost:80/daily/" />
-<title> 日常 | ©「哨兵」| Sentry Security | Sentrylab</title>
+<meta property="og:url" content="http://localhost:80/event/2021/Jekyll-site-routers-and-config/" />
+<title> 「Jekyll | SentrySec. Lab」技术栈相关一揽子教程 | ©「哨兵」| Sentry Security | Sentrylab</title>
 
 <link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
 <script src="/assets/js/pace.min.js"></script>
@@ -65,9 +65,9 @@
       <ul class="nav navbar-nav">
         <li ><a href="/">HOME</a></li>
         <li ><a href="/blog/">BLOG</a></li>
-        <li ><a href="/events/">EVENTS</a></li>
+        <li class="active"><a href="/events/">EVENTS</a></li>
         <li ><a href="/categories/">CATEGORIES</a></li>
-        <li class="active"><a href="/daily/">DAILY</a></li>
+        <li ><a href="/daily/">DAILY</a></li>
         <li><a href="https://about.sentrylab.cn">ABOUT ME</a></li>
       </ul>
     </div><!--/.nav-collapse -->
@@ -77,65 +77,90 @@
 
             <div class="container mtb">
     <div class="row">
-    <h2> Sentrylab · Ingeeker 's Daily Record </h2>
-    <div class="hline"></div>
-    <div class="spacing"></div>
-
-    <div class="col-lg-10 col-lg-offset-1" id="events-list">
-
-            
-            <div class="row event">
-                <div class="col-lg-9">
-                    <a href="/daily/2021/Weeding-in-Anqing/"><h3 class="ctitle">安庆除草</h3></a>
-                        <csmall>Jun 27, 2021. | By: Bin4xin</csmall>
-                    <div class="spacing"></div>
-                    
-                    <div class="post-abstract">
-                    
-  狗尾草（学名：Setaria viridis），又名绿狗尾草、谷莠子、狗尾巴草。一年生草本植物；秆直立或基部膝曲，高30-100厘米；叶片扁平，狭披针形或线状披针形；圆锥花序紧密呈圆柱形，刚毛粗糙，通常绿色或褐黄色。同属植物常见...
-                    </div>
-                    <p><a href="/daily/2021/Weeding-in-Anqing/">[Read More]</a></p>
-                </div>
-                <div class="col-lg-3">
-                  
-                  <img class="img-responsive event-poster" height="100%" width="100%" src="https://i.ibb.co/BwVBTmY/A.png" />
-                  
-                </div>
+        <! -- SINGLE POST -->
+        <div class="col-lg-8 col-lg-offset-2">
+            <! -- Blog Post  -->
+            <a href="/event/2021/Jekyll-site-routers-and-config/"><h3 class="ctitle">「Jekyll | SentrySec. Lab」技术栈相关一揽子教程</h3></a>
+            <div class="event-meta">
+              <span><strong><i class="fa fa-calendar fa-fw"></i> 时间: </strong>2021-07-07</span>
+              <!-- <span><strong><i class="fa fa-map-marker fa-fw"></i> 地点:</strong> </span> -->
+              <span class="event-tags">
+                
+                <span class="label label-success">笔记</span>
+                
+                <span class="label label-success">wiki</span>
+                
+              </span>
+              
             </div>
-                <div class="hline"></div>
-                <div class="spacing"></div>
-            
-            <div class="row event">
-                <div class="col-lg-9">
-                    <a href="/daily/2020/daily-post-test-article/"><h3 class="ctitle">谈谈被日本抛弃的 公 · 知 · 们</h3></a>
-                        <csmall>Nov 11, 2020. | By: Bin4xin</csmall>
-                    <div class="spacing"></div>
-                    
-                    <div class="post-abstract">
-                     明治时代后期，在先后赢得中日甲午战争、日俄战争的胜利之后，日本越发膨胀起来。
+              
+            <hr />
+
+<blockquote>
+
+  <table>
+    <tbody>
+      <tr>
+        <td>本文主要介绍「Jekyll</td>
+        <td>SentrySec. Lab」相关主题源码的路由、相关配置等</td>
+      </tr>
+    </tbody>
+  </table>
+
+</blockquote>
+
+<h3 id="-路由问题"># 路由问题</h3>
+
+<p>源码下载下来后，基本的文件形式供参考：</p>
+
+<p><img src="https://i.loli.net/2021/07/13/o4gb1veWBlfyx8T.png" alt="截屏2021-07-13 下午3.03.46.png" /></p>
+
+<blockquote>
+  <p>文章内容往后更新，此处主要测试图床功能</p>
+</blockquote>
+
+<ul>
+  <li>实操下来发现路由结构如下：
+    <ul>
+      <li>新闻-公告窗口相互绑定<code class="language-plaintext highlighter-rouge">/news</code>，<code class="language-plaintext highlighter-rouge">readmore</code>功能同样跳转	;</li>
+      <li>帮助-个人希望实现对于近期的一些研究，如<code class="language-plaintext highlighter-rouge">struts2,shiro</code>;但是部分功能路由和json文件对应的<code class="language-plaintext highlighter-rouge">site.url/help</code>路由暂时无法得知如何代码。</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+<ul>
+  <li>2020-11-08更新：
+发现路由信息：
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">_data/options.yml</code>配置文件可以选择配置<code class="language-plaintext highlighter-rouge">force_redirect_help</code>功能，即强制路由跳转至<code class="language-plaintext highlighter-rouge">help/*{redirect_url}</code></li>
+      <li>可以选择配置<code class="language-plaintext highlighter-rouge">unlist</code>选项、<code class="language-plaintext highlighter-rouge">new</code>显示等。</li>
+    </ul>
+  </li>
+  <li>2021-2-1更新：
+发现头部样式关联：
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">category</code>配置与<code class="language-plaintext highlighter-rouge">layout</code>配置
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">layout</code>布局选项配置，如选择配置<code class="language-plaintext highlighter-rouge">help</code>那么则可以在近期研究中左侧导航栏中发现</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
 
 
-  
-    朝野都认为，日本是一个了不起的民族，”大日本主义”风行一时，这种意识形态鼓动着民众的民族主义，推动着日本对外扩张。
-  
-  
-    ...
-                    </div>
-                    <p><a href="/daily/2020/daily-post-test-article/">[Read More]</a></p>
-                </div>
-                <div class="col-lg-3">
-                  
-                  <img class="img-responsive event-poster" height="100%" width="100%" src="/assets/img/daily/IMG_0570.png" />
-                  
-                </div>
-            </div>
-                <div class="hline"></div>
-                <div class="spacing"></div>
-            
-            <!--read more over-->
-        </div>
-    </div>
-</div>
+
+
+        </div><! --/col-lg-8 -->
+    </div><! --/row -->
+</div><! --/container -->
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>
 
         <div id="footerwrap">
     <div class="container">

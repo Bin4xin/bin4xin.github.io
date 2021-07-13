@@ -6,9 +6,29 @@
     <description>哨兵安全实验室</description>
     <link>https://www.sentrylab.cn/</link>
     <atom:link href="https://sentrylab.cn/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 07 Jul 2021 14:09:12 +0800</pubDate>
-    <lastBuildDate>Wed, 07 Jul 2021 14:09:12 +0800</lastBuildDate>
+    <pubDate>Tue, 13 Jul 2021 14:41:41 +0800</pubDate>
+    <lastBuildDate>Tue, 13 Jul 2021 14:41:41 +0800</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
+    
+      <item>
+        <title>event: 「Jekyll | SentrySec. Lab」技术栈相关一揽子教程</title>
+        <description>
+  实操下来发现路由结构如下：
+    
+      新闻-公告窗口相互绑定site.url/news，readmore功能同样跳转	;
+      帮助-个人希望实现对于近期的一些研究，如struts2,shiro;但是部分功能路...</description>
+        <pubDate></pubDate>
+        <link> https://www.sentrylab.cn/event/2021/Jekyll-site-routers-and-config/</link>
+        <guid isPermaLink="true">/event/2021/Jekyll-site-routers-and-config/</guid>
+        
+        <category>笔记</category>
+        
+        <category>wiki</category>
+        
+        
+        <category>event</category>
+        
+      </item>
     
       <item>
         <title>event: 置顶文章速览 - 更新于2021/07/05</title>
@@ -50,7 +70,7 @@
       <item>
         <title>daily: 安庆除草</title>
         <description>
-狗尾草（学名：Setaria viridis），又名绿狗尾草、谷莠子、狗尾巴草。一年生草本植物；秆直立或基部膝曲，高30-100厘米；叶片扁平，狭披针形或线状披针形；圆锥花序紧密呈圆柱形，刚毛粗糙，通常绿色或褐黄色。同属植物常见的还...</description>
+  狗尾草（学名：Setaria viridis），又名绿狗尾草、谷莠子、狗尾巴草。一年生草本植物；秆直立或基部膝曲，高30-100厘米；叶片扁平，狭披针形或线状披针形；圆锥花序紧密呈圆柱形，刚毛粗糙，通常绿色或褐黄色。同属植物常见...</description>
         <pubDate></pubDate>
         <link> https://www.sentrylab.cn/daily/2021/Weeding-in-Anqing/</link>
         <guid isPermaLink="true">/daily/2021/Weeding-in-Anqing/</guid>
@@ -242,33 +262,6 @@
         
         
         <category>blog</category>
-        
-        <category>笔记</category>
-        
-      </item>
-    
-      <item>
-        <title>blog: 不得不谈的：「Spring Boot」未授权渗透</title>
-        <description>Spring Boot Vulnerability Exploit CheckList
-
-Spring Boot 相关漏洞学习资料，利用方法和技巧合集，黑盒安全评估 check list
-
-声明
-
-这是转载地址，
-若作者介意请联系：「...</description>
-        <pubDate></pubDate>
-        <link> https://www.sentrylab.cn/blog/2020/Spring-boot/</link>
-        <guid isPermaLink="true">/blog/2020/Spring-boot/</guid>
-        
-        
-        <category>blog</category>
-        
-        <category>src</category>
-        
-        <category>CVE</category>
-        
-        <category>信息搜集</category>
         
         <category>笔记</category>
         
