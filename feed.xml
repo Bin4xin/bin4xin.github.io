@@ -6,17 +6,30 @@
     <description>哨兵安全实验室</description>
     <link>https://www.sentrylab.cn/</link>
     <atom:link href="https://sentrylab.cn/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 13 Jul 2021 14:41:41 +0800</pubDate>
-    <lastBuildDate>Tue, 13 Jul 2021 14:41:41 +0800</lastBuildDate>
+    <pubDate>Fri, 16 Jul 2021 16:52:53 +0800</pubDate>
+    <lastBuildDate>Fri, 16 Jul 2021 16:52:53 +0800</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
     
       <item>
         <title>event: 「Jekyll | SentrySec. Lab」技术栈相关一揽子教程</title>
         <description>
-  实操下来发现路由结构如下：
+
+
+
+  
     
-      新闻-公告窗口相互绑定site.url/news，readmore功能同样跳转	;
-      帮助-个人希望实现对于近期的一些研究，如struts2,shiro;但是部分功能路...</description>
+      
+        本文主要介绍「Jekyll
+        SentrySec. Lab」相关主题源码的路由、相关配置等
+      
+    
+  
+
+
+
+# 路由问题
+
+源码下载下来后，基本的...</description>
         <pubDate></pubDate>
         <link> https://www.sentrylab.cn/event/2021/Jekyll-site-routers-and-config/</link>
         <guid isPermaLink="true">/event/2021/Jekyll-site-routers-and-config/</guid>
