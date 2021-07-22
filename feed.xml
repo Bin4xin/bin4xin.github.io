@@ -2,12 +2,12 @@
 <?xml-stylesheet type="text/css" href="/assets/css/rss.css" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>©「哨兵」| Sentry Security</title>
+    <title>©「哨兵」| Sentry Security | Home</title>
     <description>哨兵安全实验室</description>
-    <link>https://www.sentrylab.cn/</link>
-    <atom:link href="https://sentrylab.cn/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 16 Jul 2021 16:52:53 +0800</pubDate>
-    <lastBuildDate>Fri, 16 Jul 2021 16:52:53 +0800</lastBuildDate>
+    <link>https://www.sentrylab.cn</link>
+    <atom:link href="https://www.sentrylab.cn/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Thu, 22 Jul 2021 14:42:03 +0800</pubDate>
+    <lastBuildDate>Thu, 22 Jul 2021 14:42:03 +0800</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
     
       <item>
@@ -30,8 +30,8 @@
 # 路由问题
 
 源码下载下来后，基本的...</description>
-        <pubDate></pubDate>
-        <link> https://www.sentrylab.cn/event/2021/Jekyll-site-routers-and-config/</link>
+        <pubDate>Wed, 07 Jul 2021 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/event/2021/Jekyll-site-routers-and-config/</link>
         <guid isPermaLink="true">/event/2021/Jekyll-site-routers-and-config/</guid>
         
         <category>笔记</category>
@@ -67,8 +67,8 @@
     
       2021/02/05
 ...</description>
-        <pubDate></pubDate>
-        <link> https://www.sentrylab.cn/event/2021/sentry-lab-markdown-usage/</link>
+        <pubDate>Mon, 05 Jul 2021 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/event/2021/sentry-lab-markdown-usage/</link>
         <guid isPermaLink="true">/event/2021/sentry-lab-markdown-usage/</guid>
         
         <category>笔记</category>
@@ -84,8 +84,8 @@
         <title>daily: 安庆除草</title>
         <description>
   狗尾草（学名：Setaria viridis），又名绿狗尾草、谷莠子、狗尾巴草。一年生草本植物；秆直立或基部膝曲，高30-100厘米；叶片扁平，狭披针形或线状披针形；圆锥花序紧密呈圆柱形，刚毛粗糙，通常绿色或褐黄色。同属植物常见...</description>
-        <pubDate></pubDate>
-        <link> https://www.sentrylab.cn/daily/2021/Weeding-in-Anqing/</link>
+        <pubDate>Sun, 27 Jun 2021 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/daily/2021/Weeding-in-Anqing/</link>
         <guid isPermaLink="true">/daily/2021/Weeding-in-Anqing/</guid>
         
         
@@ -103,8 +103,8 @@
   点击下载：sxd0216/attack-packets
     
       14、...</description>
-        <pubDate></pubDate>
-        <link> https://www.sentrylab.cn/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-II/</link>
+        <pubDate>Fri, 07 May 2021 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-II/</link>
         <guid isPermaLink="true">/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-II/</guid>
         
         
@@ -131,8 +131,8 @@
     
       点击以了解OpenPLC
     ...</description>
-        <pubDate></pubDate>
-        <link> https://www.sentrylab.cn/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-I/</link>
+        <pubDate>Fri, 07 May 2021 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-I/</link>
         <guid isPermaLink="true">/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-I/</guid>
         
         
@@ -152,8 +152,8 @@
   部分依赖jar包在安装完nc6.5系统后，一般在C://yonyou//home//lib//目录下，前提需要有nc6.5的安装包；或者下载仓库内的依赖包：
     
       点击以...</description>
-        <pubDate></pubDate>
-        <link> https://www.sentrylab.cn/blog/2021/yonyou-nc6.5-java-underser/</link>
+        <pubDate>Sat, 13 Mar 2021 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2021/yonyou-nc6.5-java-underser/</link>
         <guid isPermaLink="true">/blog/2021/yonyou-nc6.5-java-underser/</guid>
         
         
@@ -176,8 +176,8 @@
     
       
         甲方：小伙伴们接集团要求需对 WAF全流量平台 攻击ip进行朔源...</description>
-        <pubDate></pubDate>
-        <link> https://www.sentrylab.cn/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/</link>
+        <pubDate>Sat, 13 Mar 2021 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/</link>
         <guid isPermaLink="true">/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/</guid>
         
         
@@ -200,8 +200,8 @@
 
 
 按照新年的规划，过来需要沉淀的便是Shiro框架。过完年回来就面临着护网，在...</description>
-        <pubDate></pubDate>
-        <link> https://www.sentrylab.cn/blog/2021/thereis-something2say/</link>
+        <pubDate>Sat, 13 Mar 2021 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2021/thereis-something2say/</link>
         <guid isPermaLink="true">/blog/2021/thereis-something2say/</guid>
         
         
@@ -221,8 +221,8 @@
   
   
     ...</description>
-        <pubDate></pubDate>
-        <link> https://www.sentrylab.cn/daily/2020/daily-post-test-article/</link>
+        <pubDate>Wed, 11 Nov 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/daily/2020/daily-post-test-article/</link>
         <guid isPermaLink="true">/daily/2020/daily-post-test-article/</guid>
         
         
@@ -269,14 +269,907 @@
   当今网络安全之趋势，当在国家安全的大前提下：
     
     ...</description>
-        <pubDate></pubDate>
-        <link> https://www.sentrylab.cn/blog/2020/think-about-cyber-security/</link>
+        <pubDate>Fri, 25 Sep 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/think-about-cyber-security/</link>
         <guid isPermaLink="true">/blog/2020/think-about-cyber-security/</guid>
         
         
         <category>blog</category>
         
         <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 不得不谈的：「Spring Boot」未授权渗透</title>
+        <description>Spring Boot Vulnerability Exploit CheckList
+
+Spring Boot 相关漏洞学习资料，利用方法和技巧合集，黑盒安全评估 check list
+
+声明
+
+这是转载地址，
+若作者介意请联系：「...</description>
+        <pubDate>Fri, 25 Sep 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/Spring-boot/</link>
+        <guid isPermaLink="true">/blog/2020/Spring-boot/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>src</category>
+        
+        <category>CVE</category>
+        
+        <category>信息搜集</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「排错」：Docker启动vulnhub报错排错</title>
+        <description>最近在做靶场漏洞复现的时候发现了一个由web虚拟机和db虚拟机一起跑起来的联动靶场环境，下载完镜像后总是报错，思前想后都没办法，于是只能自己来解决问题，虽然结果令人大失所望，但是过程还是挺让人有成就感的，就记录了一下。
+
+#docke...</description>
+        <pubDate>Fri, 11 Sep 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/docker/vuln/problems/</link>
+        <guid isPermaLink="true">/blog/2020/docker/vuln/problems/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>docker</category>
+        
+        <category>技巧</category>
+        
+        <category>Vulnhub</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「技巧」：Linux &amp; Unix Terminal小技巧</title>
+        <description>grep
+
+
+  grep -n “get_spg2lsf” -r ./
+
+
+在当前文件夹下查找包含”get_spg2lsf”字符串的文件
+
+vim
+
+快速删除
+1、删除每行前10个字符：
+
+
+  :%s/^.{10}//
+
+
+其中，...</description>
+        <pubDate>Tue, 01 Sep 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/use/vim/in/linux/</link>
+        <guid isPermaLink="true">/blog/2020/use/vim/in/linux/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>BASH</category>
+        
+        <category>信息搜集</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「安全工具」:A-Web_Vuln_Scan和aq域名爆破工具</title>
+        <description>aq域名工具
+
+此处仅仅对于aq工具的报错进行部分记录，若存在无法解决的问题可以自行查询其他师傅的文章。
+
+
+  gem换源
+gem安装软件之前一定要换源；
+
+
+gem sources --add https://gems.ruby-...</description>
+        <pubDate>Sun, 21 Jun 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/useSecTools/aq_AWVS/</link>
+        <guid isPermaLink="true">/blog/2020/useSecTools/aq_AWVS/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>安全工具</category>
+        
+        <category>信息搜集</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「Fuzz」:浅谈一些模糊匹配搜集信息的技巧</title>
+        <description>写在文前：
+
+
+  我们在web攻防期间有很多时候有一种感觉：那就是遇到rce漏洞时，bp放包的时候有一种隐隐的感觉，有的时候bp的反包字节大小莫名其妙的怪异，有经验的老师傅就索性直接跑RCE的fuzz字典，所以本篇就日常记录一些有关...</description>
+        <pubDate>Wed, 10 Jun 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/learn/to/fuzz/</link>
+        <guid isPermaLink="true">/blog/2020/learn/to/fuzz/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>fuzz</category>
+        
+        <category>信息搜集</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「信息搜集」:漫谈一些在内网的信息搜集技巧</title>
+        <description>经历过几次HW行动，每次HW都运气较好可以拿到服务器，于是每次公司的内网渗透的任务就交给我，记录一下对于内网的信息搜集过程，以及在此过程中我自己所积累的小技巧。
+
+
+2021年 3月19日 星期五 16时37分27秒 CST更新
+
+ ...</description>
+        <pubDate>Mon, 08 Jun 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/walkthrough/insideNet/</link>
+        <guid isPermaLink="true">/blog/2020/walkthrough/insideNet/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>vulnhub</category>
+        
+        <category>内网</category>
+        
+        <category>信息搜集</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「Docker」:use docker elegant:)</title>
+        <description>网上有很多关于vulhub的docker构建教程，就不重复造轮子了。记录一些日常使用dokcer遇到的问题
+
+docker常用
+连接重置
+
+  Burp Suite Professional
+Error Connection rese...</description>
+        <pubDate>Wed, 27 May 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/use/Docker/Elegently/</link>
+        <guid isPermaLink="true">/blog/2020/use/Docker/Elegently/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>vulnhub</category>
+        
+        <category>漏洞复现</category>
+        
+        <category>排错</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「Struts2」:Apache-Struts2框架漏洞复现</title>
+        <description>s2-001
+struts2-001该漏洞因为用户提交表单数据并且验证失败时，后端会将用户之前提交的参数值使用OGNL表达式%{value}进行解析，然后重新填充到对应的表单数据中。
+例如注册或登录页面，提交失败后端一般会默认返回之前...</description>
+        <pubDate>Tue, 26 May 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/Apache/Strut2/Vuln/</link>
+        <guid isPermaLink="true">/blog/2020/Apache/Strut2/Vuln/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>vulnhub</category>
+        
+        <category>漏洞复现</category>
+        
+        <category>CVE</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「BASH」:谈谈完全交互式的终端</title>
+        <description>写在前面，本方法适用于在反弹shell后把shell提升为完全交互式shell，也是自己实战了一段时间后摸索出来的，记一下笔记；
+完美的交互式shell
+python -c 'import pty; pty.spawn(&quot;/...</description>
+        <pubDate>Wed, 20 May 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/get/TTY/terminal/</link>
+        <guid isPermaLink="true">/blog/2020/get/TTY/terminal/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>BASH</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「fastjson」:浅谈json的反序列化</title>
+        <description>fastjson指纹特征
+访问页面，查看反包是一个指定的json格式的数据。请求包：
+GET / HTTP/1.1
+Host: underattack-host:8090
+Cache-Control: max-age=0
+DNT: 1...</description>
+        <pubDate>Tue, 19 May 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/fastjson/UNdeser/</link>
+        <guid isPermaLink="true">/blog/2020/fastjson/UNdeser/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>漏洞复现</category>
+        
+        <category>笔记</category>
+        
+        <category>vulnhub</category>
+        
+        <category>Sql-Inject</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「DOCKER」:谈谈docker逃逸那点事</title>
+        <description>Google Cloud Shell Docker逃逸
+sudo docker -H unix:///google/host/var/run/docker.sock pull alpine:latest
+Welcome to Clou...</description>
+        <pubDate>Sun, 17 May 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/docker/escape/</link>
+        <guid isPermaLink="true">/blog/2020/docker/escape/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>漏洞复现</category>
+        
+        <category>笔记</category>
+        
+        <category>docker</category>
+        
+        <category>CVE</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「渗透」:SQL注入新姿势:)</title>
+        <description>
+  由于一些机缘巧合，发现了一些SQL注入的新姿势，记录一下；
+
+
+记录就是一个简单的练手记录，感觉非常有意思；
+目标确定
+在shodan、fofa上搜asmx，找到疑似存在wsdl注入的站，大概的是这样的：http://vuln_...</description>
+        <pubDate>Fri, 15 May 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/wsdl/inject/</link>
+        <guid isPermaLink="true">/blog/2020/wsdl/inject/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>Web</category>
+        
+        <category>笔记</category>
+        
+        <category>渗透</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「安卓」:使用rootCloak绕过root权限监测</title>
+        <description>
+  gradle打包
+    
+      https://blog.csdn.net/EthanCo/article/details/52064044
+      https://www.kutu66.com/GitHub/art...</description>
+        <pubDate>Fri, 15 May 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/escape/from_android_root/</link>
+        <guid isPermaLink="true">/blog/2020/escape/from_android_root/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>Android Reverse</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「渗透」:一句话反弹docker-shell</title>
+        <description>
+  一句话木马反弹shell
+
+
+前提：现在情况是已经上传了一句话木马，可以执行命令如：ls,pwd,whoami等；问题在于，不管用python、bash还是perl都反弹不了，偷不了懒，就上msf把。
+http://target...</description>
+        <pubDate>Mon, 27 Apr 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/docker/reverse/shell/by1/</link>
+        <guid isPermaLink="true">/blog/2020/docker/reverse/shell/by1/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>docker</category>
+        
+        <category>Web</category>
+        
+        <category>渗透</category>
+        
+      </item>
+    
+      <item>
+        <title>event: 《厚黑学》:转载</title>
+        <description> 《 厚 黑 学 》
+·李宗吾·
+(1879-1944)
+　　我自读书识字以来，就想为英雄豪杰，求之四书五经，茫无所得，求之诸子百家，与夫廿四史，仍无所得，以为古之为英雄豪杰者，必有不传之秘，不过吾人生性愚鲁，寻他不出罢了。穷索冥搜，...</description>
+        <pubDate>Fri, 10 Apr 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/event/2020/hou-hei-xue-post/</link>
+        <guid isPermaLink="true">/event/2020/hou-hei-xue-post/</guid>
+        
+        <category>笔记</category>
+        
+        <category>诗文</category>
+        
+        <category>经典</category>
+        
+        
+        <category>event</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「Terminal」:pip报错'unkown-encoding'</title>
+        <description>
+  可怖的unkown encoding.
+
+
+自从修改了windows终端的编码格式后，就出了各种问题，几乎在终端上执行的软件都运行不了，提示LookupError: unknown encoding: cp65001，如下报错。...</description>
+        <pubDate>Wed, 01 Apr 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/pip/said/unkown/encoding/</link>
+        <guid isPermaLink="true">/blog/2020/pip/said/unkown/encoding/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>python</category>
+        
+        <category>Terminal</category>
+        
+      </item>
+    
+      <item>
+        <title>event: 「机器学习」：谈谈有关数据预处理中的小技巧-Excel分列</title>
+        <description>问题引出
+
+  
+    hadoop,hive等输出数据导出为csv文件
+
+    
+      
+        解决：用表格软件打开的数据文件，数据都保存在同一列；通过一些小技巧把一列的数据分成我们所需要的列数。
+      
+...</description>
+        <pubDate>Mon, 24 Feb 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/event/2020/how-to-preview-datas/</link>
+        <guid isPermaLink="true">/event/2020/how-to-preview-datas/</guid>
+        
+        <category>笔记</category>
+        
+        <category>机器学习</category>
+        
+        <category>python</category>
+        
+        <category>Excel</category>
+        
+        
+        <category>event</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「资产扫描」:Let's GyoiThon !</title>
+        <description>title:GyoiThon Scanner
+
+1 下载依赖项
+下载源文件后，进入文件夹路径，根据python的依赖进行安装，即requirements.txt文件：
+
+PS G:\GyoiThon&amp;gt; pip insta...</description>
+        <pubDate>Tue, 21 Jan 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/Lets/GyoiThon/</link>
+        <guid isPermaLink="true">/blog/2020/Lets/GyoiThon/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>安全工具</category>
+        
+        <category>Web</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「代码审计」:Maven构建Jeeplus项目</title>
+        <description>1. Maven构建
+第一步获取Maven构建的项目，只有用Maven构建的java项目，我们才能够Maven进行构建部署。
+下面这个是我用来练手的项目。自己也可以到github上找到。
+
+此处Maven环境配置略过。多提一句，这里包...</description>
+        <pubDate>Sun, 19 Jan 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/maven/build/mavaProject/</link>
+        <guid isPermaLink="true">/blog/2020/maven/build/mavaProject/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>Maven</category>
+        
+        <category>代码审计</category>
+        
+        <category>Web</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「搬运工笔记」:Maven构建Java web项目</title>
+        <description>
+  
+    Maven构建、Gradle构建最近搞得我头痛，天天搬运别人的东西，搬也搬不像。。问题还没有彻底解决，先随手记下。
+  
+  
+    
+      
+        
+          持续更新中
+        ...</description>
+        <pubDate>Thu, 09 Jan 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/maven/build/mavaProject/</link>
+        <guid isPermaLink="true">/blog/2020/maven/build/mavaProject/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>Maven</category>
+        
+        <category>代码审计</category>
+        
+        <category>Web</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「笔记」：fortify-error-no-rules-file-found</title>
+        <description>
+  最近在接触代码审计的活儿。碰到了一些问题，随手记录下来。
+错误描述：当fortify开始java代码分析时，报错No rules files found;
+
+
+1.错误描述
+谷歌一波：
+问题引出
+stackoverflow原问题...</description>
+        <pubDate>Tue, 07 Jan 2020 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2020/fortify/no-fules-file/found/</link>
+        <guid isPermaLink="true">/blog/2020/fortify/no-fules-file/found/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>Web</category>
+        
+        <category>漏洞复现</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「scrcpy」:Linux中优秀的投屏软件～</title>
+        <description># apt install snapd
+正在读取软件包列表... 完成
+正在分析软件包的依赖关系树       
+正在读取状态信息... 完成       
+snapd 已经是最新版 (2.42.1-1)。
+升级了 0 个软件包，新安...</description>
+        <pubDate>Tue, 31 Dec 2019 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2019/scrcpy/</link>
+        <guid isPermaLink="true">/blog/2019/scrcpy/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「笔记」：反弹shell的几种方法</title>
+        <description>记录：关于bash shell的反弹:)随笔记
+假定环境：
+
+
+  kali被攻击机器；ip:192.168.3.32
+  iZj6cgn7odv59wmjjhe6zwZ攻击机；ip:47.52.233.92
+
+
+1.bash
+roo...</description>
+        <pubDate>Mon, 30 Dec 2019 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2019/shell/reserve/back/</link>
+        <guid isPermaLink="true">/blog/2019/shell/reserve/back/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>安全工具</category>
+        
+        <category>渗透</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: Mod-Security：有关「WAF」的爱恨情仇</title>
+        <description>目录
+
+  “朝花夕拾”
+  1.运行环境
+  2.安装配置
+  3.规则库配置
+  4.总结
+
+
+添加于2021/02/05
+
+“朝花夕拾”
+
+这篇与WAF相关”技术”博客其实没有多少技术含量，只是当时刚刚接触到WAF，感觉非常的新...</description>
+        <pubDate>Wed, 25 Dec 2019 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2019/ABOUT/Modsec/waf/</link>
+        <guid isPermaLink="true">/blog/2019/ABOUT/Modsec/waf/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>Web</category>
+        
+        <category>WAF</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「安卓渗透」:Amazing drozer Scanning frame</title>
+        <description>
+  直接上链接，不多bb。有空写实战：）
+    
+      参考文档：安卓渗透框架－Drozer架构浅析–架构组成和自定义模块
+    
+  
+
+
+一、drozer运行概述
+跟Frida-Hook框架运行模式差不多，均为C/S模...</description>
+        <pubDate>Wed, 18 Dec 2019 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2019/Drozer/Scan/in/android/</link>
+        <guid isPermaLink="true">/blog/2019/Drozer/Scan/in/android/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>Android Reverse</category>
+        
+        <category>渗透</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「安卓渗透」： Let's hook APK with frida～</title>
+        <description>
+  忙里偷闲，本文是记录Hook-Frida框架，如何使用Frida注入代码，做到对安卓apk进行代码hook注入。
+
+
+Frida框架准备
+
+1.frida框架安装
+frida框架为C/S模式，即客户端、服务端模式：
+
+
+  1）...</description>
+        <pubDate>Sun, 15 Dec 2019 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2019/Android/hook/</link>
+        <guid isPermaLink="true">/blog/2019/Android/hook/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>Android Reverse</category>
+        
+        <category>渗透</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「笔记」NGINX：http升级https协议</title>
+        <description>窈窕HTTPS，正是TCP的好逑；
+
+how to used http to https with nginx? Is’s sounds fantastic!
+
+
+  其实证书早就颁发下来了，一直配置配不成功（小声bb）。纪念一下，2...</description>
+        <pubDate>Sat, 07 Dec 2019 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2019/how-nginx/http2https/</link>
+        <guid isPermaLink="true">/blog/2019/how-nginx/http2https/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>Web</category>
+        
+        <category>排错</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「排错」：php-fpm解析404-not found</title>
+        <description>
+  php+nginx解析错误，报错404-Not Found
+
+
+前言
+容器内是自己写的个人博客，处于安全考虑用的是静态页面博客。但是由于公网维护博客较为困难，加上之前用的开源存储云服务项目，那么就需要php来解析，所以打算试一试...</description>
+        <pubDate>Wed, 04 Dec 2019 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2019/nginx/with/php/404error/</link>
+        <guid isPermaLink="true">/blog/2019/nginx/with/php/404error/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>Web</category>
+        
+        <category>笔记</category>
+        
+        <category>技巧</category>
+        
+        <category>排错</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「安卓渗透」：天之骄子ADB</title>
+        <description>adb简介
+adb（Android Debug Bridge）Android调试桥是一种功能多样的命令行工具，可让设备之间（PC端和移动端）进行通信。
+adb 命令便于执行各种设备操作（例如安装和调试应用），并提供对 Unix She...</description>
+        <pubDate>Sat, 30 Nov 2019 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2019/android/debug/brige/</link>
+        <guid isPermaLink="true">/blog/2019/android/debug/brige/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>渗透</category>
+        
+        <category>Android Reverse</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 多子域：JEKYLL优雅地部署于NGINX</title>
+        <description>
+
+本文主要介绍服务端的Jekyll站点部署方法，以及相关的一揽子问题及解决方案；
+
+于 2021年 6月27日 星期日 20时19分07秒 CST修改，个人建议
+
+优雅地使用：
+
+
+  阐述Jekyll的工作问题；
+  解决多子域问...</description>
+        <pubDate>Fri, 22 Nov 2019 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2019/nginx/with/jekyll-site/</link>
+        <guid isPermaLink="true">/blog/2019/nginx/with/jekyll-site/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>Web</category>
+        
+        <category>技巧</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: Docker环境下T-pot蜜罐部署记录</title>
+        <description>
+  摘要:最近在网上冲浪看到一个开源蜜罐项目，看到是基于web的蜜罐项目，web页面是真好看。突发奇想正好手头有个公网ip，最近也在为论文数据来源发愁，索性来试试看。
+    
+      先说结论，安装失败。本篇持续更新～（滑稽）...</description>
+        <pubDate>Thu, 21 Nov 2019 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2019/docker/t/pot/</link>
+        <guid isPermaLink="true">/blog/2019/docker/t/pot/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>安全工具</category>
+        
+        <category>主动防御</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「笔记」：Jekyll for linux.服务器部署历程</title>
+        <description>
+  申明：背景图来自微博@胡歌，侵删～不过胡歌这么可爱应该不会介意的
+
+
+第一个问题：这玩意儿是什么？通俗的来讲：
+Jekyll = web server + static blog + front end UI
+如果你想拥有一个自...</description>
+        <pubDate>Mon, 18 Nov 2019 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2019/jekyll/in/linux/</link>
+        <guid isPermaLink="true">/blog/2019/jekyll/in/linux/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>软件移植</category>
+        
+      </item>
+    
+      <item>
+        <title>event: 「起源」：我与ERRORS</title>
+        <description>摘要：想自己做个人博客已经不是一天两天了。正好，最近闲了下来，趁着年前有时间，来把这个事情了结掉。（文尾有彩蛋～）
+
+我以初中物理的思路简单构思了一下这个站，简称三个W：What+Why+How
+
+WHAT？是什么
+我其实也一直在纠结...</description>
+        <pubDate>Wed, 11 Sep 2019 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/event/2019/first-day/</link>
+        <guid isPermaLink="true">/event/2019/first-day/</guid>
+        
+        <category>笔记</category>
+        
+        <category>起源</category>
+        
+        
+        <category>event</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「移植」Ubuntu With Arm公网存储容器搭建记录</title>
+        <description>
+  声明：本文章首发于华为云鲲鹏社区，同步于作者个人博客:)
+
+
+鲲鹏云服务器Ubuntu 18.04 64bit with ARM
+
+PHP+NGINX软链接演示
+
+
+  摘要：华为云社区的活动好多～最近领了个ARM云服务器。打算...</description>
+        <pubDate>Sun, 01 Sep 2019 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2019/Ubuntu/with/arm/</link>
+        <guid isPermaLink="true">/blog/2019/Ubuntu/with/arm/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>软件移植</category>
+        
+        <category>ARM</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「FINDOMAIN」：跨平台子域名搜集工具</title>
+        <description>摘要:之前在暑假里申请注册了个云先知平台账号，平时没事闲（mo）着（yang）的（gong）时候当当土拨鼠挖挖洞。挖过的都懂，是一个类似于渗透测试的中心化平台。乙方公司有这个需求，通过这个平台发放任务，通过不同的漏洞等级【严重】-【高...</description>
+        <pubDate>Sun, 01 Sep 2019 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2019/findomain/</link>
+        <guid isPermaLink="true">/blog/2019/findomain/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>安全工具</category>
+        
+        <category>笔记</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「渗透」SVG的神秘力量：minUv2</title>
+        <description>
+  categories:
+    
+      blog
+      Web
+      漏洞复现
+      渗透
+      vulnhub
+    
+  
+
+
+序言
+hello,各位。最近闲来无事，工作之余偷偷用公司电脑测试...</description>
+        <pubDate>Sun, 01 Sep 2019 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2019/minUv2/</link>
+        <guid isPermaLink="true">/blog/2019/minUv2/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>Web</category>
+        
+        <category>漏洞复现</category>
+        
+        <category>渗透</category>
+        
+        <category>vulnhub</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「渗透」:PumpkinRaising-密码学的奥义</title>
+        <description>序言
+hello,各位看官。最近忙里偷闲花了两天时间测试入侵了一个linux靶机，遂记录下。这个靶机我觉得挺适合刚入门的有一些基础的白帽子，对就是你！，大部分flag都是利用一些工具来获得。大佬看客笑看便是（手动狗头）。
+整篇记录的都...</description>
+        <pubDate>Mon, 15 Jul 2019 00:00:00 +0800</pubDate>
+        <link>https://www.sentrylab.cn/blog/2019/vulnhub/PumpkinRaising/</link>
+        <guid isPermaLink="true">/blog/2019/vulnhub/PumpkinRaising/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>Web</category>
+        
+        <category>漏洞复现</category>
+        
+        <category>渗透</category>
+        
+        <category>vulnhub</category>
         
       </item>
     
