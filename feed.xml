@@ -6,8 +6,8 @@
     <description>哨兵安全实验室</description>
     <link>https://www.sentrylab.cn</link>
     <atom:link href="https://www.sentrylab.cn/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 31 Jul 2021 23:26:06 +0800</pubDate>
-    <lastBuildDate>Sat, 31 Jul 2021 23:26:06 +0800</lastBuildDate>
+    <pubDate>Sun, 01 Aug 2021 02:52:10 +0800</pubDate>
+    <lastBuildDate>Sun, 01 Aug 2021 02:52:10 +0800</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
     
       <item>
@@ -15,23 +15,27 @@
         <description>
 
 
+  Tips:
+  
+    
+      表示新增
+    
+    
+      表示修改
+    
+    
+      表示升级
+    
+    
+      表示引用或站点新增展示记录
+    
+  
 
 
- Home articles release note preview quickly
 
 
 
-时间
-操作
-书签
-
-
-
-
-
-2021/07/30 
-
-《 基于Modbus协议与KingView实现Openplc仿真通讯（2）-...</description>
+ C...</description>
         <pubDate>Sat, 31 Jul 2021 00:00:00 +0800</pubDate>
         <link>https://www.sentrylab.cn/event/2021/sentry-lab-markdown-usage/</link>
         <guid isPermaLink="true">/event/2021/sentry-lab-markdown-usage/</guid>
@@ -918,7 +922,7 @@ frida框架为C/S模式，即客户端、服务端模式：
       </item>
     
       <item>
-        <title>blog: 「笔记」NGINX：http升级https协议</title>
+        <title>blog: NGINX笔记：http升级https协议</title>
         <description>窈窕HTTPS，正是TCP的好逑；
 
 how to used http to https with nginx? Is’s sounds fantastic!
