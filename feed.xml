@@ -6,35 +6,33 @@
     <description>哨兵安全实验室</description>
     <link>https://www.sentrylab.cn</link>
     <atom:link href="https://www.sentrylab.cn/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 23 Jul 2021 16:27:13 +0800</pubDate>
-    <lastBuildDate>Fri, 23 Jul 2021 16:27:13 +0800</lastBuildDate>
+    <pubDate>Sat, 31 Jul 2021 23:26:06 +0800</pubDate>
+    <lastBuildDate>Sat, 31 Jul 2021 23:26:06 +0800</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
     
       <item>
-        <title>event: 置顶文章速览 - 更新于2021/07/23</title>
+        <title>event: SentryLab - 文章速览</title>
         <description>
 
 
- 点击以展开置顶文章速览导航树（打算弃用） 
-
-已删除
 
 
- 置顶文章速览导航表格展示
+ Home articles release note preview quickly
 
 
-  
-    
-      时间
-      操作
-      书签
-    
-  
-  
-    
-      2021/02/05
-...</description>
-        <pubDate>Fri, 23 Jul 2021 00:00:00 +0800</pubDate>
+
+时间
+操作
+书签
+
+
+
+
+
+2021/07/30 
+
+《 基于Modbus协议与KingView实现Openplc仿真通讯（2）-...</description>
+        <pubDate>Sat, 31 Jul 2021 00:00:00 +0800</pubDate>
         <link>https://www.sentrylab.cn/event/2021/sentry-lab-markdown-usage/</link>
         <guid isPermaLink="true">/event/2021/sentry-lab-markdown-usage/</guid>
         
@@ -94,7 +92,7 @@
       </item>
     
       <item>
-        <title>blog: 《基于Modbus协议与KingView实现Openplc仿真通讯（2）- 靶场攻击流量分析》</title>
+        <title>blog: 基于Modbus协议与KingView实现Openplc仿真通讯（2）- 靶场攻击流量分析</title>
         <description># WireShark流量分析
 
 网上已经有大佬上传wireshark流量文件，就不重复造轮子去流量了，直接下载下来对照poc代码分析看看：
@@ -117,7 +115,7 @@
       </item>
     
       <item>
-        <title>blog: 《基于Modbus协议与KingView实现Openplc仿真通讯（1）- 仿真通讯靶场搭建》</title>
+        <title>blog: 基于Modbus协议与KingView实现Openplc仿真通讯（1）- 仿真通讯靶场搭建</title>
         <description>
   基于Modbus协议与KingView实现Openplc仿真通讯 - 通讯靶场网络示意图如下
 
