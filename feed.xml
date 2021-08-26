@@ -6,8 +6,8 @@
     <description>哨兵安全实验室</description>
     <link>https://www.sentrylab.cn</link>
     <atom:link href="https://www.sentrylab.cn/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 02 Aug 2021 00:28:33 +0800</pubDate>
-    <lastBuildDate>Mon, 02 Aug 2021 00:28:33 +0800</lastBuildDate>
+    <pubDate>Thu, 26 Aug 2021 16:32:00 +0800</pubDate>
+    <lastBuildDate>Thu, 26 Aug 2021 16:32:00 +0800</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
     
       <item>
@@ -711,12 +711,17 @@ PS G:\GyoiThon&amp;gt; pip insta...</description>
       </item>
     
       <item>
-        <title>blog: 「代码审计」:Maven构建Jeeplus项目</title>
-        <description>1. Maven构建
-第一步获取Maven构建的项目，只有用Maven构建的java项目，我们才能够Maven进行构建部署。
-下面这个是我用来练手的项目。自己也可以到github上找到。
+        <title>blog: Maven构建项目相关一揽子知识</title>
+        <description>
+  2020/01/21更新；
+  Thu, 26 Aug 2021 14:50:02 +0800再次更新；
 
-此处Maven环境配置略过。多提一句，这里包...</description>
+
+序
+
+本文主要是对于在漏洞复现犹其是Maven poc项目代码的部分个人总结
+
+师傅最近让我看freebuf上一篇关于...</description>
         <pubDate>Sun, 19 Jan 2020 00:00:00 +0800</pubDate>
         <link>https://www.sentrylab.cn/blog/2020/maven/build/mavaProject/</link>
         <guid isPermaLink="true">/blog/2020/maven/build/mavaProject/</guid>
@@ -727,37 +732,6 @@ PS G:\GyoiThon&amp;gt; pip insta...</description>
         <category>笔记</category>
         
         <category>Maven</category>
-        
-        <category>代码审计</category>
-        
-        <category>Web</category>
-        
-      </item>
-    
-      <item>
-        <title>blog: 「搬运工笔记」:Maven构建Java web项目</title>
-        <description>
-  
-    Maven构建、Gradle构建最近搞得我头痛，天天搬运别人的东西，搬也搬不像。。问题还没有彻底解决，先随手记下。
-  
-  
-    
-      
-        
-          持续更新中
-        ...</description>
-        <pubDate>Thu, 09 Jan 2020 00:00:00 +0800</pubDate>
-        <link>https://www.sentrylab.cn/blog/2020/maven/build/mavaProject/</link>
-        <guid isPermaLink="true">/blog/2020/maven/build/mavaProject/</guid>
-        
-        
-        <category>blog</category>
-        
-        <category>笔记</category>
-        
-        <category>Maven</category>
-        
-        <category>代码审计</category>
         
         <category>Web</category>
         
