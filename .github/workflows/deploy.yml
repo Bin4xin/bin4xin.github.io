@@ -20,8 +20,8 @@ jobs:
     - name: Simple deploy with git
       uses: rdarida/simple-github-pages-deploy-action@v1
       with: # optional
-        git-user: ''
-        git-email: ''
+        git-user: ${{ secrets.Git_USERNAME}}
+        git-email: ${{ secrets.Git_EMAIL }}
         git-base-folder: '_site'
         commit-message: 'test'
         branch: 'gh-pages'
