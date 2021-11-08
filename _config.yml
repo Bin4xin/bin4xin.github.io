@@ -1,0 +1,47 @@
+### GENERAL SETTINGS ###
+
+# Site settings
+title: ©「哨兵」| Sentry Security
+brand: Sentrylab
+description: 哨兵安全实验室
+baseurl: "" #important: start with /
+url: "https://www.sentrylab.cn"
+
+# Build settings
+highlighter: rouge
+markdown: kramdown
+kramdown:
+    input: GFM
+    hard_wrap: false
+
+permalink: "/:categories/:year/:title/"
+
+excerpt_separator: <!--more--> #use this in posts to define how long the excerpt of the post (that is shown on the Blog page) is
+
+plugins:
+  - jekyll-toc
+
+sass:
+    sass_dir: assets/css
+future: true
+meow_404: true
+
+# Short text about your company. Shown in footer on every page and also separately on Home and Contact page.
+about: "本站由哨兵安全实验室支持创办"
+
+include: ['_pages']
+
+# jekyll-archives:
+#   enabled: [categories]
+#   layout:
+#     category: category
+#   permalink:
+#     category: /categories/:name/
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/

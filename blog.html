@@ -1,0 +1,33 @@
+---
+layout: default
+title: 哨兵安全博客
+permalink: /blog/
+---
+
+<div class="container mtb">
+  <div class="row">
+    <div class="col-lg-9">
+
+      {% for post in site.categories['blog'] %}
+      <div class="row">
+        <div class="col-lg-12">
+          <a href="{{ post.url | prepend: site.baseurl }}"><h3 class="ctitle">{{ post.title }}</h3></a>
+          <p>
+            <csmall>
+              {{ post.date | date: "%b %-d, %Y" }}. | {% if post.wrench %} Last edited: {{ post.wrench | date: "%b %-d, %Y"  }}. | {% endif %}By: {{ post.author }}.
+             </csmall>
+          </p>
+          <p><a href="{{ post.url | prepend: site.baseurl }}">[Read More]</a></p>
+        </div>
+
+      </div>
+      <div class="hline"></div>
+      <div class="spacing"></div>
+      {% endfor %}
+
+    </div><! --/col-lg-8 -->
+
+    {% include sentrybar.html %}
+    
+  </div><! --/row -->
+</div><! --/container -->

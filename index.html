@@ -1,80 +1,10 @@
-<!DOCTYPE html>
-<html>
+---
+layout: default
+title: 哨兵 · Sentrylab 主页
+permalink: /
+---
 
-    <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="本站由哨兵安全实验室支持创办">
-
-<link rel="shortcut icon" href="/assets/img/favicon.png">
-<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="©「哨兵」| Sentry Security" />
-
-
-
-<!-- Open Graph metadata -->
-<meta property="og:type" content="website" />
-<meta property="og:title" content="哨兵 · Sentrylab 主页 | ©「哨兵」| Sentry Security" />
-<meta property="og:description" content="本站由哨兵安全实验室支持创办" />
-<meta property="og:image" content="http://localhost:80/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
-<meta property="og:url" content="http://localhost:80/" />
-<title> 哨兵 · Sentrylab 主页 | ©「哨兵」| Sentry Security | Sentrylab</title>
-
-<link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
-<script src="/assets/js/pace.min.js"></script>
-
-
-<!-- Bootstrap core CSS -->
-<link href="/assets/css/bootstrap.css" rel="stylesheet">
-<!-- Custom styles for this template -->
-<link href="/assets/css/style.css" rel="stylesheet">
-<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
-<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/404-style.css">
-
-
-<script src="/assets/js/jquery.min.js"></script>
-<script src="/assets/js/bootstrap.min.js"></script>
-
-
-
-
-</head>
-
-
-    <body>
-        <!-- Fixed navbar -->
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/"><!--
-   --><picture>
-  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
-  
-  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
-  </picture> Sentrylab</a>
-    </div>
-    <div class="navbar-collapse collapse navbar-right">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="/">HOME</a></li>
-        <li ><a href="/blog/">BLOG</a></li>
-        <li ><a href="/events/">EVENTS</a></li>
-        <li ><a href="/categories/">CATEGORIES</a></li>
-        <li ><a href="/daily/">DAILY</a></li>
-        <li><a href="https://about.sentrylab.cn">ABOUT ME</a></li>
-      </ul>
-    </div><!--/.nav-collapse -->
-
-  </div>
-</div>
-
-            <div id="service">
+<div id="service">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -90,25 +20,19 @@
       </div>
 
       <div class="col-md-3 col-xs-6">
-        <a href="https://www.vulbox.com/whitehats/bin4xin"><picture>
-  <img src="/assets/img/errors/bin4xin.jpg" srcset="" />
-  </picture> </a>
+        <a href="https://www.vulbox.com/whitehats/bin4xin">{% include pic.html name="errors/bin4xin" %} </a>
         <h4>Bin4xin <a href="https://www.vulbox.com/whitehats/bin4xin"><i class="fa fa-hand-o-right"></i></a></h4>
         <p>天意似将颁大任，微躯何厌忍饥寒</p>
       </div>
 
       <div class="col-md-3 col-xs-6">
-        <a href="https://www.vulbox.com/whitehats/Gyp1991"><picture>
-  <img src="/assets/img/errors/Gyp1991.jpg" srcset="" />
-  </picture> </a>
+        <a href="https://www.vulbox.com/whitehats/Gyp1991">{% include pic.html name="errors/Gyp1991" %} </a>
         <h4>Fragrans <a href="https://www.vulbox.com/whitehats/Gyp1991"><i class="fa fa-hand-o-right"></i></a></h4>
         <p>会当凌绝顶，一览众山小</p>
       </div>
 
       <div class="col-md-3 col-xs-6">
-        <a href="https://www.vulbox.com/whitehats/somecat"><picture>
-  <img src="/assets/img/errors/somecat.jpg" srcset="" />
-  </picture> </a>
+        <a href="https://www.vulbox.com/whitehats/somecat">{% include pic.html name="errors/somecat" %} </a>
         <h4>somecat <a href="https://www.vulbox.com/whitehats/somecat"><i class="fa fa-hand-o-right"></i></a></h4>
         <p>小楼一夜听春雨，深巷明朝卖杏花</p>
       </div>
@@ -120,363 +44,59 @@
   <div class="row">
     <div  class="col-md-6 col-md-push-6">
       <h2> # 置顶文章 </h2> 
-       
-      <div class="event" data-event-date="2021-07-31">
+      {% for event in site.categories['event'] limit:5 %} 
+      <div class="event" data-event-date="{{event.date | date: "%F"}}">
         <div class="event-title">
-          <a href="/event/2021/sentry-lab-markdown-usage/">
-             <h4>SentryLab - 文章速览</h4>
+          <a href="{{ event.url | prepend: site.baseurl }}">
+             <h4>{{ event.title }}</h4>
           </a>
         </div>
         <div class="event-meta">
-          <span><strong>时间: </strong>2021-07-31</span>
-<!--           <span><strong>地点:</strong> </span> -->
+          <span><strong>时间: </strong>{{event.date | date: "%F"}}{% if event.time %} {{event.time}} {% endif %}</span>
+<!--           <span><strong>地点:</strong> {{event.place}}</span> -->
           <span class="event-tags">
-            
+            {% for tag in page.tags %}
+            <span class="label label-success">{{tag}}</span>
+            {% endfor %}
           </span>
           
           <span class="event-status">
           </span>
-        
+        {% if event.video or event.slides or event.youtube or event.audio %}
+        <br>
+        {% if event.slides %}
+        <a data-toggle="tooltip" title="讲稿下载" class="label label-info" href="{{event.slides}}" target="_blank"><i class="fa fa-file-alt fa-fw"></i></a>
+        {% endif %}
+        {% endif %}
         </div>
         <div class="event-abstract">
-        
-
-
-  Tips:
-  
-    
-      表示新增
-    
-    
-      表示修改
-    
-    
-      表示升级
-    
-    
-      表示引用或站点新增展示记录
-    
-  
-
-
-
-
-
- Click to preview Home Articles release note quickly
-
-
-
-时间
-操作
-书签
-
-
-
-
-
-2021/07/302021/05/7 
-*NEW
-《 基于Modbus协议与KingView实现Ope...
+        {{ event.excerpt | strip_html | truncate: 240, '...'}}
         </div>
       </div>
-       
-      <div class="event" data-event-date="2021-07-07">
-        <div class="event-title">
-          <a href="/event/2021/Jekyll-site-routers-and-config/">
-             <h4>「Jekyll | SentrySec. Lab」技术栈相关一揽子教程</h4>
-          </a>
-        </div>
-        <div class="event-meta">
-          <span><strong>时间: </strong>2021-07-07</span>
-<!--           <span><strong>地点:</strong> </span> -->
-          <span class="event-tags">
-            
-          </span>
-          
-          <span class="event-status">
-          </span>
-        
-        </div>
-        <div class="event-abstract">
-        
-
-
-
-  
-    
-      
-        本文主要介绍「Jekyll
-        SentrySec. Lab」相关主题源码的路由、相关配置等
-      
-    
-  
-
-
-
-# 路由问题
-
-源码下载下来后，基本的文件形式供参考：
-
-
-
-
-  文章内容往后更新，此处主要测试图床功能
-
-
-
-  实操下来发现路由结构如下：
-    
-      新闻-公告窗口相互绑定/news，readmore功能同样跳转	;
-      帮助-个人希望实现对于近期的一...
-        </div>
-      </div>
-       
-      <div class="event" data-event-date="2020-04-10">
-        <div class="event-title">
-          <a href="/event/2020/hou-hei-xue-post/">
-             <h4>《厚黑学》:转载</h4>
-          </a>
-        </div>
-        <div class="event-meta">
-          <span><strong>时间: </strong>2020-04-10</span>
-<!--           <span><strong>地点:</strong> </span> -->
-          <span class="event-tags">
-            
-          </span>
-          
-          <span class="event-status">
-          </span>
-        
-        </div>
-        <div class="event-abstract">
-         《 厚 黑 学 》
-·李宗吾·
-(1879-1944)
-　　我自读书识字以来，就想为英雄豪杰，求之四书五经，茫无所得，求之诸子百家，与夫廿四史，仍无所得，以为古之为英雄豪杰者，必有不传之秘，不过吾人生性愚鲁，寻他不出罢了。穷索冥搜，忘寝废食，如是者有年，一旦偶然想起三国时几个人物，不觉恍然大悟曰：得之矣，得之矣，古之为英雄豪杰者，不过面厚心黑而已。
-
-　　三国英雄，首推曹操，他的特长，全在心黑：他杀吕伯奢，杀孔融，杀杨修，杀董承伏完，又杀皇后皇子，悍然不顾，并且明目张...
-        </div>
-      </div>
-       
-      <div class="event" data-event-date="2020-02-24">
-        <div class="event-title">
-          <a href="/event/2020/how-to-preview-datas/">
-             <h4>「机器学习」：谈谈有关数据预处理中的小技巧-Excel分列</h4>
-          </a>
-        </div>
-        <div class="event-meta">
-          <span><strong>时间: </strong>2020-02-24</span>
-<!--           <span><strong>地点:</strong> </span> -->
-          <span class="event-tags">
-            
-          </span>
-          
-          <span class="event-status">
-          </span>
-        
-        </div>
-        <div class="event-abstract">
-        问题引出
-
-  
-    hadoop,hive等输出数据导出为csv文件
-
-    
-      
-        解决：用表格软件打开的数据文件，数据都保存在同一列；通过一些小技巧把一列的数据分成我们所需要的列数。
-      
-      
-        写论文的时候遇到的问题：
-        
-          hadoop1.0.3
-          使用hadoop对数据进行map-reduce操作后，在终端上呈现的形式：
-            1...
-        </div>
-      </div>
-       
-      <div class="event" data-event-date="2019-09-11">
-        <div class="event-title">
-          <a href="/event/2019/first-day/">
-             <h4>「起源」：我与ERRORS</h4>
-          </a>
-        </div>
-        <div class="event-meta">
-          <span><strong>时间: </strong>2019-09-11</span>
-<!--           <span><strong>地点:</strong> </span> -->
-          <span class="event-tags">
-            
-          </span>
-          
-          <span class="event-status">
-          </span>
-        
-        </div>
-        <div class="event-abstract">
-        摘要：想自己做个人博客已经不是一天两天了。正好，最近闲了下来，趁着年前有时间，来把这个事情了结掉。（文尾有彩蛋～）
-
-我以初中物理的思路简单构思了一下这个站，简称三个W：What+Why+How
-
-WHAT？是什么
-我其实也一直在纠结，搭建一个这样的博客的意义何在，难道是这样一个刀枪不入的却又孤独的独角戏吗？显然不是，因为这并不是一个没有温度的博客，每篇文章内都倾注了我的心血；同时在我对这些过程进行复现、记录时，对于shell command的掌握、理解又进一步加深。所...
-        </div>
-      </div>
-       
+      {% endfor %} 
       <div>
-        <a href=/events/><i class="fa fa-hand-o-right"></i> MORE</a>
+        <a href={{"/events/"|prepend: site.baseurl}}><i class="fa fa-hand-o-right"></i> MORE</a>
       </div>
     </div>
     <div id="recent-posts" class="col-md-6 col-md-pull-6">
       <h2> # 博客窗口 </h2> 
-       
+      {% for post in site.categories['blog'] limit:5 %} 
       <div class="post">
         <div class="post-title">
-          <a href="/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-II/">
-             <h4><i class="fa fa-file-text-o"></i> 基于Modbus协议与KingView实现Openplc仿真通讯（2）- 靶场攻击流量分析</h4>
+          <a href="{{ post.url | prepend: site.baseurl }}">
+             <h4><i class="fa fa-file-text-o"></i> {{ post.title }}</h4>
           </a>
         </div>
         <div class="post-meta">
-          Bin4xin, 2021-5-7
+          {{post.author}}, {{post.date | date: "%Y-%-m-%-d"}}
         </div>
         <div class="post-abstract">
-        # WireShark流量分析
-
-网上已经有大佬上传wireshark流量文件，就不重复造轮子去流量了，直接下载下来对照poc代码分析看看：
-
-
-  点击下载：sxd0216/attack-packets
-    
-      14、16帧为client向server请求流量，具体如下图：
-      15、17帧为server返回给client确认流量，具体流量可自行下载分析
-    
-  
-
-
-
-
-# 模拟攻击启停
-
-
-
-
+        {{ post.excerpt | strip_html | truncate: 240, '...'}}
         </div>
       </div>
-       
-      <div class="post">
-        <div class="post-title">
-          <a href="/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-I/">
-             <h4><i class="fa fa-file-text-o"></i> 基于Modbus协议与KingView实现Openplc仿真通讯（1）- 仿真通讯靶场搭建</h4>
-          </a>
-        </div>
-        <div class="post-meta">
-          Bin4xin, 2021-5-7
-        </div>
-        <div class="post-abstract">
-        
-  基于Modbus协议与KingView实现Openplc仿真通讯 - 通讯靶场网络示意图如下
-
-
-
-
-# OpenPLC on Linux
-
-
-  OpenPLC环境搭建
-    
-      点击以了解OpenPLC
-    
-  
-
-
-$ mkdir ICWR &amp;&amp; cd ICWR
-$ git clone https://github.com/thiagoralves/OpenPLC_v3.git
-$ cd OpenPLC_v3
-$ ./ins...
-        </div>
-      </div>
-       
-      <div class="post">
-        <div class="post-title">
-          <a href="/blog/2021/yonyou-nc6.5-java-underser/">
-             <h4><i class="fa fa-file-text-o"></i> [UPDATING...]用友NC6.5java反序列化</h4>
-          </a>
-        </div>
-        <div class="post-meta">
-          Bin4xin, 2021-3-13
-        </div>
-        <div class="post-abstract">
-        零：用友nc6.5反序列化依赖jar包
-
-
-  部分依赖jar包在安装完nc6.5系统后，一般在C://yonyou//home//lib//目录下，前提需要有nc6.5的安装包；或者下载仓库内的依赖包：
-    
-      点击以了解yonyou-nc6.5-lib
-        
-          本机运行环境
-        
-
-          java version "1.8.0_181"
-  Java(TM) SE Runtime Environm...
-        </div>
-      </div>
-       
-      <div class="post">
-        <div class="post-title">
-          <a href="/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/">
-             <h4><i class="fa fa-file-text-o"></i> CST 2021年 4月14日 星期三：一次朔源事件的记录</h4>
-          </a>
-        </div>
-        <div class="post-meta">
-          Bin4xin, 2021-3-13
-        </div>
-        <div class="post-abstract">
-        《Bin4xin：我的网安从业朔源事件记录》
-
-零：起源
-
-
-  
-    一日，某护网红队支撑群里发了一份朔源报告，鸦雀无声
-
-    
-      
-        甲方：小伙伴们接集团要求需对 WAF全流量平台 攻击ip进行朔源…
-
-        
-          废佬：这…（甲方你真可爱）
-        
-      
-      
-        领导1：溯源到攻击端信息是个新的领域，望小伙伴们通过此次集团安排做些尝试性学习和探索，
-  落实外部可借力...
-        </div>
-      </div>
-       
-      <div class="post">
-        <div class="post-title">
-          <a href="/blog/2021/thereis-something2say/">
-             <h4><i class="fa fa-file-text-o"></i> 辛丑·本命年 年后的一些思考</h4>
-          </a>
-        </div>
-        <div class="post-meta">
-          Bin4xin, 2021-3-13
-        </div>
-        <div class="post-abstract">
-        过完年回合肥已经接近一个月之久了，今年是本命年，也希望自己能够能够比20年更加努力。回了公司就按照计划忙些有意义的：
-
-
-  一切正在有条不紊的进行着：
-
-
-按照新年的规划，过来需要沉淀的便是Shiro框架。过完年回来就面临着护网，在20年靠着这个为公司护网“打下了一片江山”，今年应进一步理解；
-
-说些没用的：
-
-过年回来后，忙里偷闲与学校网安实验室的孩子们开了一次线下交流会，交流会的主要内容就是总结寒假以来的学习过程和心得汇报；因为年纪较小，基本都是刚大一、大二，所以...
-        </div>
-      </div>
-       
+      {% endfor %} 
       <div>
-        <a href=/blog/><i class="fa fa-hand-o-right"></i> MORE</a>
+        <a href={{"/blog/"|prepend: site.baseurl}}><i class="fa fa-hand-o-right"></i> MORE</a>
       </div>
     </div>
   </div>
@@ -535,61 +155,3 @@ $(document).ready(function(){
 <!--
 vim: ts=2 sts=2 sw=2 expandtab
 -->
-
-
-        <div id="footerwrap">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="col-sm-6">
-                  <p class="thuhidden"><strong>入门</strong></p>
-                  <p class="thuhidden"><a href="https://github.com/tuna/mirror-web" target="blank"><em>Jekyll</em>源码</a></p>
-                  <p class="thuhidden"><a href="https://www.sentrylab.cn/blog/2019/jekyll/in/linux" target="blank">博客搭建教程</a></p>
-                  <p class="thuhidden"><a href="https://about.sentrylab.cn/news/sentry-lab-markdown-usage/" target="blank">个性化语法批注</a></p>
-                  <p class="thuhidden"><a href="https://www.sentrylab.cn/blog/2019/nginx/with/jekyll-site/" target="blank">公网部署</a></p>
-                  </div>
-
-                  <div class="col-sm-6">
-                  <p class="thuhidden"><strong>社区</strong></p>
-                  <p class="thuhidden"><a href="/blog" target="blank">博客</a></p>
-                  <p class="thuhidden"><a href="https://github.com/Bin4xin/bigger-than-bigger/tree/master/CoVV" target="blank"><em>Collection of verified vulnerabilities</em></a></p>
-                  <p class="thuhidden"><a href="https://github.com/Bin4xin/bigger-than-bigger" target="blank"><em>Bigger than Bigger</em></a></p>
-                  <p class="thuhidden"><a href="https://github.com/Bin4xin/B4xinSynchronize" target="blank"><em>B4xinSynchronize</em></a></p>
-                  </div>
-            </div>
-
-        <div class="col-sm-4">
-                  <div class="col-sm-6">
-                    <p class="thuhidden"><strong>开发</strong></p>
-                    <p class="thuhidden"><a href="https://github.com/Bin4xin/Bin4xin" target="blank"><em>Bin4xin</em></a></p>
-                    <p class="thuhidden"><a href="https://www.cloudflare.com/waf/" target="blank"><em>CloudFlare WAF</em></a></p>
-                    <p class="thuhidden"><a href="https://jekyllrb.com/docs/" target="blank"><em>Jekyll</em></a></p>
-                    <p class="thuhidden"><a href="https://www.markdownguide.org/" target="blank"><em>MarkDown</em></a></p>
-                    <p class="share">
-                    <a href="https://github.com/Bin4xin/" target="blank"><i class="fa fa-github"></i></a>
-                    <a href="https://twitter.com/Bin4xin"><i class="fa fa-twitter" target="blank"></i></a>
-                    <a href="#"><i class="fa fa-facebook" target="blank"></i></a>
-                    </p>
-                  </div>
-
-                  <div class="col-sm-6">
-                    <p class="thuhidden"><strong>关于</strong></p>
-                    <p class="thuhidden"><a href="https://about.sentrylab.cn/" target="blank">近期研究</a></p>
-                    <p class="thuhidden">∑ <csmall>(Visitors/times)</csmall></em></p>
-                    <img src="https://profile-counter.glitch.me/bin4xin.github.io/count.svg" style="max-width:100%;">
-                  </div>
-            </div>
-
-        <div class="col-sm-4">
-          
-          <picture>
-  <img src="/assets/img/logo-small@3x.jpg" srcset="/assets/img/logo-small@3x.png 1x" />
-  </picture>
-
-        </div>
-        </div><!--/row -->
-      <p class="thuhidden">© 2019-2021 SentrySec, Lab. Build by Jekyll under the terms of the MIT License.</p>
-    </div><!--/container -->
-</div><!--/footerwrap -->
-    </body>
-</html>

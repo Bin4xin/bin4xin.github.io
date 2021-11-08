@@ -1,0 +1,39 @@
+---
+layout: default
+title: 日常
+permalink: /daily/
+---
+
+<div class="container mtb">
+    <div class="row">
+    <h2> Sentrylab · Ingeeker 's Daily Record </h2>
+    <div class="hline"></div>
+    <div class="spacing"></div>
+
+    <div class="col-lg-10 col-lg-offset-1" id="events-list">
+
+            {% for daily in site.categories['daily'] %}
+            <div class="row event">
+                <div class="col-lg-9">
+                    <a href="{{ daily.url | prepend: site.baseurl }}"><h3 class="ctitle">{{ daily.title }}</h3></a>
+                        <csmall>{{ daily.date | date: "%b %-d, %Y" }}. | By: {{ daily.author }}</csmall>
+                    <div class="spacing"></div>
+                    
+                    <div class="post-abstract">
+                    {{ daily.excerpt | strip_html | truncate: 120, '...'}}
+                    </div>
+                    <p><a href="{{ daily.url | prepend: daily.baseurl }}">[Read More]</a></p>
+                </div>
+                <div class="col-lg-3">
+                  {% if daily.poster %}
+                  <img class="img-responsive event-poster" height="100%" width="100%" src="{%if daily.poster contains 'http:' or daily.poster contains 'https:'%}{{daily.poster}}{%else%}{{"/assets/img/daily/"|prepend: site.baseurl}}{{daily.poster}}{%endif%}" />
+                  {% endif %}
+                </div>
+            </div>
+                <div class="hline"></div>
+                <div class="spacing"></div>
+            {% endfor %}
+            <!--read more over-->
+        </div>
+    </div>
+</div>

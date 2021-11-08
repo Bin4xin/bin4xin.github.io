@@ -1,0 +1,52 @@
+<div class="col-lg-3">
+    <h4>Subscribe/订阅</h4>
+    <div class="hline"></div>
+        <p>
+        <p class="rss-subscribe"><i class="fa fa-rss"></i> Subscribe to this blog <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a>.</p>
+        </p>
+    <div class="spacing"></div>
+    <h4>Categories/分类目录</h4>
+    <div class="hline"></div>
+        {% if page.categories.size > 0 %}
+        <div class="post-meta mb-3">
+        <div class="spacing"></div>
+            <details>
+                <summary class="point">本文分类</summary>
+                {% for category in page.categories %}{% unless category.first == "blog" or category.first == "event" %}
+                <p>
+                    <i class="far fa-folder fa-fw mr-1"></i> <a href='{{ site.baseurl }}/{{ category | center | url_encode }}/'>{{ category }}</a>
+                    {%- unless forloop.last -%} {%- endunless -%}
+
+                </p>
+                {% endunless %}{% endfor %}
+            </details>
+        </div>
+        {% endif %}
+        <p>
+    <details>
+        <summary class="point">所有标签/数量</summary>
+        {% for category in site.categories %}{% unless category.first == "blog" or category.first == "event" %}
+        <p>
+            <i class="fa fa-angle-right"></i> {{ category | first | capitalize }}
+            <span class="badge badge-theme pull-right">{{ category | last | size }}</span>
+        </p>
+    {% endunless %}{% endfor %}
+    </details>
+    <div class="spacing"></div>
+
+    <h4>Tags/标签</h4>
+    <div class="hline"></div>
+    <p>
+        {% for category in site.categories %}{% unless category.first == "blog" or category.first == "event" %}
+            <a class="btn btn-theme" href='/' role="button">{{ category | first | capitalize }} ({{ category | last | size }})</a>
+        {% endunless %}{% endfor %}
+    </p>
+    <div class="spacing"></div>
+
+    <h4>Article Directory/文章目录</h4>
+    <div class="hline"></div>
+    <p>
+        {{ content | toc_only }}
+    </p>
+
+</div>

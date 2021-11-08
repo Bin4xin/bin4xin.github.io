@@ -30,32 +30,21 @@ $color_thu_purple: $color_thu_purple_dark;
 $color_grey: $color_grey_dark;
 $color_secondary: $color_secondary_dark;
 $color_link: $color_link_dark;
+$color_row_hover: $color_row_hover_dark;
 $color_navbar_bg: black;
 $color_navbar_bg: #d3d3d3;
-$color_row_hover: $color_row_hover_dark;
 {% else %}
 $color_thu_purple: #82318E;
 $color_grey: #555;
 $color_secondary: #384452;
 $color_link: #088acb;
+$color_navbar_bg: #d3d3d3;
 $color_row_hover: #e0f3fc;
 $color_bg_dark: #222;
 {% endif %}
 
 $color_primary: $color_thu_purple;
 $color_primary_dark: $color_thu_purple_dark;
-
-html.bad {
-&, body, div {
-       background-color: black !important;
-   }
-p, .navbar, h1, h2, h3, h4, h5, a, a:visited, a:hover, span, li, i {
-    color: #bdffa2 !important;
-}
-.navbar-default .navbar-nav > li.active > a {
-    border-bottom: 2px solid #bdffa2 !important;
-}
-}
 
 @mixin dark {
 {% unless site.issue %}
@@ -400,29 +389,57 @@ p {
 @include noissue {
     opacity: .5;
     filter: grayscale(0.2);
-    background-image: url(/static/img/missing.png);
-    background-image: -webkit-image-set(url("/static/img/missing.png") 1x,
-    url("/static/img/missing@2x.png") 2x,
-    url("/static/img/missing@3x.png") 3x,
-    url("/static/img/missing@4x.png") 4x);
-    background-image: image-set(url("/static/img/missing.png") 1x,
-    url("/static/img/missing@2x.png") 2x,
-    url("/static/img/missing@3x.png") 3x,
-    url("/static/img/missing@4x.png") 4x);
+    background-image: url(/assets/img/missing.png);
+    background-image: -webkit-image-set(url("/assets/img/missing.png") 1x,
+    url("/assets/img/missing@2x.png") 2x,
+    url("/assets/img/missing@3x.png") 3x,
+    url("/assets/img/missing@4x.png") 4x);
+    background-image: image-set(url("/assets/img/missing.png") 1x,
+    url("/assets/img/missing@2x.png") 2x,
+    url("/assets/img/missing@3x.png") 3x,
+    url("/assets/img/missing@4x.png") 4x);
 }
 @include dark {
     opacity: 1;
     filter: none;
-    background-image: url(/static/img/missing-dark.png);
-    background-image: -webkit-image-set(url("/static/img/missing-dark.png") 1x,
-    url("/static/img/missing-dark@2x.png") 2x,
-    url("/static/img/missing-dark@3x.png") 3x,
-    url("/static/img/missing-dark@4x.png") 4x);
-    background-image: image-set(url("/static/img/missing-dark.png") 1x,
-    url("/static/img/missing-dark@2x.png") 2x,
-    url("/static/img/missing-dark@3x.png") 3x,
-    url("/static/img/missing-dark@4x.png") 4x);
+    background-image: url(/assets/img/missing-dark.png);
+    background-image: -webkit-image-set(url("/assets/img/missing-dark.png") 1x,
+    url("/assets/img/missing-dark@2x.png") 2x,
+    url("/assets/img/missing-dark@3x.png") 3x,
+    url("/assets/img/missing-dark@4x.png") 4x);
+    background-image: image-set(url("/assets/img/missing-dark.png") 1x,
+    url("/assets/img/missing-dark@2x.png") 2x,
+    url("/assets/img/missing-dark@3x.png") 3x,
+    url("/assets/img/missing-dark@4x.png") 4x);
+    }
 }
+
+.not-found-shadow {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+
+    z-index: -1;
+
+    background-repeat: no-repeat;
+    background-position: center;
+
+    @include noissue {
+        opacity: .5;
+        filter: grayscale(0.2);
+        background-image: url(/assets/img/post-pic/shadow-show.png);
+        background-image: -webkit-image-set(url("/assets/img/post-pic/shadow-show.png") );
+        background-image: image-set(url("/assets/img/post-pic/shadow-show.png") );
+    }
+    @include dark {
+        opacity: 1;
+        filter: none;
+        background-image: url(/assets/img/post-pic/shadow-show.png);
+        background-image: -webkit-image-set(url("/assets/img/post-pic/shadow-show.png") );
+        background-image: image-set(url("/assets/img/post-pic/shadow-show.png") );
+    }
 }
 
 .nonthu .not-found-bg {
@@ -521,6 +538,18 @@ p {
     }
 }
 }
+html.bad {
+    &, body, div {
+        background-color: black !important;
+    }
+    p, .navbar, h1, h2, h3, h4, h5, a, a:visited, a:hover, span, li, i {
+        color: #bdffa2 !important;
+    }
+    .navbar-default .navbar-nav > li.active > a {
+        border-bottom: 2px solid #bdffa2 !important;
+    }
+}
+
 
 {% for attrb in (1..2) %}
 @for $i from 0 to 7 {

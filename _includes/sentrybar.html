@@ -1,0 +1,34 @@
+<div class="col-lg-3">
+    <div class="spacing"></div>
+    <div class="spacing"></div>
+    <h4>Subscribe/订阅</h4>
+    <div class="hline"></div>
+        <p>
+        <p class="rss-subscribe"><i class="fa fa-rss"></i> Subscribe to this blog <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a>.</p>
+        </p>
+    <div class="spacing"></div>
+
+    <h4>Search/文章搜索</h4>
+    <div class="hline"></div>
+    <p><kbd>Ctrl ⌃</kbd> + <kbd>F</kbd>搜索</p>
+    <p>e.g. Nginx：</p>
+    <p><a href="/blog/2019/how-nginx/http2https/">NGINX笔记：http升级https协议</a> </p>
+    <p><a href="/blog/2019/nginx/with/jekyll-site/">多子域：JEKYLL优雅地部署于NGINX</a> </p>
+<!--    <details>-->
+<!--        {% for category in site.categories %}{% unless category.first == "blog" or category.first == "event" %}-->
+<!--        <p>-->
+<!--            <a href="{{ category.url }}"><i class="fa fa-angle-right"></i> {{ category | first | capitalize }}</a>-->
+<!--            <span class="badge badge-theme pull-right">{{ category | last | size }}</span>-->
+<!--        </p>-->
+<!--    {% endunless %}{% endfor %}-->
+<!--    </details>-->
+    <div class="spacing"></div>
+
+    <h4>Tags/标签</h4>
+    <div class="hline"></div>
+    <p>
+        {% for category in site.categories %}{% unless category.first == "blog" or category.first == "event" %}
+            <a class="btn btn-theme" href="{{ category.url }}" role="button">{{ category | first | capitalize }} ({{ category | last | size }})</a>	         
+        {% endunless %}{% endfor %}
+    </p>
+</div>
