@@ -1,6 +1,6 @@
 ---
 layout: event
-title: "「Jekyll | SentrySec. Lab」技术栈相关一揽子教程"
+title: "{{site.title}}{{site.brand}}相关技术栈简介"
 date: 2021-07-07
 author: Bin4xin
 categories:
@@ -12,9 +12,8 @@ tags:
 
 ---
 
->
-> 本文主要介绍「Jekyll | SentrySec. Lab」相关主题源码的路由、相关配置等
->
+> [2021/11/09/15:08:59] :本文主要介绍{{site.title}}{{site.brand}}相关主题源码的路由、相关配置等
+
 
 ### # 路由问题
 
