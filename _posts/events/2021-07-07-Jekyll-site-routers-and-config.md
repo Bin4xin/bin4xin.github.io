@@ -1,6 +1,6 @@
 ---
 layout: event
-title: "{{site.title}}{{site.brand}}相关技术栈简介"
+title: "© 哨兵Sentry Security相关技术栈简介"
 date: 2021-07-07
 author: Bin4xin
 categories:
@@ -38,3 +38,6 @@ tags:
   - `category`配置与`layout`配置
     - `layout`布局选项配置，如选择配置`help`那么则可以在近期研究中左侧导航栏中发现
  
+### # Action + Jekyll
+
+[yml文件](https://github.com/Bin4xin/bin4xin.github.io/blob/main/.github/workflows/deploy.yml)
