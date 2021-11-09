@@ -9,8 +9,8 @@ Source code for [www-sentrylab-web](https://www.sentrylab.cn/).
         - `_inculde/footer.html`新增访客统计；
 
 
-## 运行 Demo
-
+<details>
+<summary><em>点击以查看如何运行Demo</em></summary>
 
 ### 直接编译
 
@@ -49,6 +49,8 @@ gem install build
 bundle install
 jekyll build
 ```
+</details>
+
 其余LINUX发行版和MACOS差不多大同小异，参考链接：
 
 [「笔记」：Jekyll for linux.服务器部署历程](https://www.sentrylab.cn/blog/2019/jekyll/in/linux/)
