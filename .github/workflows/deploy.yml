@@ -36,6 +36,7 @@ jobs:
     #- name: Change rubygems loading
     #  run: sed -i "/^source/c source 'https://rubygems.org'" Gemfile
     - name: Install dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
       run: bundle config set --local path 'vendor/bundle' && bundle install --jobs=4 --retry=3
     - name: Run jekyll-build
       run: bundle exec jekyll build --trace
