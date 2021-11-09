@@ -1,29 +1,50 @@
-name: push-gh-pages
+name: build
 
 on:
   push:
-    branches: [main]
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
 
 jobs:
-  test:
+  build:
 
     runs-on: ubuntu-latest
-
+    env:
+      LSI: 'true'
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0    
+
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.6
+    - name: Cache Ruby Bundler
+      id: cache
+      uses: actions/cache@v2
+      env:
+        CACHE_ID: 1
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-bundler-${{ env.CACHE_ID }}-${{ hashFiles('Gemfile') }}
+        restore-keys: |
+          ${{ runner.os }}-bundler-${{ env.CACHE_ID }}-
     - name: Install dependencies
-      run: bundle install
+      run: bundle install --path=vendor/bundle --jobs=4 --retry=3
+    - name: Run Jekyll Doctor
+      run: |
+        bundle exec jekyll doctor --trace --profile   
     - name: Run jekyll-build
-      run: bundle exec jekyll build
+      run: bundle exec jekyll build --trace
     - name: Simple deploy with git
       uses: rdarida/simple-github-pages-deploy-action@v1
       with: # optional
         git-user: ${{ secrets.Git_USERNAME}}
         git-email: ${{ secrets.Git_EMAIL }}
         git-base-folder: '_site'
-        commit-message: '<auto:> page build by github action.'
+        commit-message: '<auto:> page build/deploy by github action.'
         branch: 'gh-pages'
