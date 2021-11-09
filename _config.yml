@@ -6,10 +6,11 @@ brand: Sentry Security
 description: 哨兵安全实验室
 baseurl: "" #important: start with /
 url: "https://www.sentrylab.cn"
+# option.
 githubAccess: "https://github.com/Bin4xin"
-# repos: 
-githubIO: "bin4xin.github.io"
-giteeIO: "bin4xin.gitee.io"
+# repos:
+githubIO: "https://bin4xin.github.io"
+giteeIO: "https://bin4xin.gitee.io"
 # Build settings
 highlighter: rouge
 markdown: kramdown
