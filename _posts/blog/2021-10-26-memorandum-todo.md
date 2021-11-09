@@ -9,7 +9,7 @@ categories: [blog, 笔记, Github Action]
 permalink: /blog/2021/memorandum-todo/
 ---
 
-> [2021/10/26/21:04:22]: <部分问题总结>
+> [2021/10/26/21:04:22]: [部分问题总结]
 
 ### 博客的自动化同步问题
 
@@ -25,11 +25,11 @@ permalink: /blog/2021/memorandum-todo/
 
 #### 如何解决？
 
-可以看出，本地仓库太过于冗余，我需要在本地构建完成后将两个JEKYLL（Home与About）项目下的`_site`拷贝到对应仓库下，然后`git push`，这也是后来为什么有了[B4xinSynchronize]({{site.githubAccess}}/B4xinSynchronize)，我嫌push太繁琐了，甚至还喊出了*Let your git only yes or no*的口号 (汗 -.-||)
+可以看出，本地仓库太过于冗余，我需要在本地构建完成后将两个JEKYLL（Home与About）项目下的`_site`拷贝到对应仓库下，然后`git push`，这也是后来为什么有了[B4xinSynchronize]({{site.githubAccess}}/B4xinSynchronize)，我嫌push太繁琐了，甚至还喊出了*Let your git only yes or no*的口号(汗)
 
 实际上，使用Action进行构建后就解决了部分本地仓库如[bin4xin.github.io]({{site.githubAccess}}/bin4xin.github.io)的同步问题，可以直接在Action构建后push到分支上显示；代码和部分博客参考如下：
 
-- [Action踩坑文章在此](event/2021/Jekyll-site-routers-and-config/)
+- [Action踩坑文章在此](/event/2021/Jekyll-site-routers-and-config/)
     - [Github Actions总结](https://jasonkayzk.github.io/2020/08/28/Github-Actions%E6%80%BB%E7%BB%93/)
         - [github action-cache使用实例](https://raw.githubusercontent.com/ustclug/website/master/.github/workflows/build.yml)
     - [改变github-page分支](https://stackoverflow.com/questions/14040754/deleting-remote-master-branch-refused-due-to-being-the-current-branch)
