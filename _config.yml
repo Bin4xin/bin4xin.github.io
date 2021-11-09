@@ -1,8 +1,8 @@
 ### GENERAL SETTINGS ###
 
 # Site settings
-title: ©「哨兵」| Sentry Security
-brand: Sentrylab
+title: © 哨兵
+brand: Sentry Security
 description: 哨兵安全实验室
 baseurl: "" #important: start with /
 url: "https://www.sentrylab.cn"

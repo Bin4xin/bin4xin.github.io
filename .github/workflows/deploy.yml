@@ -25,5 +25,5 @@ jobs:
         git-user: ${{ secrets.Git_USERNAME}}
         git-email: ${{ secrets.Git_EMAIL }}
         git-base-folder: '_site'
-        commit-message: 'test'
+        commit-message: '[`date +%Y/%m/%d/%T`] : commit by `git config --global --list|grep user.name|awk -F"=" '{print $2}''
         branch: 'gh-pages'

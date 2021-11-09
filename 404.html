@@ -1,65 +1,63 @@
 ---
 permalink: /404.html
 ---
-
 <!DOCTYPE html>
 <html>
-    {% include head.html page_title="404" %}
-    <body>
+  {% include head.html cattitle="404" %}
+  <body>
     {% include nav.html %}
     <div id="mirrors">
-        <div class="spacing hidden-xs"></div>
-        <div class="container">
+      <div class="spacing hidden-xs"></div>
+      <div class="container">
         <div class="row">
-            <div class="not-found">
-                {% if site.meow_404 %}
-                <div class="not-found-bg"></div>
-                {% endif %}
-                <div class="not-found-hint">
-                    <div class="not-found-code">
-                        404 NOT FOUND
-                    </div>
-                    {% if site.meow_404 %}
-                    <span class="thuhidden">Oops!你来到了没有知识的荒原。</span>
-                    {% endif %}
-                </div>
-                <div class="not-found-text thuhidden">
-                    如果您认为这一定是出了什么问题，欢迎您前往
-                    <a href="https://github.com/Bin4xin/">
-                        <i class="fa fa-github"></i> Sentry-Sec/issues
-                    </a>
-                    提交<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,404&template=2-bug_report.md" id="new_issue_bug"><!--
-           -->错误报告</a><!--
-           -->
-                </div>
-                <div class="not-found-links">
-                    <a class="not-found-link" href="javascript:history.back()"><i class="fa fa-arrow-left"></i> 返回上页</a>
-                    <!-- <a class="not-found-link" href="/categories/">前往目录</a> -->
-                </div>
-                <div class="not-found-links">
-                    <a class="not-found-link" href="/categories/">前往目录 <i class="fa fa-arrow-right"></i></a>
-                </div>
+          <div class="not-found">
+            {% if site.meow_404 %}
+              <div class="not-found-bg"></div>
+            {% endif %}
+            <div class="not-found-hint">
+              <div class="not-found-code">
+              404. 谢谢你这么好看还来看我博客:D
+              </div>
+              {% if site.meow_404 %}
+                <span class="thuhidden">Oops!你来到了没有知识的荒原。</span>
+              {% endif %}
             </div>
+            <div class="not-found-text thuhidden">
+              <strong>如果您认为这一定是出了什么问题，欢迎您前往 
+              <a href="https://github.com/Bin4xin/">
+                <i class="fa fa-github"></i> 哨兵/issues
+              </a>
+              提交<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,404&template=2-bug_report.md" id="new_issue_bug"><!--
+           -->错误报告</a>
+              </strong>
+            </div>
+            <div class="not-found-links">
+              <a class="not-found-link" href="javascript:history.back()">
+              <i class="fa fa-arrow-left"></i> 返回上一页
+              </a>
+              
+            </div>
+          </div>
         </div>
-    </div><!--/container -->
-</div><!--/mirrors -->
-{% include footer.html %}
-<script type="application/javascript">
-    (function(){
+      </div><!--/container -->
+    </div><!--/mirrors -->
+    {% include footer.html %}
+    <script type="application/javascript">
+      (function(){
         var tag = "[" + "{{ site.issue_tag }}" + "]";
         var bugLink = document.getElementById("new_issue_bug");
         var bugURL = new URL(bugLink.href);
         bugURL.searchParams.append("title", tag + "404 at " + location.pathname);
         bugLink.href = bugURL.href;
-
+        
         var mrLink = document.getElementById("new_issue_mr");
         var mrURL = new URL(mrLink.href);
-        mrURL.searchParams.append("title", tag + "Mirror Request for new mirror " +
-            location.pathname.split('/')[1]);
+        mrURL.searchParams.append("title", tag + "Mirror Request for new mirror " + 
+          location.pathname.split('/')[1]);
         mrLink.href = mrURL.href;
-    })();
-</script>
-</body>
+      })();
+    </script>
+  </body>
 </html>
 <!--
   vim: ts=2 sts=2 sw=2 noexpandtab
