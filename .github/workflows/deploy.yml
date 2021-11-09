@@ -35,9 +35,6 @@ jobs:
           ${{ runner.os }}-bundler-${{ env.CACHE_ID }}-
     - name: Install dependencies
       run: bundle install --path=vendor/bundle --jobs=4 --retry=3
-    - name: Run Jekyll Doctor
-      run: |
-        bundle exec jekyll doctor --trace --profile   
     - name: Run jekyll-build
       run: bundle exec jekyll build --trace
     - name: Simple deploy with git
