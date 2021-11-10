@@ -4,19 +4,22 @@
 
 Source code for [www-sentrylab-web](https://www.sentrylab.cn/).
 
-- *Project Log:*
-    - 2021年 5月10日 星期一 10时01分01秒 CST：
-        - `_inculde/footer.html`新增访客统计；
-    - 2021年11月10日 星期三 11时39分40秒 CST：
-    	- 修改页头页尾部分内容；
-    	- 添加`[_config.yml](https://github.com/Bin4xin/bin4xin.github.io/blob/main/_config.yml)`添加了一些prof方便调用；
-    	- 使用Action进行构建；
-    		- 尝试使用两个分支进行构建部署对应文件夹成功，但单个分支对应项目构建资产存在路由访问问题，所以暂时先放下；
-    	- 代码和部分博客参考如下：
-			- [Action踩坑文章在此](/event/2021/Jekyll-site-routers-and-config/)
-			    - [Github Actions总结](https://jasonkayzk.github.io/2020/08/28/Github-Actions%E6%80%BB%E7%BB%93/)
-		        - [github action-cache使用实例](https://raw.githubusercontent.com/ustclug/website/master/.github/workflows/build.yml)
-			    - [改变github-page分支](https://stackoverflow.com/questions/14040754/deleting-remote-master-branch-refused-due-to-being-the-current-branch)
+- 如下：
+
+
+
+| 时间 | *Project Log* | 备注 |
+| :--- | :--- | :--- |
+| 2021/5/10/10:01:01 CST | `_inculde/footer.html`新增访客统计 | - |
+| 2021/11/10/11:39:40 CST | 修改页头页尾部分内容 | [添加国内外镜像地址](https://bin4xin.github.io/) |
+|  | 添加[`_config.yml`](https://github.com/Bin4xin/bin4xin.github.io/blob/main/_config.yml)添加了一些prof方便调用 | - |
+|  | 使用Action进行构建 | 尝试使用两个分支进行构建部署对应文件夹成功，但单个分支对应项目构建资产存在路由访问问题，所以暂时先放下 |
+|  | <em>代码和部分博客参考</em> | <ul><li>[Action踩坑文章在此]((https://bin4xin.github.io/event/2021/Jekyll-site-routers-and-config/)</li> <li> [Github Actions总结](https://jasonkayzk.github.io/2020/08/28/Github-Actions%E6%80%BB%E7%BB%93/)</li> <li>[github action-cache使用实例](https://raw.githubusercontent.com/ustclug/website/master/.github/workflows/build.yml)</li> <li>[改变github-page分支](https://stackoverflow.com/questions/14040754/deleting-remote-master-branch-refused-due-to-being-the-current-branch)</li></ul> |
+| ... | ... | ... |
+|  |  |  |
+
+
+
 
 
 <details>
