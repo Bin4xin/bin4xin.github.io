@@ -8,6 +8,7 @@ baseurl: "" #important: start with /
 url: "https://www.sentrylab.cn"
 # option.
 githubAccess: "https://github.com/Bin4xin"
+githubRepos: "bin4xin.github.io"
 # repos:
 githubIO: "https://bin4xin.github.io"
 giteeIO: "https://bin4xin.gitee.io"
