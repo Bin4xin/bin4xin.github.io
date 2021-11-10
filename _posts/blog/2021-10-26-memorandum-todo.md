@@ -64,3 +64,11 @@ permalink: /blog/2021/memorandum-todo/
 ```xml
 static u_char ngx_http_server_string[] = "Server: COMMUNIST REGIME POWER SUPREME" CRLF;
 ```
+
+
+
+
+
+
+
+

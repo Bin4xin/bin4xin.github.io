@@ -13,8 +13,7 @@ permalink: /blog/2021/The-boundary-between-public-cloud-and-private-cloud/
 
 我在WEB渗透的工作中常常会碰到这样的现象：很多企业单位在对自身的资产梳理往往都存在或多或少的问题，如：
 
-//{: .table}
-
+{: .table}
 | 问题 | 为什么产生？ | 怎么解决？ | 备注 |
 | :--- | :--- | :--- | :--- |
 | 资产梳理有遗漏 | <ul><li>企业单位部分边缘业务外包导致；</li><li>业务生命周期逻辑存在缺陷导致无法闭环；</li><li>技术人员技术理解参差不齐；</li></ul> | ... | - |
@@ -38,6 +37,7 @@ permalink: /blog/2021/The-boundary-between-public-cloud-and-private-cloud/
 
 现阶段能够模拟的公有云环境如下：
 
+{: .table}
 | 业务 | 监听地址 | 监听端口 | 备注 |
 | :--- | :--- | :--- | :--- |
 | `nginx`主站 | 缺省/::: | 443 | - |
@@ -121,6 +121,7 @@ plugin_passwd = {proxy_server_pwd}
 
 下面附上常见代理软件：
 
+{: .table}
 | 全局代理 | 终端代理 | 浏览器代理 | 备注 |
 | :--- | :--- | :--- | :--- |
 | `Proxifier` | `proxychains4` | 很多 | - |
