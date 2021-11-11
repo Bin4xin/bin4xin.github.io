@@ -13,7 +13,7 @@ permalink: /blog/2021/The-boundary-between-public-cloud-and-private-cloud/
 
 我在WEB渗透的工作中常常会碰到这样的现象：很多企业单位在对自身的资产梳理往往都存在或多或少的问题，如：
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th style="text-align: left">问题</th>
@@ -49,6 +49,8 @@ permalink: /blog/2021/The-boundary-between-public-cloud-and-private-cloud/
     </tr>
   </tbody>
 </table>
+
+<div class="hline"></div>
 
 - 什么是公有云？
 
@@ -144,21 +146,36 @@ plugin_passwd = {proxy_server_pwd}
 ...
 ```
 
-- 第二步：proxy_server端进行代理启动，`nohup frps -c frps.ini &`
+- 第二步：proxy_server端进行proxy启动，`nohup frps -c frps.ini &`
 - 第三步：proxy_client连接启动，`nohup frps -c frpc-proxy.ini &`
 - 第四步：测试。
 
-下面附上常见代理软件：
+下面附上常见proxy软件：
 
 {: .table}
-| 全局代理 | 终端代理 | 浏览器代理 | 备注 |
+| 全局proxy | 终端proxy | 浏览器proxy | 备注 |
 | :--- | :--- | :--- | :--- |
 | `Proxifier` | `proxychains4` | 很多 | - |
 
 ![截屏2021-11-02 上午12.24.39.png](https://i.loli.net/2021/11/10/Q59vnIEbstcTMLD.png)
 
+如上，我们就可以通过proxy的形式访问到私网应用；终端proxy连接ssh命令可以：`proxychains4 ssh root@{your_inside_ip}`，同时不要忘记登录ECS控制台阻止`ssh 22 0.0.0.0/0`即可，若proxy失效可以控制台连接私网地址或者重新放行公网ssh端口流量。
+
+```bash
+$ proxychains4 ssh root@{your_inside_ip}
+···
+Welcome to Alibaba Cloud Elastic Compute Service !
+
+No mail.
+Last login: Thu Nov 11 11:49:01 2021 from {your_inside_ip}
+root@bin4xin:~#
+```
+
+proxychains4配置：`/etc/proxychains.conf || /usr/local/etc/proxychains.conf => socks5 {proxy_server_addr} {proxy_traffic_port} {proxy_server_username} {proxy_server_pwd}`，mac终端记得要[SIP关闭才可以使用pc4](https://sspai.com/post/55066)。
+
 ### 总结
 
-模拟黑客的方法对系统和网络进行攻击性测试，目的是侵入系统，通过工具结合安全工程师的技术手段，发现应用系统在逻辑方面的安全风险隐患
+实际上渗透测试就是模拟黑客的方法对系统和网络进行攻击性测试，目的是侵入系统，通过工具结合安全工程师的技术手段，发现应用系统在逻辑方面的安全风险隐患；
 
-[想到再更...]
+而工作中常以黑、灰盒为主的渗透测试，公网居多，若能减少公网暴露面，在某种程度上来说是也是在公有私有云的边界处设置了一道阻碍，无形中给一些恶意利用者增加了攻击难度；当然这里只是简单介绍了一些常见的应用部署，能通过技术改变的还有很多，当然我们也可以发散思维来做到更多很酷的事情。
+
