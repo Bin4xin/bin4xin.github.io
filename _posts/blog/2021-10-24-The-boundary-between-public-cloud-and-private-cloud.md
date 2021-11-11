@@ -2,7 +2,7 @@
 layout: post
 title: "浅谈实际生产业务中公有云和私有云的边界"
 date: 2021-10-24
-wrench: 2021-11-10
+wrench: 2021-11-11
 author: Bin4xin
 toc: true
 categories: [blog, Cloud]
@@ -13,13 +13,42 @@ permalink: /blog/2021/The-boundary-between-public-cloud-and-private-cloud/
 
 我在WEB渗透的工作中常常会碰到这样的现象：很多企业单位在对自身的资产梳理往往都存在或多或少的问题，如：
 
-{: .table}
-| 问题 | 为什么产生？ | 怎么解决？ | 备注 |
-| :--- | :--- | :--- | :--- |
-| 资产梳理有遗漏 | <ul><li>企业单位部分边缘业务外包导致；</li><li>业务生命周期逻辑存在缺陷导致无法闭环；</li><li>技术人员技术理解参差不齐；</li></ul> | ... | - |
-| 公网暴露面过多 | <ul><li>部分员工安全能力薄弱或对此不以为然；</li><li>技术人员技术理解参差不齐；</li></ul> | 危害展示 | 技术角度看 |
-| 商用与开源系统、组件版本过低 | <ul><li>对技术人员的工作、团队默契要求较高；</li><li>工作是工作、生活是生活。:D</li></ul> | ... | - |
-| 等等 |  |  |  |
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">问题</th>
+      <th style="text-align: left">为什么产生？</th>
+      <th style="text-align: left">解决？</th>
+      <th style="text-align: left">备注</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">资产梳理有遗漏</td>
+      <td style="text-align: left"><ul><li>企业单位部分边缘业务外包导致；</li><li>业务生命周期逻辑存在缺陷导致无法闭环；</li><li>技术人员技术理解参差不齐；</li></ul></td>
+      <td style="text-align: left">…</td>
+      <td style="text-align: left">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">公网暴露面过多</td>
+      <td style="text-align: left"><ul><li>部分员工安全能力薄弱或对此不以为然；</li><li>技术人员技术理解参差不齐；</li></ul></td>
+      <td style="text-align: left">危害展示</td>
+      <td style="text-align: left"><a href="#部署私有云">技术角度看</a></td>
+    </tr>
+    <tr>
+      <td style="text-align: left">商用与开源系统、组件版本过低</td>
+      <td style="text-align: left"><ul><li>对技术人员的工作、团队默契要求较高；</li><li>工作是工作、生活是生活。:D</li></ul></td>
+      <td style="text-align: left">…</td>
+      <td style="text-align: left">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">等等</td>
+      <td style="text-align: left">&nbsp;</td>
+      <td style="text-align: left">&nbsp;</td>
+      <td style="text-align: left">&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
 
 - 什么是公有云？
 
