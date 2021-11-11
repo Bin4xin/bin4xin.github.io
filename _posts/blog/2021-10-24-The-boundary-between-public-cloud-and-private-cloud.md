@@ -182,4 +182,4 @@ proxychains4配置：`/etc/proxychains.conf || /usr/local/etc/proxychains.conf =
 
 而工作中常以黑、灰盒为主的渗透测试，公网居多，若能减少公网暴露面，在某种程度上来说是也是在公有私有云的边界处设置了一道阻碍，无形中给一些恶意利用者增加了攻击难度；当然这里只是简单介绍了一些常见的应用部署，能通过技术改变的还有很多，当然我们也可以发散思维来做到更多很酷的事情。
 
-<span class="procedural-image-wrapper"><img src="/assets/images/help/settings/userbar-account-settings.png" alt=""></span>
+<span class="procedural-image-wrapper"><img src="https://i.loli.net/2021/11/11/dEr58vu1b9osXG6.jpg" alt=""></span>
