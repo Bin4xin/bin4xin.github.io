@@ -9,6 +9,8 @@ categories: [blog, Cloud]
 permalink: /blog/2021/The-boundary-between-public-cloud-and-private-cloud/
 ---
 
+<link rel="preload" href="https://docs.github.com/_next/static/css/dff402d5276a23d516b0.css" as="style"/><link rel="stylesheet" href="https://docs.github.com/_next/static/css/dff402d5276a23d516b0.css" data-n-g=""/>
+
 ### 前言
 
 我在WEB渗透的工作中常常会碰到这样的现象：很多企业单位在对自身的资产梳理往往都存在或多或少的问题，如：
@@ -51,6 +53,7 @@ permalink: /blog/2021/The-boundary-between-public-cloud-and-private-cloud/
 </table>
 
 <div class="hline"></div>
+<div class="spacing"></div>
 
 - 什么是公有云？
 
@@ -129,7 +132,7 @@ server {
 
 我们对公有云上的应用进行私有化后，假设现在需要访问应用，要怎么做呢？答：VPN代理（以下简称proxy）
 
-- 第一步：准备proxy连接文件（这里同样以frp为例）frpc-proxy.ini
+- 第一步：准备proxy连接文件（这里同样以frp为例）`frpc-proxy.ini`
 
 ```ini
 [common]
@@ -179,3 +182,4 @@ proxychains4配置：`/etc/proxychains.conf || /usr/local/etc/proxychains.conf =
 
 而工作中常以黑、灰盒为主的渗透测试，公网居多，若能减少公网暴露面，在某种程度上来说是也是在公有私有云的边界处设置了一道阻碍，无形中给一些恶意利用者增加了攻击难度；当然这里只是简单介绍了一些常见的应用部署，能通过技术改变的还有很多，当然我们也可以发散思维来做到更多很酷的事情。
 
+<span class="procedural-image-wrapper"><img src="/assets/images/help/settings/userbar-account-settings.png" alt=""></span>

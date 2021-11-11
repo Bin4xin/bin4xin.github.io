@@ -9,9 +9,10 @@ categories: [blog, 笔记, Github Action]
 permalink: /blog/2021/memorandum-todo/
 ---
 
-> [2021/10/26/21:04:22]: [部分问题总结]
 
 ### 博客的自动化同步问题
+
+> [2021/10/26/21:04:22]: [部分问题总结]
 
 当前重中之重在与对于博客的自动化同步问题的解决，那么自然需要对当下博客同步进行分析；
 
@@ -64,11 +65,4 @@ permalink: /blog/2021/memorandum-todo/
 ```xml
 static u_char ngx_http_server_string[] = "Server: COMMUNIST REGIME POWER SUPREME" CRLF;
 ```
-
-
-
-
-
-
-
 
