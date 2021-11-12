@@ -1,4 +1,4 @@
-name: build
+name: build sync and reload
 
 on:
   push: 
@@ -46,6 +46,7 @@ jobs:
         branch: 'gh-pages'
   # sync start
   sync:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - name: Sync to Gitee
