@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<style>
+.navbar-hide{
+	display: none;
+}
+</style>
+	{% include head.html %}
+<body>
+	{% include nav.html %}
+
+{% if page.redirect_Research_name %}
+{% assign redirect_to_page = site.categories["about"] | where_exp:"p", "p.Researchname == page.redirect_help_id" %}
+<script>
+	var redirect_to = window.location.protocol + "//" + window.location.host + "{{redirect_to_page[0].url}}";
+	window.location = redirect_to;
+</script>
+{% endif %}
+
+<script>
+	window.Researchname = "{{page.Researchname}}";
+</script>
+
+{% assign about_pages = site.categories["about"] | sort: 'Researchname' %}
+<div id="help-page">
+	<div class="container">
+	  <div class="row">
+		  <div class="col-sm-3 hidden-xs">
+				<ul class="nav nav-pills nav-stacked" id="help-nav">
+					{% for RP in about_pages %}
+					<li{% if RP.Researchname == page.Researchname or RP.redirect_help_id == page.Researchname %} class="active"{%endif%} id="toc-{{RP.Researchname}}"><a href="{{RP.url}}"><code-index-css>{{RP.Researchname}}</code-index-css></a></li>
+					{% endfor %}
+				</ul>
+				
+				{% if page.toc %}
+				<div id="sticky-wrapper" class="sticky-wrapper" style="height: 200px;">
+					<li class="nav nav-pills nav-stacked" id="help-nav">
+						<code-index-css>
+							<details open class="article-index" style="overflow: visible;">
+								<summary class="point">文章目录&nbsp &nbsp</summary>
+								<div class="hline"></div>
+								<div class="spacing"></div>
+								{{ content | toc_only }}
+							</details>
+						</code-index-css>
+					</li>
+				</div>
+				{% endif %} 
+
+
+				<!--click this icon -> scroll to top of page; code from anquanke. also this icon func are under-construction-->		
+				<!-- <div class="back-to-top" onclick="$(&quot;html,body&quot;).animate({scrollTop:0}, 500);" style="position: fixed;bottom:400px;right: 20px;height: 40px;width: 40px;background-color: #1dada7;border-radius: 50%;text-align: center;cursor: pointer">
+					<img src="https://p0.ssl.qhimg.com/t0179ac3294ef926b8c.png" style="width:30px;margin-top: 6px;">
+				</div> -->
+
+
+			</div><!-- sidenave -->
+			<div class="col-sm-9">
+				<div class="visible-xs">
+					<form class="form-inline">
+						<div class="form-group">
+							<label>选择: </label>
+							<select class="form-control" id="help-select">
+								{% for RP in about_pages %}
+								<option data-help-url="{{RP.url}}"{% if RP.Researchname == page.Researchname%} selected{%endif%} id="toc-{{RP.Researchname}}">{{RP.Researchname}}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</form>
+				</div>
+				<div id="help-content">
+
+				<center>
+					{% if page.wrench %}
+					<csmall>本文最后修改于：<em>{{ page.wrench | date: "%Y-%m-%d" }}</em></csmall>
+					{% else %}
+					<csmall>本文最后修改于：<em>{{ page.date | date: "%Y-%m-%d" }}</em></csmall>
+					{% endif %}
+				<csmall><em> | {{ site.description }}</em></csmall>
+				</center>
+
+					<div class="hline"></div>
+					<div class="spacing"></div>
+
+					{{ content }}
+
+				</div>
+				<div class="spacing"></div>
+	            {% include statement.html %}
+			</div><!-- about research name content -->
+	  </div>
+	</div><!--/container -->
+</div><!--/about -->
+	{% include footer.html %}
+</body>
+
+<script src="/assets/js/sentryabout.js"></script>
+</html>
+<!--
+vim: ts=2 sts=2 sw=2 noexpandtab
+-->

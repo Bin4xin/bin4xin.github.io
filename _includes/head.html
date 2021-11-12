@@ -17,7 +17,7 @@
 <meta property="og:description" content="{{ site.about  }}" />
 <meta property="og:image" content="{{ site.url }}{{ site.baseurl }}/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
 <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}{{ page.url }}" />
-<title>{% if page.mirrorid %} {{ page.mirrorid }} |{% elsif page.title %} {{ page.title }} |{% endif %}{% if include.cattitle %} {{ include.cattitle }} |{% endif %}{% if (page.title || include.cattitle) %}{{" "}}{% endif %}{{ site.title }}{% if site.brand %} | {{ site.brand }}{% endif %}</title>
+<title>{% if page.Researchname %} {{ page.Researchname }} |{% elsif page.title %} {{ page.title }} |{% endif %}{% if include.cattitle %} {{ include.cattitle }} |{% endif %}{% if (page.title || include.cattitle) %}{{" "}}{% endif %}{{ site.title }}{% if site.brand %} | {{ site.brand }}{% endif %}</title>
 
 <link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
 <script src="/assets/js/pace.min.js"></script>
@@ -33,8 +33,22 @@
 
 
 <script src="{{ "/assets/js/jquery.min.js" | prepend: site.baseurl }}"></script>
+<script src="{{ "/assets/js/jquery_lazyload/1.9.7/jquery.lazyload.min.js" | prepend: site.baseurl }}"></script>
+<script src="{{ "/assets/js/jquery.sticky/1.0.4/jquery.sticky.js" | prepend: site.baseurl }}"></script>
 <script src="{{ "/assets/js/bootstrap.min.js" | prepend: site.baseurl }}"></script>
 
+
+<!--mathjax-config scripts.-->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$$','$$']]
+      }
+    });
+</script>
+<script src="{{ "/assets/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML" | prepend: site.baseurl }}"></script>
+<!--mathjax-config scripts stop.-->
 
 {% if page.legacy %}
     <style>

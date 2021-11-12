@@ -9,7 +9,7 @@ categories: [blog, Cloud]
 permalink: /blog/2021/The-boundary-between-public-cloud-and-private-cloud/
 ---
 
-<link rel="preload" href="https://docs.github.com/_next/static/css/dff402d5276a23d516b0.css" as="style"/><link rel="stylesheet" href="https://docs.github.com/_next/static/css/dff402d5276a23d516b0.css" data-n-g=""/>
+<!-- <link rel="preload" href="https://docs.github.com/_next/static/css/dff402d5276a23d516b0.css" as="style"/><link rel="stylesheet" href="https://docs.github.com/_next/static/css/dff402d5276a23d516b0.css" data-n-g=""/> -->
 
 ### 前言
 
@@ -182,4 +182,4 @@ proxychains4配置：`/etc/proxychains.conf || /usr/local/etc/proxychains.conf =
 
 而工作中常以黑、灰盒为主的渗透测试，公网居多，若能减少公网暴露面，在某种程度上来说是也是在公有私有云的边界处设置了一道阻碍，无形中给一些恶意利用者增加了攻击难度；当然这里只是简单介绍了一些常见的应用部署，能通过技术改变的还有很多，当然我们也可以发散思维来做到更多很酷的事情。
 
-<span class="procedural-image-wrapper"><img src="https://i.loli.net/2021/11/11/dEr58vu1b9osXG6.jpg" alt=""></span>
+<!-- <span class="procedural-image-wrapper"><img src="https://i.loli.net/2021/11/11/dEr58vu1b9osXG6.jpg" alt=""></span> -->
