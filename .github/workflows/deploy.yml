@@ -76,5 +76,5 @@ jobs:
 
   gitee-check:
     runs-on: ubuntu-latest
-      - name : check 404
-        run: curl -I https://gitee.com/${{ secrets.GIT_USERNAME }}
+      - name: check 404
+        run: curl -I https://gitee.com/${{ secrets.GIT_USERNAME }}/${{ secrets.GIT_USERNAME }}
