@@ -63,7 +63,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build Gitee Pages
-        uses: yanglbme/gitee-pages-action@1.3.2
+        uses: yanglbme/gitee-pages-action@v1.3.2
         with:
           # 注意替换为你的 Gitee 用户名
           gitee-username: ${{ secrets.GIT_USERNAME}}
