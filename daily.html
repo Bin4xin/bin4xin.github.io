@@ -16,9 +16,7 @@ permalink: /daily/
             <div class="row event">
                 <div class="col-lg-9">
                     <a href="{{ daily.url | prepend: site.baseurl }}"><h3 class="ctitle">{{ daily.title }}</h3></a>
-                        <csmall>{{ daily.date | date: "%b %-d, %Y" }}. | By: {{ daily.author }}</csmall>
-                    <div class="spacing"></div>
-                    
+                        <csmall>{{ daily.date | date: "%b %-d, %Y" }}. | By: {{ daily.author }}</csmall>                  
                     <div class="post-abstract">
                     {{ daily.excerpt | strip_html | truncate: 120, '...'}}
                     </div>
@@ -30,6 +28,7 @@ permalink: /daily/
                   {% endif %}
                 </div>
             </div>
+                <div class="spacing"></div>
                 <div class="hline"></div>
                 <div class="spacing"></div>
             {% endfor %}
