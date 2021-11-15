@@ -1,14 +1,12 @@
 ---
 ---
-{% include nav.html %}
-
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/css" href="{{ "/assets/css/rss.css" | prepend: site.baseurl }}" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>{{ site.title | xml_escape }} | Home</title>
     <description>{{ site.description | xml_escape }}</description>
-    <link>/{{ site.url }}</link>
+    <link>{{ site.url }}</link>
     <atom:link href="{{ "/feed.xml" | prepend: site.baseurl }}" rel="self" type="application/rss+xml" />
     <pubDate>
         {% if  post.date %} {{ post.date | date: "%Y/%m/%-d" }}
