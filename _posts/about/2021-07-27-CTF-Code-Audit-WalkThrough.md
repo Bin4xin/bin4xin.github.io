@@ -12,6 +12,32 @@ permalink: /about/CTF-Code-Audit-WalkThrough/
 
 #### # 0x01 任意文件读取绕过
 
+先看if判断主逻辑，同时满足下列三个条件即可：
+
+- `if (! empty($_REQUEST['file'])`
+    - 传入file参数不为空，不多说；
+- `&& is_string($_REQUEST['file'])`
+    - 传入file参数是字符串；
+- `&& emmm::checkFile($_REQUEST['file']))`
+    - 传入file参数满足`emmm类的checkFile函数`，主要看这个函数，传入checkFile函数的file参数被重新接受为page参数，判断参数是否为空、是否为字符串，是则往下：
+        - 1.检查$page在不在数组$whitelist里`$whitelist = ["source"=>"source.php","hint"=>"hint.php"]; if (in_array($page, $whitelist)) {return true;}`：
+            - 即：传入参数file`file=source(.php) / file=hint(.php)` ；
+        - 2.对传入参数进行一次url解码
+        - 3.往下；
+        ```php
+        $_page = mb_substr(
+            $page,
+            0,
+            mb_strpos($page . '?', '?')
+        );
+        ```
+            - 先看mb_strpos，就是？在$page里第一次出现的位置再看mb_substr，只留了$page从0到？的位置；
+        - 4.对`_page`重复1；
+        - 5.对`_page`重复2；
+        - 6.对`_page`重复3；
+        - 7.再次判断参数重复1；
+        - 8.`include $_REQUEST['file'];`
+
 ```php
 <?php
 highlight_file(__FILE__);
@@ -61,33 +87,7 @@ if (! empty($_REQUEST['file'])
 } else {
     echo "<br><img src=\"https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg\" />";
 }
-?> 
 ```
-先看if判断主逻辑，同时满足下列三个条件即可：
-
-- `if (! empty($_REQUEST['file'])`
-    - 传入file参数不为空，不多说；
-- `&& is_string($_REQUEST['file'])`
-    - 传入file参数是字符串；
-- `&& emmm::checkFile($_REQUEST['file']))`
-    - 传入file参数满足`emmm类的checkFile函数`，主要看这个函数，传入checkFile函数的file参数被重新接受为page参数，判断参数是否为空、是否为字符串，是则往下：
-        - 1.检查$page在不在数组$whitelist里`$whitelist = ["source"=>"source.php","hint"=>"hint.php"]; if (in_array($page, $whitelist)) {return true;}`：
-            - 即：传入参数file`file=source(.php) / file=hint(.php)` ；
-        - 2.对传入参数进行一次url解码
-        - 3.往下；
-        ```php
-        $_page = mb_substr(
-            $page,
-            0,
-            mb_strpos($page . '?', '?')
-        );
-        ```
-            - 先看mb_strpos，就是？在$page里第一次出现的位置再看mb_substr，只留了$page从0到？的位置；
-        - 4.对`_page`重复1；
-        - 5.对`_page`重复2；
-        - 6.对`_page`重复3；
-        - 7.再次判断参数重复1；
-        - 8.`include $_REQUEST['file'];`
 
 只要我们构造的参数满足上述步骤绕过：
 `file=source.php%3f../../../../../../../../../../../../etc/passwd`，然后根据题目提示读取flag文件。
