@@ -53,13 +53,13 @@ public class Management {
 ```
 我个人不太喜欢贴大段代码，自己写着累，看的人也累，因为代码只更像是我们生活中聊天时候的互动手势，一定是辅助作用而不是表达主题；于是我便大致画了一下我理解的web认证Java代码跳转逻辑，方便理解：
 
-![](/static/web-image/inspur-CEV4-Code-audit/inspur-code-running-logic.png)
+![inspur-code-running-logic.png](https://i.loli.net/2021/11/18/SObV3jkL9DGlWMd.png)
 
 
 - `command()` -> 对应是运行服务器上的`user_auth.sh`脚本：
     - [点击以查看代码](https://github.com/Bin4xin/bigger-than-bigger/blob/master/CoVV/Inspur%20Cluster%20Engine%20v4/java%20code/userAuth.sh)
     - 来看看代码主要运行逻辑，主要为以下逻辑：
-    ![](/static/web-image/inspur-CEV4-Code-audit/user-auth-logic.png)
+    ![user-auth-logic.png](https://i.loli.net/2021/11/18/LI2u7s48kE6cRfw.png)
 
 运行程序先判断传入参数个数紧 接着对第一个传入参数进行简单的特殊字符过后进行比对，代码如下：
 
@@ -133,7 +133,7 @@ bash-4.1# $(id)
 bash: uid=0(root): command not found
 ```
 所以传入参数进行RCE即可；
-![](/static/web-image/inspur-CEV4-Code-audit/user_auth_rce.png)
+![user_auth_rce.png](https://i.loli.net/2021/11/18/gIdstxBcKfaWMA9.png)
 
 poc代码：
 ```
@@ -215,11 +215,11 @@ private void getCookie() {
 
 分析得：用户认证Cookie不存在随机性、时效性。所以我们可以直接伪造Cookie登入即可：`lang=cn; username=root; userType=administrator; vertifyUser=true`
 
-![](/static/web-image/inspur-CEV4-Code-audit/user_auth_RF.png)
+![user_auth_RF.png](https://i.loli.net/2021/11/18/Go4jpkAwsNKRWUz.png)
 
 直接使用Cookie插件ModHeader带入Cookie，直接登入：
 
-![](/static/web-image/inspur-CEV4-Code-audit/inspur_cookie_SF.png)
+![inspur_cookie_SF.png](https://i.loli.net/2021/11/18/sUAdtS41ia9cMoL.png)
 
 ---
 

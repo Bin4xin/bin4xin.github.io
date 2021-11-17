@@ -51,7 +51,7 @@ configurationFile: PGP Secret Key -
 ### *# Usage:*
 
 <div class="col-lg-7">
-<img align="left" src="/static/web-image/Hikvision/Hikvision-pass.png"/>
+<img align="left" src="https://i.loli.net/2021/11/18/l5mtUa13gvqVHLF.png"/>
 </div>
 
 <div>
@@ -96,7 +96,7 @@ Download configurationFile decry-Sample	| [<i class="fa fa-link"></i> configurat
 
 当前时间下监控的快照图片
 
-![](/static/web-image/Hikvision/Hikvision-unauth-view.png)
+![Hikvision-unauth-view.png](https://i.loli.net/2021/11/18/GPEeKkcqsAFRDYO.png)
 
 
 ## 参考

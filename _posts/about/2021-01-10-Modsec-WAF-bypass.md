@@ -34,7 +34,7 @@ permalink: /about/Mod-Waf-Bypass-Walkthrough/
 [_进一步了解：APACHE中间件链接ModSec_](https://zhuanlan.zhihu.com/p/104931385){:target="_blank"}
 
 没什么好说的，跟着教程一步步走基本上都能搞定。直接上部署成功的图：
-![waf-apache](/static/web-image/waf/apache-modsec-waf.png)
+![apache-modsec-waf.png](https://i.loli.net/2021/11/18/F3DUGveCgpkVqcl.png)
 如上图，部署成功后可以看到访问`http://localhost?doc=/bin/ls`，WAF给出拦截操作，日志记录提示触发了`unix-shell.data`规则导致拦截返回403；
 
 #### # Nginx部署
@@ -42,7 +42,7 @@ permalink: /about/Mod-Waf-Bypass-Walkthrough/
 [_进一步了解：Nginx中间件链接ModSec_](https://zhuanlan.zhihu.com/p/80866123){:target="_blank"}
 
 
-![waf-apache](/static/web-image/waf/nginx-modsec-waf.png)
+![nginx-modsec-waf.png](https://i.loli.net/2021/11/18/cpsgLRObd9BTDao.png)
 同样的：访问`localhost:8011/?and 1=2--+`，触发WAF拦截规则返回403；需要注意的是：
 - nginx版本，教程中推荐的1.9版本实际操作下来无法成功编译安装，这里推荐`nginx/1.13.8`
     * `wget http://nginx.org/download/nginx-1.13.8.tar.gz`
@@ -123,7 +123,7 @@ _oahd:*:441:441:OAH Daemon:/var/empty:/usr/bin/false
 下面是实际生效的payload：
 - `+$u+cat+/etc$u/passwd$u`
 - `+$u+cat+$u/etc$u/passwd`
-![waf-bypass-exec](/static/web-image/waf/waf-bypass-exec-command.png)
+![waf-bypass-exec-command.png](https://i.loli.net/2021/11/18/FZQOLd6txseIgRu.png)
 
 
 ## 一：编写poc脚本连接器
@@ -140,7 +140,7 @@ webshell代码：
 - base64加密参数内容
 - 类似终端执行代码
 实现效果如下：
-![waf-bypass-shell](/static/web-image/waf/waf-bypass-shell.png)
+![waf-bypass-shell.png](https://i.loli.net/2021/11/18/OtD5wZ6Hafyd8TJ.jpg)
 参考的是[@IppSec]的代码，简单修改了部分。
 [参考代码](https://github.com/IppSec/forward-shell/blob/master/forward-shell.py){:target="_blank"}
 

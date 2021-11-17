@@ -38,7 +38,7 @@ SHIRO框架简介以及相关用途 | 反序列化分析 | 为什么写这样的
 
 # 零：Shiro框架的简介和相关用途
 
-![Alt](/static/web-image/Apache_Shiro_Logo.png#pic_center)
+![Alt](https://i.loli.net/2021/11/18/Ab68nZiLOqcwoh4.png#pic_center)
 
 ---
 

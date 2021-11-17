@@ -69,7 +69,7 @@ public class People implements Serializable {
 }
 ```
 所以简而言之，web中传入的反序列化RCE的poc必然是传入参数可控。效果：
-![](/static/web-image/javadeser/javaDeser-rce.png)
+![](https://i.loli.net/2021/11/18/GKTt6uvjdh1g5QY.png)
 
 
 ### 参考

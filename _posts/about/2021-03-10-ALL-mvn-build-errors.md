@@ -21,7 +21,7 @@ origin  https://github.com/threedr3am/ysoserial.git (push)
 克隆下来的项目无法构建成功；经过排错现push仓库上线。
 
  * 感谢[@threedr3am](https://github.com/threedr3am/){:target="_blank"}师傅开源的代码；
- * _[进一步了解排错步骤](https://about.sentrylab.cn/about/ALL-mvn-build-errors/){:target="_blank"}_ 
+ * _[进一步了解排错步骤](/about/ALL-mvn-build-errors/){:target="_blank"}_ 
  * 吾辈当砥砺前行；_[进一步了解关于内存马的开源项目](https://github.com/Bin4xin/sweet-ysoserial){:target="_blank"}_
 
 
@@ -51,11 +51,11 @@ mvn clean package -D skipTests
 
 - 1、源码调用的依赖库：
     * 我们可以从上面的报错看出报错的文件`src/main/java/ysoserial/payloads/FileUpload1.java`和依赖包名称`org.apache.commons.io.output`，直接定位到该文件位置查看：
-![](/static/web-image/all-mvn/mvn-java-code-compared.png)
+![mvn-java-code-compared.png](https://i.loli.net/2021/11/18/TdVxFvg12wszb5U.png)
     
     如上，
     
-    <img align="right" src="/static/web-image/all-mvn/mvn-java-code-solved1.png" height="50%" width="50%" />
+    <img align="right" src="https://i.loli.net/2021/11/18/dLne3augCRScJTq.png" height="50%" width="50%" />
     
     * 添加依赖；提示报错是在`org.apache.commons.io.output`下的调用包，右边还有源码调用存在问题，看到这样的情况不要慌，IDEA给我们提供了解决方案：
         
@@ -86,7 +86,7 @@ mvn clean package -D skipTests
 >       - 相关邮件列表信息
 
 我们定位到项目的pom.xml文件，看看报错pom与成功pom对比：
-![](/static/web-image/all-mvn/mvn-build-difference-between-pom.png)
+![mvn-build-difference-between-pom.png](https://i.loli.net/2021/11/18/wDRnjLko21pq86s.png)
 我们也同样可以看到，左边pom文件一片爆红；来尝试解决以下：
 
 - 解决方法：

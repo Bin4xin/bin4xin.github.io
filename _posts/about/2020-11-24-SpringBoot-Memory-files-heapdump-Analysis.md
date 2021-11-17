@@ -11,7 +11,7 @@ permalink: /about/SpringBoot-Memory-files-heapdump-Analysis/
 ------
 **本文通过下面三个问题进行技术分享：**
 - **在哪些地方可以发现？关于SpringBoot的一些参考**
-    - [Spring Boot框架渗透参考](https://www.sentrylab.cn/blog/2020/Spring-boot/){:target="_blank"}
+    - [Spring Boot框架渗透参考](/blog/2020/Spring-boot/){:target="_blank"}
 - **发现了怎么找到她？heapdump文件下载路由**
     - spring boot v1版本：
         * https://url-to-spring-boot-error/heapdump
@@ -128,7 +128,7 @@ src-1520-heapdump: Java HPROF dump, created Mon Oct 12 11:14:25 2020
 ```
 File Viewer:
 
-![ALT](/static/web-image/HeapDUMP_file_viewer.png)
+![HeapDUMP_file_viewer.png](https://i.loli.net/2021/11/18/7lAD6SympjstWKX.jpg)
 
 ### 2x01 分析工具MAT
 
@@ -137,7 +137,8 @@ File Viewer:
 >OQL基于JavaScript表达式语言。
 
 打开MAT选择打开headump文件，打开加载完毕选择OQL执行；
-![截图1](/static/web-image/mat-oql-exec.png)
+
+![mat-oql-exec.png](https://i.loli.net/2021/11/18/L7MAfUOoCdti4vI.jpg)
 
 ### 2x02 分析语法
 
@@ -149,14 +150,14 @@ select <JavaScript expression to select>
 部分OQL分析语句实例展示：
 - `select * from java.util.LinkedHashMap$Entry x WHERE (toString(x.key).contains("password"))`；
     - 选择寻找hashmap中所有key元素中存在password值并展示出，如下所示自不必多说：
-![截图1](/static/web-image/spring-boot-password.png)
+![spring-boot-password.png](https://i.loli.net/2021/11/18/4wZPJlnoKLz1RaE.jpg)
 - `select * from org.springframework.web.context.support.StandardServletEnvironment`；
     - 选择寻找所有StandardServletEnvironment并展示出，这一项中我们需要关注的是propertySourceList(简称PPSlist)，查找链如下：
     - `PPS-PPSlis-array-org.springframework.core.env.PPS-source-tables`，tables中存储的即为我们所关注的敏感信息，如下所示：
-![截图2](/static/web-image/spring-boot-pps-clains.png)
+![spring-boot-pps-clains.png](https://i.loli.net/2021/11/18/uCloG9WjJY4DhPA.png)
 - `select * from java.util.Hashtable$Entry x WHERE (toString(x.key).contains("password"))`；
     - 选择寻找哈希表中所有key元素中存在password值并展示出：
-![截图3](/static/web-image/spring-boot-contains-passwd.png)
+![spring-boot-contains-passwd.png](https://i.loli.net/2021/11/18/wkeGZvAapu9Yt34.jpg)
 
 以上。
 

