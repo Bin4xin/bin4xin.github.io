@@ -12,17 +12,19 @@
 |  | About构建问题 | <ul><li>若需解决上面的问题，那么亟需修改的就是对于About的源码构建的问题</li><li>是否能够仓库2 Action构建的源码推送的仓库1的分支上</li></ul>|
 |  | 解决github 与 gitee仓库[同步问题](https://github.com/Bin4xin/bin4xin.github.io/blob/main/.github/workflows/deploy.yml) | <ul><li>由于使用的GITEE ACTION模版存在疑问；所以暂时以硬编码的形式进行解决了，不是非常的优雅，这里会先标注，以后会在修改回来</li></ul> |
 |  | 页面添加自行点击：博客国内镜像 && 国外镜像跳转 |  |
+| 2021/11/16/23:53:54 CST | 订阅页面存在问题 | code标签预览导致提前闭合了xml文件的标签从而引起报错，已完善 |
+| 2021/11/18/01:03:45 CST | 优先：部分图片是url 404，需修复 | 上传图片图床[sm.sm](https://sm.ms/) |
+|  |  |  |
+|  |  |  |
 
 ### 下一步
 
 
 - Next：    
-    - [ ] 优先：部分图片是url 404，需修复；
     - [ ] 响应式折叠footer相关简介；
     - [ ] *CNAME是否能够对应不同的镜像跳转？DNS解析中是否能够解决地域跳转问题？*
         - 只做到通过CloudFlare 访问A 302跳转到B；
-        - [待参考项目](https://github.com/antvis/G2/blob/gh-pages/CNAME)
-    - [x] 2021/11/16/23:53:54 CST解决
-        - [x] 订阅页面存在问题；
-    - [ ] 博客分类代码展示暂无bug，但访问路由存在问题，需考虑；
+        - [antvis](https://github.com/antvis/G2/blob/gh-pages/CNAME)
+        - [docker](https://github.com/docker/docker.github.io)
+    - [ ] 博客分类代码（指文章类别、文章tang等）展示暂无bug，但访问路由存在问题，需考虑；
     - [ ] ...
