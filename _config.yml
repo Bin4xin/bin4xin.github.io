@@ -29,7 +29,6 @@ meow_404: true
 about: "本站由哨兵安全实验室支持创办"
 
 include: ['_pages']
-exclude: [commit_id.sh, _drafts/]
 # jekyll-archives:
 #   enabled: [categories]
 #   layout:
