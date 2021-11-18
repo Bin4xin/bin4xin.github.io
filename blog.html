@@ -14,7 +14,10 @@ permalink: /blog/
           <a href="{{ post.url | prepend: site.baseurl }}"><h3 class="ctitle">{{ post.title }}</h3></a>
           <p>
             <csmall>
-              {{ post.date | date: "%b %-d, %Y" }}. | {% if post.wrench %} Last edited: {{ post.wrench | date: "%b %-d, %Y"  }}. | {% endif %}By: {{ post.author }}.
+              发布于：{{ post.date | date: "%Y-%m-%d" }}. | 
+              {% if post.wrench %} 并最后修改于：{{ post.wrench | date: "%Y-%m-%d"  }} | 
+              {% else %} 未做修改 | 
+              {% endif %} By: {{ post.author }}.
              </csmall>
           </p>
           <p><a href="{{ post.url | prepend: site.baseurl }}">[Read More]</a></p>

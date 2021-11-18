@@ -74,7 +74,7 @@
 					{% if page.wrench %}
 					<csmall>本文最后修改于：<em>{{ page.wrench | date: "%Y-%m-%d" }}</em></csmall>
 					{% else %}
-					<csmall>本文最后修改于：<em>{{ page.date | date: "%Y-%m-%d" }}</em></csmall>
+					<csmall>本文发布于：<em>{{ page.date | date: "%Y-%m-%d" }}</em></csmall>
 					{% endif %}
 				<csmall><em> | {{ site.description }}</em></csmall>
 				</center>
