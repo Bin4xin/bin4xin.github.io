@@ -6,14 +6,7 @@ brand: Sentry CyberSecurity
 description: 哨兵安全实验室
 baseurl: "" #important: start with /
 url: "https://bin4xin.sentrylab.cn"
-# option.
-githubAccess: "https://github.com/Bin4xin"
-githubRepos: "bin4xin.github.io"
-# repos:
-githubIO: "https://bin4xin.github.io"
-giteeIO: "https://bin4xin.gitee.io"
-# Build settings
-commitString: cdaaf56b676b876e1cc499e0be87e9da8aa11274
+
 highlighter: rouge
 markdown: kramdown
 kramdown:
@@ -36,7 +29,7 @@ meow_404: true
 about: "本站由哨兵安全实验室支持创办"
 
 include: ['_pages']
-
+exclude: [commit_id.sh, _drafts/]
 # jekyll-archives:
 #   enabled: [categories]
 #   layout:
@@ -51,3 +44,11 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+
+# option.
+githubAccess: "https://github.com/Bin4xin"
+githubRepos: "bin4xin.github.io"
+# repos:
+githubIO: "https://bin4xin.github.io"
+giteeIO: "https://bin4xin.gitee.io"
+# Build commit hash strings settings

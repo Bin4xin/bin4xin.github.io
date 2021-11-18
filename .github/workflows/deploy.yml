@@ -34,10 +34,8 @@ jobs:
     - name: Install dependencies
       if: steps.cache.outputs.cache-hit != 'true'
       run: bundle install --jobs=4 --retry=3
-    - name: setup commit id
-      run: |
-        echo "REPORT_COMMIT=$(git rev-parse HEAD)" >> $GITHUB_ENV
-        sed -i '/^commitString/commitString: ${{ env.REPORT_COMMIT }}' _config.yml
+    - name: setup commit hash string
+      run: commitString=$(git rev-parse HEAD) && echo "commitString: $commitString" >> _config.yml
     - name: Run jekyll-build
       run: bundle config set --local path 'vendor/bundle' && bundle exec jekyll build --trace
     - name: Simple deploy with git
