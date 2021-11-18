@@ -3,6 +3,7 @@ layout: about
 category: about
 Researchname:  基于内存的Shiro框架Webshell攻击研究
 toc: true
+author: Bin4xin
 permalink: /about/Research-on-Webshell-Attack-of-Shiro-Framework-Based-on-Memory/
 ---
 

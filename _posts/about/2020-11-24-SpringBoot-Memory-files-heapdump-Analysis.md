@@ -3,6 +3,7 @@ layout: about
 category: about
 Researchname:  SpringBoot-Memory-files-heapdump-Analysis
 toc: true
+author: Bin4xin
 permalink: /about/SpringBoot-Memory-files-heapdump-Analysis/
 ---
 

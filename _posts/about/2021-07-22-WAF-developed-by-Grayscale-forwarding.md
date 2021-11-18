@@ -3,6 +3,7 @@ layout: about
 category: about
 Researchname: ModSec & CloudFlare WAF Initial Research
 permalink: /about/WAF-developed-by-Grayscale-forwarding/
+author: Bin4xin
 toc: true
 ---
 

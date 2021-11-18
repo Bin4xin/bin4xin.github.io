@@ -4,6 +4,7 @@ category: about
 wrench: 2021-11-08
 toc: true
 Researchname: CTF - 密码学与杂项
+author: Bin4xin
 permalink: /about/CTF-Crypto-and-Misc-etc-WalkThrough/
 ---
 

@@ -3,6 +3,7 @@ layout: about
 category: about
 Researchname: Struts2Deser
 toc: true
+author: Bin4xin
 permalink: /about/Struts2Deser/
 ---
 

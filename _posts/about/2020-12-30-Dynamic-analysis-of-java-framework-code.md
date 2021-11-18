@@ -3,6 +3,7 @@ layout: about
 category: about
 Researchname:  Dynamic-analysis-of-java-framework-code
 toc: true
+author: Bin4xin
 permalink: /about/Dynamic-analysis-of-java-framework-code/
 ---
 

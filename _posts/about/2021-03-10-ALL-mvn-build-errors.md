@@ -3,6 +3,7 @@ layout: about
 category: about
 Researchname:  安全与开发之：Maven构建排错
 toc: true
+author: Bin4xin
 permalink: /about/ALL-mvn-build-errors/
 ---
 

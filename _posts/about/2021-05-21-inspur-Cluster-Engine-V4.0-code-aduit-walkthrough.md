@@ -3,6 +3,7 @@ layout: about
 category: about
 Researchname:  浪潮ClusterEngineV4.0代码审计历程
 toc: true
+author: Bin4xin
 permalink: /about/inspur-Cluster-Engine-V4.0-code-aduit-walkthrough/
 ---
 

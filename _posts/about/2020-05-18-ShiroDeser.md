@@ -2,6 +2,7 @@
 layout: about
 category: about
 Researchname: ShiroDeser
+author: Bin4xin
 permalink: /about/ShiroDeser/
 toc: true
 ---

@@ -4,6 +4,7 @@ category: about
 Researchname: JRMP-Gadget
 toc: true
 permalink: /about/JRMP-Gadget/
+author: Bin4xin
 ---
 
 # Shiro框架深入利用：JRMP-Gadget利用链浅析

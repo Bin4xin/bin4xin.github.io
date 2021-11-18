@@ -3,6 +3,7 @@ layout: about
 category: about
 Researchname:  Mod-Waf-Bypass-Walkthrough
 toc: true
+author: Bin4xin
 permalink: /about/Mod-Waf-Bypass-Walkthrough/
 ---
 

@@ -3,6 +3,7 @@ layout: about
 category: about
 Researchname:  SQL注入原理分析
 toc: true
+author: Bin4xin
 permalink: /about/ALL-SQL-INJECTION-ANALYSIS/
 ---
 
