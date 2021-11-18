@@ -13,6 +13,7 @@ githubRepos: "bin4xin.github.io"
 githubIO: "https://bin4xin.github.io"
 giteeIO: "https://bin4xin.gitee.io"
 # Build settings
+commitString: cdaaf56b676b876e1cc499e0be87e9da8aa11274
 highlighter: rouge
 markdown: kramdown
 kramdown:

@@ -17,12 +17,14 @@
 
 ---
 
+本站使用 `Jekyll`编写，并使用 `babel` 编译
+
 <details>
 <summary><em>点击以查看如何运行Demo</em></summary>
 
 ### 直接编译
 
-本站使用 Jekyll 编写，并使用 babel 编译 ECMAScript6，因此必须安装 ruby >= 2.0 和 nodejs.
+ECMAScript6，因此必须安装 ruby >= 2.0 和 nodejs.
 
 ### For Centos
 1.安装 nodejs
@@ -59,14 +61,13 @@ jekyll build
 ```
 </details>
 
-其余LINUX发行版和MACOS差不多大同小异，参考链接：
+其余Linux发行版和macOS差不多大同小异，参考链接：
 
-[「笔记」：Jekyll for linux.服务器部署历程](https://www.sentrylab.cn/blog/2019/jekyll/in/linux/)
+- [「笔记」：Jekyll for linux.服务器部署历程](https://www.sentrylab.cn/blog/2019/jekyll/in/linux/)
 
-本人在MacOS BigSur v11.2下测试无任何问题。
+在MacOS BigSur v11.2下测试无任何问题。
 
 之后在博客文件夹根目录下`jekyll serve -P 80` 或`bundle exec jekyll server -P 80`即可运行 demo.
-
 
 ### 食用方法
 
