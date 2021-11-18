@@ -37,7 +37,9 @@ jobs:
     - name: setup commit hash string
       run: |
         commitString=$(git rev-parse HEAD)
+        echo $commitString
         echo "commitString: $commitString" >> _config.yml
+        cat _config.yml
     - name: Run jekyll-build
       run: bundle config set --local path 'vendor/bundle' && bundle exec jekyll build --trace
     - name: Simple deploy with git
