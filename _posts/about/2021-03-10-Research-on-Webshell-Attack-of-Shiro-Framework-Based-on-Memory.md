@@ -27,7 +27,7 @@ permalink: /about/Research-on-Webshell-Attack-of-Shiro-Framework-Based-on-Memory
 现如今部署一个靶场的方法有很多，取决于个人喜好和需求；我结合个人能力做出了一些总结：
 
 {: .table}
-| 特点\部署办法 | 1.docker-compose | 2.IDEA tomcat调试部署 | 3.「docker+IDEA」| 
+| 特点\部署办法 | docker-compose | IDEA tomcat调试部署 | Docker+IDEA | 
 | :--- | :--- | :--- | :--- |
 | 快捷程度 | 几条命令快捷部署 | 需开放调试端口+tomcat war包(如无则需源码构建) | 你懂的 | 
 | 能否调试 | ❎ | ✅ | ✅ |
