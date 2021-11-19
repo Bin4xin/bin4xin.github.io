@@ -30,7 +30,9 @@ permalink: /blog/2021/如何通过Action来定制化您的订阅邮件/
 
 来谈谈Action，假设我们定义：
 
-在软件生产周期内，不涉及到需求方向，只考虑代码作业；为了方便叙述我简化流程：那么从编辑代码、运行调试代码到最后的上线代码，在某种程度上来看实际上只有第一个流程是和我们息息相关、关联度极高的，我们需要定义各种根据需求来个性化定制的代码、接口、函数，后面的两个流程从一定意义上来看，属于***<流水线作业>***；嘿！把环境搭建和枯燥的环境变量交给机器吧。
+在软件生产周期内，不涉及到需求方向，只考虑代码作业；为了方便叙述我简化流程：那么从编辑代码、运行调试代码到最后的上线代码，在某种程度上来看实际上只有第一个流程是和我们息息相关、关联度极高的，我们需要定义各种根据需求来个性化定制的代码、接口、函数，后面的两个流程从一定意义上来看，属于***流水线作业***；
+
+***嘿!把环境搭建和枯燥的环境变量交给机器吧!!!***
 
 这，是什么？平台。
 
@@ -38,7 +40,7 @@ permalink: /blog/2021/如何通过Action来定制化您的订阅邮件/
 
 十一月份对我来说是痴迷Action的一个月，可以看到下面的图，整个十一月按每天算，单天我最多提交了146次包括调试、构建在内的代码，令人痴迷。
 
-![截屏2021-11-19 下午2.50.50.png](https://i.loli.net/2021/11/19/nBWoKbvrsDi4fmT.png)
+![截屏2021-11-19 下午5.15.44.png](https://i.loli.net/2021/11/19/qF2nZRi7g1xBV6Y.png)
 
 Github Action提供 Github 服务器托管的虚拟机包括Linux、Windows以及macOS，支持很多环境，您可以[移步docs快速开始](https://docs.github.com/cn/actions/quickstart)
 <!-- 现在也有个词很火，叫[元宇宙]()； -->
@@ -64,7 +66,7 @@ Github Action提供 Github 服务器托管的虚拟机包括Linux、Windows以�
 | {step}name | `- name: 'Checkout codes'` | 步骤名称，一个流程可以有多个步骤 |
 | uses | `uses: actions/checkout@v1` | 使用actions市场共享代码，只需要设置一些相关必要参数即可成功运行action |
 | run | `run: bash ./processEmail.sh` | 运行系统命令 |
-|  | ![截屏2021-11-19 下午4.53.47.png](https://i.loli.net/2021/11/19/fpyDCvRzsG3dgNF.png) | 如果有多条命令可以如左边格式书写 |
+|  | ![截屏2021-11-19 下午4.53.47.png](https://i.loli.net/2021/11/19/fpyDCvRzsG3dgNF.png) | 如果有多条命令可以如左边格式书写或者参考[此处](https://github.com/Bin4xin/Mail-Action/blob/master/.github/workflows/action.yml#L17) |
 | needs | `needs: build` | 在`{folwname}`后，Actions默认多个流程并发进行，如果有先后关系则使用 |
 
 到此，我们就可以使用actions来构建一套标准的任务流程；
@@ -97,7 +99,7 @@ Github Action提供 Github 服务器托管的虚拟机包括Linux、Windows以�
 
 效果如下：
 
-[](https://github.com/Bin4xin/Mail-Action/blob/404951a0ba40bc3f972b77ecf3a306bd5d14d663/assets/IMG_E169327EB634-1.jpeg)
+![](https://github.com/Bin4xin/Mail-Action/blob/404951a0ba40bc3f972b77ecf3a306bd5d14d663/assets/IMG_E169327EB634-1.jpeg)
 
 ### 拓展阅读
 
