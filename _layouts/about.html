@@ -1,14 +1,17 @@
-<!DOCTYPE html>
-<html>
+---
+layout: default
+---
+<!-- <!DOCTYPE html>
+<html> -->
 <style>
 .navbar-hide{
 	display: none;
 }
 </style>
-	{% include head.html %}
-<body>
-	{% include nav.html %}
-
+	
+<!-- <body>
+ -->
+ 
 {% if page.redirect_Research_name %}
 {% assign redirect_to_page = site.categories["about"] | where_exp:"p", "p.Researchname == page.redirect_help_id" %}
 <script>
@@ -92,10 +95,10 @@
 	</div><!--/container -->
 </div><!--/about -->
 	{% include footer.html %}
-</body>
+<!-- </body> -->
 
 <script src="/assets/js/sentryabout.js"></script>
-</html>
+<!-- </html> -->
 <!--
 vim: ts=2 sts=2 sw=2 noexpandtab
 -->
