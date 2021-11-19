@@ -9,10 +9,10 @@ layout: default
             <!-- Blog Post  -->
             <a href="{{ page.url | prepend: site.baseurl }}"><h3 class="ctitle">{{ page.title }}</h3></a>
             <p><csmall>
-              {{ post.date | date: "%Y-%m-%d" }}发布. | 
-              {% if post.wrench %} 并最后修改于：{{ post.wrench | date: "%Y-%m-%d"  }} | 
+              {{ page.date | date: "%Y-%m-%d" }}发布. | 
+              {% if page.wrench %} 并最后修改于：{{ page.wrench | date: "%Y-%m-%d"  }} | 
               {% else %} 未做修改 | 
-              {% endif %} By: {{ post.author }}.
+              {% endif %} By: {{ page.author }}.
             </csmall></p>
             <div class="post-content"> 
             {{ content }}
@@ -20,8 +20,9 @@ layout: default
             <div class="spacing"></div>
             {% include statement.html %}
         </div><!--/col-lg-8 -->
-
+        
         {% include sidebar.html %}
 
-    </div><!--/row -->        
+    </div><!--/row -->
+        
 </div><!--/container -->
