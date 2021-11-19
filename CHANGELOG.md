@@ -23,6 +23,7 @@
 - Next：
     - [ ] 响应式折叠footer相关简介；
     - [ ] 评论功能的硬编码问题改善；
+        - [ ] 发现[编辑功能](https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/2020-05-18-ShiroDeser.md)，思考变量问题；
     - [ ] *CNAME是否能够对应不同的镜像跳转？DNS解析中是否能够解决地域跳转问题？*
         - 只做到通过CloudFlare 访问A 302跳转到B；
         - [antvis](https://github.com/antvis/G2/blob/gh-pages/CNAME)

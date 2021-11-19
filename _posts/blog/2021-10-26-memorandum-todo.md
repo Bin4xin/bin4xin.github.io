@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "网站搭建备忘录"
+title: "备忘录"
 date: 2021-10-26
 wrench: 2021-11-15
 author: Bin4xin
@@ -69,10 +69,6 @@ permalink: /blog/2021/memorandum-todo/
 > 当下：[Home主页]({{site.githubIO}}) | [About主页]({{site.giteeIO}})
 >
 > 未来：[国外镜像]({{site.githubIO}}/about) ｜ [国内镜像]({{site.giteeIO}}/about)
-
-
-
-
 
 我第一个想到的就是针对不同的访问区ip源进行不同地域跳转
 
