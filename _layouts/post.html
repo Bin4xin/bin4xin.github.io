@@ -8,16 +8,20 @@ layout: default
         <div class="col-lg-8">
             <!-- Blog Post  -->
             <a href="{{ page.url | prepend: site.baseurl }}"><h3 class="ctitle">{{ page.title }}</h3></a>
-            <p><csmall>{{ page.date | date: "%b %-d, %Y" }}. | {% if page.wrench %} Last edited: {{ page.wrench | date: "%b %-d, %Y"  }}. | {% endif %} By: {{ page.author }}.</csmall></p>
+            <p><csmall>
+              {{ post.date | date: "%Y-%m-%d" }}发布. | 
+              {% if post.wrench %} 并最后修改于：{{ post.wrench | date: "%Y-%m-%d"  }} | 
+              {% else %} 未做修改 | 
+              {% endif %} By: {{ post.author }}.
+            </csmall></p>
             <div class="post-content"> 
             {{ content }}
             </div>
             <div class="spacing"></div>
             {% include statement.html %}
         </div><!--/col-lg-8 -->
-        
+
         {% include sidebar.html %}
 
-    </div><!--/row -->
-        
+    </div><!--/row -->        
 </div><!--/container -->
