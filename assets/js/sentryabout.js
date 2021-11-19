@@ -1,10 +1,5 @@
 $(document).ready(() => {
 
-	$("select.release-select").on('change', update_apt_file);
-	$("select.release-select").each((i, e) => {
-		$(e).trigger('change');
-	});
-
 	$('#help-select').on('change', (ev) => {
 		let help_url = $(ev.target).find("option:selected").data('help-url');
 		window.location = `${window.location.protocol}//${window.location.host}${help_url}`;
