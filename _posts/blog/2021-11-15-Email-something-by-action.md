@@ -99,7 +99,7 @@ Github Action提供 Github 服务器托管的虚拟机包括Linux、Windows以�
 
 效果如下：
 
-![IMG_E169327EB634-1.jpeg](https://i.loli.net/2021/11/19/seIawvQ8qbMHdDS.jpg)
+<img src="https://i.loli.net/2021/11/19/seIawvQ8qbMHdDS.jpg" width="50%" height="50%"> 
 
 ### 拓展阅读
 
