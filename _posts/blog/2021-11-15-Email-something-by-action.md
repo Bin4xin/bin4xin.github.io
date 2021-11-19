@@ -99,7 +99,7 @@ Github Action提供 Github 服务器托管的虚拟机包括Linux、Windows以�
 
 效果如下：
 
-![](https://github.com/Bin4xin/Mail-Action/blob/404951a0ba40bc3f972b77ecf3a306bd5d14d663/assets/IMG_E169327EB634-1.jpeg)
+![IMG_E169327EB634-1.jpeg](https://i.loli.net/2021/11/19/seIawvQ8qbMHdDS.jpg)
 
 ### 拓展阅读
 
