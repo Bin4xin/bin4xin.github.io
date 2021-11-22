@@ -13,6 +13,32 @@ body {
   margin: 0;
 }
 
+/*!
+ * set some post-print style. start.
+ */
+
+@media (max-width: 1279px) {
+  .post-print
+  {      
+    display: none;
+  }
+}
+
+.post-print a{
+  color: #82318e;
+}
+.post-print a:hover{
+  color: #22313F;
+}
+.post-print {
+  float: right;
+  color: #9EABB3;
+  margin-top: 10px;
+}
+/*!
+ * set some post-print style. end.
+ */
+
 .point {
   cursor: pointer;
 }
