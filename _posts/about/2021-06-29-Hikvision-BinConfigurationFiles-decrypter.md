@@ -6,6 +6,8 @@ author: Bin4xin
 permalink: /about/Hikvision-ConfigurationFiles-decrypter/
 ---
 
+# Hikvision ConfigurationFiles Unauth
+
 > *fofa： app="HIKVISION-视频监控"*
 >
 > *HIKVISION*监控设备管理后台存在未授权，通过构造url可绕过登录查看监控，检索所有用户和配置文件下载。

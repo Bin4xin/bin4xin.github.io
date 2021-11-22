@@ -7,6 +7,8 @@ author: Bin4xin
 permalink: /about/Thousand-people-Thousand-faces-Red-team-penetration-agent-pool-based-on-scylla/
 ---
 
+# 红队技术向：基于 scylla 的访问代理池搭建
+
 >优点：手工burp渗透的同时，后台Xray扫描
 >
 >缺点：会被封IP，所以需要一个代理池或机场作为Xray的出口

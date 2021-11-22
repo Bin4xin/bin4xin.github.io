@@ -8,7 +8,6 @@ permalink: /about/ALL-mvn-build-errors/
 ---
 
 <h1>安全与开发之：<em>Maven</em>构建排错</h1>
-# 谈谈maven:-)
 
 ## 零：Ysoserial魔改项目By threedr3am.Maven构建
 

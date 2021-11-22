@@ -7,6 +7,8 @@ permalink: /about/javaDeser/
 toc: true
 ---
 
+# Java 反序列化浅谈
+
 > <i class="fa fa-quote-left"></i> 序列化和反序列化是一种常见的编程思想；
 >
 > php、python也都存在此种机制。序列化就是将对象转化成字节流，便于保存在内存、文件或者数据库中(保存此对象的状态)。
