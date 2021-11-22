@@ -64,6 +64,16 @@ a:hover, a:focus {
     color:$color_link_hover;
 }
 
+ion-icon { 
+    @include dark{
+    color: #ffffff 
+    }
+}
+ion-icon:hover { 
+@include dark{
+  color: #82318e; 
+  }
+}
 ::-moz-selection  {
     color: #fff;
     text-shadow:none;

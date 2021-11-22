@@ -25,14 +25,14 @@ body {
 }
 
 .post-print a{
-  color: #82318e;
-}
-.post-print a:hover{
   color: #22313F;
 }
+.post-print a:hover{
+  color: #82318e;
+}
 .post-print {
-  float: right;
-  color: #9EABB3;
+  float: left;
+  color: #82318e;
   margin-top: 10px;
 }
 /*!
@@ -2105,9 +2105,11 @@ pre code {
   }
   .col-md-4 {
     width: 33.33333333%;
+    max-width: 33.33333333%;
   }
   .col-md-3 {
     width: 25%;
+    max-width: 25%;
   }
   .col-md-2 {
     width: 16.66666667%;

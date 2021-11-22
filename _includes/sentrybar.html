@@ -1,14 +1,11 @@
 <div class="col-lg-3">
     <div class="spacing"></div>
     <div class="spacing"></div>
-    <h4>Subscribe/订阅</h4>
+    <a href="{{ "/feed.xml" | prepend: site.baseurl }}"><ion-icon name="logo-rss" class="fa-2x"></ion-icon>通过此按钮订阅Blog</a><!--  <h4></h4> -->
     <div class="hline"></div>
-        <p>
-        <p class="rss-subscribe"><i class="fa fa-rss"></i> Subscribe to this blog <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a>.</p>
-        </p>
     <div class="spacing"></div>
 
-    <h4>Search/文章搜索</h4>
+    <h4><ion-icon name="search"></ion-icon> Search/文章搜索</h4>
     <div class="hline"></div>
     <p><kbd>Ctrl ⌃</kbd> + <kbd>F</kbd>搜索</p>
     <p>e.g. Nginx：</p>
@@ -24,7 +21,7 @@
 <!--    </details>-->
     <div class="spacing"></div>
 
-    <h4>Tags/标签</h4>
+    <h4><ion-icon name="pricetags-sharp"></ion-icon> 标签</h4>
     <div class="hline"></div>
     <p>
         {% for category in site.categories %}{% unless category.first == "blog" or category.first == "event" %}

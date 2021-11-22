@@ -13,6 +13,7 @@ permalink: /blog/2021/如何通过Action来定制化您的订阅邮件/
 
 > [GitHub Actions](https://github.com/features/actions) 是 GitHub 的持续集成服务，
 > 于[2018年10月](https://github.blog/changelog/2018-10-16-github-actions-limited-beta/)推出。
+> 
 > 摘于[GitHub Actions 入门教程](https://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html)
 
 我更愿意把她叫做Paas(平台服务)；为什么？谈谈我最近这段时间使用的看法：
@@ -79,19 +80,20 @@ Github Action提供 Github 服务器托管的虚拟机包括Linux、Windows以�
 
 除了文章内的纯文本外，我们还可以自定义邮件为html，然后发一些漂亮的邮件：
 
-```
+```yml
+#此处带美元符的均为两对花括号，详细请移步(https://github.com/Bin4xin/Mail-Action/blob/master/.github/workflows/action.yml#L17)
 - name: 'Send mail'
-	uses: dawidd6/action-send-mail@v3
-	with:
-	  server_address: smtp.qq.com
-	  server_port: 465
-	  username: ${{ secrets.MAIL_USERNAME }}
-	  password: ${{ secrets.MAIL_PASSWORD }}
-	  subject: "${{ env.REPORT_PLACE }} - 订阅信息"
-	  html_body: file://result.html
-	  to: 3313336101@qq.com
-	  from: 哨兵 -  ${{ env.REPORT_COMMIT }}
-	  content_type: text/html
+    uses: dawidd6/action-send-mail@v3
+    with:
+      server_address: smtp.qq.com
+      server_port: 465
+      username: ${ secrets.MAIL_USERNAME }
+      password: ${ secrets.MAIL_PASSWORD }
+      subject: "${ env.REPORT_PLACE } - 订阅信息"
+      html_body: file://result.html
+      to: 3313336101@qq.com
+      from: 哨兵 -  ${ env.REPORT_COMMIT }
+      content_type: text/html
 ```
 我的思路是：写好一些通用模版，html模版可以在本地调试好上传即可，然后在bash脚本里拼接、闭合标签即可；
 
