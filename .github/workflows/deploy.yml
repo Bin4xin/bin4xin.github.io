@@ -31,17 +31,21 @@ jobs:
           ${{ runner.os }}-bundler-${{ env.CACHE_ID }}-
     - name: Change rubygems loading
       run: sed -i "/^source/c source 'https://rubygems.org'" Gemfile
+    # --path=vendor/bundle
     - name: Install dependencies
       if: steps.cache.outputs.cache-hit != 'true'
-      run: bundle install --jobs=4 --retry=3
+      run: bundle install --path=vendor/bundle --jobs=4 --retry=3
     - name: setup commit hash string
       run: |
         commitString=$(git rev-parse HEAD)
         echo $commitString
         echo "commitString: $commitString" >> _config.yml
         cat _config.yml
+    # bundle config set --local path 'vendor/bundle' && 
     - name: Run jekyll-build
-      run: bundle config set --local path 'vendor/bundle' && bundle exec jekyll build --trace
+      run: |
+        bundle config set --local path 'vendor/bundle'
+        bundle exec jekyll build --trace
     - name: Simple deploy with git
       uses: rdarida/simple-github-pages-deploy-action@v1
       with: # optional
