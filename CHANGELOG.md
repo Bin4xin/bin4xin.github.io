@@ -14,10 +14,10 @@
 |  | 页面添加自行点击：博客国内镜像 && 国外镜像跳转 |  |
 | 2021/11/16/23:53:54 CST | 订阅页面存在问题 | code标签预览导致提前闭合了xml文件的标签从而引起报错，已完善 |
 | 2021/11/18/01:03:45 CST | 优先：部分图片是url 404，需修复 | 上传图片图床[sm.sm](https://sm.ms/) |
-| 2021/11/22/20:50:08 CST | 添加`windows.print()`打印功能，并做了相关处理 | <ul><li>[window.print打印指定div指定网页指定区域的方法](https://www.mk2048.com/blog/blog_i11j01babchj.html)</li><li>[codepen](https://www.mk2048.com/blog/blog_i11j01babchj.html)</li></ul> |
+| 2021/11/22/20:50:08 CST | 添加`windows.print()`打印功能，并做了相关处理 | <ul><li>[window.print打印指定div指定网页指定区域的方法](https://www.mk2048.com/blog/blog_i11j01babchj.html)</li><li>[codepen](https://www.mk2048.com/blog/blog_i11j01babchj.html)</li><li>[icons](https://ionic.io/ionicons/usage)</li></ul> |
 
 
-https://ionic.io/ionicons/usage
+
 
 ### 下一步
 
