@@ -64,4 +64,3 @@ Unicode符号范围 | UTF-8编码方式
 0001 0000-0010 FFFF | 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
 
 \x对应的是UTF-8编码的数据，通过转化规则可以转换为Unicode编码，就能得到对应的汉字，转换规则很简单，先将\x去掉，转换为数字，然后进行对应的位移操作即可，需要注意的是先要判断utf-8的位数.
->联系我:chihou.pro@gmail.com ^_^谢谢
