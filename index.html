@@ -113,11 +113,9 @@ permalink: /
   </div>
 </div>
 
-
 <script type="text/javascript">
 $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
-
   var today = function() { 
     var pad = function (number) {
       var r = String(number);
@@ -126,25 +124,15 @@ $(document).ready(function(){
       }
       return r;
     }
-
     var _today = new Date();
     return Date.parse(
       _today.getFullYear().toString() + "-"
       + pad(_today.getMonth()+1) + "-"
       + pad(_today.getDate())
     );
-
   }();
-
-
 });
 </script>
-
-<style>
-  .event-download-button {
-    width: 10px
-  }
-</style>
 
 <!--
 vim: ts=2 sts=2 sw=2 expandtab
