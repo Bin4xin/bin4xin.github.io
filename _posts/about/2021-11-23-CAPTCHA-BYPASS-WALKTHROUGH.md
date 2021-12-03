@@ -8,6 +8,8 @@ author: Bin4xin
 permalink: /about/CAPTCHA-BYPASS-WALKTHROUGH/
 ---
 
+## 开卷(juǎn)
+
 > 可能是卷了吧，以前的我看到登录页面是不愿`Intruder Attack`的，心想：爆破这样的低效率工作，狗都不干；
 >
 > 现在看着页面上的验证码，心里总不是滋味，它似乎态度十分强硬：不准过！说着什么图灵测试、机器学习之类的胡话。
@@ -15,8 +17,6 @@ permalink: /about/CAPTCHA-BYPASS-WALKTHROUGH/
 > 想来，其他人估计也跟我一样，不然网上的技术帖子怎么愈来愈多且高深了呢；
 >
 > 大抵这次，我们真的要站在巨人的肩膀上看这世界了吧？
-
-## 开卷
 
 免费的验证码爆破接口，参上：[smxiazi/NEW_xp_CAPTCHA](https://github.com/smxiazi/NEW_xp_CAPTCHA)
 
@@ -50,4 +50,4 @@ Start Attack！
 
 不过在实际渗透中来看，但凡验证码加一些混淆字符识别率就十分低下：
 
-$$P_(success)=\frac{18}{1795} * 100% = 0.01%$$
+$$P_success=\frac{18}{1795} * 100\% = 0.01\%$$
