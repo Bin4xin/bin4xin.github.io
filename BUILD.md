@@ -18,6 +18,10 @@ git commit -m "[`date +%Y/%m/%d/%T`]<移除::.DS_Store>: commit by `git config -
 git push -u origin main
 ```
 
+- Git on IDEA
+    - ？ `echo $(whoami)`
+    - `$(date +%Y/%m/%d/%T)<测试::idea bash push>: commit by $(git config --global --list|grep user.name|awk -F"=" '{print $2})`
+
 全新的仓库若希望修改默认的master分支可以：`git branch -M main`修改分支名称master为main。
 
 ## Git全局禁止一些文件上传到仓库
