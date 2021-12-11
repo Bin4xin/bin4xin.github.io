@@ -15368,7 +15368,7 @@ button,select {
     margin-left: -18px
 }
 
-.col-lg-2 {
+.footer-col-lg-2 {
     position: relative;
     width: 100%;
     padding-right: 18px;
@@ -15377,7 +15377,7 @@ button,select {
 
 @media (min-width: 992px) {
 
-    .col-lg-2 {
+    .footer-col-lg-2 {
         flex: 0 0 16.66667%;
         max-width: 16.66667%
     }
