@@ -4,7 +4,6 @@ on:
   push: 
     branches: [main]
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,11 +14,11 @@ jobs:
       with:
         fetch-depth: 0    
 
-    - name: Set up Ruby
+    - name: set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 2.6
-    - name: Cache Ruby Bundler
+    - name: cache Ruby Bundler
       id: cache
       uses: actions/cache@v2
       env:
@@ -32,7 +31,7 @@ jobs:
     - name: Change rubygems loading
       run: sed -i "/^source/c source 'https://rubygems.org'" Gemfile
     # --path=vendor/bundle
-    - name: Install dependencies
+    - name: install dependencies
       if: steps.cache.outputs.cache-hit != 'true'
       run: bundle install --path=vendor/bundle --jobs=4 --retry=3
     - name: setup commit hash string
@@ -42,11 +41,11 @@ jobs:
         echo "commitString: $commitString" >> _config.yml
         cat _config.yml
     # bundle config set --local path 'vendor/bundle' && 
-    - name: Run jekyll-build
+    - name: run jekyll-build
       run: |
         bundle config set --local path 'vendor/bundle'
         bundle exec jekyll build --trace
-    - name: Simple deploy with git
+    - name: simple deploy with git
       uses: rdarida/simple-github-pages-deploy-action@v1
       with: # optional
         git-user: ${{ secrets.Git_USERNAME }}
@@ -59,7 +58,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-    - name: Sync to Gitee
+    - name: sync to Gitee
       uses: wearerequired/git-mirror-action@master
       env:
         SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }}
@@ -70,9 +69,9 @@ jobs:
     needs: sync
     runs-on: ubuntu-latest
     steps:
-    - name: do reload by curl
-      run: curl -H "${{ secrets.GITEE_CRSFTOKEN }}" -b "${{ secrets.GITEE_TOKEN }}" -d "branch=gh-pages&build_directory=&force_https=true&auto_update=true"  https://gitee.com/${{ secrets.GIT_USERNAME }}/${{ secrets.GIT_USERNAME }}/pages/rebuild
-    - name: Build Gitee Pages
+#    - name: do reload by curl
+#      run: curl -H "${{ secrets.GITEE_CRSFTOKEN }}" -b "${{ secrets.GITEE_TOKEN }}" -d "branch=gh-pages&build_directory=&force_https=true&auto_update=true"  https://gitee.com/${{ secrets.GIT_USERNAME }}/${{ secrets.GIT_USERNAME }}/pages/rebuild
+    - name: build Gitee Pages
       uses: yanglbme/gitee-pages-action@main
       with:
         gitee-username: ${{ secrets.GIT_USERNAME}}
