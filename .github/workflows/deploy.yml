@@ -1,4 +1,4 @@
-name: <sentrylab> build sync and reload
+name: sentrylab build sync and reload
 
 on:
   push: 
