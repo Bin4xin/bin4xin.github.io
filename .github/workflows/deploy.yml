@@ -76,5 +76,5 @@ jobs:
       with:
         gitee-username: bin4xin
         gitee-password: ${{ secrets.GITEE_PASSWORD }}
-        gitee-repo: 'bin4xin/bin4xin'
-        branch: gh_pages
+        gitee-repo: bin4xin/bin4xin
+        branch: gh-pages
