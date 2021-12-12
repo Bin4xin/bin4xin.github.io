@@ -69,8 +69,6 @@ jobs:
     needs: sync
     runs-on: ubuntu-latest
     steps:
-#    - name: do reload by curl
-#      run: curl -H "${{ secrets.GITEE_CRSFTOKEN }}" -b "${{ secrets.GITEE_TOKEN }}" -d "branch=gh-pages&build_directory=&force_https=true&auto_update=true"  https://gitee.com/${{ secrets.GIT_USERNAME }}/${{ secrets.GIT_USERNAME }}/pages/rebuild
     - name: build Gitee Pages
       uses: yanglbme/gitee-pages-action@main
       with:
