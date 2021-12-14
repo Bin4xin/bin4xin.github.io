@@ -1,15 +1,11 @@
 ---
 layout: default
 ---
-<!-- <!DOCTYPE html>
-<html> -->
 <style>
 .navbar-hide{
 	display: none;
 }
 </style>
-
-<!-- <body>-->
 
 {% if page.redirect_Research_name %}
 {% assign redirect_to_page = site.categories["about"] | where_exp:"p", "p.Researchname == page.redirect_help_id" %}
@@ -33,7 +29,7 @@ layout: default
 					<li{% if RP.Researchname == page.Researchname or RP.redirect_help_id == page.Researchname %} class="active"{%endif%} id="toc-{{RP.Researchname}}"><a href="{{RP.url}}"><code-index-css>{{RP.Researchname}}</code-index-css></a></li>
 					{% endfor %}
 				</ul>
-				
+				<!--see /assets/js/sentryabout.js to top article index（书签）-->
 				{% if page.toc %}
 				<div id="sticky-wrapper" class="sticky-wrapper" style="height: 200px;">
 					<li class="nav nav-pills nav-stacked" id="help-nav">

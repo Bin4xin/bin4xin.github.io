@@ -89,6 +89,9 @@ $color_primary_dark: $color_thu_purple_dark;
 html {
     height: 100%;
     box-sizing: border-box;
+    {% if site.harmony %}
+    filter: grayscale();
+    {% endif %}
 }
 
 body {

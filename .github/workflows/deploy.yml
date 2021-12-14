@@ -1,7 +1,7 @@
 name: sentrylab build sync and reload.
 
 on:
-  push: 
+  push:
     branches: [main]
 
 jobs:
