@@ -17,6 +17,7 @@
 | 2021/11/22/20:50:08 CST | 添加`windows.print()`打印功能，并做了相关处理 | <ul><li>[window.print打印指定div指定网页指定区域的方法](https://www.mk2048.com/blog/blog_i11j01babchj.html)</li><li>[codepen](https://www.mk2048.com/blog/blog_i11j01babchj.html)</li><li>[icons](https://ionic.io/ionicons/usage)</li></ul> |
 | 2021/12/01/09:51:34 CST |  托管镜像域名跳转  |  <ul><li>CNAME是否能够对应不同的镜像跳转？DNS解析中是否能够解决地域跳转问题？答：可以</li><li>[antvis](https://github.com/antvis/G2/blob/gh-pages/CNAME)</li><li>[如何将域名映射至 Github 仓库](https://daijiangtao.gitee.io/2018/06/29/domain-to-github/)</li></ul>  |
 | 2021/12/12/22:32:34 CST | 修改Action[build sync reload](https://github.com/Bin4xin/bin4xin.github.io/blob/main/.github/workflows/deploy.yml#L74)至Gitee |  |
+| 2021/12/14/16:58:24 CST | 添加[国家公祭日运行页面构建灰色流程](https://github.com/Bin4xin/bin4xin.github.io/blob/main/.github/workflows/harmony.yml#L42) | <ul><li>yml流程文件中是否能够定义先后顺序？</li><li>如何跳过执行流程？</li></ul> |
 | - | - | - |
 
 ### 下一步
@@ -24,7 +25,8 @@
 - Next：
     - [x] 响应式折叠footer相关简介；
       - [ ] 折叠相关简介无法打开，待完善；
-    - [ ] 评论功能的硬编码问题改善；
+    - [x] 评论功能的硬编码问题改善；
         - [ ] 发现[编辑功能](https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/2020-05-18-ShiroDeser.md)，思考变量问题；
+        - [ ] 已可添加commitid进入，暂时改善硬编码问题；
     - [ ] 博客分类代码（指文章类别、文章tang等）展示暂无bug，但访问路由存在问题，需考虑；
     - [ ] ...

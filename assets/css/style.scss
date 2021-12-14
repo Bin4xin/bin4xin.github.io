@@ -57,12 +57,6 @@ html {
   filter: $html_harmony;
 }
 
-html {
-  height: 100%;
-  box-sizing: border-box;
-}
-
-
 @mixin dark {
   {% unless site.issue %}
     @media (prefers-color-scheme: dark) { 
