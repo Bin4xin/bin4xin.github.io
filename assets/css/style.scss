@@ -46,9 +46,9 @@ $color_primary: $color_thu_purple;
 $color_primary_dark: $color_thu_purple_dark;
 
 {% if site.harmony %}
-$html_harmony: grayscale(100%);
+$html_harmony: grayscale(1);
 {% else %}
-$html_harmony: none();
+$html_harmony: grayscale(0);
 {% endif %}
 
 html {

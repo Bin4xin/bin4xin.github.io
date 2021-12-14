@@ -15,12 +15,12 @@
 
       <ul class="nav navbar-nav">
         {% if site.harmony %}
-        <li {% if page.permalink == "/" %}class="active"{% endif %}><a href="{{"/news/index.htm" | prepend: site.harmonyURL }}">CN GONGJI HOME</a></li>
-        <li><a href="{{"/news/ej.htm?page=zxzx" | prepend: site.harmonyURL }}">CN GONGJI NEWS</a></li>
-        <li><a href="{{"/news/ej.htm?page=ztbd" | prepend: site.harmonyURL }}">CN GONGJI TOPICS</a></li>
-        <li><a href="{{"/news/ej.htm?page=tbch" | prepend: site.harmonyURL }}">CN GONGJI SPEICAL PLAN</a></li>
-        <li><a href="http://www.19371213.com.cn">CN GONGJI DATA RESEARCH</a></li>
-        <li><a href="{{"/2016-11/29/c_135866990.htm" | prepend: site.harmonyURL }}">CN GONGJI CONTACT US</a></li>
+        <li {% if page.permalink == "/" %}class="active"{% endif %}><a href="{{"/news/index.htm" | prepend: site.harmonyURL }}">CN GONGJI:: HOME</a></li>
+        <li><a href="{{"/news/ej.htm?page=zxzx" | prepend: site.harmonyURL }}">:: NEWS</a></li>
+        <li><a href="{{"/news/ej.htm?page=ztbd" | prepend: site.harmonyURL }}">:: TOPICS</a></li>
+        <li><a href="{{"/news/ej.htm?page=tbch" | prepend: site.harmonyURL }}">:: SPEICAL PLAN</a></li>
+        <li><ax href="http://www.19371213.com.cn">:: DATA RESEARCH</ax ></li>
+        <li><a href="{{"/2016-11/29/c_135866990.htm" | prepend: site.harmonyURL }}">:: CONTACT US</a></li>
         {% else %}
         <li {% if page.permalink == "/" %}class="active"{% endif %}><a href="{{"/" | prepend: site.baseurl }}">HOME</a></li>
         <li {% if page.permalink == "/blog/" or page.categories contains "blog" %}class="active"{% endif %}><a href="{{"/blog/" | prepend: site.baseurl }}">BLOG</a></li>
