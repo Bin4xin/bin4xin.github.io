@@ -46,17 +46,22 @@ $color_primary: $color_thu_purple;
 $color_primary_dark: $color_thu_purple_dark;
 
 {% if site.harmony %}
-html {
-  height: 100%;
-  box-sizing: border-box;
-  filter: grayscale();
-}
+$html_harmony: grayscale();
 {% else %}
+$html_harmony: none();
+{% endif %}
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+  filter: $html_harmony;
+}
+
 html {
   height: 100%;
   box-sizing: border-box;
 }
-{% endif %}
+
 
 @mixin dark {
   {% unless site.issue %}
