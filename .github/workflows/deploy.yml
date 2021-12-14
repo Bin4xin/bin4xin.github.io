@@ -2,7 +2,8 @@ name: sentrylab build sync and reload.
 
 on:
   push:
-    branches: [main]
+    paths: ['_posts/*']
+  workflow_dispatch
 
 jobs:
   build:

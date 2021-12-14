@@ -46,7 +46,7 @@ $color_primary: $color_thu_purple;
 $color_primary_dark: $color_thu_purple_dark;
 
 {% if site.harmony %}
-$html_harmony: grayscale();
+$html_harmony: grayscale(100%);
 {% else %}
 $html_harmony: none();
 {% endif %}
