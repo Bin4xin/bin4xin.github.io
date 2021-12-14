@@ -43,6 +43,13 @@ body {
   cursor: pointer;
 }
 
+p.Poetry-text {
+  font-size: 18px;
+  opacity: .56;
+  font-weight: normal;
+  line-height:1.99;
+}
+
 summary::-webkit-details-marker {
   display: none
 }
