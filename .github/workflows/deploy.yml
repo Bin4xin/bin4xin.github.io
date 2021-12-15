@@ -2,7 +2,9 @@ name: sentrylab build sync and reload.
 
 on:
   push:
-    paths: ['_posts/*']
+     branches:
+       - main
+#    paths: ['_posts/*']
 #  [workflow_dispatch]似乎不允许存在:-）
 
 jobs:
