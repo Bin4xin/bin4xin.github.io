@@ -5,7 +5,7 @@ on:
      branches:
        - main
 #    paths: ['_posts/*']
-#  [workflow_dispatch]似乎不允许存在:-）
+#  workflow_dispatch 似乎不允许存在:-）
 
 jobs:
   build:
