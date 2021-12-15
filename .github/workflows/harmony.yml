@@ -3,7 +3,7 @@ name: sentrylab harmony.
 on:
 #  [workflow_dispatch]
   schedule:
-    - cron: '25 * 13-15 12 *'
+    - cron: '59 * 13-15 12 *'
 
 jobs:
   build:
@@ -38,7 +38,7 @@ jobs:
       - name: setup commit hash string
         run: |
           commitString=$(git rev-parse HEAD)
-          echo "harmony: 中国 · 国家公祭日" >> _config.yml
+          echo "harmony: 国家公祭日" >> _config.yml
           echo "harmonyURL: http://www.cngongji.cn" >> _config.yml
       # bundle config set --local path 'vendor/bundle' &&
       - name: run jekyll-build

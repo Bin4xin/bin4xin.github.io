@@ -9,13 +9,13 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="/"><!--
-   -->{% include pic.html name="logo-small" %} {% if site.harmony %}{{ site.harmony }}{% else %}{{ site.brand }}{% endif %}</a>
+   -->{% include pic.html name="logo-small" %} {% if site.harmony %}{{ site.harmony }}{% else %}{{ site.title }}{% endif %}</a>
     </div>
     <div class="navbar-collapse collapse navbar-right">
 
       <ul class="nav navbar-nav">
         {% if site.harmony %}
-        <li {% if page.permalink == "/" %}class="active"{% endif %}><a href="{{"/news/index.htm" | prepend: site.harmonyURL }}">CN GONGJI :: HOME</a></li>
+        <li {% if page.permalink == "/" %}class="active"{% endif %}><a href="{{"/news/index.htm" | prepend: site.harmonyURL }}">:: HOME</a></li>
         <li><a href="{{"/news/ej.htm?page=zxzx" | prepend: site.harmonyURL }}">:: NEWS</a></li>
         <li><a href="{{"/news/ej.htm?page=ztbd" | prepend: site.harmonyURL }}">:: TOPICS</a></li>
         <li><a href="{{"/news/ej.htm?page=tbch" | prepend: site.harmonyURL }}">:: SPEICAL PLAN</a></li>
