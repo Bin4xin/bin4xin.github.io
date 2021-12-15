@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "如何通过Action来定制化您的订阅邮件"
+title: "用Github Action有感"
 date: 2021-11-15
 wrench: 2021-11-19
 author: Bin4xin
@@ -108,3 +108,11 @@ Github Action提供 Github 服务器托管的虚拟机包括Linux、Windows以�
 - [其他一些可能用到的Action变量](https://docs.github.com/cn/actions/learn-github-actions/environment-variables)
 - [关于使用 GitHub Actions 进行打包](https://docs.github.com/cn/actions/publishing-packages/about-packaging-with-github-actions)
 - [等等]
+
+### 写在最后
+
+大数据时代，信息来的更加简单快捷，人心也浮躁；
+
+现在很多吃的、喝的，讲究一个手打，这个手打牛丸，那个手磨咖啡；
+
+什么时候能有商家打出旗号：手写代码呢？期待。
