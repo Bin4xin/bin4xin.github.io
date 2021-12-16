@@ -29,7 +29,7 @@ meow_404: true
 about: "本站由哨兵安全实验室支持创办"
 
 include: ['_pages','_primaryindex']
-exclude: ['BUILD.md','CHANGELOG.md','README.md']
+exclude: ['BUILD.md','CHANGELOG.md','README.md','vendor']
 
 # jekyll-archives:
 #   enabled: [categories]
@@ -37,13 +37,13 @@ exclude: ['BUILD.md','CHANGELOG.md','README.md']
 #     category: category
 #   permalink:
 #     category: /categories/:name/
-#jekyll-archives:
-#  layouts:
-#    categories: categories
-#    tag: tag
-#  permalinks:
-#    tag: /tags/:name/
-#    category: /categories/:name/
+jekyll-archives:
+  layouts:
+    categories: categories
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/
 
 contactMail: "administrator@sentrylab.cn"
 # option.
