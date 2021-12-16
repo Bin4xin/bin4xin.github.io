@@ -3,7 +3,9 @@ name: sentrylab harmony.
 on:
 #  [workflow_dispatch]
   schedule:
-    - cron: '59 * 13-15 12 *'
+    - cron: '30 22 12-14 12 *'
+#此表达式为国际时间，每年的十二月十二日到十四日的二十二时三十分
+#换算为北京时间，加上八个小时即每年十二月十三日到十五日的六点三十分
 
 jobs:
   build:

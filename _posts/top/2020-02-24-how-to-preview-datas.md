@@ -1,15 +1,13 @@
 ---
-layout: event
+layout: top
 title: "「机器学习」：谈谈有关数据预处理中的小技巧-Excel分列"
 date: 2020-02-24
 author: Bin4xin
-
 categories:
-  - event
+  - top
 tags:
   - 笔记
   - 机器学习
-  - python
   - Excel
 ---
 

@@ -1,10 +1,10 @@
 ---
-layout: event
-title: "SentryLab - 文章速览"
+layout: top
+title: "文章速览"
 date: 2021-07-31
 author: Bin4xin
 categories:
-  - event
+  - top
 tags:
   - 笔记
   - wiki

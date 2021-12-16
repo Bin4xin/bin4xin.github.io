@@ -1,11 +1,10 @@
 ---
-layout: event
+layout: top
 title: "《厚黑学》:转载"
 date: 2020-04-10
 author: Bin4xin
-
 categories:
-  - event
+  - top
 tags:
   - 笔记
   - 诗文

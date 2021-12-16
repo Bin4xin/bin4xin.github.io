@@ -40,15 +40,15 @@ permalink: /
   <div class="row">
     <div  class="col-md-6 col-md-push-6">
       <h2> # 置顶文章 </h2> 
-      {% for event in site.categories['event'] limit:5 %} 
-      <div class="event" data-event-date="{{event.date | date: "%F"}}">
+      {% for top in site.categories['top'] limit:5 %}
+      <div class="event" data-event-date="{{top.date | date: "%F"}}">
         <div class="event-title">
-          <a href="{{ event.url | prepend: site.baseurl }}">
-             <h4>{{ event.title }}</h4>
+          <a href="{{ top.url | prepend: site.baseurl }}">
+             <h4>{{ top.title }}</h4>
           </a>
         </div>
         <div class="event-meta">
-          <span><strong>时间: </strong>{{event.date | date: "%F"}}{% if event.time %} {{event.time}} {% endif %}</span>
+          <span><strong>时间: </strong>{{top.date | date: "%F"}}{% if top.time %} {{top.time}} {% endif %}</span>
           <span class="event-tags">
             {% for tag in page.tags %}
             <span class="label label-success">{{tag}}</span>
@@ -57,25 +57,25 @@ permalink: /
           
           <span class="event-status">
           </span>
-        {% if event.video or event.slides or event.youtube or event.audio %}
+        {% if top.video or top.slides or top.youtube or top.audio %}
         <br>
-        {% if event.slides %}
-        <a data-toggle="tooltip" title="讲稿下载" class="label label-info" href="{{event.slides}}" target="_blank"><i class="fa fa-file-alt fa-fw"></i></a>
+        {% if top.slides %}
+        <a data-toggle="tooltip" title="讲稿下载" class="label label-info" href="{{top.slides}}" target="_blank"><i class="fa fa-file-alt fa-fw"></i></a>
         {% endif %}
         {% endif %}
         </div>
         <div class="event-abstract">
-        {{ event.excerpt | strip_html | truncate: 240, '...'}}
+        {{ top.excerpt | strip_html | truncate: 240, '...'}}
         </div>
       </div>
       {% endfor %} 
       <div>
-        <a href={{"/events/"|prepend: site.baseurl}}><i class="fa fa-hand-o-right"></i> MORE</a>
+        <a href={{"/tops/"|prepend: site.baseurl}}><i class="fa fa-hand-o-right"></i> MORE</a>
       </div>
     </div>
-    <div id="recent-posts" class="col-md-6 col-md-pull-6">
-      <h2> # 博客窗口 </h2> 
-      {% for post in site.categories['blog'] limit:5 %} 
+  <div id="recent-posts" class="col-md-6 col-md-pull-6">
+      <h2> # 博客窗口 </h2>
+      {% for post in site.categories['blog'] limit:5 %}
       <div class="post">
         <div class="post-title">
           <a href="{{ post.url | prepend: site.baseurl }}">
@@ -89,12 +89,13 @@ permalink: /
         {{ post.excerpt | strip_html | truncate: 240, '...'}}
         </div>
       </div>
-      {% endfor %} 
+      {% endfor %}
       <div>
         <a href={{"/blog/"|prepend: site.baseurl}}><i class="fa fa-hand-o-right"></i> MORE</a>
       </div>
     </div>
   </div>
+
   <div class="row">
   <div id="join-tuna" class="col-md-12">
     <h2> # 加入我们 </h2> 
