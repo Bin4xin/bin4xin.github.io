@@ -26,8 +26,9 @@
         <li {% if page.permalink == "/blog/" or page.categories contains "blog" %}class="active"{% endif %}><a href="{{"/blog/" | prepend: site.baseurl }}">BLOG</a></li>
 <!--under construction <li {% if page.permalink == "/categories/" or page.categories contains "categories" %}class="active"{% endif %}><a href="{{"/categories/" | prepend: site.baseurl }}">CATEGORIES</a></li> -->
         <li {% if page.permalink == "/daily/" or page.categories contains "daily" %}class="active"{% endif %}><a href="{{"/daily/" | prepend: site.baseurl }}">DAILY</a></li>
-        <li {% if page.permalink == "/about/" or page.categories contains "about" %}class="active"{% endif %}><a href="{{"/about/" | prepend: site.baseurl }}">ABOUT ME</a></li>
+        <li {% if page.permalink == "/about/" or page.categories contains "about" %}class="active"{% endif %}><a href="{{"/about/" | prepend: site.baseurl }}">ABOUT</a></li>
         <li {% if page.permalink == "/feed.xml" or page.categories contains "feed" %}class="active"{% endif %}><a href="{{"/feed.xml" | prepend: site.baseurl }}">RSS</a></li>
+        <li {% if page.permalink == "/usage/" or page.categories contains "usage" %}class="active"{% endif %}><a href="{{"/usage/" | prepend: site.baseurl }}">QUICK START</a></li>
         {% endif %}
       </ul>
     </div><!--/.nav-collapse -->

@@ -1,8 +1,9 @@
 ---
 layout: post
-title: usage
+title: 快速开始
+toc: true
 permalink: /usage/
-categories: [event,wiki]
+categories: [blog,wiki]
 author: Bin4xin
 date: 2021-07-07
 wrench: 2021-12-16
@@ -50,6 +51,7 @@ wrench: 2021-12-16
     - Step 1: Install Required Packages
     - Step 2: Compile ruby 2.2.4 source code
     - Step 3: Install rubygems
+
 ```bash
 yum install gcc-c++ patch readline readline-devel zlib zlib-devel
 yum install libyaml-devel libffi-devel openssl-devel make
@@ -61,11 +63,14 @@ wget -c https://rubygems.org/rubygems/rubygems-2.4.8.tgz
 ruby setup.rb
 ```
 3. 安装 bundle 和 build
+
 ```bash
 gem install bundle
 gem install build
 ```
+
 4. Fork mirrors source code
+
 ```bash
 bundle install
 jekyll build
