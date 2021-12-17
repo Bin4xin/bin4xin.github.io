@@ -83,6 +83,7 @@ jekyll build
 #### 常规Git Push操作
 
 - 命令行：
+
 ```bash
 git add .
 git commit -m "[`date +%Y/%m/%d/%T`]<移除::.DS_Store>: commit by `git config --global --list|grep user.name|awk -F"=" '{print $2}'`"
@@ -109,11 +110,13 @@ git push -u origin main
 - 如`.DS_Store`
 
 1. 将 `.DS_Store` 加入全局的 `.gitignore` 文件，执行命令：
+
 ```bash
 echo .DS_Store >> ~/.gitignore_global
 ```
 
 2. 将这个全局的 `.gitignore` 文件加入Git的全局config文件中，执行命令：
+
 ```bash
 git config --global core.excludesfile ~/.gitignore_global
 ```
