@@ -8,7 +8,6 @@ categories:
 tags:
   - 笔记
   - wiki
-permalink: /usage/
 ---
 
 > [2021/11/09/15:08:59] :本文主要介绍{{site.title}}{{site.brand}}相关主题源码的路由、相关配置等
