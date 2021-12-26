@@ -8,8 +8,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/"><!--
-   -->{% include pic.html name="logo-small" %} {% if site.harmony %}{{ site.harmony }}{% else %}{{ site.title }}{% endif %}</a>
+      <a class="navbar-brand" href="/">
+      {% include pic.html name="logo-small" %}{% if site.harmony %}{{ site.harmony }}{% else %}{{ site.title }}{% endif %}
+      </a>
+      <!--click this icon -> scroll to top of page; code from anquanke. also this icon func are under-construction-->
+      <!--<div class="back-to-top" onclick="$(&quot;html,body&quot;).animate({scrollTop:0}, 500);" style="position: fixed;bottom:400px;right: 20px;height: 40px;width: 40px;background-color: #1dada7;border-radius: 50%;text-align: center;cursor: pointer">
+      <img src="https://p0.ssl.qhimg.com/t0179ac3294ef926b8c.png" style="width:30px;margin-top: 6px;">
+      </div> -->
+      <!--class: click to top      <a class="navbar-brand" href="/">-->
+      <!--        <div class="back-to-top" onclick="$(&quot;html,body&quot;).animate({scrollTop:0}, 500);"-->
+      <!--        </div>-->
     </div>
     <div class="navbar-collapse collapse navbar-right">
 
@@ -32,6 +40,5 @@
         {% endif %}
       </ul>
     </div><!--/.nav-collapse -->
-
   </div>
 </div>
