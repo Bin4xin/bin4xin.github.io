@@ -1,3 +1,5 @@
+## # Welcome to the bin4xin.github.io wiki!
+
 <h1 align="center"><a href="https://sentrylab.cn/">哨兵</a></h1>
 
 <div align="center">
@@ -18,3 +20,5 @@
 <li><a href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/CHANGELOG.md">::历史记录相关文档::</a></li>
 <li><a href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/BUILD.md">::构建相关文档::</a></li>
 </ul>
+
+> 将来会逐步移至仓库[Wiki](https://github.com/Bin4xin/bin4xin.github.io/wiki)
