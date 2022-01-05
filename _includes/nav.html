@@ -1,4 +1,10 @@
-<!-- Fixed navbar -->
+<!--
+1.Fixed navbar issues #3 visit https://github.com/Bin4xin/bin4xin.github.io/issues/3
+change `position: fixed` to `position: sticky`
+2.Fixed navbar padding-top equals to 70px.
+`./assets/css/style.scss` @import struture in `./assets/css/_struture.scss`
+del `padding-top=70px` in body.
+-->
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -20,7 +26,6 @@
             <!--        </div>-->
         </div>
         <div class="navbar-collapse collapse navbar-right">
-
             <ul class="nav navbar-nav">
                 {% if site.harmony %}
                 <li {% if page.permalink == "/" %}class="active"{% endif %}><a href="{{"/news/index.htm" | prepend: site.harmonyURL }}">:: HOME</a></li>
