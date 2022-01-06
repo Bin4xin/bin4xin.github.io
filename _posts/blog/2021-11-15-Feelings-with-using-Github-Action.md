@@ -2,11 +2,11 @@
 layout: post
 title: "用Github Action有感"
 date: 2021-11-15
-wrench: 2021-11-19
+wrench: 2022-01-06
 author: Bin4xin
 toc: true
 categories: [blog, 笔记, Github Action]
-permalink: /blog/2021/如何通过Action来定制化您的订阅邮件/
+permalink: /blog/2021/Feelings-with-using-Github-Action/
 ---
 
 ### Github Actions的简介
@@ -105,9 +105,9 @@ Github Action提供 Github 服务器托管的虚拟机包括Linux、Windows以�
 
 ### 拓展阅读
 
+- [快速开始：使用Github Ations订阅每天天气](https://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html)
 - [其他一些可能用到的Action变量](https://docs.github.com/cn/actions/learn-github-actions/environment-variables)
 - [关于使用 GitHub Actions 进行打包](https://docs.github.com/cn/actions/publishing-packages/about-packaging-with-github-actions)
-- [等等]
 
 ### 写在最后
 
@@ -115,4 +115,4 @@ Github Action提供 Github 服务器托管的虚拟机包括Linux、Windows以�
 
 现在很多吃的、喝的，讲究一个手打，这个手打牛丸，那个手磨咖啡；
 
-什么时候能有商家打出旗号：手写代码呢？期待。
+什么时候能有商家、厂商打出手写代码的卖点呢？期待。
