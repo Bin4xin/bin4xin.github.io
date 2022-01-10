@@ -1,6 +1,6 @@
 (function () {
-  var newMathJax = '/static/js/ajax/libs/mathjax/2.7.1/MathJax.js';
-  var oldMathJax = '/static/js/ajax/libs/mathjax/latest/MathJax.js';
+  var newMathJax = '/asstes/js/ajax/libs/mathjax/2.7.1/MathJax.js';
+  var oldMathJax = '/asstes/js/ajax/libs/mathjax/latest/MathJax.js';
 
   var replaceScript = function (script, src) {
     //
