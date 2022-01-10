@@ -6,6 +6,7 @@ categories: [blog,wiki]
 author: Bin4xin
 date: 2021-07-07
 wrench: 2022-01-10
+permalink: /usage/
 ---
 
 > [2021/11/09/15:08:59] :本文主要介绍{{site.title}}{{site.brand}}相关主题源码的路由、相关配置等
