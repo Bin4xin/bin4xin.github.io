@@ -1,12 +1,21 @@
 .DS_Store
-_site
-.sass-cache/
-.jekyll-cache/
 Gemfile.lock
-.jekyll-metadata
 *.swp
 *~
+
+# Editor directories and files
+
 .bundle
 vendor
-.vscode/
+.idea
+.vscode
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*
 

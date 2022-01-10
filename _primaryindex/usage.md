@@ -2,14 +2,73 @@
 layout: post
 title: 快速开始
 toc: true
-permalink: /usage/
 categories: [blog,wiki]
 author: Bin4xin
 date: 2021-07-07
-wrench: 2021-12-16
+wrench: 2022-01-10
 ---
 
 > [2021/11/09/15:08:59] :本文主要介绍{{site.title}}{{site.brand}}相关主题源码的路由、相关配置等
+
+> *TIPS:*
+>
+> 在使用本教程前，强烈建议先阅读[《构建-Jekyll-Quick-Start》](https://github.com/Bin4xin/bin4xin.github.io/wiki/%E6%9E%84%E5%BB%BA-Jekyll-Quick-Start)
+> 本地克隆仓库代码后进行本地编译然后`jekyll server`启动服务，基本了解Jekyll的相关知识后，再尝试本教程。
+>
+> 当然，您也可以跳过`《构建-Jekyll-Quick-Start》`，那么请严格按照教程步骤操作；
+>
+> 有问题请提[issues](https://github.com/Bin4xin/bin4xin.github.io/issues/new)；
+
+
+### # 以《虚函数表》为例
+
+- 文件名称`年-月-日-时-间-中英文-均可-空格-用横杠代替.md`
+  - `2022-01-09-Learning-process-about-virtual-function-table.md`
+- 仓库博文分为几个栏目：
+  - [BLOG](https://www.sentrylab.cn/blog/) - 相关技术博客对应仓库文件位置[`_posts/blog`](https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog)，下面不赘述，以此类推；
+  - [TOPS](https://www.sentrylab.cn/tops/) - 相关博客置顶
+  - [DAILY](https://www.sentrylab.cn/daily/) - 相关日常闲谈文章
+  - [ABOUT](https://www.sentrylab.cn/about/) - 个人研究文章
+- 所以所有MD格式文件都应按照的仓库POST文件格式添加上文件头：
+
+```bash
+---
+layout: post
+#分类布局，blog栏目文章=post，Tops栏目文章=top，不确定可以查看对应文件夹下文件值
+title: "关于虚函数表的学习过程"
+#文章标题，简单概括关于文章的内容
+date: 2022-01-09
+#上传仓库时间
+#wrench: 2022-01-06
+#如文章有修改，则填上修改时间，也可以直接删除改行，需要在加上
+author: codecat
+#作者
+toc: true
+#文章目录，若不为True则文章没有目录
+categories: [blog, 笔记]
+#分类，可以提取文章相关关键词
+permalink: /blog/2022/Learning-process-about-virtual-function-table/
+#访问链接，一般为$root-url/$permalink
+---
+```
+
+- 由于本仓库内title为全局定义`ctitle`属性，默认为`HTML h3`大小，所以建议MD文件内容所有标题前均加上`两个#`
+
+比如，一级标题`# 虚函数表`新增为三级标题`### 虚函数表`，那么大小较为平均美观；否则会出现如下所示的现象，布局较为混乱：
+
+![QQ图片20220109160635.png](https://s2.loli.net/2022/01/09/b1yYzColZqBPO7N.png)
+
+图片可以使用[sm.ms](https://sm.ms/)公共图床进行图片展示，图片上传完成后页面会给出相关格式的链接供使用：
+
+![QQ图片20220109160907.png](https://s2.loli.net/2022/01/09/O69qn1yIWGphVvE.png)
+
+- 而提交的信息可以按照这个格式参考：`[2022/01/09/16:13:13]<添加::Learning-process-about-virtual-function-table.md>commit by sentryCyberSec.`
+  - 更多可以参考：[Git操作-Git-push](https://github.com/Bin4xin/bin4xin.github.io/wiki/Git%E6%93%8D%E4%BD%9C-Git-push)
+  - `[时间]<操作::相关文件>commit by someone.`
+
+- 上传完成后就可以访问文章：
+  - [关于虚函数表的学习过程](https://www.sentrylab.cn/blog/2022/Learning-process-about-virtual-function-table/)
+  - [2022-01-09-Learning-process-about-virtual-function-table.md](https://github.com/sentryCyberSec/sentryCyberSec.github.io/blob/main/_posts/blog/2022-01-09-Learning-process-about-virtual-function-table.md)
 
 ### # 路由问题
 
