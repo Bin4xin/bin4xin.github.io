@@ -4,6 +4,7 @@ category: about
 wrench: 2021-12-28
 toc: true
 Researchname: Apache Log4J RCE复现历程
+desc: 「Apache Log4j2」
 author: Bin4xin
 permalink: /about/Apache-Log4j-RCE-WalkThrough/
 ---

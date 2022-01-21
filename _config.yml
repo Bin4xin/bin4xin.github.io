@@ -52,5 +52,6 @@ githubRepos: "bin4xin.github.io"
 # repos:
 githubIO: "https://bin4xin.github.io"
 giteeIO: "https://bin4xin.gitee.io"
+githubRepos-Branch: "main"
 # Build commit hash strings settings
 

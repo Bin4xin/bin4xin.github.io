@@ -71,11 +71,13 @@ layout: default
 
 					<div class="hline"></div>
 					<div class="spacing"></div>
-<span class="post-print">
-    <a href="javascript:window.print()"><ion-icon name="print-sharp" class="fa-2x"></ion-icon></a>
-</span>
-					{{ content }}
 
+					<h1> {% if page.desc %} {{page.desc}} {% else%} {{ page.title }} {% endif %}
+						<span class="post-print pull-right"><a href="javascript:window.print()"><ion-icon name="print-sharp" class="fa-1x"></ion-icon></a></span>
+						<span class="post-print pull-right"><a href="{{site.githubAccess}}/{{site.githubRepos}}/edit/{{site.githubRepos-Branch}}/{{page.path}}"><ion-icon name="create" class="fa-1x"></ion-icon></a></span>
+					</h1>
+					<div class="hline"></div>
+					{{ content }}
 				</div>
 				<div class="spacing"></div>
 	            {% include statement.html %}

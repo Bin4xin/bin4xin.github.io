@@ -4,6 +4,7 @@ category: about
 wrench: 2021-12-03
 toc: true
 Researchname: BurpSuite验证码插件实验
+desc: 「OCR in BP」
 author: Bin4xin
 permalink: /about/CAPTCHA-BYPASS-WALKTHROUGH/
 ---
