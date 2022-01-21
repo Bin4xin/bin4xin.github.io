@@ -50,26 +50,29 @@ permalink: /about/Mod-Waf-Bypass-Walkthrough/
     
 - 环境lib库安装：
     *  `sudo apt-get install openssl libssl-dev libpcre3 libpcre3-dev zlib1g-dev autoconf automake libtool gcc g++ make`
+    
+```bash
+# [tips] 以下四条命令的含义：
+$ sed -ie 's/SecDefaultAction "phase:1,log,auditlog,pass"/#SecDefaultAction "phase:1,log,auditlog,pass"/g' crs-setup.conf
+$ sed -ie 's/SecDefaultAction "phase:2,log,auditlog,pass"/#SecDefaultAction "phase:2,log,auditlog,pass"/g' crs-setup.conf
+$ sed -ie 's/#.*SecDefaultAction "phase:1,log,auditlog,deny,status:403"/SecDefaultAction "phase:1,log,auditlog,deny,status:403"/g' crs-setup.conf
+$ sed -ie 's/# SecDefaultAction "phase:2,log,auditlog,deny,status:403"/SecDefaultAction "phase:2,log,auditlog,deny,status:403"/g' crs-setup.conf
+```
 
-- [tips]以下四条命令的含义：
-    * ```bash
-    $ sed -ie 's/SecDefaultAction "phase:1,log,auditlog,pass"/#SecDefaultAction "phase:1,log,auditlog,pass"/g' crs-setup.conf
-    $ sed -ie 's/SecDefaultAction "phase:2,log,auditlog,pass"/#SecDefaultAction "phase:2,log,auditlog,pass"/g' crs-setup.conf
-    $ sed -ie 's/#.*SecDefaultAction "phase:1,log,auditlog,deny,status:403"/SecDefaultAction "phase:1,log,auditlog,deny,status:403"/g' crs-setup.conf
-    $ sed -ie 's/# SecDefaultAction "phase:2,log,auditlog,deny,status:403"/SecDefaultAction "phase:2,log,auditlog,deny,status:403"/g' crs-setup.conf
-    ```
-    * 将下面查看`crs-setup.conf`文件输出中1、2行（下文2、3行）的内容注释，文件中5、6行（下文6、7行）取消注释； 
-    ```bash
-    cat crs-setup.conf|grep SecDefaultAction
-    #SecDefaultAction "phase:1,log,auditlog,pass"
-    #SecDefaultAction "phase:2,log,auditlog,pass"
-    # SecDefaultAction "phase:1,nolog,auditlog,pass"
-    # SecDefaultAction "phase:2,nolog,auditlog,pass"
-    SecDefaultAction "phase:1,log,auditlog,deny,status:403"
-    SecDefaultAction "phase:2,log,auditlog,deny,status:403"
-    # SecDefaultAction "phase:1,log,auditlog,redirect:'http://%{request_headers.host}/',tag:'Host: %{request_headers.host}'"
-    # SecDefaultAction "phase:2,log,auditlog,redirect:'http://%{request_headers.host}/',tag:'Host: %{request_headers.host}'"
-    ```
+* 将下面查看`crs-setup.conf`文件输出中1、2行（下文2、3行）的内容注释，文件中5、6行（下文6、7行）取消注释； 
+    
+```bash
+cat crs-setup.conf|grep SecDefaultAction
+#SecDefaultAction "phase:1,log,auditlog,pass"
+#SecDefaultAction "phase:2,log,auditlog,pass"
+# SecDefaultAction "phase:1,nolog,auditlog,pass"
+# SecDefaultAction "phase:2,nolog,auditlog,pass"
+SecDefaultAction "phase:1,log,auditlog,deny,status:403"
+SecDefaultAction "phase:2,log,auditlog,deny,status:403"
+# SecDefaultAction "phase:1,log,auditlog,redirect:'http://%{request_headers.host}/',tag:'Host: %{request_headers.host}'"
+# SecDefaultAction "phase:2,log,auditlog,redirect:'http://%{request_headers.host}/',tag:'Host: %{request_headers.host}'"
+```
+
 其他根据教程往下走即可。
 
 ### 0x03 绕过WAF
