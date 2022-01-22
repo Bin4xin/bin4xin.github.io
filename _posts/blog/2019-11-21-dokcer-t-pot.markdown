@@ -5,6 +5,7 @@ title: "Docker环境下T-pot蜜罐部署记录"
 author: Bin4xin
 categories:
     - blog
+tags:
     - 安全工具
     - 主动防御
 permalink: /blog/2019/docker/t/pot/

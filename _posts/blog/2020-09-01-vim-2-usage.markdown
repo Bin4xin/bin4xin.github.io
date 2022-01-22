@@ -6,6 +6,7 @@ date: 2020-09-01
 author: Bin4xin
 categories:
     - blog
+tags:
     - 笔记
     - BASH
     - 信息搜集

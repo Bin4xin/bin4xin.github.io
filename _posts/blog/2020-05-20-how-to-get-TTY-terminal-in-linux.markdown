@@ -5,6 +5,7 @@ title: "「BASH」:谈谈完全交互式的终端"
 author: Bin4xin
 categories:
     - blog
+tags:
     - BASH
     - 笔记
 permalink: /blog/2020/get/TTY/terminal/

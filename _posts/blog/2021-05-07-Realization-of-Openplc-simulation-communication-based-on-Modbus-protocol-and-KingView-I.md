@@ -7,6 +7,7 @@ author: Bin4xin
 toc: true
 categories:
     - blog
+tags:
     - 漏洞复现
     - 笔记
 permalink: /blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView/

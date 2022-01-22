@@ -5,6 +5,7 @@ title: "「笔记」：反弹shell的几种方法"
 author: Bin4xin
 categories:
     - blog
+tags:
     - 安全工具
     - 渗透
     - 笔记

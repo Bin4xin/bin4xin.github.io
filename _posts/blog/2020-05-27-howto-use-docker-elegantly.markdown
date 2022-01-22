@@ -5,6 +5,7 @@ title: "「Docker」:use docker elegant:)"
 author: Bin4xin
 categories:
     - blog
+tags:
     - vulnhub
     - 漏洞复现
     - 排错

@@ -5,6 +5,7 @@ title: "「Fuzz」:浅谈一些模糊匹配搜集信息的技巧"
 author: Bin4xin
 categories:
     - blog
+tags:
     - 笔记
     - fuzz
     - 信息搜集

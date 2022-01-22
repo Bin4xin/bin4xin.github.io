@@ -5,8 +5,12 @@ date: 2021-10-24
 wrench: 2021-11-11
 author: Bin4xin
 toc: true
-categories: [blog, Cloud]
+categories:
+- blog
+tags:
+- Cloud
 permalink: /blog/2021/The-boundary-between-public-cloud-and-private-cloud/
+
 ---
 
 <!-- <link rel="preload" href="https://docs.github.com/_next/static/css/dff402d5276a23d516b0.css" as="style"/><link rel="stylesheet" href="https://docs.github.com/_next/static/css/dff402d5276a23d516b0.css" data-n-g=""/> -->

@@ -6,6 +6,7 @@ author: Bin4xin
 wrench: 2021-03-19
 categories:
     - blog
+tags:
     - vulnhub
     - 内网
     - 信息搜集

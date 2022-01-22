@@ -5,6 +5,7 @@ title: "「scrcpy」:Linux中优秀的投屏软件～"
 author: Bin4xin
 categories:
     - blog
+tags:
     - 笔记
 permalink: /blog/2019/scrcpy/
 ---

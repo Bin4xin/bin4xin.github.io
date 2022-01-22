@@ -5,6 +5,7 @@ title: "「笔记」：Jekyll for linux.服务器部署历程"
 author: Bin4xin
 categories:
     - blog
+tags:
     - 笔记
     - 软件移植
 permalink: /blog/2019/jekyll/in/linux/

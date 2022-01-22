@@ -5,7 +5,11 @@ date: 2021-10-26
 wrench: 2021-11-15
 author: Bin4xin
 toc: true
-categories: [blog, 笔记, Github Action]
+categories:
+- blog
+tags:
+- 笔记
+- Github Action
 permalink: /blog/2021/memorandum-todo/
 ---
 

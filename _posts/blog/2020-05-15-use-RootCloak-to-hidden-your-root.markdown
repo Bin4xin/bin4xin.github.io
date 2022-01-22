@@ -5,6 +5,7 @@ title: "「安卓」:使用rootCloak绕过root权限监测"
 author: Bin4xin
 categories:
     - blog
+tags:
     - 笔记
     - Android Reverse
 permalink: /blog/2020/escape/from_android_root/

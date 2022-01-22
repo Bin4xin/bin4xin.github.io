@@ -6,6 +6,7 @@ date: 2019-07-15
 author: Bin4xin
 categories:
     - blog
+tags:
     - Web
     - 漏洞复现
     - 渗透

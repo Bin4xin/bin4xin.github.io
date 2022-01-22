@@ -4,7 +4,12 @@ toc: true
 title: "「渗透」SVG的神秘力量：minUv2"
 date: 2019-09-01
 author: Bin4xin
-categories: [blog, Web, 漏洞复现, 渗透, vulnhub]
+categories: blog
+tags:
+- Web
+- 漏洞复现
+- 渗透
+- vulnhub
 permalink: /blog/2019/minUv2/
 ---
 

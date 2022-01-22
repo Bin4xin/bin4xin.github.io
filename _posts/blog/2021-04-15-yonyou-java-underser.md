@@ -6,7 +6,8 @@ author: Bin4xin
 toc: true
 categories:
     - blog
-    - 笔记
+tags:
+    - 反序列化
 permalink: /blog/2021/yonyou-nc6.5-java-underser/
 ---
 

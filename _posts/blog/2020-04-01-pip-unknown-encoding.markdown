@@ -5,6 +5,7 @@ title: "「Terminal」:pip报错'unkown-encoding'"
 author: Bin4xin
 categories:
     - blog
+tags:
     - python
     - Terminal
 permalink: /blog/2020/pip/said/unkown/encoding/

@@ -6,9 +6,9 @@ author: Bin4xin
 toc: true
 categories:
     - blog
+tags:
     - 主动防御
     - 信息搜集
-    - 笔记
 permalink: /blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/
 ---
 

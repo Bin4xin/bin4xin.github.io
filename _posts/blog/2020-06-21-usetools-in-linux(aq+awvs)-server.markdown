@@ -5,6 +5,7 @@ title: "「安全工具」:A-Web_Vuln_Scan和aq域名爆破工具"
 author: Bin4xin
 categories:
     - blog
+tags:
     - 笔记
     - 安全工具
     - 信息搜集

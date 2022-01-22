@@ -6,6 +6,7 @@ author: Bin4xin
 wrench: 2021-06-27
 categories:
     - blog
+tags:
     - Web
     - 技巧
 permalink: /blog/2019/nginx/with/jekyll-site/

@@ -6,6 +6,7 @@ date: 2019-09-01
 author: Bin4xin
 categories:
     - blog
+tags:
     - 软件移植
     - ARM
     - 笔记

@@ -5,6 +5,7 @@ title: "「Struts2」:Apache-Struts2框架漏洞复现"
 author: Bin4xin
 categories:
     - blog
+tags:
     - vulnhub
     - 漏洞复现
     - CVE
