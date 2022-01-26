@@ -13,12 +13,12 @@ permalink: /blog/2020/Lets/GyoiThon/
 ---
 
 
-title:GyoiThon Scanner
+> `title:GyoiThon Scanner`
 
 ## 1 下载依赖项
 下载源文件后，进入文件夹路径，根据`python`的依赖进行安装，即`requirements.txt`文件：
 
-```javascript
+```bash
 PS G:\GyoiThon> pip install -r requirements.txt
 DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won't be maintained after that date. A future version of pip will drop support for Python 2.7. More details about Python 2 support in pip, can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support
 Collecting beautifulsoup4>=4.6.3
@@ -36,7 +36,7 @@ ERROR: No matching distribution found for matplotlib>=3.0.3 (from -r requirement
 ```
 
 报错`ERROR: No matching distribution found for matplotlib>=3.0.3 (from -r requirements.txt (line 7))`称没有找到匹配的版本，以为是pip的版本问题，所以进行pip版本升级。
-```javascript
+```bash
 python -m pip install --upgrade pip
 
 DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won't be maintained after that date. A future version of pip will drop support for Python 2.7. More details about Python 2 support in pip, can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support
@@ -47,7 +47,7 @@ Requirement already up-to-date: pip in c:\python27\lib\site-packages (19.3.1)
 
 但是依然无效，系统提示pip为最新版本。思索着应该是python的版本问题。直接就上python3
 <br>使用`pip3`进行下载更新：
-```javascript
+```bash
 pip3 install -r requirements.txt -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
 
 ##速度可以感受一下：
@@ -61,7 +61,7 @@ Collecting censys>=0.0.8 (from -r requirements.txt (line 3))
 ```
 `-i $url --trust-host $host`此参数则是指定pip下载更新的url库。<br>
 后来发现，requirements中，`matplotlib>=3.0.3`这一项依赖需要`python3.6`版本以上，所以运行会报错。
-```javascript
+```bash
 cat /media/root/binAxin/GyoiThon/requirements.txt 
 beautifulsoup4>=4.6.3
 cchardet>=2.1.4
@@ -88,7 +88,7 @@ GyoiThon根据学习数据识别安装在Web服务器上的软件（操作系统
 
 <br>上述处理均由GyoiThon自动执行；用户唯一的操作就是在GyoiThon中，输入目标web服务器的首页URL。这非常的简单，几乎不花费你任何的时间和精力，就能让你轻松的识别Web服务器上的漏洞。
 所以GyoiThon需要一些识别项（特征库）进行匹配，下载完后，就可以使用扫描器了；需要注意的是，我们运行前需要对`host`文件进行配置
-```javascript
+```bash
 # ls
 config.ini   handout   LICENSE  __pycache__  requirements.txt  util.py
 docker       host.txt  logs     README.md    signatures        util.pyc
@@ -100,7 +100,7 @@ http localhost 80 /
 如上，格式为：<br>
 `协议<空格>url地址<空格>端口号<空格>路径`
 
-```javascript
+```bash
 PS G:\GyoiThon> python3 .\gyoithon.py
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

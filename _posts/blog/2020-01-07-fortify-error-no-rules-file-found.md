@@ -6,44 +6,48 @@ author: Bin4xin
 categories:
     - blog
 tags:
-    - Web
-    - 漏洞复现
+    - 代码审计
     - 笔记
 permalink: /blog/2020/fortify/no-fules-file/found/
 ---
 
-*	最近在接触代码审计的活儿。碰到了一些问题，随手记录下来。
-	错误描述：当fortify开始java代码分析时，报错No rules files found;
+> 最近在接触代码审计的活儿。碰到了一些问题，随手记录下来；
+> 错误描述：当fortify开始java代码分析时，报错`No rules files found`;
 
 
-# 1.错误描述
-谷歌一波：
-## 问题引出
-stackoverflow原问题：
- ```javascript
+## 1.错误描述
+
+谷歌一波关键词`[error]: No rules files found`：
+
+### 问题引出
+
+[stackoverflow原问题：](https://stackoverflow.com/questions/18209159/fortify-error-no-rules-file-found)
+
+```
  When I run a Fortify analysis against a Java project I receive this error :
  [warning]: No rules files found
  [error]: No rules files found
  Where can I configure the rules file ?
 ```
+
 原答案：
-```javascript
-Navigate to the bin folder of your fortify installation
-Enter scapostinstall
-Enter 2 to select Settings
-Enter 2 to select Proxy Server Host
-Enter the name of the proxy server
-Enter 3 to select Proxy Server Port.
-Enter the proxy server's port number.
-Exit and run fortifyupdate.cmd
-```
+
+>Navigate to the bin folder of your fortify installation
+>Enter scapostinstall
+>Enter 2 to select Settings
+>Enter 2 to select Proxy Server Host
+>Enter the name of the proxy server
+>Enter 3 to select Proxy Server Port.
+>Enter the proxy server's port number.
+>Exit and run fortifyupdate.cmd
+
 原答案的意思就是说需要对fortify进行代理配置，(需科学上网)后进行规则库的下载配置。
 
-# 2.解决问题
+## 2.解决问题
 
-## 配置代码
+### 配置代码
 进入fortify安装的目录，对fortify进行代理配置，配置过程代码如下：
-```javascript
+```bash
 #进入fortify的安装目录(windows环境)
 E:
 cd fortify\bin\
@@ -99,9 +103,9 @@ Please select the desired action (1,2,3,4,5,s,r,q): q
 ```
 以上fortify客户端配置代理结束，然后直接输入命令进行规则库下载更新：
 
-## 更新文件
+### 更新文件
 输入fortifyupdate更新命令，更新代码如下：
-```javascript
+```bash
 E:\fortify\bin>fortifyupdate.cmd
 Using proxy server: localhost:8080
 Storing Updated Security Content ...
@@ -138,13 +142,13 @@ E:\fortify\Core\config\ExternalMetadata
 Main External List Mappings v2015.2.0.0008
 ```
 
-# 结果
+## 结果
 
 配置完就可以愉快地使用fortify进行机器扫描分析代码了。
 
-`敬上。感谢您的阅读`<br>
+**敬上。感谢您的阅读**
 
+## 参考：
 
-参考：<br>
-<a href="https://stackoverflow.com/questions/18209159/fortify-error-no-rules-file-found"> Fortify Error : “No rules file found”</a>
+- <a href="https://stackoverflow.com/questions/18209159/fortify-error-no-rules-file-found"> Fortify Error : “No rules file found”</a>
 

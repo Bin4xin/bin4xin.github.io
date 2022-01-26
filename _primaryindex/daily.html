@@ -6,7 +6,7 @@ permalink: /daily/
 
 <div class="container mtb">
     <div class="row">
-    <h2> Sentrylab · Ingeeker 's Daily Record </h2>
+    <h2> Seclog </h2>
     <div class="hline"></div>
     <div class="spacing"></div>
 
@@ -15,7 +15,7 @@ permalink: /daily/
             {% for daily in site.categories['daily'] %}
             <div class="row event">
                 <div class="col-lg-9">
-                    <a href="{{ daily.url | prepend: site.baseurl }}"><h2 class="ctitle">{{ daily.title }}</h2></a>
+                    <a href="{{ daily.url | prepend: site.baseurl }}"><h3 class="ctitle">{{ daily.title }}</h3></a>
                         <csmall>{{ daily.date | date: "%b %-d, %Y" }}. | By: {{ daily.author }}</csmall>                  
                     <div class="post-abstract">
                     {{ daily.excerpt | strip_html | truncate: 120, '...'}}

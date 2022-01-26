@@ -16,7 +16,7 @@ $(function () {
 	});
 });
 $(".article-index").sticky({
-	topSpacing: 10,
+	topSpacing: 88,
 });
 
 $(document).scroll(function(){

@@ -2,9 +2,9 @@
 layout: default
 ---
 <style>
-.navbar-hide{
-	display: none;
-}
+	.navbar-hide{
+		display: none;
+	}
 </style>
 
 {% if page.redirect_Research_name %}
@@ -22,28 +22,31 @@ layout: default
 {% assign about_pages = site.categories["about"] | sort: 'Researchname' %}
 <div id="help-page">
 	<div class="container">
-	  <div class="row">
-		  <div class="col-sm-3 hidden-xs">
+		<div class="row">
+			<div class="col-sm-3 hidden-xs">
 				<ul class="nav nav-pills nav-stacked" id="help-nav">
 					{% for RP in about_pages %}
-					<li{% if RP.Researchname == page.Researchname or RP.redirect_help_id == page.Researchname %} class="active"{%endif%} id="toc-{{RP.Researchname}}"><a href="{{RP.url}}"><code-index-css>{{RP.Researchname}}</code-index-css></a></li>
+					<li{% if RP.Researchname == page.Researchname or RP.redirect_help_id == page.Researchname %} class="active"{%endif%} id="toc-{{RP.Researchname}}">
+					<a href="{{RP.url}}"><code-index-css>{{RP.Researchname}}</code-index-css></a>
+					</li>
 					{% endfor %}
 				</ul>
 				<!--see /assets/js/sentryabout.js to top article index（书签）-->
-				{% if page.toc %}
-				<div id="sticky-wrapper" class="sticky-wrapper" style="height: 200px;">
-					<li class="nav nav-pills nav-stacked" id="help-nav">
-						<code-index-css>
-							<details open class="article-index" style="overflow: visible;">
-								<summary class="point">文章目录&nbsp &nbsp</summary>
-								<div class="hline"></div>
-								<div class="spacing"></div>
-								{{ content | toc_only }}
-							</details>
-						</code-index-css>
-					</li>
-				</div>
-				{% endif %} 
+				<ul class="nav nav-pills nav-stacked">
+					{% if page.toc %}
+					<div id="sticky-wrapper" class="sticky-wrapper" style="height: 200px;">
+						<li class="nav nav-pills nav-stacked">
+							<code-index-css>
+								<details open class="article-index" style="overflow: visible;">
+									<summary class="point">文章目录&nbsp &nbsp</summary>
+									<div class="hline"></div>
+									{{ content | toc_only }}
+								</details>
+							</code-index-css>
+						</li>
+					</div>
+					{% endif %}
+				</ul>
 			</div><!-- sidenave -->
 			<div class="col-sm-9">
 				<div class="visible-xs">
@@ -60,14 +63,14 @@ layout: default
 				</div>
 				<div id="help-content">
 
-				<center>
-					{% if page.wrench %}
-					<csmall>本文发布于：<em>{{ page.date | date: "%Y-%m-%d" }}</em>并最后修改于：<em>{{ page.wrench | date: "%Y-%m-%d" }}</em></csmall>
-					{% else %}
-					<csmall>本文发布于：<em>{{ page.date | date: "%Y-%m-%d" }}</em></csmall>
-					{% endif %}
-				<csmall><em> | {{ site.description }}</em></csmall>
-				</center>
+					<center>
+						{% if page.wrench %}
+						<csmall>本文发布于：<em>{{ page.date | date: "%Y-%m-%d" }}</em>并最后修改于：<em>{{ page.wrench | date: "%Y-%m-%d" }}</em></csmall>
+						{% else %}
+						<csmall>本文发布于：<em>{{ page.date | date: "%Y-%m-%d" }}</em></csmall>
+						{% endif %}
+						<csmall><em> | {{ site.description }}</em></csmall>
+					</center>
 
 					<div class="hline"></div>
 					<div class="spacing"></div>
@@ -80,9 +83,9 @@ layout: default
 					{{ content }}
 				</div>
 				<div class="spacing"></div>
-	            {% include statement.html %}
+				{% include statement.html %}
 			</div><!-- about research name content -->
-	  </div>
+		</div>
 	</div><!--/container -->
 </div><!--/about -->
 

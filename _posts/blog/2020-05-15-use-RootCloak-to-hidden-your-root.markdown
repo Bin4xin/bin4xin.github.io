@@ -17,7 +17,7 @@ permalink: /blog/2020/escape/from_android_root/
     - https://www.kutu66.com/GitHub/article_105897
     - https://jingyan.baidu.com/article/c45ad29c20a123051753e2af.html
 
-```javascript
+```bash
 .\gradlew.bat task
 Active code page: 65001
 Failed to notify ProjectEvaluationListener.afterEvaluate(), but primary configuration failure takes precedence.
@@ -68,4 +68,5 @@ java.lang.RuntimeException: SDK location not found. Define location with sdk.dir
 
 FAILURE: Build failed with an exception.
 ```
+
 https://blog.csdn.net/coder_ken/article/details/50853927

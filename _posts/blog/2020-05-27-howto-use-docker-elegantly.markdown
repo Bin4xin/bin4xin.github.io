@@ -26,7 +26,7 @@ permalink: /blog/2020/use/Docker/Elegently/
 这里我随便拿了一个镜像举列子
 
 
-```javascript
+```bash
 docker images
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 xdebug-rce_php      latest              6026f10530db        3 days ago          393MB
@@ -35,7 +35,7 @@ vulhub/tomcat       8.5                 66ba03f6c1d8        3 years ago         
 vulhub/tomcat       8.0                 458575a05d97        3 years ago         357MB
 ```
 #### 删除本地镜像
-```javascript
+```bash
 docker rmi 6026f10530db
 Untagged: xdebug-rce_php:latest
 Deleted: sha256:6026f10530db39c61d31e0461ccbff4786e8c604c34f8ff8167d7ac89c81446a
@@ -44,7 +44,7 @@ Deleted: sha256:d43d3fbbbb36edd2dbedd5df458789c7c57b5fd366403830bb6ac01b42b743d7
 Deleted: sha256:b15d563c13eccd51017c2bfa269f322744cb476c4c62749d5356cd0069d6391d
 ```
 如果报错提示无法删除，大概率情况下是指定删除的镜像docker内在运行，直接停止就行。
-```javascript
+```bash
 docker rm 6026f10530db：删除已停止的容器
 docker rm -f 6026f10530db：删除正在运行的容器
 ```
