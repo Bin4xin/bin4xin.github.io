@@ -19,7 +19,7 @@
             let preList = $("pre");
             for (let pre of preList) {
                 //给每个代码块增加上“复制代码”按钮
-                let btn = $("<span class=\"btn-pre-copy\" onclick='preCopy(this)'>复制代码</span>");
+                let btn = $("<span class=\"btn-pre-copy\" onclick='preCopy(this)'>复制代码</span><hr>");
                 btn.prependTo(pre);
             }
         });
@@ -48,6 +48,16 @@
                 btn.text("复制代码");
             },1500);
         }
+        // var text1=document.forms['cli'].text1
+        //     text1.oncopy=function (){
+        //     alert('该内容禁止复制')
+        //     return false;
+        //     // alert('您复制了文本框里的内容')
+        //     }
+        //     text1.onpaste=function (){
+        //     alert('禁止粘贴任何内容')
+        //     return false;
+        //     }
     </script>
 </html>
 

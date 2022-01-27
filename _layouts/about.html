@@ -1,12 +1,8 @@
 ---
 layout: default
 ---
-<style>
-	.navbar-hide{
-		display: none;
-	}
-</style>
 
+<link rel="stylesheet" type="text/css" href="/assets/css/card.css">
 {% if page.redirect_Research_name %}
 {% assign redirect_to_page = site.categories["about"] | where_exp:"p", "p.Researchname == page.redirect_help_id" %}
 <script>
@@ -26,27 +22,21 @@ layout: default
 			<div class="col-sm-3 hidden-xs">
 				<ul class="nav nav-pills nav-stacked" id="help-nav">
 					{% for RP in about_pages %}
-					<li{% if RP.Researchname == page.Researchname or RP.redirect_help_id == page.Researchname %} class="active"{%endif%} id="toc-{{RP.Researchname}}">
-					<a href="{{RP.url}}"><code-index-css>{{RP.Researchname}}</code-index-css></a>
-					</li>
+					<li{% if RP.Researchname == page.Researchname or RP.redirect_help_id == page.Researchname %} class="active"{%endif%} id="toc-{{RP.Researchname}}"><a href="{{RP.url}}"><code-index-css>{{RP.Researchname}}</code-index-css></a></li>
 					{% endfor %}
 				</ul>
 				<!--see /assets/js/sentryabout.js to top article index（书签）-->
-				<ul class="nav nav-pills nav-stacked">
-					{% if page.toc %}
-					<div id="sticky-wrapper" class="sticky-wrapper" style="height: 200px;">
-						<li class="nav nav-pills nav-stacked">
-							<code-index-css>
-								<details open class="article-index" style="overflow: visible;">
-									<summary class="point">文章目录&nbsp &nbsp</summary>
-									<div class="hline"></div>
-									{{ content | toc_only }}
-								</details>
-							</code-index-css>
-						</li>
-					</div>
-					{% endif %}
-				</ul>
+				<div class="spacing"></div>
+				{% if page.toc %}
+				<div id="sticky-wrapper" class="tableOfContents_35-E article-index thin-scrollbar">
+					<ul class="table-of-contents table-of-contents__left-border">
+						<code-index-css>
+								<strong><h4>&nbsp文章目录</h4></strong>
+								{{ content | toc_only }}
+						</code-index-css>
+					</ul>
+				</div>
+				{% endif %}
 			</div><!-- sidenave -->
 			<div class="col-sm-9">
 				<div class="visible-xs">
@@ -62,7 +52,6 @@ layout: default
 					</form>
 				</div>
 				<div id="help-content">
-
 					<center>
 						{% if page.wrench %}
 						<csmall>本文发布于：<em>{{ page.date | date: "%Y-%m-%d" }}</em>并最后修改于：<em>{{ page.wrench | date: "%Y-%m-%d" }}</em></csmall>
@@ -75,7 +64,7 @@ layout: default
 					<div class="hline"></div>
 					<div class="spacing"></div>
 
-					<h1> {% if page.desc %} {{page.desc}} {% else%} {{ page.title }} {% endif %}
+					<h1>
 						<span class="post-print pull-right"><a href="javascript:window.print()"><ion-icon name="print-sharp" class="fa-1x"></ion-icon></a></span>
 						<span class="post-print pull-right"><a href="{{site.githubAccess}}/{{site.githubRepos}}/edit/{{site.githubRepos-Branch}}/{{page.path}}"><ion-icon name="create" class="fa-1x"></ion-icon></a></span>
 					</h1>
