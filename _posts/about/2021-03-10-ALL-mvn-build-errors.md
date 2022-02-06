@@ -5,6 +5,7 @@ Researchname:  安全与开发之：Maven构建排错
 toc: true
 author: Bin4xin
 permalink: /about/ALL-mvn-build-errors/
+desc: 「其他研究」
 ---
 
 <h1>安全与开发之：<em>Maven</em>构建排错</h1>

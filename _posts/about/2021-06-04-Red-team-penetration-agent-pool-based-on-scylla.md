@@ -1,7 +1,7 @@
 ---
 layout: about
 category: about
-Researchname: ATT&CK-基于 scylla 的访问代理池
+Researchname: scylla 搭建步骤
 toc: true
 desc: 「基于 scylla 的代理池」
 author: Bin4xin

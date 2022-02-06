@@ -6,6 +6,7 @@ author: Bin4xin
 wrench: 2021-11-19
 permalink: /about/ShiroDeser/
 toc: true
+desc: 「其他研究」
 ---
 
 # 分享：Different Shiro Framework deserialization analysis ideas

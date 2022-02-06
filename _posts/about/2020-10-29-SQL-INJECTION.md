@@ -5,6 +5,7 @@ Researchname:  SQL注入原理分析
 toc: true
 author: Bin4xin
 permalink: /about/ALL-SQL-INJECTION-ANALYSIS/
+desc: 「其他研究」
 ---
 
 # SQL注入原理分析：全类型数据库靶场搭建

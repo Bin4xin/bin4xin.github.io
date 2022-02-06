@@ -5,6 +5,7 @@ Researchname:  Mod-Waf-Bypass-Walkthrough
 toc: true
 author: Bin4xin
 permalink: /about/Mod-Waf-Bypass-Walkthrough/
+desc: 「其他研究」
 ---
 
 # 「分享」ModsecWAF：老牌开源waf的绕过历程

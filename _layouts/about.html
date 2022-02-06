@@ -3,6 +3,8 @@ layout: default
 ---
 
 <link rel="stylesheet" type="text/css" href="/assets/css/card.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
+
 {% if page.redirect_Research_name %}
 {% assign redirect_to_page = site.categories["about"] | where_exp:"p", "p.Researchname == page.redirect_help_id" %}
 <script>
@@ -15,24 +17,53 @@ layout: default
 	window.Researchname = "{{page.Researchname}}";
 </script>
 
-{% assign about_pages = site.categories["about"] | sort: 'Researchname' %}
+{% assign posts_about_desc = site.categories["about"] | sort: 'desc' | group_by_exp:"post", "post.desc"  %}
+{% assign posts_about = site.categories["about"] | sort: 'Researchname' %}
 <div id="help-page">
 	<div class="container">
 		<div class="row">
+<!--TODO:			<div class="col-sm-3 hidden-xs bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l">-->
 			<div class="col-sm-3 hidden-xs">
-				<ul class="nav nav-pills nav-stacked" id="help-nav">
-					{% for RP in about_pages %}
-					<li{% if RP.Researchname == page.Researchname or RP.redirect_help_id == page.Researchname %} class="active"{%endif%} id="toc-{{RP.Researchname}}"><a href="{{RP.url}}"><code-index-css>{{RP.Researchname}}</code-index-css></a></li>
+				<ul class="nav nav-pills nav-stacked db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list" id="help-nav">
+					{% for descs in posts_about_desc %}
+						<li{% if post_active.Researchname == page.Researchname %} class="active"{%endif%} id="toc-{{post_active.name}}">
+						<a class="font-family: Google Sans,Roboto,Arial,sans-serif;"><strong>{{descs.name}}</strong></a>
+						</li>
+						<!-- TODO: 无法获取到descs对应的 Researchname 标签，所以page.Researchname无法找到对应的Researchname 标签匹配是否相等；
+						{% for post_active in descs.items %}
+						<li{% if post_active.Researchname == page.Researchname %} class="active"{%endif%} id="toc-{{post_active.name}}">
+							<a><code-index-css><strong>{{descs.name}}</strong></code-index-css></a>
+						</li>
+						{% endfor %}
+						-->
+						{% for post in descs.items %}
+					<!--TODO:尝试对desc进行展开闭合
+                                            <li>
+                                                <button class="dib dib-ns dib-m dn-l bn bg-transparent rotate-270">
+                                                    <svg width="16" height="16" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.96 58.0141L17.132 55.1861L40.318 32.0001L17.132 8.81408L19.96 5.98608L45.975 32.0001L19.96 58.0141Z" fill="#FFF"></path></svg>
+                                                </button>-->
+						<ul>
+						<li  id="toc-{{post.name}}" class="nav nav-pills nav-stacked table-of-contents table-of-contents__left-border">
+						<a href="{{ post.url }}"><code-index-css>└── {{ post.Researchname }}</code-index-css></a>
+						</li>
+						</ul>
+						<!--						</li>-->
+						<!-- 				<ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+											<li{% if RP.Researchname == page.Researchname or RP.redirect_help_id == page.Researchname %} class="active"{%endif%} id="toc-{{RP.Researchname}}"><a href="{{RP.url}}"><code-index-css>{{RP.Researchname}}</code-index-css></a></li>
+											<li class="mt1 lh-6"><a class="white f2 fw4" href="https://github.com/tuna/mirror-web" target="blank"></a></li> -->
+						<!-- 				</ul> -->
+
+						{% endfor %}
 					{% endfor %}
 				</ul>
 				<!--see /assets/js/sentryabout.js to top article index（书签）-->
 				<div class="spacing"></div>
 				{% if page.toc %}
-				<div id="sticky-wrapper" class="tableOfContents_35-E article-index thin-scrollbar">
-					<ul class="table-of-contents table-of-contents__left-border">
+				<div id="sticky-wrapper" class="tableOfContents_35-E thin-scrollbar article-index">
+					<ul>
 						<code-index-css>
-								<strong><h4>&nbsp文章目录</h4></strong>
-								{{ content | toc_only }}
+							<strong><h5>文章目录</h5></strong>
+							<li class="table-of-contents table-of-contents__left-border">{{ content | toc_only }}</li>
 						</code-index-css>
 					</ul>
 				</div>
@@ -44,7 +75,7 @@ layout: default
 						<div class="form-group">
 							<label>选择: </label>
 							<select class="form-control" id="help-select">
-								{% for RP in about_pages %}
+								{% for RP in posts_about %}
 								<option data-help-url="{{RP.url}}"{% if RP.Researchname == page.Researchname%} selected{%endif%} id="toc-{{RP.Researchname}}">{{RP.Researchname}}</option>
 								{% endfor %}
 							</select>
@@ -62,13 +93,12 @@ layout: default
 					</center>
 
 					<div class="hline"></div>
-					<div class="spacing"></div>
 
 					<h1>
 						<span class="post-print pull-right"><a href="javascript:window.print()"><ion-icon name="print-sharp" class="fa-1x"></ion-icon></a></span>
 						<span class="post-print pull-right"><a href="{{site.githubAccess}}/{{site.githubRepos}}/edit/{{site.githubRepos-Branch}}/{{page.path}}"><ion-icon name="create" class="fa-1x"></ion-icon></a></span>
 					</h1>
-					<div class="hline"></div>
+
 					{{ content }}
 				</div>
 				<div class="spacing"></div>

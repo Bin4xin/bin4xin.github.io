@@ -5,6 +5,7 @@ Researchname: javaDeser
 author: Bin4xin
 permalink: /about/javaDeser/
 toc: true
+desc: 「其他研究」
 ---
 
 # Java 反序列化浅谈

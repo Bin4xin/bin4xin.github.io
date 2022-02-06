@@ -583,9 +583,26 @@ csmall {
 devsite-header .devsite-collapsible-section, devsite-header[no-lower-row][fixed] {
   box-shadow: var(--devsite-header-lower-box-shadow,0 1px 2px 0 var(--devsite-elevation-key-shadow-color),0 2px 6px 2px var(--devsite-elevation-ambient-shadow-color));
   @include dark{
-    box-shadow: var(--devsite-header-lower-box-shadow,0 1px 2px 0 var(--ifm-color-gray-900),0 2px 6px 2px var(--ifm-color-gray-900));
+    box-shadow: var(--devsite-header-lower-box-shadow,0 1px 2px 0 var(--ifm-color-gray-1000),0 2px 6px 2px var(--ifm-color-gray-1000));
+    //box-shadow: var(--devsite-header-lower-box-shadow,0 1px 2px 0 var(--dark-devsite-elevation-key-shadow-color),0 2px 6px 2px var(--dark-devsite-elevation-key-shadow-color));
   }
 }
+.cws-banner {
+  background-color: #fde293;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  min-height: 0.1px;
+  padding: 12px 16px;
+  text-align: center;
+  word-break: break-word;
+  @include dark{
+    background-color: var(--ifm-color-gray-900);
+  }
+}
+/*
+  card - cws banner shadow end.(add dark mode - 2022/02/07/00:25:36)
+*/
+
 
 {% for attrb in (1..2) %}
 @for $i from 0 to 7 {

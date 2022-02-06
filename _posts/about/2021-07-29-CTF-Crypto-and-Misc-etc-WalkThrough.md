@@ -6,6 +6,7 @@ toc: true
 Researchname: CTF - 密码学与杂项
 author: Bin4xin
 permalink: /about/CTF-Crypto-and-Misc-etc-WalkThrough/
+desc: 「其他研究」
 ---
 
 # 零：Crypto

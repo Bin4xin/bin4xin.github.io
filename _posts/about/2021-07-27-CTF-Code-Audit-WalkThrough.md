@@ -6,6 +6,7 @@ toc: true
 Researchname: CTF - 代码审计向
 permalink: /about/CTF-Code-Audit-WalkThrough/
 author: Bin4xin
+desc: 「其他研究」
 ---
 
 

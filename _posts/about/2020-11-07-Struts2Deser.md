@@ -5,6 +5,7 @@ Researchname: Struts2Deser
 toc: true
 author: Bin4xin
 permalink: /about/Struts2Deser/
+desc: 「其他研究」
 ---
 
 ## 分享：Struts2反序列化

@@ -5,6 +5,7 @@ Researchname:  浪潮ClusterEngineV4.0代码审计历程
 toc: true
 author: Bin4xin
 permalink: /about/inspur-Cluster-Engine-V4.0-code-aduit-walkthrough/
+desc: 「其他研究」
 ---
 
 ## *CNVD-2021-39845 - 浪潮ClusterEngine V4.0存在逻辑缺陷漏洞*

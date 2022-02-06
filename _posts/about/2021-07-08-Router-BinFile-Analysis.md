@@ -5,6 +5,7 @@ Researchname: Router-BinFile-Analysis
 permalink: /about/Router-BinFile-Analysis/
 toc: true
 author: Bin4xin
+desc: 「其他研究」
 ---
 
 # Router BinFile Analysis

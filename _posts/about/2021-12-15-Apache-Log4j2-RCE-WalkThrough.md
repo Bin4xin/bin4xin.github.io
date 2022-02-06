@@ -3,10 +3,10 @@ layout: about
 category: about
 wrench: 2021-12-28
 toc: true
-Researchname: Apache Log4J RCE复现历程
+Researchname: Apache Log4J2 RCE复现历程
 desc: 「Apache Log4j2」
 author: Bin4xin
-permalink: /about/Apache-Log4j-RCE-WalkThrough/
+permalink: /about/Apache-Log4j2-RCE-WalkThrough/
 ---
 
 ## [Apache Log4j-v2.x-x RCE](https://github.com/Bin4xin/bigger-than-bigger/tree/master/CoVV/ApacheLog4j)
@@ -31,7 +31,7 @@ origin	https://github.com/tangxiaofeng7/apache-log4j-poc.git (push)
 ```
 
 > 值得注意的是：
-> 
+>
 > @apache-log4j-poc仓库中的截图poc代码为缺省`127.0.0.1`，我本地并未成功，需调整为网卡监听局域网地址如`192.168.x.x`
 
 - JDK版本11以下，我的测试版本如下：
@@ -52,14 +52,14 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 ```java
 @PostMapping({"/hello"})
 public String hello(String payload) {
-    System.setProperty("com.sun.jndi.ldap.object.trustURLCodebase", "true");
-    System.setProperty("com.sun.jndi.rmi.object.trustURLCodebase", "true");
-    logger.error("{}", payload);
-    logger.info("{}", payload);
-    logger.info(payload);
-    logger.error(payload);
-    return "ok";
-}
+        System.setProperty("com.sun.jndi.ldap.object.trustURLCodebase", "true");
+        System.setProperty("com.sun.jndi.rmi.object.trustURLCodebase", "true");
+        logger.error("{}", payload);
+        logger.info("{}", payload);
+        logger.info(payload);
+        logger.error(payload);
+        return "ok";
+        }
 ```
 
 访问路由为hello，post`payload`参数；
@@ -117,21 +117,21 @@ Serving HTTP on :: port 80 (http://[::]:80/) ...
 
 - 快速开始：
 - 修改[idea代码直接调试apache-log4j-poc](https://github.com/Bin4xin/bigger-than-bigger/blob/master/CoVV/ApacheLog4j/apache-log4j-poc/pom.xml)
-代码版本为`<version>2.15.0-rc1</version>`
+  代码版本为`<version>2.15.0-rc1</version>`
 
 ```xml
 <dependency>
-    <groupId>org.apache.logging.log4j</groupId>
-    <artifactId>log4j-core</artifactId>
-    <!--<version>2.14.1</version>-->
-    <version>2.15.0-rc1</version>
+  <groupId>org.apache.logging.log4j</groupId>
+  <artifactId>log4j-core</artifactId>
+  <!--<version>2.14.1</version>-->
+  <version>2.15.0-rc1</version>
 </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
 <dependency>
-    <groupId>org.apache.logging.log4j</groupId>
-    <artifactId>log4j-api</artifactId>
-    <!--<version>2.14.1</version>-->
-    <version>2.15.0-rc1</version>
+<groupId>org.apache.logging.log4j</groupId>
+<artifactId>log4j-api</artifactId>
+<!--<version>2.14.1</version>-->
+<version>2.15.0-rc1</version>
 </dependency>
 ```
 
@@ -146,17 +146,17 @@ Serving HTTP on :: port 80 (http://[::]:80/) ...
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration status="OFF" monitorInterval="30">
-    <appenders>
-        <console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%m{lookups}%n"/>
-        </console>
-    </appenders>
+  <appenders>
+    <console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%m{lookups}%n"/>
+    </console>
+  </appenders>
 
-    <loggers>
-        <root level="all">
-            <appender-ref ref="Console"/>
-        </root>
-    </loggers>
+  <loggers>
+    <root level="all">
+      <appender-ref ref="Console"/>
+    </root>
+  </loggers>
 </configuration>
 ```
 

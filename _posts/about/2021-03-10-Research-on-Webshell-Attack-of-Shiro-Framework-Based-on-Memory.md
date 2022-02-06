@@ -6,6 +6,7 @@ toc: true
 author: Bin4xin
 wrench: 2021-11-19
 permalink: /about/Research-on-Webshell-Attack-of-Shiro-Framework-Based-on-Memory/
+desc: 「其他研究」
 ---
 
 # 基于内存的Shiro框架Webshell攻击研究

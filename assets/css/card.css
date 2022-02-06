@@ -198,20 +198,15 @@ margin: 0;
 :root {
 --devsite-elevation-key-shadow-color: rgba(60,64,67,0.3);
 --devsite-elevation-ambient-shadow-color: rgba(60,64,67,0.15);
+
+--dark-devsite-elevation-key-shadow-color: rgba(0, 0, 0,0);
+--dark-devsite-elevation-ambient-shadow-color: rgba(0, 0, 0,0.3);
 }
 .cloud-full-bleed, .cloud-full-bleed--bg, .cloud-full-bleed--constrained, .cws-fullbleed {
 margin-left: calc(50% - 50vw);
 margin-right: calc(50% - 50vw);
 }
-.cws-banner {
-background-color: #fde293;
--moz-box-sizing: border-box;
-box-sizing: border-box;
-min-height: 0.1px;
-padding: 12px 16px;
-text-align: center;
-word-break: break-word;
-}
+
 .cws-fullbleed {
 margin: 0 auto;
 }
@@ -219,7 +214,6 @@ margin: 0 auto;
 -moz-osx-font-smoothing: grayscale;
 -webkit-font-smoothing: antialiased;
 text-rendering: optimizeLegibility;
-color: #202124;
 font-family: Google Sans,Roboto,Arial,sans-serif;
 overflow-wrap: normal;
 word-wrap: normal;

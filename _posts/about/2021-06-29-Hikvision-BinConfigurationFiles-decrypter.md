@@ -4,6 +4,7 @@ category: about
 Researchname: Hikvision-ConfigurationFiles-decrypter
 author: Bin4xin
 permalink: /about/Hikvision-ConfigurationFiles-decrypter/
+desc: 「其他研究」
 ---
 
 # Hikvision ConfigurationFiles Unauth

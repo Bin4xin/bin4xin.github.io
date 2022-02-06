@@ -5,6 +5,7 @@ Researchname:  通达OA利用代码分析
 toc: true
 author: Bin4xin
 permalink: /about/ToDa-OA-VulnPoc-by-java-analysis/
+desc: 「其他研究」
 ---
 
 # 通达OA利用代码分析

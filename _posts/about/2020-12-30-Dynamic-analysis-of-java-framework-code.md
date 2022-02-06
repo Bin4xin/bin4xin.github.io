@@ -5,6 +5,7 @@ Researchname:  Dynamic-analysis-of-java-framework-code
 toc: true
 author: Bin4xin
 permalink: /about/Dynamic-analysis-of-java-framework-code/
+desc: 「其他研究」
 ---
 
 # 零：[debug] the world
