@@ -244,7 +244,7 @@ margin: 0;
     top: calc(var(--ifm-navbar-height) + 2rem)
 }
 
-@media only screen and (max-width: 996px) {
+@media only screen and (max-width: 768px) {
     .sidebar_2ahu,.tableOfContents_35-E {
         display:none
     }

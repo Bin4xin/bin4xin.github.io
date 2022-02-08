@@ -3,7 +3,7 @@ layout: about
 category: about
 Researchname: scylla 搭建步骤
 toc: true
-desc: 「基于 scylla 的代理池」
+desc: 「代理池：based on scylla」
 author: Bin4xin
 permalink: /about/Thousand-people-Thousand-faces-Red-team-penetration-agent-pool-based-on-scylla/
 ---

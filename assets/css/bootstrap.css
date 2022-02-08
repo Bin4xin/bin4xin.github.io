@@ -18,7 +18,7 @@ body {
  */
 
 @media (max-width: 1279px) {
-  .post-print
+.post-print
   {      
     display: none;
   }
@@ -27,6 +27,7 @@ body {
 .post-print a{
   color: #22313F;
 }
+.post-print
 .post-print a:hover{
   color: #82318e;
 }
@@ -2623,6 +2624,9 @@ th {
   overflow-x: auto;
 }
 @media screen and (max-width: 767px) {
+  .sl-hide {
+    display: none !important;
+  }
   .table-responsive {
     width: 100%;
     margin-bottom: 15px;
@@ -4129,7 +4133,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-left: -1px;
 }
 .nav {
-  padding-left: 0;
+  /*padding-left: 0;*/
   margin-bottom: 0;
   list-style: none;
 }
@@ -4141,6 +4145,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   position: relative;
   display: block;
   padding: 10px 15px;
+  /*padding-left: 14px !important;*/
+  /*padding-right: 0px !important;*/
+  /*padding-bottom: 8px!important;*/
+  /*padding-top: 8px!important;*/
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
@@ -4241,6 +4249,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     border-bottom-color: #fff;
   }
 }
+/*.nav-pills {
+  background-color: var(--ifm-color-gray-900);
+}*/
 .nav-pills > li {
   float: left;
 }
@@ -4255,6 +4266,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-pills > li.active > a:focus {
   color: #fff;
   background-color: #337ab7;
+
 }
 .nav-stacked > li {
   float: none;
@@ -4262,6 +4274,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-stacked > li + li {
   margin-top: 2px;
   margin-left: 0;
+  max-width: none;
 }
 .nav-justified {
   width: 100%;
@@ -5111,7 +5124,7 @@ a.badge:focus {
   margin-right: 5px;
 }
 .nav-pills > li > a > .badge {
-  margin-left: 3px;
+  margin-left: 0px;
 }
 .jumbotron {
   padding-top: 30px;
