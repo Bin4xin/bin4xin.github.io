@@ -22,6 +22,9 @@ body {
   {      
     display: none;
   }
+.ml-hide {
+  display: none !important;
+}
 }
 
 .post-print a{
@@ -1690,6 +1693,7 @@ pre .btn-pre-copy{
 .row {
   margin-right: -15px;
   margin-left: -15px;
+  width: 100%;
 }
 .row-no-gutters {
   margin-right: 0;
@@ -2624,9 +2628,6 @@ th {
   overflow-x: auto;
 }
 @media screen and (max-width: 767px) {
-  .sl-hide {
-    display: none !important;
-  }
   .table-responsive {
     width: 100%;
     margin-bottom: 15px;
