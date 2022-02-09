@@ -1691,8 +1691,10 @@ pre .btn-pre-copy{
   margin-left: auto;
 }
 .row {
-  margin-right: -15px;
-  margin-left: -15px;
+  padding-right: -15px;
+  padding-left: -15px;
+  margin-right: auto;
+  margin-left: auto;
   width: 100%;
 }
 .row-no-gutters {
@@ -4134,7 +4136,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-left: -1px;
 }
 .nav {
-  /*padding-left: 0;*/
   margin-bottom: 0;
   list-style: none;
 }
@@ -4250,9 +4251,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     border-bottom-color: #fff;
   }
 }
-/*.nav-pills {
-  background-color: var(--ifm-color-gray-900);
-}*/
 .nav-pills > li {
   float: left;
 }
