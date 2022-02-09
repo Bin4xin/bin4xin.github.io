@@ -17,14 +17,14 @@ body {
  * set some post-print style. start.
  */
 
-@media (max-width: 1279px) {
+@media (max-width: 767px) {
 .post-print
   {      
     display: none;
   }
 .ml-hide {
-  display: none !important;
-}
+    display: none !important;
+  }
 }
 
 .post-print a{
@@ -4146,8 +4146,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   position: relative;
   display: block;
   padding: 10px 15px;
-  /*padding-left: 14px !important;*/
-  /*padding-right: 0px !important;*/
+  /*padding-left: 0 !important;*/
+  /*padding-right: 0 !important;*/
   /*padding-bottom: 8px!important;*/
   /*padding-top: 8px!important;*/
 }
@@ -4256,18 +4256,17 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-pills > li {
   float: left;
 }
-.nav-pills > li > a {
-  border-radius: 4px;
-}
+/*.nav-pills > li > a {*/
+/*  border-radius: 4px;*/
+/*}层叠圆角*/
 .nav-pills > li + li {
   margin-left: 2px;
 }
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
-  color: #fff;
-  background-color: #337ab7;
-
+  color: #82318e;
+  font-weight: bold;
 }
 .nav-stacked > li {
   float: none;

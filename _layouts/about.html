@@ -20,33 +20,29 @@ layout: default
 {% assign posts_about_desc = site.categories["about"] | sort: 'desc' | group_by_exp:"post", "post.desc"  %}
 {% assign posts_about = site.categories["about"] | sort: 'Researchname' %}
 <div id="help-page">
-<!--	<div class="container">-->
 		<div class="row">
 			<div class="col-sm-3 ml-hide">
-				<ul class="nav nav-stacked" id="help-nav">
+				<ul class="nav nav-pills nav-stacked" id="help-nav">
 					{% for descs in posts_about_desc %}
-					<li{% if about_pages.Researchname == page.Researchname %} class="active"{%endif%} id="toc-{{descs.name}}">
-					<a style="font-family: Google Sans,Roboto,Arial,sans-serif; cursor: pointer;"><strong>{{descs.name | replace: "「", "" | replace: "」", ""| upcase}}</strong></a>
+{%comment%}{% if descs.Researchname == page.Researchname %} class="active"{%endif%} id="toc-{{descs.name}}"{%endcomment%}
+					<li>
+					<a class="pointer"><strong>{{descs.name | replace: "「", "" | replace: "」", ""| upcase}}</strong></a>
 					</li>
-						{% for post in descs.items %}
-					<!--TODO:尝试对desc进行展开闭合
-                                            <li>
-                                                <button class="dib dib-ns dib-m dn-l bn bg-transparent rotate-270">
-                                                    <svg width="16" height="16" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.96 58.0141L17.132 55.1861L40.318 32.0001L17.132 8.81408L19.96 5.98608L45.975 32.0001L19.96 58.0141Z" fill="#FFF"></path></svg>
-                                                </button>-->
-						<ul class="nav nav-stacked">
-						<li  id="toc-{{post.name}}" class="nav nav-stacked table-of-contents table-of-contents__left-border">
-						<a href="{{ post.url }}"><code-index-css>└── {{ post.Researchname }}</code-index-css></a>
-						</li>
-						</ul>
-						<!--						</li>-->
-						<!-- 				<ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
-											<li{% if RP.Researchname == page.Researchname or RP.redirect_help_id == page.Researchname %} class="active"{%endif%} id="toc-{{RP.Researchname}}"><a href="{{RP.url}}"><code-index-css>{{RP.Researchname}}</code-index-css></a></li>
-											<li class="mt1 lh-6"><a class="white f2 fw4" href="https://github.com/tuna/mirror-web" target="blank"></a></li> -->
-						<!-- 				</ul> -->
-						{% endfor %}
+{%comment%}
+<!--TODO:尝试对desc进行展开闭合
+<li>
+<button class="dib dib-ns dib-m dn-l bn bg-transparent rotate-270">
+<svg width="16" height="16" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.96 58.0141L17.132 55.1861L40.318 32.0001L17.132 8.81408L19.96 5.98608L45.975 32.0001L19.96 58.0141Z" fill="#FFF"></path></svg>
+</button>-->
+{%endcomment%}
+					{% for post in descs.items %}
+					<ul class="nav nav-pills nav-stacked">
+					<li id="toc-{{post.Researchname}}" class="table-of-contents table-of-contents__left-border {% if post.Researchname == page.Researchname or post.redirect_help_id == page.Researchname %} active{%endif%}">
+					<a href="{{ post.url }}">└─ {{ post.Researchname | upcase}}</a>
+					</li>
+					</ul>
 					{% endfor %}
-
+				{% endfor %}
 				</ul>
 				<!--see /assets/js/sentryabout.js to top article index（书签）-->
 			</div><!-- sidenave -->
@@ -87,7 +83,7 @@ layout: default
 				{% include statement.html %}
 			</div><!-- about research name content -->
 
-			<div class="col-sm-2 ml-hide">
+			<div class="col-sm-3 ml-hide">
 				{% if page.toc %}<!--article-index-->
 				<div class="nav nav-stacked tableOfContents_35-E thin-scrollbar">
 					<ul>
@@ -108,7 +104,6 @@ layout: default
 				</div>
 				{% endif %}
 			</div>
-
 		</div>
 	<!--</div>	/container -->
 </div><!--/pages -->
