@@ -101,7 +101,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    filter: grayscale(100%);
+    /*filter: grayscale(100%);*/
     display: block;
     overflow: hidden;
     margin: 16px 10px;

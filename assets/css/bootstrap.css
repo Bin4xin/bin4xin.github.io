@@ -3299,20 +3299,25 @@ fieldset[disabled] .btn-default.focus {
   background-color: #333;
 }
 .btn-primary {
+  font-size: 16px;
+  /*background-color: #337ab7;*/
+  /*border-color: #2e6da4;*/
   color: #fff;
-  background-color: #337ab7;
-  border-color: #2e6da4;
+  background-color: #82318e;
+  background-image: -ms-linear-gradient(left bottom, rgba(159,88,150,0) 0%, rgba(159,88,150,0.6) 100%);
+  background-image: linear,to left bottom,rgba(159,88,150,0) 0%,rgba(159,88,150,0.6) 100%;
+
 }
 .btn-primary:focus,
 .btn-primary.focus {
   color: #fff;
-  background-color: #286090;
-  border-color: #122b40;
+  /*background-color: #286090;*/
+  /*border-color: rgba(142, 49, 49, 0);*/
 }
 .btn-primary:hover {
   color: #fff;
-  background-color: #286090;
-  border-color: #204d74;
+  /*background-color: #286090;*/
+  /*border-color: rgba(142, 49, 49, 0);*/
 }
 .btn-primary:active,
 .btn-primary.active,
