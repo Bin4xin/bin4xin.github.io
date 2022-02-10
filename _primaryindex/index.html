@@ -62,7 +62,8 @@ permalink: /
       </div>
       <div class="card-author">
         <a class="author-avatar">
-          <img src="/assets/img/contributors/{{post.author}}.jpg" />
+          {% assign author = site.writer[post.author] %}
+          <img alt="{{ author.display_name }}" src="https://avatars.githubusercontent.com/u/{{ author.gh_avatars }}?v=4" />
         </a>
         <svg class="half-circle" viewBox="0 0 106 57">
           <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
@@ -70,7 +71,7 @@ permalink: /
 
         <div class="author-name">
           <div class="author-name-prefix">By</div>
-          {{post.author}}
+          {{ post.author }}
         </div>
       </div>
       <div class="tags">

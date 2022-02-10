@@ -28,6 +28,16 @@ meow_404: true
 
 # Short text about your company. Shown in footer on every page and also separately on Home and Contact page.
 about: "本站由哨兵安全实验室支持创办"
+# Github.com/your_username -> avatars头像右键 -> 复制图片地址
+# https://avatars.githubusercontent.com/u/57884471?v=4
+# gh_avatars = 57884471
+writer:
+  Bin4xin:
+    display_name: "Bin4xin"
+    gh_avatars: "57884471"
+  Yang2635:
+    display_name: "Yang2635"
+    gh_avatars: "60431848"
 
 include: ['_pages','_primaryindex']
 exclude: ['BUILD.md','CHANGELOG.md','README.md','vendor']
