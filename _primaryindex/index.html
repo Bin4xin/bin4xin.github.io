@@ -28,7 +28,7 @@ permalink: /
       </div>
       <div class="cws-banner cws-fullbleed" track-metadata-module="banner">
         <div class="cws-banner__body-copy post-abstract">
-          有关{% for about in site.categories['about'] limit:1 %}<a href="{{ about.url | prepend: about.baseurl }}">{% if about.desc%}{{ about.desc }}{% endif %}</a>{% endfor %}<a href={{"/about/"|prepend: site.baseurl}}>... </a>的描述。
+          有关{% for about in site.categories['about'] limit:1 %}<a href="{{ about.url | prepend: about.baseurl }}">{% if about.desc%}{{ about.desc |upcase }}{% endif %}</a>{% endfor %}<a href={{"/about/"|prepend: site.baseurl}}>... </a>的描述。
         </div>
       </div>
     </div>
