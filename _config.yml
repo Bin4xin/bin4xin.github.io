@@ -51,8 +51,7 @@ writer:
     gh_avatars: "93568218"
 ## uplook ⬆⬆⬆⬆
 ## any questions about <gh_avatars> ;)
-️
-include: ['_pages','_primaryindex']
+️include: ['_pages','_primaryindex']
 exclude: ['BUILD.md','CHANGELOG.md','README.md','vendor']
 
 jekyll-archives:
