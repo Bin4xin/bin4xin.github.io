@@ -26,6 +26,10 @@ sass:
 future: true
 meow_404: true
 
+include: ['_pages','_primaryindex']
+exclude: ['BUILD.md','CHANGELOG.md','README.md','vendor']
+
+
 # Short text about your company. Shown in footer on every page and also separately on Home and Contact page.
 about: "本站由哨兵安全实验室支持创办"
 ####
@@ -49,10 +53,11 @@ writer:
   D3ch4ng:
     display_name: "D3ch4ng"
     gh_avatars: "93568218"
+#  D3ch4ng2:
+#    display_name: "D3ch4ng2"
+#    gh_avatars: "93568218"
 ## uplook ⬆⬆⬆⬆
 ## any questions about <gh_avatars> ;)
-️include: ['_pages','_primaryindex']
-exclude: ['BUILD.md','CHANGELOG.md','README.md','vendor']
 
 jekyll-archives:
   layouts:
