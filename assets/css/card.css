@@ -295,7 +295,7 @@ html[data-theme=dark] {
 }
 
 .table-of-contents {
-    font-size: .8rem;
+    /*font-size: .8rem;*/
     margin-bottom: 0;
     padding: var(--ifm-toc-padding-vertical) 0
 }
