@@ -13,7 +13,6 @@ tags:
 permalink: /blog/2020/fastjson/UNdeser/
 ---
 
-
 ### fastjson指纹特征
 访问页面，查看反包是一个指定的json格式的数据。请求包：
 ```bash
@@ -78,8 +77,9 @@ Connection: close
 fastjson在解析json的过程中，支持使用autoType来实例化某一个具体的类，并调用该类的set/get方法来访问属性。通过查找代码中相关的方法，即可构造出一些恶意利用链。
 
 参考资料：
-- https://www.freebuf.com/vuls/208339.html
-- http://xxlegend.com/2017/04/29/title-%20fastjson%20%E8%BF%9C%E7%A8%8B%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96poc%E7%9A%84%E6%9E%84%E9%80%A0%E5%92%8C%E5%88%86%E6%9E%90/
+
+- [浅谈Fastjson RCE漏洞的绕过史](https://www.freebuf.com/vuls/208339.html){:target="_blank"}
+- [fastjson 远程反序列化poc的构造和分析](http://xxlegend.com/2017/04/29/title-%20fastjson%20%E8%BF%9C%E7%A8%8B%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96poc%E7%9A%84%E6%9E%84%E9%80%A0%E5%92%8C%E5%88%86%E6%9E%90/){:target="_blank"}
 
 首先编译并上传命令执行代码
 ```bash
