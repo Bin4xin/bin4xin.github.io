@@ -16,6 +16,8 @@ permalink: /about/Cobalt-Stike-C2-Server-hidden/
 - 修改域名dns到Cloudflare
 - 添加DNS A记录到teamserver监听的VPS 真实IP
 
+![2022-02-19-1.43.26.png](https://image.yjs2635.xyz/images/2022/02/19/2022-02-19-1.43.26.png)
+
 等待完成ping域名后已经接入CDN；
 
 ## cobaltstrike客户端配置
@@ -29,6 +31,8 @@ permalink: /about/Cobalt-Stike-C2-Server-hidden/
 [![2022-02-19-1.18.45.md.png](https://image.yjs2635.xyz/images/2022/02/19/2022-02-19-1.18.45.md.png)](https://image.yjs2635.xyz/image/cuZa)
 
 ## 验证
+
+> 生成木马 `payload=windows/beacon_http/reverse_http`
 
 执行shell命令
 
@@ -45,3 +49,10 @@ beacon> shell ipconfig
 等待执行命令的返回包
 
 ![2022-02-19-1.34.52.png](https://image.yjs2635.xyz/images/2022/02/19/2022-02-19-1.34.52.png)
+
+## 参考
+
+- [反溯源-cs和msf域名上线](https://xz.aliyun.com/t/5728)
+- [红队基础建设:隐藏你的C2 server](https://xz.aliyun.com/t/4509)
+- [检测与隐藏Cobaltstrike服务器/#CDN](https://hosch3n.github.io/2020/12/16/%E6%A3%80%E6%B5%8B%E4%B8%8E%E9%9A%90%E8%97%8FCobaltstrike%E6%9C%8D%E5%8A%A1%E5%99%A8/#CDN)
+- [C2服务器隐藏真实ip](https://www.kitsch.live/2021/04/14/c2%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9A%90%E8%97%8F%E7%9C%9F%E5%AE%9Eip/)

@@ -73,13 +73,13 @@ permalink: /blog/2021/Record-a-suffocating-emergency-response-and-traceability-i
 
 - _点击以了解 [fofa安全工程师们](https://fofa.so/){:target="_blank"} 与 [微步安全工程师们](https://x.threatbook.cn/){:target="_blank"}_
 
-<img align="left" src="https://x.threatbook.cn/public/img/logo-in-header.882f692c.png" height="30%" width="50%"/>
-<img align="right" src="https://fofa.so/_nuxt/img/logo.d9ee5c4.png" height="30%" width="50%"/>
+<img align="left" src="https://image.yjs2635.xyz/images/2022/02/19/logo-in-header.882f692c.png" height="30%" width="50%"/>
+<img align="right" src="https://image.yjs2635.xyz/images/2022/02/19/logo.d9ee5c4.png" height="30%" width="50%"/>
 
+---
 
 欢乐而又短暂的上午如白驹过隙，一晃而过。
 
----
 
 ### 二：下午、枯燥时光 & 渗透测试工程师
 
