@@ -36,6 +36,7 @@ var gitalk = new Gitalk({
     owner: '{{site.githubRepos |split:"."|first}}',
     admin: ['{{site.githubRepos |split:"."|first}}'], 
 	labels: ['Gitalk'],
+	proxy: "https://bin4xin-repos-gitalk.3313336101.workers.dev/?https://github.com/login/oauth/access_token"
 })
 gitalk.render('gitalk-container')
 </script> 
