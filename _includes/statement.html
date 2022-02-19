@@ -1,3 +1,4 @@
+{% comment %}
 <div>
 	<div class="hline"></div>
 	<h3><em>#</em> 申明</h3>
@@ -11,4 +12,31 @@
 
 	<h4> >_ 对本文进行留言：<a href="{{site.githubAccess}}/{{site.githubRepos}}/issues/new?permalink=《{{ page.title }}》" target="_blank"> <em><li class="fa fa-github"></li> Leave a Comment.</em></a></h4>
 	<div class="spacing"></div>
+</div>
+{% endcomment %}
+
+
+<!--gitalk-->
+{% assign gitalk = site.gitalk %}
+
+
+<div class="comment">
+<div id="gitalk-container"></div>
+<!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script> -->
+<link rel="stylesheet" type="text/css" href="/assets/css/card.css">
+<script src="/assets/js/sentryabout.js"></script>
+<script>
+	
+var gitalk = new Gitalk({
+    id: '{{page.url}}',
+    clientID: '{{gitalk.clientID}}',
+    clientSecret: '{{gitalk.clientSecret}}',
+    repo: '{{site.githubRepos}}',
+    owner: '{{site.githubRepos |split:"."|first}}',
+    admin: ['{{site.githubRepos |split:"."|first}}'], 
+	labels: ['from Gitalk'],
+})
+gitalk.render('gitalk-container')
+</script> 
 </div>

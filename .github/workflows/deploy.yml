@@ -42,6 +42,12 @@ jobs:
         commitString=$(git rev-parse HEAD)
         echo $commitString
         echo "commitString: $commitString" >> _config.yml
+        cat >>_config.yml<<EOF
+        gitalk:
+           enable: true
+           clientID: ${{ secrets.clientID }}
+           clientSecret: ${{ secrets.clientSecret }}
+        EOF
     # bundle config set --local path 'vendor/bundle' && 
     - name: run jekyll-build
       run: |
