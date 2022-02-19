@@ -3973,7 +3973,12 @@ $(function() {
                         className: "gt-btn-login",
                         onClick: this.handleLogin,
                         text: this.i18n.t("login-with-github")
+                    }) , !t && b.default.createElement(T.default, {
+                        className: "gt-btn-preview",
+                        onClick: this.handleIssueCreate,
+                        text: this.i18n.t("issues")
                     }))
+                    // asdasd
                 }
             }, {
                 key: "header",
@@ -6596,6 +6601,7 @@ $(function() {
             "init-issue": "初始化 Issue",
             "leave-a-comment": "说点什么",
             preview: "预览",
+            issues: "第一个创建issues",
             edit: "编辑",
             comment: "评论",
             "support-markdown": "支持 Markdown 语法",
@@ -6640,6 +6646,7 @@ $(function() {
             "init-issue": "Init Issue",
             "leave-a-comment": "Leave a comment",
             preview: "Preview",
+            issues: "Be the first guy creating issues",
             edit: "Edit",
             comment: "Comment",
             "support-markdown": "Markdown is supported",
