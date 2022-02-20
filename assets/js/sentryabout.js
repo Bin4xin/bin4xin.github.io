@@ -3973,11 +3973,11 @@ $(function() {
                         className: "gt-btn-login",
                         onClick: this.handleLogin,
                         text: this.i18n.t("login-with-github")
-                    // }) , b.default.createElement(T.default, {
-                    //     className: "gt-btn-preview",
-                    //     onClick: this.handleIssueCreate,
-                    //     isLoading: n,
-                    //     text: this.i18n.t("issues")
+                    }) , !t && b.default.createElement(T.default, {
+                        className: "gt-btn-preview",
+                        onClick: this.handleIssueCreate,
+                        isLoading: n,
+                        text: this.i18n.t("issues")
                     }))
                     // asdasd
                 }
