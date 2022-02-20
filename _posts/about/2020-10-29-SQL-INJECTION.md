@@ -14,7 +14,7 @@ desc: 「其他研究」
 
 **使用docker进行oracle数据库渗透测试，测试环境拓扑如下：**
 
-![sql-topo.png](https://i.loli.net/2021/11/18/vew1djPoYpI8OaS.png)
+![vew1djPoYpI8OaS.png](https://image.yjs2635.xyz/images/2022/02/20/vew1djPoYpI8OaS.png)
 
 #### 0x01：Oracle服务启动
 ##### # Oracle 数据库配置一览
@@ -211,14 +211,13 @@ $connectText = '//127.0.0.1:1521/XE';
 
 ##### # 连库成功效果图
 
-![web-connect-oracle-success.png](https://i.loli.net/2021/11/18/Gd2fjncXqtPQNHl.png)
-
+![Gd2fjncXqtPQNHl.png](https://image.yjs2635.xyz/images/2022/02/20/Gd2fjncXqtPQNHl.png)
 
 #### 0x03：SQL注入靶场启动
 
 至此，注入靶场搭建完毕。SQLMAP注入效果：
 
-![sql-inject-success.png](https://i.loli.net/2021/11/18/LHSrI9bTXWstmxR.png)
+![LHSrI9bTXWstmxR.png](https://image.yjs2635.xyz/images/2022/02/20/LHSrI9bTXWstmxR.png)
 
 ---
 

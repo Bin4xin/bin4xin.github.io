@@ -1,0 +1,18 @@
+---
+layout: about
+category: about
+toc: true
+Researchname: 域名前置隐藏C2服务器
+desc: 「Cobalt Stike」
+author: Bin4xin
+permalink: /about/Cobalt-Stike-C2-domain-front-hidden/
+---
+
+## Mark
+
+尝试了几家云，CDN服务加速域名都需要域名验证了；码一下。
+
+## 参考
+
+- [基于国内某云的 Domain Fronting 技术实践](https://www.anquanke.com/post/id/195011#h2-2){:target="_blank"}
+- [域前置技术的原理与CS上的实现](https://blog.csdn.net/qq_41874930/article/details/107742843){:target="_blank"}

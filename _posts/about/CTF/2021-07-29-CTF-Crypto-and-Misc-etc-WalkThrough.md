@@ -6,7 +6,7 @@ toc: true
 Researchname: CTF - 密码学与杂项
 author: Bin4xin
 permalink: /about/CTF-Crypto-and-Misc-etc-WalkThrough/
-desc: 「其他研究」
+desc: 「CTF」
 ---
 
 # 零：Crypto
@@ -61,7 +61,7 @@ yigb/+l/vjDdAgMBAAE=
 - 解： `solve.py --verbose -k pubkey.pem --decrypt flag.enc`
 	- [3summer/CTF-RSA-tool](https://github.com/3summer/CTF-RSA-tool){:target="_blank"}
 
-![截屏2021-07-29 上午11.43.12.png](https://i.loli.net/2021/07/29/zct5knF6u7BvrES.png)
+![zct5knF6u7BvrES.png](https://image.yjs2635.xyz/images/2022/02/20/zct5knF6u7BvrES.png)
 
 同样的：例题2类似：
 
@@ -105,7 +105,8 @@ $$\frac{17d-1}{ø(n)} = int() = \frac{17d-1}{2135733082216268400}\\d=\frac{21357
 ➜ ln -s /{path/to}/CTF-RSA-tool/solve.py /usr/local/bin/rsatools
 ➜ rsatools --verbose --private -N 2135733555619387051 -e 17 -p 473398607161 -q 4511491
 ```
-![截屏2021-08-03 下午4.00.13.png](https://i.loli.net/2021/08/03/DJtV9CZhLsSq8AY.png)
+
+![DJtV9CZhLsSq8AY.png](https://image.yjs2635.xyz/images/2022/02/20/DJtV9CZhLsSq8AY.png)
 
 #### # 0x03 流量（.pcap）文件
 
@@ -257,7 +258,7 @@ print(binascii.unhexlify(hex(m)[2:].strip("L")))
 > **binascii.unhexlify**：返回由十六进制字符串 hexstr 表示的二进制数据。此函数功能与 b2a_hex() 相反。 hexstr 必须包含偶数个十六进制数
 > 字（可以是大写或小写），否则会引发Error 异常。
 
-![截屏2021-08-06 上午9.11.12.png](https://i.loli.net/2021/08/06/czQdGEHUNkomajY.png)
+![czQdGEHUNkomajY.png](https://image.yjs2635.xyz/images/2022/02/20/czQdGEHUNkomajY.png)
 
 ## 算法解密
 
@@ -272,7 +273,7 @@ print(binascii.unhexlify(hex(m)[2:].strip("L")))
 - 给出文件字符串`ccehgyaefnpeoobe{lcirg}epriec_ora_g`
 - 栅栏里面喂5只小鸡；栅栏算法，5
 
-![截屏2021-08-02 下午2.21.01.png](https://i.loli.net/2021/08/02/FGzs62Pk3TD5cCZ.png)
+![FGzs62Pk3TD5cCZ.png](https://image.yjs2635.xyz/images/2022/02/20/FGzs62Pk3TD5cCZ.png)
 
 #### # 0x06 凯撒密码
 
@@ -283,7 +284,7 @@ print(binascii.unhexlify(hex(m)[2:].strip("L")))
 题干1：
 - 给出一串数字`11 111 010 000 0 1010 111 100 0 00 000 000 111 00 10 1 0 010 0 000 1 00 10 110`，根据1高位/0低位转换为摩丝码最终转换即可
 
-![截屏2021-08-02 下午2.46.36.png](https://i.loli.net/2021/08/02/kTxuAnpBhWwHMaR.png)
+![kTxuAnpBhWwHMaR.png](https://image.yjs2635.xyz/images/2022/02/20/kTxuAnpBhWwHMaR.png)
 
 **值得注意的是，就如上面的题干一样，有时给出的题目不一定会那么耿直让你一眼看出来或者用工具转换出来，需要做一些其他的转换：**
 
@@ -295,7 +296,7 @@ print(binascii.unhexlify(hex(m)[2:].strip("L")))
 
 很明显题1是空格分割，那么题2就是`/`分割，当然也可以把斜杠换成空格在转换，都是一样的；
 
-![截屏2021-08-02 下午2.50.22.png](https://i.loli.net/2021/08/02/cEa31ujitTUCgnW.png)
+![cEa31ujitTUCgnW.png](https://image.yjs2635.xyz/images/2022/02/20/cEa31ujitTUCgnW.png)
 
 通过算法转换后给出：
 ```
@@ -303,7 +304,9 @@ MAY_BE_HAVE_ANOTHER_DECODEHHHHAAAAABAABBBAABBAAAAAAAABAABABAAAAAAABBABAAABBAAABB
 ```
 
 很明显是2次加密，AB混合的字符串；有Crypto CTF经验的大手子们一眼就能看出来，培根编码：
-![截屏2021-08-02 下午3.15.58.png](https://i.loli.net/2021/08/02/PvbsEjXrCF2KfVN.png)
+
+![PvbsEjXrCF2KfVN.png](https://image.yjs2635.xyz/images/2022/02/20/PvbsEjXrCF2KfVN.png)
+
 小写：
 
 ```bash
@@ -368,7 +371,7 @@ attackanddefenceworldisinteresting
 根据题目标题和附件，猜测可能和word文件格式的后缀相关；给出的文件是[word的本质的附件.docx](https://github.com/Bin4xin/bigger-than-bigger/blob/master/CTF/MISC/word的本质的附件.docx)
 
 给出一份word文档可以打开，内容如下：
-![截屏2021-08-18 下午5.07.33.png](https://i.loli.net/2021/08/18/C2gG5InSMyzT1tU.png)
+![C2gG5InSMyzT1tU.png](https://image.yjs2635.xyz/images/2022/02/20/C2gG5InSMyzT1tU.png)
 
 老规矩，`binwalk`查看一下文件
 ```bash
@@ -385,7 +388,7 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 ```
 看到是zip文件，直接`➜ mv word的本质的附件.docx word的本质的附件.zip`，然后解压得到flag；`image1.jpg`是上面文档中的图片：
 
-![截屏2021-08-18 下午5.15.45.png](https://i.loli.net/2021/08/18/2JmebUsQ3FkrnDz.png)
+![2JmebUsQ3FkrnDz.png](https://image.yjs2635.xyz/images/2022/02/20/2JmebUsQ3FkrnDz.png)
 
 - 题目2：简单的图片
 
@@ -438,7 +441,8 @@ drwx------  8 bin4xin  staff      256  8 19 09:49 ../
     - `python bwm.py decode 2.png 1.png Result-1.png`
     - `python bwm.py decode 1.png 2.png Result-2.png`
 
-![截屏2021-08-19 上午11.17.18.png](https://i.loli.net/2021/08/19/K8iPZ4nfgSoXeOW.png)
+![K8iPZ4nfgSoXeOW.png](https://image.yjs2635.xyz/images/2022/02/20/K8iPZ4nfgSoXeOW.png)
+
 
 所以，如果遇到两张相同的图的题目没有思路，可以往盲水印考点上来靠靠。
 
@@ -448,7 +452,7 @@ drwx------  8 bin4xin  staff      256  8 19 09:49 ../
 
 打开是一张空白的图片，高宽1195x1195
 
-![截屏2021-08-20 下午5.01.53.png](https://i.loli.net/2021/08/20/PNmI4eyWxO1r8ZG.png)
+![PNmI4eyWxO1r8ZG.png](https://image.yjs2635.xyz/images/2022/02/20/PNmI4eyWxO1r8ZG.png)
 
 #### # 1x02 音频隐写
 
@@ -464,11 +468,11 @@ drwx------  8 bin4xin  staff      256  8 19 09:49 ../
 
 打开显示为注入payload`id=1' and ascii(substr((select flag from t),1,1))=33--`，是使用二分法判断SQL语句执行对应的Ascii字符是否相等：
 
-![截屏2021-09-03 下午4.31.28.png](https://i.loli.net/2021/09/03/hup13CgkwsoTVRa.png)
+![hup13CgkwsoTVRa.png](https://image.yjs2635.xyz/images/2022/02/20/hup13CgkwsoTVRa.png)
 
 所以直接来看一下返回包的页面是否有不同的地方：`Analyze->Follow->TCP/HTTP Stream`
 
-![截屏2021-09-03 下午4.35.28.png](https://i.loli.net/2021/09/03/mgI9SUcGn4OLPTu.png)
+![mgI9SUcGn4OLPTu.png](https://image.yjs2635.xyz/images/2022/02/20/mgI9SUcGn4OLPTu.png)
 
 两边不同显示：左边为错误Ascii，右边为正确的Ascii，按照顺序`(substr((select flag from t),1,1)->(n,1)`得到：
 
@@ -496,11 +500,11 @@ GET /ctf/Less-5/?id=1' and ascii(substr((select flag from t),4,1))=103--  HTTP/1
 
 打开一看映入眼帘的是一系列SQL注入的payload：(`File -> Export Objects -> HTTP`)
 
-![截屏2021-09-08 下午2.32.14.png](https://i.loli.net/2021/09/08/yPQAJtCO2LIVT8W.png)
+![yPQAJtCO2LIVT8W.png](https://image.yjs2635.xyz/images/2022/02/20/yPQAJtCO2LIVT8W.png)
 
 导出几个出来看看，得到一些数据库的信息：
 
-![截屏2021-09-08 下午2.28.44.png](https://i.loli.net/2021/09/08/j7mBCryiQ1SONfh.png)
+![j7mBCryiQ1SONfh.png](https://image.yjs2635.xyz/images/2022/02/20/j7mBCryiQ1SONfh.png)
 
 往下就是`Login.php POST包`登录成功的信息：
 ```bash
@@ -584,15 +588,15 @@ Location: ./admin/index.php
         ```
 - 观察目录下发现存在被修改的php代码：（以下为参考教程给出-。-）
 
-![截屏2021-09-08 下午4.14.04.png](https://i.loli.net/2021/09/08/uUHT3GLDnqiRYtw.png)
+![uUHT3GLDnqiRYtw.png](https://image.yjs2635.xyz/images/2022/02/20/uUHT3GLDnqiRYtw.png)
 
 - 使用后加的代码对空白字符进行解码，并`file_put_contents('tmp2.txt',base64_decode($out));`输出到`tmp2.txt`文件中，同样文件中输出也有空白字符，再次解码即可；
 
-![截屏2021-09-08 下午4.16.03.png](https://i.loli.net/2021/09/08/aL9SKwjU2bytBqH.png)
+![aL9SKwjU2bytBqH.png](https://image.yjs2635.xyz/images/2022/02/20/aL9SKwjU2bytBqH.png)
 
 - [解码代码](https://github.com/Bin4xin/bigger-than-bigger/blob/master/CTF/MISC/backdoor/kongbai-jiemi.php){:target="_blank"}
 
-![截屏2021-09-08 下午4.20.58.png](https://i.loli.net/2021/09/08/7RVMhvliOXIfoZJ.png)
+![7RVMhvliOXIfoZJ.png](https://image.yjs2635.xyz/images/2022/02/20/7RVMhvliOXIfoZJ.png)
 
 使用获得的key[在线解密](http://tool.chacuo.net/cryptaes){:target="_blank"}`aes-128-ecb`算法，得到flag：`DASCTF{d8f191d0f0be0f039c4ededb7839218e}`
 #### # 1x06 [...]上传/下载文件

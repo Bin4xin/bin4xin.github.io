@@ -5,7 +5,7 @@ Researchname: ModSec & CloudFlare WAF Initial Research
 permalink: /about/WAF-developed-by-Grayscale-forwarding/
 author: Bin4xin
 toc: true
-desc: 「其他研究」
+desc: 「WAF」
 ---
 
 # [持续更新] *ModSec & CloudFlare WAF Initial Research*
@@ -26,7 +26,9 @@ desc: 「其他研究」
 假设您的域名购买服务商为阿里云；
 
 - 1.登录阿里云域名面板设置解析IP；
-- 2.阿里云域名面板DNS Server修改为：`diva.ns.cloudflare.com`、`nitin.ns.cloudflare.com`；
+- 2.阿里云域名面板DNS Server修改为：
+  - `diva.ns.cloudflare.com`
+  - `nitin.ns.cloudflare.com`
 - 3.进入[CloudFlare](https://www.cloudflare.com/zh-cn/)，添加站点，添加CloudFlare指定认证页面添加到Web root目录下；
 - 4.配置WAF。
 
@@ -48,7 +50,7 @@ firewall:`https://dash.cloudflare.com/{random-token-value}/{domain.value}/firewa
 
 	- `(http.request.method eq "POST")`
 
-	![截屏2021-07-09 下午5.01.03.png](https://i.loli.net/2021/07/23/8KmS1WMqGQEniO2.png)
+	![8KmS1WMqGQEniO2.png](https://image.yjs2635.xyz/images/2022/02/20/8KmS1WMqGQEniO2.png)
 
 **值得一提的是：您需要注意如果您添加的是根域名`a.com`DNS服务器为CloudFlare，那么firewall将会作用于所有可识别的域名如`1.a.com & 2.a.com` etc...**
 
@@ -85,7 +87,7 @@ firewall:`https://dash.cloudflare.com/{random-token-value}/{domain.value}/firewa
 
 #### # 0x04 带有攻击性的流量
 
-![截屏2021-07-09 下午5.10.44.png](https://i.loli.net/2021/07/23/lEu1WSvmd5LXGjU.png)
+![lEu1WSvmd5LXGjU.png](https://image.yjs2635.xyz/images/2022/02/20/lEu1WSvmd5LXGjU.png)
 
 ## 一：*Local WAF - JXWAF*
 

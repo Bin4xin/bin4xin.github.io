@@ -5,7 +5,7 @@ Researchname: javaDeser
 author: Bin4xin
 permalink: /about/javaDeser/
 toc: true
-desc: 「其他研究」
+desc: 「反序列化」
 ---
 
 # Java 反序列化浅谈
@@ -73,8 +73,8 @@ public class People implements Serializable {
 }
 ```
 所以简而言之，web中传入的反序列化RCE的poc必然是传入参数可控。效果：
-![](https://i.loli.net/2021/11/18/GKTt6uvjdh1g5QY.png)
 
+![GKTt6uvjdh1g5QY.png](https://image.yjs2635.xyz/images/2022/02/20/GKTt6uvjdh1g5QY.png)
 
 ### 参考
 

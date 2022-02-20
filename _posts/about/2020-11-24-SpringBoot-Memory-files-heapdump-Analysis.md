@@ -130,7 +130,8 @@ src-1520-heapdump: Java HPROF dump, created Mon Oct 12 11:14:25 2020
 ```
 File Viewer:
 
-![HeapDUMP_file_viewer.png](https://i.loli.net/2021/11/18/7lAD6SympjstWKX.jpg)
+![7lAD6SympjstWKX.jpg](https://image.yjs2635.xyz/images/2022/02/20/7lAD6SympjstWKX.jpg)
+
 
 ### 2x01 分析工具MAT
 
@@ -140,7 +141,7 @@ File Viewer:
 
 打开MAT选择打开headump文件，打开加载完毕选择OQL执行；
 
-![mat-oql-exec.png](https://i.loli.net/2021/11/18/L7MAfUOoCdti4vI.jpg)
+![L7MAfUOoCdti4vI.jpg](https://image.yjs2635.xyz/images/2022/02/20/L7MAfUOoCdti4vI.jpg)
 
 ### 2x02 分析语法
 
@@ -151,15 +152,17 @@ select <JavaScript expression to select>
 ```
 部分OQL分析语句实例展示：
 - `select * from java.util.LinkedHashMap$Entry x WHERE (toString(x.key).contains("password"))`；
-    - 选择寻找hashmap中所有key元素中存在password值并展示出，如下所示自不必多说：
-![spring-boot-password.png](https://i.loli.net/2021/11/18/4wZPJlnoKLz1RaE.jpg)
+    - 选择寻找hashmap中所有key元素中存在password值并展示出，如下所示自不必多说：     
+![4wZPJlnoKLz1RaE.jpg](https://image.yjs2635.xyz/images/2022/02/20/4wZPJlnoKLz1RaE.jpg)
+
 - `select * from org.springframework.web.context.support.StandardServletEnvironment`；
     - 选择寻找所有StandardServletEnvironment并展示出，这一项中我们需要关注的是propertySourceList(简称PPSlist)，查找链如下：
     - `PPS-PPSlis-array-org.springframework.core.env.PPS-source-tables`，tables中存储的即为我们所关注的敏感信息，如下所示：
-![spring-boot-pps-clains.png](https://i.loli.net/2021/11/18/uCloG9WjJY4DhPA.png)
+![uCloG9WjJY4DhPA.png](https://image.yjs2635.xyz/images/2022/02/20/uCloG9WjJY4DhPA.png)
+
 - `select * from java.util.Hashtable$Entry x WHERE (toString(x.key).contains("password"))`；
     - 选择寻找哈希表中所有key元素中存在password值并展示出：
-![spring-boot-contains-passwd.png](https://i.loli.net/2021/11/18/wkeGZvAapu9Yt34.jpg)
+![wkeGZvAapu9Yt34.jpg](https://image.yjs2635.xyz/images/2022/02/20/wkeGZvAapu9Yt34.jpg)
 
 以上。
 

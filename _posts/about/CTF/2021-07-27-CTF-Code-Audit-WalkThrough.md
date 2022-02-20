@@ -6,7 +6,7 @@ toc: true
 Researchname: CTF - 代码审计向
 permalink: /about/CTF-Code-Audit-WalkThrough/
 author: Bin4xin
-desc: 「其他研究」
+desc: 「CTF」
 ---
 
 
@@ -94,7 +94,7 @@ if (! empty($_REQUEST['file'])
 只要我们构造的参数满足上述步骤绕过：
 `file=source.php%3f../../../../../../../../../../../../etc/passwd`，然后根据题目提示读取flag文件。
 
-![截屏2021-07-29 下午4.33.54.png](https://i.loli.net/2021/07/29/XroGifUcBNMdsPz.png)
+![XroGifUcBNMdsPz.png](https://image.yjs2635.xyz/images/2022/02/20/XroGifUcBNMdsPz.png)
 
 - 参考
     - [PHP: is_string - Manual](https://www.php.net/manual/zh/function.is-string.php){:target="_blank"}
@@ -108,7 +108,7 @@ if (! empty($_REQUEST['file'])
 
 处理后如下：
 
-![截屏2021-07-29 下午4.48.07.png](https://i.loli.net/2021/07/29/nQH65odjRtgNeh9.png)
+![nQH65odjRtgNeh9.png](https://image.yjs2635.xyz/images/2022/02/20/nQH65odjRtgNeh9.png)
 
 ```js
 function $(){
@@ -133,8 +133,8 @@ function $(){
 ```
 根据if判断逻辑内的定义console输出：
 
-![截屏2021-07-29 下午4.51.36.png](https://i.loli.net/2021/07/29/vSJgTNcsjDFGMoz.png)
 
+![vSJgTNcsjDFGMoz.png](https://image.yjs2635.xyz/images/2022/02/20/vSJgTNcsjDFGMoz.png)
 
 #### # 0x03 php伪协议
 
@@ -148,7 +148,7 @@ function $(){
     - 尝试读取对应php文件代码：
     - 读取payload`index.php?file=php://filter/read=convert.base64-encode/resource=secure.php`
 
-![截屏2021-07-29 下午2.25.57.png](https://i.loli.net/2021/07/30/Sxo6lWYBCIpQ2tU.png)
+![Sxo6lWYBCIpQ2tU.png](https://image.yjs2635.xyz/images/2022/02/20/Sxo6lWYBCIpQ2tU.png)
 
 - `secure.php`
 
@@ -183,8 +183,8 @@ function $(){
     值不相等；
 - 继续往下：`if (hash("md4", $par3) == hash("md4", $par4))`
     - 两个参数的md4值相等给出flag；不多说，直接上payload：
-
-![](https://i.loli.net/2021/07/30/WgMqKXGUmrxoYIv.png)
+    
+![WgMqKXGUmrxoYIv.png](https://image.yjs2635.xyz/images/2022/02/20/WgMqKXGUmrxoYIv.png)
 
 #### # 0x03 卖瓜
 
@@ -230,6 +230,6 @@ function $(){
 
 > 如果给定的一个数超出了 int 的范围，将会被解释为 float。同样如果执行的运算结果超出了 int 范围，也会返回 float。如下图：
 
-![](https://i.loli.net/2021/11/04/6qzWEmMROCZ5TiS.png)
+![6qzWEmMROCZ5TiS.png](https://image.yjs2635.xyz/images/2022/02/20/6qzWEmMROCZ5TiS.png)
 
 > 当从浮点数 float 转换成整数 int 时，将向下取整。

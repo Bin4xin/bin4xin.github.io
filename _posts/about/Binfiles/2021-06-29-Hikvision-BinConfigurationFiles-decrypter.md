@@ -4,7 +4,7 @@ category: about
 Researchname: Hikvision-ConfigurationFiles-decrypter
 author: Bin4xin
 permalink: /about/Hikvision-ConfigurationFiles-decrypter/
-desc: 「其他研究」
+desc: 「二进制研究/Bin」
 ---
 
 # Hikvision ConfigurationFiles Unauth
@@ -55,7 +55,7 @@ configurationFile: PGP Secret Key -
 ### *# Usage:*
 
 <div class="col-lg-7">
-<img align="left" src="https://i.loli.net/2021/11/18/l5mtUa13gvqVHLF.png"/>
+<img align="left" src="https://image.yjs2635.xyz/images/2022/02/20/l5mtUa13gvqVHLF.png"/>
 </div>
 
 <div>
@@ -100,8 +100,7 @@ Download configurationFile decry-Sample	| [<i class="fa fa-link"></i> configurat
 
 当前时间下监控的快照图片
 
-![Hikvision-unauth-view.png](https://i.loli.net/2021/11/18/GPEeKkcqsAFRDYO.png)
-
+![GPEeKkcqsAFRDYO.png](https://image.yjs2635.xyz/images/2022/02/20/GPEeKkcqsAFRDYO.png)
 
 ## 参考
 

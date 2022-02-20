@@ -62,7 +62,7 @@ private TextArea textArea; //多行文本框,显示程序运行状态
 
 `GetCookieActionListener`是对应按钮监听功能，与其相同的还有`GetShellActionListener`，主方法分析完毕后，操作逻辑就是这两个按钮的操作逻辑，具体工作逻辑如下：
 
-![截屏2021-07-21 上午9.27.02.png](https://i.loli.net/2021/07/21/faGVkMqhYxR4Z6c.png)
+![faGVkMqhYxR4Z6c.png](https://image.yjs2635.xyz/images/2022/02/20/faGVkMqhYxR4Z6c.png)
 
 Step 1跑完后跳至Step 2，最后Step 3；
 

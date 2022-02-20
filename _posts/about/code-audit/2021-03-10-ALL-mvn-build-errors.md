@@ -5,7 +5,7 @@ Researchname:  安全与开发之：Maven构建排错
 toc: true
 author: Bin4xin
 permalink: /about/ALL-mvn-build-errors/
-desc: 「其他研究」
+desc: 「代码审计」
 ---
 
 <h1>安全与开发之：<em>Maven</em>构建排错</h1>
@@ -52,11 +52,10 @@ mvn clean package -D skipTests
 
 - 1、源码调用的依赖库：
     * 我们可以从上面的报错看出报错的文件`src/main/java/ysoserial/payloads/FileUpload1.java`和依赖包名称`org.apache.commons.io.output`，直接定位到该文件位置查看：
-![mvn-java-code-compared.png](https://i.loli.net/2021/11/18/TdVxFvg12wszb5U.png)
-    
+      ![TdVxFvg12wszb5U.png](https://image.yjs2635.xyz/images/2022/02/20/TdVxFvg12wszb5U.png)
     如上，
     
-    <img align="right" src="https://i.loli.net/2021/11/18/dLne3augCRScJTq.png" height="50%" width="50%" />
+    <img align="right" src="https://image.yjs2635.xyz/images/2022/02/20/dLne3augCRScJTq.png" height="50%" width="50%" />
     
     * 添加依赖；提示报错是在`org.apache.commons.io.output`下的调用包，右边还有源码调用存在问题，看到这样的情况不要慌，IDEA给我们提供了解决方案：
         
@@ -66,6 +65,7 @@ mvn clean package -D skipTests
 
 
 添加上依赖后就OK了，但是还是无法构建成功；
+
 
 >当Maven执行一个带有子模块的项目的时候，Maven 首先载入父POM,然后定位所有的子模块 POM。Maven 然后将所有这些项目的POM
 >放入到一个称为 Maven 反应堆（Reactor）的东西中，由它负责分析模块之间的依赖关系，以确保相互独立的模块能以适当的顺序被编译和安装
@@ -87,7 +87,9 @@ mvn clean package -D skipTests
 >       - 相关邮件列表信息
 
 我们定位到项目的pom.xml文件，看看报错pom与成功pom对比：
-![mvn-build-difference-between-pom.png](https://i.loli.net/2021/11/18/wDRnjLko21pq86s.png)
+
+![wDRnjLko21pq86s.png](https://image.yjs2635.xyz/images/2022/02/20/wDRnjLko21pq86s.png)
+
 我们也同样可以看到，左边pom文件一片爆红；来尝试解决以下：
 
 - 解决方法：

@@ -5,7 +5,7 @@ Researchname: Router-BinFile-Analysis
 permalink: /about/Router-BinFile-Analysis/
 toc: true
 author: Bin4xin
-desc: 「其他研究」
+desc: 「二进制研究/Bin」
 ---
 
 # Router BinFile Analysis
@@ -115,7 +115,7 @@ $ ./configure && make
 $ cd ../ && ./unsquashfs_all.sh ../kernel.squash
 ```
 
-![截屏2021-07-14 下午3.39.43.png](https://i.loli.net/2021/07/16/NyGEhMbqeTm3rOQ.png)
+![NyGEhMbqeTm3rOQ.png](https://image.yjs2635.xyz/images/2022/02/20/NyGEhMbqeTm3rOQ.png)
 
 上图红字步骤依次从上到下：
 - 1.success in local fold.
@@ -130,7 +130,8 @@ $ cd _DIR645A1_FW102B08.bin.extracted/
 $ /{path/to/firmware-mod-kit}/unsquashfs_all.sh 160090.squashfs
 ```
 同样解出；
-![截屏2021-07-14 下午2.51.53.png](https://i.loli.net/2021/07/16/TJiGF8ov4OW5gNH.png)
+
+![TJiGF8ov4OW5gNH.png](https://image.yjs2635.xyz/images/2022/02/20/TJiGF8ov4OW5gNH.png)
 
 图片红字步骤依次从上到下：
 - 1.binwalk解出`.squashfs`文件后需手动使用unsquashfs_all脚本解包
@@ -174,7 +175,7 @@ else
 ?></postxml>
 ```
 
-![截屏2021-07-16 下午3.55.48.png](https://i.loli.net/2021/07/16/QxocdSr2PITnA9J.png)
+![QxocdSr2PITnA9J.png](https://image.yjs2635.xyz/images/2022/02/20/QxocdSr2PITnA9J.png)
 
 `Poc:`
 
@@ -190,11 +191,11 @@ curl -d "SERVICES=DEVICE.ACCOUNT&attack=ture%0aAUTHORIZED_GROUP=1" "http://{ip.a
 
 官网显示是2015年上传的包，下载下来直接在ubuntu里解包`➜ binwalk -Me AM8000V100R008.bin`，尴尬的是所有的文件就直接出来了么
 
-![截屏2021-08-12 下午4.42.31.png](https://i.loli.net/2021/08/12/gZJaWD2EswuilcN.png)
+![gZJaWD2EswuilcN.png](https://image.yjs2635.xyz/images/2022/02/20/gZJaWD2EswuilcN.png)
 
 发现`shadow`，解出来看看：`➜ john -format=md5crypt {file/path}  && john --show {file/path}`
 
-![截屏2021-08-12 下午4.45.13.png](https://i.loli.net/2021/08/12/gmQKfkXq5w2nDsA.png)
+![gmQKfkXq5w2nDsA.png](https://image.yjs2635.xyz/images/2022/02/20/gmQKfkXq5w2nDsA.png)
 
 ### 1x02 默认帐号密码
 
@@ -204,7 +205,7 @@ curl -d "SERVICES=DEVICE.ACCOUNT&attack=ture%0aAUTHORIZED_GROUP=1" "http://{ip.a
 
 #### # 来自杭州的幸运儿
 
-![截屏2021-08-13 上午11.25.22.png](https://i.loli.net/2021/08/13/IoJDbNSjw61398x.png)
+![IoJDbNSjw61398x.png](https://image.yjs2635.xyz/images/2022/02/20/IoJDbNSjw61398x.png)
 
 不光弱口令，还映射了n个内网端口到公网上，映射出来的端口是Hikvison的视频流端口和web管理，就不贴图了可以参考[Hikvision-ConfigurationFiles-decrypter](/about/Hikvision-ConfigurationFiles-decrypter)；
 
@@ -219,7 +220,7 @@ curl -d "SERVICES=DEVICE.ACCOUNT&attack=ture%0aAUTHORIZED_GROUP=1" "http://{ip.a
 ```
 当然也是支持`telnet`连接的：
 
-![截屏2021-08-13 上午11.36.26.png](https://i.loli.net/2021/08/13/ZzPJSMpRnKqVNUQ.png)
+![ZzPJSMpRnKqVNUQ.png](https://image.yjs2635.xyz/images/2022/02/20/ZzPJSMpRnKqVNUQ.png)
 
 #### [未完待续...]
 

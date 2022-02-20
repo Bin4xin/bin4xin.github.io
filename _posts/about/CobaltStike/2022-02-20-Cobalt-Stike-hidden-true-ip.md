@@ -2,10 +2,10 @@
 layout: about
 category: about
 toc: true
-Researchname: 域名前置隐藏C2服务器
+Researchname: Cobalt Stike服务器隐藏真实ip
 desc: 「Cobalt Stike」
 author: Bin4xin
-permalink: /about/Cobalt-Stike-C2-Server-hidden/
+permalink: /about/Cobalt-Stike-hidden-true-ip/
 ---
 
 ## cobaltstrike服务端配置

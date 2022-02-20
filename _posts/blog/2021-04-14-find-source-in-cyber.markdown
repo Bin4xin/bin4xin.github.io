@@ -66,8 +66,8 @@ permalink: /blog/2021/Record-a-suffocating-emergency-response-and-traceability-i
 这样我们就有了若干个300行ip的小文件，更方便我们筛选我们需要的ip，NEXT。
 
 - just fofa：
-    
-    ![](/assets/img/blog/2021/emergency-response-and-traceability-by-fofa.png)
+
+![emergency-response-and-traceability-by-fofa.png](https://image.yjs2635.xyz/images/2022/02/20/emergency-response-and-traceability-by-fofa.png)
 
 #### # 1x02：Something Interesting
 
@@ -203,7 +203,8 @@ _**NO OFFENCE:-)Thanks**_
   
 所以，panel模式下对应的是面板密码设置；
 
-![](/assets/img/blog/2021/stupid-bt-panel-control-pic.png)
+![stupid-bt-panel-control-pic.png](https://image.yjs2635.xyz/images/2022/02/20/stupid-bt-panel-control-pic.png)
+
 至此，我们获得了 _root、redis、mysql、BT panel_ ；而本文并炫技，我们的初衷是朔源：
     
 - _mysql_：数据库仅仅是存放论坛系统管理的信息及测试信息；

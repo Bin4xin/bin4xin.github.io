@@ -80,8 +80,7 @@ git clone https://github.com/SpiderLabs/ModSecurity
             ```
  
     - 效果图：
-        * ![NGINX-WAF-TEST-PAGES](/assets/img/blog/2019/NGINX-WAF-TEST-PAGES.PNG)
-
+        * ![NGINX-WAF-TEST-PAGES.png](https://image.yjs2635.xyz/images/2022/02/20/NGINX-WAF-TEST-PAGES.png)
 
 - 3、防护规则自写并测试：
     - 下载ModSecurity配置文件，我的NGINX目录在`/usr/local/nginx`下，所以我的命令如下；
@@ -132,7 +131,7 @@ git clone https://github.com/SpiderLabs/ModSecurity
 
           ```
     - WAF防护效果图（这里当时环境的图搞丢了，随便找了一张意思一下）：
-        * ![WAF-DENY-TEST](/assets/img/blog/2019/WAF-DENY-TEST.PNG)
+        * ![WAF-DENY-TEST.png](https://image.yjs2635.xyz/images/2022/02/20/WAF-DENY-TEST.png)
           
 如无法测试成功可参考以下链接：
 > [《手把手带你搭建企业级WEB防火墙ModSecurity3.0+Nginx》](https://zhuanlan.zhihu.com/p/80866123)
@@ -169,7 +168,7 @@ REQUEST_HEADERS | 代表所有请求头的集合，也可以用于检查所指�
 
 效果图：
 
-![WAF-PASSWD-DENY](/assets/img/blog/2019/WAF-PASSWD-DENY.PNG)
+![WAF-PASSWD-DENY.png](https://image.yjs2635.xyz/images/2022/02/20/WAF-PASSWD-DENY.png)
 
 参考：
 
