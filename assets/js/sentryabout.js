@@ -3958,7 +3958,7 @@ $(function() {
                     }, b.default.createElement("p", {
                         dangerouslySetInnerHTML: {
                             __html: this.i18n.t("no-found-related", {
-                                link: '<a href="https://github.com/' + o + "/" + i + '/issues">Issues</a>'
+                                link: '<a href="https://github.com/' + o + "/" + i + '/issues/">Issues</a>'
                             })
                         }
                     }), b.default.createElement("p", null, this.i18n.t("please-contact", {
@@ -3973,10 +3973,11 @@ $(function() {
                         className: "gt-btn-login",
                         onClick: this.handleLogin,
                         text: this.i18n.t("login-with-github")
-                    }) , !t && b.default.createElement(T.default, {
-                        className: "gt-btn-preview",
-                        onClick: this.handleIssueCreate,
-                        text: this.i18n.t("issues")
+                    // }) , b.default.createElement(T.default, {
+                    //     className: "gt-btn-preview",
+                    //     onClick: this.handleIssueCreate,
+                    //     isLoading: n,
+                    //     text: this.i18n.t("issues")
                     }))
                     // asdasd
                 }
@@ -8324,6 +8325,4 @@ $(function() {
     }
     ])
 });
-//# sourceMappingURL=gitalk.min.js.map
-
 // vim: ts=2 sts=2 sw=2 noexpandtab
