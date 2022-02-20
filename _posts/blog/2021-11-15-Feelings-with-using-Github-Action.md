@@ -43,9 +43,9 @@ permalink: /blog/2021/Feelings-with-using-Github-Action/
 
 ### Github Actions的作用
 
-十一月份对我来说是痴迷Action的一个月，可以看到下面的图，整个十一月按每天算，单天我最多提交了146次包括调试、构建在内的代码，令人痴迷。
+十一月份对我来说是痴迷Action的一个月，可以看到下面的图，整个十一月按每天算，单天我最多提交了146次包括调试、构建在内的代码：
 
-![截屏2021-11-19 下午5.15.44.png](https://i.loli.net/2021/11/19/qF2nZRi7g1xBV6Y.png)
+![qF2nZRi7g1xBV6Y.png](https://image.yjs2635.xyz/images/2022/02/20/qF2nZRi7g1xBV6Y.png)
 
 Github Action提供 Github 服务器托管的虚拟机包括Linux、Windows以及macOS，支持很多环境，您可以[移步docs快速开始](https://docs.github.com/cn/actions/quickstart)
 <!-- 现在也有个词很火，叫[元宇宙]()； -->
@@ -71,7 +71,7 @@ Github Action提供 Github 服务器托管的虚拟机包括Linux、Windows以�
 | {step}name | `- name: 'Checkout codes'` | 步骤名称，一个流程可以有多个步骤 |
 | uses | `uses: actions/checkout@v1` | 使用actions市场共享代码，只需要设置一些相关必要参数即可成功运行action |
 | run | `run: bash ./processEmail.sh` | 运行系统命令 |
-|  | ![截屏2021-11-19 下午4.53.47.png](https://i.loli.net/2021/11/19/fpyDCvRzsG3dgNF.png) | 如果有多条命令可以如左边格式书写或者参考[此处](https://github.com/Bin4xin/Mail-Action/blob/master/.github/workflows/action.yml#L17) |
+|  | 参考[此处](https://github.com/Bin4xin/Mail-Action/blob/master/.github/workflows/action.yml#L17) | 如果有多条命令可以如左边格式书写 |
 | needs | `needs: build` | 在`{folwname}`后，Actions默认多个流程并发进行，如果有先后关系则使用 |
 
 到此，我们就可以使用actions来构建一套标准的任务流程；
@@ -105,7 +105,7 @@ Github Action提供 Github 服务器托管的虚拟机包括Linux、Windows以�
 
 效果如下：
 
-<img src="https://i.loli.net/2021/11/19/seIawvQ8qbMHdDS.jpg" width="50%" height="50%"> 
+<img src="https://image.yjs2635.xyz/images/2022/02/20/seIawvQ8qbMHdDS.jpg" width="50%" height="50%">
 
 ### 拓展阅读
 

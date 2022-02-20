@@ -164,7 +164,7 @@ plugin_passwd = {proxy_server_pwd}
 | :--- | :--- | :--- | :--- |
 | `Proxifier` | `proxychains4` | 很多 | - |
 
-![截屏2021-11-02 上午12.24.39.png](https://i.loli.net/2021/11/10/Q59vnIEbstcTMLD.png)
+![Q59vnIEbstcTMLD.png](https://image.yjs2635.xyz/images/2022/02/20/Q59vnIEbstcTMLD.png)
 
 如上，我们就可以通过proxy的形式访问到私网应用；终端proxy连接ssh命令可以：`proxychains4 ssh root@{your_inside_ip}`，同时不要忘记登录ECS控制台阻止`ssh 22 0.0.0.0/0`即可，若proxy失效可以控制台连接私网地址或者重新放行公网ssh端口流量。
 
@@ -185,5 +185,3 @@ proxychains4配置：`/etc/proxychains.conf || /usr/local/etc/proxychains.conf =
 实际上渗透测试就是模拟黑客的方法对系统和网络进行攻击性测试，目的是侵入系统，通过工具结合安全工程师的技术手段，发现应用系统在逻辑方面的安全风险隐患；
 
 而工作中常以黑、灰盒为主的渗透测试，公网居多，若能减少公网暴露面，在某种程度上来说是也是在公有私有云的边界处设置了一道阻碍，无形中给一些恶意利用者增加了攻击难度；当然这里只是简单介绍了一些常见的应用部署，能通过技术改变的还有很多，当然我们也可以发散思维来做到更多很酷的事情。
-
-<!-- <span class="procedural-image-wrapper"><img src="https://i.loli.net/2021/11/11/dEr58vu1b9osXG6.jpg" alt=""></span> -->
