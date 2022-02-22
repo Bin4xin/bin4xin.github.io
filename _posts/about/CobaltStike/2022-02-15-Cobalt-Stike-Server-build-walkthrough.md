@@ -1,7 +1,7 @@
 ---
 layout: about
 category: about
-wrench: 2022-02-15
+wrench: 2022-02-22
 toc: true
 Researchname: Cobalt Stike服务器搭建历程
 desc: 「Cobalt Stike」
@@ -40,7 +40,7 @@ rm ./cobaltstrike.store
 查看`teamserver`代码中原证书
 
 ```bash
-keytool -keystore ./cobaltstrike.store -storepass 123456 -keypass 123456 -genkey -keyalg RSA -alias cobaltstrike -dname "CN=Major Cobalt Strike, OU=AdvancedPenTesting, O=cobaltstrike, L=Somewhere, S=Cyberspace, C=Earth"
+keytool -list -v -storepass 123456 -keystore cobaltstrike.store
 ```
 
 并重签一个伪造证书

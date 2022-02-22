@@ -2,6 +2,7 @@
 layout: about
 category: about
 toc: true
+wrench: 2022-02-22
 Researchname: Cobalt Stike服务器隐藏真实ip
 desc: 「Cobalt Stike」
 author: Bin4xin
@@ -16,6 +17,10 @@ permalink: /about/Cobalt-Stike-hidden-true-ip/
 - 修改域名dns到Cloudflare
 - 添加DNS A记录到teamserver监听的VPS 真实IP
 
+- 自动 HTTPS 重写/始终使用 HTTPS
+- 缓存 - 配置 - always online
+
+
 ![2022-02-19-1.43.26.png](https://image.yjs2635.xyz/images/2022/02/19/2022-02-19-1.43.26.png)
 
 等待完成ping域名后已经接入CDN；
@@ -24,11 +29,47 @@ permalink: /about/Cobalt-Stike-hidden-true-ip/
 
 - 添加`Listeners` 并填写`host`和`port`
 - Cloudflare HTTP端口 `80,8080,8880,2052,2082,2086,2095`
-- Cloudflare HTTPs端口 `43,2053,2083,2087,2096,8443`
-
-配置如下：
+- Cloudflare HTTPS端口 `443,2053,2083,2087,2096,8443`
 
 [![2022-02-19-1.18.45.md.png](https://image.yjs2635.xyz/images/2022/02/19/2022-02-19-1.18.45.md.png)](https://image.yjs2635.xyz/image/cuZa)
+
+> 如上配置可以上线成功，并且存在相关域名的流量，但进行进一步分析后发现仍然存在相关CS服务器的流量交互
+
+于是我就在想是否客户端是否能够通过域名的方式进行流量请求呢？于是我进行了踩坑：
+
+踩坑前提：
+
+### 1x01 
+
+> `Beacon Http:`
+> 
+> Http Host(s)/Stager/Header均填写对应域名；Http Port为CF支持解析HTTP端口
+> > 失败，无法上线；
+
+### 1x02 
+
+> `Beacon Https:`
+>
+> Http Host(s)/Stager/Header均填写对应域名；Http Port为CF支持解析HTTP端口
+> > 成功上线；但是执行Beacon无返回，如下：
+
+```
+beacon> getuid
+[*] Tasked beacon to get userid
+[+] host called home, sent: 8 bytes
+```
+
+于是我尝试针对靶机中的流量尝试分析，发现当尝试执行beacon，靶机流量会定向到`cf.profile`配置的api接口：
+
+`http://domain/api/1`
+
+--301--> `https://domain/api/1`
+
+--return--> `code525 SSL handshake failed`
+
+看起来像是ssl证书的问题，想起来CloudFlare SSL模式为自签名证书，于是修改为CF CA证书进一步排查问题；
+
+
 
 ## 验证
 
