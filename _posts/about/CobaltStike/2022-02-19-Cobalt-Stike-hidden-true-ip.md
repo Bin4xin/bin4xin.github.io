@@ -3,7 +3,7 @@ layout: about
 category: about
 toc: true
 wrench: 2022-02-22
-Researchname: II. Cobalt Stike服务器隐藏真实ip
+Researchname: Cobalt Stike服务器隐藏真实ip
 desc: 「Cobalt Stike」
 author: Bin4xin
 permalink: /about/Cobalt-Stike-hidden-true-ip/
@@ -20,7 +20,6 @@ permalink: /about/Cobalt-Stike-hidden-true-ip/
 - 自动 HTTPS 重写/始终使用 HTTPS
 - 缓存 - 配置 - always online
 
-
 ![2022-02-19-1.43.26.png](https://image.yjs2635.xyz/images/2022/02/19/2022-02-19-1.43.26.png)
 
 等待完成ping域名后已经接入CDN；
@@ -36,8 +35,6 @@ permalink: /about/Cobalt-Stike-hidden-true-ip/
 > 如上配置可以上线成功，并且存在相关域名的流量，但进行进一步分析后发现仍然存在相关CS服务器的流量交互
 
 于是我就在想是否客户端是否能够通过域名的方式进行流量请求呢？于是我进行了踩坑：
-
-踩坑前提：
 
 ### 1x01 
 
@@ -59,17 +56,23 @@ beacon> getuid
 [+] host called home, sent: 8 bytes
 ```
 
+> 多提一句：1x01/1x02
+>
+> http与https在数据包中的体现是http包与tcp/tls的区别；有兴趣可以看我抓下来的[数据包](https://drive.weixin.qq.com/s?k=AAQAPgdeAA4NAT1x1p)
+
 于是我尝试针对靶机中的流量尝试分析，发现当尝试执行beacon，靶机流量会定向到`cf.profile`配置的api接口：
 
 `http://domain/api/1`
 
---301--> `https://domain/api/1`
+301--> `https://domain/api/1`
 
---return--> `code525 SSL handshake failed`
+return--> `code525 SSL handshake failed`
 
 看起来像是ssl证书的问题，想起来CloudFlare SSL模式为自签名证书，于是修改为CF CA证书进一步排查问题；
 
+经过72个小时的重复的枯燥工作，得出一个结论：
 
+> 在尝试基于CDN技术进行CS服务器隐藏ip时，http(s) Hosts栏必须填入相关cs主机的真实ip；
 
 ## 验证
 

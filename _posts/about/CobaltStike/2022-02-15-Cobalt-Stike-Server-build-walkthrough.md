@@ -3,7 +3,7 @@ layout: about
 category: about
 wrench: 2022-02-22
 toc: true
-Researchname: I. Cobalt Stike服务器搭建历程
+Researchname: Cobalt Stike服务器搭建历程
 desc: 「Cobalt Stike」
 author: Bin4xin
 permalink: /about/Cobalt-Stike-Server-build-walkthrough/

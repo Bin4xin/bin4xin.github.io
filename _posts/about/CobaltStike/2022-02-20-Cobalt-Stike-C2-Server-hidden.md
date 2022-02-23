@@ -2,6 +2,7 @@
 layout: about
 category: about
 toc: true
+wrench: 2022-02-23
 Researchname: 域名前置隐藏C2服务器
 desc: 「Cobalt Stike」
 author: Bin4xin
