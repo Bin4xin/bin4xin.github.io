@@ -2,7 +2,7 @@
 layout: post
 title: "用Github Action有感"
 date: 2021-11-15
-wrench: 2022-01-06
+wrench: 2022-02-24
 author: Bin4xin
 toc: true
 categories: 
@@ -41,6 +41,31 @@ permalink: /blog/2021/Feelings-with-using-Github-Action/
 
 这，是什么？平台。
 
+---
+> 闲谈 添加于2022/02/24/14:31:54
+> > 最近在忙一些其他的事情，blog没有更新太多；突发奇想对About栏左侧按照时间并生成罗马数字进行排序
+> > 实现思路也很简单，jekyll已经定义了很多标签给我们调用；
+> > 
+> > 在for循环里直接调用{{ forloop.index }}数组即可直接打印出对应文章的数字序号，然后转成罗马数字
+
+于是乎在网上找到了jekyll插件形如：`{{ forloop.index| roman }}`可以直接转化；
+
+不过使用`jekyll-roman`插件后本地预览却一直报错，然而[本地Gemfile](https://github.com/Bin4xin/bin4xin.github.io/blob/main/Gemfile#L5)根据官方文档给的依赖是没有问题的：
+
+- [jekyll-roman 0.0.3](https://rubygems.org/gems/jekyll-roman)
+- [jekyll-toc 0.17.1](https://rubygems.org/gems/jekyll-toc)
+
+```bash
+jekyll-toc (Jekyll::Errors::MissingDependencyException)
+jekyll-roman (Jekyll::Errors::MissingDependencyException)
+```
+这两个插件来回报错，于是乎我花了一晚上时间、删除了所有gem依赖来排错；最后发现`jekyll-roman`这个插件只有0.0.1版本可用，然后上面的Gem依赖传上action也没问题，单纯的版本问题；
+
+吐槽一下作者:D
+
+---
+
+
 ### Github Actions的作用
 
 十一月份对我来说是痴迷Action的一个月，可以看到下面的图，整个十一月按每天算，单天我最多提交了146次包括调试、构建在内的代码：
@@ -59,20 +84,20 @@ Github Action提供 Github 服务器托管的虚拟机包括Linux、Windows以�
 我这里以服务器的实时运行任务来举例：
 
 {: .table}
-| [Email Action示例](https://github.com/Bin4xin/Mail-Action/) | 相关代码 | 备注 |
-| :--- | :--- | :--- |
-| `.github/workflows/action.yml` | [`action.yml`](https://github.com/Bin4xin/Mail-Action/blob/master/.github/workflows/action.yml) | git目录下流程文件，目录不可变动，文件名可自定义 |
-| name | `name: 'GitHub Actions Email Actions By bin4xin'` | 任务名称 |
-| on | `on: [push]` | 任务触发条件，这里指在分支收到推送请求后即执行 |
-| jobs | `jobs: ` | 任务流程开始 |
-| {folwname} | `{folwname}: ` | 任务流程1名称 |
-| runs-on | `runs-on: ubuntu-latest` | 任务运行镜像自定义，可选Windows、Linux、macOS |
-| steps | `steps: ` | 流程步骤定义开始 |
-| {step}name | `- name: 'Checkout codes'` | 步骤名称，一个流程可以有多个步骤 |
-| uses | `uses: actions/checkout@v1` | 使用actions市场共享代码，只需要设置一些相关必要参数即可成功运行action |
-| run | `run: bash ./processEmail.sh` | 运行系统命令 |
-|  | 参考[此处](https://github.com/Bin4xin/Mail-Action/blob/master/.github/workflows/action.yml#L17) | 如果有多条命令可以如左边格式书写 |
-| needs | `needs: build` | 在`{folwname}`后，Actions默认多个流程并发进行，如果有先后关系则使用 |
+| [相关代码示例](https://github.com/Bin4xin/Mail-Action/) | 备注 |
+| :--- | :--- |
+| [action.yml](https://github.com/Bin4xin/Mail-Action/blob/master/.github/workflows/action.yml) | git目录下流程文件，目录不可变动，文件名可自定义 |
+| `name: 'GitHub Actions Email Actions By bin4xin'` | 任务名称 |
+| `on: [push]` | 任务触发条件，这里指在分支收到推送请求后即执行 |
+| `jobs: ` | 任务流程开始 |
+| `{folwname}: ` | 任务流程1名称 |
+| `runs-on: ubuntu-latest` | 任务运行镜像自定义，可选Windows、Linux、macOS |
+| `steps: ` | 流程步骤定义开始 |
+| `- name: 'Checkout codes'` | 步骤名称，一个流程可以有多个步骤 |
+| `uses: actions/checkout@v1` | 使用actions市场共享代码，只需要设置一些相关必要参数即可成功运行action |
+| `run: bash ./processEmail.sh` | 运行系统命令 |
+| 参考[此处](https://github.com/Bin4xin/Mail-Action/blob/master/.github/workflows/action.yml#L17) | 如果有多条命令可以如左边格式书写 |
+| `needs: build` | 在`{folwname}`后，Actions默认多个流程并发进行，如果有先后关系则使用 |
 
 到此，我们就可以使用actions来构建一套标准的任务流程；
 

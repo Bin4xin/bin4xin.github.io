@@ -298,13 +298,23 @@ html[data-theme=dark] {
     /*font-size: .8rem;*/
     margin-bottom: 0;
     padding: var(--ifm-toc-padding-vertical) 0
+    /*line-height: 1.5!important;*/
+
 }
 
 .table-of-contents,.table-of-contents ul {
     list-style-type: none;
     padding-left: var(--ifm-toc-padding-horizontal)
+    /*margin-left: 4px;*/
+    /*border-left: 1.5px;*/
 }
-
+/*.table-of-contents ul> li :hover {*/
+/*    background-color: #111;*/
+/*    border-radius: 8px;*/
+/*    line-height: 14px;*/
+/*    line-height: 1.5!important;*/
+/*    text-size-adjust: 100%;*/
+/*}*/
 .table-of-contents li {
     margin: var(--ifm-toc-padding-vertical) var(--ifm-toc-padding-horizontal)
 }
