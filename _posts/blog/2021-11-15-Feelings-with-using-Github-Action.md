@@ -48,7 +48,10 @@ permalink: /blog/2021/Feelings-with-using-Github-Action/
 > > 
 > > 在for循环里直接调用{{ forloop.index }}数组即可直接打印出对应文章的数字序号，然后转成罗马数字
 
-于是乎在网上找到了jekyll插件形如：`{{ forloop.index| roman }}`可以直接转化；
+于是乎在网上找到了jekyll插件形如下可以直接转化：
+```
+{{ forloop.index| roman }}
+```
 
 不过使用`jekyll-roman`插件后本地预览却一直报错，然而[本地Gemfile](https://github.com/Bin4xin/bin4xin.github.io/blob/main/Gemfile#L5)根据官方文档给的依赖是没有问题的：
 

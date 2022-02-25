@@ -9,6 +9,10 @@ author: Bin4xin
 permalink: /about/Cobalt-Stike-hidden-true-ip/
 ---
 
+# Cobalt Stike备忘录 II
+
+本章阐述重点在于如何搭建针对C2服务器进行CDN接入以及真实ip隐藏
+
 ## cobaltstrike服务端配置
 
 > *TIPS*: [查看Cobalt Stike服务器搭建](/about/Cobalt-Stike-Server-build-walkthrough/)
