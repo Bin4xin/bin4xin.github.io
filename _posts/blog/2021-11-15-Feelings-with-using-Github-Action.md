@@ -126,7 +126,9 @@ Github Action提供 Github 服务器托管的虚拟机包括Linux、Windows以�
 ```
 我的思路是：写好一些通用模版，html模版可以在本地调试好上传即可，然后在bash脚本里拼接、闭合标签即可；
 
-`echo -e "$fontStyleEnd\n$fontStyleEnd\n$htmlTempStart\n$serverAllTipsInfo\n$process\n$htmlTempEnd\n" > result.html`
+```bash
+echo -e "$fontStyleEnd\n$fontStyleEnd\n$htmlTempStart\n$serverAllTipsInfo\n$process\n$htmlTempEnd\n" > result.html
+```
 
 效果如下：
 
