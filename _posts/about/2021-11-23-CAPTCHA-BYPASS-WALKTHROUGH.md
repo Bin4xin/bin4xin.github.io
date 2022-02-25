@@ -29,6 +29,8 @@ $ python3 server.py
 Starting server, listen at: 0.0.0.0:8899
 ```
 
+### Attack
+
 添加拓展：`Extender -> Extentions -> [ADD] -> Type: python. -> ${path/to/xp_CAPTCHA.py}`
 
 一般来说，是爆破密码和验证码，故`Intruder Attack`配置如下：

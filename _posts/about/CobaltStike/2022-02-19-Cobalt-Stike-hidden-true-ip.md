@@ -40,14 +40,14 @@ permalink: /about/Cobalt-Stike-hidden-true-ip/
 
 于是我就在想是否客户端是否能够通过域名的方式进行流量请求呢？于是我进行了踩坑：
 
-### 1x01 
+### 1x01 Client config 1
 
 > `Beacon Http:`
 > 
 > Http Host(s)/Stager/Header均填写对应域名；Http Port为CF支持解析HTTP端口
 > > 失败，无法上线；
 
-### 1x02 
+### 1x02 Client config 2
 
 > `Beacon Https:`
 >

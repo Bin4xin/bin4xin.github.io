@@ -20,8 +20,19 @@ excerpt_separator: <!--more--> #use this in posts to define how long the excerpt
 
 plugins: ["jekyll-toc", "jekyll-roman"]
 
-#  - rake
-#  - rspec
+#toc:
+#  index_class_define:
+#    - exclude_section
+#    - exclude
+#    - your_custom_skip_class_name
+toc:
+  #list_id: my-toc-id # Default: "toc"
+  #list_class:  #table-of-contents table-of-contents__left-border Item__StyledItem-sc-yeql7o-2 edSFyN
+  #sublist_class: my-sublist-class # Default: no class for sublists
+  #item_prefix: item- # Default: "toc-":
+  item_class: table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN # Default: "toc-entry"
+  min_level: 3 # default: 1
+  max_level: 3 # default: 6
 
 sass:
     sass_dir: assets/css

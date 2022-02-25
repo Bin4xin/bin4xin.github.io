@@ -88,20 +88,20 @@ layout: default
 
 			<div class="col-sm-3 ml-hide">
 				{% if page.toc %}<!--article-index-->
-				<div class="nav nav-stacked tableOfContents_35-E thin-scrollbar">
-					<ul>
-						<code-index-css>
-							<strong><h5>文章目录</h5></strong>
-							<li class="table-of-contents table-of-contents__left-border">{{ content | toc_only }}</li>
-						</code-index-css>
-					</ul>
-				</div>
+					<div class="nav nav-stacked tableOfContents_35-E thin-scrollbar">
+					<strong><h5>文章目录</h5></strong>
+				<li class="table-of-contents__left-border table-of-contents">
+					<code-index-css>
+					{% toc %}
+					</code-index-css>
+				</li>
+					</div>
 				{% else %}
 				<div class="nav nav-stacked tableOfContents_35-E thin-scrollbar">
 					<ul>
 						<code-index-css>
 							<strong><h5>404</h5></strong>
-							<li class="table-of-contents table-of-contents__left-border"> {{ "Nothing Here ;)" | upcase}}</li>
+							<li class="table-of-contents"> {{ "Nothing Here ;)" | upcase}}</li>
 						</code-index-css>
 					</ul>
 				</div>

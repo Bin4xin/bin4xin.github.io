@@ -12,7 +12,7 @@ desc: 「CTF」
 
 # 零：WEB
 
-#### # 0x01 任意文件读取绕过
+### # 0x01 任意文件读取绕过
 
 先看if判断主逻辑，同时满足下列三个条件即可：
 
@@ -102,7 +102,7 @@ if (! empty($_REQUEST['file'])
     - [XCTF - Warmup Writeup](https://adworld.xctf.org.cn/task/writeup?type=web&id=5442&number=3&grade=1&page=undefined){:target="_blank"}
 
 
-#### # 0x02 NaNNaNNaNNaN-Batman：奇妙的js
+### # 0x02 NaNNaNNaNNaN-Batman：奇妙的js
 
 [NaNNaNNaNNaN-Batman附件](https://adworld.xctf.org.cn/media/task/attachments/646ecdf05af7490a85bb5c8ccb96c102.zip){:target="_blank"}文本编辑器打开发现`<script>_='function $()`超文本标签，修改为html后缀，同时修改`eval(_)`为`alert(_)`
 
@@ -136,7 +136,7 @@ function $(){
 
 ![vSJgTNcsjDFGMoz.png](https://image.yjs2635.xyz/images/2022/02/20/vSJgTNcsjDFGMoz.png)
 
-#### # 0x03 php伪协议
+### # 0x03 php伪协议
 
 本题思路：
 
@@ -186,7 +186,7 @@ function $(){
     
 ![WgMqKXGUmrxoYIv.png](https://image.yjs2635.xyz/images/2022/02/20/WgMqKXGUmrxoYIv.png)
 
-#### # 0x03 卖瓜
+### # 0x03 卖瓜
 
 这道题对于当下的我来说还是比较难，是看了题解才做得出来；究其原因我觉得是由于代码基础太过薄弱的缘故，就拿这道题来说，就算是找到[PHP文档: Integer 整型](https://www.php.net/manual/zh/language.types.integer.php)，下一次遇到这样的题目还是没有办法。
 

@@ -118,8 +118,10 @@ keytool -importkeystore -deststorepass 123456 -destkeypass 123456 -destkeystore 
 [点击以查看更多与「C2服务器隐匿」](/about/Cobalt-Stike-hidden-true-ip/)相关的文章
 
 
-## 参考
+### 参考
 
-- [Cobalt Strike特征隐藏](https://www.cnblogs.com/Xy--1/p/14396744.html){:target="_blank"}
-- [Bypass cobaltstrike beacon config scan](https://mp.weixin.qq.com/s/fhcTTWV4Ddz4h9KxHVRcnw){:target="_blank"}
-- 
+- [*Cobalt Strike*特征隐藏与流量分析](https://www.ol4three.com/2021/10/28/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/CobaltStrike/Cobalt-Strike%E7%89%B9%E5%BE%81%E9%9A%90%E8%97%8F%E4%B8%8E%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/){:target="_blank"}
+- [*Cobalt Strike*特征隐藏](https://www.cnblogs.com/Xy--1/p/14396744.html){:target="_blank"}
+- [*PDFS*](https://blog.ateam.qianxin.com/CobaltStrike4.0%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C_%E4%B8%AD%E6%96%87%E7%BF%BB%E8%AF%91.pdf){:target="_blank"}
+- [*Github Bypass cobaltstrike beacon config scan*](https://github.com/qigpig/bypass-beacon-config-scan/){:target="_blank"}
+- [*Bypass cobaltstrike beacon config scan*](https://mp.weixin.qq.com/s/fhcTTWV4Ddz4h9KxHVRcnw){:target="_blank"}

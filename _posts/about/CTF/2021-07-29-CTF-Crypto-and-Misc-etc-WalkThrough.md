@@ -33,7 +33,7 @@ $$ed ≡ 1\ mod\ ø(n) $$
 
 *（n，e),(n，d)就是密钥对。其中(n，e)为公钥，(n，d)为私钥。*
 
-#### # 0x01 公钥加密文
+### # 0x01 公钥加密文
 
 - 题干：给出公钥文件：`.pem/.pub`后缀文件、密文：`.enc`之类后缀的文件；
     - [例题1](https://github.com/Bin4xin/bigger-than-bigger/blob/master/CTF/Crypto/例题1.zip){:target="_blank"}
@@ -85,7 +85,7 @@ STR : b'afctf{R54_|5_$0_B0rin9}'
 ···
 ```
 
-#### # 0x02 文本
+### # 0x02 文本
 
 赛题给出一段文本，主要考察RSA公式的用法，考虑已知变量，使用什么攻击手法；
 
@@ -108,7 +108,7 @@ $$\frac{17d-1}{ø(n)} = int() = \frac{17d-1}{2135733082216268400}\\d=\frac{21357
 
 ![DJtV9CZhLsSq8AY.png](https://image.yjs2635.xyz/images/2022/02/20/DJtV9CZhLsSq8AY.png)
 
-#### # 0x03 流量（.pcap）文件
+### # 0x03 流量（.pcap）文件
 
 > 有时出题人会给你一个流量包，你需要用wireshark等工具分析，然后根据流量包的通信信息，分析题目考察的攻击方
 > 
@@ -116,7 +116,7 @@ $$\frac{17d-1}{ø(n)} = int() = \frac{17d-1}{2135733082216268400}\\d=\frac{21357
 
 举例题目暂时没有遇到，有的话会补上[...]
 
-#### # 0x04 本地脚本分析
+### # 0x04 本地脚本分析
 
 > 题目会给你一个脚本和一段密文，一般为python编写，你需要逆向文件流程，分析脚本的加密过程，写出对应的解密脚本进行解密
 
@@ -262,7 +262,7 @@ print(binascii.unhexlify(hex(m)[2:].strip("L")))
 
 ## 算法解密
 
-#### # 0x05 栅栏算法
+### # 0x05 栅栏算法
 
 > 题目描述：被小鱼一连将了两军，你心里更加不服气了。两个人一起继续往前走， 
 > 一路上杂耍卖艺的很多，但是你俩毫无兴趣，直直的就冲着下一个谜题的地方去了。 
@@ -275,11 +275,11 @@ print(binascii.unhexlify(hex(m)[2:].strip("L")))
 
 ![FGzs62Pk3TD5cCZ.png](https://image.yjs2635.xyz/images/2022/02/20/FGzs62Pk3TD5cCZ.png)
 
-#### # 0x06 凯撒密码
+### # 0x06 凯撒密码
 
 [...]
 
-#### # 0x07 摩尔斯电码 · morse
+### # 0x07 摩尔斯电码 · morse
 
 题干1：
 - 给出一串数字`11 111 010 000 0 1010 111 100 0 00 000 000 111 00 10 1 0 010 0 000 1 00 10 110`，根据1高位/0低位转换为摩丝码最终转换即可
@@ -328,7 +328,7 @@ attackanddefenceworldisinteresting
 
 ## 文件隐写
 
-#### # 1x00 格式文件参考 加粗的为常用
+### # 1x00 格式文件参考 加粗的为常用
 
 {: .table}
 |文件格式 | 头尾值 |
@@ -364,7 +364,7 @@ attackanddefenceworldisinteresting
 | Windows Media (asf)        |文件头：3026B2758E66CF11 |
 | MIDI (mid)                 |文件头：4D546864 |
 
-#### # 1x01 图片隐写
+### # 1x01 图片隐写
 
 - 题目1：word的本质
 
@@ -454,7 +454,7 @@ drwx------  8 bin4xin  staff      256  8 19 09:49 ../
 
 ![PNmI4eyWxO1r8ZG.png](https://image.yjs2635.xyz/images/2022/02/20/PNmI4eyWxO1r8ZG.png)
 
-#### # 1x02 音频隐写
+### # 1x02 音频隐写
 
 - 题目：[去吧！追寻自由的电波](https://github.com/USTC-Hackergame/hackergame2021-writeups/blob/master/official/%E5%8E%BB%E5%90%A7%EF%BC%81%E8%BF%BD%E5%AF%BB%E8%87%AA%E7%94%B1%E7%9A%84%E7%94%B5%E6%B3%A2/src/radio.mp3)
     - [题解](https://github.com/USTC-Hackergame/hackergame2021-writeups/tree/master/official/%E5%8E%BB%E5%90%A7%EF%BC%81%E8%BF%BD%E5%AF%BB%E8%87%AA%E7%94%B1%E7%9A%84%E7%94%B5%E6%B3%A2)；
@@ -462,7 +462,7 @@ drwx------  8 bin4xin  staff      256  8 19 09:49 ../
 
 ## 流量分析（.pacp）题
 
-#### # 1x03 SQL注入攻击
+### # 1x03 SQL注入攻击
 
 - [timu.pcapng](https://github.com/Bin4xin/bigger-than-bigger/tree/master/CTF/MISC/timu.pcapng)
 
@@ -490,11 +490,11 @@ GET /ctf/Less-5/?id=1' and ascii(substr((select flag from t),4,1))=103--  HTTP/1
 
 `102 108 97 103 123 119 49 114 101 115 104 65 82 75 95 101 122 95 49 115 110 116 105 116 125`->`flag{w1reshARK_ez_1snt}`
 
-#### # 1x04 [...]usb流量分析
+### # 1x04 [...]usb流量分析
 
 [...]
 
-#### # 1x05 取证/攻击行为
+### # 1x05 取证/攻击行为
 
 - 无题目描述；给出的是一份流量文件：[backdoor.pcapng](https://github.com/Bin4xin/bigger-than-bigger/blob/master/CTF/MISC/backdoor/backdoor.pcapng)
 
@@ -599,7 +599,7 @@ Location: ./admin/index.php
 ![7RVMhvliOXIfoZJ.png](https://image.yjs2635.xyz/images/2022/02/20/7RVMhvliOXIfoZJ.png)
 
 使用获得的key[在线解密](http://tool.chacuo.net/cryptaes){:target="_blank"}`aes-128-ecb`算法，得到flag：`DASCTF{d8f191d0f0be0f039c4ededb7839218e}`
-#### # 1x06 [...]上传/下载文件
+### # 1x06 [...]上传/下载文件
 
 # 二：...
 

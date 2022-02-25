@@ -4,7 +4,7 @@ layout: daily
 title: "安庆除草"
 author: Bin4xin
 toc: true
-poster: https://i.loli.net/2021/07/16/zQoycxPZGh5b4wA.png
+poster: https://image.yjs2635.xyz/images/2022/02/26/zQoycxPZGh5b4wA.png
 ---
 
 > 狗尾草（学名：Setaria viridis），又名绿狗尾草、谷莠子、狗尾巴草。一年生草本植物；秆直立或基部膝曲，高30-100厘米；叶片扁平，狭披针形或线状披针形；圆锥花序紧密呈圆柱形，刚毛粗糙，通常绿色或褐黄色。同属植物常见的还有：大狗尾草（Setaria faberi）等。
