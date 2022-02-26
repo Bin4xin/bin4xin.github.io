@@ -1352,8 +1352,7 @@ p {
 }
 .lead {
   margin-bottom: 20px;
-  font-size: 16px;
-  font-weight: 300;
+  font-size: 16px!important;
   line-height: 1.4;
 }
 @media (min-width: 768px) {
@@ -1691,11 +1690,12 @@ pre .btn-pre-copy{
   margin-left: auto;
 }
 .row {
-  padding-right: -15px;
-  padding-left: -15px;
+  /*padding-right: -15px;*/
+  /*padding-left: -15px;*/
   margin-right: auto;
   margin-left: auto;
   width: 100%;
+  /*mark*/
 }
 .row-no-gutters {
   margin-right: 0;
@@ -2797,6 +2797,7 @@ fieldset[disabled] .form-control {
 textarea.form-control {
   height: auto;
 }
+
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   input[type="date"].form-control,
   input[type="time"].form-control,
@@ -2825,6 +2826,7 @@ textarea.form-control {
     line-height: 46px;
   }
 }
+
 .form-group {
   margin-bottom: 15px;
 }
@@ -3201,14 +3203,44 @@ select[multiple].input-lg {
   cursor: pointer;
   background-image: none;
   border: 1px solid transparent;
-  padding: 6px 12px;
   font-size: 14px;
-  line-height: 1.42857143;
+  /*line-height: 1.42857143;*/
   border-radius: 4px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  /*--------------*/
+  color: var(--color-btn-text);
+  background-color: var(--color-btn-bg);
+  border-color: var(--color-btn-border);
+  -webkit-box-shadow: var(--color-btn-shadow),var(--color-btn-inset-shadow);
+  box-shadow: var(--color-btn-shadow),var(--color-btn-inset-shadow);
+
+  position: relative;
+  display: inline-block;
+  padding: 5px 16px;
+  font-size: 14px;
+  /*font-weight: 500;*/
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /*--------------*/
+  -webkit-transition: .2s cubic-bezier(.3,0,.5,1);
+  transition: .2s cubic-bezier(.3,0,.5,1);
+  -webkit-transition-property: color,background-color,border-color;
+  transition-property: color,background-color,border-color;
 }
 .btn:focus,
 .btn:active:focus,
