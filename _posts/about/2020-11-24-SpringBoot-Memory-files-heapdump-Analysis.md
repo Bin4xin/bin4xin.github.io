@@ -151,31 +151,39 @@ select <JavaScript expression to select>
 [ where <JavaScript boolean expression to filter> ] ]
 ```
 部分OQL分析语句实例展示：
-- `select * from java.util.LinkedHashMap$Entry x WHERE (toString(x.key).contains("password"))`；
-    - 选择寻找hashmap中所有key元素中存在password值并展示出，如下所示自不必多说：     
+
+```sql
+select * from java.util.LinkedHashMap$Entry x WHERE (toString(x.key).contains("password"))
+```
+
+选择寻找hashmap中所有key元素中存在password值并展示出，如下所示自不必多说：     
+
 ![4wZPJlnoKLz1RaE.jpg](https://image.yjs2635.xyz/images/2022/02/20/4wZPJlnoKLz1RaE.jpg)
 
-- `select * from org.springframework.web.context.support.StandardServletEnvironment`；
-    - 选择寻找所有StandardServletEnvironment并展示出，这一项中我们需要关注的是propertySourceList(简称PPSlist)，查找链如下：
-    - `PPS-PPSlis-array-org.springframework.core.env.PPS-source-tables`，tables中存储的即为我们所关注的敏感信息，如下所示：
-![uCloG9WjJY4DhPA.png](https://image.yjs2635.xyz/images/2022/02/20/uCloG9WjJY4DhPA.png)
+```sql
+select * from org.springframework.web.context.support.StandardServletEnvironment
+```
 
-- `select * from java.util.Hashtable$Entry x WHERE (toString(x.key).contains("password"))`；
-    - 选择寻找哈希表中所有key元素中存在password值并展示出：
+- 选择寻找所有StandardServletEnvironment并展示出，这一项中我们需要关注的是propertySourceList(简称PPSlist)，查找链如下：
+- `PPS-PPSlis-array-org.springframework.core.env.PPS-source-tables`，tables中存储的即为我们所关注的敏感信息，如下所示：
+
+- ![uCloG9WjJY4DhPA.png](https://image.yjs2635.xyz/images/2022/02/20/uCloG9WjJY4DhPA.png)
+
+```sql
+select * from java.util.Hashtable$Entry x WHERE (toString(x.key).contains("password"))
+```
+
+- 选择寻找哈希表中所有key元素中存在password值并展示出：
+
 ![wkeGZvAapu9Yt34.jpg](https://image.yjs2635.xyz/images/2022/02/20/wkeGZvAapu9Yt34.jpg)
 
-以上。
-
----
 本文中展示的分析OQL语句实例供参考，实际可是写出的有很多，经过自己理解后可以自行尝试编写实践。
 
-## 参考链接
+## 参考
 
-[JDK1.8源码(九)——java.util.LinkedHashMap类](https://www.cnblogs.com/ysocean/p/9839173.html#_label5){:target="_blank"}
-
-[Map 综述（二）：彻头彻尾理解 LinkedHashMap](https://blog.csdn.net/justloveyou_/article/details/71713781){:target="_blank"}
-
-[MAT 查找 spring heapdump 中的密码明文](https://www.onebug.org/websafe/98955.html){:target="_blank"}
+- [JDK1.8源码(九)——java.util.LinkedHashMap类](https://www.cnblogs.com/ysocean/p/9839173.html#_label5){:target="_blank"}
+- [Map 综述（二）：彻头彻尾理解 LinkedHashMap](https://blog.csdn.net/justloveyou_/article/details/71713781){:target="_blank"}
+- [MAT 查找 spring heapdump 中的密码明文](https://www.onebug.org/websafe/98955.html){:target="_blank"}
 
 
 以上

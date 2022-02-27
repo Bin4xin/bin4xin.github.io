@@ -7291,4 +7291,14 @@ button.close {
 .text-bold{
 font-weight: 600!important;
 }
+
+.mb-8{
+  margin-bottom: 40px!important;
+}
+
+.px-md-6 {
+  padding-right: 15px!important;
+  padding-left: 15px!important;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */
