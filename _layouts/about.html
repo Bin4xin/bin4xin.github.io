@@ -20,7 +20,7 @@ layout: about-default
 {% assign posts_about_desc = site.categories["about"] | sort: 'date' | group_by_exp:"post", "post.desc" |reverse %}
 {% assign posts_about = site.categories["about"] | sort: 'date' %}
 
-<!--startprint-->
+
 <div id="help-page">
 		<div class="row">
 			<div class="col-sm-3 ml-hide area-scroll print-overflow-visible"  style="height:100vh"><!--width:326px; left area: menu 左边菜单栏-->
@@ -97,7 +97,7 @@ layout: about-default
 			{% include article-index.html %}
 	</div>
 </div><!--/pages -->
-<!--endprint-->
+
 
 <script src="/assets/js/sentryabout.js"></script>
 <script>
