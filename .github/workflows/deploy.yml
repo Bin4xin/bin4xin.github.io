@@ -39,15 +39,10 @@ jobs:
       run: bundle install --path=vendor/bundle --jobs=4 --retry=3
     - name: setup commit hash string
       run: |
-        commitString=$(git rev-parse HEAD)
+        #commitString=$(git rev-parse HEAD)
+        commitString=$(git rev-list HEAD --abbrev-commit --max-count=1)
         echo $commitString
         echo "commitString: $commitString" >> _config.yml
-        cat >>_config.yml<<EOF
-        gitalk:
-           enable: true
-           clientID: ${{ secrets.clientID }}
-           clientSecret: ${{ secrets.clientSecret }}
-        EOF
     # bundle config set --local path 'vendor/bundle' && 
     - name: run jekyll-build
       run: |
