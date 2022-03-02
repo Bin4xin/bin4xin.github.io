@@ -17,7 +17,7 @@
             {% if page.categories.size > 0 %}
             <div class="post-meta mb-3">
             <div class="spacing"></div>
-                <details>
+                <details open>
                     <summary class="point">本文分类</summary>
                     {% for category in page.categories %}{% unless category.first == "blog" or category.first == "event" %}
                     <p>
@@ -30,7 +30,7 @@
             </div>
             {% endif %}
             <p>
-        <details>
+        <details open>
             <summary class="point">所有标签/数量</summary>
             {% for category in site.categories %}{% unless category.first == "blog" or category.first == "event" %}
             <p>

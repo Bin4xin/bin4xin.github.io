@@ -378,20 +378,27 @@ summary::-webkit-details-marker {
 }
 summary:after {
   border-radius: 5px;
-  content: "+";
-  color: var(--theme-main-color);
-  float: left;
+  content: url("/assets/img/svg/chevron-down.svg");
   font-size: 1.5em;
-  font-weight: bold;
-  margin: -5px 10px 0 0;
   padding: 0;
-  text-align: center;
   width: 20px;
-}
-details[open] summary:after {
-  content: "-";
+  text-align: center;
+  float: right;
+
+/*
+* TODO: display与float属性冲突
+* visit http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
+* display: -webkit-box;
+* display: -webkit-flex;
+* display: -ms-flexbox;
+* display: flex;
+* align-self: flex-end;
+*/
 }
 
+details[open] summary:after {
+  content: url("/assets/img/svg/chevron-up.svg");
+}
 article,
 aside,
 details,
@@ -439,6 +446,9 @@ abbr[title] {
 b,
 strong {
   font-weight: bold;
+  position: relative;
+  display: block;
+  padding: 5px;
 }
 dfn {
   font-style: italic;
@@ -4499,11 +4509,17 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   position: relative;
   display: block;
   padding: 10px 15px;
-  /*padding-left: 0 !important;*/
-  /*padding-right: 0 !important;*/
-  /*padding-bottom: 8px!important;*/
-  /*padding-top: 8px!important;*/
 }
+.nav > summary {
+  position: relative;
+  display: block;
+}
+.nav > summary > a {
+  position: relative;
+  display: block;
+  padding: 12px 24px;
+}
+
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
@@ -4627,6 +4643,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-left: 0;
   max-width: none;
 }
+/*.nav-stacked > summary {*/
+/*  float: none;*/
+/*}*/
+/*.nav-stacked > summary + summary {*/
+/*  margin-top: 2px;*/
+/*  margin-left: 0;*/
+/*  max-width: none;*/
+/*}*/
 .nav-justified {
   width: 100%;
 }
@@ -5442,7 +5466,7 @@ a.label:focus {
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
-  background-color: #777777;
+  background-color: var(--theme-main-color);
   border-radius: 10px;
 }
 .badge:empty {
@@ -5475,6 +5499,9 @@ a.badge:focus {
   margin-right: 5px;
 }
 .nav-pills > li > a > .badge {
+  margin-left: 0px;
+}
+.nav-pills > details > summary > a {
   margin-left: 0px;
 }
 .jumbotron {

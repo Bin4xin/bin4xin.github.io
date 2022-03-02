@@ -2,9 +2,9 @@
     {% if page.toc %}<!---->
     <div class="nav nav-stacked tableOfContents_35-E thin-scrollbar">
         <strong><h5>文章目录</h5></strong>
-        <li class="table-of-contents__left-border table-of-contents">
+        <li class="table-of-contents__left-border table-of-contents a">
             <code-index-css>
-                {% toc %}
+                {{ content | toc_only }}
             </code-index-css>
         </li>
     </div>

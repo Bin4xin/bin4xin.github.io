@@ -20,12 +20,12 @@ layout: about-default
 {% assign posts_about_desc = site.categories["about"] | sort: 'date' | group_by_exp:"post", "post.desc" |reverse %}
 {% assign posts_about = site.categories["about"] | sort: 'date' %}
 
-
 <div id="help-page">
 		<div class="row">
 			<div class="col-sm-3 ml-hide area-scroll print-overflow-visible"  style="height:100vh"><!--width:326px; left area: menu 左边菜单栏-->
+<!--ok-->
 				<div tabindex="-1" class="d-flex flex-items-center p-4 position-sticky top-0 color-bg-default" style="z-index:3" id="github-logo">
-					<a class="navbar-brand back-to-top" href="{{site.githubIO}}" target="blank">
+					<a class="navbar-brand back-to-top" href="/" target="blank">
 						{% include pic.html name="logo-small" %}
 						{% if site.harmony %}{{ site.harmony }}
 						{% else %}
@@ -33,28 +33,38 @@ layout: about-default
 						{% endif %}
 					</a>
 				</div>
-				<ul class="nav nav-pills nav-stacked" id="help-nav">
-					{% for descs in posts_about_desc %}
-
-					{%comment%}{% if descs.Researchname == page.Researchname %} class="active"{%endif%} id="toc-{{descs.name}}"{%endcomment%}
-
-					<li>
-					<a class="pointer"><strong>{{descs.name | replace: "「", "" | replace: "」", ""| upcase}}</strong></a>
-					</li>
-					<!--TODO:尝试对desc进行展开闭合
-					<li>
-					<button class="dib dib-ns dib-m dn-l bn bg-transparent rotate-270">
-					<svg width="16" height="16" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.96 58.0141L17.132 55.1861L40.318 32.0001L17.132 8.81408L19.96 5.98608L45.975 32.0001L19.96 58.0141Z" fill="#FFF"></path></svg>
-					</button>-->
+<!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok-->
+				{%comment%}{% for descs in posts_about_desc %}
+				<details>
+					<summary><a class="pointer"><strong>{{descs.name | replace: "「", "" | replace: "」", ""| upcase}}</strong></a></summary>
 					{% for post in descs.items %}
-					<ul class="nav nav-pills nav-stacked">
-					<li id="toc-{{post.Researchname}}" class="table-of-contents table-of-contents__left-border {% if post.Researchname == page.Researchname or post.redirect_help_id == page.Researchname %} active{%endif%}">
-					<a href="{{ post.url }}">{{ forloop.index| roman }}. {{ post.Researchname | upcase}} </a>
-					</li>
+					<ul>
+						<li id="toc-{{post.Researchname}}">
+							<a href="{{ post.url }}">{{ forloop.index| roman }}. {{ post.Researchname | upcase}}</a>
+						</li>
 					</ul>
 					{% endfor %}
-				{% endfor %}
+				</details>
+				{% endfor %}{%endcomment%}
+<!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok--><!--ok-->
+				<ul class="nav nav-pills nav-stacked" id="help-nav">
+					{% for descs in posts_about_desc %}
+					<details {%if page.desc contains descs.name %}open{%endif%}>
+						<summary class="edSFyN">
+							<a><strong>{{descs.name | replace: "「", "" | replace: "」", ""|upcase}}</strong></a>
+						</summary>
+						{% for post in descs.items %}
+						<ul class="nav nav-pills nav-stacked">
+							<li id="toc-{{post.Researchname}}" class="table-of-contents table-of-contents__left-border {% if post.Researchname == page.Researchname or post.redirect_help_id == page.Researchname %} active{%endif%}">
+								<a href="{{ post.url }}">{{ forloop.index| roman }}. {{ post.Researchname | upcase}}</a>
+							</li>
+						</ul>
+						{% endfor %}
+					</details>
+					{% endfor %}
 				</ul>
+
+			<!--sidenave here.-->
 			</div><!-- sidenave 左边菜单栏结束-->
 
 			<div class="col-sm-6" >
@@ -85,7 +95,7 @@ layout: about-default
 
 					<h1> <!--href="javascript:window.print()"-->
 						<span class="post-print pull-right"><a onclick="printpage()"><ion-icon name="print-sharp" class="fa-1x"></ion-icon></a></span>
-						<span class="post-print pull-right"><a href="{{site.githubAccess}}/{{site.githubRepos}}/edit/{{site.githubRepos-Branch}}/{{page.path}}"><ion-icon name="create" class="fa-1x"></ion-icon></a></span>
+						<span class="post-print pull-right"><a href="{{site.githubAccess}}/{{site.githubRepos}}/edit/{{site.githubRepos-Branch}}/{{page.path}}" target="_blank"><ion-icon name="create" class="fa-1x"></ion-icon></a></span>
 					</h1>
 
 					{{ content }}
@@ -101,16 +111,16 @@ layout: about-default
 
 <script src="/assets/js/sentryabout.js"></script>
 <script>
-	function printpage() {
-		let oldStr = window.document.body.innerHTML; // 获取body的内容
-		let start = "<startprint2pdfs>"; // 开始打印标识, 17个字符
-		let end = "</startprint2pdfs>"; // 结束打印标识
-		let newStr = oldStr.substr(oldStr.indexOf(start) + 17); // 截取开始打印标识之后的内容
-		newStr = newStr.substring(0, newStr.indexOf(end)); // 截取开始打印标识和结束打印标识之间的内容
-		window.document.body.innerHTML = newStr; // 把需要打印的指定内容赋给body
-		window.print(); // 调用浏览器的打印功能打印指定区域
-		window.document.body.innerHTML = oldStr; // body替换为原来的内容
-	}
+function printpage() {
+	let oldStr = window.document.body.innerHTML; // 获取body的内容
+	let start = "<startprint2pdfs>"; // 开始打印标识, 17个字符
+	let end = "</startprint2pdfs>"; // 结束打印标识
+	let newStr = oldStr.substr(oldStr.indexOf(start) + 17); // 截取开始打印标识之后的内容
+	newStr = newStr.substring(0, newStr.indexOf(end)); // 截取开始打印标识和结束打印标识之间的内容
+	window.document.body.innerHTML = newStr; // 把需要打印的指定内容赋给body
+	window.print(); // 调用浏览器的打印功能打印指定区域
+	window.document.body.innerHTML = oldStr; // body替换为原来的内容
+}
 </script>
 <!--
 vim: ts=2 sts=2 sw=2 noexpandtab

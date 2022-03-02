@@ -57,7 +57,11 @@ a {
     -ms-transition: background-color .4s linear, color .4s linear, border-color .4s linear;
     transition: background-color .4s linear, color .4s linear, border-color .4s linear;
 }
-
+/*
+*  TODO mark:
+*  扩大点击生效区域
+*  visit https://www.atjiang.com/css-extending-clickable-area/
+*/
 a:hover, a:focus {
     text-decoration: none;
     color:$color_link_hover;
