@@ -384,7 +384,7 @@ summary:after {
   width: 20px;
   text-align: center;
   float: right;
-
+}
 /*
 * TODO: display与float属性冲突
 * visit http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
@@ -393,9 +393,8 @@ summary:after {
 * display: -ms-flexbox;
 * display: flex;
 * align-self: flex-end;
+* }
 */
-}
-
 details[open] summary:after {
   content: url("/assets/img/svg/chevron-up.svg");
 }
@@ -2961,7 +2960,7 @@ th {
 @media screen and (max-width: 767px) {
   .table-responsive {
     width: 100%;
-    margin-bottom: 15px;
+    margin-top: 15px;
     overflow-y: hidden;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     border: 1px solid #ddd;

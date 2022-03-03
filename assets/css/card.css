@@ -1394,6 +1394,9 @@ body {
   .gt-container .gt-header-controls {
     margin: 0;
   }
+  .tips-responsive {
+    width: 50%;
+  }
 }
 .gt-container .gt-header-controls-tip {
   font-size: 0.875em;

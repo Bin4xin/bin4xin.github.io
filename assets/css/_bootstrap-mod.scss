@@ -112,6 +112,12 @@ code{
   border-bottom: 1px solid $color_secondary ;
 }
 
+.hline-strong {
+  border-bottom: 1.6px solid $color_secondary ;
+  margin-top: 0.5px!important;
+  margin-bottom: 1px!important;
+}
+
 .hline-w {
   border-bottom: 1px solid #ffffff;
   margin-bottom: 25px;
