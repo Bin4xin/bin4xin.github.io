@@ -37,6 +37,18 @@ java -XX:ParallelGCThreads=4 -XX:+AggressiveHeap -XX:+UseParallelGC -jar cobalts
 
 ### 0x02 profile
 
+```bash
+#server
+nohup ./teamserver <vps_ip> <connect_password> your_mode.profile &
+
+#client
+java -XX:ParallelGCThreads=4 -XX:+AggressiveHeap -XX:+UseParallelGC -jar cobaltstrike.jar
+#输入<vps_ip> <connect_password>
+#名字任意填入
+```
+
+区别在于加上自制profile可以针对修改受害客户端和C2服务器HTTP/S的流量特征，避免被「简单的局域网爬虫们」爬到以至于被挂黑名单。
+
 ## 消除特征
 
 ### 1x01 修改默认端口

