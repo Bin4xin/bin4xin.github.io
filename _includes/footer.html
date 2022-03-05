@@ -13,81 +13,11 @@
     <div class="footer-container">
         <div class="pt3 pt3-ns pt3-m pt7-l pb0 pb0-ns pb0-m pb5-l">
             <div class="footer-row">
-                <!--<div class="footer-col-lg-2">
-                    <div class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l">
-                        <p class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f3 f3-ns f3-m f3-l">销售
-                            <button class="db db-ns db-m dn-l bn bg-transparent rotate-270">
-                            <svg width="16" height="16" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M19.96 58.0141L17.132 55.1861L40.318 32.0001L17.132 8.81408L19.96 5.98608L45.975 32.0001L19.96 58.0141Z" fill="#FFF"></path></svg>
-                            </button>
-                        </p>
-                        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
-                            <li class="mt1 lh-6"><a class="blue2 f2 fw4" href="/plans/enterprise/contact/">企业级销售</a></li>
-                            <li class="mt1 lh-6"><a class="blue2 f2 fw4" href="/partners/">成为合作伙伴</a></li>
-                            <li class=""><span class="f2 fw4 blue2">联系销售：</span></li>
-                            <li class=""><a class="f2 fw4 blue2" href="tel:+18889935273">+1 (888) 99 FLARE</a></li>
-                        </ul>
-                    </div>
-                </div>-->
+                {% include data_links.html nodes=site.data.nerd_urls %}
                 <div class="footer-col-lg-2">
                     <div class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l">
-                        <p class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l">入门
-                            <button class="dib dib-ns dib-m dn-l bn bg-transparent rotate-270">
-                                        <!--dib dib-ns dib-m dn-l bn bg-transparent [rotate-270]-->
-                                <svg width="16" height="16" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.96 58.0141L17.132 55.1861L40.318 32.0001L17.132 8.81408L19.96 5.98608L45.975 32.0001L19.96 58.0141Z" fill="#FFF"></path></svg>
-                            </button>
-                        </p>
+                        <a class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l"><strong><center>其他</center></strong></a>
                         <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
-                                <!--[db db-ns db-m] db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list-->
-                            <li class="mt1 lh-6"><a class="white f2 fw4" href="https://github.com/tuna/mirror-web" target="blank"><em>Jekyll Tuna</em>源码</a></li>
-                            <li class="mt1 lh-6"><a class="white f2 fw4" href="{{site.githubIO}}/blog/2019/jekyll/in/linux" target="blank">博客搭建教程</a></li>
-                            <li class="mt1 lh-6"><a class="white f2 fw4" href="{{site.githubIO}}/usage/" target="blank">个性化语法批注</a></li>
-                            <li class="mt1 lh-6"><a class="white f2 fw4" href="{{site.githubIO}}/blog/2019/nginx/with/jekyll-site/" target="blank">公网部署</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="footer-col-lg-2">
-                    <div class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l">
-                        <p class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l">社区
-                            <button class="dib dib-ns dib-m dn-l bn bg-transparent rotate-270">
-                                <svg width="16" height="16" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.96 58.0141L17.132 55.1861L40.318 32.0001L17.132 8.81408L19.96 5.98608L45.975 32.0001L19.96 58.0141Z" fill="#FFF"></path></svg>
-                            </button>
-                        </p>
-                        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
-                            <li class="mt1 lh-6"><a class="white f2 fw4" href="/blog" target="blank">博客</a></li>
-                            <li class="mt1 lh-6"><a class="white f2 fw4" href="{{site.githubAccess}}/bigger-than-bigger/tree/master/CoVV" target="blank"><em>Collection of verified vulnerabilities</em></a></li>
-                            <li class="mt1 lh-6"><a class="white f2 fw4" href="{{site.githubAccess}}/bigger-than-bigger" target="blank"><em>Bigger than Bigger</em></a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="footer-col-lg-2">
-                    <div class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l">
-                        <p class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l">开发
-                            <button class="dib dib-ns dib-m dn-l bn bg-transparent rotate-270">
-                                <svg width="16" height="16" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.96 58.0141L17.132 55.1861L40.318 32.0001L17.132 8.81408L19.96 5.98608L45.975 32.0001L19.96 58.0141Z" fill="#FFF"></path></svg>
-                            </button>
-                        </p>
-                        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
-                            <li class="mt1 lh-6"><a class="white f2 fw4" href="{{site.githubAccess}}/Bin4xin" target="blank"><em>Bin4xin</em></a></li>
-                            <li class="mt1 lh-6"><a class="white f2 fw4" href="https://www.cloudflare.com/waf/" target="blank"><em>CloudFlare WAF</em></a></li>
-                            <li class="mt1 lh-6"><a class="white f2 fw4" href="https://jekyllrb.com/docs/" target="blank"><em>Jekyll</em></a></li>
-                            <li class="mt1 lh-6"><a class="white f2 fw4" href="https://www.markdownguide.org/" target="blank"><em>MarkDown</em></a></li>
-                            <li class="mt1 lh-6"><a class="white f2 fw4" href="{{site.githubAccess}}/{{site.githubRepos}}/actions" target="blank"><em>Github Action</em></a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="footer-col-lg-2">
-                    <div class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l">
-                        <p class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l">关于
-                            <button class="dib dib-ns dib-m dn-l bn bg-transparent rotate-270">
-                                <svg width="16" height="16" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.96 58.0141L17.132 55.1861L40.318 32.0001L17.132 8.81408L19.96 5.98608L45.975 32.0001L19.96 58.0141Z" fill="#FFF"></path></svg>
-                            </button>
-                        </p>
-                        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
-                            <li class="mt1 lh-6"><a class="white f2 fw4" href="https://bin4xin.sentrylab.cn/about/" target="blank">近期研究</a></li>
                             <li class="mt1 lh-6"><a class="white f2 fw4"><em> ∑ <csmall>(Visitors/times)</csmall></em></a></li>
                             <li class="mt1 lh-6">
                                 <a class="white f2 fw4"><img src="https://profile-counter.glitch.me/{{site.githubRepos}}/count.svg" style="max-width:100%;"></a>
@@ -95,22 +25,9 @@
                         </ul>
                     </div>
                 </div>
-
-                <div class="footer-col-lg-2">
-                    <div class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l">
-                        <p class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l">镜像
-                            <button class="dib dib-ns dib-m dn-l bn bg-transparent rotate-270">
-                                <svg width="16" height="16" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.96 58.0141L17.132 55.1861L40.318 32.0001L17.132 8.81408L19.96 5.98608L45.975 32.0001L19.96 58.0141Z" fill="#FFF"></path></svg>
-                            </button>
-                        </p>
-                        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
-                            <li class="mt1 lh-6"><a class="white f2 fw4" href="{{site.githubAccess}}/{{site.githubRepos}}" target="blank">源码</a></li>
-                            <li class="mt1 lh-6"><a class="white f2 fw4" href="{{site.giteeIO}}" target="blank">国内镜像/<em>CN MIRROR</em></a></li>
-                            <li class="mt1 lh-6"><a class="white f2 fw4" href="{{site.githubIO}}" target="blank">国外镜像/<em>OTHER MIRROR</em></a></li>
-                        </ul>
-                    </div>
-                </div>
             </div><!-- "/row"-->
+
+
             <div class="pv5">
                 <div class="flex flex-wrap justify-start justify-start-ns justify-start-m justify-between-l footer-bottom-row-margin">
                     <div class="mb3 mb3-ns mb3-m mb0-l lh-1 mt0 mt3-ns">

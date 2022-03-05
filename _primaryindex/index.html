@@ -66,7 +66,7 @@ permalink: /
       </div>
       <div class="card-author">
         <a class="author-avatar">
-          {% assign author = site.writer[post.author] %}
+          {% assign author = site.data.writer[post.author] %}
           <img alt="{{ author.display_name }}" src="https://avatars.githubusercontent.com/u/{{ author.gh_avatars }}?v=4" />
         </a>
         <svg class="half-circle" viewBox="0 0 106 57">

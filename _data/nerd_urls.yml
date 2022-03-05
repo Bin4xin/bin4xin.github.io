@@ -1,0 +1,58 @@
+- name: 入门
+  meta: false
+  data:
+    - name: 快速开始
+      link: /usage/
+    - name: 博客搭建
+      link: /blog/2019/jekyll/in/linux/
+    - name: 公网部署
+      link: /blog/2019/nginx/with/jekyll-site/
+    - name: <em>Jekyll Tuna</em>源码
+      link: https://github.com/tuna/mirror-web/
+
+- name: 社区
+  meta: false
+  data:
+    - name: <em>Bigger than Bigger</em>
+      link: https://github.com/Bin4xin/bigger-than-bigger/
+    - name: <em>Collection Of Verified Vulnerabilities</em>
+      link: https://github.com/Bin4xin/bigger-than-bigger/tree/master/CoVV
+    - name: <em>sweet-ysoserial</em>
+      link: https://github.com/Bin4xin/sweet-ysoserial
+
+- name: 技术栈
+  meta: false
+  data:
+    - name: <em>Jekyll</em>
+      link: https://jekyllrb.com/docs/
+    - name: <em>MarkDown</em>
+      link: https://www.markdownguide.org/
+    - name: <em>CloudFlare WAF</em>
+      link: https://www.cloudflare.com/waf/
+    - name: <em>CloudFlare CDN</em>
+      link: https://dash.cloudflare.com/dns/
+    - name: <em>Github Action</em>
+      link: https://github.blog/changelog/2018-10-16-github-actions-limited-beta/
+
+- name: 关于
+  meta: false
+  data:
+    - name: 近期研究
+      link: /about/
+    - name: 博客
+      link: /blog/
+    - name: <em>WIKI</em>
+      link: https://github.com/Bin4xin/bin4xin.github.io/wiki
+    - name: 国内镜像
+      link: https://bin4xin.gitee.io/
+
+- name: 贡献者
+  meta: false
+  data:
+    - name: 本阿信
+      link: https://github.com/bin4xin
+    - name: 夏天の风
+      link: https://github.com/dnf-2008
+
+# source:: visit::
+# http://mib.cc/blog/2014/2014-06-29-using-jekyll-data-files.html
