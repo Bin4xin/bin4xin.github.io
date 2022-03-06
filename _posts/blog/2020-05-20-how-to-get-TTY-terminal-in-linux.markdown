@@ -11,17 +11,23 @@ tags:
 permalink: /blog/2020/get/TTY/terminal/
 ---
 
-写在前面，本方法适用于在反弹shell后把shell提升为完全交互式shell，也是自己实战了一段时间后摸索出来的，记一下笔记；
-# 完美的交互式shell
+写在前面，本方法适用于在反弹shell后把shell提升为完全交互式shell，也是自己实战了一段时间后摸索出来的，记一下笔记
+
+## 完美的交互式shell
+
+### python
+
 ```bash
-python -c 'import pty; pty.spawn("/bin/bash")'
-Ctrl-Z
-stty raw -echo
-fg
-reset
-export SHELL=bash
-//$ export TERM=xterm-256color
+$ python -c "import pty; pty.spawn('/bin/bash')"
+# 输入 Ctrl+Z
+$ stty raw -echo
+$ fg
+$ reset
+$ export SHELL=bash
+# or export TERM=xterm-256color
 ```
+
+### srcipt based on bash
 
 同样的，我在网上也找到另外一种方式：`script /dev/null/`这样：同理，也可以通过同样的方式获取到交互式shell：
 ```bash
@@ -63,7 +69,7 @@ attack machine
 socat file:`tty`,raw,echo=0 tcp-listen:4444
 ```
 
-# stty行列数:)
+### stty行列数:)
 有的时候终端写入的命令太长，而终端行列不够长来显示所以会导致命令重叠、错杂，我们可以用下面的方法来让我们用这个shell用的更舒服点；
 
 先看看自己机器上的stty配置信息:
@@ -84,8 +90,9 @@ rows 35; columns 148
 $ stty rows 35 cols 148
 ```
 
-# 其他痛点
+## 其他痛点
 有的时候感觉terminal上太多命令了，用着用着会习惯性输入命令`clear`，然后你们就会看到如下现象：
+
 ```bash
 # clear
 
@@ -95,7 +102,9 @@ TERM environment variable not set.
 
 TERM=dumb
 ```
+
 如上，看term的配置信息，最后解决办法如下，设置term为`xterm`就可以了。
+
 ```bash
 # export TERM=xterm
 
