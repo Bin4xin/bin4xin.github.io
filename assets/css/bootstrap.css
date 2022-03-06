@@ -5456,17 +5456,31 @@ a.label:focus {
 }
 .badge {
   display: inline-block;
-  min-width: 10px;
-  padding: 3px 7px;
+  min-width: 14px;
+  padding: 0 8px;
   font-size: 12px;
-  font-weight: bold;
-  line-height: 1;
+  font-weight: 500;
+  line-height: 18px;
   color: #fff;
   text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
+  /*white-space: nowrap;*/
+  /*vertical-align: middle;*/
   background-color: var(--theme-main-color);
-  border-radius: 10px;
+  border: 1px solid var(--color-counter-border);
+  border-radius: 2em;
+  margin-left: 4px !important;
+
+  /*display: inline-block;*/
+  /*min-width: 20px;*/
+  /*padding: 0 6px;*/
+  /*font-size: 12px;*/
+  /*font-weight: 500;*/
+  /*line-height: 18px;*/
+  /*color: #24292f;*/
+  /*background-color: var(--color-neutral-muted);*/
+  /*border: 1px solid var(--color-counter-border);*/
+  /*border-radius: 2em;*/
+  /*margin-left: 4px !important;*/
 }
 .badge:empty {
   display: none;
