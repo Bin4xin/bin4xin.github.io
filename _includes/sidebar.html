@@ -1,14 +1,14 @@
+<link rel="stylesheet" type="text/css" href="/assets/css/card.css">
+
 <div class="col-lg-3">
-        <h4><ion-icon name="print"></ion-icon> 打印/ <ion-icon name="logo-rss"></ion-icon> 订阅</h4>
-        <div class="hline"></div>
-<!--     <div class="hidden-print"> -->
-          <p>
-            <span class="post-print">
-                <a href="javascript:window.print()"><ion-icon name="print-sharp" class="fa-2x"></ion-icon></a>
-                <a href="{{ "/feed.xml" | prepend: site.baseurl }}"><ion-icon name="logo-rss" class="fa-2x"></ion-icon></a>
-            </span>
-          </p>
-<!--     </div> -->
+    <h4><ion-icon name="print"></ion-icon> 打印/ <ion-icon name="logo-rss"></ion-icon> 订阅</h4>
+    <div class="hline"></div>
+    <p>
+    <span class="post-print">
+        <a href="javascript:window.print()"><ion-icon name="print-sharp" class="fa-2x"></ion-icon></a>
+        <a href="{{ "/feed.xml" | prepend: site.baseurl }}"><ion-icon name="logo-rss" class="fa-2x"></ion-icon></a>
+    </span>
+    </p>
     <div class="spacing"></div><br>
 
     <div class="hidden-print">
@@ -23,7 +23,6 @@
                     <p>
                         <i class="far fa-folder fa-fw mr-1"></i> <a href='{{ site.baseurl }}/{{ category | center | url_encode }}/'>{{ category }}</a>
                         {%- unless forloop.last -%} {%- endunless -%}
-
                     </p>
                     {% endunless %}{% endfor %}
                 </details>
@@ -50,12 +49,15 @@
             <a class="btn btn-theme" href='/' role="button">{{ category | first | capitalize }} ({{ category | last | size }})</a>
         {% endunless %}{% endfor %}
     </p>
-    <div class="spacing"></div>
-    <div class="hidden-print">
-        <h4><ion-icon name="menu-sharp"></ion-icon> 文章目录</h4>
-        <div class="hline"></div>
-        <p>
-            {{ content | toc_only }}
-        </p>
-    </div><!--class="hidden-print" stop-->
+</div>
+<div class="spacing"></div>
+<div class="col-sm-3 ml-hide hidden-print">
+    <div class="nav nav-stacked tableOfContents_35-E thin-scrollbar">
+        <h5 class="lead">文章目录</h5>
+        <li class="table-of-contents__left-border table-of-contents">
+            <code-index-css>
+                {{ content | toc_only }}
+            </code-index-css>
+        </li>
+    </div>
 </div>
