@@ -23,7 +23,8 @@ permalink: /about/Cobalt-Stike-hidden-true-ip/
 - 修改域名dns到Cloudflare
 - 添加DNS A记录到teamserver监听的VPS 真实IP
 
-- 自动 HTTPS 重写/始终使用 HTTPS
+- SSL/TLS - 边缘证书 - 确保如下选项为OFF：
+  - 自动 HTTPS 重写/始终使用 HTTPS
 - 缓存 - 配置 - always online
 
 ![2022-02-19-1.43.26.png](https://image.yjs2635.xyz/images/2022/02/19/2022-02-19-1.43.26.png)
