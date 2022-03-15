@@ -26,19 +26,19 @@
 
 - *国内前端大神？BULL SHIT :-)*
 - Next TODO：
-    - [ ] 修改个人主页页面     
-      - [ ]Blog窗口卡片显示
-      - 参考：
-        - [css-tricks](https://css-tricks.com/)
-        - [CodePen Blog](https://blog.codepen.io/) 
-        - [ scotch.io](https://scotch.io/)
-      - [ ] 代码复制区域 UX Design
-        - [ ] copy:`<ion-icon name="copy-outline"></ion-icon>`
-        - [ ] copied:`<ion-icon name="checkbox-outline"></ion-icon>`
-    - [ ] 博客分类代码（指文章类别、文章tang等）展示暂无bug，但访问路由存在问题，需考虑；
-    - [x] 响应式折叠footer相关简介；
-      - [ ] 折叠相关简介无法打开，待完善；
-    - [x] 评论功能的硬编码问题改善；
-        - [x] 发现[编辑功能](https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/2020-05-18-ShiroDeser.md)，思考变量问题；
-        - [x] 已可添加commitid进入，暂时改善硬编码问题；
-    - [ ] ...
+    - [x] 修改个人主页页面
+    - 代码复制区域 UX Design
+      - [ ] copy:`<ion-icon name="copy-outline"></ion-icon>`
+      - [ ] copied:`<ion-icon name="checkbox-outline"></ion-icon>`
+    - [x] Blog窗口卡片显示
+        - 参考：
+            - [css-tricks](https://css-tricks.com/)
+            - [CodePen Blog](https://blog.codepen.io/) 
+            - [scotch.io](https://scotch.io/)
+        - [x] 博客分类代码（指文章类别、文章tang等）展示暂无bug，但访问路由存在问题，需考虑；
+        - [x] 响应式折叠footer相关简介；
+          - [x] 折叠相关简介无法打开，待完善；
+        - [x] 评论功能的硬编码问题改善；
+            - [x] 发现[编辑功能](https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/2020-05-18-ShiroDeser.md)，思考变量问题；
+            - [x] 已可添加commitid进入，暂时改善硬编码问题；
+- [ ] ...

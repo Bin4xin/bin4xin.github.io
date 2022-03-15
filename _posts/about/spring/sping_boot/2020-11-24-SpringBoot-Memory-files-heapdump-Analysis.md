@@ -5,7 +5,7 @@ Researchname:  SpringBoot-Memory-files-heapdump-Analysis
 toc: true
 author: Bin4xin
 permalink: /about/SpringBoot-Memory-files-heapdump-Analysis/
-desc: 「其他研究」
+desc: 「Spring」
 ---
 
 # 思路：heapdump文件分析历程
