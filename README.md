@@ -1,4 +1,4 @@
-<h1 align="center"><a href="https://sentrylab.cn/">哨兵</a>::<a href="https://bin4xin.sentrylab.cn/">Bin4xin</a>::</h1>
+<h1 align="center"><a href="https://sentrylab.cn/">哨兵::</a><a href="https://bin4xin.sentrylab.cn/">Bin4xin::</a></h1>
 
 <div align="center">
 
@@ -17,7 +17,6 @@
 <ul>
 <li><h3>目录</h3></li>
 <li><a href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/CHANGELOG.md">::历史记录相关文档::</a></li>
-<li><a href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/BUILD.md">::构建相关文档::</a></li>
 </ul>
 
 > 详细内容移步点击以[参见：Wiki](https://github.com/Bin4xin/bin4xin.github.io/wiki)
