@@ -15,6 +15,7 @@ permalink: /blog/2019/scrcpy/
 
 ---
 > 2022/03/30/17:13:08 添加macOS用法
+---
 
 用scrcpy主要是因为开源且干净，先上效果图。
 
@@ -48,6 +49,7 @@ Error: scrcpy: Failed to download resource "imath"
 git -C "$(brew --repo)" remote set-url origin 'https://github.com/Homebrew/brew.git'
 git -C "$(brew --repo homebrew/core)" remote set-url origin 'https://github.com/Homebrew/homebrew-core.git'
 git -C "$(brew --repo homebrew/cask)" remote set-url origin 'https://github.com/Homebrew/homebrew-cask.git'
+brew update
 ```
 
 info:
