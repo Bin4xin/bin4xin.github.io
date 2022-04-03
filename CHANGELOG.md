@@ -28,8 +28,8 @@
 - Next TODO：
     - [x] 修改个人主页页面
     - 代码复制区域 UX Design
-      - [ ] copy:`<ion-icon name="copy-outline"></ion-icon>`
-      - [ ] copied:`<ion-icon name="checkbox-outline"></ion-icon>`
+      - [x] copy:`<ion-icon name="copy-outline"></ion-icon>`
+      - [x] copied:`<ion-icon name="checkbox-outline"></ion-icon>`
     - [x] Blog窗口卡片显示
         - 参考：
             - [css-tricks](https://css-tricks.com/)

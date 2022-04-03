@@ -2,15 +2,45 @@
 layout: default
 permalink: /about/
 ---
-<!DOCTYPE html>
-<html>
-<script>
-{% assign first_RP = site.categories["about"] | sort: 'Researchname' | first %}
-var redirect_to = window.location.protocol + "//" + window.location.host + "{{first_RP.url}}";
-window.location = redirect_to;
-</script>
+<link rel="stylesheet" type="text/css" href="/assets/css/card.css">
+<div>
+    <!--
+    author-avatar capture from github. visit https://github.com/Bin4xin/bin4xin.github.io/blob/main/_config.yml#L34
+    source code from: https://xuexi.erealmsoft.com/2014/11/17/others/jekyll-in-github/#5-%E4%BD%9C%E8%80%85%E5%90%8D%E5%8F%8A%E5%A4%B4%E5%83%8F%E5%8A%A0%E8%BD%BD
+    -->
+    <section style="font-family: 'DM Mono', monospace;color: white;" class="card-list">
+        {% for post in site.categories['about'] %}
+        <article class="card">
+            <header class="card-header">
+                <p>{{post.date | date: "%Y-%-m-%-d"}}</p>
+                <a href="{{ post.url | prepend: site.baseurl }}"><h2><i class="fa fa-file-text-o"></i> {{ post.Researchname }}</h2></a>
+            </header>
+            <div class="post-abstract">
+                {{ post.excerpt | strip_html | truncate: 65, '...'}}
+            </div>
+            <div class="card-author">
+                <a class="author-avatar">
+                    {% assign author = site.data.writer[post.author] %}
+                    <img alt="{{ author.display_name }}" src="https://avatars.githubusercontent.com/u/{{ author.gh_avatars }}?v=4" />
+                </a>
+                <svg class="half-circle" viewBox="0 0 106 57">
+                    <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
+                </svg>
 
-</html>
+                <div class="author-name">
+                    <div class="author-name-prefix">By</div>
+                    {{ post.author }}
+                </div>
+            </div>
+            <div class="tags">
+                {% for tag in post.tags %}
+                <a href="#">{{ tag }}</a>
+                {% endfor %}
+            </div>
+        </article>
+        {% endfor %}
+    </section>
+</div>
 <!--
 vim: ts=2 sts=2 sw=2 noexpandtab
 -->
