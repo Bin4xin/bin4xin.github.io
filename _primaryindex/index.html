@@ -26,6 +26,11 @@ permalink: /
           </div>
         </div>
       </div>
+      <!-- 代码引用申明/code reference declaration:
+      cws-banner source code from:
+      - {@link https://cloud.google.com/}
+      - {@link https://www.gstatic.com/devrel-devsite/prod/v8e85f2d232f57b3748940572c2507445fffb413f9b17c36b012cc05efc1a12ea/cloud/css/app.css}
+      -->
       <div class="cws-banner cws-fullbleed" track-metadata-module="banner">
         <div class="cws-banner__body-copy post-abstract">
           有关{% for about in site.categories['about'] limit:1 %}<a href="{{ about.url | prepend: about.baseurl }}">{% if about.desc%}{{ about.desc |upcase }}{% endif %}</a>{% endfor %}<a href={{"/about/"|prepend: site.baseurl}}>... </a>的描述。
@@ -51,9 +56,10 @@ permalink: /
 </div><!--/service -->
 
 <div>
-  <!--
+  <!-- 代码引用申明/code reference declaration:
   author-avatar capture from github. visit https://github.com/Bin4xin/bin4xin.github.io/blob/main/_config.yml#L34
-  source code from: https://xuexi.erealmsoft.com/2014/11/17/others/jekyll-in-github/#5-%E4%BD%9C%E8%80%85%E5%90%8D%E5%8F%8A%E5%A4%B4%E5%83%8F%E5%8A%A0%E8%BD%BD
+  source code from:
+  - {@link https://xuexi.erealmsoft.com/2014/11/17/others/jekyll-in-github/#5-%E4%BD%9C%E8%80%85%E5%90%8D%E5%8F%8A%E5%A4%B4%E5%83%8F%E5%8A%A0%E8%BD%BD}
   -->
   <section style="font-family: 'DM Mono', monospace;color: white;" class="card-list">
     {% for post in site.categories['blog'] limit:8 %}

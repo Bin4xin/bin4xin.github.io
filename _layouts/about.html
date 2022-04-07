@@ -100,12 +100,13 @@ layout: about-default
 
 <script src="/assets/js/sentryabout.js"></script>
 <script>
-// @printpage func() from&visit https://blog.csdn.net/qq_38128179/article/details/103344021
+// @printpage func() 代码引用申明/code reference declaration:
+// - {@link https://blog.csdn.net/qq_38128179/article/details/103344021}
 function printpage() {
 	let oldStr = window.document.body.innerHTML; // 获取body的内容
 	let start = "<startprint2pdfs>"; // 开始打印标识, 17个字符
 	let end = "</startprint2pdfs>"; // 结束打印标识
-	var matchString = /(<\/?a.*?>)/gi;//visit https://blog.csdn.net/weixin_30652271/article/details/101629421
+	var matchString = /(<\/?a.*?>)/gi;//- {@link https://blog.csdn.net/weixin_30652271/article/details/101629421}
 	let replaceStr = oldStr.replace(matchString, '')
 	let newStr = replaceStr.substr(oldStr.indexOf(start) + 17); // 截取开始打印标识之后的内容
 	newStr = newStr.substring(0, newStr.indexOf(end)); // 截取开始打印标识和结束打印标识之间的内容

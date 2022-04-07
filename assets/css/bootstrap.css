@@ -7341,4 +7341,133 @@ font-weight: 600!important;
   padding-left: 15px!important;
 }
 
+/*mark-add*/
+.no-underline {
+  text-decoration: none !important;
+}
+.lh-condensed {
+  line-height: 1.25 !important;
+}
+.d-inline-block {
+  display: inline-block !important;
+}
+.mb-1 {
+  margin-bottom: 4px !important;
+}
+.width-fit {
+  max-width: 100% !important;
+}
+.discussion-spotlight-details {
+  pointer-events: none;
+}
+
+.css-truncate-target {
+  display: inline-block;
+  max-width: 125px;
+  vertical-align: top;
+}
+.css-truncate.css-truncate-overflow, .css-truncate .css-truncate-overflow, .css-truncate.css-truncate-target, .css-truncate .css-truncate-target {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.discussion-spotlight-details>* {
+  pointer-events: auto;
+}
+
+.color-text-white {
+  color: #ffffff !important;
+}
+.lh-condensed {
+  line-height: 1.25 !important;
+}
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-weight: 600 !important;
+}
+
+.discussion-spotlight-pattern-dot-fill {
+  background-image: url("https://github.githubassets.com/static/images/icons/spotlight/dot-fill-pattern.svg");
+}
+.discussion-spotlight-pattern-container {
+  mix-blend-mode: soft-light;
+  background-position: 20px 20px;
+  background-size: 35px;
+  opacity: .5;
+}
+.d-flex {
+  display: flex !important;
+}
+.height-full {
+  height: 100% !important;
+}
+.width-full {
+  width: 100% !important;
+}
+.overflow-hidden {
+  overflow: hidden !important;
+}
+.flex-items-stretch {
+  align-items: stretch !important;
+}
+.flex-justify-around {
+  justify-content: space-around !important;
+}
+.flex-column {
+  flex-direction: column !important;
+}
+.rounded-2 {
+  border-radius: 6px !important;
+}
+
+.right-0 {
+  right: 0 !important;
+}
+.top-0 {
+  top: 0 !important;
+}
+.list-style-none {
+  list-style: none !important;
+}
+.f1 {
+  font-size: 32px !important;
+}
+.f1 {
+  font-size: 26px !important;
+}
+.mr-3 {
+  margin-right: 16px !important;
+}
+.mt-1 {
+  margin-top: 4px !important;
+}
+.right-0 {
+  right: 0 !important;
+}
+.top-0 {
+  top: 0 !important;
+}
+.rounded-2 {
+  border-radius: 6px !important;
+}
+.list-style-none {
+  list-style: none !important;
+}
+.discussion-spotlight {
+  height: 188px;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+.position-relative {
+  position: relative !important;
+}
+.flex-items-end {
+  align-items: flex-end !important;
+}
+.position-absolute {
+  position: absolute !important;
+}
+.rounded-2 {
+  border-radius: 6px !important;
+}
+/*mark-end*/
 /*# sourceMappingURL=bootstrap.css.map */

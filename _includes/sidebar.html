@@ -1,21 +1,10 @@
-<link rel="stylesheet" type="text/css" href="/assets/css/card.css">
-
 <div class="col-lg-3">
-<!--    <h4><ion-icon name="print"></ion-icon> 打印/ <ion-icon name="logo-rss"></ion-icon> 订阅</h4>-->
-<!--    <div class="hline"></div>-->
-<!--    <p>-->
-<!--    <span class="post-print">-->
-<!--        <a href="javascript:window.print()"><ion-icon name="print-sharp" class="fa-2x"></ion-icon></a>-->
-<!--        <a href="{{ "/feed.xml" | prepend: site.baseurl }}"><ion-icon name="logo-rss" class="fa-2x"></ion-icon></a>-->
-<!--    </span>-->
-<!--    </p>-->
-<!--    <div class="spacing"></div><br>-->
     <div class="hidden-print">
         <h4><ion-icon name="grid-sharp"></ion-icon> 分类目录</h4>
         <div class="hline"></div>
-            {% if page.categories.size > 0 %}
+        <div class="spacing"></div>
+        {% if page.categories.size > 0 %}
             <div class="post-meta mb-3">
-            <div class="spacing"></div>
                 <details open>
                     <summary class="point">本文分类</summary>
                     {% for category in page.categories %}{% unless category.first == "blog" or category.first == "event" %}
@@ -30,26 +19,16 @@
             <p>
         <details open>
             <summary class="point">所有标签/数量</summary>
-            {% for category in site.categories %}{% unless category.first == "blog" or category.first == "event" %}
+            {% for category in site.categories %}
             <p>
-                <i class="fa fa-angle-right"></i> {{ category | first | capitalize }}
+                <i class="fa fa-angle-right"></i> {{ category | first | upcase }}
                 <span class="badge badge-theme pull-right">{{ category | last | size }}</span>
             </p>
-        {% endunless %}{% endfor %}
+            {% endfor %}
         </details>
     </div><!--class="hidden-print" stop-->
-
-    <div class="spacing"></div>
-
-    <h4><ion-icon name="pricetags-sharp"></ion-icon> 标签</h4>
-    <div class="hline"></div>
-    <p>
-        {% for category in site.categories %}{% unless category.first == "blog" or category.first == "event" %}
-            <a class="btn btn-theme" href='/' role="button">{{ category | first | capitalize }} ({{ category | last | size }})</a>
-        {% endunless %}{% endfor %}
-    </p>
 </div>
-<div class="spacing"></div>
+{% if page.toc %}
 <div class="col-sm-3 ml-hide hidden-print">
     <div class="nav nav-stacked tableOfContents_35-E thin-scrollbar">
         <h5 class="lead">文章目录</h5>
@@ -60,3 +39,4 @@
         </li>
     </div>
 </div>
+{% endif %}

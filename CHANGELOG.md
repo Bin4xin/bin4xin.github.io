@@ -26,15 +26,16 @@
 
 - *国内前端大神？BULL SHIT :-)*
 - Next TODO：
+    - [ ] blog文章大于100会考虑分页;
     - [x] 修改个人主页页面
     - 代码复制区域 UX Design
       - [x] copy:`<ion-icon name="copy-outline"></ion-icon>`
       - [x] copied:`<ion-icon name="checkbox-outline"></ion-icon>`
-    - [x] Blog窗口卡片显示
+    - [x] Blog/About 窗口卡片显示
         - 参考：
-            - [css-tricks](https://css-tricks.com/)
-            - [CodePen Blog](https://blog.codepen.io/) 
-            - [scotch.io](https://scotch.io/)
+          - [css-tricks](https://css-tricks.com/)
+          - [CodePen Blog](https://blog.codepen.io/)
+          - [scotch.io](https://scotch.io/)
         - [x] 博客分类代码（指文章类别、文章tang等）展示暂无bug，但访问路由存在问题，需考虑；
         - [x] 响应式折叠footer相关简介；
           - [x] 折叠相关简介无法打开，待完善；

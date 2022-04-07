@@ -7,22 +7,46 @@ permalink: /blog/
 <div class="container mtb">
   <div class="row">
     <div class="col-lg-9">
+      <!-- 代码引用申明/code reference declaration:
+      article['categories'] show style capture from github.
+      source code from:
+      - {@link https://github.com/orgs/github-community/discussions/categories/github-education}
+      - {@link https://github.githubassets.com/assets/github-4b5f4883df19.css}
+      -->
       {% for post in site.categories['blog'] %}
       <div class="row">
         <div class="col-lg-12">
-          <a href="{{ post.url | prepend: site.baseurl }}"><h3 class="ctitle">{{ post.title }}</h3></a>
-          <p>
-            <csmall>
-              发布于：{{ post.date | date: "%Y-%m-%d" }}. | 
-              {% if post.wrench %} 并最后修改于：{{ post.wrench | date: "%Y-%m-%d"  }} | 
-              {% else %} 未做修改 | 
-              {% endif %} By: {{ post.author }}.
-             </csmall>
-          </p>
-          <p><a href="{{ post.url | prepend: site.baseurl }}">[Read More]</a></p>
+          <ul>
+            <li class="list-style-none no-underline">
+              <div class="js-discussion-spotlight position-relative rounded-2 d-flex flex-items-end discussion-spotlight">
+                <div class="position-absolute rounded-2 width-full height-full" style="z-index: 1; background-image: linear-gradient(to right, #DB459F, #2568F6)"></div>
+                <h3 class="position-absolute width-full height-full rounded-2">
+                  <a class="position-absolute width-full height-full rounded-2 discussion-spotlight-pattern-container discussion-spotlight-pattern-dot-fill d-flex flex-justify-around flex-column overflow-hidden flex-items-stretch" style="z-index: 2;" href="{{ post.url | prepend: site.baseurl }}"></a></h3>
+
+                <div class="position-absolute top-0 right-0 rounded-2 mr-3 mt-1 f1" style="z-index: 5;" aria-hidden="true">
+                  <g-emoji alias=":mega:">📣</g-emoji>
+                </div>
+
+                <div class="discussion-spotlight-details position-relative p-3 pr-5 css-truncate width-fit d-flex flex-column flex-items-start" style="z-index: 3;">
+                  <a class="no-underline color-text-white h3 mb-1 lh-condensed css-truncate-target" style="max-width: 100%;" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+
+                  <a class="f3 no-underline d-flex flex-items-center color-text-white mt-2 post-abstract" aria-label="elisemoe (author)">
+<!--                    <img class="mr-2 avatar avatar-3 circle avatar-user" src="https://avatars.githubusercontent.com/u/6633808?s=64&amp;v=4" width="32" height="32" alt="@elisemoe">-->
+                    <span class="d-none d-md-inline-block mr-1">{{ post.excerpt | strip_html | truncate: 166, '...'}}</span></a>
+
+                  <a class="d-flex mb-1 f5 no-underline color-text-white" href="https://github.com/{{ post.author }}" target="_blank">
+                    <span class="d-inline-block lh-condensed" style="opacity: 18;"><csmall>[{{ post.categories.first |upcase}}]发布于：{{ post.date | date: "%Y-%m-%d" }}. |
+              {% if post.wrench %} 并最后修改于：{{ post.wrench | date: "%Y-%m-%d"  }} |
+              {% else %} 未做修改 |
+              {% endif %} By: {{ post.author }}.</csmall></span></a>
+
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="hline"></div>
+
       <div class="spacing"></div>
       {% endfor %}
 

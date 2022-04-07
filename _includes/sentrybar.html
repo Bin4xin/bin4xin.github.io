@@ -1,31 +1,22 @@
-<div class="col-lg-3">
-    <div class="spacing"></div>
-    <div class="spacing"></div>
-    <a href="{{ "/feed.xml" | prepend: site.baseurl }}"><ion-icon name="logo-rss" class="fa-2x"></ion-icon>通过此按钮订阅Blog</a><!--  <h4></h4> -->
-    <div class="hline"></div>
-    <div class="spacing"></div>
+<div class="col-lg-3" xmlns="http://www.w3.org/1999/html">
+    <p>
+        <a class="btn mr-1 color-border-accent-emphasis" href="{{ "/feed.xml" | prepend: site.baseurl }}" role="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><title>ionicons-v5_logos</title><path d="M108.56,342.78a60.34,60.34,0,1,0,60.56,60.44A60.63,60.63,0,0,0,108.56,342.78Z"/><path d="M48,186.67v86.55c52,0,101.94,15.39,138.67,52.11s52,86.56,52,138.67h86.66C325.33,312.44,199.67,186.67,48,186.67Z"/><path d="M48,48v86.56c185.25,0,329.22,144.08,329.22,329.44H464C464,234.66,277.67,48,48,48Z"/></svg>
+        <span data-view-component="true" class="badge badge-theme">{{ site.posts |size }}</span></a>
+        {% for category in site.categories %}{% unless category.first == "blog" or category.first == "event" %}
+        <a class="btn mr-1 color-border-accent-emphasis" href="/{{ category|first }}/" role="button">
+            {% if category.first == "top" %}<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><title>ionicons-v5-p</title><path d="M477.64,38.26a4.75,4.75,0,0,0-3.55-3.66c-58.57-14.32-193.9,36.71-267.22,110a317,317,0,0,0-35.63,42.1c-22.61-2-45.22-.33-64.49,8.07C52.38,218.7,36.55,281.14,32.14,308a9.64,9.64,0,0,0,10.55,11.2L130,309.57a194.1,194.1,0,0,0,1.19,19.7,19.53,19.53,0,0,0,5.7,12L170.7,375a19.59,19.59,0,0,0,12,5.7,193.53,193.53,0,0,0,19.59,1.19l-9.58,87.2a9.65,9.65,0,0,0,11.2,10.55c26.81-4.3,89.36-20.13,113.15-74.5,8.4-19.27,10.12-41.77,8.18-64.27a317.66,317.66,0,0,0,42.21-35.64C441,232.05,491.74,99.74,477.64,38.26ZM294.07,217.93a48,48,0,1,1,67.86,0A47.95,47.95,0,0,1,294.07,217.93Z"/><path d="M168.4,399.43c-5.48,5.49-14.27,7.63-24.85,9.46-23.77,4.05-44.76-16.49-40.49-40.52,1.63-9.11,6.45-21.88,9.45-24.88a4.37,4.37,0,0,0-3.65-7.45,60,60,0,0,0-35.13,17.12C50.22,376.69,48,464,48,464s87.36-2.22,110.87-25.75A59.69,59.69,0,0,0,176,403.09C176.37,398.91,171.28,396.42,168.4,399.43Z"/></svg>
+            {% elsif category.first == "about" %}<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><title>ionicons-v5-h</title><path d="M16,352a48.05,48.05,0,0,0,48,48H197.88l-4,32H144a16,16,0,0,0,0,32H368a16,16,0,0,0,0-32H318.12l-4-32H448a48.05,48.05,0,0,0,48-48V304H16Zm240-16a16,16,0,1,1-16,16A16,16,0,0,1,256,336Z"/><path d="M496,96a48.05,48.05,0,0,0-48-48H64A48.05,48.05,0,0,0,16,96V288H496Z"/></svg>
+            {% elsif category.first == "daily" %}<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><title>ionicons-v5-g</title><path d="M392,208H368v-5.74A63.93,63.93,0,0,0,321.65,96a111,111,0,0,0-27.59-47.29A108.62,108.62,0,0,0,216,16c-29.91,0-57.78,12.28-79,34.68a56,56,0,0,0-67.51,77.54A63.91,63.91,0,0,0,80,231.39V440a56.06,56.06,0,0,0,56,56H312a56.06,56.06,0,0,0,56-56v-8h24a72.08,72.08,0,0,0,72-72V280A72.08,72.08,0,0,0,392,208ZM176,416a16,16,0,0,1-32,0V256a16,16,0,0,1,32,0Zm64,0a16,16,0,0,1-32,0V256a16,16,0,0,1,32,0Zm64,0a16,16,0,0,1-32,0V256a16,16,0,0,1,32,0Zm16-224c-8.33,0-20.55-5.18-26.69-11.31A16,16,0,0,0,282,176H160a16,16,0,0,0-15,10.53C138.17,205.21,121.4,208,112,208a32,32,0,0,1,0-64c.09,0,9.12.34,16.4,5.8a16,16,0,1,0,19.2-25.6A63.69,63.69,0,0,0,112,112a63.55,63.55,0,0,0-14,1.57A24,24,0,0,1,120,80a23.78,23.78,0,0,1,19.38,9.84,51.35,51.35,0,0,1,4.71,7.9A16,16,0,0,0,176,96c0-6.77-3.61-15.17-10.76-25-.46-.63-1-1.25-1.45-1.86C178.39,55.44,196.64,48,216,48a76.86,76.86,0,0,1,55.23,23.18A80.2,80.2,0,0,1,292.61,142a16,16,0,0,0,12.73,18.71,16.29,16.29,0,0,0,3,.28,16,16,0,0,0,15.7-13A111.78,111.78,0,0,0,326,128.57,32,32,0,0,1,320,192ZM432,360a40,40,0,0,1-40,40H368V240h24a40,40,0,0,1,40,40Z"/></svg>{% endif %}
+            <span data-view-component="true" class="badge badge-theme">{{ category | last | size }}</span></a>
+        {% endunless %}{% endfor %}
+    </p>
 
-    <h4><ion-icon name="search"></ion-icon> Search/文章搜索</h4>
-    <div class="hline"></div>
-    <p><kbd>Ctrl ⌃</kbd> + <kbd>F</kbd>搜索</p>
+    <div class="spacing"></div>
+    <h4> Search/搜索 <kbd>Ctrl ⌃</kbd> + <kbd>F</kbd></h4>
     <p>e.g. Nginx：</p>
     <p><a href="/blog/2019/how-nginx/http2https/">NGINX笔记：http升级https协议</a> </p>
     <p><a href="/blog/2019/nginx/with/jekyll-site/">多子域：JEKYLL优雅地部署于NGINX</a> </p>
-<!--    <details>-->
-<!--        {% for category in site.categories %}{% unless category.first == "blog" or category.first == "event" %}-->
-<!--        <p>-->
-<!--            <a href="{{ category.url }}"><i class="fa fa-angle-right"></i> {{ category | first | capitalize }}</a>-->
-<!--            <span class="badge badge-theme pull-right">{{ category | last | size }}</span>-->
-<!--        </p>-->
-<!--    {% endunless %}{% endfor %}-->
-<!--    </details>-->
-    <div class="spacing"></div>
-
-    <h4><ion-icon name="pricetags-sharp"></ion-icon> 标签</h4>
-    <div class="hline"></div>
-    <p>
-        {% for category in site.categories %}{% unless category.first == "blog" or category.first == "event" %}
-            <a class="btn btn-theme" href="{{ category.url }}" role="button">{{ category | first | capitalize }} ({{ category | last | size }})</a>	         
-        {% endunless %}{% endfor %}
-    </p>
 </div>
+
+{% include sidebar.html %}
