@@ -64,11 +64,14 @@ SRC任务是泛域名，就是`*.src_target.{com}`，基本熟悉的就直接跑
     - 过程中发现某银行机构活动登录系统
         - 1、登录数据包为json格式
         - 2、登录系统端口为8080，后端验证系统服务开放端口为8086，路由如下：
-            * 登录：http://{Vuln_Address}:8080/user/login?redirect=%2F
-            * 验证数据交互：http://{Vuln_Address}:8086/{api_interface_url}/sys/login/
+        - 登录：`http://{Vuln_Address}:8080/user/login?redirect=%2F`
+        - 验证数据交互：`http://{Vuln_Address}:8086/{api_interface_url}/sys/login/`
  
-访问后端8086开放服务url：`http://{Vuln_Address}:8086/{api_interface_url}/`发现返回404，返回信息如下：
-```html
+访问后端8086开放服务url：
+
+`http://{Vuln_Address}:8086/{api_interface_url}/`发现返回404，返回信息如下：
+
+```
 json格式：
 {"timestamp":"2021-01-29T07:26:34.085+0000","status":404,"error":"Not Found","message":"No message available","path":"/"}
 

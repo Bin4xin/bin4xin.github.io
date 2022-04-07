@@ -48,7 +48,7 @@ desc: 「反序列化」
 
 ### 0x01：简介
 
-**Shiro**三个核心组件：**Subject**, **SecurityManager** 和 **Realms**.
+*Shiro*三个核心组件：*Subject*, *SecurityManager* 和 *Realms*.
 
 - Subject：即“当前操作用户”。但是，在Shiro中，Subject这一概念并不仅仅指人，也可以是第三方进程、后台帐户（Daemon Account）或其他类似事物。它仅仅意味着“当前跟软件交互的东西”。
 Subject代表了当前用户的安全操作，SecurityManager则管理所有用户的安全操作。
