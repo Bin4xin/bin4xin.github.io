@@ -25,7 +25,7 @@ desc: 「Spring」
     - 分析语法分析
     
 ---
-    
+
 ## 零：Spring—Boot框架的渗透过程
 
 上面已经给出相关访问url，文章中的转载地址也详细给出，一般能够识别Spring-Boot的框架特征就行了，不再赘述。本篇文章主要是针对heapdump文件进行分析；
@@ -64,12 +64,22 @@ SRC任务是泛域名，就是`*.src_target.{com}`，基本熟悉的就直接跑
     - 过程中发现某银行机构活动登录系统
         - 1、登录数据包为json格式
         - 2、登录系统端口为8080，后端验证系统服务开放端口为8086，路由如下：
-        - 登录：`http://{Vuln_Address}:8080/user/login?redirect=%2F`
-        - 验证数据交互：`http://{Vuln_Address}:8086/{api_interface_url}/sys/login/`
+登录：
+```
+http://{Vuln_Address}:8080/user/login?redirect=%2F
+```
+验证数据交互：
+```
+http://{Vuln_Address}:8086/{api_interface_url}/sys/login/
+```
  
 访问后端8086开放服务url：
 
-`http://{Vuln_Address}:8086/{api_interface_url}/`发现返回404，返回信息如下：
+```
+http://{Vuln_Address}:8086/{api_interface_url}/
+```
+
+发现返回404，返回信息如下：
 
 ```
 json格式：
