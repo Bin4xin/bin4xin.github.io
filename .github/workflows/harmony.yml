@@ -39,7 +39,8 @@ jobs:
         run: bundle install --path=vendor/bundle --jobs=4 --retry=3
       - name: setup commit hash string
         run: |
-          commitString=$(git rev-parse HEAD)
+          commitString=$(git rev-list HEAD --abbrev-commit --max-count=1)
+          echo "commitString: $commitString" >> _config.yml
           echo "harmony: 国家公祭日" >> _config.yml
           echo "harmonyURL: http://www.cngongji.cn" >> _config.yml
       # bundle config set --local path 'vendor/bundle' &&
