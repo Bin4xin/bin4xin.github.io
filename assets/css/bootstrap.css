@@ -4655,7 +4655,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-pills > li.active > a:focus {
   color: var(--theme-main-color);
   font-weight: bold;
-  border-left: 3px solid black;
+  border-left: 4px solid black;
+  margin-left: -1px!important;
 }
 .nav-stacked > li {
   float: none;

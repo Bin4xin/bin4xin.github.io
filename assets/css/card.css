@@ -1641,6 +1641,7 @@ data-styled.g135[id="sc-gsDKAQ"]{content:"iGLrqc,"}/*!sc*/
     margin-bottom: 8px!important;
 }
 .area-scroll{overflow: auto!important;}
+.area-scroll-always{overflow: scroll!important;}
 .overflow-x-auto{overflow-x:auto!important}
 .overflow-y-auto{overflow-y:auto!important}
 

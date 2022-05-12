@@ -1,14 +1,13 @@
 ---
 layout: about
 category: about
-wrench: 2021-09-03
+wrench: 2022-05-12
 toc: true
 Researchname: CTF - 代码审计向
 permalink: /about/CTF-Code-Audit-WalkThrough/
 author: Bin4xin
 desc: 「CTF」
 ---
-
 
 # 零：WEB
 
@@ -20,25 +19,37 @@ desc: 「CTF」
     - 传入file参数不为空，不多说；
 - `&& is_string($_REQUEST['file'])`
     - 传入file参数是字符串；
-- `&& emmm::checkFile($_REQUEST['file']))`
-    - 传入file参数满足`emmm类的checkFile函数`，主要看这个函数，传入checkFile函数的file参数被重新接受为page参数，判断参数是否为空、是否为字符串，是则往下：
-        - 1.检查$page在不在数组$whitelist里`$whitelist = ["source"=>"source.php","hint"=>"hint.php"]; if (in_array($page, $whitelist)) {return true;}`：
-            - 即：传入参数file`file=source(.php) / file=hint(.php)` ；
-        - 2.对传入参数进行一次url解码
-        - 3.往下；
-        ```php
-        $_page = mb_substr(
-            $page,
-            0,
-            mb_strpos($page . '?', '?')
-        );
-        ```
-            - 先看mb_strpos，就是？在$page里第一次出现的位置再看mb_substr，只留了$page从0到？的位置；
-        - 4.对`_page`重复1；
-        - 5.对`_page`重复2；
-        - 6.对`_page`重复3；
-        - 7.再次判断参数重复1；
-        - 8.`include $_REQUEST['file'];`
+- 传入file参数满足`emmm类的checkFile函数`，主要看这个函数，传入checkFile函数的file参数被重新接受为page参数，判断参数是否为空、是否为字符串，是则往下：
+
+```php
+&& emmm::checkFile($_REQUEST['file']))
+```
+
+- 检查$page在不在数组$whitelist里
+
+```php
+$whitelist = ["source"=>"source.php","hint"=>"hint.php"]; 
+
+if (in_array($page, $whitelist)) {return true;}
+```
+
+- 对传入参数进行一次url解码
+- 往下；
+
+```php
+$_page = mb_substr(
+    $page,
+    0,
+    mb_strpos($page . '?', '?')
+);
+```
+
+- 先看mb_strpos，就是？在`$page`里第一次出现的位置再看mb_substr，只留了`$page`从`0到？`的位置；
+  - 对`_page`重复1；
+  - 对`_page`重复2；
+  - 对`_page`重复3；
+  - 再次判断参数重复1；
+  - `include $_REQUEST['file'];`
 
 ```php
 <?php
@@ -181,13 +192,19 @@ function $(){
 
 判断：
 
-- `if (isset($par1)&&isset($par2)&&isset($par3)&&isset($par4))`
-    - 设置四个参数即可；
-- `if ($par1 === $par2 && md5($par1) !== md5($par2)) ` 
-    - 与判断，直接不满足其中一个条件即可；比如让两个参数不相等或两个参数的md5
-    值不相等；
-- 继续往下：`if (hash("md4", $par3) == hash("md4", $par4))`
-    - 两个参数的md4值相等给出flag；不多说，直接上payload：
+```
+if (isset($par1)&&isset($par2)&&isset($par3)&&isset($par4))
+```
+- 设置四个参数即可；
+```
+if ($par1 === $par2 && md5($par1) !== md5($par2))
+```
+- 与判断，直接不满足其中一个条件即可；比如让两个参数不相等或两个参数的md5值不相等；
+- 继续往下：
+```
+if (hash("md4", $par3) == hash("md4", $par4))
+```
+- 两个参数的md4值相等给出flag；不多说，直接上payload：
     
 ![WgMqKXGUmrxoYIv.png](https://image.yjs2635.xyz/images/2022/02/20/WgMqKXGUmrxoYIv.png)
 
