@@ -1644,12 +1644,6 @@ data-styled.g135[id="sc-gsDKAQ"]{content:"iGLrqc,"}/*!sc*/
 .area-scroll-always{overflow: scroll!important;}
 .overflow-x-auto{overflow-x:auto!important}
 .overflow-y-auto{overflow-y:auto!important}
-
-@media print{
-    .print-overflow-visible{
-        overflow:visible;
-    }
-}
 .DocsMarkdown--link-external-icon {
     display: inline-block;
     height: 16px;
@@ -1659,6 +1653,7 @@ data-styled.g135[id="sc-gsDKAQ"]{content:"iGLrqc,"}/*!sc*/
     top: -3px;
     margin-left: 4px;
     opacity: .7;
-    /*.link-external-icon: var(--ifm-navbar-search-input-icon);*/
-    /*link-external-icon :url('data:image/svg+xml;utf8,<svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" role="img" aria-labelledby="title-9637423397128071" xmlns="http://www.w3.org/2000/svg"><title id="title-9637423397128071">External link icon</title><path d="M6.75,1.75h-5v12.5h12.5v-5m0,-4v-3.5h-3.5M8,8l5.5-5.5"></path></svg>');*/
+}
+.print-overflow-visible{
+    overflow:visible!important;
 }
