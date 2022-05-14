@@ -1654,6 +1654,8 @@ data-styled.g135[id="sc-gsDKAQ"]{content:"iGLrqc,"}/*!sc*/
     margin-left: 4px;
     opacity: .7;
 }
-.print-overflow-visible{
-    overflow:visible!important;
+@media print{
+    .print-overflow-visible{
+        overflow:visible!important;
+    }
 }

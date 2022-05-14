@@ -361,7 +361,6 @@ html[data-theme=dark] {
 /*!
  * set some post-print style. end.
  */
-
 .point {
   cursor: pointer;
 }
@@ -494,6 +493,12 @@ hr {
 pre {
   overflow: auto;
 }
+/*pre {*/
+  /*TODO: 在响应式页面缩小的情况下，overflow-y生效但是代码块没有自适应变化。*/
+  /*overflow:auto;*/
+  /*overflow-x:auto!important;*/
+  /*overflow-y:auto!important;*/
+/*}*/
 code,
 kbd,
 pre,
