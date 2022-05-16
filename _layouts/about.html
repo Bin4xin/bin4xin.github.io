@@ -20,6 +20,7 @@ layout: about-default
 {% assign posts_about_desc = site.categories["about"] | sort: 'date' | group_by_exp:"post", "post.desc" |reverse %}
 {% assign posts_about = site.categories["about"] | sort: 'date' %}
 
+
 <div id="help-page">
 		<div class="row">
 			<div class="col-sm-3 ml-hide area-scroll print-overflow-visible"  style="height:100vh"><!--width:326px; left area: menu 左边菜单栏-->
@@ -54,6 +55,9 @@ layout: about-default
 			<div class="col-sm-6" >
 				<div id="help-content" class="area-scroll print-overflow-visible" style="height:100vh"><!--page content-->
 					<div class="visible-xs"><!--响应式::菜单::表单-->
+						{% include nav.html %}
+						<div class="hline"></div>
+						<div class="spacing"></div>
 						<form class="form-inline">
 							<div class="form-group">
 								<label>选择: </label>
