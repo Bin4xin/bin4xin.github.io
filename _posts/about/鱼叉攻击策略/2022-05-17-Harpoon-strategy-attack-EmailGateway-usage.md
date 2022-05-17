@@ -48,8 +48,7 @@ python3 sendcloud_bin4xin_telecom.py
 
 手机端效果：
 
-![IMG_1536.png](https://image.yjs2635.xyz/images/2022/05/17/IMG_1536.png)
-
+<img src="https://image.yjs2635.xyz/images/2022/05/17/IMG_1536.png" width="50%" height="50%">
 
 不过这样是有局限性的，有心的话可以通过web端打开，甚至都不用打开邮件详情看：
 
