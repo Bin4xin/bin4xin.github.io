@@ -4,7 +4,7 @@ layout: about-default
 
 <link rel="stylesheet" type="text/css" href="/assets/css/card.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
-
+{% comment %}
 {% if page.redirect_Research_name %}
 {% assign redirect_to_page = site.categories["about"] | where_exp:"p", "p.Researchname == page.redirect_help_id" %}
 <script>
@@ -12,7 +12,7 @@ layout: about-default
 	window.location = redirect_to;
 </script>
 {% endif %}
-
+{% endcomment %}
 <script>
 	window.Researchname = "{{page.Researchname}}";
 </script>
@@ -20,11 +20,11 @@ layout: about-default
 {% assign posts_about_desc = site.categories["about"] | sort: 'date' | group_by_exp:"post", "post.desc" |reverse %}
 {% assign posts_about = site.categories["about"] | sort: 'date' %}
 
-
 <div id="help-page">
 		<div class="row">
-			<div class="col-sm-3 ml-hide area-scroll print-overflow-visible"  style="height:100vh"><!--width:326px; left area: menu 左边菜单栏-->
-				<div tabindex="-1" class="d-flex flex-items-center p-4 position-sticky top-0 color-bg-default" style="z-index:3" id="github-logo">
+			<!--left area: menu 左边菜单栏-->
+			<div class="position-sticky col-sm-3 ml-hide overflow-y-auto top-0 d-none d-lg-block flex-shrink-0 border-right" style="height:100vh;">
+				<div tabindex="-1" class="position-sticky navbar-default d-flex flex-items-center p-4 top-0 color-bg-default" style="z-index:3" id="logo">
 					<a class="navbar-brand back-to-top" href="/" target="blank">
 						{% include pic.html name="logo-small" %}
 						{% if site.harmony %}{{ site.harmony }}
@@ -35,7 +35,7 @@ layout: about-default
 				</div>
 				<ul class="nav nav-pills nav-stacked" id="help-nav">
 					{% for descs in posts_about_desc %}
-					<details {%if page.desc contains descs.name %}open{%endif%}>
+					<details open {%if page.desc contains descs.name %}open{%endif%}>
 						<summary class="edSFyN">
 							<a><strong>{{descs.name | replace: "「", "" | replace: "」", ""|upcase}}</strong></a>
 						</summary>
@@ -49,59 +49,94 @@ layout: about-default
 					</details>
 					{% endfor %}
 				</ul>
-			<!--sidenave here.-->
-			</div><!-- sidenave 左边菜单栏结束-->
-
-			<div class="col-sm-6" >
-				<div id="help-content" class="area-scroll print-overflow-visible" style="height:100vh"><!--page content-->
+			</div><!-- side menu end. 左边菜单栏结束-->
+			<div class="col-sm-9"><!--grid content display-->
+				<div class="position-sticky c_c c_r c_cw c_agl c_mz c_jg c_fa c_fb"><!--start content bar. -->
+					<div class="c_fa c_fb c_iu c_iv">
+						<div class="white f2 fw4 Link—secondary text-bold">
+							{% capture page_cn_category%}
+							{%if page.category == 'blog'%}博客{%elsif page.category == 'about'%}研究{%else%}日常{%endif%}
+							{% endcapture%}
+							<center><span>
+						<b style="font-family: 'DM Mono', monospace;">
+							<h4><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 512 512"><title>Build</title><path d="M469.54,120.52h0a16,16,0,0,0-25.54-4L382.56,178a16.12,16.12,0,0,1-22.63,0L333.37,151.4a16,16,0,0,1,0-22.63l61.18-61.19a16,16,0,0,0-4.78-25.92h0C343.56,21,285.88,31.78,249.51,67.88c-30.9,30.68-40.11,78.62-25.25,131.53a15.89,15.89,0,0,1-4.49,16L53.29,367.46a64.17,64.17,0,1,0,90.6,90.64L297.57,291.25a15.9,15.9,0,0,1,15.77-4.57,179.3,179.3,0,0,0,46.22,6.37c33.4,0,62.71-10.81,83.85-31.64C482.56,222.84,488.53,157.42,469.54,120.52ZM99.48,447.15a32,32,0,1,1,28.34-28.35A32,32,0,0,1,99.48,447.15Z" style="fill:currentColor;stroke:currentColor"/></svg>
+							<a class="white f2 fw4 Link—secondary text-bold"  href="../../">..</a> /
+							<a class="white f2 fw4 Link—secondary text-bold"  href="../">{{page_cn_category}} </a>/
+							<a class="white f2 fw4 Link—secondary text-bold" {%if page.desc%}{{page.desc|replace: "「", "" | replace: "」", ""| replace: " ", ""}} / {%endif%}
+							<em>Pages post/build in: {{ page.date|date: "%Y-%m-%d" }}. Site Version: {{site.web_version}}-{{website_version}}. AND RELEASE < BY Action. ></em></a>
+							</h4>
+						</b>
+						</span></center>
+						</div>
+					</div>
+				</div><!--end content bar. -->
+				<div id="help-content" class="print-overflow-visible cDEAYg"><!--page main content-->
 					<div class="visible-xs"><!--响应式::菜单::表单-->
 						{% include nav.html %}
-						<div class="hline"></div>
 						<div class="spacing"></div>
 						<form class="form-inline">
 							<div class="form-group">
-								<label>选择: </label>
+								<details>
+									<summary class="edSFyN">
+										<a><strong><label>选择: </label></strong></a>
+									</summary>
+									<ul class="nav nav-pills nav-stacked" id="help-nav">
+										{% for descs in posts_about_desc %}
+										<details {%if page.desc contains descs.name %}open{%endif%}>
+											<summary class="edSFyN">
+												<a><strong>{{descs.name | replace: "「", "" | replace: "」", ""|upcase}}</strong></a>
+											</summary>
+											{% for post in descs.items %}
+											<ul class="nav nav-pills nav-stacked">
+												<li id="toc-{{post.Researchname}}" class="table-of-contents table-of-contents__left-border {% if post.Researchname == page.Researchname or post.redirect_help_id == page.Researchname %} active{%endif%}">
+													<a href="{{ post.url }}">{{ forloop.index| roman }}. {{ post.Researchname | upcase}}</a>
+												</li>
+											</ul>
+											{% endfor %}
+										</details>
+										{% endfor %}
+									</ul>
+								</details>
+							{% comment %}
 								<select class="form-control" id="help-select">
 									{% for RP in posts_about %}
 									<option data-help-url="{{RP.url}}"{% if RP.Researchname == page.Researchname%} selected{%endif%} id="toc-{{RP.Researchname}}">{{RP.Researchname}}</option>
 									{% endfor %}
 								</select>
+							{% endcomment %}
 							</div>
 						</form>
 					</div><!--响应式::菜单::表单 end class="area-scroll" style="height:100vh"-->
-					<br>
-					<center>
-						{% if page.wrench %}
-						<csmall>本文发布于：<em>{{ page.date | date: "%Y-%m-%d" }}</em>并最后修改于：<em>{{ page.wrench | date: "%Y-%m-%d" }}</em></csmall>
-						{% else %}
-						<csmall>本文发布于：<em>{{ page.date | date: "%Y-%m-%d" }}</em></csmall>
-						{% endif %}
-						<csmall><em> | {{ site.description }}</em></csmall>
-					</center>
-
-					<div class="hline"></div>
-
-					<h1> <!--href="javascript:window.print()"-->
-						<span class="post-print pull-right"><a onclick="printpage()">
-						<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Print document</title><path d="M400,96V56a8,8,0,0,0-8-8H120a8,8,0,0,0-8,8V96"/><rect x="152" y="264" width="208" height="160" rx="4" ry="4" style="fill:none;stroke:none;"/><path d="M408,112H104a56,56,0,0,0-56,56V376a8,8,0,0,0,8,8h56v72a8,8,0,0,0,8,8H392a8,8,0,0,0,8-8V384h56a8,8,0,0,0,8-8V168A56,56,0,0,0,408,112ZM360,420a4,4,0,0,1-4,4H156a4,4,0,0,1-4-4V268a4,4,0,0,1,4-4H356a4,4,0,0,1,4,4ZM394,207.92a24,24,0,1,1,22-22A24,24,0,0,1,394,207.92Z"/></svg>
-						</ion-icon></a></span>
-						<span class="post-print pull-right"><a href="{{site.githubAccess}}/{{site.githubRepos}}/edit/{{site.githubRepos-Branch}}/{{page.path}}" target="_blank">
-						<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Edit on github</title><path d="M459.94,53.25a16.06,16.06,0,0,0-23.22-.56L424.35,65a8,8,0,0,0,0,11.31l11.34,11.32a8,8,0,0,0,11.34,0l12.06-12C465.19,69.54,465.76,59.62,459.94,53.25Z"/><path d="M399.34,90,218.82,270.2a9,9,0,0,0-2.31,3.93L208.16,299a3.91,3.91,0,0,0,4.86,4.86l24.85-8.35a9,9,0,0,0,3.93-2.31L422,112.66A9,9,0,0,0,422,100L412.05,90A9,9,0,0,0,399.34,90Z"/><path d="M386.34,193.66,264.45,315.79A41.08,41.08,0,0,1,247.58,326l-25.9,8.67a35.92,35.92,0,0,1-44.33-44.33l8.67-25.9a41.08,41.08,0,0,1,10.19-16.87L318.34,125.66A8,8,0,0,0,312.69,112H104a56,56,0,0,0-56,56V408a56,56,0,0,0,56,56H344a56,56,0,0,0,56-56V199.31A8,8,0,0,0,386.34,193.66Z"/></svg>
-						</ion-icon>
-						</a></span>
-					</h1>
-
-					{{ content }}
-
-					<div class="spacing"></div>
-					{% include suggestion.html %}
-				</div><!--page content end-->
-			</div><!-- about research name content -->
-			{% include article-index.html %}
+					<!--<br>-->
+					<div class="Box">
+						<center>
+							{% if page.wrench %}
+							<csmall>本文发布于：<em>{{ page.date | date: "%Y-%m-%d" }}</em>并最后修改于：<em>{{ page.wrench | date: "%Y-%m-%d" }}</em></csmall>
+							{% else %}
+							<csmall>本文发布于：<em>{{ page.date | date: "%Y-%m-%d" }}</em></csmall>
+							{% endif %}
+							<csmall><em> | {{ site.description }}</em></csmall>
+						</center>
+						<!--<div class="hline"></div>-->
+						<h1><!--href="javascript:window.print()"-->
+							<span class="post-print pull-right"><a onclick="printpage()">
+							<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Print document</title><path d="M400,96V56a8,8,0,0,0-8-8H120a8,8,0,0,0-8,8V96"/><rect x="152" y="264" width="208" height="160" rx="4" ry="4" style="fill:none;stroke:none;"/><path d="M408,112H104a56,56,0,0,0-56,56V376a8,8,0,0,0,8,8h56v72a8,8,0,0,0,8,8H392a8,8,0,0,0,8-8V384h56a8,8,0,0,0,8-8V168A56,56,0,0,0,408,112ZM360,420a4,4,0,0,1-4,4H156a4,4,0,0,1-4-4V268a4,4,0,0,1,4-4H356a4,4,0,0,1,4,4ZM394,207.92a24,24,0,1,1,22-22A24,24,0,0,1,394,207.92Z"/></svg>
+							</ion-icon></a></span>
+							<span class="post-print pull-right"><a href="{{site.githubAccess}}/{{site.githubRepos}}/edit/{{site.githubRepos-Branch}}/{{page.path}}" target="_blank">
+							<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Edit on github</title><path d="M459.94,53.25a16.06,16.06,0,0,0-23.22-.56L424.35,65a8,8,0,0,0,0,11.31l11.34,11.32a8,8,0,0,0,11.34,0l12.06-12C465.19,69.54,465.76,59.62,459.94,53.25Z"/><path d="M399.34,90,218.82,270.2a9,9,0,0,0-2.31,3.93L208.16,299a3.91,3.91,0,0,0,4.86,4.86l24.85-8.35a9,9,0,0,0,3.93-2.31L422,112.66A9,9,0,0,0,422,100L412.05,90A9,9,0,0,0,399.34,90Z"/><path d="M386.34,193.66,264.45,315.79A41.08,41.08,0,0,1,247.58,326l-25.9,8.67a35.92,35.92,0,0,1-44.33-44.33l8.67-25.9a41.08,41.08,0,0,1,10.19-16.87L318.34,125.66A8,8,0,0,0,312.69,112H104a56,56,0,0,0-56,56V408a56,56,0,0,0,56,56H344a56,56,0,0,0,56-56V199.31A8,8,0,0,0,386.34,193.66Z"/></svg>
+							</ion-icon>
+							</a></span>
+						</h1>
+						{% include article-index.html %}
+						{{ content }}
+						<div class="spacing"></div>
+						{% include suggestion.html %}
+					</div>
+				</div><!--page main content end-->
+			</div><!--grid content display end-->
+		</div>
 	</div>
 </div><!--/pages -->
-
-
 <!--<script src="/assets/js/sentryabout.js"></script>-->
 <script>
 // @printpage func() 代码引用申明/code reference declaration:
@@ -115,7 +150,7 @@ function printpage() {
 	let newStr = replaceStr.substr(oldStr.indexOf(start) + 17);// 截取开始打印标识之后的内容
 	// let newStr = oldStr.substr(oldStr.indexOf(start) + 17);
 	newStr = newStr.substring(0, newStr.indexOf(end)); // 截取开始打印标识和结束打印标识之间的内容
-	// console.log(newStr);
+	console.log(newStr);
 	window.document.body.innerHTML = newStr; // 把需要打印的指定内容赋给body
 	window.print(); // 调用浏览器的打印功能打印指定区域
 	window.document.body.innerHTML = oldStr; // body替换为原来的内容

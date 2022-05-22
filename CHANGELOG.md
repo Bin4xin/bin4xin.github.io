@@ -25,13 +25,13 @@
 ### 下一步
 
 - TODO BE FIX[2022/05/16/22:58:24]
-  - [select区块url无法超链接](https://github.com/Bin4xin/bin4xin.github.io/blob/main/_layouts/about.html#L61-L70)
+  - [x] [select区块url无法超链接](https://github.com/Bin4xin/bin4xin.github.io/blob/main/_layouts/about.html#L61-L70)
     - [mirror web reference](https://github.com/tuna/mirror-web/blob/master/_layouts/help.html#L38)
-  - [Web 手机端无法显示完整，存在两个滚动条]()
+  - [x] [Web 手机端无法显示完整，存在两个滚动条]()
     - print-overflow-visible
     - area-scroll
       - [github reference](https://docs.github.com/cn/actions/learn-github-actions/environment-variables)
-  - [响应移动端置顶按钮](https://www.sendcloud.net/sendSetting/unsubsribeSetting) 
+  - [ ] [响应移动端置顶按钮](https://www.sendcloud.net/sendSetting/unsubsribeSetting) 
 
 - *国内前端大神？BULL SHIT :-)*
 - Next TODO：

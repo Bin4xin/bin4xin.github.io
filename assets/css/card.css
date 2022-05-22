@@ -1612,8 +1612,13 @@ data-styled.g70[id="Dropdown__DropdownMenu-sc-18slzvc-2"]{content:"kNStVA,"}/*!s
 data-styled.g71[id="Dropdown__DropdownItem-sc-18slzvc-3"]{content:"ieEWYr,"}/*!sc*/
 .cTXFFN{font-weight:600;font-size:32px;margin:0;font-size:14px;}/*!sc*/
 data-styled.g81[id="Heading-sc-1irtotl-0"]{content:"cTXFFN,"}/*!sc*/
-.cDEAYg{max-width:720px;display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas: 'topper' 'intro' 'sidebar' 'content';row-gap:8px;}/*!sc*/
-@media (min-width:1280px){.cDEAYg{max-width:none;padding-top:24px;grid-template-rows:auto 1fr;grid-template-columns:minmax(500px,720px) minmax(220px,1fr);grid-template-areas: 'topper sidebar' 'intro sidebar' 'content sidebar';-webkit-column-gap:80px;column-gap:80px;row-gap:0;}}/*!sc*/
+.cDEAYg{max-width:none;display:grid;grid-template-areas: 'topper' 'intro' 'sidebar' 'content';row-gap:8px;}
+/*!sc grid-template-columns:minmax(1280px,75%);*/
+@media (min-width:1280px){.cDEAYg{max-width:none;padding-top:16px;grid-template-rows:auto 1fr;-webkit-column-gap:15px;column-gap:15px;row-gap:0;}}
+/*!sc cDEAYg
+grid-template-columns:minmax(500px,720px) minmax(220px,1fr);
+grid-template-areas: 'topper sidebar' 'intro sidebar' 'content sidebar';
+*/
 data-styled.g134[id="sc-bdvvtL"]{content:"cDEAYg,"}/*!sc*/
 @media (min-width:1280px){.iGLrqc{position:-webkit-sticky;position:sticky;padding-top:24px;top:4em;max-height:75vh;overflow-y:auto;padding-bottom:24px;}}/*!sc*/
 data-styled.g135[id="sc-gsDKAQ"]{content:"iGLrqc,"}/*!sc*/
@@ -1653,6 +1658,48 @@ data-styled.g135[id="sc-gsDKAQ"]{content:"iGLrqc,"}/*!sc*/
     top: -3px;
     margin-left: 4px;
     opacity: .7;
+}
+.Box {
+    border-color: #d0d7de;
+    border-style: solid;
+    border-width: 1.5px;
+    border-radius: 6px;
+    padding: 6px 12px;
+    margin-bottom: 12px!important;
+}
+.position-sticky{
+    position:-webkit-sticky!important;
+    position:sticky!important;
+}
+.border-right {
+    border-right: 1.5px solid #d0d7de!important;
+}
+.border-top {
+    border-top: 1px solid #d0d7de!important;
+}
+.c_agl {
+    background-color: #8076a3;
+}
+.c_lr {
+    background-color: rgb(0, 81, 195);
+}
+.c_c {
+    display: flex;
+}
+.c_cw {
+    color: rgb(0, 0, 0);
+}
+.c_iv {
+    max-width: 64em;
+}
+.c_iu {
+    width: 90%;
+}
+.c_fb {
+    margin-right: auto;
+}
+.c_fa {
+    margin-left: auto;
 }
 @media print{
     .print-overflow-visible{
