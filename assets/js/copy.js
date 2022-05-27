@@ -10,7 +10,7 @@ $(function(){
 
 /**
  * 执行复制代码操作
- * @param obj
+ * @param preCopy
  */
 function preCopy(obj) {
     //执行复制
@@ -39,4 +39,43 @@ function preCopy(obj) {
         let btn = $("<span class=\"btn-pre-copy\" onclick='preCopy(this)'><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"22\" height=\"22\" viewBox=\"0 0 512 512\"><rect x=\"128\" y=\"128\" width=\"336\" height=\"336\" rx=\"57\" ry=\"57\" style=\"fill:none;stroke:currentColor;stroke-linejoin:round;stroke-width:32px\"/><path d=\"M383.5,128l.5-24a56.16,56.16,0,0,0-56-56H112a64.19,64.19,0,0,0-64,64V328a56.16,56.16,0,0,0,56,56h24\" style=\"fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px\"/></svg></span>");
         btn.prependTo(pre);
     },1500);
+}
+/**
+ * print document FUNC
+ * @param printpage
+ * - @printpage func() 代码引用申明/code reference declaration:
+ * - {@link https://blog.csdn.net/qq_38128179/article/details/103344021}
+ */
+function printpage() {
+    let oldStr = window.document.body.innerHTML;
+    let start = "<startprint2pdfs>";
+    let end = "</startprint2pdfs>";
+    let matchString = /(<\/?a.*?>)/gi;
+    let replaceStr = oldStr.replace(matchString, '')
+    let newStr = replaceStr.substr(oldStr.indexOf(start) + 17);
+    // let newStr = oldStr.substr(oldStr.indexOf(start) + 17);
+    newStr = newStr.substring(0, newStr.indexOf(end));
+    // console.log(newStr);
+    window.document.body.innerHTML = newStr;
+    window.print();
+    window.document.body.innerHTML = oldStr;
+}
+/**
+ * Load Pages Ajax FUNC
+ * @param research-content
+ * - @printpage func() 代码引用申明/code reference declaration:
+ * - {@link https://blog.csdn.net/qq_40910746/article/details/86597083}
+ */
+function loadPage(url) {
+    $.ajax({
+        type: "GET",
+        url: url,
+        async: true,
+        dataType: "html",
+        contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+        success: function (html) {
+            $('#research-content').html(html);
+            //$('#research-content').load(url);
+        }
+    });
 }
