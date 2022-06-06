@@ -58,8 +58,11 @@ yigb/+l/vjDdAgMBAAE=
 -----END PUBLIC KEY-----
 ```
 
-- 解： `solve.py --verbose -k pubkey.pem --decrypt flag.enc`
-	- [3summer/CTF-RSA-tool](https://github.com/3summer/CTF-RSA-tool){:target="_blank"}
+- 解([3summer/CTF-RSA-tool](https://github.com/3summer/CTF-RSA-tool){:target="_blank"})：
+
+```bash
+solve.py --verbose -k pubkey.pem --decrypt flag.enc`
+```
 
 ![zct5knF6u7BvrES.png](https://image.yjs2635.xyz/images/2022/02/20/zct5knF6u7BvrES.png)
 
@@ -71,7 +74,7 @@ private argument is not set, the private key will not be displayed, even if reco
 
 [*] Testing key public.pem.
 [*] Performing pastctfprimes attack on public.pem.
- 90%|█████████████████████████████████████████████████████████████████████▌       | 102/113 [00:00<00:00, 1445.70it/s]
+ 90%|█████████████████████████████████████████████████████████████████████▌    / 102/113 [00:00<00:00, 1445.70it/s]
 [*] Attack success with pastctfprimes method !
 
 Results for public.pem:
@@ -148,76 +151,127 @@ print("c2=",hex(c2))
 如上所示，已知n、e、c1、c2和、c2的表达式；我们可以求出`hex_flag`的值：
 
 $$ \left\{
+
 \begin{aligned}
+
 c1 ≡ hexflag^3 & (mod \quad n)\\
+
 c2 ≡ (hexflag+1)^3 & (mod \quad n)\\
+
 \end{aligned}
+
 \right.$$
 
 
 
 > *Tips：*这里pow(a,b,c)的意思就是取模，为：
-> 
+>
 > $$pow(a,b,c) = a^b mod \quad c\\eg: 7^1 mod \  3 = 1$$
-> 
+>
 >       >>> a=7
 >       >>> b=1
 >       >>> c=3
 >       >>> n=pow(a,b,c)
 >       >>> print n
->       1
->
 
 - 看起来很简单，把`hex_flag`算出来自然flag就出来了，但是实际上我们需要做的是把上面的数学公式输出成代码，因为给出的已知数太大；所以需要公式推导来生成代码：
 
 $$ \because \quad c = pow(mm+padding,e,n)\\
+
 \therefore \quad \left\{
+
 \begin{aligned}
+
 c_1 ≡ (m+padding_1)^e & (mod n)\\
+
 c_2 ≡ (m+padding_2)^e & (mod n)\\
+
 \end{aligned}
+
 \right.\\
+
 令：m_1=m+padding_1 , m_2=m+padding_2; \\
+
 \therefore \quad m_1-m_2 =  padding_1 - padding_2\\
+
 \therefore \quad \left\{
+
                  \begin{aligned}
+
                  f(x)=ax+b\\
+
                  m_1=m_2+(padding_1 + padding_2)\\
+
                  \end{aligned}
+
                  \right.\\
+
 \therefore \quad f(m_1) = am_2 + b\\
+
 由 \ c ≡ m^e \ mod \ n ，代入c_1 、c_2 \\ \therefore \quad \left\{
+
                                                             \begin{aligned}
+
                                                             c_1 ≡ m_1^e & (mod \ n)\\
+
                                                             c_2  ≡ m_2^e & (mod \ n)\\
+
                                                             \end{aligned}
+
                                                             \right.\\
+
 又 \because \ m_1 = am_2 + b \\ \therefore \quad \left\{
+
                                                      \begin{aligned}
+
                                                      c_1 ≡ (am_2 + b)^e & (mod \ n)\\
+
                                                      c_2  ≡ m_2^e & (mod \ n)\\
+
                                                      \end{aligned}
+
                                                      \right.\\
+
 代入e=3 ，展开 \\ \therefore \quad (am_2+b)^3 = a^3m_2^3 + 3b(am_2)^2 + 3am_2b^2 + b^3\\
+
 \therefore \quad c_1 ≡ a^3m_2^3 + 3b(am_2)^2 + 3am_2b^2 + b^3 mod \ n\\
+
 \therefore \quad c_1  ≡ a^3m_2^3 + 3ba^2m_2^2 + 3b^2am_2 + 3b^3 - 2b^3 mod \ n\\
+
 \therefore \quad c_1 - a^3m_2^3 + 2b^3 ≡ 3b(a^2m_2^2 + bam_2 + b^2) mod \ n \\
+
 又\because \quad (am_2)^3 - b^3 ≡ (am_2 - b)(a^2m_2^2 + bam_2 + b^2) \\
+
 \therefore \quad \left\{  \begin{aligned}
+
          c_1 - a^3m_2^3 + 2b^3 ≡ 3b(a^2m_2^2 + bam_2 + b^2) mod \ n \qquad (1) \\
+
          (am_2)^3 - b^3 ≡ (am_2 - b)(a^2m_2^2 + bam_2 + b^2) mod \ n  \qquad (2) \\
+
          c_2 ≡ m_2^3 \ mod \ n \qquad (3)\\ 
+
          \end{aligned}
+
          \right.\\
+
 \therefore \quad \left\{  \begin{aligned}
+
          (am_2-b)(c_1 - a^3m_2^3 + 2b^3) ≡ (am_2-b)[3b(a^2m_2^2 + bam_2 + b^2)] mod \ n\\
+
          3b[(am_2)^3 - b^3] ≡ 3b(am_2 - b)(a^2m_2^2 + bam_2 + b^2) mod \ n \\
+
          \end{aligned}
+
          \right.\\
+
 \therefore \quad (am_2-b)(c_1 - a^3m_2^3 + 2b^3) ≡ 3b[(am_2)^3 - b^3] mod \ n \\
+
 代入：(c_1 - a^3c_2 + 2b^3)(am_2 - b) ≡ 3b(a^3c_2 - b^3) mod \ n \\
+
 \because \quad m = m_2 -padding_2\\
+
 \therefore \quad m ≡ (\frac{3b(a^3c_2-b^3)}{c_1-a^3c_2+2b^3}+b) \ a - padding2 \ mod \ n (求a的逆元)\\
+
 $$
 
 既然推导出了公式，写脚本即可
@@ -331,38 +385,38 @@ attackanddefenceworldisinteresting
 ### # 1x00 格式文件参考 加粗的为常用
 
 {: .table}
-|文件格式 | 头尾值 |
-| :--- | :--- |
-| **JPEG (jpg)**             |**文件头：FFD8FF** |　　　　　　　　　
-| **PNG (png)**              |**文件头：89504E47  文件尾：0000000049454E44AE426082** |
-| **GIF (gif)**              |**文件头：47494638** |
-| **ZIP Archive (zip)**      |**文件头：504B0304 文件尾：00000000** |
-| TIFF (tif)**               |**文件头：49492A00** |
-| Windows Bitmap (bmp)       |文件头：424D |
-| CAD (dwg)                  |文件头：41433130 |
-| Adobe Photoshop (psd)      |文件头：38425053 |
-| Rich Text Format (rtf)     |文件头：7B5C727466 |
-| XML (xml)                  |文件头：3C3F786D6C |
-| HTML (html)                |文件头：68746D6C3E |
-| Email thorough only - (eml)|文件头：44656C69766572792D646174653A |
-| Outlook Express (dbx)      |文件头：CFAD12FEC5FD746F |
-| Outlook (pst)              |文件头：2142444E |
-| MS Word/Excel (xls.or.doc) |文件头：D0CF11E0 |
-| MS Access (mdb)            |文件头：5374616E64617264204A |
-| WordPerfect (wpd)          |文件头：FF575043 |
-| Adobe Acrobat (pdf)        |文件头：255044462D312E |
-| Quicken (qdf)              |文件头：AC9EBD8F |
-| Windows Password (pwl)     |文件头：E3828596 |
-| **RAR Archive (rar)**      |**文件头：52617221** |
-| **Wave (wav)**             |**文件头：57415645** |
-| AVI (avi)                  |文件头：41564920 |
-| Real Audio (ram)           |文件头：2E7261FD |
-| Real Media (rm)            |文件头：2E524D46 |
-| MPEG (mpg)                 |文件头：000001BA |
-| MPEG (mpg)                 |文件头：000001B3 |
-| Quicktime (mov)            |文件头：6D6F6F76 |
-| Windows Media (asf)        |文件头：3026B2758E66CF11 |
-| MIDI (mid)                 |文件头：4D546864 |
+|文件格式/头尾值 |
+| :---  |
+| RAR Archive (rar)/文件头：52617221 |
+| Wave (wav)/文件头：57415645 |
+| JPEG (jpg)/文件头：FFD8FF |　　　　　　　　　
+| PNG (png)/文件头：89504E47 文件尾：0000000049454E44AE426082 |
+| GIF (gif)/文件头：47494638 |
+| ZIP Archive (zip)/文件头：504B0304 文件尾：00000000 |
+| TIFF (tif)/文件头：49492A00 |
+| Windows Bitmap (bmp)/文件头：424D |
+| CAD (dwg)/文件头：41433130 |
+| Adobe Photoshop (psd)/文件头：38425053 |
+| Rich Text Format (rtf)/文件头：7B5C727466 |
+| XML (xml)/文件头：3C3F786D6C |
+| HTML (html)/文件头：68746D6C3E |
+| Email thorough only - (eml)/文件头：44656C69766572792D646174653A |
+| Outlook Express (dbx)/文件头：CFAD12FEC5FD746F |
+| Outlook (pst)/文件头：2142444E |
+| MS Word/Excel (xls.or.doc)/文件头：D0CF11E0 |
+| MS Access (mdb)/文件头：5374616E64617264204A |
+| WordPerfect (wpd)/文件头：FF575043 |
+| Adobe Acrobat (pdf)/文件头：255044462D312E |
+| Quicken (qdf)/文件头：AC9EBD8F |
+| Windows Password (pwl)/文件头：E3828596 |
+| AVI (avi)/文件头：41564920 |
+| Real Audio (ram)/文件头：2E7261FD |
+| Real Media (rm)/文件头：2E524D46 |
+| MPEG (mpg)/文件头：000001BA |
+| MPEG (mpg)/文件头：000001B3 |
+| Quicktime (mov)/文件头：6D6F6F76 |
+| Windows Media (asf)/文件头：3026B2758E66CF11 |
+| MIDI (mid)/文件头：4D546864 |
 
 ### # 1x01 图片隐写
 
@@ -438,8 +492,11 @@ drwx------  8 bin4xin  staff      256  8 19 09:49 ../
 - 盲水印
   - [解题工具BlindWaterMark](https://github.com/chishaxie/BlindWaterMark)
   - 实测两张图片调整顺序不会影响最终结果：
-    - `python bwm.py decode 2.png 1.png Result-1.png`
-    - `python bwm.py decode 1.png 2.png Result-2.png`
+
+```bash
+$ python bwm.py decode 2.png 1.png Result-1.png
+$ python bwm.py decode 1.png 2.png Result-2.png
+```
 
 ![K8iPZ4nfgSoXeOW.png](https://image.yjs2635.xyz/images/2022/02/20/K8iPZ4nfgSoXeOW.png)
 
@@ -488,7 +545,11 @@ GET /ctf/Less-5/?id=1' and ascii(substr((select flag from t),4,1))=103--  HTTP/1
 
 得到flag：
 
-`102 108 97 103 123 119 49 114 101 115 104 65 82 75 95 101 122 95 49 115 110 116 105 116 125`->`flag{w1reshARK_ez_1snt}`
+```bash
+102 108 97 103 123 119 49 114 101 115 104 65 82 75 95 101 122 95 49 115 110 116 105 116 125
+
+#-> flag{w1reshARK_ez_1snt}
+```
 
 ### # 1x04 [...]usb流量分析
 
@@ -498,7 +559,9 @@ GET /ctf/Less-5/?id=1' and ascii(substr((select flag from t),4,1))=103--  HTTP/1
 
 - 无题目描述；给出的是一份流量文件：[backdoor.pcapng](https://github.com/Bin4xin/bigger-than-bigger/blob/master/CTF/MISC/backdoor/backdoor.pcapng)
 
-打开一看映入眼帘的是一系列SQL注入的payload：(`File -> Export Objects -> HTTP`)
+打开一看映入眼帘的是一系列SQL注入的payload：
+
+- `File -> Export Objects -> HTTP`
 
 ![yPQAJtCO2LIVT8W.png](https://image.yjs2635.xyz/images/2022/02/20/yPQAJtCO2LIVT8W.png)
 
@@ -552,40 +615,57 @@ Location: ./admin/index.php
     }
 #/upload/1615384904.php 上传成功，为1615384904.php
 ```
-- 那么我们只需要关注`1615384904.php`攻击者操作木马进行了哪些操作就好；全部导出，操作流量全加密类似：
-    - 请求POST`pass=OgRUWzZ%2FDUw5ZQRbYXFQfylbVFwGfwlPOXQAWlBjNAo0Wg1fAH4KTjdfb1tkTidcOltUYjJpXAQ%3D`
-    - 返回：
+- 那么我们只需要关注`1615384904.php`攻击者操作木马进行了哪些操作就好；全部导出，操作流量全加密类似请求POST：
+
+```
+pass=OgRUWzZ%2FDUw5ZQRbYXFQfylbVFwGfwlPOXQAWlBjNAo0Wg1fAH4KTjdfb1tkTidcOltUYjJpXAQ%3D
+```
+
+- 返回：
 
 ```
 11cd6a8758984163LmIwSi9SBgguZXwBfFkRSQEEUXsvbDRDLltSA39gKAYtdVBHA3Agci5lYEh/XgYCLmIoSCxRVE4CeXR5f2A4Sy1iKAQsfApOLXIARVN8IHg=6c37ac826a2a04bc
 ```
 
 - 查看代码逻辑：`post传入参数pass`->`$T密钥加密`->`$V传入class C`进而传入eval函数进行命令执行，所以我们下一步需要做的是破解木马的加密方式，[解密代码](https://github.com/Bin4xin/bigger-than-bigger/blob/master/CTF/MISC/backdoor/jiemi.php){:target="_blank"}
-    - 解得上面的POST请求为：`cmdLine=bHMK&methodName=ZXhlY0NvbW1hbmQ=` -> base64decode ->`cmdLine=ls&methodName=execCommand`
-    - 返回包：`1532851276json       1532851294.php       1532851316.php       1615384904.php`
+    - 解得上面的POST请求为：
+    - 返回：
 
-- 进一步分析得到备份命令：`cmdLine=zip www.zip -rP $APACHE_RUN_USER /var/www/html/&methodName=execCommand`
-    - 从流量文件中找到`www.zip`导出，解压密码是`$APACHE_RUN_USER`也是从流量中执行`env`命令`cmdLine=ZW52Cg==&methodName=ZXhlY0NvbW1hbmQ=`解密得到：
-    - 
-        ```bash
-        APACHE_RUN_DIR=/var/run/apache2
-        APACHE_PID_FILE=/var/run/apache2/apache2.pid
-        PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-        APACHE_LOCK_DIR=/var/lock/apache2
-        LANG=C
-        APACHE_RUN_USER=www-data
-        APACHE_RUN_GROUP=www-data
-        APACHE_LOG_DIR=/var/log/apache2
-        PWD=/app/admin/upload
-        ```
+```bash
+#cmdLine=bHMK&methodName=ZXhlY0NvbW1hbmQ= -> base64decode ->cmdLine=ls&methodName=execCommand
+1532851276json       1532851294.php       1532851316.php       1615384904.php
+```
+
+- 进一步分析得到备份命令：
+
+```bash
+cmdLine=zip www.zip -rP $APACHE_RUN_USER /var/www/html/&methodName=execCommand
+```
+
+- 从流量文件中找到`www.zip`导出，解压密码是`$APACHE_RUN_USER`
+- 也是从流量中执行`env`命令`cmdLine=ZW52Cg==&methodName=ZXhlY0NvbW1hbmQ=`解密得到：
+
+```
+APACHE_RUN_DIR=/var/run/apache2
+APACHE_PID_FILE=/var/run/apache2/apache2.pid
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+APACHE_LOCK_DIR=/var/lock/apache2
+LANG=C
+APACHE_RUN_USER=www-data
+APACHE_RUN_GROUP=www-data
+APACHE_LOG_DIR=/var/log/apache2
+PWD=/app/admin/upload
+```
+
 - 解压出html目录下php代码发现`flag.php`：
-    - 
-        ```php
-        <?php
-        $enc = 'aes-128-ecb';
-        $flag = 'CN1Sq9tFItxZhsu3zCWbrdf6ozOL4eoKG0s71vGg/AKKnch3IL3jzwtXeCgWK5QP';
-        ?>
-        ```
+
+```php
+<?php
+$enc = 'aes-128-ecb';
+$flag = 'CN1Sq9tFItxZhsu3zCWbrdf6ozOL4eoKG0s71vGg/AKKnch3IL3jzwtXeCgWK5QP';
+?>
+```
+
 - 观察目录下发现存在被修改的php代码：（以下为参考教程给出-。-）
 
 ![uUHT3GLDnqiRYtw.png](https://image.yjs2635.xyz/images/2022/02/20/uUHT3GLDnqiRYtw.png)

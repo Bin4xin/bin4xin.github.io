@@ -336,7 +336,7 @@ html[data-theme=dark] {
 /*!
  * set some post-print style. start.
  */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
 .post-print
   {      
     display: none;
@@ -382,7 +382,8 @@ summary:after {
   padding: 0;
   width: 20px;
   text-align: center;
-  float: right;
+  display: flex;
+  justify-content: flex-end;
 }
 /*
 * TODO: display与float属性冲突
@@ -2025,10 +2026,10 @@ pre .btn-pre-copy{
 .row {
   /*padding-right: -15px;*/
   /*padding-left: -15px;*/
-  /*margin-right: auto;*/
-  /*margin-left: auto;*/
-  width: 100%;
   /*mark*/
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
 }
 .row-no-gutters {
   margin-right: 0;
@@ -4869,7 +4870,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   position: relative;
   float: right;
   padding: 9px 10px;
-  margin-right: 15px;
+  /*margin-right: 15px;*/
+  margin-right: 3px;
   margin-top: 8px;
   margin-bottom: 8px;
   background-color: transparent;
@@ -5142,6 +5144,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
   border-color: #e7e7e7;
+  margin-top: 8px!important;
 }
 .navbar-default .navbar-link {
   color: #777;
@@ -7507,13 +7510,5 @@ div.content {
 }
 .container-xl {
   max-width: 1280px;
-}
-/*@media (min-width: 768px){*/
-/*  .px-md-6 {*/
-/*    padding-right: 40px !important;*/
-/*  }*/
-/*  .pl-md-6, .px-md-6 {*/
-/*    padding-left: 40px !important;*/
-/*  }*/
 }
 /*# sourceMappingURL=bootstrap.css.map */
