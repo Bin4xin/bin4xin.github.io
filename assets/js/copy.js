@@ -1,3 +1,4 @@
+
 $(function(){
     //给每一串代码元素增加复制代码节点
     let preList = $("pre");
@@ -9,9 +10,9 @@ $(function(){
 });
 
 /**
- * 执行复制代码操作
- * @param preCopy
- */
+ * exec COPY code block funchtion.
+ * - @param preCopy
+ **/
 function preCopy(obj) {
     //执行复制
     let btn = $(obj);
@@ -45,7 +46,7 @@ function preCopy(obj) {
  * @param printpage
  * - @printpage func() 代码引用申明/code reference declaration:
  * - {@link https://blog.csdn.net/qq_38128179/article/details/103344021}
- */
+ **/
 function printpage() {
     let oldStr = window.document.body.innerHTML;
     let start = "<startprint2pdfs>";
@@ -65,7 +66,7 @@ function printpage() {
  * @param research-content
  * - @printpage func() 代码引用申明/code reference declaration:
  * - {@link https://blog.csdn.net/qq_40910746/article/details/86597083}
- */
+ **/
 function loadPage(url) {
     $.ajax({
         type: "GET",
@@ -78,4 +79,45 @@ function loadPage(url) {
             //$('#research-content').load(url);
         }
     });
+}
+/**
+ * get scroll FUNC
+ * - @param <divs> -> document.body.APIs
+ * - @printpage scroll() 代码引用申明/code reference declaration:
+ * - { @link replace: https://blog.csdn.net/u010393758/article/details/52888974 }
+ * - { @link getScroll API: https://www.jianshu.com/p/cd5ba22a416d }
+ **/
+function scroll() {
+    if(window.pageYOffset != null) // ie9+ 和其他浏览器
+    {
+        return {
+            left: window.pageXOffset,
+            top: window.pageYOffset
+        }
+    }
+    else if(document.compatMode == "CSS1Compat")
+    {
+        return {
+            left: document.documentElement.scrollLeft,
+            top: document.documentElement.scrollTop
+        }
+    }
+    return {
+        left: document.body.scrollLeft,
+        top: document.body.scrollTop
+    }
+}
+window.onscroll = function() {
+    /**
+     * console.log("top： "+scroll().top);
+     * console.log("left： "+scroll().left);
+    **/
+    if (scroll().top > 280) {
+        $("divs").removeClass("opacity-0");
+        $("divs").addClass("opacity-100");
+    }
+    else {
+        $("divs").removeClass("opacity-100");
+        $("divs").addClass("opacity-0");
+    }
 }

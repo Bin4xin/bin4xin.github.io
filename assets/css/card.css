@@ -1706,6 +1706,70 @@ data-styled.g135[id="sc-gsDKAQ"]{content:"iGLrqc,"}/*!sc*/
     border-right: 0;
     border-left: 0;
 }
+
+/*up-to-top*/
+.position-fixed {
+    position: fixed!important;
+    /*transform: blur(5px)!important;*/
+    /*filter: none!important;*/
+    /*perspective: none!important;*/
+    /*position: sticky!important;*/
+}
+.mb-4 {
+    margin-bottom: 24px!important;
+}
+.bottom-0 {
+    bottom: 0!important;
+}
+.right-0 {
+    right: 5px!important;
+}
+.mr-4 {
+    margin-right: 24px!important;
+}
+.z-1 {
+    z-index: 1;
+}
+.transition-200 {
+    -webkit-transition: .2s;
+    transition: .2s;
+}
+.opacity-0 {
+    opacity: 0;
+}
+.opacity-100 {
+    opacity: 1;
+}
+.tooltipped {
+    position: relative!important;
+}
+.tooltipped-n:before, .tooltipped-ne:before, .tooltipped-nw:before {
+    top: -7px;
+    right: 50%;
+    bottom: auto;
+    margin-right: -6px;
+    border-top-color: #24292f;
+}
+.color-bg-accent-emphasis {
+    background-color: var(--theme-main-color)!important;
+}
+.color-fg-on-emphasis {
+    color: #f0f6fc!important;
+}
+.circle {
+    border-radius: 50%!important;
+}
+.border-0 {
+    border: 0!important;
+}
+.octicon {
+    display: inline-block;
+    overflow: visible!important;
+    vertical-align: text-bottom;
+    fill: currentColor;
+}
+/*up-to-top end*/
+
 @media (min-width: 768px) and (max-width: 992px) {
     .col-sm-9 {
         width: 100%;
