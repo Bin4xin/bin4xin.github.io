@@ -9,12 +9,30 @@ permalink: /about/Apereo-CAS-Less-than-4-2-x-RCE/
 desc: 「Apereo CAS」
 ---
 
-[仓库地址](https://mvnrepository.com/artifact/org.jasig.cas/cas-server-webapp){:target="_blank"}
+### CAS靶场搭建
 
-[cas-server-webapp::4.1.6](https://mvnrepository.com/artifact/org.jasig.cas/cas-server-webapp/4.1.6){:target="_blank"}
-
-[cas-server-webapp::4.2.7](https://mvnrepository.com/artifact/org.jasig.cas/cas-server-webapp/4.2.7){:target="_blank"}
-
+---
+<div class="content">
+<p>
+<a href="https://mvnrepository.com/artifact/org.jasig.cas/cas-server-webapp" class="btn-primary btn" target="blank">
+CAS::Maven仓库地址<span class="DocsMarkdown--link-external-icon">
+<svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" role="img" aria-labelledby="title-9637423397128071" xmlns="http://www.w3.org/2000/svg"><title id="title-9637423397128071">External link icon</title><path d="M6.75,1.75h-5v12.5h12.5v-5m0,-4v-3.5h-3.5M8,8l5.5-5.5"></path></svg>
+</span></a></p>
+</div>
+---
+<div class="content">
+<p>
+<a href="https://mvnrepository.com/artifact/org.jasig.cas/cas-server-webapp/4.1.6" class="btn-primary btn" target="blank">
+cas-server-webapp::4.1.6<span class="DocsMarkdown--link-external-icon">
+<svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" role="img" aria-labelledby="title-9637423397128071" xmlns="http://www.w3.org/2000/svg"><title id="title-9637423397128071">External link icon</title><path d="M6.75,1.75h-5v12.5h12.5v-5m0,-4v-3.5h-3.5M8,8l5.5-5.5"></path></svg>
+</span></a>
+<a href="https://mvnrepository.com/artifact/org.jasig.cas/cas-server-webapp/4.2.7" class="btn-primary btn" target="blank">
+cas-server-webapp::4.2.7<span class="DocsMarkdown--link-external-icon">
+<svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" role="img" aria-labelledby="title-9637423397128071" xmlns="http://www.w3.org/2000/svg"><title id="title-9637423397128071">External link icon</title><path d="M6.75,1.75h-5v12.5h12.5v-5m0,-4v-3.5h-3.5M8,8l5.5-5.5"></path></svg>
+</span></a>
+</p>
+</div>
+---
 分别进入下载Pom或者War，不想麻烦直接下载WAR包放到tomcat web文件夹就行。
 
 ### 如何发现CAS资产
@@ -22,12 +40,6 @@ desc: 「Apereo CAS」
 - `Apereo Central Authentication Service`版本
 
 通过路由404报错查看版本：`https://cas.example.com/cas/iwana404;)`
-
-> 这里我们比较本地靶场和实际渗透发现：
->
-> 不同的版本、中间件配置可能会有统一的返回页面或者返回302，我们这里也通过测试进行了相关排查
->
->
 
 - 在CAS访问404资源时跳转302，本地不管是否配置`HTTPS证书`都不会返回404页面，所以排除了HTTPS证书的可能性；
 

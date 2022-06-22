@@ -34,10 +34,12 @@ permalink: /about/Cobalt-Stike-hidden-true-ip/
 ## cobaltstrike客户端配置
 
 - 添加`Listeners` 并填写`host`和`port`
-- Cloudflare HTTP端口 `80,8080,8880,2052,2082,2086,2095`
-- Cloudflare HTTPS端口 `443,2053,2083,2087,2096,8443`
+- Cloudflare HTTP端口 
+  - `80,8080,8880,2052,2082,2086,2095`
+- Cloudflare HTTPS端口 
+  - `443,2053,2083,2087,2096,8443`
 
-[![2022-02-19-1.18.45.md.png](https://image.yjs2635.xyz/images/2022/02/19/2022-02-19-1.18.45.md.png)](https://image.yjs2635.xyz/image/cuZa)
+![2022-02-19-1.18.45.png](https://image.yjs2635.xyz/images/2022/02/19/2022-02-19-1.18.45.png)
 
 > 如上配置可以上线成功，并且存在相关域名的流量，但进行进一步分析后发现仍然存在相关CS服务器的流量交互
 
@@ -48,14 +50,16 @@ permalink: /about/Cobalt-Stike-hidden-true-ip/
 > `Beacon Http:`
 > 
 > Http Host(s)/Stager/Header均填写对应域名；Http Port为CF支持解析HTTP端口
-> > 失败，无法上线；
+> 
+> 失败，无法上线；
 
 ### 1x02 Client config 2
 
 > `Beacon Https:`
 >
 > Http Host(s)/Stager/Header均填写对应域名；Http Port为CF支持解析HTTP端口
-> > 成功上线；但是执行Beacon无返回，如下：
+>
+> 成功上线；但是执行Beacon无返回，如下：
 
 ```
 beacon> getuid
@@ -83,7 +87,7 @@ return--> `code525 SSL handshake failed`
 
 ## 验证
 
-> 生成木马 `payload=windows/beacon_http/reverse_http`
+> 生成木马 windows/beacon_http/reverse_http
 
 执行shell命令
 

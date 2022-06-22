@@ -1930,7 +1930,7 @@ samp {
 code {
   padding: 2.720px 5.440px;
   font-size: 90%;
-  /*color: #c7254e;*/
+  word-wrap:break-word;
   background-color: rgba(175,184,193,0.2);
   border-radius: 4px;
 }
