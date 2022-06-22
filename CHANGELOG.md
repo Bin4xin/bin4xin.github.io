@@ -20,9 +20,15 @@
 | 2021/12/14/16:58:24 CST | 添加[国家公祭日运行页面构建灰色流程](https://github.com/Bin4xin/bin4xin.github.io/blob/main/.github/workflows/harmony.yml#L42) | <ul><li>yml流程文件中是否能够定义先后顺序？</li><li>如何跳过执行流程？</li></ul> |
 | 2022/01/21/10:51:38 CST | 增加::about博文banner展示 | [代码参考](https://cloud.google.com/) |
 | 2022/01/21/11:53:16 CST | 增加::代码块拷贝按钮 | [代码参考:给代码块pre标签增加一个“复制代码”按钮](http://qclog.cn/1060) |
+| 2022/02/27/17:34:59 CST | 添加`_include`引用 | 添加页尾/评价 |
+| 2022/03/03/15:28:50 CST | 修復标签栏/删除外部Icon-JS引用，加快加载速度 | `article-index.html/head` |
+| 2022/04/07/14:17:05 | 四月份又是修展示BUG的一个月:( | 修复了一些在移动端code/pre不换行的文章 |
+|  | 进一步完善引用代码 | <ul><li>code from cloudflare. [visit footer](https://www.cloudflare.com/zh-cn/) </li><li>code from anquanke. [visit any posts here.](https://www.anquanke.com/) </li><li> @printpage func() 代码引用申明</li><li>ETC...</li></ul> |
+| 2022/05/13/21:41:49 CST | 修复打印模块 | `@media print` awesome;) |
 | 2022/05/16/22:58:24 CST | 修复展示bug | [select区块url无法超链接](https://github.com/Bin4xin/bin4xin.github.io/blob/main/_layouts/about.html#L61-L70) |
 |  |  | [mirror web reference](https://github.com/tuna/mirror-web/blob/master/_layouts/help.html#L38) |
 |  | [Web 手机端无法显示完整，存在两个滚动条] | <ul><li>print-overflow-visible</li><li>area-scroll</li><li>[github reference](https://docs.github.com/cn/actions/learn-github-actions/environment-variables)</li></ul> |
+| 2022/06/22/16:29:00 CST | 添加::响应移动端置顶按钮 | <ul><li> [main style](https://docs.github.com/) </li><li> [back shadow](https://www.sendcloud.net/sendSetting/unsubsribeSetting) </li></ul> |
 | - | - | - |
 
 ### BUG
@@ -39,9 +45,6 @@
 ### 下一步
 
 - TODO BE FIX
-  - [x] [响应移动端置顶按钮] - 2022/06/22/16:29:00
-    - [main style](https://docs.github.com/)
-    - [back shadow](https://www.sendcloud.net/sendSetting/unsubsribeSetting)
   - [ ] Next:
 
 ```html
@@ -70,7 +73,6 @@
     </div>
 </div>
 ```
-
 
 - *国内前端大神？BULL SHIT :-)*
 - Next TODO：
