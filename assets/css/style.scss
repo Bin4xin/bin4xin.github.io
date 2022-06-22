@@ -578,6 +578,19 @@ csmall {
     }
   }
 }
+/*
+  tooltip box <click to buttom> - box shadow.(add dark mode - 2022/06/22/17:14:26)
+  Done: { @link https://github.com/Bin4xin/bin4xin.github.io/blob/main/CHANGELOG.md#%E4%B8%8B%E4%B8%80%E6%AD%A5 }
+  */
+.tooltipped {
+  position: relative!important;
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 200%), 0 6px 20px 0 rgba(0, 0, 0, 190%);
+  @include dark{
+    box-shadow: 0 8px 17px 0 rgba(136, 32, 134, 200%), 0 6px 20px 0 rgba(136, 32, 134, 190%);
+    //box-shadow: 0 8px 17px 0 rgba(2, 0, 50, 200%), 0 6px 20px 0 rgba(2, 0, 50, 190%);
+  }
+}
+/*tooltip box <click to buttom> - box shadow.(add dark mode end)*/
 
 /*
   card - cws banner shadow.(add dark mode - 2022/02/04/22:28:54)

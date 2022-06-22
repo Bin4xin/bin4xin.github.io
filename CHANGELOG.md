@@ -20,18 +20,57 @@
 | 2021/12/14/16:58:24 CST | 添加[国家公祭日运行页面构建灰色流程](https://github.com/Bin4xin/bin4xin.github.io/blob/main/.github/workflows/harmony.yml#L42) | <ul><li>yml流程文件中是否能够定义先后顺序？</li><li>如何跳过执行流程？</li></ul> |
 | 2022/01/21/10:51:38 CST | 增加::about博文banner展示 | [代码参考](https://cloud.google.com/) |
 | 2022/01/21/11:53:16 CST | 增加::代码块拷贝按钮 | [代码参考:给代码块pre标签增加一个“复制代码”按钮](http://qclog.cn/1060) |
+| 2022/05/16/22:58:24 CST | 修复展示bug | [select区块url无法超链接](https://github.com/Bin4xin/bin4xin.github.io/blob/main/_layouts/about.html#L61-L70) |
+|  |  | [mirror web reference](https://github.com/tuna/mirror-web/blob/master/_layouts/help.html#L38) |
+|  | [Web 手机端无法显示完整，存在两个滚动条] | <ul><li>print-overflow-visible</li><li>area-scroll</li><li>[github reference](https://docs.github.com/cn/actions/learn-github-actions/environment-variables)</li></ul> |
 | - | - | - |
+
+### BUG
+
+- TODO:
+  - **FireFox display BUG** position-fixed in FireFox display position -> none
+    - Reference:
+    - { @link https://developer.mozilla.org/zh-CN/docs/Web/CSS/position#browser_compatibility }
+    - { @link https://blog.csdn.net/DDD4V/article/details/123354124 }
+    - { @link https://juejin.cn/post/6844904100576886797 }
+      - { @link Demo https://codepen.io/li377242494/pen/VwLGGaR }
+
 
 ### 下一步
 
-- TODO BE FIX[2022/05/16/22:58:24]
-  - [x] [select区块url无法超链接](https://github.com/Bin4xin/bin4xin.github.io/blob/main/_layouts/about.html#L61-L70)
-    - [mirror web reference](https://github.com/tuna/mirror-web/blob/master/_layouts/help.html#L38)
-  - [x] [Web 手机端无法显示完整，存在两个滚动条]()
-    - print-overflow-visible
-    - area-scroll
-      - [github reference](https://docs.github.com/cn/actions/learn-github-actions/environment-variables)
-  - [ ] [响应移动端置顶按钮](https://www.sendcloud.net/sendSetting/unsubsribeSetting) 
+- TODO BE FIX
+  - [x] [响应移动端置顶按钮] - 2022/06/22/16:29:00
+    - [main style](https://docs.github.com/)
+    - [back shadow](https://www.sendcloud.net/sendSetting/unsubsribeSetting)
+  - [ ] Next:
+
+```html
+<div>
+    <div class="js-notice">
+    <!-- '"` --><!-- </textarea></xmp> -->
+        <form class="Box position-relative rounded-2 mb-4 p-3 js-notice-dismiss overflow-hidden" style="z-index: 1" data-turbo="false" action="/settings/dismiss-notice/dashboard_promo_copilot_ga" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="mPSV2JFtUABWMNHPx22QbZgAOQkoOwAVFQg5lv518FQ5kPGlc-PDPAGD_s0hJpBGlolH2bR3zc5uuock1df_cg">
+            <picture>
+            <source srcset="https://github.githubassets.com/images/modules/dashboard/copilot/bg.webp" type="image/webp">
+            <img src="https://github.githubassets.com/images/modules/dashboard/copilot/bg.jpg" alt="" width="768" height="642" class="position-absolute top-0 left-0 width-full" style="pointer-events: none; z-index: -1; height: 100%; height: 100%; object-fit: cover">
+            </picture>
+            
+            <div class="position-absolute p-2" style="top: 4px; right: 6px;">
+            <button aria-label="Close" type="submit" data-view-component="true" class="close-button color-fg-on-emphasis"><svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-x">
+            <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
+            </svg></button>
+            </div>
+            
+            <img src="https://github.githubassets.com/images/modules/dashboard/copilot/copilot-logo.svg" alt="GitHub Copilot" width="179" height="22" class="d-block">
+            
+            <p class="my-3 col-7 color-fg-on-emphasis text-bold h4">
+                Get suggestions for lines of code and entire functions in real‑time
+            </p>
+            <a href="/features/copilot" data-view-component="true" class="btn btn-block">  Learn more about Copilot</a>
+        </form>  
+    </div>
+</div>
+```
+
 
 - *国内前端大神？BULL SHIT :-)*
 - Next TODO：

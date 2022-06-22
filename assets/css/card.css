@@ -1741,9 +1741,25 @@ data-styled.g135[id="sc-gsDKAQ"]{content:"iGLrqc,"}/*!sc*/
 .opacity-100 {
     opacity: 1;
 }
-.tooltipped {
-    position: relative!important;
+/**
+.tooltipped:after {
+    z-index: 1000000;
+    padding: 0.5em 0.75em;
+    font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+    -webkit-font-smoothing: subpixel-antialiased;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: break-word;
+    white-space: pre;
+    content: attr(aria-label);
+    background: #24292f;
+    border-radius: 6px;
 }
+**/
 .tooltipped-n:before, .tooltipped-ne:before, .tooltipped-nw:before {
     top: -7px;
     right: 50%;
