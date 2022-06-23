@@ -1,0 +1,21 @@
+<!-- HTML elements for search -->
+<label class="text-normal width-full">
+    <input class="form-control Search_searchIconBackground16 Search_searchInputHeader px-5 py-2" type="text" id="search-input" placeholder="搜索文档 - 输入标题/相关内容/日期/Tags.." style="width:380px;"/>
+</label>
+<ul id="results-container"></ul>
+
+<!-- script pointing to jekyll-search.js -->
+<script src="/assets/js/sjs/simple-jekyll-search.min.js"></script>
+
+<script>
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('results-container'),
+        json: '/search.json',
+        // searchResultTemplate: '<li><a href="{url}" title="{desc}">{% if Researchname %}{Researchname}{% else %}{title}{%endif%}</a></li>',
+        searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
+        noResultsText: '没有搜索到文章',
+        limit: 20,
+        fuzzy: false
+    })
+</script>
