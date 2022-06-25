@@ -318,9 +318,9 @@
     z-index: 100
 }
 
-img {
-    max-width: 100%
-}
+/*img {*/
+/*    max-width: 100%*/
+/*}*/
 
 .cover {
     background-size: cover!important

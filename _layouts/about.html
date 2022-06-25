@@ -16,12 +16,13 @@ layout: about-default
 		<div class="row">
 			<!--left area: menu 左边菜单栏-->
 			<div class="position-sticky col-sm-3 ml-hide overflow-y-auto top-0 d-none d-lg-block flex-shrink-0 border-right" style="height:100vh">
-				<div tabindex="-1" class="position-sticky navbar-default d-flex flex-items-center p-4 top-0 color-bg-default" style="z-index:3" id="logo">
+				<div tabindex="-1" class="position-sticky navbar-default d-flex flex-items-center p-4 top-0 " style="z-index:3" id="logo">
 					<a class="navbar-brand back-to-top" href="/" target="blank">
 						{% include pic.html name="logo-small" %}
-						{% if site.harmony %}{{ site.harmony }}
+						{% if site.harmony %}
+						<a rel="" class="f4 text-semibold color-fg-default no-underline no-wrap pl-2 flex-auto" style="padding-top: 25px;">{{ site.harmony }}</a>
 						{% else %}
-						{{ site.title }}
+						<a rel="" class="f4 text-semibold color-fg-default no-underline no-wrap pl-2 flex-auto" style="padding-top: 25px;">{{ site.brand }}{{ site.title }}</a>
 						{% endif %}
 					</a>
 				</div>
@@ -29,10 +30,10 @@ layout: about-default
 					{% for descs in posts_about_desc %}
 					<details {%if page.desc contains descs.name %}open{%endif%}>
 						<summary class="edSFyN"><!--left - detail - summary-->
-							<a><strong>{{descs.name | replace: "「", "" | replace: "」", ""|upcase}}</strong></a>
+							<a class="no-underline"><strong>{{descs.name | replace: "「", "" | replace: "」", ""|upcase}}</strong></a>
 						</summary>
 						{% for post in descs.items %}
-						<ul class="nav nav-pills nav-stacked">
+						<ul class="nav nav-pills nav-stacked no-underline">
 							<li id="toc-{{post.Researchname}}" class="table-of-contents table-of-contents__left-border {% if post.Researchname == page.Researchname or post.redirect_help_id == page.Researchname %} active{%endif%}">
 								<a href="{{ post.url }}">{{ forloop.index| roman }}. {{ post.Researchname | upcase}}</a>
 								{% comment %}<a href="#" onclick="loadPage('{{ post.url }}')">{{ forloop.index| roman }}. {{ post.Researchname | upcase}}</a>{% endcomment %}

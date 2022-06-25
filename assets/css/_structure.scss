@@ -38,9 +38,28 @@ p {
     margin-top: 10px;
 }
 
+/* Code Reference:
+* - { @link https://docs.github.com/_next/static/css/31a8bc77d529a7c8cdef.css }
+*   - {.markdown-body .img}
+*/
+
 img {
-    height: auto;
+    max-height: 49rem;
+    padding: 0;
     max-width: 100%;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    display: block;
+    padding: 1rem 0;
+    margin: 1rem auto 0;
+    border: none;
+    max-width: -moz-calc(100% - 2rem);
+    max-width: calc(100% - 2rem);
+}
+
+.text-semibold {
+    font-weight: 500!important;
 }
 
 a {

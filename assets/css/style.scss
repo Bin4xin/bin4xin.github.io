@@ -619,6 +619,12 @@ devsite-header .devsite-collapsible-section, devsite-header[no-lower-row][fixed]
   card - cws banner shadow end.(add dark mode - 2022/02/07/00:25:36)
 */
 
+.color-fg-default{
+  color: #82318e;
+  @include dark{
+    color: #c9d1d9;
+  }
+}
 
 {% for attrb in (1..2) %}
 @for $i from 0 to 7 {
