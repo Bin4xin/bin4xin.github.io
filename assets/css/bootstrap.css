@@ -4939,6 +4939,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     padding-top: 15px;
     padding-bottom: 15px;
   }
+  /*nav-bar,search-bar*/
+  .px-5 {
+    padding-left: 32px!important;
+  }
+  .py-2 {
+    padding-top: 8px!important;
+    padding-bottom: 8px!important;
+  }
 }
 .navbar-form {
   padding: 10px 15px;

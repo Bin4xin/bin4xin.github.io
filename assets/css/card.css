@@ -1786,7 +1786,29 @@ data-styled.g135[id="sc-gsDKAQ"]{content:"iGLrqc,"}/*!sc*/
     fill: currentColor;
 }
 /*up-to-top end*/
-
+.Search_searchIconBackground16 {
+    background: var(--ifm-color-white) url(/assets/img/svg/search-16.svg) no-repeat 6px;
+}
+.Search_searchInputHeader {
+    width: 16rem;
+}
+.form-control, .form-select {
+    padding: 5px 12px;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--theme-main-color);
+    vertical-align: middle;
+    /*background-color: var(--theme-main-color);*/
+    background-color: var(--color-canvas-default);
+    background-repeat: no-repeat;
+    font-weight: 400!important;
+    border: 1px solid darkgray;
+    border-radius: 6px;
+    outline: none;
+    -webkit-box-shadow: var(--theme-main-color);
+    box-shadow: var(--theme-main-color);
+}
+/*search-bar*/
 @media (min-width: 768px) and (max-width: 992px) {
     .col-sm-9 {
         width: 100%;
