@@ -29,7 +29,7 @@ layout: about-default
 				<ul class="nav nav-pills nav-stacked" id="help-nav">
 					{% for descs in posts_about_desc %}
 					<details {%if page.desc contains descs.name %}open{%endif%}>
-						<summary class="edSFyN"><!--left - detail - summary-->
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
 							<a class="no-underline"><strong>{{descs.name | replace: "「", "" | replace: "」", ""|upcase}}</strong></a>
 						</summary>
 						{% for post in descs.items %}
@@ -74,13 +74,13 @@ layout: about-default
 						<form class="form-inline">
 							<div class="form-group">
 								<details>
-									<summary class="edSFyN"><!--up - detail - summary-->
+									<summary class="edSFyN flex justify-between"><!--up - detail - summary-->
 										<a><strong><label>选择: </label></strong></a>
 									</summary>
 									<ul class="nav nav-pills nav-stacked" id="help-nav">
 										{% for descs in posts_about_desc %}
 										<details {%if page.desc contains descs.name %}open{%endif%}>
-											<summary class="edSFyN">
+											<summary class="edSFyN flex justify-between">
 												<a><strong>{{descs.name | replace: "「", "" | replace: "」", ""|upcase}}</strong></a>
 											</summary>
 											{% for post in descs.items %}

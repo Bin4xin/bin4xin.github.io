@@ -1958,16 +1958,16 @@ kbd kbd {
 pre {
   display: block;
   position: relative;
-  padding: 9.5px;
+  padding: 16px;
   margin: 0 0 10px;
-  font-size: 13px;
   line-height: 1.42857143;
   color: #333333;
   word-break: break-all;
   word-wrap: break-word;
   background-color: #f6f8fa;
-  /*border: 1px solid #ccc;*/
-  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.45;
+  border-radius: 6px;
 }
 pre code {
   padding: 0;
