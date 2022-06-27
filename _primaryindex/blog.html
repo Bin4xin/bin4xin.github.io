@@ -31,7 +31,7 @@ permalink: /blog/
                   <a class="no-underline color-text-white h3 mb-1 lh-condensed css-truncate-target" style="max-width: 100%;" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
 
                   <a class="f3 no-underline d-flex flex-items-center color-text-white mt-2 post-abstract" aria-label="elisemoe (author)">
-<!--                    <img class="mr-2 avatar avatar-3 circle avatar-user" src="https://avatars.githubusercontent.com/u/6633808?s=64&amp;v=4" width="32" height="32" alt="@elisemoe">-->
+
                     <span class="d-none d-md-inline-block mr-1">{{ post.excerpt | strip_html | truncate: 166, '...'}}</span></a>
 
                   <a class="d-flex mb-1 f5 no-underline color-text-white" href="https://github.com/{{ post.author }}" target="_blank">

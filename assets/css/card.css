@@ -1660,9 +1660,9 @@ data-styled.g135[id="sc-gsDKAQ"]{content:"iGLrqc,"}/*!sc*/
     margin-left: 4px;
     opacity: .7;
 }
-.Box {
+.Box-aricle {
     border-color: #d0d7de;
-    border-style: solid;
+    /*border-style: solid;*/
     border-width: 1.5px;
     border-radius: 6px;
     padding: 3px;

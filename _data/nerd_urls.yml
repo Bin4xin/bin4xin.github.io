@@ -32,7 +32,7 @@
     - name: <em>CloudFlare CDN</em>
       link: https://dash.cloudflare.com/dns/
     - name: <em>Github Action</em>
-      link: https://github.blog/changelog/2018-10-16-github-actions-limited-beta/
+      link: https://github.com/features/actions
 
 - name: 关于
   meta: false

@@ -6,7 +6,7 @@
         {% if page.categories.size > 0 %}
             <div class="post-meta mb-3">
                 <details open>
-                    <summary class="point">本文分类</summary>
+                    <summary class="point flex justify-between">本文分类</summary>
                     {% for category in page.categories %}{% unless category.first == "blog" or category.first == "event" %}
                     <p>
                         <i class="far fa-folder fa-fw mr-1"></i> <a href='{{ site.baseurl }}/{{ category | center | url_encode }}/'>{{ category }}</a>
@@ -18,7 +18,7 @@
             {% endif %}
             <p>
         <details open>
-            <summary class="point">所有标签/数量</summary>
+            <summary class="point flex justify-between">所有标签/数量</summary>
             {% for category in site.categories %}
             <p>
                 <i class="fa fa-angle-right"></i> {{ category | first | upcase }}
