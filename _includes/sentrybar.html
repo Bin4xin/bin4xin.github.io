@@ -1,4 +1,4 @@
-<div class="col-lg-3" xmlns="http://www.w3.org/1999/html">
+<div class="col-lg-3 sticky" xmlns="http://www.w3.org/1999/html">
 
 <!--notice start-->
     {% for notes in site.data.notes %}
@@ -8,19 +8,24 @@
     {% assign display_link = notes.display_link %}
     {% assign display_bg_link = notes.display_bg_link %}
     {% assign svg_link = notes.svg_link %}
-
     <div>
         <div class="js-notice">
-            <form class="Box-aricle position-relative rounded-2 mb-4 p-3 js-notice-dismiss overflow-hidden" style="z-index: 1" data-turbo="false" onclick="window.close();">
+            <form class="Box-aricle position-relative rounded-2 mb-4 p-3 js-notice-dismiss overflow-hidden" style="z-index: 1" data-turbo="false">
                 <picture>
                     <img src="{{display_bg_link}}" alt="" class="position-absolute top-0 left-0 width-full" style="pointer-events: none; z-index: -1; height: 100%; height: 100%; object-fit: cover">
                 </picture>
-
-                <div class="position-absolute p-2" style="top: 4px; right: 6px;">
-                    <button aria-label="Close" type="submit" data-view-component="true" class="close-button color-fg-on-emphasis"><svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-x">
-                        <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
+                <!--TODO:
+                 !--- issue 1. While click to close the <X button/div>, whole h5 page will refresh. I don't know why.
+                 !--- issue 2. By <Js function> custom_close change/add div's class to hide buttons/divs, so while have 2 or more, all will close
+                 ;*(
+                --><!--
+                <div class="position-absolute p-2" style="top: 4px; right: 6px;" onClick="custom_close()">
+                    <button aria-label="Close" type="submit" data-view-component="true" class="close-button color-fg-on-emphasis">
+                    <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-x">
+                    <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
                     </svg></button>
                 </div>
+                -->
                 <img src="{{svg_link}}" alt="SentrySec feed" width="32" height="32" class="d-block">
                 <p class="my-3 col-7 color-fg-on-emphasis text-bold h4">
                     {{display_note}}

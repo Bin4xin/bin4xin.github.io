@@ -121,3 +121,22 @@ window.onscroll = function() {
         $("divs").addClass("opacity-0");
     }
 }
+/**
+ * function: click to close a page/button etc...
+ * - @param
+ * - @ 代码引用申明/code reference declaration:
+ * - { @link replace: https://blog.csdn.net/u010393758/article/details/52888974 }
+ * - { @link  }
+ **/
+function custom_close() {
+    // 表示display:none;
+    // $("#div-note").attr("style","display:none;");//隐藏div
+    // $("#demo").attr("style","display:block;");//显示div
+    //    document.getElementById("typediv1").style.display="";//显
+    if(confirm("您确定要关闭本页吗？")) {
+        // $("diva").removeClass("js-notice");
+        $("diva").addClass("hide");
+    }
+    else{
+    }
+}
