@@ -43,8 +43,8 @@
       link: /blog/
     - name: <em>WIKI</em>
       link: https://github.com/Bin4xin/bin4xin.github.io/wiki
-    - name: 国内镜像
-      link: https://bin4xin.gitee.io/
+    #- name: 国内镜像
+    #  link: https://bin4xin.gitee.io/
 
 - name: 贡献者
   meta: false

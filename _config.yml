@@ -6,7 +6,7 @@ brand: Sentry CyberSecurity
 description: 哨兵安全实验室
 baseurl: "" #important: start with /
 url: "https://bin4xin.sentrylab.cn"
-web_version: 2.1.5
+web_version: 2.2.1
 www_google_verify: "apz36MBrhPsyyKahn-qJWKDq0PQUASdgn5_nju0NwQE"
 timezone: Asia/Shanghai #set timezone to display build time correctly
 highlighter: rouge
@@ -18,22 +18,22 @@ kramdown:
 permalink: "/:categories/:year/:title/"
 
 excerpt_separator: <!--more--> #use this in posts to define how long the excerpt of the post (that is shown on the Blog page) is
-
 plugins: ["jekyll-toc", "jekyll-roman"]
+#plugins: ["jekyll-toc", "jekyll-roman", "jekyll-paginate"]
+#paginate: 5
+#paginate_path: "/blog/page:num/"
 
-#toc:
-#  index_class_define:
-#    - exclude_section
-#    - exclude
-#    - your_custom_skip_class_name
+#--[toc plugin], while run jekyll to build sites, jekyll-toc could define some to display:
+#--the toc class
+#--the toc min/max level
 toc:
   #list_id: my-toc-id # Default: "toc"
   #list_class:  #table-of-contents table-of-contents__left-border Item__StyledItem-sc-yeql7o-2 edSFyN
   #sublist_class: my-sublist-class # Default: no class for sublists
   #item_prefix: item- # Default: "toc-":
-  item_class: table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN # Default: "toc-entry"
-  min_level: 3 # default: 1
-  max_level: 3 # default: 6
+  item_class: no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN # Default: "toc-entry"
+  min_level: 1 # default: 1
+  max_level: 4 # default: 6
 
 sass:
     sass_dir: assets/css
@@ -42,7 +42,6 @@ meow_404: true
 
 include: ['_pages','_primaryindex']
 exclude: ['BUILD.md','CHANGELOG.md','README.md','vendor']
-
 
 # Short text about your company. Shown in footer on every page and also separately on Home and Contact page.
 about: "本站由哨兵安全实验室支持创办"
@@ -61,7 +60,6 @@ githubAccess: "https://github.com/Bin4xin"
 githubRepos: "bin4xin.github.io"
 # repos:
 githubIO: "https://bin4xin.github.io"
-giteeIO: "https://bin4xin.gitee.io"
 githubRepos-Branch: "main"
 # Build commit hash strings settings
 #harmony: 国家公祭日
