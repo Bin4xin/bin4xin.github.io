@@ -3,9 +3,9 @@ layout: default
 ---
 
 <div class="container mtb">
-    <div class="row markdown-body-img">
+    <div class="row">
         <!-- SINGLE POST -->
-        <div class="col-lg-8">
+        <div class="col-lg-8 markdown-body-img">
             <!-- Blog Post  -->
             <a href="{{ page.url | prepend: site.baseurl }}"><h1 class="ctitle">{{ page.title }}</h1></a>
             <p><csmall>
@@ -22,9 +22,6 @@ layout: default
             {% include statement.html %}
             {%endcomment%}
         </div><!--/col-lg-8 -->
-        
-        {% include sidebar.html %}
-
+    <div class="sticky limit-sticky">{% include sentrybar.html %}</div>
     </div><!--/row -->
-        
 </div><!--/container -->

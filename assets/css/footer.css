@@ -1568,11 +1568,20 @@
 .fixed {
     position: fixed
 }
-
-.sticky {
-    position: sticky
+@media (min-width: 1280px){
+    .sticky {
+        position: sticky!important;
+        top: 3em;
+    }
+    .limit-sticky{
+        /*max-height: calc(100vh - 5em);*/
+        overflow: scroll;
+        table-layout: fixed;
+        word-wrap: break-word;
+        word-break: break-all;
+        padding-bottom: 40px !important;
+    }
 }
-
 .top-100 {
     top: 100%
 }

@@ -1,6 +1,17 @@
-<div class="col-lg-3 sticky" xmlns="http://www.w3.org/1999/html">
-
-<!--notice start-->
+<div class="" xmlns="http://www.w3.org/1999/html">
+    {% if page.toc %}
+    <div class=" ml-hide hidden-print">
+        <div class="nav nav-stacked tableOfContents_35-E thin-scrollbar">
+            <h5 class="lead">文章目录</h5>
+            <li class="table-of-contents__left-border table-of-contents">
+                <code-index-css class="">
+                    {{ content | toc_only }}
+                </code-index-css>
+            </li>
+        </div>
+    </div>
+    {% endif %}
+    <!--notice start-->
     {% for notes in site.data.notes %}
 
     {% assign note_node = notes.note_node %}
@@ -45,12 +56,40 @@
         </div>
     </div>
     {% endfor %}
-<!--notice end-->
+    <!--notice end-->
     <div class="spacing"></div>
     <h4> Search/搜索 <kbd>Ctrl ⌃</kbd> + <kbd>F</kbd></h4>
     <p>e.g. Nginx：</p>
     <p><a href="/blog/2019/how-nginx/http2https/">NGINX笔记：http升级https协议</a> </p>
     <p><a href="/blog/2019/nginx/with/jekyll-site/">多子域：JEKYLL优雅地部署于NGINX</a> </p>
+
+        <div class="hidden-print">
+            <h4><ion-icon name="grid-sharp"></ion-icon> 分类目录</h4>
+            <div class="hline"></div>
+            <div class="spacing"></div>
+            {% if page.categories.size > 0 %}
+            <div class="post-meta mb-3">
+                <details open>
+                    <summary class="point flex justify-between">本文分类</summary>
+                    {% for category in page.categories %}{% unless category.first == "blog" or category.first == "event" %}
+                    <p>
+                        <i class="far fa-folder fa-fw mr-1"></i> <a href='{{ site.baseurl }}/{{ category | center | url_encode }}/'>{{ category }}</a>
+                        {%- unless forloop.last -%} {%- endunless -%}
+                    </p>
+                    {% endunless %}{% endfor %}
+                </details>
+            </div>
+            {% endif %}
+            <p>
+            <details open>
+                <summary class="point flex justify-between">所有标签/数量</summary>
+                {% for category in site.categories %}
+                <p>
+                    <i class="fa fa-angle-right"></i> {{ category | first | upcase }}
+                    <span class="badge badge-theme pull-right">{{ category | last | size }}</span>
+                </p>
+                {% endfor %}
+            </details>
+        </div><!--class="hidden-print" stop-->
 </div>
 
-{% include sidebar.html %}

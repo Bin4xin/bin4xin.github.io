@@ -106,7 +106,15 @@ body {
         background: $color_bg_dark;
     }
 }
-
+.display-nav-li {
+  padding: 0px 5px!important;
+  border: 0;
+  border-radius: 6px;
+  color: #24292f;
+  @include dark{
+    background: #fff;
+  }
+}
 csmall {
   font-size: 15px;
   color: #b3b3b3;
@@ -393,12 +401,10 @@ csmall {
 
 .not-found {
     height: 600px;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     position: relative;
 }
 
