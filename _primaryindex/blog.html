@@ -24,7 +24,7 @@ permalink: /blog/
                   <a class="position-absolute width-full height-full rounded-2 discussion-spotlight-pattern-container discussion-spotlight-pattern-dot-fill d-flex flex-justify-around flex-column overflow-hidden flex-items-stretch" style="z-index: 2;" href="{{ post.url | prepend: site.baseurl }}"></a></h3>
 
                 <div class="position-absolute top-0 right-0 rounded-2 mr-3 mt-1 f1" style="z-index: 5;" aria-hidden="true">
-                  <g-emoji alias=":mega:">📣</g-emoji>
+                  <g-emoji alias=":mega:" style="color: #fff;"><a class="no-underline" href="{{site.githubAccess}}/{{site.githubRepos}}/blob/{{site.githubRepos-Branch}}/{{post.path}}" target="_blank" style="color: #f0f6fc;">#{{ forloop.rindex }}</a></g-emoji>
                 </div>
 
                 <div class="discussion-spotlight-details position-relative p-3 pr-5 css-truncate width-fit d-flex flex-column flex-items-start" style="z-index: 3;">
