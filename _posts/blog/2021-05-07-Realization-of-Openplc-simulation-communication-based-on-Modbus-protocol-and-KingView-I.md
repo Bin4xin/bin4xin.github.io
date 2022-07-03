@@ -74,7 +74,7 @@ $ curl -o openplc_test.st https://raw.githubusercontent.com/sxd0216/openplc_test
 
 选中自定义画面 -> make -> view （GIF动画有点大，loading...）：
 
-![success.gif](/assets/img/blog/2021/KingView_OPENPLC_success.gif)
+![KingView_OPENPLC_success.gif](https://image.yjs2635.xyz/images/2022/07/04/KingView_OPENPLC_success.gif)
 
 ### # 靶场攻击流量分析
 
@@ -91,4 +91,4 @@ $ curl -o openplc_test.st https://raw.githubusercontent.com/sxd0216/openplc_test
 
 #### # 模拟攻击启停
 
-![](/assets/img/blog/2021/OpenPLC_attack_success.gif)
+![OpenPLC_attack_success.gif](https://image.yjs2635.xyz/images/2022/07/04/OpenPLC_attack_success.gif)

@@ -31,18 +31,29 @@ permalink: /blog/2020/think-about-cyber-security/
 </div>
 
 
-<div class="d-none d-sm-block position-absolute col-5 col-md-4 col-lg-3 bottom-0 right-0 mr-lg-5 mb-md-n4">
-<div class="width-full" >
-<svg viewBox="0 0 300 305" class="width-fit">
-<defs>
-<mask id="https___github_githubassets_com_images_modules_site_home_astro-mona-alpha_jpg">
-<image width="300" height="305" href="/assets/img/post-bg/astro-mona-alpha.jpg"></image>
-</mask>
-</defs>
-<image mask="url(#https___github_githubassets_com_images_modules_site_home_astro-mona-alpha_jpg)" width="300" height="305" href="/assets/img/post-bg/astro-mona.jpg"></image>
-</svg>
-</div>
-</div>
+[comment]: <> (<div class="d-none d-sm-block position-absolute col-5 col-md-4 col-lg-3 bottom-0 right-0 mr-lg-5 mb-md-n4">)
+
+[comment]: <> (<div class="width-full" >)
+
+[comment]: <> (<svg viewBox="0 0 300 305" class="width-fit">)
+
+[comment]: <> (<defs>)
+
+[comment]: <> (<mask id="https___github_githubassets_com_images_modules_site_home_astro-mona-alpha_jpg">)
+
+[comment]: <> (<image width="300" height="305" href="/assets/img/post-bg/astro-mona-alpha.jpg"></image>)
+
+[comment]: <> (</mask>)
+
+[comment]: <> (</defs>)
+
+[comment]: <> (<image mask="url&#40;#https___github_githubassets_com_images_modules_site_home_astro-mona-alpha_jpg&#41;" width="300" height="305" href="/assets/img/post-bg/astro-mona.jpg"></image>)
+
+[comment]: <> (</svg>)
+
+[comment]: <> (</div>)
+
+[comment]: <> (</div>)
 
     
 在当今网络安全行业趋于商业化的时代，如何能够保持一颗赤忱之心：
