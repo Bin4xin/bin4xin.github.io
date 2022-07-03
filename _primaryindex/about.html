@@ -10,7 +10,7 @@ permalink: /about/
     - {@link https://xuexi.erealmsoft.com/2014/11/17/others/jekyll-in-github/#5-%E4%BD%9C%E8%80%85%E5%90%8D%E5%8F%8A%E5%A4%B4%E5%83%8F%E5%8A%A0%E8%BD%BD}
     -->
     <section style="font-family: 'DM Mono', monospace;color: white;" class="card-list">
-        {% for post in site.categories['about'] %}
+        {% for post in site.categories['about'] limit:8 %}
         <article class="card">
             <header class="card-header">
                 <p>{{post.date | date: "%Y-%-m-%-d"}}</p>

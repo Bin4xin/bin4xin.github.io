@@ -104,6 +104,45 @@ permalink: /
     </div>
   </div>
 </div>
+/* - <javascript - 编辑 "prefers-color-scheme"值以强制暗模式>:
+ * - 无法手动设置`window.matchMedia`中`prefers-color-scheme`的属性或者`matches`值；
+ *   Accourding to Ref:
+ *       - { @link https://stackoverflow.com/questions/63144602/edit-prefers-color-scheme-value-to-force-dark-mode }
+ *       - { @link https://www.coder.work/article/7163465 }
+ *
+ * 1. prefers-color-schemegithub https://github.com/settings/appearance -> set data-color-mode="light/dark/auto"
+ *
+ * 2. `_includes/auto_page_mode.html` -> Ref: https://developer.apple.com/
+ * - [x] 观察Ref WEB可实现针对黑暗模式的：
+ *       - [x] < black/light > 亮、暗模式调整；
+ *       - [x] < Auto > 根据系统模式来调整。
+ */
+ *```console
+ *color-scheme-toggle.js:9 false
+ *color-scheme-toggle.js:10 现在是浅色模式
+ *```
+ * * /
+ *
+ */
+
+// const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+// function darkModeHandler() {
+//     if (mediaQuery.matches) {
+//         console.log(mediaQuery.matches)
+//         mediaQuery.matches = true;
+//         console.log(mediaQuery.matches)
+//         console.log('现在是深色模式')
+//
+//     } else {
+//         console.log(mediaQuery.matches)
+//         mediaQuery.matches = true;
+//         console.log(mediaQuery.matches)
+//         console.log('现在是浅色模式')
+//     }
+// }
+//
+// darkModeHandler() // 判断当前模式
+// mediaQuery.addListener(darkModeHandler) // 监听模式变化
 -->
 
 <script type="text/javascript">
