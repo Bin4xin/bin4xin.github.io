@@ -1808,6 +1808,10 @@ data-styled.g135[id="sc-gsDKAQ"]{content:"iGLrqc,"}/*!sc*/
     -webkit-box-shadow: var(--theme-main-color);
     box-shadow: var(--theme-main-color);
 }
+.select-forbidden{
+    user-select: none;
+    user-drag: none;
+}
 /*search-bar*/
 @media (min-width: 768px) and (max-width: 992px) {
     .col-sm-9 {

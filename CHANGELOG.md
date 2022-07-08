@@ -29,7 +29,9 @@
 |  |  | [mirror web reference](https://github.com/tuna/mirror-web/blob/master/_layouts/help.html#L38) |
 |  | [Web 手机端无法显示完整，存在两个滚动条] | <ul><li>print-overflow-visible</li><li>area-scroll</li><li>[github reference](https://docs.github.com/cn/actions/learn-github-actions/environment-variables)</li></ul> |
 | 2022/06/22/16:29:00 CST | 添加::响应移动端置顶按钮 | <ul><li> [main style](https://docs.github.com/) </li><li> [back shadow](https://www.sendcloud.net/sendSetting/unsubsribeSetting) </li></ul> |
+| 2022/07/08/17:14:25 CST | 添加::单个窗口按钮关闭对应窗口 | <ul><li>click hidden-2-click-{{note_node|replace: ' ', '-'|replace: '.', '-'}}</li><li>display:none JQuery: $("diva-{{note_node |replace: ' ', '-'|replace: '.', '-' }}").hide();</li><li>{ @link More see: [/assets/js/oh-sentry.js](https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/js/oh-sentry.js) }</li></ul> |
 | - | - | - |
+
 
 ### BUG
 

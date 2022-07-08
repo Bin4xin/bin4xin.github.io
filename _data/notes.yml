@@ -1,7 +1,7 @@
 - note_node: "Feed.xml"
   display_note: "将feed汇流于一处称为聚合（aggregation）"
   display_link: "/feed.xml"
-  svg_link: "https://github.githubassets.com/images/modules/site/features/actions-documentation.svg"
+  svg_link: "/assets/img/svg/actions-documentation.svg"
   display_bg_link: "https://image.yjs2635.xyz/images/2022/06/27/arnold-francisca-f77Bh3inUpE-unsplash.jpg"
 - note_node: "Github Action"
   display_note: "Automate your workflow from idea to production"

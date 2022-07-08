@@ -124,19 +124,8 @@ window.onscroll = function() {
 /**
  * function: click to close a page/button etc...
  * - @param
- * - @ 代码引用申明/code reference declaration:
- * - { @link replace: https://blog.csdn.net/u010393758/article/details/52888974 }
- * - { @link  }
+ *  - click hidden-2-click-{{note_node|replace: ' ', '-'|replace: '.', '-'}}
+ *  - display:none JQuery: $("diva-{{note_node |replace: ' ', '-'|replace: '.', '-' }}").hide();
+ * By bin4xin
+ * - { @link More see: `/assets/js/oh-sentry.js` }
  **/
-function custom_close() {
-    // 表示display:none;
-    // $("#div-note").attr("style","display:none;");//隐藏div
-    // $("#demo").attr("style","display:block;");//显示div
-    //    document.getElementById("typediv1").style.display="";//显
-    if(confirm("您确定要关闭本页吗？")) {
-        // $("diva").removeClass("js-notice");
-        $("diva").addClass("hide");
-    }
-    else{
-    }
-}
