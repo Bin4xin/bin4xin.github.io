@@ -106,15 +106,23 @@ body {
         background: $color_bg_dark;
     }
 }
+//blog display css.
 .display-nav-li {
   padding: 0px 5px!important;
   border: 0;
   border-radius: 6px;
-  color: #24292f;
+  background: none;
+  color: #fff;
   @include dark{
-    background: #fff;
+    background: none;
+    color: #fff;
   }
 }
+.blog-bar-display{
+  background: linear-gradient(238.72deg, rgb(0, 68, 169) 0%, rgb(247, 0, 163) 100%), radial-gradient(100% 188.01% at 76.14% 0%, rgb(67, 221, 255) 0%, rgb(255, 0, 0) 100%), linear-gradient(0deg, rgb(219, 0, 255) 0%, rgb(20, 255, 0) 100%), radial-gradient(59.2% 100% at 50% 100%, rgb(106, 0, 213) 0%, rgb(0, 224, 255) 100%), radial-gradient(100% 148.07% at 0% 0%, rgb(255, 153, 0) 0%, rgb(0, 26, 255) 100%);
+  background-blend-mode: hard-light, overlay, color-burn, color-burn, normal;
+}
+//blog display css end.
 csmall {
   font-size: 15px;
   color: #b3b3b3;
