@@ -30,53 +30,16 @@
 |  | [Web 手机端无法显示完整，存在两个滚动条] | <ul><li>print-overflow-visible</li><li>area-scroll</li><li>[github reference](https://docs.github.com/cn/actions/learn-github-actions/environment-variables)</li></ul> |
 | 2022/06/22/16:29:00 CST | 添加::响应移动端置顶按钮 | <ul><li> [main style](https://docs.github.com/) </li><li> [back shadow](https://www.sendcloud.net/sendSetting/unsubsribeSetting) </li></ul> |
 | 2022/07/08/17:14:25 CST | 添加::单个窗口按钮关闭对应窗口 | <ul><li>click hidden-2-click-{{note_node}}</li><li>display:none JQuery: $("diva-{{note_node}}").hide();</li><li>{ @link More see: [/assets/js/oh-sentry.js](https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/js/oh-sentry.js) }</li></ul> |
+| 2022/07/09/16:48:51 CST | 修复:: `FireFox display position` | <ul><li>Fiex In `[assets/css/style.scss](https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/css/style.scss)`</li><li>{ @link https://developer.mozilla.org/zh-CN/docs/Web/CSS/position#browser_compatibility }</li><li>{ @link https://blog.csdn.net/DDD4V/article/details/123354124 }</li><li>{ @link https://juejin.cn/post/6844904100576886797 }</li><li>{ @link Demo https://codepen.io/li377242494/pen/VwLGGaR }</li></ul> |
 | - | - | - |
-
 
 ### BUG
 
-- TODO:
-  - **FireFox display BUG** position-fixed in FireFox display position -> none
-    - Reference:
-    - { @link https://developer.mozilla.org/zh-CN/docs/Web/CSS/position#browser_compatibility }
-    - { @link https://blog.csdn.net/DDD4V/article/details/123354124 }
-    - { @link https://juejin.cn/post/6844904100576886797 }
-      - { @link Demo https://codepen.io/li377242494/pen/VwLGGaR }
-
-
+- [x] Fixed: **FireFox display BUG** position-fixed in FireFox display position -> none
+- ...
+  
 ### 下一步
 
-- TODO BE FIX
-  - [ ] Next:
-
-```html
-<div>
-    <div class="js-notice">
-    <!-- '"` --><!-- </textarea></xmp> -->
-        <form class="Box position-relative rounded-2 mb-4 p-3 js-notice-dismiss overflow-hidden" style="z-index: 1" data-turbo="false" action="/settings/dismiss-notice/dashboard_promo_copilot_ga" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="mPSV2JFtUABWMNHPx22QbZgAOQkoOwAVFQg5lv518FQ5kPGlc-PDPAGD_s0hJpBGlolH2bR3zc5uuock1df_cg">
-            <picture>
-            <source srcset="https://github.githubassets.com/images/modules/dashboard/copilot/bg.webp" type="image/webp">
-            <img src="https://github.githubassets.com/images/modules/dashboard/copilot/bg.jpg" alt="" width="768" height="642" class="position-absolute top-0 left-0 width-full" style="pointer-events: none; z-index: -1; height: 100%; height: 100%; object-fit: cover">
-            </picture>
-            
-            <div class="position-absolute p-2" style="top: 4px; right: 6px;">
-            <button aria-label="Close" type="submit" data-view-component="true" class="close-button color-fg-on-emphasis"><svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-x">
-            <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
-            </svg></button>
-            </div>
-            
-            <img src="https://github.githubassets.com/images/modules/dashboard/copilot/copilot-logo.svg" alt="GitHub Copilot" width="179" height="22" class="d-block">
-            
-            <p class="my-3 col-7 color-fg-on-emphasis text-bold h4">
-                Get suggestions for lines of code and entire functions in real‑time
-            </p>
-            <a href="/features/copilot" data-view-component="true" class="btn btn-block">  Learn more about Copilot</a>
-        </form>  
-    </div>
-</div>
-```
-
-- *国内前端大神？BULL SHIT :-)*
 - Next TODO：
     - [ ] blog文章大于100会考虑分页;
     - [x] 修改个人主页页面
@@ -94,4 +57,5 @@
         - [x] 评论功能的硬编码问题改善；
             - [x] 发现[编辑功能](https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/2020-05-18-ShiroDeser.md)，思考变量问题；
             - [x] 已可添加commitid进入，暂时改善硬编码问题；
+- *国内前端大神？BULL SHIT :-)*
 - [ ] ...

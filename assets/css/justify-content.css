@@ -1022,6 +1022,10 @@ html[mode="dark"] .highlight .gi {
     color: #009999;
   }
 }
+/*TODO: 在响应式页面缩小的情况下，overflow-y生效但是代码块没有自适应变化。*/
+/*overflow:auto;*/
+/*overflow-x:auto!important;*/
+/*overflow-y:auto!important;*/
 figure.highlight,
 .highlight,
 .highlighter-rouge,

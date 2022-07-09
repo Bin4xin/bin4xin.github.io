@@ -377,12 +377,6 @@ p.Poetry-text {
   background: transparent;
   border: 0;
 }
-/*
-* **display与float属性冲突**
-* visit http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html
-* DONE!
-*/
-
 summary::-webkit-details-marker {
   display: none
 }
@@ -491,15 +485,6 @@ hr {
   box-sizing: content-box;
   height: 0;
 }
-pre {
-  overflow: auto;
-}
-/*pre {*/
-  /*TODO: 在响应式页面缩小的情况下，overflow-y生效但是代码块没有自适应变化。*/
-  /*overflow:auto;*/
-  /*overflow-x:auto!important;*/
-  /*overflow-y:auto!important;*/
-/*}*/
 code,
 kbd,
 pre,
@@ -1961,13 +1946,14 @@ pre {
   padding: 16px;
   margin: 0 0 10px;
   line-height: 1.42857143;
-  color: #333333;
   word-break: break-all;
   word-wrap: break-word;
   background-color: #f6f8fa;
   font-size: 14px;
   line-height: 1.45;
   border-radius: 6px;
+  overflow: auto!important;
+  overflow-x: auto!important;
 }
 pre code {
   padding: 0;
