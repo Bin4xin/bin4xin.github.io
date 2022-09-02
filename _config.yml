@@ -6,6 +6,7 @@ brand: Sentry CyberSecurity
 description: 哨兵安全实验室
 baseurl: "" #important: start with /
 url: "https://bin4xin.sentrylab.cn"
+root: "sentrylab.cn"
 web_version: 2.2.1
 www_google_verify: "apz36MBrhPsyyKahn-qJWKDq0PQUASdgn5_nju0NwQE"
 timezone: Asia/Shanghai #set timezone to display build time correctly

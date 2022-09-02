@@ -7,31 +7,31 @@
       link: /blog/2019/jekyll/in/linux/
     - name: 公网部署
       link: /blog/2019/nginx/with/jekyll-site/
-    - name: <em>Jekyll Tuna</em>源码
+    - name: Jekyll Tuna源码
       link: https://github.com/tuna/mirror-web/
 
 - name: 社区
   meta: false
   data:
-    - name: <em>Bigger than Bigger</em>
+    - name: Bigger than Bigger
       link: https://github.com/Bin4xin/bigger-than-bigger/
-    - name: <em>Collection Of Verified Vulnerabilities</em>
+    - name: Collection Of Verified Vulnerabilities
       link: https://github.com/Bin4xin/bigger-than-bigger/tree/master/CoVV
-    - name: <em>sweet-ysoserial</em>
+    - name: sweet-ysoserial
       link: https://github.com/Bin4xin/sweet-ysoserial
 
 - name: 技术栈
   meta: false
   data:
-    - name: <em>Jekyll</em>
+    - name: Jekyll
       link: https://jekyllrb.com/docs/
-    - name: <em>MarkDown</em>
+    - name: MarkDown
       link: https://www.markdownguide.org/
-    - name: <em>CloudFlare WAF</em>
+    - name: CloudFlare WAF
       link: https://www.cloudflare.com/waf/
-    - name: <em>CloudFlare CDN</em>
+    - name: CloudFlare CDN
       link: https://dash.cloudflare.com/dns/
-    - name: <em>Github Action</em>
+    - name: Github Action
       link: https://github.com/features/actions
 
 - name: 关于
@@ -41,7 +41,7 @@
       link: /about/
     - name: 博客
       link: /blog/
-    - name: <em>WIKI</em>
+    - name: WIKI
       link: https://github.com/Bin4xin/bin4xin.github.io/wiki
     #- name: 国内镜像
     #  link: https://bin4xin.gitee.io/

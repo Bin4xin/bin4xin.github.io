@@ -1,0 +1,17 @@
+## footer define.
+
+- footer: "sentrylab"
+  footer_link: "https://www.vulbox.com/team/ERRORS"
+  footer_svg: "/assets/img/svg/logo-small@4x.svg"
+- footer: "youtube"
+  footer_link: "https://www.youtube.com/channel/UClJ81qWUWtySnemTo7njueA"
+  footer_svg: "/assets/img/svg/cf/cf_youtube.svg"
+- footer: "twitter"
+  footer_link: "https://twitter.com/bin4xin"
+  footer_svg: "/assets/img/svg/cf/cf_twitter.svg"
+- footer: "linkedin"
+  footer_link: "https://www.linkedin.com/#"
+  footer_svg: "/assets/img/svg/cf/cf_linkedin.svg"
+- footer: "facebook"
+  footer_link: "https://www.facebook.com/#"
+  footer_svg: "/assets/img/svg/cf/cf_facebook.svg"

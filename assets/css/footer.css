@@ -15381,7 +15381,7 @@ button,select {
     position: relative;
     width: 100%;
     padding-right: 18px;
-    padding-left: 18px
+    padding-left: 18px;
 }
 
 @media (min-width: 992px) {
@@ -17957,4 +17957,9 @@ button,select {
 
 .below-divider {
     margin-top: -8px
+}
+.footer-abstract {
+    font-size: 14px;
+    color: #000000;
+    font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace !important;
 }
