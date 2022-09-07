@@ -657,7 +657,13 @@ APACHE_LOG_DIR=/var/log/apache2
 PWD=/app/admin/upload
 ```
 
-- 解压出html目录下php代码发现`flag.php`：
+所以密码就是`www-data`，然后根据http流量包把zip文件解压出来，我们找到下载zip文件流量包的反包：
+
+`选择反包->文件->Export packet Bytes/导出数据包字节流`
+
+[![2022-09-07-11.27.33.png](https://image.yjs2635.xyz/images/2022/09/07/2022-09-07-11.27.33.png)](https://image.yjs2635.xyz/image/GT2l)
+
+解压zip文件，html目录下php代码发现`flag.php`：
 
 ```php
 <?php
@@ -666,19 +672,20 @@ $flag = 'CN1Sq9tFItxZhsu3zCWbrdf6ozOL4eoKG0s71vGg/AKKnch3IL3jzwtXeCgWK5QP';
 ?>
 ```
 
-- 观察目录下发现存在被修改的php代码：（以下为参考教程给出-。-）
+观察目录下发现存在被修改的php代码：（以下为参考教程给出-。-）
 
 ![uUHT3GLDnqiRYtw.png](https://image.yjs2635.xyz/images/2022/02/20/uUHT3GLDnqiRYtw.png)
 
-- 使用后加的代码对空白字符进行解码，并`file_put_contents('tmp2.txt',base64_decode($out));`输出到`tmp2.txt`文件中，同样文件中输出也有空白字符，再次解码即可；
+使用后加的代码对空白字符进行解码，并`file_put_contents('tmp2.txt',base64_decode($out));`输出到`tmp2.txt`文件中，同样文件中输出也有空白字符，再次解码即可；
 
 ![aL9SKwjU2bytBqH.png](https://image.yjs2635.xyz/images/2022/02/20/aL9SKwjU2bytBqH.png)
 
-- [解码代码](https://github.com/Bin4xin/bigger-than-bigger/blob/master/CTF/MISC/backdoor/kongbai-jiemi.php){:target="_blank"}
+[解码代码](https://github.com/Bin4xin/bigger-than-bigger/blob/master/CTF/MISC/backdoor/kongbai-jiemi.php){:target="_blank"}
 
 ![7RVMhvliOXIfoZJ.png](https://image.yjs2635.xyz/images/2022/02/20/7RVMhvliOXIfoZJ.png)
 
 使用获得的key[在线解密](http://tool.chacuo.net/cryptaes){:target="_blank"}`aes-128-ecb`算法，得到flag：`DASCTF{d8f191d0f0be0f039c4ededb7839218e}`
+
 ### # 1x06 [...]上传/下载文件
 
 # 二：...
