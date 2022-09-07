@@ -11,16 +11,14 @@ desc: 「CTF」
 
 # 零：WEB
 
-## # web237-openlitespeed
+## # 0x00 web237-openlitespeed
 
 ### SSRF
 
 ```php
 <?php
 highlight_file(__FILE__);
-
 if (isset($_POST["curl_opt"]) && is_array($_POST["curl_opt"])){
-
     $ch = curl_init();
     foreach ($_POST["curl_opt"] as $key=>$value){
         curl_setopt($ch, $key, $value);
@@ -29,7 +27,6 @@ if (isset($_POST["curl_opt"]) && is_array($_POST["curl_opt"])){
     curl_close($ch);
     echo $result;
 }
-
 ?>
 ```
 
@@ -41,7 +38,7 @@ if (isset($_POST["curl_opt"]) && is_array($_POST["curl_opt"])){
 
 ![2022-09-01-09.00.19.png](https://image.yjs2635.xyz/images/2022/09/07/2022-09-01-09.00.19.png)
 
-## # web441-ezjava
+## # 0x01 web441-ezjava
 
 payload `http://localhost/;Evil` 绕过 `if (path.startsWith("/Evil"))`
 
@@ -59,5 +56,4 @@ public String Evil(HttpServletRequest request, HttpServletResponse response) thr
         }
 ```
 
-`base` ?
-
+`base` 参数如何?
