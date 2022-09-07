@@ -1,17 +1,39 @@
 ---
 layout: post
-title: "用Github Action有感"
+title: "用Github Actions有感"
 date: 2021-11-15
-wrench: 2022-02-24
+wrench: 2022-09-07
 author: Bin4xin
 toc: true
 categories: 
 - blog
 tags:
 - 笔记
-- Github Action
+- Github Actions
 permalink: /blog/2021/Feelings-with-using-Github-Action/
 ---
+
+# 自律的代码
+
+## Github Actions
+
+Q：如何让我们在网络上（Github）看起来很勤快/自律？
+
+A：使用Github Actions（滑稽）
+
+![2022-09-07-23.30.42.png](https://image.yjs2635.xyz/images/2022/09/07/2022-09-07-23.30.42.png)
+
+```yml
+on:
+  push:
+  pull_request:
+  schedule:
+    # 换算为北京时间，加上八个小时
+    - cron: '0 16 * * 4'
+##
+#  - "自律的5行代码"
+##
+```
 
 ### Github Actions的简介
 
@@ -24,12 +46,12 @@ permalink: /blog/2021/Feelings-with-using-Github-Action/
 
 举一个简单的例子：我们在家里怎么做出一块面包？
 
-- 采购面包原材料；
-- 确定面包的外形、口味；
-- 手动加工原材料；
-- 烘焙成型。
+- 1.采购面包原材料；
+- 2.确定面包的外形、口味；
+- 3.手动加工原材料；
+- 4.烘焙成型。
 
-那么一个***面包Action***是怎么样的呢？我们只需要人为负责1、2两步，而3、4步怎么办？人类的智慧总是无限，我们确定基本重复流程后“教会”机器，让机器来完成；而我们把精力放在原材料的质量上和面包外形和口味；
+那么一个***面包Actions***是怎么样的呢？我们只需要人为负责1、2两步，而3、4步怎么办？人类的智慧总是无限，我们确定基本重复流程后“教会”机器，让机器来完成；而我们把精力放在原材料的质量上和面包外形和口味；
 
 这就是工厂；
 
