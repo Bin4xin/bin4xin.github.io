@@ -818,6 +818,64 @@ devsite-header .devsite-collapsible-section, devsite-header[no-lower-row][fixed]
   }
 }
 
+.btn {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  //cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  font-size: 14px;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-color: var(--color-btn-border);
+  -webkit-box-shadow: var(--color-btn-shadow),var(--color-btn-inset-shadow);
+  box-shadow: var(--color-btn-shadow),var(--color-btn-inset-shadow);
+  position: relative;
+  display: inline-block;
+  padding: 5px 16px;
+  font-size: 14px;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-transition: .2s cubic-bezier(.3,0,.5,1);
+  transition: .2s cubic-bezier(.3,0,.5,1);
+  -webkit-transition-property: color,background-color,border-color;
+  transition-property: color,background-color,border-color;
+  font-weight: 500;
+  line-height: 1.42857143;
+  color: var(--color-btn-text);
+  background-color: var(--color-btn-bg);
+  @include dark{
+    color: var(--color-accent-emphasis);
+    background-color: var(--color-btn-bg-dark);
+  }
+}
+.color-border-accent-emphasis {
+  border-color: var(--color-accent-emphasis)!important;
+  @include dark{
+    border-color: var(--color-accent-emphasis-dark)!important;
+  }
+}
+
 {% for attrb in (1..2) %}
 @for $i from 0 to 7 {
   {% cycle "g1": "[data-tuna-roll-cur", ".row[data-tuna-roll-freeze" %}="#{$i}"] {

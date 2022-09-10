@@ -1,5 +1,7 @@
 <script src="/assets/js/oh-sentry.js"></script>
 <div xmlns="http://www.w3.org/1999/html">
+<!--TODO-->
+    {% include search.html %}
     {% if page.toc %}
     <div class=" ml-hide hidden-print">
         <div class="nav nav-stacked tableOfContents_35-E thin-scrollbar">
@@ -12,6 +14,9 @@
         </div>
     </div>
     {% endif %}
+
+    <div class="spacing"></div>
+
     <!--notice start-->
     {% for notes in site.data.notes %}
 
@@ -26,7 +31,8 @@
                 <picture>
                     <img src="{{display_bg_link}}" alt="" class="position-absolute top-0 left-0 width-full select-forbidden" style="pointer-events: none; z-index: -1; height: 100%; height: 100%; object-fit: cover;">
                 </picture>
-                <!--TODONE:
+                <!--TO<DONE>:
+                 Here issues is done.
                  !--- Done. issue 1. While click to close the <X button/div>, whole h5 page will refresh. I don't know why.
                     -- use <span> labels instead of <button> :-D
                  !--- Done. issue 2. By <Js function> custom_close change/add div's class to hide buttons/divs, so while have 2 or more, all will close
@@ -61,13 +67,16 @@
     {% endfor %}
     <!--notice end-->
     <div class="spacing"></div>
-    <h4> Search/搜索 <kbd>Ctrl ⌃</kbd> + <kbd>F</kbd></h4>
-    <p>e.g. Nginx：</p>
-    <p><a href="/blog/2019/how-nginx/http2https/">NGINX笔记：http升级https协议</a> </p>
-    <p><a href="/blog/2019/nginx/with/jekyll-site/">多子域：JEKYLL优雅地部署于NGINX</a> </p>
+<!-- mark, i wanna to display a search form here maybe? Start-->
+<!--    <h4> Search/搜索 <kbd>Ctrl ⌃</kbd> + <kbd>F</kbd></h4>-->
+<!--    <p>e.g. Nginx：</p>-->
+<!--    <p><a href="/blog/2019/how-nginx/http2https/">NGINX笔记：http升级https协议</a> </p>-->
+<!--    <p><a href="/blog/2019/nginx/with/jekyll-site/">多子域：JEKYLL优雅地部署于NGINX</a> </p>-->
 
+<!-- anyway, i'll comoress this. STOP-->
+<!-- search data will generate from here: bin4xin.github.io/search.json-->
         <div class="hidden-print">
-            <h4><ion-icon name="grid-sharp"></ion-icon> 分类目录</h4>
+<!--            <h4><ion-icon name="grid-sharp"></ion-icon> 分类目录</h4>-->
             <div class="hline"></div>
             <div class="spacing"></div>
             {% if page.categories.size > 0 %}

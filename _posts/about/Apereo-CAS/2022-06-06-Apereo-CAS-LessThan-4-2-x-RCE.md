@@ -14,7 +14,7 @@ desc: 「Apereo CAS」
 ---
 <div class="content">
 <p>
-<a href="https://mvnrepository.com/artifact/org.jasig.cas/cas-server-webapp" class="btn-primary btn" target="blank">
+<a href="https://mvnrepository.com/artifact/org.jasig.cas/cas-server-webapp" class="btn-primary btn color-border-accent-emphasis" target="blank">
 CAS::Maven仓库地址<span class="DocsMarkdown--link-external-icon">
 <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" role="img" aria-labelledby="title-9637423397128071" xmlns="http://www.w3.org/2000/svg"><title id="title-9637423397128071">External link icon</title><path d="M6.75,1.75h-5v12.5h12.5v-5m0,-4v-3.5h-3.5M8,8l5.5-5.5"></path></svg>
 </span></a></p>
@@ -22,11 +22,11 @@ CAS::Maven仓库地址<span class="DocsMarkdown--link-external-icon">
 ---
 <div class="content">
 <p>
-<a href="https://mvnrepository.com/artifact/org.jasig.cas/cas-server-webapp/4.1.6" class="btn-primary btn" target="blank">
+<a href="https://mvnrepository.com/artifact/org.jasig.cas/cas-server-webapp/4.1.6" class="btn-primary btn color-border-accent-emphasis" target="blank">
 cas-server-webapp::4.1.6<span class="DocsMarkdown--link-external-icon">
 <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" role="img" aria-labelledby="title-9637423397128071" xmlns="http://www.w3.org/2000/svg"><title id="title-9637423397128071">External link icon</title><path d="M6.75,1.75h-5v12.5h12.5v-5m0,-4v-3.5h-3.5M8,8l5.5-5.5"></path></svg>
 </span></a>
-<a href="https://mvnrepository.com/artifact/org.jasig.cas/cas-server-webapp/4.2.7" class="btn-primary btn" target="blank">
+<a href="https://mvnrepository.com/artifact/org.jasig.cas/cas-server-webapp/4.2.7" class="btn-primary btn color-border-accent-emphasis" target="blank">
 cas-server-webapp::4.2.7<span class="DocsMarkdown--link-external-icon">
 <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" role="img" aria-labelledby="title-9637423397128071" xmlns="http://www.w3.org/2000/svg"><title id="title-9637423397128071">External link icon</title><path d="M6.75,1.75h-5v12.5h12.5v-5m0,-4v-3.5h-3.5M8,8l5.5-5.5"></path></svg>
 </span></a>

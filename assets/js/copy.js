@@ -1,16 +1,19 @@
 
 $(function(){
     //给每一串代码元素增加复制代码节点
+    // $("table").addClass("table");
     let preList = $("pre");
     for (let pre of preList) {
-        //给每个代码块增加上“复制代码”按钮
-        let btn = $("<span class=\"btn-pre-copy\" onclick='preCopy(this)'><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"22\" height=\"22\" viewBox=\"0 0 512 512\"><rect x=\"128\" y=\"128\" width=\"336\" height=\"336\" rx=\"57\" ry=\"57\" style=\"fill:none;stroke:currentColor;stroke-linejoin:round;stroke-width:32px\"/><path d=\"M383.5,128l.5-24a56.16,56.16,0,0,0-56-56H112a64.19,64.19,0,0,0-64,64V328a56.16,56.16,0,0,0,56,56h24\" style=\"fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px\"/></svg></span>");
+        //给每个代码块增加上“复制代码”按钮preCopy(this)/
+        let btn = $("<div class=\"has-feedback group\"><div class=\"group-hover-flex p-2 btn btn-pre-copy mr-1 color-border-accent-emphasis\"><span class=\"d-flex copy-cilpboard-icon scrollbar-16-16\" onclick=''></span></div></div>");
+        //let btn = $("<span type=\"\" aria-label=\"Copy to Clipboard\" class=\" hover:border-white border-gray-500 focus:ring-4 focus:ring-gray-200 focus:ring-opacity-50 hidden transition bg-gray-600 border rounded-md p-2 focus:outline-none group-hover:flex fade-in\">\n" +
+        //    "\t\t\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" class=\"w-4 h-4 text-white pointer-events-none copy-code-icon\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2\" class=\"block copy-code-icon-path-1\"></path><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M5 13l4 4L19 7\" class=\"hidden copy-code-icon-path-2\"></path></svg>\n" +
+        //   "\t\t\t\t</span>")
         btn.prependTo(pre);
     }
 });
-
 /**
- * exec COPY code block funchtion.
+ * exec COPY code block function.
  * - @param preCopy
  **/
 function preCopy(obj) {
@@ -27,7 +30,7 @@ function preCopy(obj) {
     document.execCommand("Copy");
     temp.remove();
     //复制成功
-    btn = $("<span class=\"btn-pre-copy\" onclick='preCopy(this)'><ion-icon><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"22\" height=\"22\" viewBox=\"0 0 512 512\"><polyline points=\"352 176 217.6 336 160 272\" style=\"fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px\"/><rect x=\"64\" y=\"64\" width=\"384\" height=\"384\" rx=\"48\" ry=\"48\" style=\"fill:none;stroke:currentColor;stroke-linejoin:round;stroke-width:32px\"/></svg></ion-icon>");
+    //btn = $("<span class=\"btn-pre-copy\" onclick='preCopy(this)'><ion-icon><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"22\" height=\"22\" viewBox=\"0 0 512 512\"><polyline points=\"352 176 217.6 336 160 272\" style=\"fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px\"/><rect x=\"64\" y=\"64\" width=\"384\" height=\"384\" rx=\"48\" ry=\"48\" style=\"fill:none;stroke:currentColor;stroke-linejoin:round;stroke-width:32px\"/></svg></ion-icon>");
     btn.prependTo(pre);
     //一定时间后把按钮名改回来，先移除上面的成功按钮
     setTimeout(() =>{
