@@ -1,7 +1,9 @@
 <script src="/assets/js/oh-sentry.js"></script>
 <div xmlns="http://www.w3.org/1999/html">
 <!--TODO-->
+    {% comment %}
     {% include search.html %}
+    {% endcomment %}
     {% if page.toc %}
     <div class=" ml-hide hidden-print">
         <div class="nav nav-stacked tableOfContents_35-E thin-scrollbar">
@@ -47,7 +49,7 @@
                 </div>
 
                 <img src="{{svg_link}}" alt="{{note_node|replace: ' ', '-'|replace: '.', '-'}}" width="32" height="32" class="d-block select-forbidden">
-                <p class="my-3 col-7 color-fg-on-emphasis text-bold h4">
+                <p class="my-3 col-7 color-fg-on-emphasis text-bold">
                     {{display_note}}
                 </p>
 

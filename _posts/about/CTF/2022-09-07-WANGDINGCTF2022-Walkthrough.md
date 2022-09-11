@@ -16,7 +16,6 @@ desc: 「CTF」
 ### SSRF
 
 ```php
-<?php
 highlight_file(__FILE__);
 if (isset($_POST["curl_opt"]) && is_array($_POST["curl_opt"])){
     $ch = curl_init();
@@ -27,7 +26,6 @@ if (isset($_POST["curl_opt"]) && is_array($_POST["curl_opt"])){
     curl_close($ch);
     echo $result;
 }
-?>
 ```
 
 - ssrf

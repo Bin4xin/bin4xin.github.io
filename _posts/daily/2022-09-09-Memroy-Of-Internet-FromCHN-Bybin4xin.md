@@ -3,12 +3,10 @@ category: daily
 layout: daily
 title: "互联网的记忆"
 author: Bin4xin
-poster: https://image.yjs2635.xyz/images/2022/02/26/3RgwVNqOt6mskPy.png
+poster: https://camo.githubusercontent.com/4db3e4069e59f51d03dd3e7fa5e89ab8fb95c9f4acda36cd5bfdf58d95269d92/68747470733a2f2f6f686d797a73682e73332e616d617a6f6e6177732e636f6d2f6f6d7a2d616e73692d6769746875622e706e67
 ---
 
-# zsh的显示优化配置
-
-我们自定义了一些「经典语录」，加入了zsh显示区域，这里实现的主要难点在于：
+zsh的显示优化配置，我们自定义了一些「经典语录」，加入了zsh显示区域，这里实现的主要难点在于：
 
 我们很容易把「经典语录」加入到数组里面，不过我们希望，在每次打开`terminal`时，都有一些惊喜的感受 ;)
 
@@ -33,7 +31,7 @@ declare -a expressions=(
 很简单，我们定义了一个简单算法：
 
 1. 计算出数组大小index[array]
-2. 然后随机在[0 , index[arrary]]区间中输出对应的「经典语录」就好了
+2. 然后随机在[0 , index\[arrary\]]区间中输出对应的「经典语录」就好了
 
 ```bash
 index=$((0 + $RANDOM % ${#expressions[@]}))

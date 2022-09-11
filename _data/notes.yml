@@ -1,3 +1,8 @@
+- note_node: "互联网的记忆"
+  display_note: "自定义了一些「经典语录」进行ZSH的显示优化配置"
+  display_link: "/daily/2022/Memroy-Of-Internet-FromCHN-Bybin4xin/"
+  svg_link: "https://pbs.twimg.com/profile_images/378800000421234537/16dbdb3a19ceccd723a6d61f6c167c2a_400x400.jpeg"
+  display_bg_link: "https://pbs.twimg.com/profile_banners/81680030/1643943088/1500x500"
 - note_node: "Feed.xml"
   display_note: "将feed汇流于一处称为聚合（aggregation）"
   display_link: "/feed.xml"
