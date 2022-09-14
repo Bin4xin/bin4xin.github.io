@@ -8,12 +8,9 @@ layout: default
         <div class="col-lg-8 markdown-body-img">
             <!-- Blog Post  -->
             <a href="{{ page.url | prepend: site.baseurl }}"><h1 class="ctitle">{{ page.title }}</h1></a>
-            <p><csmall>
-              {{ page.date | date: "%Y-%m-%d" }}发布. | 
-              {% if page.wrench %} 并最后修改于：{{ page.wrench | date: "%Y-%m-%d"  }} | 
-              {% else %} 未做修改 | 
-              {% endif %} By: {{ page.author }}.
-            </csmall></p>
+            <csmall><div class="d-flex items-center">
+                {% include article-YMH-note.html %}
+            </div></csmall>
             <div class="post-content"> 
             {{ content }}
             </div>

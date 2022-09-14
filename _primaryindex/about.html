@@ -10,19 +10,18 @@ permalink: /about/
     - {@link https://xuexi.erealmsoft.com/2014/11/17/others/jekyll-in-github/#5-%E4%BD%9C%E8%80%85%E5%90%8D%E5%8F%8A%E5%A4%B4%E5%83%8F%E5%8A%A0%E8%BD%BD}
     -->
     <section style="font-family: 'DM Mono', monospace;color: white;" class="card-list">
-        {% for post in site.categories['about'] limit:8 %}
+        {% for page in site.categories['about'] limit:8 %}
         <article class="card">
             <header class="card-header">
-                <p>{{post.date | date: "%Y-%-m-%-d"}}</p>
-                <a href="{{ post.url | prepend: site.baseurl }}"><h2><i class="fa fa-file-text-o"></i> {{ post.Researchname }}</h2></a>
+                <p>{{page.date | date: "%Y-%-m-%-d"}}</p>
+                <a href="{{ page.url | prepend: site.baseurl }}"><h2><i class="fa fa-file-text-o"></i> {{ page.Researchname }}</h2></a>
             </header>
-            <div class="post-abstract">
-                {{ post.excerpt | strip_html | truncate: 65, '...'}}
+            <div class="page-abstract">
+                {{ page.excerpt | strip_html | truncate: 65, '...'}}
             </div>
             <div class="card-author">
                 <a class="author-avatar">
-                    {% assign author = site.data.writer[post.author] %}
-                    <img alt="{{ author.display_name }}" src="https://avatars.githubusercontent.com/u/{{ author.gh_avatars }}?v=4" />
+                    {% include author_gh_avatars.html %}
                 </a>
                 <svg class="half-circle" viewBox="0 0 106 57">
                     <path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path>
@@ -30,11 +29,11 @@ permalink: /about/
 
                 <div class="author-name">
                     <div class="author-name-prefix">By</div>
-                    {{ post.author }}
+                    {{ page.author }}
                 </div>
             </div>
             <div class="tags">
-                {% for tag in post.tags %}
+                {% for tag in page.tags %}
                 <a href="#">{{ tag }}</a>
                 {% endfor %}
             </div>

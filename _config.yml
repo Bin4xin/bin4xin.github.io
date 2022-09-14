@@ -32,7 +32,7 @@ toc:
   #list_class:  #table-of-contents table-of-contents__left-border Item__StyledItem-sc-yeql7o-2 edSFyN
   #sublist_class: my-sublist-class # Default: no class for sublists
   #item_prefix: item- # Default: "toc-":
-  item_class: no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN # Default: "toc-entry"
+  item_class: no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column # Default: "toc-entry"
   min_level: 1 # default: 1
   max_level: 4 # default: 6
 

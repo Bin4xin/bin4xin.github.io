@@ -15,7 +15,8 @@ desc: 「CTF」
 
 ### SSRF
 
-```php
+{%highlight php%}
+<?php
 highlight_file(__FILE__);
 if (isset($_POST["curl_opt"]) && is_array($_POST["curl_opt"])){
     $ch = curl_init();
@@ -26,7 +27,8 @@ if (isset($_POST["curl_opt"]) && is_array($_POST["curl_opt"])){
     curl_close($ch);
     echo $result;
 }
-```
+?>
+{% endhighlight %}
 
 - ssrf
 
@@ -38,9 +40,11 @@ if (isset($_POST["curl_opt"]) && is_array($_POST["curl_opt"])){
 
 ## # 0x01 web441-ezjava
 
+### 路由绕过
+
 payload `http://localhost/;Evil` 绕过 `if (path.startsWith("/Evil"))`
 
-```java
+{%highlight java%}
 @ResponseBody
 @RequestMapping({"/Evil"})
 public String Evil(HttpServletRequest request, HttpServletResponse response) throws IOException, ClassNotFoundException {
@@ -52,6 +56,6 @@ public String Evil(HttpServletRequest request, HttpServletResponse response) thr
         Object a = in.readObject();
         return "OK";
         }
-```
+{% endhighlight %}
 
-`base` 参数如何?
+`base` 参数如何

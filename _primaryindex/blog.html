@@ -13,13 +13,13 @@ permalink: /blog/
       - {@link https://github.com/orgs/github-community/discussions/categories/github-education}
       - {@link https://github.githubassets.com/assets/github-4b5f4883df19.css}
       -->
-      {% for post in site.categories['blog'] %}
+      {% for page in site.categories['blog'] %}
       <div class="py-2">
         <div class="row blog-bar-display">
           <div class="Box-header d-flex flex-justify-between"><!--box header-->
-            <a class="my-3 col-7 color-fg-default text-bold mb-1 lh-condensed css-truncate-target d-flex" style="max-width: 100%; font-size: 20px" href="{{ post.url | prepend: site.baseurl }}">《{{ post.title }}》</a>
+            <a class="my-3 col-7 color-fg-default text-bold mb-1 lh-condensed css-truncate-target d-flex" style="max-width: 100%; font-size: 20px" href="{{ page.url | prepend: site.baseurl }}">《{{ page.title }}》</a>
             <!--article title end-->
-            <a class="display-nav-li no-underline d-flex" href="{{site.githubAccess}}/{{site.githubRepos}}/blob/{{site.githubRepos-Branch}}/{{post.path}}" target="_blank">
+            <a class="display-nav-li no-underline d-flex" href="{{site.githubAccess}}/{{site.githubRepos}}/blob/{{site.githubRepos-Branch}}/{{page.path}}" target="_blank">
               <span class="completeness-indicator completeness-indicator-problem">
                  <span class="content-summary-icon scrollbar-20-20"></span>
               </span>
@@ -27,18 +27,25 @@ permalink: /blog/
             <!--article relation git repos <branch/md files.> end-->
           </div><!--box header stop-->
           <div class="Box-row">
-            <a class="d-flex flex-justify-around flex-column overflow-hidden flex-items-stretch" style="z-index: 2;" href="{{ post.url | prepend: site.baseurl }}"></a>
+            <a class="d-flex flex-justify-around flex-column overflow-hidden flex-items-stretch" style="z-index: 2;" href="{{ page.url | prepend: site.baseurl }}"></a>
               <div class="discussion-spotlight-details position-relative p-3 pr-5 css-truncate width-fit d-flex flex-column flex-items-start" style="z-index: 3;">
                 <a class="my-3 col-7 color-fg-default text-bold f3 no-underline d-flex flex-items-center mt-2" aria-label="elisemoe (author)">
-                <span class="d-none d-md-inline-block mr-1">{{ post.excerpt | strip_html | truncate: 166, '...'}}</span></a>
+                <span class="d-none d-md-inline-block mr-1">{{ page.excerpt | strip_html | truncate: 80, '...'}}</span></a>
               </div>
           </div>
           <div class="Box-row discussion-spotlight-details position-relative py-2 pr-5 css-truncate width-fit d-flex flex-column flex-items-start" style="z-index: 3;">
-            <div class="d-flex mb-1 f5 no-underline" >
-              <div class="d-inline-block lh-condensed d-flex" style="opacity: 18;">
-              {% include article-YMH-note.html %}
-              </div>
-            </div>         
+            <div class="d-flex nv0 f5 no-underline" style="font-family: 'DM Mono', monospace;">
+                <csmall><div class="d-flex items-center">
+                  <a class="author-avatar-small d-flex px-md-6">
+                    {% include author_gh_avatars.html %}
+                  </a>
+                  <!--article author avatar img. end-->
+                  <div class="color-fg-success-icon scrollbar-16-16"></div><!--article github action success.site.commitString-->
+                  {% assign website_version = site.commitString %}
+                  <a class="d-flex color-fg-default px-md-6" href="{{site.githubAccess}}/{{site.githubRepos}}/commit/{{ website_version }}" target="_blank">{{ website_version }}</a>
+                  {% include article-YMH-note.html %}
+                </div></csmall>
+            </div>
           </div>
         </div>
       </div>
