@@ -15,7 +15,7 @@ desc: 「CTF」
 
 ### SSRF
 
-{%highlight php%}
+{% highlight php %}
 <?php
 highlight_file(__FILE__);
 if (isset($_POST["curl_opt"]) && is_array($_POST["curl_opt"])){
