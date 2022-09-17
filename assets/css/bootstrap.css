@@ -3663,19 +3663,18 @@ fieldset[disabled] .btn-default.focus {
 }
 .btn-primary {
   font-size: 16px;
-  /*background-color: #337ab7;*/
-  /*border-color: #2e6da4;*/
   color: #fff;
   background-color: var(--theme-main-color);
   background-image: -ms-linear-gradient(left bottom, rgba(159,88,150,0) 0%, rgba(159,88,150,0.6) 100%);
   background-image: linear,to left bottom,rgba(159,88,150,0) 0%,rgba(159,88,150,0.6) 100%;
-
+  /*background-color: #337ab7;*/
+  /*border-color: #2e6da4;*/
 }
-.btn-primary:focus,
 .btn-primary.focus {
-  color: #fff;
-  /*background-color: #286090;*/
-  /*border-color: rgba(142, 49, 49, 0);*/
+  color: black;
+  border-color: var(--color-accent-emphasis);
+  background-color: #286090;
+
 }
 .btn-primary:hover {
   color: #fff;
