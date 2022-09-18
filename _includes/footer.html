@@ -12,19 +12,21 @@
             <div class="footer-row">
                 {% include data_links.html nodes=site.data.nerd_urls %}
                 <div class="footer-col-lg-2">
-                    <div class="bb bb-ns bb-m bn-l  pv2 pv2-ns pv2-m pv0-l">
-                        <a class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l footer-abstract"><strong><center>其他</center></strong></a>
+                    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+                        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l footer-abstract">
+                            <strong><center>其他</center></strong>
+                        </summary>
                         <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
-                            <li class="mt1 lh-6"><a class="footer-abstract f2 fw4"><em>∑(Visitors/times)</em></a></li>
+                            <li class="mt1 lh-6"><a class="no-underline f2 fw4 footer-abstract"><em>∑(Visitors/times)</em></a></li>
                             <li class="mt1 lh-6">
-                                <a class="f2 fw4"><img src="https://profile-counter.glitch.me/{{site.githubRepos}}/count.svg" style="max-width:100%;"></a>
+                                <a class="no-underline f2 fw4 footer-abstract"><img src="https://profile-counter.glitch.me/{{site.githubRepos}}/count.svg" style="max-width:100%;"></a>
                             </li>
                         </ul>
-                    </div>
+                    </details>
                 </div>
             </div><!-- "/row"-->
             <div class="pv2-ns">
-                <div class="flex flex-wrap justify-start justify-start-ns justify-start-m justify-between-l footer-bottom-row-margin">
+                <div class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l flex flex-wrap justify-start justify-start-ns justify-start-m justify-between-l footer-bottom-row-margin">
                     <div class="inline-flex mb3 mb3-ns mb3-m mb0-l lh-1 mt0 mt3-ns" >
                         {% for footers in site.data.footer_define %}
                         {% assign footer = footers.footer %}
@@ -36,17 +38,17 @@
             </div><!-- "/pv5" -->
         </div>
     </div>
-    <div class="tertiary">
+    <div class="tertiary d-flex">
         <div class="wrapper">
-            <div class="col">
-                <ul>
-                    <li class="outstanding"><a>SENTINEL SECURITY, LAB.</a></li>
-                    <li class="outstanding"><a>·</a></li>
-                    <li class="outstanding"><a>© 2019-{{ site.time | date: '%Y' }} {{site.description}}</a></li>
-                    <li class="outstanding"><a>·</a></li>
-                    <li class="outstanding"><a>Build by Jekyll under the terms of the MIT License.</a></li>
-                    <li class="outstanding"><a>·</a></li>
-                    <li class="outstanding"><a>{{site.root | upcase}}</a></li>
+            <div class="col justify-center flex-wrap-l justify-between-l ">
+                <ul class="pa1 table-of-contents flex-xl-justify-between flex-xl-column">
+                    <li class=" outstanding"><a>SENTINEL SECURITY, LAB.</a></li>
+                    <li class=" outstanding"><a>·</a></li>
+                    <li class=" outstanding"><a>© 2019-{{ site.time | date: '%Y' }} {{site.description}}</a></li>
+                    <li class=" outstanding"><a>·</a></li>
+                    <li class=" outstanding"><a>Build by Jekyll under the terms of the MIT License.</a></li>
+                    <li class=" outstanding"><a>·</a></li>
+                    <li class=" outstanding"><a>{{site.root | upcase}}</a></li>
                 </ul>
             </div>
 
