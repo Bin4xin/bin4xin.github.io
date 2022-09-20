@@ -40,53 +40,22 @@
 
 - [x] Fixed: **FireFox display BUG** position-fixed in FireFox display position -> none
 - [ ] add: `footer`页面底部当访问终端为移动端时并在特定分辨率下时，显示文字会溢出到footer外；
-  - [ ] 还没有尝试：我会考虑去和`_includes/suggestion.html`一样，尝试使用`col-xs-x`之类的排版属性进行排版；
+    - [ ] 还没有尝试：我会考虑去和`_includes/suggestion.html`一样，尝试使用`col-xs-x`之类的排版属性进行排版；
 - ...
 
 ### 下一步
 
 - Next TODO：
-    - [ ] blog文章大于100会考虑分页;
-      - [ ] 有一个问题需要考虑的是：blog文章显示简介页面右上角的设计思路是有一个文章编号存在的，如果引入分页插件后，那么是不是会存在一个都是固定的数字？
-      - [ ] 同样，文章编号`#numbers => #42`可以引入一些设计（包括svg图片等）；
+    - [ ] ~~blog文章大于100会考虑分页~~;
+        - [ ] ~~有一个问题需要考虑的是：blog文章显示简介页面右上角的设计思路是有一个文章编号存在的，如果引入分页插件后，那么是不是会存在一个都是固定的数字？~~
+        - [ ] ~~同样，文章编号`#numbers => #42`可以引入一些设计（包括svg图片等）；~~
     - [ ] 尝试添加copy-clipboar:: `copy.js`；
-      - [ ] `assets/js/copy.js`;
-      - [ ] `assets/css/bootstrap.css`;
-      - 已实现按钮等参照物，不过在hover属性无法显示按钮，还没有找到原因，猜测的原因和`.group-hover-flex .group: display`相关；
+        - [ ] `assets/js/copy.js`;
+        - [ ] `assets/css/bootstrap.css`;
+        - 已实现按钮等参照物，不过在hover属性无法显示按钮，还没有找到原因，猜测的原因和`.group-hover-flex .group: display`相关；
     - [ ] 搜索框 TODO
-      - `_includes/sentrybar.html`
-      -  `_includes/search.html`
+        - `_includes/sentrybar.html`
+        -  `_includes/search.html`
 - 2022/09/09/17:01:57 以上
 - [ ] ...
-[comment]: <> (    - [x] 修改个人主页页面)
-
-[comment]: <> (    - 代码复制区域 UX Design)
-
-[comment]: <> (      - [x] copy:`<ion-icon name="copy-outline"></ion-icon>`)
-
-[comment]: <> (      - [x] copied:`<ion-icon name="checkbox-outline"></ion-icon>`)
-
-[comment]: <> (    - [x] Blog/About 窗口卡片显示)
-
-[comment]: <> (        - 参考：)
-
-[comment]: <> (          - [css-tricks]&#40;https://css-tricks.com/&#41;)
-
-[comment]: <> (          - [CodePen Blog]&#40;https://blog.codepen.io/&#41;)
-
-[comment]: <> (          - [scotch.io]&#40;https://scotch.io/&#41;)
-
-[comment]: <> (        - [x] 博客分类代码（指文章类别、文章tang等）展示暂无bug，但访问路由存在问题，需考虑；)
-
-[comment]: <> (        - [x] 响应式折叠footer相关简介；)
-
-[comment]: <> (          - [x] 折叠相关简介无法打开，待完善；)
-
-[comment]: <> (        - [x] 评论功能的硬编码问题改善；)
-
-[comment]: <> (            - [x] 发现[编辑功能]&#40;https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/2020-05-18-ShiroDeser.md&#41;，思考变量问题；)
-
-[comment]: <> (            - [x] 已可添加commitid进入，暂时改善硬编码问题；)
-
-
 - *国内前端大神？BULL SHIT :-)*

@@ -99,13 +99,24 @@ html {
     }
 }
 
-body {
-    position: relative;
-    min-height: 100%;
-    @include dark{
-        background: $color_bg_dark;
-    }
+body, html {
+  position: relative;
+  //min-height: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  -moz-osx-font-smoothing: grayscale;
+  @include dark{
+    background: $color_bg_dark;
+  }
 }
+//body {
+//    position: relative;
+//    min-height: 100%;
+//    @include dark{
+//        background: $color_bg_dark;
+//    }
+//}
 //blog display css.
 .display-nav-li {
   padding: 0px 5px!important;

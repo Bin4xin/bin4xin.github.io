@@ -196,11 +196,6 @@ min-height: 0.1px;
 padding: 0 24px 0 0;
 }
 
-body, html {
--moz-osx-font-smoothing: grayscale;
-margin: 0;
-}
-
 :root {
 }
 .cloud-full-bleed, .cloud-full-bleed--bg, .cloud-full-bleed--constrained, .cws-fullbleed {

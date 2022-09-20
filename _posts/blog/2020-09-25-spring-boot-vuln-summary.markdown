@@ -3,7 +3,7 @@ layout: post
 title: "不得不谈的：「Spring Boot」未授权渗透"
 date: 2020-09-25
 toc: true
-author: Bin4xin edited. Source from LandGrey
+author: LandGrey
 categories:
     - blog
 tags:
@@ -18,6 +18,7 @@ permalink: /blog/2020/Spring-boot/
 
 Spring Boot 相关漏洞学习资料，利用方法和技巧合集，黑盒安全评估 check list
 
+**Bin4xin edited. Source from LandGrey**
 
 ### 声明
 

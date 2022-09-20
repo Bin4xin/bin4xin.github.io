@@ -1,24 +1,45 @@
-<!--        <div class="d-flex items-center">-->
-            <a class="d-flex color-fg-default px-md-6" href="https://github.com/{{ page.author }}" target="_blank">
-                {{ page.author }}
-            </a>
-            <!--article author end-->
-            {% assign date_now_year = site.time |date: "%Y" %}
-            {% assign date_now_month = site.time |date: "%m" %}
-            {% assign date_now_day = site.time |date: "%d" %}
+    <a class="d-flex color-fg-default px-md-6" href="https://github.com/{{ page.author }}" target="_blank">
+        {{ page.author }}
+    </a>
+    <!--article author end-->
+    {% assign now = site.time |date: "%s" |times: 1000 %}
+    <!-- site build time set to latest time.-->
+    {% assign page_post_date = page.date |date: "%s" |times: 1000 %}
+    <!-- post time-->
+    {% assign M = 1000 |times: 60 %}
+    {% assign H = M |times: 60 %}
+    {% assign D = H |times: 24 %}
+    {% assign Week = D |times: 7 %}
+    {% assign Mon = D |times: 30 %}
 
-            {% assign date_page_year = page.date |date: "%Y"%}
-            {% assign date_page_month = page.date |date: "%m" %}
-            {% assign date_page_day = page.date |date: "%d" %}
+    {% if page.wrench %}
+        {% assign page_wrench_date = page.wrench |date: "%s" |times: 1000 %}
+        <!-- wrench time-->
+        {% assign time_diff = now |minus: page_wrench_date %}
+    · edited
+    {% else %}
+        {% assign time_diff = now |minus: page_post_date %}
+    · post
+    {% endif %}
 
-            {% if page.wrench %}Edited: {{ page.wrench | date: "%Y-%m-%d"  }}
+    {% assign M_diff = time_diff |divided_by:  M %}
+    {% assign H_diff = time_diff |divided_by:  H %}
+    {% assign D_diff = time_diff |divided_by:  D %}
+    {% assign Week_diff = time_diff |divided_by:  Week %}
+    {% assign Mon_diff = time_diff |divided_by:  Mon %}
+
+    {% if Mon_diff >= 0 and Mon_diff < 12 %}
+        {% if Week_diff <= 5 %}
+            {% if M_diff < 60 %}
+                {{ M_diff }} minutes ago
+                {% elsif H_diff >= 0 and H_diff <= 24 %}
+                    {{ H_diff }} hours ago
+            {% else %}
+                {{ D_diff }} days ago
             {% endif %}
-
-            {% if date_now_year > date_page_year %}
-            about {{ date_now_year | minus: date_page_year }}Y ago
-            {% elsif date_now_month > date_page_month %}
-            about {{ date_now_month | minus: date_page_month }}M ago
-            {% elsif date_now_day > date_page_day %}
-            about {{ date_now_day | minus: date_page_day }}D ago
-            {% endif %}
-<!--        </div>-->
+        {% else %}
+        on {% if page.wrench %}{{page.wrench | date: "%b %-d"}}{% else %}{{page.date| date: "%b %-d"}}{% endif %}
+        {% endif %}
+    {% else %}
+        on {% if page.wrench %}{{page.wrench | date: "%b %-d, %Y"}}{% else %}{{page.date| date: "%b %-d, %Y"}}{% endif %}
+    {% endif %}

@@ -2,8 +2,11 @@ name: sentrylab build sync and reload.
 
 on:
   push:
-     branches:
-       - main
+    branches:
+      - main
+  pull_request:
+  schedule:
+    - cron: '0 15 * * *'
 #    paths: ['_posts/*']
 #  workflow_dispatch 似乎不允许存在:-）
 
