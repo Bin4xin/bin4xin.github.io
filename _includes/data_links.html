@@ -2,11 +2,11 @@
 <div class="footer-col-lg-2">
     <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
         <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
-            {% if node.meta == false and node.data %}<a class="footer-abstract"><strong><center>{{ node.name }}</center></strong></a>
+            {% if node.meta == false and node.data %}<span class="footer-abstract point"><strong>{{ node.name }}</strong></span>
         </summary>
         <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
             {% for data in node.data %}
-            <li class="mt1 lh-6 "><a class="no-underline f2 fw4 footer-abstract" href="{{ data.link }}" target="_blank">{{ data.name }}</a></li>
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="{{ data.link }}" target="_blank">{{ data.name }}</a></li>
             {% endfor %}
             {% else %}
                 {% if node.desc %}

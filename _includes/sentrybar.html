@@ -20,6 +20,7 @@
     <div class="spacing"></div>
 
     <!--notice start-->
+
     {% for notes in site.data.notes %}
 
     {% assign note_node = notes.note_node %}
@@ -67,6 +68,7 @@
         </div>
     </diva-{{note_node|replace: ' ', '-'|replace: '.', '-'}}>
     {% endfor %}
+
     <!--notice end-->
     <div class="spacing"></div>
 <!-- mark, i wanna to display a search form here maybe? Start-->

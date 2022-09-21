@@ -826,7 +826,7 @@
 }
 
 .flex,.grid-container {
-    display: flex
+    display: flex;
 }
 
 .inline-flex {
@@ -17962,4 +17962,14 @@ button,select {
     font-size: 14px;
     color: #000000;
     font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace !important;
+}
+.dotted-underline {
+    border-bottom: 1px dotted;
+    border-color: #000000;
+    text-decoration: none;
+    word-wrap: break-word;
+}
+.dotted-underline:hover,
+.dotted-underline:focus {
+    border-bottom-style: solid;
 }

@@ -33,7 +33,7 @@ permalink: /blog/
               <a class="d-flex flex-justify-around flex-column overflow-hidden flex-items-stretch" style="z-index: 2;" href="{{ page.url | prepend: site.baseurl }}"></a>
                 <div class="discussion-spotlight-details position-relative p-3 pr-5 css-truncate width-fit d-flex flex-column flex-items-start" style="z-index: 3;">
                   <a class="my-3 col-7 color-fg-default text-bold f3 no-underline d-flex flex-items-center mt-2" aria-label="elisemoe (author)">
-                  <span class="d-none d-md-inline-block mr-1">{{ page.excerpt | strip_html | truncate: 80, '...'}}</span></a>
+                  <span class="mr-1">{{ page.excerpt | strip_html | truncate: 80, '...'}}</span></a>
                 </div>
             </div>
             <div class="Box-row discussion-spotlight-details position-relative py-2 pr-5 css-truncate width-fit d-flex flex-column flex-items-start" style="z-index: 3;">
@@ -55,7 +55,7 @@ permalink: /blog/
       {% endfor %}
       </div>
     </div><!--/col-lg-9 -->
-    <div class="sticky limit-sticky flex">{% include sentrybar.html %}</div>
+    <div class="sticky limit-sticky flex flex-column">{% include sentrybar.html %}</div>
   </div><!--/row -->
 </div><!--/container -->
 

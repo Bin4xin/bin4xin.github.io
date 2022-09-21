@@ -472,10 +472,7 @@ abbr[title] {
 }
 b,
 strong {
-  font-weight: bold;
-  position: relative;
-  display: block;
-  padding: 5px;
+  font-weight: 700;
 }
 dfn {
   font-style: italic;
@@ -1496,9 +1493,9 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Lato, Arial, sans-serif;
   font-size: 14px;
-  line-height: 1.42857143;
+  line-height: 1.5em;
   color: #333333;
   background-color: #fff;
 }
@@ -1699,9 +1696,6 @@ h5,
 h6,
 .h6 {
   font-size: 12px;
-}
-p {
-  margin: 0 0 10px;
 }
 .lead {
   margin-bottom: 20px;

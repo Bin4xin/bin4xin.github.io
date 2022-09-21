@@ -6,14 +6,11 @@
 }
 
 body {
-    background: #ffffff;
     margin: 0;
     color: $color_secondary;
     @include dark{
         color: $color_secondary_dark;
     }
-    font-family: $font_default;
-    font-weight: 400;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -25,17 +22,17 @@ ul {
 }
 
 p {
+    margin: 0 0 10px;
     padding: 0;
     margin-bottom: 12px;
-    font-weight: 400;
     font-size: 16px;
-    font-family: 'DM Mono', STFangsong;
+    //font-family: 'DM Mono', STFangsong;
     line-height: 24px;
     color: $color_secondary ;
+    margin-top: 10px;
     @include dark{
         color: $color_secondary_dark;
     }
-    margin-top: 10px;
 }
 
 /* Code Reference:
