@@ -3,7 +3,7 @@ layout: about
 category: about
 wrench: 2022-09-07
 toc: true
-Researchname: 2022网鼎杯
+Researchname: 2022年网鼎杯玄武组-解题记录
 author: Bin4xin
 permalink: /about/WANGDINGCTF2022-Walkthrough/
 desc: 「CTF」
