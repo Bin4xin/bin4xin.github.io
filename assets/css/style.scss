@@ -926,7 +926,10 @@ devsite-header .devsite-collapsible-section, devsite-header[no-lower-row][fixed]
     border-color: var(--color-accent-emphasis-dark)!important;
   }
 }
-
+.color-success-icon {
+  border-color: #3fb950;
+  color: #3fb950;
+}
 {% for attrb in (1..2) %}
 @for $i from 0 to 7 {
   {% cycle "g1": "[data-tuna-roll-cur", ".row[data-tuna-roll-freeze" %}="#{$i}"] {
