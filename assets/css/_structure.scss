@@ -62,7 +62,7 @@ p {
 a {
     color:$color_link;
     @include dark{
-      color: $color_link_dark;
+      color: #ffffff;
     }
     padding: 0;
     margin: 0;

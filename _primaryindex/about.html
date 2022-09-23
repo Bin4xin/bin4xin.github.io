@@ -9,15 +9,14 @@ permalink: /about/
     source code from:
     - {@link https://xuexi.erealmsoft.com/2014/11/17/others/jekyll-in-github/#5-%E4%BD%9C%E8%80%85%E5%90%8D%E5%8F%8A%E5%A4%B4%E5%83%8F%E5%8A%A0%E8%BD%BD}
     -->
-    <section style="font-family: 'DM Mono', monospace;color: white;" class="card-list">
+    <section class="card-list card-font">
         {% for page in site.categories['about'] limit:8 %}
         <article class="card">
             <header class="card-header">
-                <p>{{page.date | date: "%Y-%-m-%-d"}}</p>
                 <a href="{{ page.url | prepend: site.baseurl }}"><h2><i class="fa fa-file-text-o"></i> {{ page.Researchname }}</h2></a>
             </header>
             <div class="page-abstract">
-                {{ page.excerpt | strip_html | truncate: 65, '...'}}
+                {{ page.excerpt | strip_html | truncate: 95, '...'}}
             </div>
             <div class="card-author">
                 <a class="author-avatar">
@@ -28,8 +27,7 @@ permalink: /about/
                 </svg>
 
                 <div class="author-name">
-                    <div class="author-name-prefix">By</div>
-                    {{ page.author }}
+                    <div class="author-name-prefix">{% include article-YMH-note.html %}</div>
                 </div>
             </div>
             <div class="tags">

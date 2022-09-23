@@ -1973,7 +1973,6 @@ pre {
   position: relative;
   padding: 8px;
   margin: 0 0 0px;
-  line-height: 1.42857143;
   word-break: break-all;
   word-wrap: break-word;
   background-color: #f6f8fa;
@@ -7297,9 +7296,6 @@ button.close {
     display: table-cell !important;
   }
 }
-.visible-print-block {
-  display: none !important;
-}
 @media print {
   .visible-print-block {
     display: block !important;
@@ -7371,31 +7367,26 @@ font-weight: 600!important;
 /*.group-hover:flex*/
 /*.group :hover .group-hover-flex{display:flex;background:var(--color-accent-emphasis)!important;}
 */
-.group:hover .group-hover-flex{display:flex}
+/*.group:hover {display:flex;flex-direction: column}*/
+
+
+/*pre:hover {display:flex;flex-direction: column}*/
+/*.group-hover-flex:flex {display:flex;flex-direction: column}*/
+/*pre:hover {*/
+/*  background: var(--theme-main-color);*/
+/*}*/
+
 /*.group:hover .group-hover\:flex{display:flex}*/
 
-.focus-outline-none :focus{outline:2px solid transparent;outline-offset:2px}
+/*.focus-outline-none :focus{outline:2px solid transparent;outline-offset:2px}
+.hover-border-white :hover{--tw-border-opacity:1;border-color:var(--color-accent-emphasis);}
+*/
 *,:after,:before{
   --tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);
   --tw-ring-offset-width:0px;
   --tw-ring-offset-color:#fff;
   --tw-ring-color:rgba(59,130,246,0.5);--tw-ring-offset-shadow:0 0 #0000;
   --tw-ring-shadow:0 0 #0000}
-.hover-border-white :hover{--tw-border-opacity:1;border-color:var(--color-accent-emphasis);}
-/*-- copy-clipboard
-/*.hover-border-white :focus{--tw-border-opacity:1;border-color:#FFFFFF;}*/
-/*.focus-outline-none :focus{outline:2px solid transparent;outline-offset:2px;}*/
-/*.focus-ring-opacity-50 :focus{--tw-ring-opacity:0.5}*/
-/*.focus-ring-gray-200 :focus{--tw-ring-opacity:1;--tw-ring-color:rgba(229,231,235,var(--tw-ring-opacity))}*/
-/*.fade-in{-webkit-animation:animation-fade-in .3s;animation:animation-fade-in .3s}*/
-/*.transition{*/
-/*  transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;*/
-/*  transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;*/
-/*  transition-property:background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;*/
-/*  transition-timing-function:cubic-bezier(.4,0,.2,1)*/
-/*}*/
-/*
-*/
 .space-x-2>:not([hidden])~:not([hidden]){
   --tw-space-x-reverse:0;
   margin-right:calc(.5rem * var(--tw-space-x-reverse));

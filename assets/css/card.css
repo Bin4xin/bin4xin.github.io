@@ -23,24 +23,6 @@
     background: linear-gradient(90deg,#201c29,#201c29 1px,#17141d 0,#17141d);
 }
 
-
-.card {
-    height: 350px;
-    width: 400px;
-    min-width: 250px;
-    padding: 1.5rem;
-    border-radius: 16px;
-    background: #17141d;
-    box-shadow: -1rem 0 3rem #000;
-    display: flex;
-    flex-direction: column;
-    transition: .2s;
-    margin: 0;
-    scroll-snap-align: start;
-    clear: both;
-    position: relative;
-}
-
 .card:focus-within~.card, .card:hover~.card {
     transform: translateX(130px);
 }
@@ -150,7 +132,6 @@
     font-size: 1.16rem;
     color: #7a7a8c;
     text-transform: uppercase;
-    /*font-size: .66rem;*/
     border: 3px solid #28242f;
     border-radius: 2rem;
     padding: .2rem .85rem .25rem;
@@ -164,7 +145,6 @@
     -webkit-background-clip: text;
     -webkit-box-decoration-break: clone;
     background-clip: text;
-    border-color: white;
 }
 
 

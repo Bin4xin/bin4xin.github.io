@@ -833,6 +833,33 @@ csmall {
 /*
   card - cws banner shadow.(add dark mode - 2022/02/04/22:28:54)
 */
+.card-font {
+  color: black;
+  font-family: 'DM Mono', monospace;
+  @include dark{
+    color: white;
+  }
+}
+
+.card {
+  height: 350px;
+  width: 400px;
+  min-width: 250px;
+  padding: 1.5rem;
+  border-radius: 16px;
+  background: #F7F9F9;
+  box-shadow: -1rem 0 3rem #000;
+  display: flex;
+  flex-direction: column;
+  transition: .2s;
+  margin: 0;
+  scroll-snap-align: start;
+  clear: both;
+  position: relative;
+  @include dark {
+    background: #17141d;
+  }
+}
 
 devsite-header .devsite-collapsible-section, devsite-header[no-lower-row][fixed] {
   box-shadow: var(--devsite-header-lower-box-shadow,0 1px 2px 0 var(--devsite-elevation-key-shadow-color),0 2px 6px 2px var(--devsite-elevation-ambient-shadow-color));
