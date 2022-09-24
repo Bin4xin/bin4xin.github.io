@@ -1762,11 +1762,11 @@ data-styled.g135[id="sc-gsDKAQ"]{content:"iGLrqc,"}/*!sc*/
     user-drag: none;
 }
 /*search-bar*/
-@media (min-width: 768px) and (max-width: 992px) {
-    .col-sm-9 {
-        width: 100%;
-    }
-}
+/*@media (min-width: 768px) and (max-width: 844px) {*/
+/*    .col-sm-9 {*/
+/*        width: 75%;*/
+/*    }*/
+/*}*/
 @media print{
     .print-overflow-visible{
         overflow:visible!important;

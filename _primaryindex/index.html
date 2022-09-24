@@ -6,39 +6,7 @@ permalink: /
 
 <link rel="stylesheet" type="text/css" href="/assets/css/card.css">
 <div id="service">
-  <devsite-header keep-tabs-visible="" top-row--height="65" bottom-row--height="48" bottom-tabs--height="48" fixed="">
-    <div class="devsite-header--inner nocontent">
-      <div class="devsite-top-logo-row-wrapper-wrapper">
-        <div class="devsite-top-logo-row-wrapper">
-          <div class="devsite-top-logo-row">
-            <div class="devsite-product-name-wrapper"></div>
-          </div>
-        </div>
-      </div>
-      <div class="devsite-collapsible-section" style="transform: translate3d(0px, 0px, 0px);">
-        <div class="devsite-header-background">
-          <div class="devsite-product-id-row" hidden="">
-            <div class="devsite-product-description-row"></div>
-          </div>
-          <div class="devsite-doc-set-nav-row">
-            <div class="devsite-product-button-row">
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- 代码引用申明/code reference declaration:
-      cws-banner source code from:
-      - {@link https://cloud.google.com/}
-      - {@link https://www.gstatic.com/devrel-devsite/prod/v8e85f2d232f57b3748940572c2507445fffb413f9b17c36b012cc05efc1a12ea/cloud/css/app.css}
-      -->
-      <div class="cws-banner cws-fullbleed" track-metadata-module="banner">
-        <div class="cws-banner__body-copy page-abstract">
-          有关{% for about in site.categories['about'] limit:1 %}<a href="{{ about.url | prepend: about.baseurl }}">{% if about.desc%}{{ about.desc |upcase }}{% endif %}</a>{% endfor %}<a href={{"/about/"|prepend: site.baseurl}}>... </a>的描述。
-        </div>{%comment%}{% include search.html %}{%endcomment%}
-      </div>
-    </div>
-  </devsite-header>
-<!--/container-->
+  {% include top-banner.html %}
 <!--    <div class="container" style="font-family:STFangsong">-->
 <!--      <div style="writing-mode: vertical-rl; " class="pull-right">-->
 <!--        <p class="Poetry-text" >草木风声势未安，孤舟惶恐再经滩。</p>-->
@@ -132,7 +100,6 @@ permalink: /
     }();
   });
 </script>
-
 <!--
 vim: ts=2 sts=2 sw=2 expandtab
 -->

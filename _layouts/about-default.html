@@ -1,15 +1,20 @@
 <!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
 <html>
 
 {% include head.html %}
 
 <body>
-    <startprint2pdfs>
-        <div id="research-content">{{ content }}</div>
-    </startprint2pdfs>
+<startprint2pdfs>
+    {% include top-banner.html %}
+
+    <div id="research-content" class="col-sm-12 flex flex-column">
+        {{ content }}
+
+    </div>
+    {%comment%}{%endcomment%}
+
+</startprint2pdfs>
 </body>
-
 {% include default-add-func.html %}
-
 </html>
-

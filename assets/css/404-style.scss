@@ -195,10 +195,10 @@ tr:hover {
 }
 }
 
-#help-page {
-    margin-top: 40px;
-    margin-bottom: 40px;
-}
+//#help-page {
+//    margin-top: 40px;
+//    margin-bottom: 40px;
+//}
 
 #news-page {
 article {
@@ -364,12 +364,10 @@ p {
 
 .not-found {
     height: 600px;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     position: relative;
 }
 

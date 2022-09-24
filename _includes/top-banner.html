@@ -1,0 +1,59 @@
+{%if page.category == 'about' %}
+<div>
+    <div class="c_banner c_r c_cw c_agl c_mz c_jg c_fa c_fb"><!--start content bar. -->
+        <div class="c_fa c_fb c_iu c_iv">
+            <div class="white">
+                {% capture page_cn_category%}
+                {%if page.category == 'blog'%}博客{%elsif page.category == 'about'%}研究{%else%}日常{%endif%}
+                {% endcapture%}
+
+                <div style="font-family: 'DM Mono', monospace;">
+                    <csmall class="flex-justify-center-l white">
+                        <!--<div class="build-show-icon scrollbar-16-16"></div>-->
+                        <a class="px-md-6 white f2 fw4" href="/">HOME</a> /
+                        <a class="px-md-6 white f2 fw4" href="../">{{page_cn_category}} </a>/
+                        <a class="px-md-6 white f2 fw4 items-center" href="#">
+                            {%if page.desc%} {{ page.desc|replace :"「", "" | replace: "」", ""| replace: " ", ""}} {%endif%}
+                        </a>
+                        {% include article-YMH-note.html %}
+                    </csmall>
+                </div>
+            </div>
+        </div>
+    </div><!--end content bar. -->
+</div>
+{% elsif page.permalink == '/' %}
+
+<devsite-header keep-tabs-visible="" top-row--height="65" bottom-row--height="48" bottom-tabs--height="48" fixed="">
+    <div class="devsite-header--inner nocontent">
+        <div class="devsite-top-logo-row-wrapper-wrapper">
+            <div class="devsite-top-logo-row-wrapper">
+                <div class="devsite-top-logo-row">
+                    <div class="devsite-product-name-wrapper"></div>
+                </div>
+            </div>
+        </div>
+        <div class="devsite-collapsible-section" style="transform: translate3d(0px, 0px, 0px);">
+            <div class="devsite-header-background">
+                <div class="devsite-product-id-row" hidden="">
+                    <div class="devsite-product-description-row"></div>
+                </div>
+                <div class="devsite-doc-set-nav-row">
+                    <div class="devsite-product-button-row">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 代码引用申明/code reference declaration:
+        cws-banner source code from:
+        - {@link https://cloud.google.com/}
+        - {@link https://www.gstatic.com/devrel-devsite/prod/v8e85f2d232f57b3748940572c2507445fffb413f9b17c36b012cc05efc1a12ea/cloud/css/app.css}
+        -->
+        <div class="cws-banner cws-fullbleed" track-metadata-module="banner">
+            <div class="cws-banner__body-copy page-abstract">
+                有关{% for about in site.categories['about'] limit:1 %}<a href="{{ about.url | prepend: about.baseurl }}">{% if about.desc%}{{ about.desc |upcase }}{% endif %}</a>{% endfor %}<a href={{"/about/"|prepend: site.baseurl}}>... </a>的描述。
+            </div>{%comment%}{% include search.html %}{%endcomment%}
+        </div>
+    </div>
+</devsite-header><!--./devsite-header cws banner end.-->
+{% endif %}

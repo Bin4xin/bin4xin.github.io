@@ -1494,8 +1494,8 @@ html {
 }
 body {
   font-family: "Helvetica Neue", Lato, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.5em;
+  /*font-size: 100%;*/
+  line-height: 1.45;
   color: #333333;
   background-color: #fff;
 }
@@ -1971,20 +1971,24 @@ kbd kbd {
 pre {
   display: block;
   position: relative;
-  padding: 8px;
-  margin: 0 0 0px;
+  padding-top: 12px;
+  padding-bottom: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
   word-break: break-all;
   word-wrap: break-word;
   background-color: #f6f8fa;
-  font-size: 125%;
+  /*font-size: 125%;*/
   line-height: 1.5;
   border-radius: 6px;
   overflow: auto!important;
   overflow-x: auto!important;
+  margin-top: 0;
+  margin-bottom: 16px;
 }
 pre code {
   padding: 0;
-  font-size: inherit;
+  font-size: 140%;
   color: inherit;
   white-space: pre-wrap;
   background-color: transparent;
@@ -2062,8 +2066,8 @@ pre .btn-pre-copy{
   margin-left: auto;
 }
 .row {
-  /*padding-right: -15px;*/
-  /*padding-left: -15px;*/
+  padding-right: -15px;
+  padding-left: -15px;
   /*mark*/
   margin-right: auto;
   margin-left: auto;
@@ -7339,7 +7343,6 @@ font-weight: 600!important;
 .mb-8{
   margin-bottom: 40px!important;
 }
-
 .px-md-6 {
   padding-right: 15px!important;
   padding-left: 15px!important;
@@ -7426,9 +7429,6 @@ font-weight: 600!important;
   background-size: 35px;
   opacity: .5;
 }
-.d-flex {
-  display: flex !important;
-}
 .height-full {
   height: 100% !important;
 }
@@ -7447,8 +7447,14 @@ font-weight: 600!important;
 .flex-justify-between {
   justify-content: space-between !important;
 }
-.flex-column {
-  flex-direction: column !important;
+.flex-justify-center-l {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row !important;
 }
 .rounded-2 {
   border-radius: 6px !important;
@@ -7477,9 +7483,6 @@ font-weight: 600!important;
 }
 .right-0 {
   right: 0 !important;
-}
-.top-0 {
-  top: 0 !important;
 }
 .rounded-2 {
   border-radius: 6px !important;
@@ -7513,5 +7516,11 @@ div.content {
 }
 .container-xl {
   max-width: 1280px;
+}
+.toc {
+  --offset: 6rem;
+  --max-height: calc(100vh - var(--offset));
+  max-height: var(--max-height);
+  top: var(--offset);
 }
 /*# sourceMappingURL=bootstrap.css.map */

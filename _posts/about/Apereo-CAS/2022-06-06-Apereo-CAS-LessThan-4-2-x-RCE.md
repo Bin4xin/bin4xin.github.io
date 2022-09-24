@@ -11,6 +11,8 @@ desc: 「Apereo CAS」
 
 ### CAS靶场搭建
 
+
+{% comment %}
 ---
 <div class="content">
 <p>
@@ -33,6 +35,8 @@ cas-server-webapp::4.2.7<span class="DocsMarkdown--link-external-icon">
 </p>
 </div>
 ---
+{% endcomment %}
+
 分别进入下载Pom或者War，不想麻烦直接下载WAR包放到tomcat web文件夹就行。
 
 ### 如何发现CAS资产

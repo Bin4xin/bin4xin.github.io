@@ -26,13 +26,15 @@ code{
 }
 
 .navbar-default {
+
+  background-color: transparent;
+  border-color: transparent;
+
+  //backdrop-filter: blur(5px);
+  //-webkit-backdrop-filter: blur(5px);
   //@include dark{
   //  background-color: $color_bg_dark;
   //}
-  background-color: transparent;
-  border-color: transparent;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
 
   .navbar-nav > li.active > a {
     color: $color_thu_purple; 
