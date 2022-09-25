@@ -3,9 +3,9 @@ layout: default
 ---
 
 <div class="container mtb">
-    <div class="row markdown-body">
+    <div class="row markdown-body-img">
         <! -- SINGLE POST -->
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <! -- Blog Post  -->
             <a href="{{ page.url | prepend: site.baseurl }}"><h2 class="ctitle">{{ page.title }}</h2></a>
             <p><csmall>{{ page.date | date: "%b %-d, %Y" }}. | By: {{ page.author }}</csmall></p>
@@ -14,8 +14,5 @@ layout: default
             </div>
             <div class="spacing"></div>
         </div><! --/col-lg-8 -->
-
-        <div class="sticky limit-sticky">{% include sentrybar.html %}</div>
-
     </div><! --/row -->
 </div><! --/container -->
