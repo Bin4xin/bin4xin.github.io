@@ -33,8 +33,13 @@ declare -a expressions=(
 1. 计算出数组大小index[array]
 2. 然后随机在[0 , index\[arrary\]]区间中输出对应的「经典语录」就好了
 
+{% include wrench-inject.html %}
+
 ```bash
-index=$((0 + $RANDOM % ${#expressions[@]}))
+# index=$((0 + $RANDOM % ${#expressions[@]}))
+# 重新定义了一个随机算法，上面可能导致在数组中取出空数据。
+index=$((1 + $random_index))
+random_index=$(($RANDOM % ${#expressions[@]}))
 selected_expression=${expressions[index]}
 ```
 
@@ -66,5 +71,13 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}%{$fg_bold[yellow]%}]"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}>%{$fg[yellow]%}%{$fg_bold[yellow]%}]"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%}>"
 ```
+
+{% include wrench-inject.html %}
+
+当下效果代码：[bigger-than-bigger:: robbyrussell.zsh-theme](https://github.com/Bin4xin/bigger-than-bigger#6x01robbyrussellzsh-theme){:target="_blank"}
+
+## 效果
+
+![2022-09-25-16.38.54.png](https://image.yjs2635.xyz/images/2022/09/25/2022-09-25-16.38.54.png)
 
 以上。
