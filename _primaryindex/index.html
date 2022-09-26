@@ -7,20 +7,6 @@ permalink: /
 <link rel="stylesheet" type="text/css" href="/assets/css/card.css">
 <div id="service">
   {% include top-banner.html %}
-<!--    <div class="container" style="font-family:STFangsong">-->
-<!--      <div style="writing-mode: vertical-rl; " class="pull-right">-->
-<!--        <p class="Poetry-text" >草木风声势未安，孤舟惶恐再经滩。</p>-->
-<!--        <p class="Poetry-text">地名末旦埋踪易，楫指中流转道难。</p>-->
-<!--        <p class="Poetry-text"><strong>天意似将颁大任，微躯何厌忍饥寒。</strong></p>-->
-<!--        <p class="Poetry-text">长歌正气重来读，我比前贤路已宽。</p>-->
-<!--        <p class="Poetry-text">&nbsp;&nbsp;&nbsp;&nbsp;————郁达夫 · 《乱离杂诗》</p>-->
-<!--      </div>-->
-<!--      <div class="page-print">-->
-<!--        <p class="Poetry-text">竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。</p>-->
-<!--        <p class="Poetry-text">&nbsp;&nbsp;&nbsp;&nbsp;————苏轼 · 《定风波》</p>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--/container -->
 </div><!--/service -->
 {% comment %}<div> {% include CHANGELOG.md %} </div>{% endcomment %}
 <div>
@@ -33,10 +19,21 @@ permalink: /
     {% for page in site.categories['blog'] limit:8 %}
     <article class="card">
       <header class="card-header">
-        <a href="{{ page.url | prepend: site.baseurl }}"><h2><i class="fa fa-file-text-o"></i> {{ page.title }}</h2></a>
+        <p>{% for tag in page.tags %}<span data-view-component="true" class="badge badge-theme">{{ tag }}</span>{% endfor %}</p>
+        {% comment %} TODO mark
+        - tags layout display;
+        - tags categories url;
+        - tag about/daily/post
+        <div class="tags">
+          {% for tag in page.tags %}
+          <a href="#">{{ tag }}</a>
+          {% endfor %}
+        </div>{% endcomment %}
+        <a href="{{ page.url | prepend: site.baseurl }}"><h2><i class="fa fa-file-text-o"></i> {{ page.title }}</h2>
+        </a>
       </header>
       <div class="page-abstract">
-        {{ page.excerpt | strip_html | truncate: 95, '...'}}
+        {{ page.excerpt | strip_html | truncate: 60, '...'}}
       </div>
       <div class="card-author">
         <a class="author-avatar">
@@ -48,13 +45,9 @@ permalink: /
         </svg>
 
         <div class="author-name">
-          <div class="author-name-prefix">{% include article-YMH-note.html %}</div>
+          <div class="author-name-prefix">{% include article-YMH-note.html %}
+          </div>
         </div>
-      </div>
-      <div class="tags">
-        {% for tag in page.tags %}
-        <a href="#">{{ tag }}</a>
-        {% endfor %}
       </div>
     </article>
     {% endfor %}

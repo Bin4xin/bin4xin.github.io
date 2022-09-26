@@ -3,7 +3,7 @@
 <div style="text-align: center;">
     <div class="fa fa-skyatlas"></div>
     <div class="fa fa-simplybuilt"></div>
-    于{{site.time}}修改
+    于{% if page.wrench %}{{page.wrench}}{% else %}{{ site.time }}{% endif %}修改
     <div class="fa fa-simplybuilt"></div>
     <div class="fa fa-skyatlas"></div>
 </div>

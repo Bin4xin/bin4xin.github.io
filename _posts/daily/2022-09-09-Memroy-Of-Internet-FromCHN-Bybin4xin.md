@@ -3,7 +3,8 @@ category: daily
 layout: daily
 title: "互联网的记忆"
 author: Bin4xin
-poster: https://camo.githubusercontent.com/4db3e4069e59f51d03dd3e7fa5e89ab8fb95c9f4acda36cd5bfdf58d95269d92/68747470733a2f2f6f686d797a73682e73332e616d617a6f6e6177732e636f6d2f6f6d7a2d616e73692d6769746875622e706e67
+wrench: 2022-09-26 11:00:11 +800
+poster: https://image.yjs2635.xyz/images/2022/09/21/16dbdb3a19ceccd723a6d61f6c167c2a_400x400.jpg
 ---
 
 zsh的显示优化配置，我们自定义了一些「经典语录」，加入了zsh显示区域，这里实现的主要难点在于：
