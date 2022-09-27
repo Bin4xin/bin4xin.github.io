@@ -4,16 +4,16 @@
     {% include head.html %}
 
     <body>
+        <div class="flex-column d-flex">
+            <div class="flex-column d-flex">{% include nav.html %}</div>
+            <div class="flex-column d-flex ">{{ content }}
 
-        {% include nav.html %}
+                <div class="flex-column flex-auto-m">{% include footer.html %}</div>
 
-            {{ content }}
-
-        {% include footer.html %}
-
+            </div>
+        </div>
     </body>
 
     {% include default-add-func.html %}
 
 </html>
-

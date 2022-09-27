@@ -226,35 +226,35 @@ article {
 }
 
 /* Footer */
-#footerwrap {
-    color: $color_footer_content;
-    margin-top: 100px;
-    padding-top: 60px;
-    padding-bottom: 60px;
-@include noissue{
-    background: $color_secondary;
-}
-p {
-    color: $color_footer_content;
-}
-h4 {
-    color: $color_footer_heading;
-}
-i, i:hover, a, a:hover {
-    color: $color_footer_content;
-}
-}
+/*#footerwrap {*/
+/*    color: $color_footer_content;*/
+/*    margin-top: 100px;*/
+/*    padding-top: 60px;*/
+/*    padding-bottom: 60px;*/
+/*@include noissue{*/
+/*    background: $color_secondary;*/
+/*}*/
+/*p {*/
+/*    color: $color_footer_content;*/
+/*}*/
+/*h4 {*/
+/*    color: $color_footer_heading;*/
+/*}*/
+/*i, i:hover, a, a:hover {*/
+/*    color: $color_footer_content;*/
+/*}*/
+/*}*/
 
-#footerwrap.tuna-foot-1 {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    right: 0;
-}
+/*#footerwrap.tuna-foot-1 {*/
+/*    position: absolute;*/
+/*    left: 0;*/
+/*    bottom: 0;*/
+/*    right: 0;*/
+/*}*/
 
-#footerwrap.tuna-foot-2 {
-    visibility: hidden;
-}
+/*#footerwrap.tuna-foot-2 {*/
+/*    visibility: hidden;*/
+/*}*/
 
 .spacing {
     margin-top: 40px;

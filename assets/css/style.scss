@@ -504,6 +504,7 @@ csmall {
 #footerwrap {
     color: $color_footer_content;
     padding-top: 20px;
+    flex: 1 1 auto;
     @include noissue{
       box-shadow:0 1px 1px 0 rgba(240,240,240,0.1) inset;
       background-color:#f0f0f0;

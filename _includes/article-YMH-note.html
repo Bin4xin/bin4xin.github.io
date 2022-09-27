@@ -32,11 +32,11 @@
             {% if Mon_diff >= 0 and Mon_diff < 12 %}
                 {% if Week_diff <= 5 %}
                     {% if M_diff < 60 %}
-                        {{ M_diff }} minutes ago
+                        {{ M_diff }} minute{%if M_diff > 1 %}s{% else %}{% endif %} ago
                         {% elsif H_diff >= 0 and H_diff <= 24 %}
-                            {{ H_diff }} hours ago
+                            {{ H_diff }} hour{%if H_diff > 1 %}s{% else %}{% endif %} ago
                     {% else %}
-                        {{ D_diff }} days ago
+                        {{ D_diff }} day{%if D_diff > 1 %}s{% else %}{% endif %} ago
                     {% endif %}
                 {% else %}
                 on {% if page.wrench %}{{page.wrench | date: "%b %-d"}}{% else %}{{page.date| date: "%b %-d"}}{% endif %}

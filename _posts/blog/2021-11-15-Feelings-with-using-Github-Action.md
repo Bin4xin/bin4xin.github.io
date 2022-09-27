@@ -2,7 +2,7 @@
 layout: post
 title: "用Github Actions有感"
 date: 2021-11-15
-wrench: 2022-09-21
+wrench: 2022-09-27 16:26:01 +800
 author: Bin4xin
 toc: true
 categories: 
@@ -12,6 +12,8 @@ tags:
 - Github Actions
 permalink: /blog/2021/Feelings-with-using-Github-Action/
 ---
+
+{% include wrench-inject.html %}
 
 # 自律的代码
 
@@ -34,6 +36,8 @@ on:
 #  - "自律的5行代码"
 ##
 ```
+
+{% include wrench-inject.html %}
 
 ### Github Actions的简介
 

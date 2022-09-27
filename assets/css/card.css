@@ -8,7 +8,6 @@
     padding: 3rem;
     overflow-x: scroll;
 }
-
 .card-list::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -65,7 +64,7 @@
 }
 
 .card-author {
-    margin: 3rem 0 0;
+    margin: 1rem 0 0;
     display: grid;
     grid-template-columns: 75px 1fr;
     align-items: center;
@@ -1662,9 +1661,6 @@ data-styled.g135[id="sc-gsDKAQ"]{content:"iGLrqc,"}/*!sc*/
 }
 .c_lr {
     background-color: rgb(0, 81, 195);
-}
-.c_c {
-    display: flex;
 }
 .c_cw {
     color: rgb(0, 0, 0);
