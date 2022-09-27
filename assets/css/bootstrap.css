@@ -1494,7 +1494,7 @@ html {
 }
 body {
   font-family: "Helvetica Neue", Lato, Arial, sans-serif;
-  font-size: 90%;
+  font-size: 16px;
   line-height: 1.45;
   color: #333333;
   background-color: #fff;
@@ -1968,7 +1968,8 @@ kbd kbd {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-pre {/*font-size: 125%;*/
+pre {
+  font-size: 85%;
   display: block;
   position: relative;
   padding: 16px;
@@ -1984,7 +1985,7 @@ pre {/*font-size: 125%;*/
 }
 pre code {
   padding: 0;
-  font-size: 15px;
+  font-size: 85%;
   color: inherit;
   white-space: pre-wrap;
   background-color: transparent;
