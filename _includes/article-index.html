@@ -1,12 +1,12 @@
-<div class="col-lg-push-3 ml-hide">
-    {% if page.toc %}<!---->
-    <div class="nav nav-stacked tableOfContents_35-E thin-scrollbar">
-        <h5 class="lead">文章目录</h5>
-        <li class="table-of-contents__left-border table-of-contents">
+{% if page.toc %}
+<div class="col-md-4 ml-hide table-of-contents__left-border" style="max-height: 100%">
+    <div class="nav nav-stacked tableOfContents_35-E thin-scrollbar position-sticky top-0">
+        <li class=" table-of-contents">
             <code-index-css>
+                <ul><li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column"><a>文章目录</a></li></ul>
                 {{ content | toc_only }}
             </code-index-css>
         </li>
     </div>
-    {% endif %}
 </div>
+{% endif %}

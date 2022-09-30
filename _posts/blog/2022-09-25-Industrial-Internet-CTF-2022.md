@@ -8,6 +8,7 @@ categories:
 - blog
 tags:
 - 笔记
+- CTF
 permalink: /blog/2022/Industrial-Internet-CTF-2022-walkthrough/
 ---
 

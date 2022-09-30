@@ -3,9 +3,9 @@ layout: default
 ---
 
 <div class="container mtb">
-    <div class="row">
+    <div class="row d-flex ">
         <!-- SINGLE POST -->
-        <div class="col-lg-8 markdown-body-img">
+        <div class="col-lg-8 markdown-body-img flex-column">
             <!-- Blog Post  -->
             <a href="{{ page.url | prepend: site.baseurl }}"><h1 class="ctitle">{{ page.title }}</h1></a>
             <csmall><div class="d-flex items-center">
@@ -13,14 +13,10 @@ layout: default
             </div></csmall>
             <div class="post-content"> 
             {{ content }}
+                {% include suggestion.html %}
             </div>
             <div class="spacing"></div>
-            {%comment%}
-            {% include statement.html %}
-            {%endcomment%}
         </div><!--/col-lg-8 -->
-    <div class="sticky limit-sticky">
         {% include article-index.html %}
-    </div>
     </div><!--/row -->
 </div><!--/container -->

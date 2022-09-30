@@ -109,14 +109,15 @@ window.onscroll = function() {
     /**
      * console.log("top： "+scroll().top);
      * console.log("left： "+scroll().left);
-    **/
-    let all_width = $(document.body).outerWidth(true);
+
     // console.log(all_width);
+    let all_width = $(document.body).outerWidth(true);
     if (all_width < 800) {
         var classVal = document.getElementById("post-content").getAttribute("class");
         classVal = classVal.replace("d-flex","");
         document.getElementById("post-content").setAttribute("class", classVal );
     }
+     **/
     if (scroll().top > 280) {
         $("divs").removeClass("opacity-0");
         $("divs").addClass("opacity-100");
