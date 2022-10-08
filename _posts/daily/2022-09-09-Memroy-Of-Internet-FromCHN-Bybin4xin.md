@@ -3,7 +3,7 @@ category: daily
 layout: daily
 title: "互联网的记忆"
 author: Bin4xin
-wrench: 2022-09-26 11:00:11 +800
+wrench: 2022-10-03 15:35:09 +800
 poster: https://image.yjs2635.xyz/images/2022/09/21/16dbdb3a19ceccd723a6d61f6c167c2a_400x400.jpg
 ---
 
@@ -80,5 +80,9 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%}>"
 ## 效果
 
 ![2022-09-25-16.38.54.png](https://image.yjs2635.xyz/images/2022/09/25/2022-09-25-16.38.54.png)
+
+## 参考
+
+- [1].[杨时旸. 科学家和演员是平等的，社会收入分配自然有市场去调节，有法制去监督](https://finance.sina.cn/china/gncj/2022-07-08/detail-imizirav2546993.d.html){:target="_blank"}
 
 以上。
