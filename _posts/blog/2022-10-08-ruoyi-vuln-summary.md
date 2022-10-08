@@ -3,12 +3,13 @@ layout: post
 title: "::若依:: vulnerability summary"
 date: 2022-10-08 17:00:43+800
 toc: true
-author: bin4xin
+author: Bin4xin
 categories:
-    - blog
+- blog
 tags:
-    - CVE
-    - 信息搜集
+- CVE
+- 信息搜集
+- vulnerability
 ---
 
 mark to do.
