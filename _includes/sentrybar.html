@@ -1,9 +1,5 @@
 <script src="/assets/js/oh-sentry.js"></script>
 <div xmlns="http://www.w3.org/1999/html">
-<!--TODO-->
-    {% comment %}
-    {% include search.html %}
-    {% endcomment %}
     {% if page.toc %}
     <div class=" ml-hide hidden-print">
         <div class="nav nav-stacked tableOfContents_35-E thin-scrollbar">
@@ -16,13 +12,10 @@
         </div>
     </div>
     {% endif %}
-
+    <!--TODO mark-->{%comment%}{% include search.html %}{%endcomment%}
     <div class="spacing"></div>
-
     <!--notice start-->
-
     {% for notes in site.data.notes %}
-
     {% assign note_node = notes.note_node %}
     {% assign display_note = notes.display_note %}
     {% assign display_link = notes.display_link %}
@@ -72,16 +65,9 @@
     <!--notice end-->
     <div class="spacing"></div>
 <!-- mark, i wanna to display a search form here maybe? Start-->
-<!--    <h4> Search/搜索 <kbd>Ctrl ⌃</kbd> + <kbd>F</kbd></h4>-->
-<!--    <p>e.g. Nginx：</p>-->
-<!--    <p><a href="/blog/2019/how-nginx/http2https/">NGINX笔记：http升级https协议</a> </p>-->
-<!--    <p><a href="/blog/2019/nginx/with/jekyll-site/">多子域：JEKYLL优雅地部署于NGINX</a> </p>-->
-
-<!-- anyway, i'll comoress this. STOP-->
+<!-- anyway, I'll compress this. STOP-->
 <!-- search data will generate from here: bin4xin.github.io/search.json-->
         <div class="hidden-print">
-<!--            <h4><ion-icon name="grid-sharp"></ion-icon> 分类目录</h4>-->
-            <div class="hline"></div>
             <div class="spacing"></div>
             {% if page.categories.size > 0 %}
             <div class="post-meta mb-3">

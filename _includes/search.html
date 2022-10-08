@@ -1,8 +1,9 @@
 <!-- HTML elements for search -->
 <label class="text-normal width-full">
-    <input class="form-control Search_searchIconBackground16 Search_searchInputHeader px-5 py-2" type="text" id="search-input" placeholder="搜索文档 - 输入标题/相关内容/日期/Tags.." style="width:380px;"/>
+    <input class="form-control Search_searchIconBackground16 px-5 py-2" type="text" id="search-input" placeholder="搜索/Search"/>
 </label>
-<ul id="results-container"></ul>
+
+<div class="" id="results-container"></div>
 
 <!-- script pointing to jekyll-search.js -->
 <script src="/assets/js/sjs/simple-jekyll-search.min.js"></script>
@@ -12,14 +13,13 @@
         searchInput: document.getElementById('search-input'),
         resultsContainer: document.getElementById('results-container'),
         json: '/search.json',
-        // searchResultTemplate: '<li><a href="{url}" title="{desc}">{% if Researchname %}{Researchname}{% else %}{title}{%endif%}</a></li>',
-        searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
+        searchResultTemplate: '<ul class="nav nav-pills nav-stacked"><li class="nav nav-pills nav-stacked no-underline table-of-contents table-of-contents__left-border"><a href="{url}">{title}</a></li></ul>',
         //TODO
         // here is something design style :)
         // 1. 1st search form, i wana get a form like a google search form.
         // 2. 2nd data set response: set <li> h5 code content like an egle's wings? myabe?
-        // that's all.
-        noResultsText: '没有搜索到文章',
+        // that's all. <!--    <h4> Search/搜索 <kbd>Ctrl ⌃</kbd> + <kbd>F</kbd></h4>-->
+        noResultsText: '<div class="not-found-text thuhidden"><h5><csmall>Oops!你来到了没有知识的荒原;尝试键入其他关键词<kbd>:D</kbd></h5></csmall><p>e.g. Nginx：</p><p><a href="/blog/2019/how-nginx/http2https/">NGINX笔记：http升级https协议</a> </p><p><a href="/blog/2019/nginx/with/jekyll-site/">多子域：JEKYLL优雅地部署于NGINX</a> </p></div>',
         limit: 20,
         fuzzy: false
     })
