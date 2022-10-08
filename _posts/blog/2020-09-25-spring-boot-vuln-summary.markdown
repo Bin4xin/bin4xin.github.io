@@ -2,6 +2,7 @@
 layout: post
 title: "不得不谈的：「Spring Boot」未授权渗透"
 date: 2020-09-25
+wrench: 2022-10-08 17:00:43+800
 toc: true
 author: LandGrey
 categories:
@@ -14,17 +15,16 @@ tags:
 permalink: /blog/2020/Spring-boot/
 ---
 
-#### Spring Boot Vulnerability Exploit CheckList
+### 声明
+
+[这是转载地址](https://github.com/LandGrey/SpringBootVulExploit)，
+**若作者介意请联系：「{{site.contactMail}}」删除转载文章**
+
+#### [Spring Boot Vulnerability Exploit CheckList](https://github.com/LandGrey/SpringBootVulExploit){:target="_blank"}
 
 Spring Boot 相关漏洞学习资料，利用方法和技巧合集，黑盒安全评估 check list
 
 **Bin4xin edited. Source from LandGrey**
-
-### 声明
-
-[这是转载地址](https://github.com/LandGrey/SpringBootVulExploit)，
-**若作者介意请联系：「chihou.pro@gmail.com」删除转载文章**
-
 
 ## 零：路由和版本
 
@@ -40,20 +40,18 @@ Spring Boot 相关漏洞学习资料，利用方法和技巧合集，黑盒安�
 
 > Spring Cloud 是基于 Spring Boot 来进行构建服务，并提供如配置管理、服务注册与发现、智能路由等常见功能的帮助快速开发分布式系统的系列框架的有序集合。
 
-
-
 #### 常见组件的版本相互依赖关系：
 
+{:.table}
 | 依赖项                     | 版本列表及依赖组件版本                                       |
 | -------------------------- | ------------------------------------------------------------ |
 | spring-boot-starter-parent | [spring-boot-starter-parent](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent) |
 | spring-boot-dependencies   | [spring-boot-dependencies](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies) |
 | spring-cloud-dependencies  | [spring-cloud-dependencies](https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies) |
 
-
-
 #### Spring Cloud 与 Spring Boot 大版本之间的依赖关系：
 
+{:.table}
 | Spring Cloud | Spring Boot                          |
 | ------------ | ------------------------------------ |
 | Angel        | 兼容 Spring Boot 1.2.x               |
@@ -69,6 +67,7 @@ Spring Boot 相关漏洞学习资料，利用方法和技巧合集，黑盒安�
 
 #### Spring Cloud 小版本号的后缀及含义:
 
+{:.table}
 | 版本号后缀     | 含义                                    |
 | -------------- | --------------------------------------- |
 | BUILD-SNAPSHOT | 快照版，代码不是固定，处于变化之中      |

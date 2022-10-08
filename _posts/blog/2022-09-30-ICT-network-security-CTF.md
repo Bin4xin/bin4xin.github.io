@@ -2,6 +2,7 @@
 layout: post
 title: "ICT network security CTF 2022 walkthrough"
 date: 2022-09-30 10:23:43+800
+wrench: 2022-09-30 16:39:42+800
 author: Bin4xin
 toc: true
 categories:
@@ -117,3 +118,32 @@ for X0 in range(0,11):
 - 得到flag
 
 ![2022-09-30-10.28.25.png](https://image.yjs2635.xyz/images/2022/09/30/2022-09-30-10.28.25.png)
+
+### eye
+
+- `$ binwalk -M eye.jpg` 发现zip文件
+- `$ 7za l 7B86.zip` 展示zip包含的文件名
+- `$ 7za l -slt 7B86.zip` 查看CRC32
+
+```console
+Path = 1.txt
+Accessed = 2022-04-22 13:27:39
+Attributes = A
+···
+Encrypted = +
+Comment =
+CRC = 0F84C81E
+···
+```
+
+CRC32爆破：
+
+```bash
+python2 crc32.py reverse 0x0f84c81e
+```
+
+![2022-09-30-16.04.33.png](https://image.yjs2635.xyz/images/2022/09/30/2022-09-30-16.04.33.png)
+
+依次类推，得到zip解压密码`ohhh_you_found_me`;
+
+本章节主要记录mac下针对该类赛题的命令使用方法，包括查看zip包含的文件名以及对应的CRC32值，后面的过程略。
