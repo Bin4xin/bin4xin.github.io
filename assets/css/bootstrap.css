@@ -2005,6 +2005,15 @@ pre .btn-pre-copy{
   cursor: pointer;
   transition: color .1s;
 }
+div.btn-pre-copy-position {
+  display: none;
+}
+div.highlight:hover > pre > div.btn-pre-copy-position {
+  display: block;
+  animation: fade-in 200ms both;
+  position: absolute !important;
+}
+
 .items-center {
   align-items: center;
 }
