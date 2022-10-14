@@ -147,3 +147,8 @@ python2 crc32.py reverse 0x0f84c81e
 依次类推，得到zip解压密码`ohhh_you_found_me`;
 
 本章节主要记录mac下针对该类赛题的命令使用方法，包括查看zip包含的文件名以及对应的CRC32值，后面的过程略。
+
+## 参考
+
+- [1].[2022年第三届电信和互联网行业职业技能竞赛WriteUp](https://mp.weixin.qq.com/s/sBZm6XYYlhYeECliv1WPvg){:target="_blank"}
+- [2].[WriteUp&#x7c;第三届电信&互联网行业职业技能竞赛解题思路分享~](https://mp.weixin.qq.com/s/mW3VRhL3ESX2lQn5p4a9eg){:target="_blank"}
