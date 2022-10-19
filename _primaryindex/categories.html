@@ -5,22 +5,20 @@ title: 文章分类 | 哨兵安全 · 主动防御 · 信息搜集 · Android Re
 ---
 
 <link rel="stylesheet" type="text/css" href="/assets/css/card.css">
-
 {% assign posts_about_desc = site.categories["about"] | sort: 'date' | group_by_exp:"post", "post.desc" |reverse %}
 {% assign posts_about = site.categories["about"] | sort: 'date' %}
 {% assign group_posts_size = posts_about | size %}
 <div class="navbar-collapse"><!--nav box padding set-->
     <div class="Box"><!--Box navbar set start-->
         {% comment %}{% include CHANGELOG.md %}{% endcomment %}
-        <!--
-        - {% comment %} maybe could group by Year/Month. and < Blog/About... > {% endcomment %}
-        - reference:
-            - { https://github.com/Huxpro/huxpro.github.io/blob/master/archive.html }
-                - {https://huangxuan.me/archive/}
-            - { https://github.com/ColdFusionX/ColdFusionX.github.io/blob/master/_layouts/category.html }
-                - { https://coldfusionx.github.io/tabs/categories/ }
-        -->
-        <details open>
+
+        <!--    - {% comment %} maybe could group by Year/Month. and < Blog/About... > {% endcomment %}
+                - reference:
+                    - { https://github.com/Huxpro/huxpro.github.io/blob/master/archive.html }
+                        - {https://huangxuan.me/archive/}
+                    - { https://github.com/ColdFusionX/ColdFusionX.github.io/blob/master/_layouts/category.html }
+                        - { https://coldfusionx.github.io/tabs/categories/ }  -->
+        <details>
             <summary class="list-group edSFyN"><a class="f2 fw4"><i class="far fa-folder fa-fw "></i> {{"about group" |upcase}}
                 <span data-view-component="true" class="badge badge-theme">{{ group_posts_size }}</span></a>
             </summary>
@@ -56,19 +54,3 @@ title: 文章分类 | 哨兵安全 · 主动防御 · 信息搜集 · Android Re
         {% endfor %}
     </div>
 </div>
-<!--
-  <单复数写法>代码引用申明/code reference declaration:
-- {@link https://zoharandroid.github.io/2019-08-02-Jekyll%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BBCategory%E5%8A%9F%E8%83%BD/}
--->
-{% comment %}
-post{% if top_posts_size > 1 %}s{% endif %}
-{% endcomment %}
-
-
-
-
-
-
-
-
-
