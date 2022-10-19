@@ -2,7 +2,7 @@
 
 # Site settings
 title: © 哨兵
-brand: Sentry CyberSecurity
+brand: SENTINEL SECURITY, LAB
 description: 哨兵安全实验室
 baseurl: "" #important: start with /
 url: "https://bin4xin.sentrylab.cn"
@@ -19,8 +19,8 @@ kramdown:
 permalink: "/:categories/:year/:title/"
 
 excerpt_separator: <!--more--> #use this in posts to define how long the excerpt of the post (that is shown on the Blog page) is
+#plugins: ["jekyll-toc", "jekyll-roman","jekyll-react","jekyll-assets"]
 plugins: ["jekyll-toc", "jekyll-roman"]
-#plugins: ["jekyll-toc", "jekyll-roman", "jekyll-paginate"]
 #paginate: 5
 #paginate_path: "/blog/page:num/"
 
@@ -42,7 +42,7 @@ future: true
 meow_404: true
 
 include: ['_pages','_primaryindex']
-exclude: ['BUILD.md','CHANGELOG.md','README.md','vendor']
+exclude: ['BUILD.md', 'README.md','vendor']
 
 # Short text about your company. Shown in footer on every page and also separately on Home and Contact page.
 about: "本站由哨兵安全实验室支持创办"

@@ -80,7 +80,8 @@ html {
 "Lato",
 "structure",
 "bootstrap-mod",
-"syntax-highlighting";
+"syntax-highlighting",
+"search/search";
 
 {% unless site.issue %}
 :root {
@@ -98,11 +99,13 @@ html {
         position: absolute;
     }
 }
-
-body, html {
-  position: relative;
-  //min-height: 100%;
+html {
   height: 100%;
+  box-sizing: border-box;
+}
+body {
+  position: relative;
+  min-height: 100%;
   margin: 0;
   padding: 0;
   -moz-osx-font-smoothing: grayscale;
@@ -110,13 +113,6 @@ body, html {
     background: $color_bg_dark;
   }
 }
-//body {
-//    position: relative;
-//    min-height: 100%;
-//    @include dark{
-//        background: $color_bg_dark;
-//    }
-//}
 //blog display css.
 .display-nav-li {
   padding: 0px 5px!important;
@@ -678,9 +674,7 @@ csmall {
   right: 0;
   bottom: 0;
   top: 0;
-
   z-index: -1;
-
   background-repeat: no-repeat;
   background-position: center;
 
@@ -711,7 +705,6 @@ csmall {
             url("/assets/img/missing-dark@4x.png") 4x);
   }
 }
-
 
 .nonthu .not-found-bg {
     background-image: none;
@@ -750,7 +743,6 @@ csmall {
 .nonthu .thuhidden{
     display: none;
 }
-
 
 // Scrolling columns in status page
 .tuna-roll {

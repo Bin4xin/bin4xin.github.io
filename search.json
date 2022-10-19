@@ -12,3 +12,6 @@ layout: none
 } {% unless forloop.last %},{% endunless %}
 {% endfor %}
 ]
+{%comment%}
+"content"  : "{{ post.content | strip_html| newline_to_br| replace :"`", ""| replace :"#", ""| replace :" ", ""| replace :'"', ''| replace :"<br/>", ''|strip_newlines }}",
+{%endcomment%}

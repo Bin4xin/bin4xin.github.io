@@ -6,8 +6,9 @@ permalink: /
 
 <link rel="stylesheet" type="text/css" href="/assets/css/card.css">
 <div class="content-flex">
-  <div id="service">
-    {% include top-banner.html %}
+  <div id="service"><div class="navbar-collapse"><!--nav box padding set-->
+    <div class="Box"><!--Box navbar set start-->
+      {% include search.html %}</div></div>
   </div><!--/service -->
   {% comment %}<div> {% include CHANGELOG.md %} </div>{% endcomment %}
   <div>
@@ -20,12 +21,13 @@ permalink: /
       {% for page in site.categories['blog'] limit:8 %}
       <article class="card">
         <header class="card-header">
-          <p>{% for tag in page.tags %}<span data-view-component="true" class="badge badge-theme">{{ tag }}</span>{% endfor %}</p>
+          <p><span data-view-component="true" class="badge badge-theme">{{ page.categories }}</span>
+            {% for tag in page.tags %}<span data-view-component="true" class="badge badge-theme">{{ tag }}</span>{% endfor %}</p>
           {% comment %} TODO mark
           - tags layout display;
           - tags categories url;
           - tag about/daily/post
-          <div class="tags">
+          <div class="tags"><a href="/about">{{ page.category }}</a>
             {% for tag in page.tags %}
             <a href="#">{{ tag }}</a>
             {% endfor %}

@@ -1,0 +1,6 @@
+{%- assign mode = include.mode -%}
+{% if mode == 'searchResultTemplate' %}\
+<ul class="nav nav-pills nav-stacked" id="ul-results-container"><li class="nav nav-pills nav-stacked no-underline table-of-contents"><a href="{url}"><div class="fa fa-search px-md-6"></div>{title}</a></li></ul>\
+{% elsif mode == 'noResultsText' %}\
+{% include not-found.html %}\
+{% endif %}

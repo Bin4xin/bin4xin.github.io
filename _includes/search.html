@@ -1,10 +1,49 @@
 <!-- HTML elements for search -->
-<label class="text-normal width-full">
-    <input class="form-control Search_searchIconBackground16 px-5 py-2" type="text" id="search-input" placeholder="搜索/Search"/>
-</label>
-
-<div class="" id="results-container"></div>
-
+<div class="spacing"></div>
+<div jscontroller="cnjECf" jsmodel="QubRsd a4L2gc QwwFZb BFDhle gx0hCb TnHSdd icv1ie " class="emcav">
+    <!--search button/form-->
+    <div class="RNNXgb" jsname="RNNXgb"><div class="SDkEP">
+        <div class="iblpc" jsname="uFMOof"></div>
+        <div jscontroller="vZr2rb" class="a4bIc" jsname="gLFyf" jsaction="h5M12e;input:d3sQLd;blur:jI3wzf">
+            <div class="YacQv gsfi" jsname="vdLsw"></div>
+            <input id="search-input" placeholder="搜索 {{site.root}}" class="gLFyf gsfi" maxlength="2048" name="q" type="text" aria-autocomplete="both" aria-haspopup="false" autocapitalize="off" autocomplete="off" autocorrect="off" autofocus="" role="combobox" spellcheck="false" title="搜索 {{site.root}}" aria-label="搜索 {{site.root}}">
+        </div>
+            <div class="dRYYxd">
+                <div jscontroller="PymCCe" jsname="RP0xob" class="BKRPef">
+                    <div class="vOY7J M2vV3" tabindex="0" role="button"></div>
+                    <span jsname="s1VaRe" class="ACRAdd M2vV3"></span>
+                </div>
+                <div class="XDyW0e" aria-label="搜索" role="button" tabindex="0">
+                    <div class="fa fa-search"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--search button/form end-->
+    <div class="L3eUgb" data-hveid="1">
+        <div jscontroller="Dvn7fe" class="UUbT9"><!--result box-->
+            <div class="aajZCb" jsname="aajZCb"><div class="xtSCL"></div>
+                <div class="mkHrUc">
+                    <ul class="erkvQe" jsname="erkvQe" role="listbox"><div class="OBMEnb" role="presentation">
+                        <ul jsname="bw4e9b" class="G43f7e" role="listbox">
+                            <li data-view-type="1" class="sbct" role="presentation" jsaction="click:.CLIENT;mouseover:.CLIENT">
+                                <div class="eIPGRd"><div class="sbic sb43" style=""></div><div class="pcTkSc" role="option">
+                                <div class="results-container" id="results-container"></div>
+                                </div></div></li></ul>
+                    </div></ul>
+                </div>
+                <div jsname="VlcLAe" class="lJ9FBc">
+                    <center> <input class="gNO89b" value="键入&nbsp;/&nbsp;跳转搜索" aria-label="Press / Jump to search" name="btnK" role="button" tabindex="0" type="submit" data-ved="0ahUKEwj7_fzcuuL6AhXAmlYBHUBLCPIQ4dUDCAc">
+                        <input class="RNmpXc" value="&nbsp;Welcome:D&nbsp;" aria-label="&nbsp;Welcome:D&nbsp;" name="btnI" type="submit">
+                    </center>
+                </div>
+            </div>
+            <div jsname="JUypV" jscontroller="OqGDve" class="MG7lrf">
+                <a class="oBa0Fe aciXEb dotted-underline no-underline" href="#" id="sbfblt" data-async-trigger="duf3-46" role="button">反馈搜索结果/feedback</a>
+            </div>
+        </div>
+    </div><!--result box end-->
+</div>
 <!-- script pointing to jekyll-search.js -->
 <script src="/assets/js/sjs/simple-jekyll-search.min.js"></script>
 
@@ -13,14 +52,123 @@
         searchInput: document.getElementById('search-input'),
         resultsContainer: document.getElementById('results-container'),
         json: '/search.json',
-        searchResultTemplate: '<ul class="nav nav-pills nav-stacked"><li class="nav nav-pills nav-stacked no-underline table-of-contents table-of-contents__left-border"><a href="{url}">{title}</a></li></ul>',
-        //TODO
+        searchResultTemplate: '{% include search-provider/results-container.html mode="searchResultTemplate" %}',
+        // TODO
         // here is something design style :)
         // 1. 1st search form, i wana get a form like a google search form.
         // 2. 2nd data set response: set <li> h5 code content like an egle's wings? myabe?
         // that's all. <!--    <h4> Search/搜索 <kbd>Ctrl ⌃</kbd> + <kbd>F</kbd></h4>-->
-        noResultsText: '<div class="not-found-text thuhidden"><h5><csmall>Oops!你来到了没有知识的荒原;尝试键入其他关键词<kbd>:D</kbd></h5></csmall><p>e.g. Nginx：</p><p><a href="/blog/2019/how-nginx/http2https/">NGINX笔记：http升级https协议</a> </p><p><a href="/blog/2019/nginx/with/jekyll-site/">多子域：JEKYLL优雅地部署于NGINX</a> </p></div>',
-        limit: 20,
+        noResultsText: '{% include search-provider/results-container.html mode="noResultsText" %}',
+        limit: 8,
         fuzzy: false
     })
+    // Char Code: 13  Enter,
+    // 37  👈,
+    // 38  ⬆️,
+    // 39  👉,
+    // 40  ⬇️
+    function keyThing(obj) {
+        var index;
+        $("#ul-results-container>li").on("click", function() {
+            $(this).siblings().find("a").css(obj.cssKey, "transparent");
+            $(this).find("a").css(obj.cssKey, obj.cssValue);
+            index = $(this).index();
+        })
+        var search = document.querySelector('input');
+        // 若使用keydown，按下s后，“s”也会添加到输入框
+        // 使用keyup则不会，s键松开后才触发
+        document.addEventListener('keyup', function(e) {
+            // console.log(e.keyCode);
+            if (e.keyCode == 191) {
+                search.focus();
+            }
+        });
+        $(document).on("keydown", function(event) {
+            var e = event || window.event || arguments.callee.caller.arguments[0];
+            //console.log(e.keyCode);
+            //获取键对应的keyCode
+            if (index != undefined) {
+                 if (e.keyCode == 40) {
+                    if (index > $("#ul-results-container>li").length - 1) {
+                        return false;
+                    } else {
+                        clear();
+                        index = index + 1;
+                    }
+                    $("#ul-results-container>li").eq(index - 1).find("a").css(obj.cssKey, obj.cssValue);
+                } else if (e.keyCode == 38) {
+                    if (index < 2) {
+                        return false;
+                    } else {
+                        clear();
+                        index = index - 1;
+                    }
+                    $("#ul-results-container>li").eq(index - 1).find("a").css(obj.cssKey, obj.cssValue);
+                } else if (e.keyCode == 39) {
+                    if (index > $("#ul-results-container>li").length - 1) {
+                        return false;
+                    } else {
+                        clear();
+                        index = index + 1;
+                    }
+                    $("#ul-results-container>li").eq(index - 1).find("a").css(obj.cssKey, obj.cssValue);
+                } else if (e.keyCode == 37) {
+                     if (index < 2) {
+                         return false;
+                     } else {
+                         clear();
+                         index = index - 1;
+                     }
+                     $("#ul-results-container>li").eq(index - 1).find("a").css(obj.cssKey, obj.cssValue);
+                 } //else if (e.keyCode == 13) {
+                     //let results = document.getElementsByClassName("results-focus");
+                     // $(".results-focus").click(function(){console.log("click.")});
+                //}
+                // obj.callback(index);
+            } else {
+                if (e.keyCode) {
+                    index = 1;
+                    $("#ul-results-container>li").eq(0).find("a").css(obj.cssKey, obj.cssValue);
+                }
+            }
+        })
+        function clear() {
+            for (var i = 0; i < $("#ul-results-container>li").length; i++) {
+                $("#ul-results-container>li").eq(i).find("a").css(obj.cssKey, "transparent");
+                // $("#ul-results-container>li").eq(i).find("a").removeClass("results-focus");
+            }
+        }
+    }
+
+    var prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var obj = {};
+    obj.row = 10;
+    obj.cssKey = "backgroundColor";
+    if (prefersDarkMode){
+        obj.cssValue = "gray";
+    } else {
+        obj.cssValue = "#eeeeee";
+    }
+    //obj.callback = function(n) {
+        //此处可以输出对应的索引值。
+     //   console.log('index'+n);
+    //}
+    keyThing(obj);
+    // ==========================
+    // ======= search button
+    // ======= css zoom design.
+    // ==========================
+    // const input = document.querySelector(".finder__input");
+    // const finder = document.querySelector(".finder");
+    // const form = document.querySelector("form");
+    //
+    // input.addEventListener("focus", () => {
+    //     finder.classList.add("active");
+    // });
+    //
+    // input.addEventListener("blur", () => {
+    //     if (input.value.length === 0) {
+    //         finder.classList.remove("active");
+    //     }
+    // });
 </script>
