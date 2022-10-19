@@ -1,9 +1,14 @@
-
+/**
+ * copy document FUNC
+ * @param pre
+ * - @preCopy func() 代码引用申明/code reference declaration:
+ * - {@link -}
+ **/
 $(function(){
     let preList = $("pre");
     for (let pre of preList) {
-      let btn = $("<div class=\"hidden-print group flex right-0 top-0 btn-pre-copy-position\" onclick='preCopy(this)'><span class=\"group-hover-flex m-2 p-2 btn btn-pre-copy color-border-accent-emphasis\" style=\"display: inherit;position: relative;\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" class=\"d-flex\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2\" class=\"media-object copy-code-icon-path-1\"></path><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M5 13l4 4L19 7\" class=\"copy-code-icon-path-2 hidden\"></path></svg></span></div>");
-      btn.prependTo(pre);
+        let btn = $("<div class=\"hidden-print group flex right-0 top-0 btn-pre-copy-position\" onclick='preCopy(this)'><span class=\"group-hover-flex m-2 p-2 btn btn-pre-copy color-border-accent-emphasis\" style=\"display: inherit;position: relative;\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" class=\"d-flex\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2\" class=\"media-object copy-code-icon-path-1\"></path><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M5 13l4 4L19 7\" class=\"copy-code-icon-path-2 hidden\"></path></svg></span></div>");
+        btn.prependTo(pre);
     }
 });
 
@@ -22,12 +27,13 @@ function preCopy(obj) {
     setTimeout(() =>{
             btn.remove();
         }
-    ,1500);
+        ,1500);
     setTimeout(()=> {
         let btn = $("<div class=\"hidden-print group flex right-0 top-0 btn-pre-copy-position\" onclick='preCopy(this)'><span class=\"group-hover-flex m-2 p-2 btn btn-pre-copy color-border-accent-emphasis\" style=\"display: inherit;position: relative;\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" class=\"d-flex\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2\" class=\"media-object copy-code-icon-path-1\"></path><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M5 13l4 4L19 7\" class=\"copy-code-icon-path-2 hidden\"></path></svg></span></div>");
         btn.prependTo(pre);
     },1500);
 }
+
 /**
  * print document FUNC
  * @param printpage
@@ -93,16 +99,10 @@ function scroll() {
 }
 window.onscroll = function() {
     /**
-    console.log("top： "+scroll().top);
-    console.log("left： "+scroll().left);
-    console.log(all_width);
-    let all_width = $(document.body).outerWidth(true);
-    if (all_width < 800) {
-        var classVal = document.getElementById("post-content").getAttribute("class");
-        classVal = classVal.replace("d-flex","");
-        document.getElementById("post-content").setAttribute("class", classVal );
-    }
-    **/
+     console.log("top： "+scroll().top);
+     console.log("left： "+scroll().left);
+     console.log(all_width);
+     **/
     if (scroll().top > 280) {
         $("divs").removeClass("opacity-0");
         $("divs").addClass("opacity-100");
@@ -112,11 +112,3 @@ window.onscroll = function() {
         $("divs").addClass("opacity-0");
     }
 }
-/**
- * function: click to close a page/button etc...
- * - @param
- *  - click hidden-2-click-{{note_node|replace: ' ', '-'|replace: '.', '-'}}
- *  - display:none JQuery: $("diva-{{note_node |replace: ' ', '-'|replace: '.', '-' }}").hide();
- * By bin4xin
- * - { @link More see: `/assets/js/oh-sentry.js` }
- **/
