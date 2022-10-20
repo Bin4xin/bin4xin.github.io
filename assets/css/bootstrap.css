@@ -2008,7 +2008,9 @@ pre .btn-pre-copy{
 div.btn-pre-copy-position {
   display: none;
 }
-div.highlight:hover > pre > div.btn-pre-copy-position {
+figure.highlight:hover > pre > div.btn-pre-copy-position,
+div.highlight:hover > pre > div.btn-pre-copy-position
+{
   display: block;
   animation: fade-in 200ms both;
   position: absolute !important;
@@ -2052,6 +2054,56 @@ div.highlight:hover > pre > div.btn-pre-copy-position {
   margin-right: auto;
   margin-left: auto;
 }
+/*tag menu drip down*/
+#main-nav ul {
+  list-style: none;
+  display: flex;
+}
+
+#main-nav li {
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+
+#main-nav li:hover .submenu > li {
+/*#main-nav .submenu > li {*/
+  display: block;
+  flex-direction: column;
+  top: 0px;
+}
+
+.submenu li {
+  display: none;
+  position: absolute;
+  top: 0px;
+}
+
+.submenu li {
+  position: relative;
+}
+
+.submenu li:hover .submenu-2 li {
+  display: block;
+}
+
+.submenu-2 li {
+  display: none;
+}
+.submenu-2 {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0px;
+  left: 100%;
+  width: 120px;
+}
+.arrow {
+  margin-left: 8px;
+  color: #eee;
+  font-size: 12px;
+}
+/*tag menu drip down end*/
 @media (min-width: 768px) {
   .container {
     width: 750px;
@@ -2102,6 +2154,7 @@ div.highlight:hover > pre > div.btn-pre-copy-position {
 .col-md-3,
 .col-lg-3,
 .col-xs-4,
+.col-xs-4-5,
 .col-sm-4,
 .col-md-4,
 .col-lg-4,
@@ -2146,6 +2199,7 @@ div.highlight:hover > pre > div.btn-pre-copy-position {
 .col-xs-2,
 .col-xs-3,
 .col-xs-4,
+.col-xs-4-5,
 .col-xs-5,
 .col-xs-6,
 .col-xs-7,
@@ -4641,7 +4695,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: var(--theme-main-color);
   font-weight: bold;
   border-left: 4px solid #d0d7de;
-  margin-left: -1px!important;
+  margin-left: -8px!important;
 }
 .nav-stacked > li {
   float: none;
