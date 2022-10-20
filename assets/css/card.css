@@ -422,7 +422,7 @@ margin: 0;
 
 .table-of-contents,.table-of-contents ul {
     list-style-type: none;
-    padding-left: var(--ifm-toc-padding-horizontal)
+    padding-left: var(--ifm-toc-padding-horizontal);
     border-left: 0px;
     /*margin-left: 4px;*/
 }

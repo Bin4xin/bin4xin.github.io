@@ -942,6 +942,58 @@ devsite-header .devsite-collapsible-section, devsite-header[no-lower-row][fixed]
   border-color: #3fb950;
   color: #3fb950;
 }
+/* tag menu drip down */
+.submenu {
+  background: rgba(33, 33, 33, 0.98);
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  outline: none;
+  border-radius: 24px;
+  z-index: 2202;
+  position: fixed;
+  top: 80px;
+  @include dark{
+   background: rgba(255, 255, 255, 0.98);
+  }
+}
+.main-nav-submenu-color{
+  color: #eeeeee;
+  @include dark{
+    color: #000000;
+  }
+}
+#main-nav a {
+  color: #f6f7f8;
+  @include dark{
+    color: #909090;
+  }
+  font-family: lato;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-decoration: none;
+  transition: background 0.4s;
+}
+.gb_A {
+  height: 64px;
+  width: 64px;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+#main-nav div.gb_A:hover,
+#main-nav a:hover {
+  background: #00000087;
+  @include dark{
+    background: #000000;
+  }
+}
+/* tag menu drip down end */
 {% for attrb in (1..2) %}
 @for $i from 0 to 7 {
   {% cycle "g1": "[data-tuna-roll-cur", ".row[data-tuna-roll-freeze" %}="#{$i}"] {

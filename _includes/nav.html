@@ -6,6 +6,7 @@
 |  2.Fixed navbar padding-top equals to 70px                                                                        |
 |    `./assets/css/style.scss` @import struture in `./assets/css/_struture.scss` del `padding-top=70px` in body.    |
 #####################################################################################################################-->
+
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -20,9 +21,30 @@
             <del>also this icon func are under-construction</del>
             DONE.
             -->
-            <a class="navbar-brand">
+            {% if page.permalink == "/" %}
+            {% assign shequ = site.data.nerd_urls %}
+                <nav id="main-nav">
+                    <ul><li>
+                        <div class="flex-row d-flex">
+                        <div class="gb_A flex-justify-center-l" href="#">{% include pic.html name="github" %}</div>
+                        </div>
+                        <ul class="submenu">
+                        {% for node in shequ %}
+                            {%if node.name == "社区"%}
+                                {% for data in node.data %}
+                                <li class="table-of-contents__left-border p-2" style="line-height: 40px">
+                                <a class="color-fg-muted f1-l mt-2 text--bolder" href="{{data.link}}" target="_blank">
+                                    <div class="fa fa-code-fork px-md-6"></div>{{ data.name|upper }}
+                                </a></li>
+                                {%endfor%}
+                            {%endif%}
+                        {%endfor%}
+                        </ul>
+                    </li></ul>
+                </nav>
+                {% else %}
                 {% include pic.html name="logo-small" %}
-            </a>
+                {% endif %}
         </div>
         <div class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
@@ -34,13 +56,13 @@
                 <li><a target="blank" href="http://www.19371213.com.cn">:: DATA RESEARCH</a ></li>
                 <li><a target="blank" href="{{"/2016-11/29/c_135866990.htm" | prepend: site.harmonyURL }}">:: CONTACT US</a></li>
                 {% else %}
-                <li {% if page.permalink == "/" %}class="active"{% endif %}><a href="{{"/" | prepend: site.baseurl }}">HOME</a></li>
+                <li {% if page.permalink == "/" %}class="active"{% endif %}><a href="{{"/" | prepend: site.baseurl }}"><div class="fa fa-search"></div></a></li>
+                <li {% if page.permalink == "/home" %}class="active"{% endif %}><a href="{{"/home" | prepend: site.baseurl }}">HOME</a></li>
                 <li {% if page.permalink == "/blog/" or page.categories contains "blog" %}class="active"{% endif %}><a href="{{"/blog/" | prepend: site.baseurl }}">BLOG</a></li>
                 <li {% if page.permalink == "/categories/" or page.categories contains "categories" %}class="active"{% endif %}><a href="{{"/categories/" | prepend: site.baseurl }}">CATEGORIES</a></li>
                 <li {% if page.permalink == "/daily/" or page.categories contains "daily" %}class="active"{% endif %}><a href="{{"/daily/" | prepend: site.baseurl }}">DAILY</a></li>
                 <li {% if page.permalink == "/about/" or page.categories contains "about" %}class="active"{% endif %}><a href="{{"/about/" | prepend: site.baseurl }}">RESEARCH</a></li>
                 <li {% if page.permalink == "/feed.xml" or page.categories contains "feed" %}class="active"{% endif %}><a href="{{"/feed.xml" | prepend: site.baseurl }}">RSS</a></li>
-                <li {% if page.permalink == "/usage/" or page.categories contains "usage" %}class="active"{% endif %}><a href="{{"/usage/" | prepend: site.baseurl }}">QUICK START</a></li>
                 {% endif %}
             </ul>
         </div><!--/.nav-collapse -->
