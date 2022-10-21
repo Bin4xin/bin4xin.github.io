@@ -1,48 +1,47 @@
+<!--article author end-->
+{% assign now = site.time |date: "%s" |times: 1000 %}
+<!-- site build time set to the latest time.-->
+{% assign page_post_date = page.date |date: "%s" |times: 1000 %}
+<!-- post time-->
+{% assign M = 1000 |times: 60 %}
+{% assign H = M |times: 60 %}
+{% assign D = H |times: 24 %}
+{% assign Week = D |times: 7 %}
+{% assign Mon = D |times: 30 %}
+<div class="ml-hide">
+    <a class="f2 d-flex color-fg-default" href="https://github.com/{{ page.author }}" target="_blank">
+        {{ page.author }}
 
-    <!--article author end-->
-    {% assign now = site.time |date: "%s" |times: 1000 %}
-    <!-- site build time set to latest time.-->
-    {% assign page_post_date = page.date |date: "%s" |times: 1000 %}
-    <!-- post time-->
-    {% assign M = 1000 |times: 60 %}
-    {% assign H = M |times: 60 %}
-    {% assign D = H |times: 24 %}
-    {% assign Week = D |times: 7 %}
-    {% assign Mon = D |times: 30 %}
-    <div class="ml-hide">
-        <a class="f2 d-flex color-fg-default" href="https://github.com/{{ page.author }}" target="_blank">
-            {{ page.author }}
+        {% if page.wrench %}
+            {% assign page_wrench_date = page.wrench |date: "%s" |times: 1000 %}
+            <!-- wrench time-->
+            {% assign time_diff = now |minus: page_wrench_date %}
+        edited
+        {% else %}
+            {% assign time_diff = now |minus: page_post_date %}
+        post
+        {% endif %}
 
-            {% if page.wrench %}
-                {% assign page_wrench_date = page.wrench |date: "%s" |times: 1000 %}
-                <!-- wrench time-->
-                {% assign time_diff = now |minus: page_wrench_date %}
-            edited
-            {% else %}
-                {% assign time_diff = now |minus: page_post_date %}
-            post
-            {% endif %}
+        {% assign M_diff = time_diff |divided_by:  M %}
+        {% assign H_diff = time_diff |divided_by:  H %}
+        {% assign D_diff = time_diff |divided_by:  D %}
+        {% assign Week_diff = time_diff |divided_by:  Week %}
+        {% assign Mon_diff = time_diff |divided_by:  Mon %}
 
-            {% assign M_diff = time_diff |divided_by:  M %}
-            {% assign H_diff = time_diff |divided_by:  H %}
-            {% assign D_diff = time_diff |divided_by:  D %}
-            {% assign Week_diff = time_diff |divided_by:  Week %}
-            {% assign Mon_diff = time_diff |divided_by:  Mon %}
-
-            {% if Mon_diff >= 0 and Mon_diff < 12 %}
-                {% if Week_diff <= 5 %}
-                    {% if M_diff < 60 %}
-                        {{ M_diff }} minute{%if M_diff > 1 %}s{% else %}{% endif %} ago
-                        {% elsif H_diff >= 0 and H_diff <= 24 %}
-                            {{ H_diff }} hour{%if H_diff > 1 %}s{% else %}{% endif %} ago
-                    {% else %}
-                        {{ D_diff }} day{%if D_diff > 1 %}s{% else %}{% endif %} ago
-                    {% endif %}
+        {% if Mon_diff >= 0 and Mon_diff < 12 %}
+            {% if Week_diff <= 5 %}
+                {% if M_diff < 60 %}
+                    {{ M_diff }} minute{%if M_diff > 1 %}s{% else %}{% endif %} ago
+                    {% elsif H_diff >= 0 and H_diff <= 24 %}
+                        {{ H_diff }} hour{%if H_diff > 1 %}s{% else %}{% endif %} ago
                 {% else %}
-                on {% if page.wrench %}{{page.wrench | date: "%b %-d"}}{% else %}{{page.date| date: "%b %-d"}}{% endif %}
+                    {{ D_diff }} day{%if D_diff > 1 %}s{% else %}{% endif %} ago
                 {% endif %}
             {% else %}
-                on {% if page.wrench %}{{page.wrench | date: "%b %-d, %Y"}}{% else %}{{page.date| date: "%b %-d, %Y"}}{% endif %}
+            on {% if page.wrench %}{{page.wrench | date: "%b %-d, %Y"}}{% else %}{{page.date| date: "%b %-d, %Y"}}{% endif %}
             {% endif %}
-        </a>
-    </div>
+        {% else %}
+            on {% if page.wrench %}{{page.wrench | date: "%b %-d, %Y"}}{% else %}{{page.date| date: "%b %-d, %Y"}}{% endif %}
+        {% endif %}
+    </a>
+</div>
