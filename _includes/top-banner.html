@@ -10,8 +10,8 @@
                 <div style="font-family: 'DM Mono', monospace;">
                     <csmall class="flex-justify-center-l white">
                         <!--<div class="build-show-icon scrollbar-16-16"></div>-->
-                        <a class="px-md-6 white f2 fw4" href="/">HOME</a> /
-                        <a class="px-md-6 white f2 fw4" href="../">{{page_cn_category}} </a>/
+                        <a class="px-md-6 white f2 fw4" href="/">{{site.root}}</a> /
+                        <a class="px-md-6 white f2 fw4" href="/{{page.category}}/">{{page_cn_category}} </a>/
                         <a class="px-md-6 white f2 fw4 items-center" href="#">
                             {%if page.desc%} {{ page.desc|replace :"「", "" | replace: "」", ""| replace: " ", ""}} {%endif%}
                         </a>

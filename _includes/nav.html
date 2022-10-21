@@ -34,7 +34,7 @@
                                 {% for data in node.data %}
                                 <li class="table-of-contents__left-border p-2" style="line-height: 40px">
                                 <a class="color-fg-muted f1-l mt-2 text--bolder" href="{{data.link}}" target="_blank">
-                                    <div class="fa fa-code-fork px-md-6"></div>{{ data.name|upper }}
+                                    <div class="fa fa-code-fork px-md-6"></div>{{ data.name |upcase }}
                                 </a></li>
                                 {%endfor%}
                             {%endif%}
