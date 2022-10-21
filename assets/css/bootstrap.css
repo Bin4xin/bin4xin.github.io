@@ -4683,9 +4683,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-pills > li {
   float: left;
 }
-/*.nav-pills > li > a {*/
-/*  border-radius: 4px;*/
-/*}层叠圆角*/
 .nav-pills > li + li {
   margin-left: 2px;
 }
@@ -4705,14 +4702,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-left: 0;
   max-width: none;
 }
-/*.nav-stacked > summary {*/
-/*  float: none;*/
-/*}*/
-/*.nav-stacked > summary + summary {*/
-/*  margin-top: 2px;*/
-/*  margin-left: 0;*/
-/*  max-width: none;*/
-/*}*/
 .nav-justified {
   width: 100%;
 }
