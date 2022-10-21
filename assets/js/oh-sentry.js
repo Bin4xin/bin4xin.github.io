@@ -8,64 +8,57 @@
         });
     });
 {% endfor %}
-
+/*
+ *[x] step 1. type esc or
+     *  // Char Code: 13  Enter,
+     *  // 37  👈,
+     *  // 38  ⬆️,
+     *  // 39  👉,
+     *  // 40  ⬇
+     * lose foucus.️
+ * [x] step 2. press enter to click.
+ * [x] step 3. prepare more json data FOR [simple jekyll search].
+ * step 4. while in dark mode, @para obj.cssValue unwell. Any good way prefer to
+ * `prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches`?
+ * that's all.
+ */
 function keyThing(obj) {
-    var index;
+    var index = 0;
     $("#ul-results-container>li").on("click", function() {
         $(this).siblings().find("a").css(obj.cssKey, "transparent");
         $(this).find("a").css(obj.cssKey, obj.cssValue);
         index = $(this).index();
     })
-    var searchInput = document.getElementById('search-input');
-    //var results_container = document.getElementById('results-container');
-    document.addEventListener('keyup', function(e) {
-        // console.log(e.keyCode);
-        if (e.keyCode == 191) {
-            searchInput.focus();
-        }
-    });
-    /*
-     *[x] step 1. type esc or
-         *  // Char Code: 13  Enter,
-         *  // 37  👈,
-         *  // 38  ⬆️,
-         *  // 39  👉,
-         *  // 40  ⬇
-         * lose foucus.️
-     * step 2. press enter to click.
-     * [x] step 3. prepare more json data FOR [simple jekyll search].
-     * step 4. while in dark mode, @para obj.cssValue unwell. Any good way prefer to
-     * `prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches`?
-     * that's all.
-     */
     $(document).on("keydown", function(event) {
         var e = event || window.event || arguments.callee.caller.arguments[0];
-        //console.log(e.keyCode);
-        //获取键对应的keyCode
         if (index != undefined) {
-            if (e.keyCode == 40) {
-                if (index > $("#ul-results-container>li").length - 1) {
-                    return false;
-                } else {
-                    clear();
-                    index = index + 1;
+            var searchInput = document.getElementById('search-input');
+                if (e.keyCode == 191) {
+                    searchInput.focus();
+                } else if (e.keyCode == 40) {
+                    if (index > $("#ul-results-container>li").length - 1) {
+                        return false;
+                    } else {
+                        clear();
+                        index = index + 1;
+                    }
+                    $("#ul-results-container>li").eq(index - 1).find("a").css(obj.cssKey, obj.cssValue);
+                } else if (e.keyCode == 38) {
+                    if (index < 2) {
+                        return false;
+                    } else {
+                        clear();
+                        index = index - 1;
+                    }
+                    $("#ul-results-container>li").eq(index - 1).find("a").css(obj.cssKey, obj.cssValue);
+                } else if (e.keyCode == 13) {
+                    var b = document.getElementById("results-container");       /*通过父标签id获取ul标签内容*/
+                    var a = b.getElementsByTagName("li");      /* 通过子标签获取li标签里的内容*/
+                    var x = a[index-1].getElementsByTagName("a");    /*通过获取数组的第一个元素也就是第一个li的a 标签*/
+                    for(var i = 0; i<x.length; i++)
+                    {location.href = x[i].href;}
                 }
-                $("#ul-results-container>li").eq(index - 1).find("a").css(obj.cssKey, obj.cssValue);
-            } else if (e.keyCode == 38) {
-                if (index < 2) {
-                    return false;
-                } else {
-                    clear();
-                    index = index - 1;
-                }
-                $("#ul-results-container>li").eq(index - 1).find("a").css(obj.cssKey, obj.cssValue);
-            }
-            //else if (e.keyCode == 13) {
-            //let results = document.getElementsByClassName("results-focus");
-            // $(".results-focus").click(function(){console.log("click.")});
-            //}
-            // obj.callback(index);
-        } else {
+            } else {
             if (e.keyCode) {
                 index = 1;
                 $("#ul-results-container>li").eq(0).find("a").css(obj.cssKey, obj.cssValue);
@@ -87,10 +80,6 @@ if (prefersDarkMode){
 } else {
     obj.cssValue = "#eeeeee";
 }
-//obj.callback = function(n) {
-//此处可以输出对应的索引值。
-//   console.log('index'+n);
-//}
 keyThing(obj);
 
 // ==========================

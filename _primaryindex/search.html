@@ -24,6 +24,7 @@ permalink: /
     </div>
 </div>
 {% comment %}MARK TODO<div> {% include CHANGELOG.md %} </div>{% endcomment %}
+<script src="/assets/js/sjs/simple-jekyll-search.min.js"></script>
 <script>
     /**
      * SimpleJekyllSearch FUNC
@@ -55,7 +56,7 @@ permalink: /
             json: json,
             searchResultTemplate: '{% include search-provider/results-container.html mode="searchResultTemplate" %}',
             noResultsText: '{% include search-provider/results-container.html mode="noResultsText" %}',
-            limit: 20
+            limit: 8
         });
         sjs.search(mykeyword);
     });
