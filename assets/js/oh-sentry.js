@@ -9,16 +9,6 @@
     });
 {% endfor %}
 
-
-SimpleJekyllSearch({
-    searchInput: document.getElementById('search-input'),
-    resultsContainer: document.getElementById('results-container'),
-    json: '/search.json',
-    searchResultTemplate: '{% include search-provider/results-container.html mode="searchResultTemplate" %}',
-    noResultsText: '{% include search-provider/results-container.html mode="noResultsText" %}',
-    limit: 8,
-    fuzzy: false
-})
 function keyThing(obj) {
     var index;
     $("#ul-results-container>li").on("click", function() {
@@ -43,7 +33,7 @@ function keyThing(obj) {
          *  // 40  ⬇
          * lose foucus.️
      * step 2. press enter to click.
-     * step 3. prepare more json data FOR [simple jekyll search].
+     * [x] step 3. prepare more json data FOR [simple jekyll search].
      * step 4. while in dark mode, @para obj.cssValue unwell. Any good way prefer to
      * `prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches`?
      * that's all.

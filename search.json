@@ -1,17 +1,14 @@
 ---
-layout: none
 ---
 [
-{% for post in site.posts %}
-{
-"title"    : "{% if post.Researchname %}{{ post.Researchname}}{% else %}{{ post.title | escape }}{% endif %}",
-"category" : "{{ post.category }}",
-"tags"     : "{{ post.tags | join: ', ' }}",
-"url"      : "{{ site.baseurl }}{{ post.url }}",
-"date"     : "{{ post.date }}"
-} {% unless forloop.last %},{% endunless %}
+{% for post in site.posts %}{% unless post.layout == "encrypt" %}
+  {
+    "title"    : "{% if post.Researchname %}{{ post.Researchname}}{% else %}{{ post.title | escape }}{% endif %}",
+    "category" : "{{ post.category }}",
+    "tags"     : "{{ post.tags | join: ', ' }}",
+    "url"      : "{{ site.baseurl }}{{ post.url }}",
+    "date"     : "{{ post.date | date: "%b %-d, %Y" }}",
+    "content"  : {{ post.content | strip_html | replace :' ', '' | strip_newlines | jsonify }}
+  }{% unless forloop.last %},{% endunless %}{% endunless %}
 {% endfor %}
 ]
-{%comment%}
-"content"  : "{{ post.content | strip_html| newline_to_br| replace :"`", ""| replace :"#", ""| replace :" ", ""| replace :'"', ''| replace :"<br/>", ''|strip_newlines }}",
-{%endcomment%}
