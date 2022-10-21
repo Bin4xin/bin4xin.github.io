@@ -18,3 +18,14 @@
 </body>
 {% include default-add-func.html %}
 </html>
+<script>
+jQuery(function($) {
+    $(document.links)
+    .filter(function() {
+        return this.hostname && this.hostname !== location.hostname && this.hostname !== 'github.com';
+        })
+        .each(function() {
+        $(this).addClass('fa fa-external-link-alt');
+    });
+});
+</script>

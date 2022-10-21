@@ -81,7 +81,6 @@ if (prefersDarkMode){
     obj.cssValue = "#eeeeee";
 }
 keyThing(obj);
-
 // ==========================
 // ======= search button
 // ======= css zoom design.
