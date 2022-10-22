@@ -38,18 +38,13 @@
     </div>
     <div class="tertiary d-flex">
         <div class="wrapper">
-            <div class="col justify-center flex-wrap-l justify-between-l ">
+            <div class="col justify-center flex-wrap-l d-flex justify-content-center">
                 <ul class="pa1 table-of-contents flex-xl-justify-between flex-xl-column">
-                    <li class=" outstanding"><a>SENTINEL SECURITY, LAB.</a></li>
-<!--                    <li class=" outstanding"><a>·</a></li>-->
-                    <li class=" outstanding"><a>© 2019-{{ site.time | date: '%Y' }} {{site.description}}.</a></li>
-<!--                    <li class=" outstanding"><a>·</a></li>-->
-                    <li class=" outstanding"><a>Jekyll Ver {{ jekyll.version }}.</a></li>
-<!--                    <li class=" outstanding"><a>·</a></li>-->
-                    <li class=" outstanding"><a>{{site.root | upcase}}</a></li>
+                    <li class="outstanding"><a>© 2019-{{ site.time | date: '%Y' }} {{site.root | upcase}}</a></li>
+                    <li class="outstanding"><a>{{ site.brand }}</a></li>
+                    <li class="outstanding"><a>Jekyll Ver {{ jekyll.version }}.</a></li>
                 </ul>
             </div>
-
         </div>
     </div>
 </div><!--/footerwrap -->
