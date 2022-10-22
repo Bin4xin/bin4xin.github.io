@@ -10,41 +10,45 @@
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <!-- 代码引用申明/code reference declaration:
-            @ [click this icon -> scroll to top of page;] code from anquanke. visit any posts in https://www.anquanke.com/
-            <del>also this icon func are under-construction</del>
-            DONE.
-            -->
-            {% if page.permalink == "/" %}
-            {% assign shequ = site.data.nerd_urls %}
-                <nav id="main-nav">
-                    <ul><li>
-                        <div class="flex-row d-flex">
-                        <div class="gb_A flex-justify-center-l" href="#">{% include pic.html name="github" %}</div>
-                        </div>
-                        <ul class="submenu">
-                        {% for node in shequ %}
-                            {%if node.name == "社区"%}
-                                {% for data in node.data %}
-                                <li class="table-of-contents__left-border p-2" style="line-height: 40px">
-                                <a class="color-fg-muted f1-l mt-2 text--bolder" href="{{data.link}}" target="_blank">
-                                    <div class="fa fa-code-fork px-md-6"></div>{{ data.name |upcase }}
-                                </a></li>
-                                {%endfor%}
-                            {%endif%}
-                        {%endfor%}
-                        </ul>
-                    </li></ul>
-                </nav>
-                {% else %}
-                {% include pic.html name="logo-small" %}
-                {% endif %}
+            <div class="d-flex flex-justify-between">
+                <!-- 代码引用申明/code reference declaration:
+                @ [click this icon -> scroll to top of page;] code from anquanke. visit any posts in https://www.anquanke.com/
+                <del>also this icon func are under-construction</del>
+                DONE.
+                -->
+                <div>{% if page.permalink == "/" %}
+                {% assign shequ = site.data.nerd_urls %}
+                    <nav id="main-nav">
+                        <ul><li>
+                            <div class="flex-row d-flex justify-start">
+                            <div class="gb_A flex-justify-center-l" href="#">{% include pic.html name="github" %}</div>
+                            </div>
+                            <ul class="submenu">
+                            {% for node in shequ %}
+                                {%if node.name == "社区"%}
+                                    {% for data in node.data %}
+                                    <li class="table-of-contents__left-border p-2" style="line-height: 40px">
+                                    <a class="color-fg-muted f1-l mt-2 text--bolder" href="{{data.link}}" target="_blank">
+                                        <div class="fa fa-code-fork px-md-6"></div>{{ data.name |upcase }}
+                                    </a></li>
+                                    {%endfor%}
+                                {%endif%}
+                            {%endfor%}
+                            </ul>
+                        </li></ul>
+                    </nav>
+                    {% else %}
+                    {% include pic.html name="logo-small" %}
+                    {% endif %}
+                </div>
+                <div style="padding-right: 32px;">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button></div>
+            </div>
         </div>
         <div class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
