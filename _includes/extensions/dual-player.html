@@ -1,0 +1,67 @@
+
+<div id="dual_player" class="row col-md-9-5">
+    <div class="blog-bar-display d-flex flex-column">
+        <div class="Box-header">
+            <div id="dual_player_exchange" class="d-flex justify-center items-center">
+                <div class="fa fa-video-camera" style="padding-right: 20px;"></div>
+                <a class="no-underline btn mr-1 color-border-accent-emphasis youtube"><span class="fa fa-youtube-play"></span> YouTube</a>
+                <a class="no-underline btn mr-1 color-border-accent-emphasis bilibili"><span class="ico-bilibili"></span> BiliBili</a>
+            </div>
+        </div>
+        <div class="Box-row">
+            <div class="extensions extensions--video" style="top: -0.5rem">
+                <iframe src="" frameborder="no" scrolling="no" allowfullscreen="true"></iframe>
+            </div>
+        </div>
+        <div class="o3j99 qarstb"><style data-iml="1666164875063">.vcVZ7d{text-align:center}</style>
+            <div class="vcVZ7d" id="gws-output-pages-elements-homepage_additional_languages__als">
+                <style data-iml="1666164875063">#gws-output-pages-elements-homepage_additional_languages__als{font-size:small;margin-bottom:24px}#SIvCob a{padding:0 3px;}</style>
+                <div><a class="oBa0Fe aciXEb" href="{{site.githubAccess}}/{{site.githubRepos}}/issues/new?labels=Inappropriate+video+feedback&template=2-bug_report.yaml&title={{page.path}}不良视频反馈/feedback" target="_blank" id="sbfblt" data-async-trigger="duf3-46" role="button">
+                    不良视频反馈&nbsp;|&nbsp;Inappropriate video feedback. </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+        /**
+         * video display dual-player FUNC
+         * @param dual_player
+         * - @preCopy func() 代码引用申明/code reference declaration:
+         * - {@link -  https://zouyu4524.github.io/blog/provide-different-video-sources/#section-5}
+         **/
+        (function () {
+
+            const src_b = "https://player.bilibili.com/player.html?bvid={{ include.id_b | json }}&page=1";
+            const src_y = "https://www.youtube.com/embed/{{ include.id_y | json }}?rel=0&showinfo=0";
+
+            const unique_id = 'video_' + Date.now().toString(36) + "_" + Math.random().toString(36).substr(2, 5);
+
+            // replace dual player's id as an unique one
+            document.getElementById('dual_player').id = unique_id;
+
+            let src_url = src_b; // use bilibili as default
+            const language = navigator.language;
+
+            if ( language !== "zh-CN" ) {
+                // use YouTube if the language is not zh-CN
+                src_url = src_y;
+            }
+            document.getElementById(unique_id).querySelector("iframe").src = src_url;
+
+            // bind two buttons with bilibili and YouTube links, respectively
+            // document.getElementById(unique_id).querySelector(".bilibili").addEventListener("click", function () {
+            //     this.parentElement.querySelector("iframe").src = src_b;
+            // });
+            document.getElementById(unique_id).querySelector(".bilibili").addEventListener("click", function () {
+                document.querySelector("iframe").src = src_b;
+                // this.parentElement.querySelector("iframe").src = src_b;
+            });
+            document.getElementById(unique_id).querySelector(".youtube").addEventListener("click", function () {
+                document.querySelector("iframe").src = src_y;
+                //this.parentElement.querySelector("iframe").src = src_y;
+            });
+
+        })();
+</script>
