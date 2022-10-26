@@ -29,10 +29,11 @@ function keyThing(obj) {
         $(this).find("a").css(obj.cssKey, obj.cssValue);
         index = $(this).index();
     })
-    $(document).on("keydown", function(event) {
+    $(document).on("keyup", function(event) {
         var e = event || window.event || arguments.callee.caller.arguments[0];
         if (index != undefined) {
             var searchInput = document.getElementById('search-input');
+                /*** [/] input focus ***/
                 if (e.keyCode == 191) {
                     searchInput.focus();
                 } else if (e.keyCode == 40) {
@@ -52,9 +53,9 @@ function keyThing(obj) {
                     }
                     $("#ul-results-container>li").eq(index - 1).find("a").css(obj.cssKey, obj.cssValue);
                 } else if (e.keyCode == 13) {
-                    var b = document.getElementById("results-container");       /*通过父标签id获取ul标签内容*/
-                    var a = b.getElementsByTagName("li");      /* 通过子标签获取li标签里的内容*/
-                    var x = a[index-1].getElementsByTagName("a");    /*通过获取数组的第一个元素也就是第一个li的a 标签*/
+                    var b = document.getElementById("results-container");
+                    var a = b.getElementsByTagName("li");
+                    var x = a[index-1].getElementsByTagName("a");
                     for(var i = 0; i<x.length; i++)
                     {location.href = x[i].href;}
                 }
