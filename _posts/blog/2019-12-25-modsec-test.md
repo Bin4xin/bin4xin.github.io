@@ -3,7 +3,7 @@ layout: post
 toc: true
 title: "Mod-Security：有关「WAF」的爱恨情仇"
 author: Bin4xin
-wrench: 2022-10-20 23:27:34 +0800
+wrench: 2022-10-20
 categories:
     - blog
 tags:

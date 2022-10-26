@@ -1,0 +1,25 @@
+<article class="card">
+    <header class="card-header">
+        <p><span data-view-component="true" class="badge badge-theme">{{ page.categories }}</span>
+            {% for tag in page.tags %}<span data-view-component="true" class="badge badge-theme">{{ tag }}</span>{% endfor %}</p>
+        <a href="{{ page.url | prepend: site.baseurl }}">
+        <h2><i class="fa fa-file-text-o"></i>
+        {% if page.Researchname %}{{ page.Researchname }}{%else%}{{ page.title }}{% endif %}
+        </h2>
+        </a>
+    </header>
+    <div class="page-abstract">
+        {{ page.excerpt | strip_html | truncate: 60, '...'}}
+    </div>
+    <div class="card-author">
+        <a class="author-avatar">
+            {% assign author = site.data.writer[page.author] %}
+            <img alt="{{ author.display_name }}" src="https://avatars.githubusercontent.com/u/{{ author.gh_avatars }}?v=4" />
+        </a>
+        <svg class="half-circle" viewBox="0 0 106 57"><path d="M102 4c0 27.1-21.9 49-49 49S4 31.1 4 4"></path></svg>
+        <div class="author-name">
+            <div class="author-name-prefix">{% include article-YMH-note.html %}
+            </div>
+        </div>
+    </div>
+</article>

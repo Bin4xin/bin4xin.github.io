@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "ICT network security CTF 2022 walkthrough"
-date: 2022-09-30 10:23:43+800
-wrench: 2022-09-30 16:39:42+800
+date: 2022-09-30
+wrench: 2022-10-21
 author: Bin4xin
 toc: true
 categories:

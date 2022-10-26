@@ -2,7 +2,7 @@
 layout: post
 title: "用Github Actions有感"
 date: 2021-11-15
-wrench: 2022-09-27 16:26:01 +800
+wrench: 2022-09-27
 author: Bin4xin
 toc: true
 categories: 
