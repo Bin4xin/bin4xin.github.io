@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
 <html>
-
 {% include head.html %}
 
 <body>
@@ -10,22 +8,24 @@
 
     <div id="research-content" class="col-sm-12 flex flex-column">
         {{ content }}
-
     </div>
-    {%comment%}{%endcomment%}
-
 </startprint2pdfs>
 </body>
 {% include default-add-func.html %}
 </html>
 <script>
+/**
+ * ADD class display for External Link
+ * **/
 jQuery(function($) {
     $(document.links)
-    .filter(function() {
-        return this.hostname && this.hostname !== location.hostname && this.hostname !== 'github.com';
-        })
+        .filter(function() {return this.hostname;})
         .each(function() {
-        $(this).addClass('fa fa-external-link-alt');
-    });
+            if (this.hostname !== location.hostname && this.hostname !== 'github.com'){
+                $(this).addClass('fa fa-external-link-alt');
+            } else if (this.hostname =='github.io'){
+                $(this).addClass('fa fa-github');
+            }
+        });
 });
 </script>
