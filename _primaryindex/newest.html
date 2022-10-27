@@ -22,9 +22,9 @@ permalink: /newest/
         <div style="writing-mode: vertical-rl;">
           <p class="Poetry-text">竹杖芒鞋轻胜马，谁怕？</p>
           <p class="Poetry-text">一蓑烟雨任平生。</p>
-          <p class="Poetry-text">&nbsp;&nbsp;&nbsp;&nbsp;————苏轼 · 《定风波》</p>
+          <p class="Poetry-text">————苏轼 · 《定风波》</p>
           <h3 class="table-of-contents__right-border" style="padding-right: 20px"></h3>
-          <h3 class="Poetry-text table-of-contents__right-border" style="padding-right: 20px;">最新/更新的「研究」</h3>
+          <h3 class="table-of-contents__right-border" style="padding-right: 20px;">最新/更新的「研究」</h3>
         </div>
       </div>
     </article>
@@ -39,15 +39,17 @@ permalink: /newest/
     <article class="card">
       <div style="font-family:STFangsong">
         <div style="writing-mode: vertical-rl;">
-          <p class="Poetry-text"><strong>天意似将颁大任，微躯何厌忍饥寒。</strong></p>
-          <p class="Poetry-text">长歌正气重来读，我比前贤路已宽。</p>
-          <p class="Poetry-text">&nbsp;&nbsp;&nbsp;&nbsp;————郁达夫 · 《乱离杂诗》</p>
+          <p class="Poetry-text"><strong>天意似将颁大任，</strong></p>
+          <p class="Poetry-text"><strong>微躯何厌忍饥寒。</strong></p>
+          <p class="Poetry-text">长歌正气重来读，</p>
+          <p class="Poetry-text">我比前贤路已宽。</p>
+          <p class="Poetry-text">————郁达夫·《乱离杂诗》</p>
           <h3 class="table-of-contents__right-border" style="padding-right: 20px"></h3>
-          <h3 class="Poetry-text table-of-contents__right-border" style="padding-right: 20px;">最新/更新的「博客」</h3>
+          <h3 class="table-of-contents__right-border" style="padding-right: 20px;">最新/更新的「博客」</h3>
         </div>
       </div>
     </article>
-      {% for page in blogs limit:5 %}
+    {% for page in blogs limit:5 %}
       {% if page.wrench %}{% include card/card.html %}{% endif %}
     {% endfor %}
   </section>
