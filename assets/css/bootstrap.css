@@ -1557,8 +1557,8 @@ img {
   border-radius: 50%;
 }
 hr {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   border: 0;
   border-top: 1px solid #eeeeee;
 }
@@ -5873,7 +5873,7 @@ a.thumbnail.active {
   position: relative;
   display: block;
   padding: 10px 15px;
-  margin-bottom: -1px;
+  margin-bottom: -3px;
   background-color: #fff;
   border: 1px solid #ddd;
 }
@@ -7447,7 +7447,23 @@ font-weight: 600!important;
 .discussion-spotlight-details>* {
   pointer-events: auto;
 }
-
+.hr-solid-content {
+  border: 0;
+  padding: .5em 0;
+  position: relative;
+}
+.hr-solid-content::before {
+  content: attr(data-content);
+  position: absolute;
+  /*padding: 0 1ch;*/
+  line-height: 1px;
+  border: solid #d0d0d5;
+  border-width: 0 99vw;
+  width: fit-content;
+  white-space: nowrap;
+  left: 50%;
+  transform: translateX(-50%);
+}
 .color-text-white {
   color: #ffffff !important;
 }

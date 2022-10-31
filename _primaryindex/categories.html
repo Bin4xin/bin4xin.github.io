@@ -1,56 +1,60 @@
 ---
-layout: default
+layout: common
 permalink: /categories/
-title: 文章分类 | 哨兵安全 · 主动防御 · 信息搜集 · Android Reverse · CVE · 安全笔记/工具 |
+title: 文章分类
 ---
 
 <link rel="stylesheet" type="text/css" href="/assets/css/card.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/common.css">
 {% assign posts_about_desc = site.categories["about"] | sort: 'date' | group_by_exp:"post", "post.desc" |reverse %}
 {% assign posts_about = site.categories["about"] | sort: 'date' %}
 {% assign group_posts_size = posts_about | size %}
-<div class="navbar-collapse"><!--nav box padding set-->
-    <div class="Box"><!--Box navbar set start-->
-        {% comment %}{% include CHANGELOG.md %}{% endcomment %}
-
-        <!--    - {% comment %} maybe could group by Year/Month. and < Blog/About... > {% endcomment %}
-                - reference:
-                    - { https://github.com/Huxpro/huxpro.github.io/blob/master/archive.html }
-                        - {https://huangxuan.me/archive/}
-                    - { https://github.com/ColdFusionX/ColdFusionX.github.io/blob/master/_layouts/category.html }
-                        - { https://coldfusionx.github.io/tabs/categories/ }  -->
-        <details>
-            <summary class="list-group edSFyN"><a class="f2 fw4"><i class="far fa-folder fa-fw "></i> {{"about group" |upcase}}
-                <span data-view-component="true" class="badge badge-theme">{{ group_posts_size }}</span></a>
-            </summary>
-
-            {% for descs in posts_about_desc %}
-            {% assign posts_about_groups = site.categories["about"] | sort: 'date' | group_by_exp:"post", "post.desc" |reverse %}
-            {% assign desc_size = posts_about_groups[descs.name]%}
-             <ul class="nav nav-pills nav-stacked">
-                {% for post in descs.items %}
-                    <li class="list-group-item">
-                        <a href="{{ site.baseurl }}{{ post.url }}"><i class="far fa fa-file-text-o"></i> {{ post.Researchname }}<span class="badge badge-theme">{{descs.name | replace: "「", "" | replace: "」", ""|upcase}}</span></a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            {% endfor %}
-        </details>
-
-
+{% include top-banner.html %}
+<div class="container"><!--nav box padding set-->
+    <!-- - {% comment %} maybe could gro up by Year/Month. and < Blog/About... > {% endcomment %}
+        - reference:
+            - { https://github.com/Huxpro/huxpro.github.io/blob/master/archive.html }
+                - {https://huangxuan.me/archive/}
+            - { https://github.com/ColdFusionX/ColdFusionX.github.io/blob/master/_layouts/category.html }
+                - { https://coldfusionx.github.io/tabs/categories/ }
+            - @link { Jekyll文章使用过滤器进行按日期分组展示 https://ackpomelo.cn/2020/01/30/jekyll-posts-use-filters-to-group-by-date.html }
+                - @link { liquid-filters https://jekyllrb.com/docs/liquid/filters/ }
+            - @link { Liquid基本语法 https://aptx1231.github.io/2020/12/04/Liquid/ }
+    -->
+    <div class="row blog-bar-display" style="margin-bottom: 20px;"><div class="Box-header">
+        <a class="col-7 color-fg-default text-bold mb-1 lh-condensed" style="max-width: 100%; font-size: 20px;">
+            <hr class="hr-solid-content" data-content="{{site.root |upcase}}::{{ page.title }}"></a>
+    </div>
         {% for category in site.categories %}
-            {% capture category_name %}{{ category | first }}{% endcapture %}
-            {% assign all_posts_size = site.categories[category_name] | size %}
-            <details>
-                <summary class="list-group edSFyN"><a class="f2 fw4"><i class="far fa-folder fa-fw "></i> {{ category_name|upcase }}
+        {% capture category_name %}{{ category | first }}{% endcapture %}
+        {% assign all_posts_size = site.categories[category_name] | size %}
+            <details class="Box-row" {% if category_name == "top" %}open {%endif%}>
+                <summary class="edSFyN justify-between"><a class="f2 fw4"><i class="far fa-folder fa-fw "></i> {{ category_name|upcase }}
                     <span data-view-component="true" class="badge badge-theme">{{ all_posts_size }}</span></a></summary>
+                {%  assign page_groupBy_date =  site.categories[category_name] | group_by_exp:"post","post.date | date: '%Y'" %}
+                {% for post in page_groupBy_date %}
+                <h4 style="padding-left: 32px"><span class="label label-success"><i class="fa fa-calendar fa-fw"></i> {{ post.name }}</span>
+                    <span class="label label-success">{{post.items.size }} Post{% if post.items.size > 1%}s{%else%}{%endif%}</span></h4>
+                    {% for item in post.items %}
                     <ul class="nav nav-pills nav-stacked">
-                    {% for post in site.categories[category_name] %}
-                        <li class="list-group-item">
-                            <a href="{{ site.baseurl }}{{ post.url }}"><i class="far fa fa-file-text-o"></i> {{ post.title }}<span class="badge badge-theme">{{post.tags[0]}}</span></a>
-                        </li>
-                    {% endfor %}
+
+                        <li class="Box-row">
+                        <a href="{{ site.baseurl }}{{ item.url }}">
+                            <i class="far fa fa-file-text-o"></i> {% if item.Researchname %}{{ item.Researchname }}
+                            {% else %}{{ item.title }}{% endif %}
+                            {% for index in (1..5)%}<span class="badge badge-theme">{{item.tags[index]}}</span>{%endfor%}
+                        </a></li>
                     </ul>
+                    {% endfor %}
+                {% endfor %}
             </details>
         {% endfor %}
+        <div class="Box-row discussion-spotlight-details position-relative py-2 pr-5 css-truncate width-fit d-flex flex-column flex-items-start">
+            <div style="font-size:12px; text-align: center">
+                <a class="oBa0Fe" href="{{site.githubAccess}}/{{site.githubRepos}}/edit/{{site.githubRepos-Branch}}/{{page.path}}" target="_blank" data-async-trigger="duf3-46" role="button">
+                    帮助我们完善&nbsp;|&nbsp;help us make these great!</a>
+            </div>
+        </div>
     </div>
+
 </div>

@@ -1,0 +1,39 @@
+---
+---
+/*  ################################################################
+
+Author: Carlos Alvarez
+URL: http://alvarez.is
+
+Project Name: SOLID - Bootstrap 3 Theme
+Version: 1.0
+URL: http://alvarez.is
+
+404
+################################################################# */
+@mixin dark {
+{% unless site.issue %}
+  @media (prefers-color-scheme: dark) {
+    @content
+  }
+{% else %}
+  @content
+{% endunless %}
+}
+
+@mixin noissue {
+{% unless site.issue %}
+  @content
+{% else %}
+  @if(false){ @content }
+{% endunless %}
+}
+
+details[open] summary {
+  background-color: rgb(236, 244, 255);
+  border: 1px solid rgb(185, 214, 255);
+  @include dark{
+    background-color: rgb(0, 28, 67);
+    border: 1px solid rgb(0, 43, 103);
+  }
+}
