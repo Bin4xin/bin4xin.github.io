@@ -142,11 +142,6 @@ body {
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   align-items:center;
-  //行对齐居中
-  //flex-direction: column;
-  //排 列
-  //justify-content: center;
-  //居中
   @include dark{
   background-color: transparent;
   }

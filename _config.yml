@@ -19,19 +19,12 @@ kramdown:
 permalink: "/:categories/:year/:title/"
 
 excerpt_separator: <!--more--> #use this in posts to define how long the excerpt of the post (that is shown on the Blog page) is
-#plugins: ["jekyll-toc", "jekyll-roman","jekyll-react","jekyll-assets"]
 plugins: ["jekyll-toc", "jekyll-roman"]
-#paginate: 5
-#paginate_path: "/blog/page:num/"
 
 #--[toc plugin], while run jekyll to build sites, jekyll-toc could define some to display:
 #--the toc class
 #--the toc min/max level
 toc:
-  #list_id: my-toc-id # Default: "toc"
-  #list_class:  #table-of-contents table-of-contents__left-border Item__StyledItem-sc-yeql7o-2 edSFyN
-  #sublist_class: my-sublist-class # Default: no class for sublists
-  #item_prefix: item- # Default: "toc-":
   item_class: no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column # Default: "toc-entry"
   min_level: 1 # default: 1
   max_level: 4 # default: 6
