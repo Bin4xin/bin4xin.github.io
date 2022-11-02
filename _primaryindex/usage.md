@@ -5,7 +5,7 @@ toc: true
 categories: [blog,wiki]
 author: Bin4xin
 date: 2021-07-07
-wrench: 2022-01-10
+wrench: 2022-11-02
 permalink: /usage/
 ---
 
@@ -26,11 +26,13 @@ permalink: /usage/
 - 文件名称`年-月-日-时-间-中英文-均可-空格-用横杠代替.md`
   - `2022-01-09-Learning-process-about-virtual-function-table.md`
 - 仓库博文分为几个栏目：
-  - [BLOG](https://www.sentrylab.cn/blog/) - 相关技术博客对应仓库文件位置[`_posts/blog`](https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog)，下面不赘述，以此类推；
-  - [TOPS](https://www.sentrylab.cn/tops/) - 相关博客置顶
-  - [DAILY](https://www.sentrylab.cn/daily/) - 相关日常闲谈文章
-  - [ABOUT](https://www.sentrylab.cn/about/) - 个人研究文章
+  - [BLOG](https://sentrylab.cn/blog/) - 相关技术博客对应仓库文件位置[`_posts/blog`](https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog)，下面不赘述，以此类推；
+  - [TOPS](https://sentrylab.cn/top/) - 相关博客置顶
+  - [DAILY](https://sentrylab.cn/daily/) - 相关日常闲谈文章
+  - [ABOUT](https://sentrylab.cn/about/) - 个人研究文章
 - 所以所有MD格式文件都应按照的仓库POST文件格式添加上文件头：
+
+{% include wrench-inject.html %}
 
 ```bash
 ---
