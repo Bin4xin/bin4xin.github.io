@@ -22,8 +22,8 @@ title: 文章分类
             - @link { Liquid基本语法 https://aptx1231.github.io/2020/12/04/Liquid/ }
     -->
     <div class="row blog-bar-display" style="margin-bottom: 20px;"><div class="Box-header">
-        <a class="col-7 color-fg-default text-bold mb-1 lh-condensed" style="max-width: 100%; font-size: 20px;">
-            <hr class="hr-solid-content" data-content="{{site.root |upcase}}::{{ page.title }}"></a>
+        <a class="col-7 color-fg-default text-bold mb-1 lh-condensed" style="max-width: 100%; font-size: 20px; text-align: center;">
+           {{site.root |upcase}}::{{ page.title }}</a>
     </div>
         {% for category in site.categories %}
         {% capture category_name %}{{ category | first }}{% endcapture %}
