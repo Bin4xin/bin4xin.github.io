@@ -58,4 +58,4 @@ public String Evil(HttpServletRequest request, HttpServletResponse response) thr
         }
 {% endhighlight %}
 
-`base` 参数如何
+[`base` 参数如何？进一步查看writeUp：](/about/WANGDINGCTF2022-WEB-ezJava-Walkthrough/)
