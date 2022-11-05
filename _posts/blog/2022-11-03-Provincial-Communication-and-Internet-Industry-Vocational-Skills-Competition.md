@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "2022年全省通信和互联网行业职业技能竞赛 WriteUp"
-date: 2022-11-03
+date: 2022-11-04
 toc: true
 author: Bin4xin
 categories:
@@ -11,7 +11,7 @@ tags:
 - WriteUp
 ---
 
-## 1.Web PHP serialize
+## # 1.Web PHP serialize
 
 反序列化考点；题意：
 
@@ -69,7 +69,7 @@ class B{
 
 所以定义两个函数传入`$filepath`，序列化后对字符串进行base64编码即可：
 
-## exp
+### exp
 
 ```php
  <?php
@@ -93,13 +93,14 @@ echo base64_encode(serialize($a));
 
 ![2022-10-31-23.08.27.png](https://image.yjs2635.xyz/images/2022/11/03/2022-10-31-23.08.27.png)
 
-## 2.Web FunnyJava
+## # 2.Web FunnyJava
 
 题目给出了一个Jar包； IDEA引用lib直接反编译
 
 直接定位`Controller`：
 
-### Search
+### Search Controller
+
 ```
 FunnyJava.jar!/BOOT-INF/classes/com/funnnyjava/Controller/Search.class
 ```
@@ -129,7 +130,7 @@ FunnyJava.jar!/BOOT-INF/classes/com/funnnyjava/util/ParserUtil.class
 String buildTempletPath = BasicUtil.getRealPath(context, "") + "templates" + File.separator;
 ```
 
-### Editor
+### Editor Controller
 
 第二个是一个ueditor的路由定义：
 
@@ -157,7 +158,7 @@ Editor上传功能也有可能我们找到上传点，可以直接getshell；
 - 思路一：`Search`直接模版解析RCE；
 - 思路二：`Editor`上传getShell；
 
-## 本地调试
+### 本地调试
 
 思路一：
 
@@ -185,7 +186,7 @@ FunnyJava.jar!/BOOT-INF/classes/templates/1647232439869.htm
 
 显然，需要通过`ueditor`的上传功能上传到`webapp/templates`目录下（前面已经解释目录来源），然后通过`search`功能来解析我们的恶意模版来达到RCE的目的；
 
-## 上传点突破
+#### 上传点突破
 
 我们通过前面[Editor](#editor)的路由定义来找到路由如何访问，并定义相关参数上传我们的模版：
 
@@ -198,7 +199,7 @@ http://localhost:8080/static/plugins/ueditor/1.4.3.3/jsp/editor?action=uploadima
 payload：
 
 ```html
-<form action="http://192.168.3.50:8080/static/plugins/ueditor/1.4.3.3/jsp/editor?action=uploadimage" method="post" enctype="multipart/form-data">
+<form action="http://localhost:8080/static/plugins/ueditor/1.4.3.3/jsp/editor?action=uploadimage" method="post" enctype="multipart/form-data">
     <div><input type="file" multiple="multiple" accept="image/*" name="image"></div>
     <div><input type="submit" value="上传"></div>
 </form>
