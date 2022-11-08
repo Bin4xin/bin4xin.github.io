@@ -28,7 +28,10 @@ permalink: /newest/
         </div>
       </div>
     </article>
-    {% for page in abouts limit:5 %}
+    {% for page in site.categories['about'] limit:1 %}
+      {% include card/card.html %}
+    {% endfor %}
+    {% for page in abouts limit:4 %}
       {% if page.wrench %}{% include card/card.html %}{% endif %}
     {% endfor %}
   </section>
@@ -49,7 +52,10 @@ permalink: /newest/
         </div>
       </div>
     </article>
-    {% for page in blogs limit:5 %}
+    {% for page in site.categories['blog'] limit:1 %}
+      {% include card/card.html %}
+    {% endfor %}
+    {% for page in blogs limit:4 %}
       {% if page.wrench %}{% include card/card.html %}{% endif %}
     {% endfor %}
   </section>
