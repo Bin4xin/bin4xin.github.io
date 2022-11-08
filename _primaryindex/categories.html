@@ -9,8 +9,9 @@ title: 文章分类
 {% assign posts_about_desc = site.categories["about"] | sort: 'date' | group_by_exp:"post", "post.desc" |reverse %}
 {% assign posts_about = site.categories["about"] | sort: 'date' %}
 {% assign group_posts_size = posts_about | size %}
-{% include top-banner.html %}
-<div class="container"><!--nav box padding set-->
+
+<div class="container mtb"><!--nav box padding set-->
+
     <!-- - {% comment %} maybe could gro up by Year/Month. and < Blog/About... > {% endcomment %}
         - reference:
             - { https://github.com/Huxpro/huxpro.github.io/blob/master/archive.html }
@@ -22,13 +23,14 @@ title: 文章分类
             - @link { Liquid基本语法 https://aptx1231.github.io/2020/12/04/Liquid/ }
     -->
     <div class="row blog-bar-display" style="margin-bottom: 20px;"><div class="Box-header">
-        <a class="col-7 color-fg-default text-bold mb-1 lh-condensed" style="max-width: 100%; font-size: 20px; text-align: center;">
-           {{site.root |upcase}}::{{ page.title }}</a>
+        <a class="col-7 color-fg-default text-bold mb-1 lh-condensed" style="max-width: 100%; font-size: 20px;">
+            <center>{{site.root |upcase}}::{{ page.title }}</center></a>
     </div>
+        <div class="Box-row">{% include top-banner.html %}</div>
         {% for category in site.categories %}
         {% capture category_name %}{{ category | first }}{% endcapture %}
         {% assign all_posts_size = site.categories[category_name] | size %}
-            <details class="Box-row" {% if category_name == "top" %}open {%endif%}>
+            <details class="Box-row">
                 <summary class="edSFyN justify-between"><a class="f2 fw4"><i class="far fa-folder fa-fw "></i> {{ category_name|upcase }}
                     <span data-view-component="true" class="badge badge-theme">{{ all_posts_size }}</span></a></summary>
                 {%  assign page_groupBy_date =  site.categories[category_name] | group_by_exp:"post","post.date | date: '%Y'" %}
