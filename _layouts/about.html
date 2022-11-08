@@ -10,40 +10,33 @@ layout: about-default
 {% assign posts_about = site.categories["about"] | sort: 'date' %}
 
 <div id="help-page">
-	<!--nav banner with logo. 响应式::菜单::表单-->
-	<div class="visible-xs">
+	<div class="visible-xs"><!--nav banner with logo. 响应式::菜单::表单-->
 		{% include nav.html %}
 		<div class="spacing"></div>
 		<form class="form-inline">
-			<div class="form-group">
-				<details>
-					<summary class="edSFyN flex justify-between"><!--up - detail - summary-->
-						<a><strong><label>选择: </label></strong></a>
+			<div class="form-group"><details>
+				{% for descs in posts_about_desc %}
+					{% if page.desc contains descs.name %}
+					<summary class="edSFyN flex justify-between">
+						<a><strong>{{descs.name | replace: "「", "" | replace: "」", ""|upcase}}</strong></a>
 					</summary>
-					<ul class="nav nav-pills nav-stacked" id="help-nav">
-						{% for descs in posts_about_desc %}
-						<details {%if page.desc contains descs.name %}open{%endif%}>
-							<summary class="edSFyN flex justify-between">
-								<a><strong>{{descs.name | replace: "「", "" | replace: "」", ""|upcase}}</strong></a>
-							</summary>
-							{% for post in descs.items %}
-							<ul class="nav nav-pills nav-stacked">
-								<li id="toc-{{post.Researchname}}" class="table-of-contents table-of-contents__left-border {% if post.Researchname == page.Researchname or post.redirect_help_id == page.Researchname %} active{%endif%}">
-									<a href="{{ post.url }}">{{ forloop.index| roman }}. {{ post.Researchname | upcase}}</a>
-								</li>
-							</ul>
-							{% endfor %}
-						</details>
-						{% endfor %}
+					{% for post in descs.items %}
+					<ul class="nav nav-pills nav-stacked">
+						<li id="toc-{{post.Researchname}}" class="table-of-contents table-of-contents__left-border {% if post.Researchname == page.Researchname or post.redirect_help_id == page.Researchname %} active{%endif%}">
+							<a href="{{ post.url }}">{{ forloop.index| roman }}. {{ post.Researchname | upcase}}</a>
+						</li>
 					</ul>
-				</details>
+					{% endfor %}
+					{% endif %}
+				{% endfor %}
+			</details>
 			</div>
 		</form>
 	</div><!--响应式::菜单::表单 end class="area-scroll" style="height:100vh"-->
-			<!--left area: menu 左边菜单栏 col-sm-3 ./25%-->
+		<!--left area: menu 左边菜单栏 col-sm-3 ./25%-->
 		<div id="post-content" class="row markdown-body-img d-flex">
 			<div class="flex-column col-md-3 position-sticky ml-hide overflow-y-auto top-0 d-none d-lg-block flex-shrink-0 border-right" style="height:100vh">
-				<div tabindex="-1" class=" position-sticky navbar-default p-4 top-0 color-bg-default" style="z-index:3" id="logo">
+				<div tabindex="-1" class=" position-sticky navbar-default top-0 color-bg-default" style="z-index:3" id="logo">
 					<a href="/" target="blank">
 						{% include pic.html name="logo-small" %}
 						{% if site.harmony %}
@@ -52,6 +45,7 @@ layout: about-default
 					</a>
 				</div>
 				<ul class="nav nav-pills nav-stacked" id="help-nav">
+<!--					<a class="no-underline edSFyN" href="/about/get-started"><strong>{{"get-started"|upcase}}</strong></a>-->
 					{% for descs in posts_about_desc %}
 					<details {%if page.desc contains descs.name %}open{%endif%}>
 						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
@@ -59,7 +53,7 @@ layout: about-default
 						</summary>
 						{% for post in descs.items %}
 						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-{{post.Researchname}}" class="table-of-contents table-of-contents__left-border {% if post.Researchname == page.Researchname or post.redirect_help_id == page.Researchname %} active{%endif%}">
+							<li id="toc-{{ post.Researchname }}" class="table-of-contents table-of-contents__left-border {% if post.Researchname == page.Researchname or post.redirect_help_id == page.Researchname %} active{%endif%}">
 								<a href="{{ post.url }}">{{ forloop.index| roman }}. {{ post.Researchname | upcase}}</a>
 								{% comment %} - @link {https://www.zhangxinxu.com/study/201306/ajax-page-html5-history-api.html?area=putuo}
 								<a onclick="window.history.pushState(null, null, '{{ post.url }}');">{{ forloop.index| roman }}. {{ post.Researchname | upcase}}</a>
@@ -73,6 +67,7 @@ layout: about-default
 			</div><!-- side menu end. 左边菜单栏结束-->
 			<!--中间内容-->
 			<div class="flex-column">
+				{% include top-banner.html %}
 				<div id="help-content"><!--page main content-->
 					<div class="px-md-6">
 						<h1>
@@ -90,9 +85,7 @@ layout: about-default
 					{% include suggestion.html %}
 				</div><!--page main content end-->
 			</div><!--content display end-->
-			<!--中间内容结束，右边目录开始-->
-			{% include article-index.html %}
-			<!--右边目录-->
+			<!--右边文章目录开始-->{% include article-index.html %}<!--右边目录结束-->
 		</div>
 	</div>
 </div>
