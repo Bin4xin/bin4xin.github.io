@@ -1,6 +1,6 @@
 ## footer define.
-
-- footer: "SENTINEL SECURITY, LAB"
+## - callback: assets/css/style.scss#1020
+- footer: "SentinelLAB"
   footer_link: "https://www.vulbox.com/team/ERRORS"
   footer_svg: "/assets/img/svg/logo-small@4x.svg"
 - footer: "YouTuBe"
