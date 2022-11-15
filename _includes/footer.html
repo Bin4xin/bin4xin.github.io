@@ -14,14 +14,8 @@
                 </div>
             </div><!-- "/row"-->
             <div class="pv2-ns">
-                <div class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l flex flex-wrap justify-start justify-start-ns justify-start-m justify-between-l footer-bottom-row-margin">
-                    <div class="inline-flex mb3 mb3-ns mb3-m mb0-l lh-1 mt0 mt3-ns" >
-                        {% for footers in site.data.footer_define %}
-                        {% assign footer = footers.footer %}
-                        {% assign footer_link = footers.footer_link %}
-                        <div id="{{footer}}"><a class="lh-1 dib mr2" title="{{footer}}" target="_blank" rel="noopener" href="{{footer_link}}"></a></div>
-                        {% endfor %}
-                    </div>
+                <div class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l flex footer-bottom-row-margin">
+                    {% include extensions/counter.html %}
                 </div>
             </div><!-- "/pv5" -->
         </div>
