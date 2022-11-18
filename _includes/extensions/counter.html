@@ -1,16 +1,11 @@
 <!--
    - FlipClock design
-   -    @link{https://github.com/objectivehtml/FlipClock}
-
+   -    @link { https://github.com/objectivehtml/FlipClock }
 -->
 <link rel="stylesheet" href="/assets/flipclock/flipclock.css">
-<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
 <script src="/assets/flipclock/flipclock.js"></script>
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<!--<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
-
-<div  class="clock" style="margin-bottom:2em;margin-top:2em;"><span ></span></div>
+<div class="clock" style="margin-bottom:2em;margin-top:2em;"></div>
 <div class="flex items-center mb3 mb3-ns mb3-m mb0-l lh-1 mt0 mt3-ns" >
     {% for footers in site.data.footer_define %}
     {% assign footer = footers.footer %}
@@ -18,28 +13,57 @@
     <div id="{{footer}}"><a class="lh-1 dib mr2" title="{{footer}}" target="_blank" rel="noopener" href="{{footer_link}}"></a></div>
     {% endfor %}
 </div>
-<!--<button type="button" class="increment" style="margin: 25px; font-size: 20px; padding: 15px;">+1</button>-->
-<!--<button type="button" class="decrement" style="margin: 25px; font-size: 20px; padding: 15px;">-1</button>-->
-<!--<button type="button" class="reset" style="margin: 25px; font-size: 20px; padding: 15px;">Reset</button>-->
-<!-- @link {https://profile-counter.glitch.me/bin4xin.github.io/count.svg} -->
-<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
-<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<!--
+  - Ajax @para counts
+  - Jquery-return-value-undefined @link { https://stackoverflow.com/questions/13848123/jquery-return-value-undefined }
+  -->
 <script>
+    function getGAJson() {
+        let counts = null
+        $.ajax({
+            // url: 'https://northern-shield-295812.df.r.appspot.com/query?id=ahhufm5vcnRoZXJuLXNoaWVsZC0yOTU4MTJyFQsSCEFwaVF1ZXJ5GICAgOjXh4EKDA', // Replace with SuperProxy Public endpoint
+            url: '{{site.url}}/assets/ga.json',
+            dataType: 'json', // for cross-origin access
+            timeout: 1000 * 10, // 10 secs
+            async: false,
+            success: function(data) { counts = displayPageviews(data.rows); },
+            error: function() { console.log('Failed to load Pageviews!'); }
+        });
+        return counts;
+    }
+    function displayPageviews(rows) {
+        if (rows === undefined) { return; }
+        var curPath = window.location.pathname;
+        var curFile = curPath.slice(curPath.lastIndexOf('/') + 1); // Sometimes posts will be moved.
+        var len = rows.length;
+        var cnt = 0;
+
+        for (var i = 0; i < len; ++i) {
+            var gaPath = rows[i][0];
+            var gaFile = gaPath.slice(gaPath.lastIndexOf('/') + 1);
+
+            if (gaPath === curPath || gaFile === curFile) {
+                cnt += parseInt(rows[i][1]);
+            }
+        }
+        return setInitialCount(cnt);
+        // ref @link
+        //      - { https://cotes.page/posts/fetch-pageviews-from-google-analytics/#web-%E7%AB%AF%E5%A4%84%E7%90%86-ga-%E6%95%B0%E6%8D%AE }
+        //      - { https://taoalpha.github.io/blog/2015/06/07/tech-add-google-analytics-pageviews-to-jekyll-blog/ }
+    }
+    // <!-- @link { https://profile-counter.glitch.me/bin4xin.github.io/count.svg } -->
     function setInitialCount(num) {
-        var init_SiteOffset = parseInt(num);
-        busuanzi_value_site_pv = 2000
-        all_counts = init_SiteOffset + busuanzi_value_site_pv
+        var init_SiteOffset = 66749;
+        _value_site_pv = parseInt(num)
+        all_counts = init_SiteOffset + _value_site_pv
         return all_counts
     }
-</script>
-
-<script type="text/javascript">
     var clock;
+    let All_Counts = getGAJson()
     $(document).ready(function() {
-        // Instantiate a counter
-        // clock = new FlipClock($('.clock'), init_SiteOffset + busuanzi_count , {
-        clock = new FlipClock($('.clock'), (setInitialCount(66746)) , {
-        clockFace: 'Counter'
+            // Instantiate a counter
+            clock = new FlipClock($('.clock'), All_Counts , {
+            clockFace: 'Counter'
         });
         // Attach a click event to a button an increment the clock
         $('.increment').click(function() {
