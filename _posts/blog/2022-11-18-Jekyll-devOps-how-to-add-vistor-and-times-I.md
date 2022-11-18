@@ -77,11 +77,11 @@ Please make sure that you have permission to view applications on the project an
 
 构建完成后，访问superProxy，返回invalid_client。
 
-### 第一步
+#### 第一步
 
 进入Gcloud【凭据服务】，找到新建的`OAuth 2.0 客户端 ID` -> `【重置 Secret】`；
 
-### 第二步
+#### 第二步
 
 保持[apis/credentials](https://console.cloud.google.com/apis/credentials){:target="_blank"}获得的两个Secret与Build的代码：
 
@@ -94,6 +94,8 @@ Please make sure that you have permission to view applications on the project an
 ```
 ERROR: (gcloud.app.deploy) Permissions error fetching application [apps/**-your-**-project**]. Please make sure that you have permission to view applications on the project and that ***@**.com has the App Engine Deployer (roles/appengine.deployer) role.
 ```
+
+#### 第一步
 
 如果报的权限错误是跟application有关，跟用户无关，那么大概率是您的本地sdk配置存在配置问题[^2]：
 
