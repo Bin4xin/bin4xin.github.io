@@ -21,7 +21,6 @@
     function getGAJson() {
         let counts = null
         $.ajax({
-            // url: 'https://northern-shield-295812.df.r.appspot.com/query?id=ahhufm5vcnRoZXJuLXNoaWVsZC0yOTU4MTJyFQsSCEFwaVF1ZXJ5GICAgOjXh4EKDA', // Replace with SuperProxy Public endpoint
             url: '{{site.url}}/assets/ga.json',
             dataType: 'json', // for cross-origin access
             timeout: 1000 * 10, // 10 secs

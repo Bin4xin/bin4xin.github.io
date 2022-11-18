@@ -7,8 +7,7 @@ on:
   pull_request:
   schedule:
     - cron: '0 15 * * *'
-#    paths: ['_posts/*']
-#  workflow_dispatch 似乎不允许存在:-）
+
 
 jobs:
   build:
@@ -42,10 +41,9 @@ jobs:
       run: bundle install --path=vendor/bundle --jobs=4 --retry=3
     - name: setup commit hash string
       run: |
-        #commitString=$(git rev-parse HEAD)
         commitString=$(git rev-list HEAD --abbrev-commit --max-count=1)
-        echo $commitString
         echo "commitString: $commitString" >> _config.yml
+        wget ${{ secrets.GA_API }} > assets/ga.json
     # bundle config set --local path 'vendor/bundle' && 
     - name: run jekyll-build
       run: |
@@ -57,31 +55,5 @@ jobs:
         git-user: ${{ secrets.Git_USERNAME }}
         git-email: ${{ secrets.Git_EMAIL }}
         git-base-folder: '_site'
-        commit-message: '<auto generate>: page build/deploy by github action.'
+        commit-message: '<auto generate>:🚀page build/deploy by github action.'
         branch: 'gh-pages'
-#  no way :)
-# sync start
-# ---- #
-# ---- #
-#  sync:
-#    needs: build
-#    runs-on: ubuntu-latest
-#    steps:
-#    - name: sync to Gitee
-#      uses: wearerequired/git-mirror-action@master
-#      env:
-#        SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }}
-#      with:
-#        source-repo: "git@github.com:Bin4xin/bin4xin.github.io.git"
-#        destination-repo: "git@gitee.com:bin4xin/bin4xin.git"
-#  gitee-check-rebuild:
-#    needs: sync
-#    runs-on: ubuntu-latest
-#    steps:
-#    - name: build Gitee Pages
-#      uses: yanglbme/gitee-pages-action@main
-#      with:
-#        gitee-username: bin4xin
-#        gitee-password: ${{ secrets.GITEE_PASSWORD }}
-#        gitee-repo: bin4xin/bin4xin
-#        branch: gh-pages
