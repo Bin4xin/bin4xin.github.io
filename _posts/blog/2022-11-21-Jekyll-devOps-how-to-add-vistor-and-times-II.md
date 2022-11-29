@@ -144,9 +144,9 @@ tags:
 
 - i.添加`.github/workflows/deploy.yml`[^4]
 
-```bash
+{% highlight bash %}{% raw %}
 curl ${{ secrets.GA_API }} > assets/ga.json
-```
+{% endraw %}{% endhighlight %}
 
 - ii.为仓库添加`GA_API secrets`
 - iii.Push
