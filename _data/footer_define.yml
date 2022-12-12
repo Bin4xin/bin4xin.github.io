@@ -15,3 +15,6 @@
 - footer: "Facebook"
   footer_link: "https://www.facebook.com/#"
   footer_svg: "/assets/img/svg/cf/cf_facebook.svg"
+- footer: "Bilibili"
+  footer_link: "https://space.bilibili.com/67373868"
+  footer_svg: "/assets/img/svg/cf/bilibili.svg"
