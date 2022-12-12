@@ -39,11 +39,11 @@ cas-server-webapp::4.2.7</a>
 
 - [Tomcat SSL Cert](https://www.jianshu.com/p/a55590f486a2){:target="_blank"}
 
-![2022-06-06-16.14.28.png](https://image.yjs2635.xyz/images/2022/06/06/2022-06-06-16.14.28.png)
+![2022-06-06-16.14.28.png]({{site.PicturesLinks_Domain}}/images/2022/06/06/2022-06-06-16.14.28.png)
 
 或者页脚处本身也会体现版本：
 
-![2022-06-06-17.10.40.png](https://image.yjs2635.xyz/images/2022/06/06/2022-06-06-17.10.40.png)
+![2022-06-06-17.10.40.png]({{site.PicturesLinks_Domain}}/images/2022/06/06/2022-06-06-17.10.40.png)
 
 - 登录`Post`请求包个性参数
 

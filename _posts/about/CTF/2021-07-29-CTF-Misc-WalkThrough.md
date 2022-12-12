@@ -56,7 +56,7 @@ desc: 「CTF」
 根据题目标题和附件，猜测可能和word文件格式的后缀相关；给出的文件是[word的本质的附件.docx](https://github.com/Bin4xin/bigger-than-bigger/blob/master/CTF/MISC/word的本质的附件.docx)
 
 给出一份word文档可以打开，内容如下：
-![C2gG5InSMyzT1tU.png](https://image.yjs2635.xyz/images/2022/02/20/C2gG5InSMyzT1tU.png)
+![C2gG5InSMyzT1tU.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/C2gG5InSMyzT1tU.png)
 
 老规矩，`binwalk`查看一下文件
 ```bash
@@ -73,7 +73,7 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 ```
 看到是zip文件，直接`➜ mv word的本质的附件.docx word的本质的附件.zip`，然后解压得到flag；`image1.jpg`是上面文档中的图片：
 
-![2JmebUsQ3FkrnDz.png](https://image.yjs2635.xyz/images/2022/02/20/2JmebUsQ3FkrnDz.png)
+![2JmebUsQ3FkrnDz.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/2JmebUsQ3FkrnDz.png)
 
 - 题目2：简单的图片
 
@@ -129,7 +129,7 @@ $ python bwm.py decode 2.png 1.png Result-1.png
 $ python bwm.py decode 1.png 2.png Result-2.png
 ```
 
-![K8iPZ4nfgSoXeOW.png](https://image.yjs2635.xyz/images/2022/02/20/K8iPZ4nfgSoXeOW.png)
+![K8iPZ4nfgSoXeOW.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/K8iPZ4nfgSoXeOW.png)
 
 
 所以，如果遇到两张相同的图的题目没有思路，可以往盲水印考点上来靠靠。
@@ -140,7 +140,7 @@ $ python bwm.py decode 1.png 2.png Result-2.png
 
 打开是一张空白的图片，高宽1195x1195
 
-![PNmI4eyWxO1r8ZG.png](https://image.yjs2635.xyz/images/2022/02/20/PNmI4eyWxO1r8ZG.png)
+![PNmI4eyWxO1r8ZG.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/PNmI4eyWxO1r8ZG.png)
 
 ### # 0x02 音频隐写
 
@@ -156,11 +156,11 @@ $ python bwm.py decode 1.png 2.png Result-2.png
 
 打开显示为注入payload`id=1' and ascii(substr((select flag from t),1,1))=33--`，是使用二分法判断SQL语句执行对应的Ascii字符是否相等：
 
-![hup13CgkwsoTVRa.png](https://image.yjs2635.xyz/images/2022/02/20/hup13CgkwsoTVRa.png)
+![hup13CgkwsoTVRa.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/hup13CgkwsoTVRa.png)
 
 所以直接来看一下返回包的页面是否有不同的地方：`Analyze->Follow->TCP/HTTP Stream`
 
-![mgI9SUcGn4OLPTu.png](https://image.yjs2635.xyz/images/2022/02/20/mgI9SUcGn4OLPTu.png)
+![mgI9SUcGn4OLPTu.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/mgI9SUcGn4OLPTu.png)
 
 两边不同显示：左边为错误Ascii，右边为正确的Ascii，按照顺序`(substr((select flag from t),1,1)->(n,1)`得到：
 
@@ -194,11 +194,11 @@ GET /ctf/Less-5/?id=1' and ascii(substr((select flag from t),4,1))=103--  HTTP/1
 
 - `File -> Export Objects -> HTTP`
 
-![yPQAJtCO2LIVT8W.png](https://image.yjs2635.xyz/images/2022/02/20/yPQAJtCO2LIVT8W.png)
+![yPQAJtCO2LIVT8W.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/yPQAJtCO2LIVT8W.png)
 
 导出几个出来看看，得到一些数据库的信息：
 
-![j7mBCryiQ1SONfh.png](https://image.yjs2635.xyz/images/2022/02/20/j7mBCryiQ1SONfh.png)
+![j7mBCryiQ1SONfh.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/j7mBCryiQ1SONfh.png)
 
 往下就是`Login.php POST包`登录成功的信息：
 ```bash
@@ -292,7 +292,7 @@ PWD=/app/admin/upload
 
 `选择反包->文件->Export packet Bytes/导出数据包字节流`
 
-[![2022-09-07-11.27.33.png](https://image.yjs2635.xyz/images/2022/09/07/2022-09-07-11.27.33.png)](https://image.yjs2635.xyz/image/GT2l)
+[![2022-09-07-11.27.33.png]({{site.PicturesLinks_Domain}}/images/2022/09/07/2022-09-07-11.27.33.png)]({{site.PicturesLinks_Domain}}/image/GT2l)
 
 解压zip文件，html目录下php代码发现`flag.php`：
 
@@ -305,15 +305,15 @@ $flag = 'CN1Sq9tFItxZhsu3zCWbrdf6ozOL4eoKG0s71vGg/AKKnch3IL3jzwtXeCgWK5QP';
 
 观察目录下发现存在被修改的php代码：（以下为参考教程给出-。-）
 
-![uUHT3GLDnqiRYtw.png](https://image.yjs2635.xyz/images/2022/02/20/uUHT3GLDnqiRYtw.png)
+![uUHT3GLDnqiRYtw.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/uUHT3GLDnqiRYtw.png)
 
 使用后加的代码对空白字符进行解码，并`file_put_contents('tmp2.txt',base64_decode($out));`输出到`tmp2.txt`文件中，同样文件中输出也有空白字符，再次解码即可；
 
-![aL9SKwjU2bytBqH.png](https://image.yjs2635.xyz/images/2022/02/20/aL9SKwjU2bytBqH.png)
+![aL9SKwjU2bytBqH.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/aL9SKwjU2bytBqH.png)
 
 [解码代码](https://github.com/Bin4xin/bigger-than-bigger/blob/master/CTF/MISC/backdoor/kongbai-jiemi.php){:target="_blank"}
 
-![7RVMhvliOXIfoZJ.png](https://image.yjs2635.xyz/images/2022/02/20/7RVMhvliOXIfoZJ.png)
+![7RVMhvliOXIfoZJ.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/7RVMhvliOXIfoZJ.png)
 
 使用获得的key[在线解密](http://tool.chacuo.net/cryptaes){:target="_blank"}`aes-128-ecb`算法，得到flag：`DASCTF{d8f191d0f0be0f039c4ededb7839218e}`
 

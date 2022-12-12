@@ -17,7 +17,7 @@ tags:
 
 我们已经向您介绍了如何获得访客次数，这一篇我们将会把这些数据「悠雅」地利用起来，效果如下：
 
-![2022-11-18-14.59.42.png](https://image.yjs2635.xyz/images/2022/11/18/2022-11-18-14.59.42.png)
+![2022-11-18-14.59.42.png]({{site.PicturesLinks_Domain}}/images/2022/11/18/2022-11-18-14.59.42.png)
 
 如果您不清楚如何获得访客，可以移步上面的「如何添加访客次数 I」链接。
 
@@ -63,7 +63,7 @@ tags:
 
 进行这一步，对了Public Endpoint长这样：
 
-![2022-11-18-15.18.26.png](https://image.yjs2635.xyz/images/2022/11/18/2022-11-18-15.18.26.png)
+![2022-11-18-15.18.26.png]({{site.PicturesLinks_Domain}}/images/2022/11/18/2022-11-18-15.18.26.png)
 
 #### 第三步
 
@@ -158,7 +158,7 @@ curl ${{ secrets.GA_API }} > assets/ga.json
 - Build Api是一天2个小时的构建时长；
 - Appspots的免费配额参考[配额](https://cloud.google.com/appengine/docs/standard/quotas#Safety_Quotas_and_Billable_Quotas){:target="_blank"}
 
-![2022-11-18-15.35.02.png](https://image.yjs2635.xyz/images/2022/11/18/2022-11-18-15.35.02.png)
+![2022-11-18-15.35.02.png]({{site.PicturesLinks_Domain}}/images/2022/11/18/2022-11-18-15.35.02.png)
 
 正常访问是不会有过溢的现象导致付费，所以在测试中，尽量减少外力干扰。
 

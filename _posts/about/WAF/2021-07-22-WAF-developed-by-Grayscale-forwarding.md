@@ -50,7 +50,7 @@ firewall:`https://dash.cloudflare.com/{random-token-value}/{domain.value}/firewa
 
 	- `(http.request.method eq "POST")`
 
-	![8KmS1WMqGQEniO2.png](https://image.yjs2635.xyz/images/2022/02/20/8KmS1WMqGQEniO2.png)
+	![8KmS1WMqGQEniO2.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/8KmS1WMqGQEniO2.png)
 
 **值得一提的是：您需要注意如果您添加的是根域名`a.com`DNS服务器为CloudFlare，那么firewall将会作用于所有可识别的域名如`1.a.com & 2.a.com` etc...**
 
@@ -87,7 +87,7 @@ firewall:`https://dash.cloudflare.com/{random-token-value}/{domain.value}/firewa
 
 #### # 0x04 带有攻击性的流量
 
-![lEu1WSvmd5LXGjU.png](https://image.yjs2635.xyz/images/2022/02/20/lEu1WSvmd5LXGjU.png)
+![lEu1WSvmd5LXGjU.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/lEu1WSvmd5LXGjU.png)
 
 ## 一：*Local WAF - JXWAF*
 

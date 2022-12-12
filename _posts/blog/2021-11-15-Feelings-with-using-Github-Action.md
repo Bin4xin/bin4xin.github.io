@@ -23,7 +23,7 @@ Q：如何让我们在网络上（Github）看起来很勤快/自律？
 
 A：使用Github Actions（滑稽）
 
-![2022-09-07-23.30.42.png](https://image.yjs2635.xyz/images/2022/09/07/2022-09-07-23.30.42.png)
+![2022-09-07-23.30.42.png]({{site.PicturesLinks_Domain}}/images/2022/09/07/2022-09-07-23.30.42.png)
 
 ```yml
 on:
@@ -98,7 +98,7 @@ jekyll-roman (Jekyll::Errors::MissingDependencyException)
 
 十一月份对我来说是痴迷Action的一个月，可以看到下面的图，整个十一月按每天算，单天我最多提交了146次包括调试、构建在内的代码：
 
-![qF2nZRi7g1xBV6Y.png](https://image.yjs2635.xyz/images/2022/02/20/qF2nZRi7g1xBV6Y.png)
+![qF2nZRi7g1xBV6Y.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/qF2nZRi7g1xBV6Y.png)
 
 Github Action提供 Github 服务器托管的虚拟机包括Linux、Windows以及macOS，支持很多环境，您可以[移步docs快速开始](https://docs.github.com/cn/actions/quickstart)
 <!-- 现在也有个词很火，叫[元宇宙]()； -->
@@ -160,7 +160,7 @@ echo -e "$fontStyleEnd\n$fontStyleEnd\n$htmlTempStart\n$serverAllTipsInfo\n$proc
 
 效果如下：
 
-![2022-09-21-09.27.24.png](https://image.yjs2635.xyz/images/2022/09/21/2022-09-21-09.27.24.png)
+![2022-09-21-09.27.24.png]({{site.PicturesLinks_Domain}}/images/2022/09/21/2022-09-21-09.27.24.png)
 
 ### 拓展阅读
 

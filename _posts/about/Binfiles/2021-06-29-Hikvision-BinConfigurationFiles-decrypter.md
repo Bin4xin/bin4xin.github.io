@@ -55,7 +55,7 @@ configurationFile: PGP Secret Key -
 ### *# Usage:*
 
 <div class="col-lg-7">
-<img align="left" src="https://image.yjs2635.xyz/images/2022/02/20/l5mtUa13gvqVHLF.png"/>
+<img align="left" src="{{site.PicturesLinks_Domain}}/images/2022/02/20/l5mtUa13gvqVHLF.png"/>
 </div>
 
 <div>
@@ -100,7 +100,7 @@ Download configurationFile decry-Sample	| [<i class="fa fa-link"></i> configurat
 
 当前时间下监控的快照图片
 
-![GPEeKkcqsAFRDYO.png](https://image.yjs2635.xyz/images/2022/02/20/GPEeKkcqsAFRDYO.png)
+![GPEeKkcqsAFRDYO.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/GPEeKkcqsAFRDYO.png)
 
 ## 参考
 

@@ -74,7 +74,7 @@ public class People implements Serializable {
 ```
 所以简而言之，web中传入的反序列化RCE的poc必然是传入参数可控。效果：
 
-![GKTt6uvjdh1g5QY.png](https://image.yjs2635.xyz/images/2022/02/20/GKTt6uvjdh1g5QY.png)
+![GKTt6uvjdh1g5QY.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/GKTt6uvjdh1g5QY.png)
 
 ### 参考
 

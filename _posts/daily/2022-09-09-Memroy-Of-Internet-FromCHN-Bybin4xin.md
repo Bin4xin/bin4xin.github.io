@@ -79,7 +79,7 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%}>"
 
 ## 效果
 
-![2022-09-25-16.38.54.png](https://image.yjs2635.xyz/images/2022/09/25/2022-09-25-16.38.54.png)
+![2022-09-25-16.38.54.png]({{site.PicturesLinks_Domain}}/images/2022/09/25/2022-09-25-16.38.54.png)
 
 ## 参考
 

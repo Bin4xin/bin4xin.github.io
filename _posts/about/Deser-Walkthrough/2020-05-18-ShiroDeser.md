@@ -37,7 +37,7 @@ desc: 「反序列化」
 
 # 零：Shiro框架的简介和相关用途
 
-![Ab68nZiLOqcwoh4.png](https://image.yjs2635.xyz/images/2022/02/20/Ab68nZiLOqcwoh4.png)
+![Ab68nZiLOqcwoh4.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/Ab68nZiLOqcwoh4.png)
 
 ---
 

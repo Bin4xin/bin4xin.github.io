@@ -82,10 +82,10 @@ desc: 「其他研究」
     ```
 - IDEA+tomcat调试：
     * IDEA配置（添加server时为`Tomcat Server`->`Remote`）：
-    ![lzFJ2uNZPagBfn6.png](https://image.yjs2635.xyz/images/2022/02/20/lzFJ2uNZPagBfn6.png)
+    ![lzFJ2uNZPagBfn6.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/lzFJ2uNZPagBfn6.png)
 
       * 如下图，加上`home.jsp`断点后进行http请求，可以看到IDEA中返回的frames详情；
-    ![6WGlumFBdDwstVY.png](https://image.yjs2635.xyz/images/2022/02/20/6WGlumFBdDwstVY.png)
+    ![6WGlumFBdDwstVY.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/6WGlumFBdDwstVY.png)
 
 
 这样基本上一个基本的IDEA+tomcat的调试配置过程基本就完成了，当然，这只是调试前的准备工作，大家多练习几次，基本上就能够熟练掌握；而最重要的以及最难的其实是调试阶段，
@@ -119,7 +119,7 @@ poc代码生成攻击cookie可以参考之前的文章：
 #### # 2x01：攻击测试
 工具直接选择"冰蝎2_Tomcat"，执行注入；
 - http发包请求如下：
-![tUJATRsNyZQFWX4.png](https://image.yjs2635.xyz/images/2022/02/20/tUJATRsNyZQFWX4.png)
+![tUJATRsNyZQFWX4.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/tUJATRsNyZQFWX4.png)
 
 - 我们可以看到HTTP请求为POST请求`p`&`path`&`dy`数据；同时header中加入了`rememberMe Cookie`；
 
@@ -129,7 +129,7 @@ Cookie是作为反序列化的入口，`dy`参数应该是写入内存的命令
 同时最后返回`dynamic inject success`；
 
 - 注入成功效果：
-![jKPIn8YHdTsW9LS.png](https://image.yjs2635.xyz/images/2022/02/20/jKPIn8YHdTsW9LS.png)
+![jKPIn8YHdTsW9LS.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/jKPIn8YHdTsW9LS.png)
 
 #### # 2x02：利用原理
 我们把利用工具的jar包扔进反编译软件定位到`BehOldDemoServlert.class`，我们来看看代码是怎么工作的：

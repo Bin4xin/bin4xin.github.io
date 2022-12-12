@@ -91,7 +91,7 @@ echo base64_encode(serialize($a));
 
 `php7 exp.php`
 
-![2022-10-31-23.08.27.png](https://image.yjs2635.xyz/images/2022/11/03/2022-10-31-23.08.27.png)
+![2022-10-31-23.08.27.png]({{site.PicturesLinks_Domain}}/images/2022/11/03/2022-10-31-23.08.27.png)
 
 ## # 2.Web FunnyJava
 
@@ -178,7 +178,7 @@ FunnyJava.jar!/BOOT-INF/classes/templates/1647232439869.htm
 <#assign exec="freemarker.template.utility.Execute"?new()> ${ exec("id") }
 ```
 
-![2022-10-31-23.07.36.png](https://image.yjs2635.xyz/images/2022/11/03/2022-10-31-23.07.36.png)
+![2022-10-31-23.07.36.png]({{site.PicturesLinks_Domain}}/images/2022/11/03/2022-10-31-23.07.36.png)
 
 我们可以看到，模版解析RCE。所以思路一没问题，那么我们应该怎么把我们生成的模版让服务器去执行呢？
 

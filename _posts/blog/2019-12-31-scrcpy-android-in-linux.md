@@ -21,7 +21,7 @@ permalink: /blog/2019/scrcpy/
 
 用scrcpy主要是因为开源且干净，先上效果图。
 
-![2022-03-30-5.15.11.png](https://image.yjs2635.xyz/images/2022/03/30/2022-03-30-5.15.11.png)
+![2022-03-30-5.15.11.png]({{site.PicturesLinks_Domain}}/images/2022/03/30/2022-03-30-5.15.11.png)
 
 安装也很简单：
 

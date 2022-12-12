@@ -36,14 +36,14 @@ desc: 「WAF」
 [_进一步了解：APACHE中间件链接ModSec_](https://zhuanlan.zhihu.com/p/104931385){:target="_blank"}
 
 没什么好说的，跟着教程一步步走基本上都能搞定。直接上部署成功的图：
-![F3DUGveCgpkVqcl.png](https://image.yjs2635.xyz/images/2022/02/20/F3DUGveCgpkVqcl.png)
+![F3DUGveCgpkVqcl.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/F3DUGveCgpkVqcl.png)
 如上图，部署成功后可以看到访问`http://localhost?doc=/bin/ls`，WAF给出拦截操作，日志记录提示触发了`unix-shell.data`规则导致拦截返回403；
 
 #### # Nginx部署
 
 [_进一步了解：Nginx中间件链接ModSec_](https://zhuanlan.zhihu.com/p/80866123){:target="_blank"}
 
-![cpsgLRObd9BTDao.png](https://image.yjs2635.xyz/images/2022/02/20/cpsgLRObd9BTDao.png)
+![cpsgLRObd9BTDao.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/cpsgLRObd9BTDao.png)
 
 同样的：访问`localhost:8011/?and 1=2--+`，触发WAF拦截规则返回403；需要注意的是：
 - nginx版本，教程中推荐的1.9版本实际操作下来无法成功编译安装，这里推荐`nginx/1.13.8`
@@ -129,7 +129,7 @@ _oahd:*:441:441:OAH Daemon:/var/empty:/usr/bin/false
 - `+$u+cat+/etc$u/passwd$u`
 - `+$u+cat+$u/etc$u/passwd`
 
-![FZQOLd6txseIgRu.png](https://image.yjs2635.xyz/images/2022/02/20/FZQOLd6txseIgRu.png)
+![FZQOLd6txseIgRu.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/FZQOLd6txseIgRu.png)
 
 ## 一：编写poc脚本连接器
 
@@ -146,7 +146,7 @@ webshell代码：
 - 类似终端执行代码
 实现效果如下：
 
-![OtD5wZ6Hafyd8TJ.jpg](https://image.yjs2635.xyz/images/2022/02/20/OtD5wZ6Hafyd8TJ.jpg)
+![OtD5wZ6Hafyd8TJ.jpg]({{site.PicturesLinks_Domain}}/images/2022/02/20/OtD5wZ6Hafyd8TJ.jpg)
 
 
 参考的是[@IppSec]的代码，简单修改了部分。

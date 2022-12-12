@@ -110,7 +110,7 @@ file=source.php%3f../../../../../../../../../../../../etc/passwd
 
 然后根据题目提示读取flag文件。
 
-![XroGifUcBNMdsPz.png](https://image.yjs2635.xyz/images/2022/02/20/XroGifUcBNMdsPz.png)
+![XroGifUcBNMdsPz.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/XroGifUcBNMdsPz.png)
 
 - 参考
     - [PHP: is_string - Manual](https://www.php.net/manual/zh/function.is-string.php){:target="_blank"}
@@ -124,7 +124,7 @@ file=source.php%3f../../../../../../../../../../../../etc/passwd
 
 处理后如下：
 
-![nQH65odjRtgNeh9.png](https://image.yjs2635.xyz/images/2022/02/20/nQH65odjRtgNeh9.png)
+![nQH65odjRtgNeh9.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/nQH65odjRtgNeh9.png)
 
 ```js
 function $(){
@@ -150,7 +150,7 @@ function $(){
 根据if判断逻辑内的定义console输出：
 
 
-![vSJgTNcsjDFGMoz.png](https://image.yjs2635.xyz/images/2022/02/20/vSJgTNcsjDFGMoz.png)
+![vSJgTNcsjDFGMoz.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/vSJgTNcsjDFGMoz.png)
 
 ### # 0x03 php伪协议
 
@@ -164,7 +164,7 @@ function $(){
     - 尝试读取对应php文件代码：
     - 读取payload`index.php?file=php://filter/read=convert.base64-encode/resource=secure.php`
 
-![Sxo6lWYBCIpQ2tU.png](https://image.yjs2635.xyz/images/2022/02/20/Sxo6lWYBCIpQ2tU.png)
+![Sxo6lWYBCIpQ2tU.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/Sxo6lWYBCIpQ2tU.png)
 
 - `secure.php`
 
@@ -206,7 +206,7 @@ if (hash("md4", $par3) == hash("md4", $par4))
 ```
 - 两个参数的md4值相等给出flag；不多说，直接上payload：
     
-![WgMqKXGUmrxoYIv.png](https://image.yjs2635.xyz/images/2022/02/20/WgMqKXGUmrxoYIv.png)
+![WgMqKXGUmrxoYIv.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/WgMqKXGUmrxoYIv.png)
 
 ### # 0x03 卖瓜
 
@@ -252,6 +252,6 @@ if (hash("md4", $par3) == hash("md4", $par4))
 
 > 如果给定的一个数超出了 int 的范围，将会被解释为 float。同样如果执行的运算结果超出了 int 范围，也会返回 float。如下图：
 
-![6qzWEmMROCZ5TiS.png](https://image.yjs2635.xyz/images/2022/02/20/6qzWEmMROCZ5TiS.png)
+![6qzWEmMROCZ5TiS.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/6qzWEmMROCZ5TiS.png)
 
 > 当从浮点数 float 转换成整数 int 时，将向下取整。

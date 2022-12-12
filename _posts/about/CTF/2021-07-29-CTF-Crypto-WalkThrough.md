@@ -64,7 +64,7 @@ yigb/+l/vjDdAgMBAAE=
 solve.py --verbose -k pubkey.pem --decrypt flag.enc`
 ```
 
-![zct5knF6u7BvrES.png](https://image.yjs2635.xyz/images/2022/02/20/zct5knF6u7BvrES.png)
+![zct5knF6u7BvrES.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/zct5knF6u7BvrES.png)
 
 同样的：例题2类似：
 
@@ -109,7 +109,7 @@ $$\frac{17d-1}{ø(n)} = int() = \frac{17d-1}{2135733082216268400}\\d=\frac{21357
 ➜ rsatools --verbose --private -N 2135733555619387051 -e 17 -p 473398607161 -q 4511491
 ```
 
-![DJtV9CZhLsSq8AY.png](https://image.yjs2635.xyz/images/2022/02/20/DJtV9CZhLsSq8AY.png)
+![DJtV9CZhLsSq8AY.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/DJtV9CZhLsSq8AY.png)
 
 ### # 0x03 流量（.pcap）文件
 
@@ -312,7 +312,7 @@ print(binascii.unhexlify(hex(m)[2:].strip("L")))
 > **binascii.unhexlify**：返回由十六进制字符串 hexstr 表示的二进制数据。此函数功能与 b2a_hex() 相反。 hexstr 必须包含偶数个十六进制数
 > 字（可以是大写或小写），否则会引发Error 异常。
 
-![czQdGEHUNkomajY.png](https://image.yjs2635.xyz/images/2022/02/20/czQdGEHUNkomajY.png)
+![czQdGEHUNkomajY.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/czQdGEHUNkomajY.png)
 
 ## 算法解密
 
@@ -327,7 +327,7 @@ print(binascii.unhexlify(hex(m)[2:].strip("L")))
 - 给出文件字符串`ccehgyaefnpeoobe{lcirg}epriec_ora_g`
 - 栅栏里面喂5只小鸡；栅栏算法，5
 
-![FGzs62Pk3TD5cCZ.png](https://image.yjs2635.xyz/images/2022/02/20/FGzs62Pk3TD5cCZ.png)
+![FGzs62Pk3TD5cCZ.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/FGzs62Pk3TD5cCZ.png)
 
 ### # 0x06 凯撒密码
 
@@ -338,7 +338,7 @@ print(binascii.unhexlify(hex(m)[2:].strip("L")))
 题干1：
 - 给出一串数字`11 111 010 000 0 1010 111 100 0 00 000 000 111 00 10 1 0 010 0 000 1 00 10 110`，根据1高位/0低位转换为摩丝码最终转换即可
 
-![kTxuAnpBhWwHMaR.png](https://image.yjs2635.xyz/images/2022/02/20/kTxuAnpBhWwHMaR.png)
+![kTxuAnpBhWwHMaR.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/kTxuAnpBhWwHMaR.png)
 
 **值得注意的是，就如上面的题干一样，有时给出的题目不一定会那么耿直让你一眼看出来或者用工具转换出来，需要做一些其他的转换：**
 
@@ -350,7 +350,7 @@ print(binascii.unhexlify(hex(m)[2:].strip("L")))
 
 很明显题1是空格分割，那么题2就是`/`分割，当然也可以把斜杠换成空格在转换，都是一样的；
 
-![cEa31ujitTUCgnW.png](https://image.yjs2635.xyz/images/2022/02/20/cEa31ujitTUCgnW.png)
+![cEa31ujitTUCgnW.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/cEa31ujitTUCgnW.png)
 
 通过算法转换后给出：
 ```
@@ -359,7 +359,7 @@ MAY_BE_HAVE_ANOTHER_DECODEHHHHAAAAABAABBBAABBAAAAAAAABAABABAAAAAAABBABAAABBAAABB
 
 很明显是2次加密，AB混合的字符串；有Crypto CTF经验的大手子们一眼就能看出来，培根编码：
 
-![PvbsEjXrCF2KfVN.png](https://image.yjs2635.xyz/images/2022/02/20/PvbsEjXrCF2KfVN.png)
+![PvbsEjXrCF2KfVN.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/PvbsEjXrCF2KfVN.png)
 
 小写：
 

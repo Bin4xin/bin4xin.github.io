@@ -67,14 +67,14 @@ permalink: /blog/2021/Record-a-suffocating-emergency-response-and-traceability-i
 
 - just fofa：
 
-![emergency-response-and-traceability-by-fofa.png](https://image.yjs2635.xyz/images/2022/02/20/emergency-response-and-traceability-by-fofa.png)
+![emergency-response-and-traceability-by-fofa.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/emergency-response-and-traceability-by-fofa.png)
 
 #### # 1x02：Something Interesting
 
 - _点击以了解 [fofa安全工程师们](https://fofa.so/){:target="_blank"} 与 [微步安全工程师们](https://x.threatbook.cn/){:target="_blank"}_
 
-<img align="left" src="https://image.yjs2635.xyz/images/2022/02/19/logo-in-header.882f692c.png" height="30%" width="50%"/>
-<img align="right" src="https://image.yjs2635.xyz/images/2022/02/19/logo.d9ee5c4.png" height="30%" width="50%"/>
+<img align="left" src="{{site.PicturesLinks_Domain}}/images/2022/02/19/logo-in-header.882f692c.png" height="30%" width="50%"/>
+<img align="right" src="{{site.PicturesLinks_Domain}}/images/2022/02/19/logo.d9ee5c4.png" height="30%" width="50%"/>
 
 ---
 
@@ -203,7 +203,7 @@ _**NO OFFENCE:-)Thanks**_
   
 所以，panel模式下对应的是面板密码设置；
 
-![stupid-bt-panel-control-pic.png](https://image.yjs2635.xyz/images/2022/02/20/stupid-bt-panel-control-pic.png)
+![stupid-bt-panel-control-pic.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/stupid-bt-panel-control-pic.png)
 
 至此，我们获得了 _root、redis、mysql、BT panel_ ；而本文并炫技，我们的初衷是朔源：
     

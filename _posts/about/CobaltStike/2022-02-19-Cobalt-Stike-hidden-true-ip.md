@@ -27,7 +27,7 @@ permalink: /about/Cobalt-Stike-hidden-true-ip/
   - 自动 HTTPS 重写/始终使用 HTTPS
 - 缓存 - 配置 - always online
 
-![2022-02-19-1.43.26.png](https://image.yjs2635.xyz/images/2022/02/19/2022-02-19-1.43.26.png)
+![2022-02-19-1.43.26.png]({{site.PicturesLinks_Domain}}/images/2022/02/19/2022-02-19-1.43.26.png)
 
 等待完成ping域名后已经接入CDN；
 
@@ -39,7 +39,7 @@ permalink: /about/Cobalt-Stike-hidden-true-ip/
 - Cloudflare HTTPS端口 
   - `443,2053,2083,2087,2096,8443`
 
-![2022-02-19-1.18.45.png](https://image.yjs2635.xyz/images/2022/02/19/2022-02-19-1.18.45.png)
+![2022-02-19-1.18.45.png]({{site.PicturesLinks_Domain}}/images/2022/02/19/2022-02-19-1.18.45.png)
 
 > 如上配置可以上线成功，并且存在相关域名的流量，但进行进一步分析后发现仍然存在相关CS服务器的流量交互
 
@@ -97,13 +97,13 @@ beacon> shell ipconfig
 
 在测试靶机里打开wireshark监听流量，流量已经发送到对应域名：
 
-![2022-02-19-1.40.12.png](https://image.yjs2635.xyz/images/2022/02/19/2022-02-19-1.40.12.png)
+![2022-02-19-1.40.12.png]({{site.PicturesLinks_Domain}}/images/2022/02/19/2022-02-19-1.40.12.png)
 
 ## 返回
 
 等待执行命令的返回包
 
-![2022-02-19-1.34.52.png](https://image.yjs2635.xyz/images/2022/02/19/2022-02-19-1.34.52.png)
+![2022-02-19-1.34.52.png]({{site.PicturesLinks_Domain}}/images/2022/02/19/2022-02-19-1.34.52.png)
 
 ## 参考
 

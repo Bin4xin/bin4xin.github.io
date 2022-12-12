@@ -56,7 +56,7 @@ Please make sure that you have permission to view applications on the project an
 
 在`【已启用的API和服务中】`找`【Cloud Build Api】`，没有开启可以搜索Build Api把她开启：
 
-![2022-11-18-11.13.23.png](https://image.yjs2635.xyz/images/2022/11/18/2022-11-18-11.13.23.png)
+![2022-11-18-11.13.23.png]({{site.PicturesLinks_Domain}}/images/2022/11/18/2022-11-18-11.13.23.png)
 
 #### 第二步：
 
@@ -66,7 +66,7 @@ Please make sure that you have permission to view applications on the project an
 
 找到【App Engine】下的【Deployer】权限：
 
-![2022-11-16-11.02.41.png](https://image.yjs2635.xyz/images/2022/11/18/2022-11-16-11.02.41.png)
+![2022-11-16-11.02.41.png]({{site.PicturesLinks_Domain}}/images/2022/11/18/2022-11-16-11.02.41.png)
 
 
 ### BUILD [invalid_client]
@@ -101,7 +101,7 @@ ERROR: (gcloud.app.deploy) Permissions error fetching application [apps/**-your-
 
 进入【appengine】-> header处【选择项目】，而针对此错误需要修改您本地默认project-id，id参考如下：
 
-![2022-11-18-14.28.13.png](https://image.yjs2635.xyz/images/2022/11/18/2022-11-18-14.28.13.png)
+![2022-11-18-14.28.13.png]({{site.PicturesLinks_Domain}}/images/2022/11/18/2022-11-18-14.28.13.png)
 
 希望能够帮助您在构建Appspot/构建superProxy/OAuth时帮到您，如果有任何问题请在下方点击need help提交issues。
 

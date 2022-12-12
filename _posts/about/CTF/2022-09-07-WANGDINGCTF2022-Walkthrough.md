@@ -32,11 +32,11 @@ if (isset($_POST["curl_opt"]) && is_array($_POST["curl_opt"])){
 
 - ssrf
 
-![2022-09-01-09.00.26.png](https://image.yjs2635.xyz/images/2022/09/07/2022-09-01-09.00.26.png)
+![2022-09-01-09.00.26.png]({{site.PicturesLinks_Domain}}/images/2022/09/07/2022-09-01-09.00.26.png)
 
 - 尝试写shell失败：
 
-![2022-09-01-09.00.19.png](https://image.yjs2635.xyz/images/2022/09/07/2022-09-01-09.00.19.png)
+![2022-09-01-09.00.19.png]({{site.PicturesLinks_Domain}}/images/2022/09/07/2022-09-01-09.00.19.png)
 
 ## # 0x01 web441-ezjava
 

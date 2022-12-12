@@ -35,7 +35,7 @@ Starting server, listen at: 0.0.0.0:8899
 
 一般来说，是爆破密码和验证码，故`Intruder Attack`配置如下：
 
-![7MsrhjizV1kCc59.png](https://image.yjs2635.xyz/images/2022/02/20/7MsrhjizV1kCc59.png)
+![7MsrhjizV1kCc59.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/7MsrhjizV1kCc59.png)
 
 > 值得注意的是：
 > 
@@ -56,4 +56,4 @@ Start Attack！
 $$P_{(success)}=\frac{18}{1795} * 100\% = 0.01\%$$
 
 
-![Hc421C6ijGvNZkF.png](https://image.yjs2635.xyz/images/2022/02/20/Hc421C6ijGvNZkF.png)
+![Hc421C6ijGvNZkF.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/Hc421C6ijGvNZkF.png)

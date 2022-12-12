@@ -30,7 +30,7 @@ permalink: /blog/2022/Industrial-Internet-CTF-2022-walkthrough/
 
 于是尝试了：`../`url编码、双写绕过，发现双写绕过`/read.php?Book=Li4uLy4vcmVhZC5waHA=`可以读取：
 
-![IMG_2042.png](https://image.yjs2635.xyz/images/2022/09/25/IMG_2042.png)
+![IMG_2042.png]({{site.PicturesLinks_Domain}}/images/2022/09/25/IMG_2042.png)
 
 我们可以看到操作代码：
 

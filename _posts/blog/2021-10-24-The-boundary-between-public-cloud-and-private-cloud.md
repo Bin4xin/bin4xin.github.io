@@ -164,7 +164,7 @@ plugin_passwd = {proxy_server_pwd}
 | :--- | :--- | :--- | :--- |
 | `Proxifier` | `proxychains4` | 很多 | - |
 
-![Q59vnIEbstcTMLD.png](https://image.yjs2635.xyz/images/2022/02/20/Q59vnIEbstcTMLD.png)
+![Q59vnIEbstcTMLD.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/Q59vnIEbstcTMLD.png)
 
 如上，我们就可以通过proxy的形式访问到私网应用；终端proxy连接ssh命令可以：`proxychains4 ssh root@{your_inside_ip}`，同时不要忘记登录ECS控制台阻止`ssh 22 0.0.0.0/0`即可，若proxy失效可以控制台连接私网地址或者重新放行公网ssh端口流量。
 

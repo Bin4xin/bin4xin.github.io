@@ -99,11 +99,11 @@ frida -U -f <package-name> -l <hook.js-path>
 ##提示<package-name>Spawned成功后，输入%resume重启app后使app-hook注入
 ```
 
-![post-frida-pic2.png](https://image.yjs2635.xyz/images/2022/02/20/post-frida-pic2.png)
+![post-frida-pic2.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/post-frida-pic2.png)
 
 如下图，app重启后检测到hook框架代码弹出提示，此时js代码注入成功。
 
-![post-frida-pic3.png](https://image.yjs2635.xyz/images/2022/02/20/post-frida-pic3.png)
+![post-frida-pic3.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/post-frida-pic3.png)
 
 
 - 参考文档：

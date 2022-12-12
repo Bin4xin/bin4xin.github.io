@@ -12,6 +12,7 @@ www_google_verify: "apz36MBrhPsyyKahn-qJWKDq0PQUASdgn5_nju0NwQE"
 timezone: Asia/Shanghai #set timezone to display build time correctly
 highlighter: rouge
 markdown: kramdown
+PicturesLinks_Domain: //image.yjs2635.xyz
 kramdown:
     input: GFM
     hard_wrap: false

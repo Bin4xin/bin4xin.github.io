@@ -17,7 +17,7 @@ permalink: /blog/2021/Realization-of-Openplc-simulation-communication-based-on-M
 
 - 基于Modbus协议与KingView实现Openplc仿真通讯 - 通讯靶场网络示意图如下
 
-![assets-network-show.png](https://image.yjs2635.xyz/images/2022/02/20/assets-network-show.png)
+![assets-network-show.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/assets-network-show.png)
 
 #### # *OpenPLC on Linux*
 
@@ -58,23 +58,23 @@ $ ./openplc_editor.sh
 $ curl -o openplc_test.st https://raw.githubusercontent.com/sxd0216/openplc_test.st/master/openplc_test.st
 ```
 
-![OpenPLC_TODO1.png](https://image.yjs2635.xyz/images/2022/02/20/OpenPLC_TODO1.png)
+![OpenPLC_TODO1.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/OpenPLC_TODO1.png)
 
 
 #### # *Kingview on Windows*
 
 - 设备驱动 -> PLC -> 莫迪康 -> ModBUS TCP -> TCP -> 下一步：
 
-![KingView_OPENPLC_TODO.png](https://image.yjs2635.xyz/images/2022/02/20/KingView_OPENPLC_TODO.png)
+![KingView_OPENPLC_TODO.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/KingView_OPENPLC_TODO.png)
 
 - 文件 -> 画面 添加组件（可参考动图添加组件）
 
 - 数据库 -> 数据字典 -> 新建...
-	- ![KingView_OPENPLC_TODO2.png](https://image.yjs2635.xyz/images/2022/02/20/KingView_OPENPLC_TODO2.png)
+	- ![KingView_OPENPLC_TODO2.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/KingView_OPENPLC_TODO2.png)
 
 选中自定义画面 -> make -> view （GIF动画有点大，loading...）：
 
-![KingView_OPENPLC_success.gif](https://image.yjs2635.xyz/images/2022/07/04/KingView_OPENPLC_success.gif)
+![KingView_OPENPLC_success.gif]({{site.PicturesLinks_Domain}}/images/2022/07/04/KingView_OPENPLC_success.gif)
 
 ### # 靶场攻击流量分析
 
@@ -86,9 +86,9 @@ $ curl -o openplc_test.st https://raw.githubusercontent.com/sxd0216/openplc_test
     - 14、16帧为client向server请求流量，具体如下图：
     - 15、17帧为server返回给client确认流量，具体流量可自行下载分析
 
-![wireshark_tcp_show.png](https://image.yjs2635.xyz/images/2022/02/20/wireshark_tcp_show.png)
+![wireshark_tcp_show.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/wireshark_tcp_show.png)
 
 
 #### # 模拟攻击启停
 
-![OpenPLC_attack_success.gif](https://image.yjs2635.xyz/images/2022/07/04/OpenPLC_attack_success.gif)
+![OpenPLC_attack_success.gif]({{site.PicturesLinks_Domain}}/images/2022/07/04/OpenPLC_attack_success.gif)

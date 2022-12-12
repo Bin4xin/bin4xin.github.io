@@ -30,7 +30,7 @@ qx{ping `whoami`.5pxha.i3ntq7.bnslog.top}
 
 ### 效果
 
-![May-18-2022-11-27-15.gif](https://image.yjs2635.xyz/images/2022/05/18/May-18-2022-11-27-15.gif)
+![May-18-2022-11-27-15.gif]({{site.PicturesLinks_Domain}}/images/2022/05/18/May-18-2022-11-27-15.gif)
 
 ### 分析
 

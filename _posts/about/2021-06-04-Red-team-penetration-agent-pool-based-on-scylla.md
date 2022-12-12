@@ -16,7 +16,7 @@ permalink: /about/Thousand-people-Thousand-faces-Red-team-penetration-agent-pool
 
 运行逻辑：
 
-![nikoaX72SKrDAJ8.png](https://image.yjs2635.xyz/images/2022/02/20/nikoaX72SKrDAJ8.png)
+![nikoaX72SKrDAJ8.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/nikoaX72SKrDAJ8.png)
 
 
 ## 一、Scylla Agent Pool
@@ -122,7 +122,7 @@ Type "about", "copyright", "credits" or "license" for more information.
 
 https://www.rmccurdy.com/.scripts/proxy/good.txt
 
-- ![2T9IOf1R68KPaHV.png](https://image.yjs2635.xyz/images/2022/02/20/2T9IOf1R68KPaHV.png)
+- ![2T9IOf1R68KPaHV.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/2T9IOf1R68KPaHV.png)
 
 
 ## passive-scan-client
@@ -143,7 +143,7 @@ generated-sources                                 passive-scan-client-0.1-jar-wi
     
 配置转发扫描端口
 
-- ![pgP2ztx4vimeZBu.png](https://image.yjs2635.xyz/images/2022/02/20/pgP2ztx4vimeZBu.png)
+- ![pgP2ztx4vimeZBu.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/pgP2ztx4vimeZBu.png)
 
 ## xray with Agent Pool
 
@@ -158,7 +158,7 @@ generated-sources                                 passive-scan-client-0.1-jar-wi
 ```
 效果：
 
-![DT9S1fyBF6PwGo8.png](https://image.yjs2635.xyz/images/2022/02/20/DT9S1fyBF6PwGo8.png)
+![DT9S1fyBF6PwGo8.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/DT9S1fyBF6PwGo8.png)
 
 ## 参考
 

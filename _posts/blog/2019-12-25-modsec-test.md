@@ -87,7 +87,7 @@ location / {
  
 - 效果图：
 
-![NGINX-WAF-TEST-PAGES.png](https://image.yjs2635.xyz/images/2022/02/20/NGINX-WAF-TEST-PAGES.png)
+![NGINX-WAF-TEST-PAGES.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/NGINX-WAF-TEST-PAGES.png)
 
 - 3、防护规则自写并测试：
 
@@ -145,7 +145,7 @@ server {
 
 - WAF防护效果图（这里当时环境的图搞丢了，随便找了一张意思一下）：
 
-![WAF-DENY-TEST.png](https://image.yjs2635.xyz/images/2022/02/20/WAF-DENY-TEST.png)
+![WAF-DENY-TEST.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/WAF-DENY-TEST.png)
           
 如无法测试成功可参考以下链接：
 > [《手把手带你搭建企业级WEB防火墙ModSecurity3.0+Nginx》](https://zhuanlan.zhihu.com/p/80866123)
@@ -173,11 +173,11 @@ SecRule ARGS:url "@contains admin" "id:2234,deny,log,status:403"
 
 我们在安全开发的过程中若需要自写规则库进行WEB防御，可参考：
 
-![2022-10-20-23.16.05.png](https://image.yjs2635.xyz/images/2022/10/20/2022-10-20-23.16.05.png)
+![2022-10-20-23.16.05.png]({{site.PicturesLinks_Domain}}/images/2022/10/20/2022-10-20-23.16.05.png)
 
 效果图：
 
-![WAF-PASSWD-DENY.png](https://image.yjs2635.xyz/images/2022/02/20/WAF-PASSWD-DENY.png)
+![WAF-PASSWD-DENY.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/WAF-PASSWD-DENY.png)
 
 参考：
 

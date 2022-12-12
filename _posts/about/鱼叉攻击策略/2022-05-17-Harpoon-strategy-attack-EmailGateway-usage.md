@@ -44,13 +44,13 @@ python3 sendcloud_bin4xin_telecom.py
 
 客户端效果：
 
-![2022-05-17-15.51.35.png](https://image.yjs2635.xyz/images/2022/05/17/2022-05-17-15.51.35.png)
+![2022-05-17-15.51.35.png]({{site.PicturesLinks_Domain}}/images/2022/05/17/2022-05-17-15.51.35.png)
 
 手机端效果：
 
-[comment]: <> (<img src="https://image.yjs2635.xyz/images/2022/05/17/IMG_1536.png" width="50%" height="50%">)
+[comment]: <> (<img src="{{site.PicturesLinks_Domain}}/images/2022/05/17/IMG_1536.png" width="50%" height="50%">)
 
-![2022-06-25-22.53.23.png](https://image.yjs2635.xyz/images/2022/06/25/2022-06-25-22.53.23.png)
+![2022-06-25-22.53.23.png]({{site.PicturesLinks_Domain}}/images/2022/06/25/2022-06-25-22.53.23.png)
 
 不过这样是有局限性的，有心的话可以通过web端打开，甚至都不用打开邮件详情看：
 

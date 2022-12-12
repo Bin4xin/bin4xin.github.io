@@ -75,7 +75,7 @@ systemctl reload nginx
 ## AMAZING:it's failed
 配置完美滋滋去验证网站，畏（zhi）畏（gao）缩（qi）缩（ang）的输入站点https协议地址，结果傻了眼，还是http的协议提示，好气。<br>
 
-![post-unsafe-http.png](https://image.yjs2635.xyz/images/2022/02/20/post-unsafe-http.png)
+![post-unsafe-http.png]({{site.PicturesLinks_Domain}}/images/2022/02/20/post-unsafe-http.png)
 
 
 赶紧趁着ssh还没断开赶紧查看配置哪里出了问题。

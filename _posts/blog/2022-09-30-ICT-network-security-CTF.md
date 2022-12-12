@@ -17,7 +17,7 @@ permalink: /blog/2022/ICT-network-security-CTF-2022-walkthrough/
 
 ### 奇怪的AES
 
-![2022-09-30-10.10.29.png](https://image.yjs2635.xyz/images/2022/09/30/2022-09-30-10.10.29.png)
+![2022-09-30-10.10.29.png]({{site.PicturesLinks_Domain}}/images/2022/09/30/2022-09-30-10.10.29.png)
 
 #### 题目代码
 
@@ -117,7 +117,7 @@ for X0 in range(0,11):
 
 - 得到flag
 
-![2022-09-30-10.28.25.png](https://image.yjs2635.xyz/images/2022/09/30/2022-09-30-10.28.25.png)
+![2022-09-30-10.28.25.png]({{site.PicturesLinks_Domain}}/images/2022/09/30/2022-09-30-10.28.25.png)
 
 ### eye
 
@@ -142,7 +142,7 @@ CRC32爆破：
 python2 crc32.py reverse 0x0f84c81e
 ```
 
-![2022-09-30-16.04.33.png](https://image.yjs2635.xyz/images/2022/09/30/2022-09-30-16.04.33.png)
+![2022-09-30-16.04.33.png]({{site.PicturesLinks_Domain}}/images/2022/09/30/2022-09-30-16.04.33.png)
 
 依次类推，得到zip解压密码`ohhh_you_found_me`;
 
