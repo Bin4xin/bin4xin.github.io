@@ -2,6 +2,12 @@ name: sentrylab harmony.
 
 on:
 #  [workflow_dispatch]
+  workflow_dispatch:
+    inputs:
+      note:
+        description: "Test scenario tags"
+        required: false
+        default: "Let's go."
   schedule:
     - cron: '30 22 12-14 12 *'
 #此表达式为国际时间，每年的十二月十二日到十四日的二十二时三十分
