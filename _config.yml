@@ -20,8 +20,10 @@ kramdown:
 permalink: "/:categories/:year/:title/"
 
 excerpt_separator: <!--more--> #use this in posts to define how long the excerpt of the post (that is shown on the Blog page) is
+# TODO plugins: ["jekyll-toc", "jekyll-roman", "jekyll-paginate"]
+# paginate: 5
+# paginate_path: "/blog/page:num/"
 plugins: ["jekyll-toc", "jekyll-roman"]
-
 #--[toc plugin], while run jekyll to build sites, jekyll-toc could define some to display:
 #--the toc class
 #--the toc min/max level

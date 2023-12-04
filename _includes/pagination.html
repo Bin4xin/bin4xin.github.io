@@ -1,0 +1,16 @@
+{% comment %}
+<!-- 分页链接 -->
+<div class="pagination">
+  {% if paginator.previous_page %}
+  <a href="{{ paginator.previous_page_path }}" class="previous" style="float:left;"><< Previous</a>
+  {% else %}
+  <!-- <span class="previous">Previous</span> -->
+  {% endif %}
+  <span class="page_number ">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+  {% if paginator.next_page %}
+  <a href="{{ paginator.next_page_path }}" class="next" style="float:right;margin-right:30px;">Next >></a>
+  {% else %}
+  <!-- <span class="next ">Next</span> -->
+  {% endif %}
+</div>
+{% endcomment %}

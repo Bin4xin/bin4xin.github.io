@@ -184,7 +184,9 @@ margin-right: calc(50% - 50vw);
 }
 
 .cws-fullbleed {
-margin: 0 auto;
+    margin: 0 auto;
+    white-space: wrap;
+    overflow: hidden;
 }
 .cws-banner .cws-banner__body-copy {
 -moz-osx-font-smoothing: grayscale;

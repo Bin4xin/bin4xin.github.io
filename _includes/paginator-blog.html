@@ -3,7 +3,7 @@
         <div class="Box-header d-flex flex-justify-between"><!--box header-->
             <a class="my-3 col-7 color-fg-default text-bold mb-1 lh-condensed css-truncate-target d-flex" style="max-width: 100%; font-size: 20px" href="{{ page.url | prepend: site.baseurl }}">《{{ page.title }}》</a>
             <!--article title end-->
-            <a class="display-nav-li no-underline d-flex" href="{{site.githubAccess}}/{{site.githubRepos}}/blob/{{site.githubRepos-Branch}}/{{page.path}}" target="_blank">
+            <a class="display-nav-li no-underline d-flex" href="{{site.githubAccess}}/{{site.githubRepos}}/blob/{{site.githubRepos-Branch}}/{{z.path}}" target="_blank">
                 <span class="completeness-indicator completeness-indicator-problem">
                    <span class="content-summary-icon scrollbar-20-20"></span>
                 </span>
@@ -24,7 +24,7 @@
                         {% include author_gh_avatars.html %}
                     </a>
                     <!--article author avatar img. end-->
-                    <div class="color-fg-success-icon scrollbar-16-16"></div><!--article github action success.site.commitString-->
+                    <div class="color-fg-success-icon scrollbar-16-16"></div><!--article GitHub action success.site.commitString-->
                     {% assign website_version = site.commitString %}
                     <a class="d-flex color-fg-default px-md-6" href="{{site.githubAccess}}/{{site.githubRepos}}/commit/{{ website_version }}" target="_blank">{{ website_version }}</a>
                     {% include article-YMH-note.html %}
