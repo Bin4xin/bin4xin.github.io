@@ -43,7 +43,8 @@ jobs:
       run: |
         commitString=$(git rev-list HEAD --abbrev-commit --max-count=1)
         echo "commitString: $commitString" >> _config.yml
-    # curl ${{ secrets.GA_API }} > assets/ga.json
+        /bin/bash scripts/snippets.sh
+      # curl ${{ secrets.GA_API }} > assets/ga.json
     # bundle config set --local path 'vendor/bundle' && 
     - name: run jekyll-build
       run: |

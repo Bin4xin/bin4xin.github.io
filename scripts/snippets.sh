@@ -1,0 +1,22 @@
+#!/bin/bash
+
+version_check(){
+  # check version of website.
+  web_version=$(grep web_version _config.yml| awk -F':' '{print $2}'| tr -d ' ')
+  # use awk write $web_version into README.MD
+  echo "config file version: '$web_version'"
+  old_web_version=$(grep "Power by Bin4xin" README.MD|awk -F' ' '{print $3}')
+  echo "README version: '$old_web_version'"
+
+  if [ "$old_web_version" != "$web_version" ];then
+    echo "diff version detected."
+    tmpfileContent=$(sed "s/$old_web_version/$web_version/g" README.md)
+    echo "$tmpfileContent" > README.MD
+    echo "[LOG]: Success write into new web version."
+  else
+    echo "[LOG]: No diff in version, \$version_check passing."
+    return
+  fi
+}
+
+version_check
