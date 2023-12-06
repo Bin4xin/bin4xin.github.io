@@ -19,4 +19,7 @@ version_check(){
   fi
 }
 
+## TODO
+## repo_tag_check, maybe could detected repo articles tags by bash script.
+
 version_check
