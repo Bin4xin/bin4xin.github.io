@@ -3,8 +3,8 @@ layout: about
 category: about
 toc: true
 wrench: 2022-02-22
-Researchname: Cobalt Stike服务器隐藏真实ip
-desc: 「Cobalt Stike」
+Researchname: Cobalt Strike服务器隐藏真实ip
+desc: 「Cobalt Strike」
 author: Bin4xin
 permalink: /about/Cobalt-Stike-hidden-true-ip/
 ---

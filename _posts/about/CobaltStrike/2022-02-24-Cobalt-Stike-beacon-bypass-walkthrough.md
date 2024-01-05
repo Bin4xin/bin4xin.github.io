@@ -4,9 +4,9 @@ category: about
 toc: true
 wrench: 2022-03-03
 Researchname: CS上线木马免杀入门
-desc: 「Cobalt Stike」
+desc: 「Cobalt Strike」
 author: Bin4xin
-permalink: /about/Cobalt-Stike-beacon-bypass-walkthrough/
+permalink: /about/Cobalt-Strike-beacon-bypass-walkthrough/
 ---
 
 > 木马上线老生常谈的问题就是免杀；特别是windows免杀，安全市场经过相当长一段时间的洗礼后，国内已然涌现出

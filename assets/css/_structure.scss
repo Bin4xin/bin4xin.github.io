@@ -41,8 +41,8 @@ p {
 */
 
 .markdown-body-img img {
-    max-height: 49rem;
-    max-width: 100%;
+    max-height: 43rem;
+    max-width: 85%;
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
@@ -51,7 +51,7 @@ p {
     margin: 1rem auto 0;
     border: none;
     max-width: -moz-calc(100% - 2rem);
-    max-width: calc(100% - 2rem);
+    //max-width: calc(100% - 2rem);
 }
 
 // *  TODO mark: define default img display while cannot find online image.

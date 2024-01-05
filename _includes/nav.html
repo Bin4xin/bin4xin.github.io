@@ -6,7 +6,11 @@
 |  2.Fixed navbar padding-top equals to 70px                                                                        |
 |    `./assets/css/style.scss` @import struture in `./assets/css/_struture.scss` del `padding-top=70px` in body.    |
 #####################################################################################################################-->
-
+<style>
+.nav>li>a {
+    padding: 10px 15px;
+}
+</style>
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -19,7 +23,7 @@
                 <div>{% if page.permalink == "/" %}
                 {% assign shequ = site.data.nerd_urls %}
                     <nav id="main-nav">
-                        <ul><li>
+                        <ul class="navbar-toggle" style="border: 0;"><li>
                             <div class="flex-row d-flex justify-start">
                             <div class="gb_A flex-justify-center-l" href="#">{% include pic.html name="github" %}</div>
                             </div>

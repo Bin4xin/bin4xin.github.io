@@ -418,7 +418,7 @@ margin: 0;
 
 .table-of-contents {
     margin-bottom: 0;
-    padding: var(--ifm-toc-padding-vertical) 0
+    padding: 6px 8px 6px 16px;
 }
 
 .table-of-contents,.table-of-contents ul {

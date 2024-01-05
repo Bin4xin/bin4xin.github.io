@@ -1,12 +1,11 @@
 ---
 layout: about
 category: about
-toc: true
 wrench: 2022-02-23
 Researchname: 域名前置隐藏C2服务器
-desc: 「Cobalt Stike」
+desc: 「Cobalt Strike」
 author: Bin4xin
-permalink: /about/Cobalt-Stike-C2-domain-front-hidden/
+permalink: /about/Cobalt-Strike-C2-domain-front-hidden/
 ---
 
 ## Mark
@@ -14,8 +13,6 @@ permalink: /about/Cobalt-Stike-C2-domain-front-hidden/
 尝试了几家云，CDN服务加速域名都需要域名验证了；码一下。
 
 ### CDN实践
-
-
 
 - Ali CDN域名验证一直转圈
 - TX CDN上不了线

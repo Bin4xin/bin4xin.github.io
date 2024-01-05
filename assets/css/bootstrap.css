@@ -4576,7 +4576,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a {
   position: relative;
   display: block;
-  padding: 10px 15px;
+  padding: 3px 4px 3px 8px;
 }
 .nav > summary {
   position: relative;
@@ -4592,6 +4592,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a:focus {
   text-decoration: none;
   background-color: #eeeeee;
+  /*TODO border-radius: 12px;*/
 }
 .nav > li.disabled > a {
   color: #777777;
@@ -4896,7 +4897,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-toggle {
   position: relative;
-  /*float: right;*/
   padding: 14px 16px;
   margin-right: 3px;
   margin-top: 8px;

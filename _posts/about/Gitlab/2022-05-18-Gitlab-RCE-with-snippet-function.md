@@ -2,7 +2,6 @@
 layout: about
 category: about
 Researchname: GitLab CVE-2021-22205 snippet RCE
-toc: true
 permalink: /about/Gitlab-RCE-with-snippet-function/
 author: Bin4xin
 desc: 「Gitlab」

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html><style></style>
 <link rel="stylesheet" type="text/css" href="/assets/css/common.css">
 {% include head.html %}
     <body>
@@ -21,7 +21,7 @@ jQuery(function($) {
         .each(function() {
             if (this.hostname !== location.hostname && this.hostname !== 'github.com'){
                 $(this).addClass('fa fa-external-link-alt');
-            } else if (this.hostname =='github.io'){
+            } else if (this.hostname === 'github.io'){
                 $(this).addClass('fa fa-github');
             }
         });

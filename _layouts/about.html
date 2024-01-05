@@ -8,7 +8,9 @@ layout: about-default
 
 {% assign posts_about_desc = site.categories["about"] | sort: 'date' | group_by_exp:"post", "post.desc" |reverse %}
 {% assign posts_about = site.categories["about"] | sort: 'date' %}
-
+<style>.markdown-body {
+										font-size: 12px;
+									}</style>
 <div id="help-page">
 	<div class="visible-xs"><!--nav banner with logo. 响应式::菜单::表单-->
 		{% include nav.html %}
