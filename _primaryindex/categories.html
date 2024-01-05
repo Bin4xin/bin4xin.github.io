@@ -29,9 +29,21 @@ title: 文章分类
         <div class="Box-row">{% include top-banner.html %}</div>
         {% for category in site.categories %}
         {% capture category_name %}{{ category | first }}{% endcapture %}
+        {% capture category_upper %}{{ category_name | upcase }}{% endcapture %}
         {% assign all_posts_size = site.categories[category_name] | size %}
             <details class="Box-row">
-                <summary class="edSFyN justify-between"><a class="f2 fw4"><i class="far fa-folder fa-fw "></i> {{ category_name|upcase }}
+                <summary class="edSFyN justify-between"><a class="f2 fw4"><i class="far fa-folder fa-fw "></i>
+                    {% if category_upper == "BLOG" %}
+                    博客
+                    {% elsif category_upper == "DAILY" %}
+                    "老（jiǎng）"的日记
+                    {% elsif category_upper == "TOP" %}
+                    置顶文章
+                    {% elsif category_upper == "ABOUT" %}
+                    研究相关
+                    {% else %}
+                    {{ category_upper }}
+                    {% endif %}
                     <span data-view-component="true" class="badge badge-theme">{{ all_posts_size }}</span></a></summary>
                 {%  assign page_groupBy_date =  site.categories[category_name] | group_by_exp:"post","post.date | date: '%Y'" %}
                 {% for post in page_groupBy_date %}
