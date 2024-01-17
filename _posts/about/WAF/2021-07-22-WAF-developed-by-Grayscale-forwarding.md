@@ -6,6 +6,7 @@ permalink: /about/WAF-developed-by-Grayscale-forwarding/
 author: Bin4xin
 toc: true
 desc: 「WAF」
+description: WAF域名前置部署 | CloudFlare WAF | JXWAF | openresty接入JXWAF | 流量检测 | 本地WAF接入实验
 ---
 
 # [持续更新] *ModSec & CloudFlare WAF Initial Research*

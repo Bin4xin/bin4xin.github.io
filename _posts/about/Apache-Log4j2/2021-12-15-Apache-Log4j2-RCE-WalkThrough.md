@@ -7,6 +7,7 @@ Researchname: Apache Log4J2 RCE复现历程
 desc: 「Apache Log4j2」
 author: Bin4xin
 permalink: /about/Apache-Log4j2-RCE-WalkThrough/
+description: Apache Log4j2 远程代码执行 | Apache Log4j2 RCE | Apache Log4j2 绕过攻击 | Apache Log4j2 Bypass poc
 ---
 
 ## [Apache Log4j-v2.x-x RCE](https://github.com/Bin4xin/bigger-than-bigger/tree/master/CoVV/ApacheLog4j)

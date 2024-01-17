@@ -6,6 +6,7 @@ toc: true
 author: Bin4xin
 permalink: /about/Mod-Waf-Bypass-Walkthrough/
 desc: 「WAF」
+description: ModsecWAF部署 | ModsecWAF deployed | ModsecWAF绕过 | ModsecWAF Bypass | ModsecWAF绕过 | poc connector
 ---
 
 # 「分享」ModsecWAF：老牌开源waf的绕过历程

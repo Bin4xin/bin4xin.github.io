@@ -6,6 +6,7 @@ Researchname: Apache Log4J2 RCE JDK限制实验
 desc: 「Apache Log4j2」
 author: Bin4xin
 permalink: /about/Apache-log4j2-affect-By-JDK-version-walkthrough/
+description: Apache Log4j2 远程代码执行 | Apache Log4j2 RCE | Apache Log4j2 JDK限制实验 | Apache Log4j2 JDK limit test walkthrough
 ---
 
 # Apache Log4j-v2 RCE limit

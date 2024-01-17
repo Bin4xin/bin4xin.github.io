@@ -23,11 +23,12 @@
 <link type="application/atom+xml" rel="alternate" href="{{ "/feed.xml" | prepend: site.baseurl }}" title="{{ site.title }}" />
 
 {% capture page_title %}{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}{% endcapture %}
+{% capture page_description %}{% if page.description %}{{ page.description }} | © {% else %} {{ content | escape }}{% endif %}{{ site.description }} {{ site.brand }}{% endcapture %}
 
 <!-- Open Graph metadata -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="{{ page_title }}" />
-<meta property="og:description" content="{{ site.about  }}" />
+<meta property="og:description" content="{{ page_description }}" />
 <meta property="og:image" content="{{ site.url }}{{ site.baseurl }}/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
 <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}{{ page.url }}" />
 <title>{% if page.Researchname %} {{ page.Researchname }} |{% elsif page.title %} {{ page.title }} |{% endif %}{% if include.cattitle %} {{ include.cattitle }} |{% endif %}{% if (page.title || include.cattitle) %}{{" "}}{% endif %}{{ site.title }}{% if site.brand %} | {{ site.brand }}{% endif %}</title>
