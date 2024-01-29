@@ -11,7 +11,7 @@ version_check(){
   if [ "$old_web_version" != "$web_version" ];then
     echo "[LOG]: diff version detected."
     tmpfileContent=$(sed "s/$old_web_version/$web_version/g" README.md)
-    echo "$tmpfileContent" > README.MD
+    echo "$tmpfileContent" > README.MD.bak
     echo "[LOG]: Success write into new web version."
   else
     echo "[LOG]: No diff in version, \$version_check passing."
@@ -21,5 +21,8 @@ version_check(){
 
 ## TODO
 ## repo_tag_check, maybe could detected repo articles tags by bash script.
+repo_tag_check(){
+  return
+}
 
 version_check

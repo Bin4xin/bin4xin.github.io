@@ -35,7 +35,6 @@ jobs:
           ${{ runner.os }}-bundler-${{ env.CACHE_ID }}-
     - name: Change rubygems loading
       run: sed -i "/^source/c source 'https://rubygems.org'" Gemfile
-    # --path=vendor/bundle
     - name: install dependencies
       if: steps.cache.outputs.cache-hit != 'true'
       run: bundle install --path=vendor/bundle --jobs=4 --retry=3
@@ -43,9 +42,6 @@ jobs:
       run: |
         commitString=$(git rev-list HEAD --abbrev-commit --max-count=1)
         echo "commitString: $commitString" >> _config.yml
-        /bin/bash scripts/snippets.sh
-      # curl ${{ secrets.GA_API }} > assets/ga.json
-    # bundle config set --local path 'vendor/bundle' && 
     - name: run jekyll-build
       run: |
         bundle config set --local path 'vendor/bundle'
@@ -58,3 +54,23 @@ jobs:
         git-base-folder: '_site'
         commit-message: '<auto generate>:🚀page build/deploy by github action.'
         branch: 'gh-pages'
+
+  auto_commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          /bin/bash scripts/snippets.sh
+          git diff --exit-code && echo "Files are unchanged" || echo "Files have changed"
+      - name: Commit changes
+        if: steps.check_changes.outputs.stdout == 'Files have changed'
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add README.md
+          git commit -m "Actions** Push ReadMe file while $web_version changed"
+          git push
