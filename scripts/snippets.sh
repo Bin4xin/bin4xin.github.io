@@ -11,7 +11,7 @@ version_check(){
   if [ "$old_web_version" != "$web_version" ];then
     echo "[LOG]: diff version detected."
     tmpfileContent=$(sed "s/$old_web_version/$web_version/g" README.md)
-    echo "$tmpfileContent" > README.MD.bak
+    echo "$tmpfileContent" > README.MD
     echo "[LOG]: Success write into new web version."
   else
     echo "[LOG]: No diff in version, \$version_check passing."
