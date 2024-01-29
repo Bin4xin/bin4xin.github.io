@@ -8,6 +8,7 @@ baseurl: "" #important: start with /
 url: "https://bin4xin.sentrylab.cn"
 root: "sentrylab.cn"
 web_version: V3.0.1
+script_version: v1.0.2
 www_google_verify: "apz36MBrhPsyyKahn-qJWKDq0PQUASdgn5_nju0NwQE"
 timezone: Asia/Shanghai #set timezone to display build time correctly
 highlighter: rouge

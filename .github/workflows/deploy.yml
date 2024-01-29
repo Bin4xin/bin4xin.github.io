@@ -65,9 +65,9 @@ jobs:
         id: check_changes
         run: |
           /bin/bash scripts/snippets.sh
-          git diff --exit-code && echo "Files are unchanged" || echo "Files have changed"
+#           git diff --exit-code && echo "Files are unchanged" || echo "Files have changed"
       - name: Commit changes
-        if: steps.check_changes.outputs.stdout == 'Files have changed'
+#        if: steps.check_changes.outputs.stdout == 'Files have changed'
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
