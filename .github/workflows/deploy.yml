@@ -69,8 +69,8 @@ jobs:
       - name: Commit changes
 #        if: steps.check_changes.outputs.stdout == 'Files have changed'
         run: |
-          git config user.name github-actions
+          if git diff --exit-code; then return; else git config user.name github-actions
           git config user.email github-actions@github.com
           git add README.md
-          git commit -m "Actions** Push ReadMe file while $web_version changed"
-          git push
+          git commit -m "<Actions>:🚀 Push file while $web_version changed"
+          git push; fi
