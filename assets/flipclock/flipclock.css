@@ -203,7 +203,11 @@
     right: -86px;
     color: black;
     text-shadow: none; }
-
+@media (prefers-color-scheme: dark) {
+    .flip-clock-divider .flip-clock-label {
+        color: white; /* 在暗黑模式下设置颜色为白色 */
+    }
+}
 .flip-clock-divider.minutes .flip-clock-label {
     right: -88px; }
 
