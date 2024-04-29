@@ -1,0 +1,53 @@
+---
+layout: common
+title: Time
+permalink: /time
+---
+
+<link rel="stylesheet" href="/assets/flipclock/flipclock.css">
+<script src="/assets/flipclock/flipclock.js"></script>
+<div class="clock" style="margin-bottom:2em;margin-top:2em;display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;">
+</div>
+<!--
+  - Ajax @para counts
+  - Jquery-return-value-undefined @link { https://stackoverflow.com/questions/13848123/jquery-return-value-undefined }
+  -->
+<script>
+    function setInitialCount() {
+        var currentTime = new Date();
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+        var seconds = currentTime.getSeconds();
+
+        var totalSeconds = hours * 3600 + minutes * 60 + seconds;
+        return totalSeconds;
+    }
+
+    var clock;
+    let All_Counts = setInitialCount();
+
+    $(document).ready(function() {
+        // Instantiate a counter
+        clock = new FlipClock($('.clock'), All_Counts , {
+            clockFace: 'HourlyCounter', // 使用 HourlyCounter 显示小时、分钟和秒数
+        });
+
+        // Attach a click event to a button an increment the clock
+        $('.increment').click(function() {
+            clock.increment();
+        });
+
+        // Attach a click event to a button a decrement the clock
+        $('.decrement').click(function() {
+            clock.decrement();
+        });
+
+        $('.reset').click(function() {
+            clock.reset();
+        });
+    });
+</script>
