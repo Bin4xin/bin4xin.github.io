@@ -1,13 +1,25 @@
----
----
-{% for notes in site.data.notes %}
-    {% assign note_node = notes.note_node %}
+
+    
     $(document).ready(function(){
-        $("#hidden-2-click-{{note_node|replace: ' ', '-'|replace: '.', '-'}}").click(function(){
-            $("diva-{{note_node |replace: ' ', '-'|replace: '.', '-' }}").hide();
+        $("#hidden-2-click-互联网的记忆").click(function(){
+            $("diva-互联网的记忆").hide();
         });
     });
-{% endfor %}
+
+    
+    $(document).ready(function(){
+        $("#hidden-2-click-Feed-xml").click(function(){
+            $("diva-Feed-xml").hide();
+        });
+    });
+
+    
+    $(document).ready(function(){
+        $("#hidden-2-click-Github-Action").click(function(){
+            $("diva-Github-Action").hide();
+        });
+    });
+
 /*
  *[x] step 1. type esc or
      *  // Char Code: 13  Enter,
