@@ -3,7 +3,7 @@ category: daily
 layout: daily
 title: "《舌尖上的中国》经典解说词"
 author: Bin4xin
-poster: https://image.yjs2635.xyz/images/2022/02/26/3RgwVNqOt6mskPy.png
+poster: https://{{PicturesLinks_Domain}}/images/2022/02/26/3RgwVNqOt6mskPy.png
 ---
 
 
