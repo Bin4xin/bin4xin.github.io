@@ -3,8 +3,65 @@ layout: about-default
 ---
 
 <script>
-	window.Researchname = "{{page.Researchname}}";
+	document.addEventListener('DOMContentLoaded', function() {
+		const button = document.getElementById('toggleButton');
+		const sidebar = document.getElementById('sidebar1');
+
+		// 找到所有具有指定 class 的 details 元素
+		const ulsElements = document.querySelectorAll('ul.nav.nav-pills.nav-stacked');
+
+		button.addEventListener('click', function() {
+			// 切换 sidebar 的 collapsed 状态
+			sidebar.classList.toggle('collapsed');
+			const expanded = !sidebar.classList.contains('collapsed');
+			button.setAttribute('aria-expanded', expanded);
+
+			// 切换 details 元素的显示状态
+			ulsElements.forEach(details => {
+				details.style.display = details.style.display === 'none' ? '' : 'none';
+			});
+		});
+	});
 </script>
+
+<style>
+	.new_figma_des{
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+	padding: 0;
+	flex: none;
+	order: 0;
+	align-self: stretch;
+	flex-grow: 0;
+	z-index: 1;
+	}
+	#toggleButton {
+		transition: opacity 0.3s;
+		background-color: transparent;
+		cursor: pointer;
+	}
+	#sidebar1 {
+		transition: width 0.3s;
+		overflow: hidden;
+	}
+	#sidebar1.collapsed {
+		width: 65px;
+	}
+	 .c_k {
+		 width: 100%;
+	 }
+	#sidebar1.collapsed #logo,
+	#sidebar1.collapsed #toggleButton {
+		opacity: 1; /* 保持可见 */
+	}
+	 .c_k {
+		 width: 100%;
+	 }
+</style>
 
 {% assign posts_about_desc = site.categories["about"] | sort: 'date' | group_by_exp:"post", "post.desc" |reverse %}
 {% assign posts_about = site.categories["about"] | sort: 'date' %}
@@ -12,6 +69,7 @@ layout: about-default
 	<div class="visible-xs"><!--nav banner with logo. 响应式::菜单::表单-->
 		{% include nav.html %}
 		<div class="spacing"></div>
+
 		<form class="form-inline">
 			<div class="form-group"><details>
 				{% for descs in posts_about_desc %}
@@ -34,17 +92,20 @@ layout: about-default
 	</div><!--响应式::菜单::表单 end class="area-scroll" style="height:100vh"-->
 		<!--left area: menu 左边菜单栏 col-sm-3 ./25%-->
 		<div id="post-content" class="row markdown-body-img d-flex">
-			<div class="flex-column col-md-3 position-sticky ml-hide overflow-y-auto top-0 d-none d-lg-block flex-shrink-0 border-right" style="height:100vh">
-				<div tabindex="-1" class=" position-sticky navbar-default top-0 color-bg-default" style="z-index:3" id="logo">
-					<a href="/" target="blank">
+			<div id="sidebar1" class="flex-column col-md-3 position-sticky ml-hide overflow-y-auto top-0 d-none d-lg-block flex-shrink-0 border-right" style="height:100vh">
+				<div tabindex="-1" class="position-sticky navbar-default top-0 color-bg-default new_figma_des" style="z-index:3">
+					<a href="/" target="blank" id="logo">
 						{% include pic.html name="logo-small" %}
 						{% if site.harmony %}
 						<a rel="" class="f4 text-semibold color-fg-default no-underline no-wrap pl-2 flex-auto" style="padding-top: 25px;">{{ site.harmony }}</a>
 						{% endif %}
 					</a>
+
+					<a id="toggleButton" aria-expanded="true" aria-label="折叠边栏" class="c_fp c_fq c_es c_fr c_eu c_ev c_ew c_ex c_dc c_c c_k">
+						{% include pic.html name="expand-icon" %}
+					</a>
 				</div>
-				<ul class="nav nav-pills nav-stacked" id="help-nav">
-<!--					<a class="no-underline edSFyN" href="/about/get-started"><strong>{{"get-started"|upcase}}</strong></a>-->
+				<ul id="help-nav" aria-expanded="true" class="nav nav-pills nav-stacked" >
 					{% for descs in posts_about_desc %}
 					<details {%if page.desc contains descs.name %}open{%endif%}>
 						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
