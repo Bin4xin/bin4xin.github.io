@@ -1,4 +1,4 @@
-source 'https://mirrors.tuna.tsinghua.edu.cn/rubygems/'
+source 'https://rubygems.org'
 gem 'github-pages'
 gem 'jekyll-babel'
 gem 'jekyll-toc', '~> 0.17.1'

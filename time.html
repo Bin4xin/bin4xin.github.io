@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<!--dev siwtch-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name='apple-mobile-web-app-capable' content='yes'/>
+<meta name='full-screen' content='true'/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--dev switch end-->
+<meta name="description" content="本站由哨兵安全实验室支持创办">
+
+    <meta name="baidu-site-verification" content="codeva-Bt0LqEvH6L" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJ5SFQ4KCM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TJ5SFQ4KCM');
+</script>
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="© 哨兵" />
+
+
+
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Time | © 哨兵" />
+<meta property="og:description" content=" &lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/flipclock/flipclock.css&quot;&gt;
+&lt;script src=&quot;/assets/flipclock/flipclock.js&quot;&gt;&lt;/script&gt;
+&lt;div class=&quot;clock&quot; style=&quot;margin-bottom:2em;margin-top:2em;display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;&quot;&gt;
+&lt;/div&gt;
+&lt;!--
+  - Ajax @para counts
+  - Jquery-return-value-undefined @link { https://stackoverflow.com/questions/13848123/jquery-return-value-undefined }
+  --&gt;
+&lt;script&gt;
+    function setInitialCount() {
+        var currentTime = new Date();
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+        var seconds = currentTime.getSeconds();
+
+        var totalSeconds = hours * 3600 + minutes * 60 + seconds;
+        return totalSeconds;
+    }
+
+    var clock;
+    let All_Counts = setInitialCount();
+
+    $(document).ready(function() {
+        // Instantiate a counter
+        clock = new FlipClock($(&#39;.clock&#39;), All_Counts , {
+            clockFace: &#39;HourlyCounter&#39;, // 使用 HourlyCounter 显示小时、分钟和秒数
+        });
+
+        // Attach a click event to a button an increment the clock
+        $(&#39;.increment&#39;).click(function() {
+            clock.increment();
+        });
+
+        // Attach a click event to a button a decrement the clock
+        $(&#39;.decrement&#39;).click(function() {
+            clock.decrement();
+        });
+
+        $(&#39;.reset&#39;).click(function() {
+            clock.reset();
+        });
+    });
+&lt;/script&gt;哨兵安全实验室 SENTINEL SECURITY, LAB" />
+<meta property="og:image" content="https://bin4xin.sentrylab.cn/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="https://bin4xin.sentrylab.cn/time" />
+<title> Time | © 哨兵 | SENTINEL SECURITY, LAB</title>
+
+<link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
+<script src="/assets/js/pace.min.js"></script>
+<!-- Bootstrap core CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+<link href="/assets/css/bilibili_icon.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/assets/css/card.css">
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+<script src="/assets/js/jquery.sticky/1.0.4/jquery.sticky.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<!--mathjax-config scripts.-->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$$','$$']]
+      }
+    });
+</script>
+<script src="/assets/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!--mathjax-config scripts stop.-->
+
+
+
+</head>
+
+
+<body>
+<!--
+#####################################################################################################################
+|  1.Fixed navbar issues #3 visit https://github.com/Bin4xin/bin4xin.github.io/issues/3                             |
+|    change `position: fixed` to `position: sticky`                                                                 |
+|                                                                                                                   |
+|  2.Fixed navbar padding-top equals to 70px                                                                        |
+|    `./assets/css/style.scss` @import struture in `./assets/css/_struture.scss` del `padding-top=70px` in body.    |
+#####################################################################################################################-->
+<style>
+.nav>li>a {
+    padding: 10px 15px;
+}
+</style>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <div class="flex-justify-center-l flex-justify-between">
+                <!-- 代码引用申明/code reference declaration:
+                @ [click this icon -> scroll to top of page;] code from anquanke. visit any posts in https://www.anquanke.com/
+                <del>also this icon func are under-construction</del>
+                DONE.
+                -->
+                <div>
+                    <picture>
+  
+  
+  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
+  
+  
+  
+  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
+  
+</picture>
+                    
+                </div>
+                <div>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button></div>
+            </div>
+        </div>
+        <div class="navbar-collapse collapse navbar-right">
+            <ul class="nav navbar-nav">
+                
+                <li ><a href="/"><div class="fa fa-search"></div></a></li>
+                <li ><a href="/blog/">BLOG</a></li>
+                <li ><a href="/categories/">CATEGORIES</a></li>
+                <li ><a href="/daily/">DAILY</a></li>
+                <li ><a href="/newest">NEWEST</a></li>
+                <li ><a href="/about/">RESEARCH</a></li>
+                <li ><a href="/feed.xml">RSS</a></li>
+                
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+<link rel="stylesheet" href="/assets/flipclock/flipclock.css">
+<script src="/assets/flipclock/flipclock.js"></script>
+<div class="clock" style="margin-bottom:2em;margin-top:2em;display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;">
+</div>
+<!--
+  - Ajax @para counts
+  - Jquery-return-value-undefined @link { https://stackoverflow.com/questions/13848123/jquery-return-value-undefined }
+  -->
+<script>
+    function setInitialCount() {
+        var currentTime = new Date();
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+        var seconds = currentTime.getSeconds();
+
+        var totalSeconds = hours * 3600 + minutes * 60 + seconds;
+        return totalSeconds;
+    }
+
+    var clock;
+    let All_Counts = setInitialCount();
+
+    $(document).ready(function() {
+        // Instantiate a counter
+        clock = new FlipClock($('.clock'), All_Counts , {
+            clockFace: 'HourlyCounter', // 使用 HourlyCounter 显示小时、分钟和秒数
+        });
+
+        // Attach a click event to a button an increment the clock
+        $('.increment').click(function() {
+            clock.increment();
+        });
+
+        // Attach a click event to a button a decrement the clock
+        $('.decrement').click(function() {
+            clock.decrement();
+        });
+
+        $('.reset').click(function() {
+            clock.reset();
+        });
+    });
+</script>
+
+<script src="/assets/js/oh-sentry.js"></script>
+</body>
+</html>

