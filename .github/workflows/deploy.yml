@@ -47,13 +47,20 @@ jobs:
         bundle config set --local path 'vendor/bundle'
         bundle exec jekyll build --trace
     - name: simple deploy with git
-      uses: rdarida/simple-github-pages-deploy-action@v1
-      with: # optional
-        git-user: ${{ secrets.Git_USERNAME }}
-        git-email: ${{ secrets.Git_EMAIL }}
-        git-base-folder: '_site'
+#      uses: rdarida/simple-github-pages-deploy-action@v1
+      uses: JamesIves/github-pages-deploy-action@master
+      with:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        BASE_BRANCH: 'main'
+        BRANCH: 'gh-pages'
+        FOLDER: '_site'
         commit-message: '<auto generate>:🚀page build/deploy by github action.'
-        branch: 'gh-pages'
+  #      with: # optional
+#        git-user: ${{ secrets.Git_USERNAME }}
+#        git-email: ${{ secrets.Git_EMAIL }}
+#        git-base-folder: '_site'
+#        commit-message: '<auto generate>:🚀page build/deploy by github action.'
+#        branch: 'gh-pages'
 
   auto_commit:
     runs-on: ubuntu-latest
