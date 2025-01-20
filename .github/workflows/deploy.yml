@@ -48,7 +48,7 @@ jobs:
         bundle exec jekyll build --trace
     - name: simple deploy with git
 #      uses: rdarida/simple-github-pages-deploy-action@v1
-      uses: JamesIves/github-pages-deploy-action@master
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
         BASE_BRANCH: 'main'

@@ -55,7 +55,7 @@ jobs:
           bundle config set --local path 'vendor/bundle'
           bundle exec jekyll build --trace
       - name: simple deploy with git
-        uses: JamesIves/github-pages-deploy-action@master
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           BASE_BRANCH: 'main'
