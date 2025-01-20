@@ -39,8 +39,8 @@ jobs:
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
         bundle clean --force
-        gem update bundler
         bundle install --path=vendor/bundle --jobs=4 --retry=3
+        gem update bundler
     - name: setup commit hash string
       run: |
         commitString=$(git rev-list HEAD --abbrev-commit --max-count=1)
