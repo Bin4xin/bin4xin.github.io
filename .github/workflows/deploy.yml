@@ -34,7 +34,8 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-bundler-${{ env.CACHE_ID }}-
     - name: Change rubygems loading
-      run: sed -i "/^source/c source 'https://rubygems.org'" Gemfile
+      run: |
+        sed -i "/^source/c source 'https://rubygems.org'" Gemfile
     - name: install dependencies
       if: steps.cache.outputs.cache-hit != 'true'
       run: |
