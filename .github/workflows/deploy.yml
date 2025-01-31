@@ -40,7 +40,7 @@ jobs:
       run: |
         bundle clean --force
         bundle install --path=vendor/bundle --jobs=4 --retry=3
-        gem update bundler
+        gem update --system 3.2.3
     - name: setup commit hash string
       run: |
         commitString=$(git rev-list HEAD --abbrev-commit --max-count=1)
@@ -50,7 +50,6 @@ jobs:
         bundle config set --local path 'vendor/bundle'
         bundle exec jekyll build --trace
     - name: simple deploy with git
-#      uses: rdarida/simple-github-pages-deploy-action@v1
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
@@ -58,12 +57,6 @@ jobs:
         BRANCH: 'gh-pages'
         FOLDER: '_site'
         commit-message: '<auto generate>:🚀page build/deploy by github action.'
-  #      with: # optional
-#        git-user: ${{ secrets.Git_USERNAME }}
-#        git-email: ${{ secrets.Git_EMAIL }}
-#        git-base-folder: '_site'
-#        commit-message: '<auto generate>:🚀page build/deploy by github action.'
-#        branch: 'gh-pages'
 
   auto_commit:
     runs-on: ubuntu-latest
@@ -75,9 +68,7 @@ jobs:
         id: check_changes
         run: |
           /bin/bash scripts/snippets.sh
-#           git diff --exit-code && echo "Files are unchanged" || echo "Files have changed"
       - name: Commit changes
-#        if: steps.check_changes.outputs.stdout == 'Files have changed'
         run: |
           if git diff --exit-code; then exit 0; else git config user.name github-actions
           git config user.email github-actions@github.com
