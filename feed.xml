@@ -7,14 +7,14 @@
     <link>https://bin4xin.sentrylab.cn</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
     <pubDate>
-         2025/01/10
+         2025/01/31
         
     </pubDate>
     <lastBuildDate>
-         2025/01/10
+         2025/01/31
         
     </lastBuildDate>
-    <generator>Jekyll Ver 3.9.3.</generator>
+    <generator>Jekyll Ver 3.9.5.</generator>
     
       <item>
         <title>about: Jmreport Code Execute Vuln</title>
