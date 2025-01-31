@@ -38,8 +38,10 @@ jobs:
       - name: install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          bundle install --path=vendor/bundle --jobs=4 --retry=3
           gem update --system 3.2.3
+          bundle config set --local path 'vendor/bundle'
+          bundle install --jobs=4 --retry=3
+
       - name: setup commit hash string
         run: |
           commitString=$(git rev-list HEAD --abbrev-commit --max-count=1)
