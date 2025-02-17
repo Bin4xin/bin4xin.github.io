@@ -1,6 +1,15 @@
 [
 
   {
+    "title"    : "2024年网鼎杯玄武组赛题历程",
+    "category" : "about",
+    "tags"     : "",
+    "url"      : "/about/WANGDINGCTF2024-Walkthrough/",
+    "date"     : "Dec 15, 2024",
+    "content"  : "1、MISC011.1、赛题描述1.2、解题思路根据提示寻找异常GTP协议中异常的teid，将teid作为列导出所有GTP流量：生成csv文件如下，在GTP报文中，TEID应该是唯一的，确保报文的正确解析和处理，多个TEID的存在可能会被视为攻击迹象，例如：重放攻击或伪造报文，发现构造的teid如下：根据提示排列生成flag：wdflag{1934614239214098}2、MISC042.1、赛题描述2.2、解题思路binwalk分析使用binwalk分析文件，发现1文件为zip文件，并附第一张翻转图片和密码，提醒需要爆破四位数：生成字典后，利用爆破出正确用户名密码：使用图片crc计算工具暴力破解获得图片：成功获取到flag。wdflag{1234576eee739d811904bea4860s4eg5}3、…"
+  },
+
+  {
     "title"    : "JimuReport Vuln WalkThrough backup",
     "category" : "about",
     "tags"     : "",

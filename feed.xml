@@ -7,14 +7,29 @@
     <link>https://bin4xin.sentrylab.cn</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
     <pubDate>
-         2025/02/16
+         2025/02/17
         
     </pubDate>
     <lastBuildDate>
-         2025/02/16
+         2025/02/17
         
     </lastBuildDate>
     <generator>Jekyll Ver 3.9.5.</generator>
+    
+      <item>
+        <title>about: 2024 网鼎杯 白虎 Walkthrough</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2024/12/15
+        
+        </pubDate>
+        <link>https://bin4xin.sentrylab.cn/about/WANGDINGCTF2024-Walkthrough/</link>
+        <guid isPermaLink="true">/about/WANGDINGCTF2024-Walkthrough/</guid>
+        
+        
+        <category>about</category>
+        
+      </item>
     
       <item>
         <title>about: Jmreport Code Execute Vuln</title>

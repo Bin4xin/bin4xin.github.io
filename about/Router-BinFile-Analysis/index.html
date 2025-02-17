@@ -31,42 +31,46 @@
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Router Binfile Analysis | © 哨兵" />
 <meta property="og:description" content=" &lt;script&gt;
-	document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+	document.addEventListener(&#39;DOMContentLoaded&#39;, () =&gt; {
 		const button = document.getElementById(&#39;toggleButton&#39;);
 		const sidebar = document.getElementById(&#39;sidebar1&#39;);
-
-		// 找到所有具有指定 class 的 details 元素
 		const ulsElements = document.querySelectorAll(&#39;ul.nav.nav-pills.nav-stacked&#39;);
+		const logoElement = document.getElementById(&#39;logo&#39;);
+		const figmaElements = document.querySelectorAll(&#39;.new_figma_des&#39;); // 选中所有 new_figma_des 元素
 
-		button.addEventListener(&#39;click&#39;, function() {
-			// 切换 sidebar 的 collapsed 状态
-			sidebar.classList.toggle(&#39;collapsed&#39;);
-			const expanded = !sidebar.classList.contains(&#39;collapsed&#39;);
-			button.setAttribute(&#39;aria-expanded&#39;, expanded);
+		if (!button || !sidebar) return; // 确保必要的元素存在，避免错误
 
-			// 切换 details 元素的显示状态
-			ulsElements.forEach(details =&gt; {
-				details.style.display = details.style.display === &#39;none&#39; ? &#39;&#39; : &#39;none&#39;;
+		button.addEventListener(&#39;click&#39;, () =&gt; {
+			const isCollapsed = sidebar.classList.toggle(&#39;collapsed&#39;);
+			button.setAttribute(&#39;aria-expanded&#39;, !isCollapsed);
+
+			// 切换 ul 元素的显示状态
+			[...ulsElements, logoElement].forEach(element =&gt; {
+				if (element) element.style.display = isCollapsed ? &#39;none&#39; : &#39;&#39;;
+			});
+
+			// 切换 .new_figma_des 的 padding
+			figmaElements.forEach(element =&gt; {
+				element.style.padding = isCollapsed ? &#39;0px&#39; : &#39;32px&#39;;
 			});
 		});
 	});
 &lt;/script&gt;
 
 &lt;style&gt;
-	.new_figma_des{
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: center;
-	align-content: center;
-	padding: 0;
-	flex: none;
-	order: 0;
-	align-self: stretch;
-	flex-grow: 0;
-	z-index: 1;
+	.new_figma_des {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		align-content: center;
+		flex: none;
+		order: 0;
+		align-self: stretch;
+		padding: 32px;
+		transition: padding 0.3s ease; /* 添加过渡效果 */
 	}
+
 	#toggleButton {
 		transition: opacity 0.3s;
 		background-color: transparent;
@@ -79,16 +83,10 @@
 	#sidebar1.collapsed {
 		width: 65px;
 	}
-	 .c_k {
-		 width: 100%;
-	 }
 	#sidebar1.collapsed #logo,
 	#sidebar1.collapsed #toggleButton {
 		opacity: 1; /* 保持可见 */
 	}
-	 .c_k {
-		 width: 100%;
-	 }
 &lt;/style&gt;
 
 
@@ -119,15 +117,12 @@
                 --&gt;
                 &lt;div&gt;
                     &lt;picture&gt;
+  &lt;source srcset=&quot;/assets/img/logo-small-dark.png 1x,/assets/img/logo-small-dark@2x.png 2x,/assets/img/logo-small-dark@3x.png 3x,/assets/img/logo-small-dark@4x.png 4x,&quot; media=&quot;(prefers-color-scheme: dark)&quot; /&gt;
   
-  
-  &lt;source srcset=&quot;/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x&quot; media=&quot;(prefers-color-scheme: dark)&quot; /&gt;
-  
-  
-  
-  &lt;img src=&quot;/assets/img/logo-small.jpg&quot; srcset=&quot;/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x&quot; /&gt;
+  &lt;img src=&quot;/assets/img/logo-small.logo-small&quot; srcset=&quot;/assets/img/logo-small.png 1x,/assets/img/logo-small@2x.png 2x,/assets/img/logo-small@3x.png 3x,/assets/img/logo-small@4x.png 4x,&quot; /&gt;
   
 &lt;/picture&gt;
+
                     
                 &lt;/div&gt;
                 &lt;div&gt;
@@ -222,29 +217,23 @@
 				&lt;div tabindex=&quot;-1&quot; class=&quot;position-sticky navbar-default top-0 color-bg-default new_figma_des&quot; style=&quot;z-index:3&quot;&gt;
 					&lt;a href=&quot;/&quot; target=&quot;blank&quot; id=&quot;logo&quot;&gt;
 						&lt;picture&gt;
+  &lt;source srcset=&quot;/assets/img/logo-small-dark.png 1x,/assets/img/logo-small-dark@2x.png 2x,/assets/img/logo-small-dark@3x.png 3x,/assets/img/logo-small-dark@4x.png 4x,&quot; media=&quot;(prefers-color-scheme: dark)&quot; /&gt;
   
-  
-  &lt;source srcset=&quot;/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x&quot; media=&quot;(prefers-color-scheme: dark)&quot; /&gt;
-  
-  
-  
-  &lt;img src=&quot;/assets/img/logo-small.jpg&quot; srcset=&quot;/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x&quot; /&gt;
+  &lt;img src=&quot;/assets/img/logo-small.logo-small&quot; srcset=&quot;/assets/img/logo-small.png 1x,/assets/img/logo-small@2x.png 2x,/assets/img/logo-small@3x.png 3x,/assets/img/logo-small@4x.png 4x,&quot; /&gt;
   
 &lt;/picture&gt;
+
 						
 					&lt;/a&gt;
 
-					&lt;a id=&quot;toggleButton&quot; aria-expanded=&quot;true&quot; aria-label=&quot;折叠边栏&quot; class=&quot;c_fp c_fq c_es c_fr c_eu c_ev c_ew c_ex c_dc c_c c_k&quot;&gt;
+					&lt;a id=&quot;toggleButton&quot; aria-expanded=&quot;true&quot; aria-label=&quot;折叠边栏&quot; class=&quot;&quot;&gt;
 						&lt;picture&gt;
+  &lt;source srcset=&quot;/assets/img/expand-icon-dark.png 1x,/assets/img/expand-icon-dark@2x.png 2x,/assets/img/expand-icon-dark@3x.png 3x,&quot; media=&quot;(prefers-color-scheme: dark)&quot; /&gt;
   
-  
-  &lt;source srcset=&quot;/assets/img/expand-icon-dark.png 1x, /assets/img/expand-icon-dark@2x.png 2x&quot; media=&quot;(prefers-color-scheme: dark)&quot; /&gt;
-  
-  
-  
-  &lt;img src=&quot;/assets/img/expand-icon.png&quot; srcset=&quot;/assets/img/expand-icon.png 1x, /assets/img/expand-icon@2x.png 2x&quot; /&gt;
+  &lt;img src=&quot;/assets/img/expand-icon.expand-icon&quot; srcset=&quot;&quot; /&gt;
   
 &lt;/picture&gt;
+
 					&lt;/a&gt;
 				&lt;/div&gt;
 				&lt;ul id=&quot;help-nav&quot; aria-expanded=&quot;true&quot; class=&quot;nav nav-pills nav-stacked&quot; &gt;
@@ -460,6 +449,13 @@
 						&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
 							&lt;li id=&quot;toc-2022年网鼎杯玄武组赛题复盘-[Web-ezJava]&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
 								&lt;a href=&quot;/about/WANGDINGCTF2022-WEB-ezJava-Walkthrough/&quot;&gt;VI. 2022年网鼎杯玄武组赛题复盘-[WEB-EZJAVA]&lt;/a&gt;
+								
+							&lt;/li&gt;
+						&lt;/ul&gt;
+						
+						&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+							&lt;li id=&quot;toc-2024年网鼎杯玄武组赛题历程&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+								&lt;a href=&quot;/about/WANGDINGCTF2024-Walkthrough/&quot;&gt;VII. 2024年网鼎杯玄武组赛题历程&lt;/a&gt;
 								
 							&lt;/li&gt;
 						&lt;/ul&gt;
@@ -1210,42 +1206,46 @@ vim: ts=2 sts=2 sw=2 noexpandtab
         <startprint2pdfs>
             <div id="research-content" class="col-sm-12 flex flex-column">
                 <script>
-	document.addEventListener('DOMContentLoaded', function() {
+	document.addEventListener('DOMContentLoaded', () => {
 		const button = document.getElementById('toggleButton');
 		const sidebar = document.getElementById('sidebar1');
-
-		// 找到所有具有指定 class 的 details 元素
 		const ulsElements = document.querySelectorAll('ul.nav.nav-pills.nav-stacked');
+		const logoElement = document.getElementById('logo');
+		const figmaElements = document.querySelectorAll('.new_figma_des'); // 选中所有 new_figma_des 元素
 
-		button.addEventListener('click', function() {
-			// 切换 sidebar 的 collapsed 状态
-			sidebar.classList.toggle('collapsed');
-			const expanded = !sidebar.classList.contains('collapsed');
-			button.setAttribute('aria-expanded', expanded);
+		if (!button || !sidebar) return; // 确保必要的元素存在，避免错误
 
-			// 切换 details 元素的显示状态
-			ulsElements.forEach(details => {
-				details.style.display = details.style.display === 'none' ? '' : 'none';
+		button.addEventListener('click', () => {
+			const isCollapsed = sidebar.classList.toggle('collapsed');
+			button.setAttribute('aria-expanded', !isCollapsed);
+
+			// 切换 ul 元素的显示状态
+			[...ulsElements, logoElement].forEach(element => {
+				if (element) element.style.display = isCollapsed ? 'none' : '';
+			});
+
+			// 切换 .new_figma_des 的 padding
+			figmaElements.forEach(element => {
+				element.style.padding = isCollapsed ? '0px' : '32px';
 			});
 		});
 	});
 </script>
 
 <style>
-	.new_figma_des{
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: center;
-	align-content: center;
-	padding: 0;
-	flex: none;
-	order: 0;
-	align-self: stretch;
-	flex-grow: 0;
-	z-index: 1;
+	.new_figma_des {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		align-content: center;
+		flex: none;
+		order: 0;
+		align-self: stretch;
+		padding: 32px;
+		transition: padding 0.3s ease; /* 添加过渡效果 */
 	}
+
 	#toggleButton {
 		transition: opacity 0.3s;
 		background-color: transparent;
@@ -1258,16 +1258,10 @@ vim: ts=2 sts=2 sw=2 noexpandtab
 	#sidebar1.collapsed {
 		width: 65px;
 	}
-	 .c_k {
-		 width: 100%;
-	 }
 	#sidebar1.collapsed #logo,
 	#sidebar1.collapsed #toggleButton {
 		opacity: 1; /* 保持可见 */
 	}
-	 .c_k {
-		 width: 100%;
-	 }
 </style>
 
 
@@ -1298,15 +1292,12 @@ vim: ts=2 sts=2 sw=2 noexpandtab
                 -->
                 <div>
                     <picture>
+  <source srcset="/assets/img/logo-small-dark.png 1x,/assets/img/logo-small-dark@2x.png 2x,/assets/img/logo-small-dark@3x.png 3x,/assets/img/logo-small-dark@4x.png 4x," media="(prefers-color-scheme: dark)" />
   
-  
-  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
-  
-  
-  
-  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
+  <img src="/assets/img/logo-small.logo-small" srcset="/assets/img/logo-small.png 1x,/assets/img/logo-small@2x.png 2x,/assets/img/logo-small@3x.png 3x,/assets/img/logo-small@4x.png 4x," />
   
 </picture>
+
                     
                 </div>
                 <div>
@@ -1401,29 +1392,23 @@ vim: ts=2 sts=2 sw=2 noexpandtab
 				<div tabindex="-1" class="position-sticky navbar-default top-0 color-bg-default new_figma_des" style="z-index:3">
 					<a href="/" target="blank" id="logo">
 						<picture>
+  <source srcset="/assets/img/logo-small-dark.png 1x,/assets/img/logo-small-dark@2x.png 2x,/assets/img/logo-small-dark@3x.png 3x,/assets/img/logo-small-dark@4x.png 4x," media="(prefers-color-scheme: dark)" />
   
-  
-  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
-  
-  
-  
-  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
+  <img src="/assets/img/logo-small.logo-small" srcset="/assets/img/logo-small.png 1x,/assets/img/logo-small@2x.png 2x,/assets/img/logo-small@3x.png 3x,/assets/img/logo-small@4x.png 4x," />
   
 </picture>
+
 						
 					</a>
 
-					<a id="toggleButton" aria-expanded="true" aria-label="折叠边栏" class="c_fp c_fq c_es c_fr c_eu c_ev c_ew c_ex c_dc c_c c_k">
+					<a id="toggleButton" aria-expanded="true" aria-label="折叠边栏" class="">
 						<picture>
+  <source srcset="/assets/img/expand-icon-dark.png 1x,/assets/img/expand-icon-dark@2x.png 2x,/assets/img/expand-icon-dark@3x.png 3x," media="(prefers-color-scheme: dark)" />
   
-  
-  <source srcset="/assets/img/expand-icon-dark.png 1x, /assets/img/expand-icon-dark@2x.png 2x" media="(prefers-color-scheme: dark)" />
-  
-  
-  
-  <img src="/assets/img/expand-icon.png" srcset="/assets/img/expand-icon.png 1x, /assets/img/expand-icon@2x.png 2x" />
+  <img src="/assets/img/expand-icon.expand-icon" srcset="" />
   
 </picture>
+
 					</a>
 				</div>
 				<ul id="help-nav" aria-expanded="true" class="nav nav-pills nav-stacked" >
@@ -1639,6 +1624,13 @@ vim: ts=2 sts=2 sw=2 noexpandtab
 						<ul class="nav nav-pills nav-stacked no-underline">
 							<li id="toc-2022年网鼎杯玄武组赛题复盘-[Web-ezJava]" class="table-of-contents table-of-contents__left-border ">
 								<a href="/about/WANGDINGCTF2022-WEB-ezJava-Walkthrough/">VI. 2022年网鼎杯玄武组赛题复盘-[WEB-EZJAVA]</a>
+								
+							</li>
+						</ul>
+						
+						<ul class="nav nav-pills nav-stacked no-underline">
+							<li id="toc-2024年网鼎杯玄武组赛题历程" class="table-of-contents table-of-contents__left-border ">
+								<a href="/about/WANGDINGCTF2024-Walkthrough/">VII. 2024年网鼎杯玄武组赛题历程</a>
 								
 							</li>
 						</ul>

@@ -85,25 +85,37 @@
         &lt;div class=&quot;sentinel-card&quot;&gt;
             &lt;div class=&quot;card-info&quot;&gt;
                 
-                &lt;a href=&quot;/about/JimuReport-Vuln-WalkThrough-backup/&quot;&gt;
+                &lt;a href=&quot;/about/WANGDINGCTF2024-Walkthrough/&quot;&gt;
                     &lt;h1 id=&quot;card-info-title&quot; class=&quot;hp-gradient_blue-green_v hp-gradient_text&quot;&gt;
-                        最新有关::JMREPORT::的描述。
+                        最新有关::CTF::的描述。
                     &lt;/h1&gt;
                 &lt;/a&gt;
                 &lt;p&gt;&lt;span data-view-component=&quot;true&quot; class=&quot;badge badge-theme&quot;&gt;about&lt;/span&gt;
-                    JMREPORT::JimuReport Vuln WalkThrough backup::&lt;/p&gt;
-                    &lt;p class=&quot;card-info-desc-center&quot;&gt;REF
+                    CTF::2024年网鼎杯玄武组赛题历程::&lt;/p&gt;
+                    &lt;p class=&quot;card-info-desc-center&quot;&gt;1、MISC01
+
+1.1、赛题描述
+
+1.2、解题思路
+
+根据提示寻找异常 GTP 协议中异常的 teid，将 teid 作为列导出所有 GTP 流量：
+
+生成 csv 文件如下，在 GTP 报文中，TEID 应该是唯一的，确保报文的正确解析和处理，多个 TEID 的存在可能会被视为攻击迹象，例如：
 
 
-  xz community:: JimuReport ＜= v1.6.0 漏洞分析
-  Github:wy876: https://github.com/wy876/POC/blob/main/JeecgBoot%E6%BC%8F%E6%B4%9E.md
-  Github:wy876: JeecgBoot反射型XSS漏洞
+  重放攻击或伪造报文，发现构造的 teid 如下：
 
 
-JeecgBoot sql注入漏洞
-POST /jeecg-boot/jmreport/queryFieldBySql HTTP/1.1
-Host: 192.168.90.1:3100
-O...&lt;/p&gt;
+根据提示排列生成 flag： wdflag{1934614239214098}
+
+2、MISC04
+
+2.1、赛题描述
+
+2.2、解题思路
+
+binwalk 分析
+...&lt;/p&gt;
                 
             &lt;/div&gt;
         &lt;/div&gt;
@@ -676,11 +688,21 @@ O...&lt;/p&gt;
                     
                     研究相关
                     
-                    &lt;span data-view-component=&quot;true&quot; class=&quot;badge badge-theme&quot;&gt;41&lt;/span&gt;&lt;/a&gt;&lt;/summary&gt;
+                    &lt;span data-view-component=&quot;true&quot; class=&quot;badge badge-theme&quot;&gt;42&lt;/span&gt;&lt;/a&gt;&lt;/summary&gt;
                 
                 
                 &lt;h4 style=&quot;padding-left: 32px&quot;&gt;&lt;span class=&quot;label label-success&quot;&gt;&lt;i class=&quot;fa fa-calendar fa-fw&quot;&gt;&lt;/i&gt; 2024&lt;/span&gt;
-                    &lt;span class=&quot;label label-success&quot;&gt;1 Post&lt;/span&gt;&lt;/h4&gt;
+                    &lt;span class=&quot;label label-success&quot;&gt;2 Posts&lt;/span&gt;&lt;/h4&gt;
+                    
+                    &lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
+
+                        &lt;li class=&quot;Box-row&quot;&gt;
+                        &lt;a href=&quot;/about/WANGDINGCTF2024-Walkthrough/&quot;&gt;
+                            &lt;i class=&quot;far fa fa-file-text-o&quot;&gt;&lt;/i&gt; 2024年网鼎杯玄武组赛题历程
+                            
+                            &lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;
+                        &lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
                     
                     &lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
 
@@ -1242,15 +1264,12 @@ O...&lt;/p&gt;
                 -->
                 <div>
                     <picture>
+  <source srcset="/assets/img/logo-small-dark.png 1x,/assets/img/logo-small-dark@2x.png 2x,/assets/img/logo-small-dark@3x.png 3x,/assets/img/logo-small-dark@4x.png 4x," media="(prefers-color-scheme: dark)" />
   
-  
-  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
-  
-  
-  
-  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
+  <img src="/assets/img/logo-small.logo-small" srcset="/assets/img/logo-small.png 1x,/assets/img/logo-small@2x.png 2x,/assets/img/logo-small@3x.png 3x,/assets/img/logo-small@4x.png 4x," />
   
 </picture>
+
                     
                 </div>
                 <div>
@@ -1333,25 +1352,37 @@ O...&lt;/p&gt;
         <div class="sentinel-card">
             <div class="card-info">
                 
-                <a href="/about/JimuReport-Vuln-WalkThrough-backup/">
+                <a href="/about/WANGDINGCTF2024-Walkthrough/">
                     <h1 id="card-info-title" class="hp-gradient_blue-green_v hp-gradient_text">
-                        最新有关::JMREPORT::的描述。
+                        最新有关::CTF::的描述。
                     </h1>
                 </a>
                 <p><span data-view-component="true" class="badge badge-theme">about</span>
-                    JMREPORT::JimuReport Vuln WalkThrough backup::</p>
-                    <p class="card-info-desc-center">REF
+                    CTF::2024年网鼎杯玄武组赛题历程::</p>
+                    <p class="card-info-desc-center">1、MISC01
+
+1.1、赛题描述
+
+1.2、解题思路
+
+根据提示寻找异常 GTP 协议中异常的 teid，将 teid 作为列导出所有 GTP 流量：
+
+生成 csv 文件如下，在 GTP 报文中，TEID 应该是唯一的，确保报文的正确解析和处理，多个 TEID 的存在可能会被视为攻击迹象，例如：
 
 
-  xz community:: JimuReport ＜= v1.6.0 漏洞分析
-  Github:wy876: https://github.com/wy876/POC/blob/main/JeecgBoot%E6%BC%8F%E6%B4%9E.md
-  Github:wy876: JeecgBoot反射型XSS漏洞
+  重放攻击或伪造报文，发现构造的 teid 如下：
 
 
-JeecgBoot sql注入漏洞
-POST /jeecg-boot/jmreport/queryFieldBySql HTTP/1.1
-Host: 192.168.90.1:3100
-O...</p>
+根据提示排列生成 flag： wdflag{1934614239214098}
+
+2、MISC04
+
+2.1、赛题描述
+
+2.2、解题思路
+
+binwalk 分析
+...</p>
                 
             </div>
         </div>
@@ -1924,11 +1955,21 @@ O...</p>
                     
                     研究相关
                     
-                    <span data-view-component="true" class="badge badge-theme">41</span></a></summary>
+                    <span data-view-component="true" class="badge badge-theme">42</span></a></summary>
                 
                 
                 <h4 style="padding-left: 32px"><span class="label label-success"><i class="fa fa-calendar fa-fw"></i> 2024</span>
-                    <span class="label label-success">1 Post</span></h4>
+                    <span class="label label-success">2 Posts</span></h4>
+                    
+                    <ul class="nav nav-pills nav-stacked">
+
+                        <li class="Box-row">
+                        <a href="/about/WANGDINGCTF2024-Walkthrough/">
+                            <i class="far fa fa-file-text-o"></i> 2024年网鼎杯玄武组赛题历程
+                            
+                            <span class="badge badge-theme"></span><span class="badge badge-theme"></span><span class="badge badge-theme"></span><span class="badge badge-theme"></span><span class="badge badge-theme"></span>
+                        </a></li>
+                    </ul>
                     
                     <ul class="nav nav-pills nav-stacked">
 
