@@ -3,42 +3,46 @@ layout: about-default
 ---
 
 <script>
-	document.addEventListener('DOMContentLoaded', function() {
+	document.addEventListener('DOMContentLoaded', () => {
 		const button = document.getElementById('toggleButton');
 		const sidebar = document.getElementById('sidebar1');
-
-		// 找到所有具有指定 class 的 details 元素
 		const ulsElements = document.querySelectorAll('ul.nav.nav-pills.nav-stacked');
+		const logoElement = document.getElementById('logo');
+		const figmaElements = document.querySelectorAll('.new_figma_des'); // 选中所有 new_figma_des 元素
 
-		button.addEventListener('click', function() {
-			// 切换 sidebar 的 collapsed 状态
-			sidebar.classList.toggle('collapsed');
-			const expanded = !sidebar.classList.contains('collapsed');
-			button.setAttribute('aria-expanded', expanded);
+		if (!button || !sidebar) return; // 确保必要的元素存在，避免错误
 
-			// 切换 details 元素的显示状态
-			ulsElements.forEach(details => {
-				details.style.display = details.style.display === 'none' ? '' : 'none';
+		button.addEventListener('click', () => {
+			const isCollapsed = sidebar.classList.toggle('collapsed');
+			button.setAttribute('aria-expanded', !isCollapsed);
+
+			// 切换 ul 元素的显示状态
+			[...ulsElements, logoElement].forEach(element => {
+				if (element) element.style.display = isCollapsed ? 'none' : '';
+			});
+
+			// 切换 .new_figma_des 的 padding
+			figmaElements.forEach(element => {
+				element.style.padding = isCollapsed ? '0px' : '32px';
 			});
 		});
 	});
 </script>
 
 <style>
-	.new_figma_des{
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: center;
-	align-content: center;
-	padding: 0;
-	flex: none;
-	order: 0;
-	align-self: stretch;
-	flex-grow: 0;
-	z-index: 1;
+	.new_figma_des {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		align-content: center;
+		flex: none;
+		order: 0;
+		align-self: stretch;
+		padding: 32px;
+		transition: padding 0.3s ease; /* 添加过渡效果 */
 	}
+
 	#toggleButton {
 		transition: opacity 0.3s;
 		background-color: transparent;
@@ -51,16 +55,10 @@ layout: about-default
 	#sidebar1.collapsed {
 		width: 65px;
 	}
-	 .c_k {
-		 width: 100%;
-	 }
 	#sidebar1.collapsed #logo,
 	#sidebar1.collapsed #toggleButton {
 		opacity: 1; /* 保持可见 */
 	}
-	 .c_k {
-		 width: 100%;
-	 }
 </style>
 
 {% assign posts_about_desc = site.categories["about"] | sort: 'date' | group_by_exp:"post", "post.desc" |reverse %}
@@ -101,7 +99,7 @@ layout: about-default
 						{% endif %}
 					</a>
 
-					<a id="toggleButton" aria-expanded="true" aria-label="折叠边栏" class="c_fp c_fq c_es c_fr c_eu c_ev c_ew c_ex c_dc c_c c_k">
+					<a id="toggleButton" aria-expanded="true" aria-label="折叠边栏" class="">
 						{% include pic.html name="expand-icon" %}
 					</a>
 				</div>
