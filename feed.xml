@@ -7,14 +7,44 @@
     <link>https://bin4xin.sentrylab.cn</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
     <pubDate>
-         2025/02/18
+         2025/02/19
         
     </pubDate>
     <lastBuildDate>
-         2025/02/18
+         2025/02/19
         
     </lastBuildDate>
     <generator>Jekyll Ver 3.9.5.</generator>
+    
+      <item>
+        <title>about: Pattern Password In Marshmallow</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2025/02/18
+        
+        </pubDate>
+        <link>https://bin4xin.sentrylab.cn/about/Get-Pattern-password-in-Marshmallow-and-below/</link>
+        <guid isPermaLink="true">/about/Get-Pattern-password-in-Marshmallow-and-below/</guid>
+        
+        
+        <category>about</category>
+        
+      </item>
+    
+      <item>
+        <title>about: Get Start</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2025/02/1
+        
+        </pubDate>
+        <link>https://bin4xin.sentrylab.cn/about/</link>
+        <guid isPermaLink="true">/about/</guid>
+        
+        
+        <category>about</category>
+        
+      </item>
     
       <item>
         <title>about: 2024 网鼎杯 白虎 Walkthrough</title>
@@ -560,14 +590,14 @@
       </item>
     
       <item>
-        <title>about: Get Start</title>
+        <title>about: Get Start En</title>
         <description>[MORE]</description>
         <pubDate>
          2021/11/7
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/about/</link>
-        <guid isPermaLink="true">/about/</guid>
+        <link>https://bin4xin.sentrylab.cn/about/en/</link>
+        <guid isPermaLink="true">/about/en/</guid>
         
         
         <category>about</category>
