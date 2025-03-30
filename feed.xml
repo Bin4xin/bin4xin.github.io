@@ -7,14 +7,71 @@
     <link>https://bin4xin.sentrylab.cn</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
     <pubDate>
-         2025/03/29
+         2025/03/30
         
     </pubDate>
     <lastBuildDate>
-         2025/03/29
+         2025/03/30
         
     </lastBuildDate>
     <generator>Jekyll Ver 3.9.5.</generator>
+    
+      <item>
+        <title>blog: Android逆向学习</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2025/03/11
+        
+        </pubDate>
+        <link>https://bin4xin.sentrylab.cn/blog/2025/Android-reverseLearing/</link>
+        <guid isPermaLink="true">/blog/2025/Android-reverseLearing/</guid>
+        
+        <category>Android</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: AndroidSSLProxy配置</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2025/03/11
+        
+        </pubDate>
+        <link>https://bin4xin.sentrylab.cn/blog/2025/Android-SSLProxy/</link>
+        <guid isPermaLink="true">/blog/2025/Android-SSLProxy/</guid>
+        
+        <category>Android</category>
+        
+        <category>SSLProxy</category>
+        
+        <category>BurpSuite</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: AndroidFRIDA脚本系列</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2025/03/11
+        
+        </pubDate>
+        <link>https://bin4xin.sentrylab.cn/blog/2025/Android-Frida-Learning/</link>
+        <guid isPermaLink="true">/blog/2025/Android-Frida-Learning/</guid>
+        
+        <category>Android</category>
+        
+        <category>FRIDA</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
     
       <item>
         <title>about: Pattern Password In Marshmallow</title>

@@ -1,5 +1,7 @@
+<!DOCTYPE html>
 <html>
-  <head>
+
+    <head>
 <meta charset="utf-8">
 <!--dev siwtch-->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,13 +29,13 @@
 
 <!-- Open Graph metadata -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="© 哨兵" />
+<meta property="og:title" content="AndroidSSLProxy配置 | © 哨兵" />
 <meta property="og:description" content=" &lt;div class=&quot;container mtb&quot;&gt;
     &lt;div class=&quot;row d-flex &quot;&gt;
         &lt;!-- SINGLE POST --&gt;
         &lt;div class=&quot;col-lg-8 markdown-body-img flex-column&quot;&gt;
             &lt;!-- Blog Post  --&gt;
-            &lt;a href=&quot;/blog/2025/Android-reverseLearing/&quot;&gt;&lt;h1 class=&quot;ctitle&quot;&gt;Android逆向学习&lt;/h1&gt;&lt;/a&gt;
+            &lt;a href=&quot;/blog/2025/Android-SSLProxy/&quot;&gt;&lt;h1 class=&quot;ctitle&quot;&gt;AndroidSSLProxy配置&lt;/h1&gt;&lt;/a&gt;
             &lt;csmall&gt;&lt;div class=&quot;d-flex items-center&quot;&gt;
                 &lt;!--article author end--&gt;
 
@@ -71,108 +73,84 @@
 &lt;/div&gt;
             &lt;/div&gt;&lt;/csmall&gt;
             &lt;div class=&quot;post-content&quot;&gt; 
-            &lt;h1 id=&quot;android逆向学习笔记&quot;&gt;Android逆向学习笔记&lt;/h1&gt;
-&lt;h2 id=&quot;1-android逆向学习&quot;&gt;1. Android逆向学习&lt;/h2&gt;
-&lt;h3 id=&quot;基础知识&quot;&gt;基础知识&lt;/h3&gt;
+            &lt;h2 id=&quot;android导入burpsuite证书后拦截https请求显示服务器证书有效期太长&quot;&gt;Android导入burpsuite证书后拦截https请求显示服务器证书有效期太长&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-说明&quot;&gt;1. 说明&lt;/h3&gt;
+
+&lt;p&gt;在对android手机渗透测试时，会经常使用拦截工具拦截请求报文，其中burpsuite是比较常用的安全工具，针对Android手机配置burpsuite证书操作请参考末尾。&lt;/p&gt;
+
+&lt;p&gt;在导入系统级证书后，拦截https报文，小程序会弹框提示连接错误：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NET::ERR_CERT_VALIDITY_TOO_LONG&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;在CA/Browser论坛发布的官方指导中有明确规定证书有效期的限定，订阅的证书在签发之后有效期不得超过60个月，在2015年4月1日之后签发的证书有效期不得大于39个月。并且针对SHA-1算法的有效期也做了限定，自2017-1-1起CA中不应该再使用SHA-1算法。&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; 9.4 Validity Period
+ 9.4.1 Subscriber Certificates   
+ Subscriber Certificates issued after the Effective Date MUST have a Validity Period no greater than 60 months.  
+ Except as provided for below, Subscriber Certificates issued after 1 April 2015 MUST have a Validity Period no
+ greater than 39 months.
+ Beyond 1 April 2015, CAs MAY continue to issue Subscriber Certificates with a Validity Period greater than 39
+ months but not greater than 60 months provided that the CA documents that the Certificate is for a system or
+ software that:
+ (a) was in use prior to the Effective Date;
+ (b) is currently in use by either the Applicant or a substantial number of Relying Parties;
+ (c) fails to operate if the Validity Period is shorter than 60 months;
+ (d) does not contain known security risks to Relying Parties; and
+ (e) is difficult to patch or replace without substantial economic outlay. 
+ Forum Guideline
+ CA / Browser Forum Baseline Requirements, v. 1.2.3 (as of 16 October 2014) 14
+ 9.4.2 SHA‐1 Validity Period
+ Effective 1 January 2016, CAs MUST NOT issue any new Subscriber certificates or Subordinate CA certificates
+ using the SHA-1 hash algorithm. CAs MAY continue to sign certificates to verify OCSP responses using SHA1
+ until 1 January 2017. This Section 9.4.2 does not apply to Root CA or CA cross certificates. CAs MAY continue to
+ use their existing SHA-1 Root Certificates. SHA-2 Subscriber certificates SHOULD NOT chain up to a SHA-1
+ Subordinate CA Certificate.
+ Effective 16 January 2015, CAs SHOULD NOT issue Subscriber Certificates utilizing the SHA-1 algorithm with an
+ Expiry Date greater than 1 January 2017 because Application Software Providers are in the process of deprecating
+ and/or removing the SHA-1 algorithm from their software, and they have communicated that CAs and Subscribers
+ using such certificates do so at their own risk.  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Burpsuite的证书有效期已经大于39个月，在Android Chrome内核上会产生上述报错，提示证书有效期过长，如下所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/shadow-horse/Learning-resource/master/Android/img/ssl_too_long.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;2-通过生成自定义证书的方式解决该问题&quot;&gt;2. 通过生成自定义证书的方式解决该问题&lt;/h3&gt;
+
+&lt;p&gt;方法比较简单，就是通过生成自定义的有效期小于39个月证书，然后分别导入Burpsute和Android中。&lt;/p&gt;
+
 &lt;ol&gt;
-  &lt;li&gt;Davlik Android OS的虚拟机，Dalvik基于寄存器，Java VM基于栈，二者明显区别。Davlik专属文件执行格式dex，比Java JVM运行快，内存占用少。&lt;/li&gt;
-  &lt;li&gt;反编译 Apktool、dex2jar+jd-gui，最终修改APK需要操作.smali文件，然后再使用Apktool将修改的文件打包成APK，再使用 jarsigner进行APK签名：jarsigner -keystore name.keystore Folder keystorealias -keypass passwd&lt;/li&gt;
-  &lt;li&gt;Davlik中寄存器32位，64位类型（Long/Double）用2个寄存器表示，字节码2中类型：原始类型、引用类型（包括对象和数组）
-    &lt;ul&gt;
-      &lt;li&gt;B- - -byte&lt;/li&gt;
-      &lt;li&gt;C- - -char&lt;/li&gt;
-      &lt;li&gt;D- - -double&lt;/li&gt;
-      &lt;li&gt;F- - -float&lt;/li&gt;
-      &lt;li&gt;I- - -int&lt;/li&gt;
-      &lt;li&gt;J- - -long&lt;/li&gt;
-      &lt;li&gt;S- - -short&lt;/li&gt;
-      &lt;li&gt;V- - -void&lt;/li&gt;
-      &lt;li&gt;Z- - -boolean&lt;/li&gt;
-      &lt;li&gt;[XXX- - -array&lt;/li&gt;
-      &lt;li&gt;Lxxx/yyy- - -object : LpackageName/objectName$subObjectName;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;smali函数&lt;/li&gt;
-  &lt;li&gt;hello()V —&amp;gt; void hello()&lt;/li&gt;
-  &lt;li&gt;hello(III)Z —&amp;gt; boolean hello(int,int,int)&lt;/li&gt;
-  &lt;li&gt;hello(Z[I[ILjava/lang/String;J)Ljava/lang/String; —&amp;gt; String hello(boolean,int[],int[],String,long)&lt;/li&gt;
-  &lt;li&gt;Smali基本语法&lt;/li&gt;
-  &lt;li&gt;.field private isFlag:z   定义变量&lt;br /&gt;
-.field button_login:Landroid/widget/Button;&lt;/li&gt;
-  &lt;li&gt;.method  方法
-.method protected onCreate(Landroid/os/Bundle;)V&lt;/li&gt;
-  &lt;li&gt;.parameter  方法参数
-.param p1, “name”    # Ljava/lang/String;&lt;/li&gt;
-  &lt;li&gt;.prologue  方法开始&lt;/li&gt;
-  &lt;li&gt;.line 36   此方法位于36行&lt;/li&gt;
-  &lt;li&gt;Invoke-super  调用父函数&lt;/li&gt;
-  &lt;li&gt;Return-void  函数返回void&lt;/li&gt;
-  &lt;li&gt;Move-result v0   上面函数执行的结果赋值给v0&lt;/li&gt;
-  &lt;li&gt;.end method 函数结束&lt;/li&gt;
-  &lt;li&gt;New-instance 创建实例&lt;/li&gt;
-  &lt;li&gt;Input-object  对象赋值&lt;/li&gt;
-  &lt;li&gt;Iget-object  调用对象&lt;/li&gt;
-  &lt;li&gt;Invoke-static  调用静态函数&lt;/li&gt;
-  &lt;li&gt;Invoke-virtual  调用函数
-invoke-virtual {p1, v0}, Ljava/lang/String;-&amp;gt;equals(Ljava/lang/Object;)Z&lt;/li&gt;
-  &lt;li&gt;Const-string  string赋值
-const-string v0, “snow”&lt;/li&gt;
-  &lt;li&gt;smali的条件分支&lt;/li&gt;
-  &lt;li&gt;If-eq vA,vB,:cond_** 如果vA和vB相等，则跳转至cond_**&lt;/li&gt;
-  &lt;li&gt;If-ne（不等于）、if-lt（小于）、if-ge（大于等于）、if-gt（大于）、if-le（小于等于）&lt;/li&gt;
-  &lt;li&gt;If-eqz v0:cond_** 如果V0等于0，则跳转至cond&lt;/li&gt;
-  &lt;li&gt;If-nez（不等于0）、if-ltz、if-gtz、if-gez、if-lez&lt;/li&gt;
-  &lt;li&gt;类的声明：
-.class public Lcom/aaaa;
-.super Lcom/bbbb;
-.source “ccc.java”
-包路径、父类、文件名称
-#annotations
-.annotation system Ldalvik/annotation/MemberClasses;
-value={
-Lcom/aaa$qq;
-Lcom/aaa$bb;
-}
-内部类：aaa类的两个成员内部类qq和bb；&lt;/li&gt;
-  &lt;li&gt;寄存器V开头的是指本地寄存器，P开头的是指参数寄存器，对于非static函数中,P0代表“this”，P1代表第一个参数，而在static函数中，P0代表第一个参数。
-const/4 v0,0x1
-input-boolean v0,p0,Lcom/aaa;-&amp;gt;IsRegistered:Z
-0x1放入本地寄存器v0，input-boolean将v0的值存放在com.aaa.IsRegistered变量中。&lt;/li&gt;
-  &lt;li&gt;成员变量：&lt;/li&gt;
-  &lt;li&gt;.field public/private [static] [finale] varName:&amp;lt;类型&amp;gt;&lt;/li&gt;
-  &lt;li&gt;不同的变量，不同的指令：iget、sget、iget-boolean、sget-boolean、iget-object、sget-object等；input、input-boolean、sput-boolean、iput-object、sput-object等；-object后缀的表示操作对象是对象类型，对boolean类的操作则使用-boolean。&lt;/li&gt;
-  &lt;li&gt;Sget-object v0,Lcom/aaa;-&amp;gt;ID:Ljava/lang/String; 获取com.aaa.ID的值放入V0&lt;/li&gt;
-  &lt;li&gt;Iget-object v0,p0,Lcom/aaa;-&amp;gt;view:Lcom/aaa/view; 此处多了一个参数p0，指的是this，array变量采用aget和aget-object&lt;/li&gt;
-  &lt;li&gt;this.timer=null&lt;br /&gt;
-const/4 v3,0x0
-sput-object v3,Lcom/aaa;-timer:Lcom/aaa/timer;&lt;/li&gt;
-  &lt;li&gt;.local v0, args:Landroid/os/Message;
-const/4 v1, 0x12
-input v1, v0,Landroid/os/Message;-&amp;gt;what:I
-此处args是Message的实例，args.what=18&lt;/li&gt;
-  &lt;li&gt;函数调用：&lt;/li&gt;
-  &lt;li&gt;函数分为direct method和virtual method，简单说direct 即private函数，其余的public和protected均属于virtual函数，所以在调用函数时，有invoke-direct、invoke-virtual，另外以及invoke-static、invoke-super、invoke-interface等几种不同的指令，当然还有invoke-XXX/range的指令，这是指参数多余4个的时候调用的指令；&lt;/li&gt;
-  &lt;li&gt;Invoke-static{v0},Ljava/lang/System;-&amp;gt;loadLibrary(Ljava/lang/String;)V 其中{}中指定函数调用的参数值；
-invoke-direct{p0},Landroid/app/TabActivity;-&amp;gt;&amp;lt;init&amp;gt;()V =&amp;gt; init() &lt;br /&gt;
-invoke-virtual{v0,v1},Lcom/cc;-&amp;gt;Message(Ljava/lang/Object;)V&lt;br /&gt;
-invoke-direct/range{v0,…,v5},Lcom/pb/ui/PBContainerActivity;-h(Ljava/lang/CharSequence;Ljava/lang/String;Landroid/content/Intent;l)Z&lt;/li&gt;
-  &lt;li&gt;在Java代码中，调用函数和返回值可以使用一条语句完成，但是在smali中需要分开来完成，如果返回的非void，需要使用move-result（返回基本数据类型）和move-result-object（返回对象）指令：
-const-string v0,”Eric”
-invoke-static{0},Lcmd/pbi;-&amp;gt;t(Ljava/lang/String;)Ljava/lang/String;
-move-result-object v2 //v2保存的就是t方法返回的值&lt;/li&gt;
-  &lt;li&gt;代码理解：
-Add-int/lit8 v0,v0,0x1  //将第二个v0寄存器中的值加上0x1的值，再放入第一个寄存器，实现自增长&lt;br /&gt;
-.locals 4  //本地寄存器4个，即v0,v1,v2,v3,v4
-const/4 v2,0x1  //4字节常量 V2=1
-const/16 v1,0x10 //16字节常量v1=16
-.local v1,”length”:I  //赋值 length=v1
-xor-int/lit8 v1,v1,0x3b  //将第二个寄存器v1的值和0x3b进行异或运算，赋值给第一个v1寄存器中&lt;/li&gt;
+  &lt;li&gt;生成自签名证书，采用自动生成密钥的方式，指定有效期、密钥长度，按照命令提示输入C/N等信息&lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;p&gt;openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout pk.key -out certificate.crt&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;生成pkcs12文件，输入密钥&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;openssl pkcs12 -export -out certificate.p12 -inkey pk.key -certfile certificate.crt -in certificate.crt&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;导出certificate.p12文件&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;将certificate.p12证书keystore导入Burpsuite
+&lt;img src=&quot;https://raw.githubusercontent.com/shadow-horse/Learning-resource/master/Android/img/bp_import_ca.jpg&quot; alt=&quot;&quot; /&gt; &lt;br /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/shadow-horse/Learning-resource/master/Android/img/bp_import_ca_1.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;访问http://localhost:8080下载CA证书，cacert.der&lt;br /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/shadow-horse/Learning-resource/master/Android/img/export_ca.jpg&quot; alt=&quot;&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/shadow-horse/Learning-resource/master/Android/img/ca_info.jpg&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;转换生成pem证书，并导入Android /system/etc/security/cacerts目录下（需root权限）&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;至此问题解决。&lt;/p&gt;
+
+&lt;h3 id=&quot;android手机配置burpsuite证书操作&quot;&gt;Android手机配置burpsuite证书操作&lt;/h3&gt;
+
+&lt;p&gt;按该链接的提示进行操作即可：&lt;a href=&quot;https://www.jianshu.com/p/521CC119F38C&quot; title=&quot;https://www.jianshu.com/p/521CC119F38C&quot;&gt;https://www.jianshu.com/p/521CC119F38C&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;ref&quot;&gt;REF&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/shadow-horse/Learning-resource/blob/master/Android/Android%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0.md&quot;&gt;shadow-horse/Learning-resource&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/shadow-horse/Learning-resource/blob/master/Android/Android%E5%AF%BC%E5%85%A5burpsuite%E8%AF%81%E4%B9%A6%E6%98%BE%E7%A4%BA%E6%9C%89%E6%95%88%E6%9C%9F%E5%A4%AA%E9%95%BF.md&quot;&gt;shadow-horse/Learning-resource&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
                 &lt;!-- [x] 2022/10/20/10:49:36 fixed: while width &lt; some inch. would be flex column not display like a row.--&gt;
@@ -185,7 +163,7 @@ xor-int/lit8 v1,v1,0x3b  //将第二个寄存器v1的值和0x3b进行异或运�
 			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix &quot;&gt;
 				&lt;h2 class=&quot;lead&quot;&gt;申明&lt;/h2&gt;
 				&lt;div&gt;
-					&lt;div class=&quot;mb-2&quot;&gt;&lt;a href=&quot;/blog/2025/Android-reverseLearing/&quot; target=&quot;_blank&quot; class=&quot; text-bold&quot;&gt;
+					&lt;div class=&quot;mb-2&quot;&gt;&lt;a href=&quot;/blog/2025/Android-SSLProxy/&quot; target=&quot;_blank&quot; class=&quot; text-bold&quot;&gt;
 						&lt;div class=&quot;fa fa-link&quot;&gt;&lt;/div&gt;
 						转载请申明本文档链接&lt;/a&gt;&lt;/div&gt;
 					&lt;div&gt;&lt;a href=&quot;https://github.com/Bin4xin&quot; target=&quot;_blank&quot;  class=&quot;text-bold&quot;&gt;
@@ -197,7 +175,7 @@ xor-int/lit8 v1,v1,0x3b  //将第二个寄存器v1的值和0x3b进行异或运�
 			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
 				&lt;h2 class=&quot;lead&quot;&gt;贡献开源文档&lt;/h2&gt;
 				&lt;div&gt;
-					&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2025-03-11-Android-reverseLearing.md&quot; target=&quot;_blank&quot; class=&quot;no-underline btn mr-1 color-border-accent-emphasis&quot;&gt;
+					&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2025-03-11-Android-SSLProxy.md&quot; target=&quot;_blank&quot; class=&quot;no-underline btn mr-1 color-border-accent-emphasis&quot;&gt;
 						&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; role=&quot;img&quot; class=&quot;octicon mr-1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;currentColor&quot; style=&quot;display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
 						贡献当前开源文档
 					&lt;/a&gt;
@@ -212,7 +190,7 @@ xor-int/lit8 v1,v1,0x3b  //将第二个寄存器v1的值和0x3b进行异或运�
 					&lt;div class=&quot;fa fa-thumbs-o-up&quot;&gt;&lt;/div&gt;
 				&lt;/span&gt;
 				&lt;/a&gt;
-				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&amp;template=2-bug_report.yaml&amp;title=_posts/blog/2025-03-11-Android-reverseLearing.md&amp;nbsp; Android逆向学习 | © 哨兵 | SENTINEL SECURITY, LAB&quot; target=&quot;_blank&quot;&gt;
+				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&amp;template=2-bug_report.yaml&amp;title=_posts/blog/2025-03-11-Android-SSLProxy.md&amp;nbsp; AndroidSSLProxy配置 | © 哨兵 | SENTINEL SECURITY, LAB&quot; target=&quot;_blank&quot;&gt;
 				&lt;span class=&quot;btn mr-1 color-border-accent-emphasis&quot; title=&quot;本文档有问题?&quot;&gt;
 				&lt;div class=&quot;fa fa-thumbs-o-down&quot;&gt;&lt;/div&gt;
 				&lt;/span&gt;
@@ -230,16 +208,14 @@ xor-int/lit8 v1,v1,0x3b  //将第二个寄存器v1的值和0x3b进行异或运�
             &lt;code-index-css&gt;
                 &lt;ul&gt;&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column&quot;&gt;&lt;a&gt;文章目录&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
                 &lt;ul id=&quot;toc&quot; class=&quot;section-nav&quot;&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h1&quot;&gt;&lt;a href=&quot;#android逆向学习笔记&quot;&gt;Android逆向学习笔记&lt;/a&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#android导入burpsuite证书后拦截https请求显示服务器证书有效期太长&quot;&gt;Android导入burpsuite证书后拦截https请求显示服务器证书有效期太长&lt;/a&gt;
 &lt;ul&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#1-android逆向学习&quot;&gt;1. Android逆向学习&lt;/a&gt;
-&lt;ul&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#基础知识&quot;&gt;基础知识&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#1-说明&quot;&gt;1. 说明&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#2-通过生成自定义证书的方式解决该问题&quot;&gt;2. 通过生成自定义证书的方式解决该问题&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#android手机配置burpsuite证书操作&quot;&gt;Android手机配置burpsuite证书操作&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#ref&quot;&gt;REF&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
 &lt;/ul&gt;
             &lt;/code-index-css&gt;
         &lt;/li&gt;
@@ -249,8 +225,8 @@ xor-int/lit8 v1,v1,0x3b  //将第二个寄存器v1的值和0x3b进行异或运�
     &lt;/div&gt;&lt;!--/row --&gt;
 &lt;/div&gt;&lt;!--/container --&gt;哨兵安全实验室 SENTINEL SECURITY, LAB" />
 <meta property="og:image" content="https://bin4xin.sentrylab.cn/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
-<meta property="og:url" content="https://bin4xin.sentrylab.cn/404.html" />
-<title> 404 |© 哨兵 | SENTINEL SECURITY, LAB</title>
+<meta property="og:url" content="https://bin4xin.sentrylab.cn/blog/2025/Android-SSLProxy/" />
+<title> AndroidSSLProxy配置 | © 哨兵 | SENTINEL SECURITY, LAB</title>
 
 <link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
@@ -286,8 +262,10 @@ xor-int/lit8 v1,v1,0x3b  //将第二个寄存器v1的值和0x3b进行异或运�
 
 </head>
 
-  <body>
-    <!--
+
+    <body>
+
+                <!--
 #####################################################################################################################
 |  1.Fixed navbar issues #3 visit https://github.com/Bin4xin/bin4xin.github.io/issues/3                             |
 |    change `position: fixed` to `position: sticky`                                                                 |
@@ -335,7 +313,7 @@ xor-int/lit8 v1,v1,0x3b  //将第二个寄存器v1的值和0x3b进行异或运�
             <ul class="nav navbar-nav">
                 
                 <li ><a href="/"><div class="fa fa-search"></div></a></li>
-                <li ><a href="/blog/">BLOG</a></li>
+                <li class="active"><a href="/blog/">BLOG</a></li>
                 <li ><a href="/categories/">CATEGORIES</a></li>
                 <li ><a href="/daily/">DAILY</a></li>
                 <li ><a href="/newest">NEWEST</a></li>
@@ -346,15 +324,201 @@ xor-int/lit8 v1,v1,0x3b  //将第二个寄存器v1的值和0x3b进行异或运�
         </div><!--/.nav-collapse -->
     </div>
 </div>
-    <div id="mirrors">
-      <div class="spacing hidden-xs"></div>
-      <div class="container">
-        <div class="row">
-        <div class="not-found">    <div class="not-found-bg"></div>    <div class="not-found-hint"><div class="not-found-code">            404. 谢谢你这么好看还来看我博客:D</div>        <span class="thuhidden">Oops!你来到了没有知识的荒原。</span>        </div><div class="not-found-text thuhidden"><strong>如果您认为这一定是出了什么问题，欢迎您前往<a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> 哨兵/issues</a>            提交<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,404&template=2-bug_report.yaml&title=_primaryindex/404.html&nbsp;© 哨兵 | SENTINEL SECURITY, LAB" id="new_issue_bug" target="_blank">错误报告</a></strong></div><div class="not-found-links"><a class="not-found-link" href="javascript:history.back()"><i class="fa fa-arrow-left"></i> 返回上一页</a></div></div>
-        </div>
-      </div><!--/container -->
-    </div><!--/mirrors -->
-    <!-- 代码引用申明/code reference declaration:
+                <div class="container mtb">
+    <div class="row d-flex ">
+        <!-- SINGLE POST -->
+        <div class="col-lg-8 markdown-body-img flex-column">
+            <!-- Blog Post  -->
+            <a href="/blog/2025/Android-SSLProxy/"><h1 class="ctitle">AndroidSSLProxy配置</h1></a>
+            <csmall><div class="d-flex items-center">
+                <!--article author end-->
+
+<!-- site build time set to the latest time.-->
+
+<!-- post time-->
+
+
+
+
+
+<div class="ml-hide">
+    <a class="f2 d-flex color-fg-default" href="https://github.com/Bin4xin" target="_blank">
+        Bin4xin
+
+        
+            
+        post
+        
+
+        
+        
+        
+        
+        
+
+        
+            
+                
+                    19 days ago
+                
+            
+        
+    </a>
+</div>
+            </div></csmall>
+            <div class="post-content"> 
+            <h2 id="android导入burpsuite证书后拦截https请求显示服务器证书有效期太长">Android导入burpsuite证书后拦截https请求显示服务器证书有效期太长</h2>
+
+<h3 id="1-说明">1. 说明</h3>
+
+<p>在对android手机渗透测试时，会经常使用拦截工具拦截请求报文，其中burpsuite是比较常用的安全工具，针对Android手机配置burpsuite证书操作请参考末尾。</p>
+
+<p>在导入系统级证书后，拦截https报文，小程序会弹框提示连接错误：<code class="language-plaintext highlighter-rouge">NET::ERR_CERT_VALIDITY_TOO_LONG</code></p>
+
+<p>在CA/Browser论坛发布的官方指导中有明确规定证书有效期的限定，订阅的证书在签发之后有效期不得超过60个月，在2015年4月1日之后签发的证书有效期不得大于39个月。并且针对SHA-1算法的有效期也做了限定，自2017-1-1起CA中不应该再使用SHA-1算法。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 9.4 Validity Period
+ 9.4.1 Subscriber Certificates   
+ Subscriber Certificates issued after the Effective Date MUST have a Validity Period no greater than 60 months.  
+ Except as provided for below, Subscriber Certificates issued after 1 April 2015 MUST have a Validity Period no
+ greater than 39 months.
+ Beyond 1 April 2015, CAs MAY continue to issue Subscriber Certificates with a Validity Period greater than 39
+ months but not greater than 60 months provided that the CA documents that the Certificate is for a system or
+ software that:
+ (a) was in use prior to the Effective Date;
+ (b) is currently in use by either the Applicant or a substantial number of Relying Parties;
+ (c) fails to operate if the Validity Period is shorter than 60 months;
+ (d) does not contain known security risks to Relying Parties; and
+ (e) is difficult to patch or replace without substantial economic outlay. 
+ Forum Guideline
+ CA / Browser Forum Baseline Requirements, v. 1.2.3 (as of 16 October 2014) 14
+ 9.4.2 SHA‐1 Validity Period
+ Effective 1 January 2016, CAs MUST NOT issue any new Subscriber certificates or Subordinate CA certificates
+ using the SHA-1 hash algorithm. CAs MAY continue to sign certificates to verify OCSP responses using SHA1
+ until 1 January 2017. This Section 9.4.2 does not apply to Root CA or CA cross certificates. CAs MAY continue to
+ use their existing SHA-1 Root Certificates. SHA-2 Subscriber certificates SHOULD NOT chain up to a SHA-1
+ Subordinate CA Certificate.
+ Effective 16 January 2015, CAs SHOULD NOT issue Subscriber Certificates utilizing the SHA-1 algorithm with an
+ Expiry Date greater than 1 January 2017 because Application Software Providers are in the process of deprecating
+ and/or removing the SHA-1 algorithm from their software, and they have communicated that CAs and Subscribers
+ using such certificates do so at their own risk.  
+</code></pre></div></div>
+
+<p>Burpsuite的证书有效期已经大于39个月，在Android Chrome内核上会产生上述报错，提示证书有效期过长，如下所示：</p>
+
+<p><img src="https://raw.githubusercontent.com/shadow-horse/Learning-resource/master/Android/img/ssl_too_long.png" alt="" /></p>
+
+<h3 id="2-通过生成自定义证书的方式解决该问题">2. 通过生成自定义证书的方式解决该问题</h3>
+
+<p>方法比较简单，就是通过生成自定义的有效期小于39个月证书，然后分别导入Burpsute和Android中。</p>
+
+<ol>
+  <li>生成自签名证书，采用自动生成密钥的方式，指定有效期、密钥长度，按照命令提示输入C/N等信息</li>
+</ol>
+
+<p>openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout pk.key -out certificate.crt</p>
+<ol>
+  <li>生成pkcs12文件，输入密钥</li>
+</ol>
+
+<p>openssl pkcs12 -export -out certificate.p12 -inkey pk.key -certfile certificate.crt -in certificate.crt</p>
+<ol>
+  <li>导出certificate.p12文件</li>
+  <li>
+    <p>将certificate.p12证书keystore导入Burpsuite
+<img src="https://raw.githubusercontent.com/shadow-horse/Learning-resource/master/Android/img/bp_import_ca.jpg" alt="" /> <br />
+<img src="https://raw.githubusercontent.com/shadow-horse/Learning-resource/master/Android/img/bp_import_ca_1.jpg" alt="" /></p>
+  </li>
+  <li>访问http://localhost:8080下载CA证书，cacert.der<br />
+<img src="https://raw.githubusercontent.com/shadow-horse/Learning-resource/master/Android/img/export_ca.jpg" alt="" /><br />
+<img src="https://raw.githubusercontent.com/shadow-horse/Learning-resource/master/Android/img/ca_info.jpg" alt="" /></li>
+  <li>转换生成pem证书，并导入Android /system/etc/security/cacerts目录下（需root权限）</li>
+</ol>
+
+<p>至此问题解决。</p>
+
+<h3 id="android手机配置burpsuite证书操作">Android手机配置burpsuite证书操作</h3>
+
+<p>按该链接的提示进行操作即可：<a href="https://www.jianshu.com/p/521CC119F38C" title="https://www.jianshu.com/p/521CC119F38C">https://www.jianshu.com/p/521CC119F38C</a></p>
+
+<h2 id="ref">REF</h2>
+
+<ul>
+  <li><a href="https://github.com/shadow-horse/Learning-resource/blob/master/Android/Android%E5%AF%BC%E5%85%A5burpsuite%E8%AF%81%E4%B9%A6%E6%98%BE%E7%A4%BA%E6%9C%89%E6%95%88%E6%9C%9F%E5%A4%AA%E9%95%BF.md">shadow-horse/Learning-resource</a></li>
+</ul>
+
+                <!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
+<footer>
+	<style>.border-top {
+		border-top: 1.5px solid #d0d7de!important;
+	}</style>
+	<div class="border-top"></div>
+		<section class="container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto">
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix ">
+				<h2 class="lead">申明</h2>
+				<div>
+					<div class="mb-2"><a href="/blog/2025/Android-SSLProxy/" target="_blank" class=" text-bold">
+						<div class="fa fa-link"></div>
+						转载请申明本文档链接</a></div>
+					<div><a href="https://github.com/Bin4xin" target="_blank"  class="text-bold">
+						<div class="fa fa-user"></div>
+						Post by Bin4xin.</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">贡献开源文档</h2>
+				<div>
+					<a href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2025-03-11-Android-SSLProxy.md" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
+						<svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
+						贡献当前开源文档
+					</a>
+					<p class="f0_8-l mt-2 text-bold">此之前，学习开源贡献<a target="_blank" href="https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码">CN&nbsp;|</a>
+						<a target="_blank" href="https://github.com/github/docs/blob/main/CONTRIBUTING.md">EN</a></p>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">此文档对您有帮助吗</h2>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/" target="_blank" class="no-underline">
+				<span class="btn mr-1 color-border-accent-emphasis" title="给文档仓库点个赞!">
+					<div class="fa fa-thumbs-o-up"></div>
+				</span>
+				</a>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_posts/blog/2025-03-11-Android-SSLProxy.md&nbsp; AndroidSSLProxy配置 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
+				<span class="btn mr-1 color-border-accent-emphasis" title="本文档有问题?">
+				<div class="fa fa-thumbs-o-down"></div>
+				</span>
+				</a>
+			</div>
+		</section>
+</footer>
+            </div>
+            <div class="spacing"></div>
+        </div><!--/col-lg-8 -->
+        
+<div class="col-md-4 ml-hide table-of-contents__left-border" style="max-height: 100%">
+    <div class="nav nav-stacked tableOfContents_35-E thin-scrollbar position-sticky top-0">
+        <li class=" table-of-contents">
+            <code-index-css>
+                <ul><li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column"><a>文章目录</a></li></ul>
+                <ul id="toc" class="section-nav">
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#android导入burpsuite证书后拦截https请求显示服务器证书有效期太长">Android导入burpsuite证书后拦截https请求显示服务器证书有效期太长</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#1-说明">1. 说明</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#2-通过生成自定义证书的方式解决该问题">2. 通过生成自定义证书的方式解决该问题</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#android手机配置burpsuite证书操作">Android手机配置burpsuite证书操作</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#ref">REF</a></li>
+</ul>
+            </code-index-css>
+        </li>
+    </div>
+</div>
+
+    </div><!--/row -->
+</div><!--/container -->
+                <!-- 代码引用申明/code reference declaration:
 #############################################################################
 ## code from cloudflare. visit footer in https://www.cloudflare.com/zh-cn/ ##
 #############################################################################
@@ -609,9 +773,34 @@ xor-int/lit8 v1,v1,0x3b  //将第二个寄存器v1的值和0x3b进行异或运�
         </div>
     </div>
 </div><!--/footerwrap -->
-  </body>
-</html>
-<!--
-  vim: ts=2 sts=2 sw=2 noexpandtab
+
+    </body>
+
+    <script src="/assets/js/copy.js"></script>
+<!--TODONE.
+**FireFox display BUG**
+position-fixed in FireFox display position -> none
+- Reference:
+    - { @link https://developer.mozilla.org/zh-CN/docs/Web/CSS/position#browser_compatibility }
+    - { @link https://blog.csdn.net/DDD4V/article/details/123354124 }
+    - { @link https://juejin.cn/post/6844904100576886797 }
+        - { @link Demo https://codepen.io/li377242494/pen/VwLGGaR }
+Fiex In `[assets/css/style.scss](https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/css/style.scss)`
+    - tooltipped css postion.
 -->
 
+<!--<link rel="preload" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" as="style"/>-->
+<!--<link rel="stylesheet" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" data-n-g=""/>-->
+
+<divs role="tooltip" class="position-fixed bottom-0 mb-4 right-5 mr-4 z-1 transition-200 opacity-0" onclick="$(&quot;html,body&quot;).animate({scrollTop:0}, 1000);">
+    <button class="tooltipped tooltipped-n tooltipped-no-delay color-bg-accent-emphasis color-fg-on-emphasis circle border-0" style="width:45px;height:45px"
+            aria-label="滚动到顶部">
+        <svg aria-hidden="true" role="img" class="octicon octicon-chevron-up" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible">
+            <path fill-rule="evenodd" d="M3.22 9.78a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 0l4.25 4.25a.75.75 0 01-1.06 1.06L8 6.06 4.28 9.78a.75.75 0 01-1.06 0z">
+            </path>
+        </svg>
+    </button>
+</divs>
+
+
+</html>

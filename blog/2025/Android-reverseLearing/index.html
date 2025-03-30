@@ -1,5 +1,7 @@
+<!DOCTYPE html>
 <html>
-  <head>
+
+    <head>
 <meta charset="utf-8">
 <!--dev siwtch-->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,7 +29,7 @@
 
 <!-- Open Graph metadata -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="© 哨兵" />
+<meta property="og:title" content="Android逆向学习 | © 哨兵" />
 <meta property="og:description" content=" &lt;div class=&quot;container mtb&quot;&gt;
     &lt;div class=&quot;row d-flex &quot;&gt;
         &lt;!-- SINGLE POST --&gt;
@@ -249,8 +251,8 @@ xor-int/lit8 v1,v1,0x3b  //将第二个寄存器v1的值和0x3b进行异或运�
     &lt;/div&gt;&lt;!--/row --&gt;
 &lt;/div&gt;&lt;!--/container --&gt;哨兵安全实验室 SENTINEL SECURITY, LAB" />
 <meta property="og:image" content="https://bin4xin.sentrylab.cn/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
-<meta property="og:url" content="https://bin4xin.sentrylab.cn/404.html" />
-<title> 404 |© 哨兵 | SENTINEL SECURITY, LAB</title>
+<meta property="og:url" content="https://bin4xin.sentrylab.cn/blog/2025/Android-reverseLearing/" />
+<title> Android逆向学习 | © 哨兵 | SENTINEL SECURITY, LAB</title>
 
 <link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
@@ -286,8 +288,10 @@ xor-int/lit8 v1,v1,0x3b  //将第二个寄存器v1的值和0x3b进行异或运�
 
 </head>
 
-  <body>
-    <!--
+
+    <body>
+
+                <!--
 #####################################################################################################################
 |  1.Fixed navbar issues #3 visit https://github.com/Bin4xin/bin4xin.github.io/issues/3                             |
 |    change `position: fixed` to `position: sticky`                                                                 |
@@ -335,7 +339,7 @@ xor-int/lit8 v1,v1,0x3b  //将第二个寄存器v1的值和0x3b进行异或运�
             <ul class="nav navbar-nav">
                 
                 <li ><a href="/"><div class="fa fa-search"></div></a></li>
-                <li ><a href="/blog/">BLOG</a></li>
+                <li class="active"><a href="/blog/">BLOG</a></li>
                 <li ><a href="/categories/">CATEGORIES</a></li>
                 <li ><a href="/daily/">DAILY</a></li>
                 <li ><a href="/newest">NEWEST</a></li>
@@ -346,15 +350,227 @@ xor-int/lit8 v1,v1,0x3b  //将第二个寄存器v1的值和0x3b进行异或运�
         </div><!--/.nav-collapse -->
     </div>
 </div>
-    <div id="mirrors">
-      <div class="spacing hidden-xs"></div>
-      <div class="container">
-        <div class="row">
-        <div class="not-found">    <div class="not-found-bg"></div>    <div class="not-found-hint"><div class="not-found-code">            404. 谢谢你这么好看还来看我博客:D</div>        <span class="thuhidden">Oops!你来到了没有知识的荒原。</span>        </div><div class="not-found-text thuhidden"><strong>如果您认为这一定是出了什么问题，欢迎您前往<a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> 哨兵/issues</a>            提交<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,404&template=2-bug_report.yaml&title=_primaryindex/404.html&nbsp;© 哨兵 | SENTINEL SECURITY, LAB" id="new_issue_bug" target="_blank">错误报告</a></strong></div><div class="not-found-links"><a class="not-found-link" href="javascript:history.back()"><i class="fa fa-arrow-left"></i> 返回上一页</a></div></div>
-        </div>
-      </div><!--/container -->
-    </div><!--/mirrors -->
-    <!-- 代码引用申明/code reference declaration:
+                <div class="container mtb">
+    <div class="row d-flex ">
+        <!-- SINGLE POST -->
+        <div class="col-lg-8 markdown-body-img flex-column">
+            <!-- Blog Post  -->
+            <a href="/blog/2025/Android-reverseLearing/"><h1 class="ctitle">Android逆向学习</h1></a>
+            <csmall><div class="d-flex items-center">
+                <!--article author end-->
+
+<!-- site build time set to the latest time.-->
+
+<!-- post time-->
+
+
+
+
+
+<div class="ml-hide">
+    <a class="f2 d-flex color-fg-default" href="https://github.com/Bin4xin" target="_blank">
+        Bin4xin
+
+        
+            
+        post
+        
+
+        
+        
+        
+        
+        
+
+        
+            
+                
+                    19 days ago
+                
+            
+        
+    </a>
+</div>
+            </div></csmall>
+            <div class="post-content"> 
+            <h1 id="android逆向学习笔记">Android逆向学习笔记</h1>
+<h2 id="1-android逆向学习">1. Android逆向学习</h2>
+<h3 id="基础知识">基础知识</h3>
+<ol>
+  <li>Davlik Android OS的虚拟机，Dalvik基于寄存器，Java VM基于栈，二者明显区别。Davlik专属文件执行格式dex，比Java JVM运行快，内存占用少。</li>
+  <li>反编译 Apktool、dex2jar+jd-gui，最终修改APK需要操作.smali文件，然后再使用Apktool将修改的文件打包成APK，再使用 jarsigner进行APK签名：jarsigner -keystore name.keystore Folder keystorealias -keypass passwd</li>
+  <li>Davlik中寄存器32位，64位类型（Long/Double）用2个寄存器表示，字节码2中类型：原始类型、引用类型（包括对象和数组）
+    <ul>
+      <li>B- - -byte</li>
+      <li>C- - -char</li>
+      <li>D- - -double</li>
+      <li>F- - -float</li>
+      <li>I- - -int</li>
+      <li>J- - -long</li>
+      <li>S- - -short</li>
+      <li>V- - -void</li>
+      <li>Z- - -boolean</li>
+      <li>[XXX- - -array</li>
+      <li>Lxxx/yyy- - -object : LpackageName/objectName$subObjectName;</li>
+    </ul>
+  </li>
+  <li>smali函数</li>
+  <li>hello()V —&gt; void hello()</li>
+  <li>hello(III)Z —&gt; boolean hello(int,int,int)</li>
+  <li>hello(Z[I[ILjava/lang/String;J)Ljava/lang/String; —&gt; String hello(boolean,int[],int[],String,long)</li>
+  <li>Smali基本语法</li>
+  <li>.field private isFlag:z   定义变量<br />
+.field button_login:Landroid/widget/Button;</li>
+  <li>.method  方法
+.method protected onCreate(Landroid/os/Bundle;)V</li>
+  <li>.parameter  方法参数
+.param p1, “name”    # Ljava/lang/String;</li>
+  <li>.prologue  方法开始</li>
+  <li>.line 36   此方法位于36行</li>
+  <li>Invoke-super  调用父函数</li>
+  <li>Return-void  函数返回void</li>
+  <li>Move-result v0   上面函数执行的结果赋值给v0</li>
+  <li>.end method 函数结束</li>
+  <li>New-instance 创建实例</li>
+  <li>Input-object  对象赋值</li>
+  <li>Iget-object  调用对象</li>
+  <li>Invoke-static  调用静态函数</li>
+  <li>Invoke-virtual  调用函数
+invoke-virtual {p1, v0}, Ljava/lang/String;-&gt;equals(Ljava/lang/Object;)Z</li>
+  <li>Const-string  string赋值
+const-string v0, “snow”</li>
+  <li>smali的条件分支</li>
+  <li>If-eq vA,vB,:cond_** 如果vA和vB相等，则跳转至cond_**</li>
+  <li>If-ne（不等于）、if-lt（小于）、if-ge（大于等于）、if-gt（大于）、if-le（小于等于）</li>
+  <li>If-eqz v0:cond_** 如果V0等于0，则跳转至cond</li>
+  <li>If-nez（不等于0）、if-ltz、if-gtz、if-gez、if-lez</li>
+  <li>类的声明：
+.class public Lcom/aaaa;
+.super Lcom/bbbb;
+.source “ccc.java”
+包路径、父类、文件名称
+#annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+value={
+Lcom/aaa$qq;
+Lcom/aaa$bb;
+}
+内部类：aaa类的两个成员内部类qq和bb；</li>
+  <li>寄存器V开头的是指本地寄存器，P开头的是指参数寄存器，对于非static函数中,P0代表“this”，P1代表第一个参数，而在static函数中，P0代表第一个参数。
+const/4 v0,0x1
+input-boolean v0,p0,Lcom/aaa;-&gt;IsRegistered:Z
+0x1放入本地寄存器v0，input-boolean将v0的值存放在com.aaa.IsRegistered变量中。</li>
+  <li>成员变量：</li>
+  <li>.field public/private [static] [finale] varName:&lt;类型&gt;</li>
+  <li>不同的变量，不同的指令：iget、sget、iget-boolean、sget-boolean、iget-object、sget-object等；input、input-boolean、sput-boolean、iput-object、sput-object等；-object后缀的表示操作对象是对象类型，对boolean类的操作则使用-boolean。</li>
+  <li>Sget-object v0,Lcom/aaa;-&gt;ID:Ljava/lang/String; 获取com.aaa.ID的值放入V0</li>
+  <li>Iget-object v0,p0,Lcom/aaa;-&gt;view:Lcom/aaa/view; 此处多了一个参数p0，指的是this，array变量采用aget和aget-object</li>
+  <li>this.timer=null<br />
+const/4 v3,0x0
+sput-object v3,Lcom/aaa;-timer:Lcom/aaa/timer;</li>
+  <li>.local v0, args:Landroid/os/Message;
+const/4 v1, 0x12
+input v1, v0,Landroid/os/Message;-&gt;what:I
+此处args是Message的实例，args.what=18</li>
+  <li>函数调用：</li>
+  <li>函数分为direct method和virtual method，简单说direct 即private函数，其余的public和protected均属于virtual函数，所以在调用函数时，有invoke-direct、invoke-virtual，另外以及invoke-static、invoke-super、invoke-interface等几种不同的指令，当然还有invoke-XXX/range的指令，这是指参数多余4个的时候调用的指令；</li>
+  <li>Invoke-static{v0},Ljava/lang/System;-&gt;loadLibrary(Ljava/lang/String;)V 其中{}中指定函数调用的参数值；
+invoke-direct{p0},Landroid/app/TabActivity;-&gt;&lt;init&gt;()V =&gt; init() <br />
+invoke-virtual{v0,v1},Lcom/cc;-&gt;Message(Ljava/lang/Object;)V<br />
+invoke-direct/range{v0,…,v5},Lcom/pb/ui/PBContainerActivity;-h(Ljava/lang/CharSequence;Ljava/lang/String;Landroid/content/Intent;l)Z</li>
+  <li>在Java代码中，调用函数和返回值可以使用一条语句完成，但是在smali中需要分开来完成，如果返回的非void，需要使用move-result（返回基本数据类型）和move-result-object（返回对象）指令：
+const-string v0,”Eric”
+invoke-static{0},Lcmd/pbi;-&gt;t(Ljava/lang/String;)Ljava/lang/String;
+move-result-object v2 //v2保存的就是t方法返回的值</li>
+  <li>代码理解：
+Add-int/lit8 v0,v0,0x1  //将第二个v0寄存器中的值加上0x1的值，再放入第一个寄存器，实现自增长<br />
+.locals 4  //本地寄存器4个，即v0,v1,v2,v3,v4
+const/4 v2,0x1  //4字节常量 V2=1
+const/16 v1,0x10 //16字节常量v1=16
+.local v1,”length”:I  //赋值 length=v1
+xor-int/lit8 v1,v1,0x3b  //将第二个寄存器v1的值和0x3b进行异或运算，赋值给第一个v1寄存器中</li>
+</ol>
+
+<h2 id="ref">REF</h2>
+
+<ul>
+  <li><a href="https://github.com/shadow-horse/Learning-resource/blob/master/Android/Android%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0.md">shadow-horse/Learning-resource</a></li>
+</ul>
+
+                <!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
+<footer>
+	<style>.border-top {
+		border-top: 1.5px solid #d0d7de!important;
+	}</style>
+	<div class="border-top"></div>
+		<section class="container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto">
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix ">
+				<h2 class="lead">申明</h2>
+				<div>
+					<div class="mb-2"><a href="/blog/2025/Android-reverseLearing/" target="_blank" class=" text-bold">
+						<div class="fa fa-link"></div>
+						转载请申明本文档链接</a></div>
+					<div><a href="https://github.com/Bin4xin" target="_blank"  class="text-bold">
+						<div class="fa fa-user"></div>
+						Post by Bin4xin.</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">贡献开源文档</h2>
+				<div>
+					<a href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2025-03-11-Android-reverseLearing.md" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
+						<svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
+						贡献当前开源文档
+					</a>
+					<p class="f0_8-l mt-2 text-bold">此之前，学习开源贡献<a target="_blank" href="https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码">CN&nbsp;|</a>
+						<a target="_blank" href="https://github.com/github/docs/blob/main/CONTRIBUTING.md">EN</a></p>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">此文档对您有帮助吗</h2>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/" target="_blank" class="no-underline">
+				<span class="btn mr-1 color-border-accent-emphasis" title="给文档仓库点个赞!">
+					<div class="fa fa-thumbs-o-up"></div>
+				</span>
+				</a>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_posts/blog/2025-03-11-Android-reverseLearing.md&nbsp; Android逆向学习 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
+				<span class="btn mr-1 color-border-accent-emphasis" title="本文档有问题?">
+				<div class="fa fa-thumbs-o-down"></div>
+				</span>
+				</a>
+			</div>
+		</section>
+</footer>
+            </div>
+            <div class="spacing"></div>
+        </div><!--/col-lg-8 -->
+        
+<div class="col-md-4 ml-hide table-of-contents__left-border" style="max-height: 100%">
+    <div class="nav nav-stacked tableOfContents_35-E thin-scrollbar position-sticky top-0">
+        <li class=" table-of-contents">
+            <code-index-css>
+                <ul><li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column"><a>文章目录</a></li></ul>
+                <ul id="toc" class="section-nav">
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h1"><a href="#android逆向学习笔记">Android逆向学习笔记</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#1-android逆向学习">1. Android逆向学习</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#基础知识">基础知识</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#ref">REF</a></li>
+</ul>
+</li>
+</ul>
+            </code-index-css>
+        </li>
+    </div>
+</div>
+
+    </div><!--/row -->
+</div><!--/container -->
+                <!-- 代码引用申明/code reference declaration:
 #############################################################################
 ## code from cloudflare. visit footer in https://www.cloudflare.com/zh-cn/ ##
 #############################################################################
@@ -609,9 +825,34 @@ xor-int/lit8 v1,v1,0x3b  //将第二个寄存器v1的值和0x3b进行异或运�
         </div>
     </div>
 </div><!--/footerwrap -->
-  </body>
-</html>
-<!--
-  vim: ts=2 sts=2 sw=2 noexpandtab
+
+    </body>
+
+    <script src="/assets/js/copy.js"></script>
+<!--TODONE.
+**FireFox display BUG**
+position-fixed in FireFox display position -> none
+- Reference:
+    - { @link https://developer.mozilla.org/zh-CN/docs/Web/CSS/position#browser_compatibility }
+    - { @link https://blog.csdn.net/DDD4V/article/details/123354124 }
+    - { @link https://juejin.cn/post/6844904100576886797 }
+        - { @link Demo https://codepen.io/li377242494/pen/VwLGGaR }
+Fiex In `[assets/css/style.scss](https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/css/style.scss)`
+    - tooltipped css postion.
 -->
 
+<!--<link rel="preload" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" as="style"/>-->
+<!--<link rel="stylesheet" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" data-n-g=""/>-->
+
+<divs role="tooltip" class="position-fixed bottom-0 mb-4 right-5 mr-4 z-1 transition-200 opacity-0" onclick="$(&quot;html,body&quot;).animate({scrollTop:0}, 1000);">
+    <button class="tooltipped tooltipped-n tooltipped-no-delay color-bg-accent-emphasis color-fg-on-emphasis circle border-0" style="width:45px;height:45px"
+            aria-label="滚动到顶部">
+        <svg aria-hidden="true" role="img" class="octicon octicon-chevron-up" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible">
+            <path fill-rule="evenodd" d="M3.22 9.78a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 0l4.25 4.25a.75.75 0 01-1.06 1.06L8 6.06 4.28 9.78a.75.75 0 01-1.06 0z">
+            </path>
+        </svg>
+    </button>
+</divs>
+
+
+</html>
