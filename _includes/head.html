@@ -12,14 +12,8 @@
 {% endif %}
     <meta name="baidu-site-verification" content="codeva-Bt0LqEvH6L" />
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJ5SFQ4KCM"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-TJ5SFQ4KCM');
-</script>
+<script defer src="https://www.googletagmanager.com/gtag/js?id=G-TJ5SFQ4KCM"></script>
+<script defer src="{{ "/assets/js/gta.js" | prepend: site.baseurl }}"></script>
 <link rel="shortcut icon" href="{{ "/assets/img/favicon.png" | prepend: site.baseurl }}">
 <link type="application/atom+xml" rel="alternate" href="{{ "/feed.xml" | prepend: site.baseurl }}" title="{{ site.title }}" />
 
@@ -99,12 +93,12 @@
         a.navbar-brand {
             width: 20em;
         }
-        <!--[if lte IE 7]-->
-        .col-xs-1,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9,
-        .col-xs-10,.col-xs-11,.col-xs-12 {
-            padding: 0px;
+        @media (max-width: 767px) {
+            .col-xs-1,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9,
+            .col-xs-10,.col-xs-11,.col-xs-12 {
+                padding: 0px;
+            }
         }
-        <!--[endif]-->
 </style>
 {% endif %}
 

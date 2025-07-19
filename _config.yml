@@ -21,10 +21,22 @@ kramdown:
 permalink: "/:categories/:year/:title/"
 
 excerpt_separator: <!--more--> #use this in posts to define how long the excerpt of the post (that is shown on the Blog page) is
-# TODO plugins: ["jekyll-toc", "jekyll-roman", "jekyll-paginate"]
-# paginate: 5
-# paginate_path: "/blog/page:num/"
-plugins: ["jekyll-toc", "jekyll-roman"]
+plugins: ["jekyll-paginate-v2", "jekyll-toc", "jekyll-roman"]
+
+# jekyll-paginate-v2 配置，只对 blog 分类分页
+pagination:
+  enabled: true
+  per_page: 3
+  permalink: '/page/:num/'
+  title: ':title - 第 :num 页'
+  limit: 0
+  sort_field: 'date'
+  sort_reverse: true
+  trail:
+    before: 2
+    after: 2
+  category: 'blog'
+
 #--[toc plugin], while run jekyll to build sites, jekyll-toc could define some to display:
 #--the toc class
 #--the toc min/max level
@@ -32,6 +44,7 @@ toc:
   item_class: no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column # Default: "toc-entry"
   min_level: 1 # default: 1
   max_level: 4 # default: 6
+  ordered: true
 
 sass:
     sass_dir: assets/css
@@ -44,14 +57,6 @@ exclude: ['BUILD.md', 'README.md','vendor']
 # Short text about your company. Shown in footer on every page and also separately on Home and Contact page.
 about: "本站由哨兵安全实验室支持创办"
 
-jekyll-archives:
-  layouts:
-    categories: categories
-    tag: tag
-  permalinks:
-    tag: /tags/:name/
-    category: /categories/:name/
-
 contactMail: "administrator@sentrylab.cn"
 # option.
 githubAccess: "https://github.com/Bin4xin"
@@ -60,5 +65,3 @@ githubRepos: "bin4xin.github.io"
 githubIO: "https://bin4xin.github.io"
 githubRepos-Branch: "main"
 # Build commit hash strings settings
-#harmony: 国家公祭日
-#harmonyURL: http://www.cngongji.cn

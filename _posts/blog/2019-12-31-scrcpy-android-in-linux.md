@@ -8,7 +8,6 @@ categories:
     - blog
 tags:
     - 笔记
-permalink: /blog/2019/scrcpy/
 ---
 
 ### macOS

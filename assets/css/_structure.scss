@@ -132,3 +132,188 @@ ion-icon:hover {
 .centered {
     text-align: center
 }
+
+/* about.html styles */
+.new_figma_des {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	flex: none;
+	order: 0;
+	align-self: stretch;
+	padding: 32px;
+	transition: padding 0.3s ease; /* 添加过渡效果 */
+}
+
+#toggleButton {
+	transition: opacity 0.3s;
+	background-color: transparent;
+	cursor: pointer;
+}
+#sidebar1 {
+	transition: width 0.3s;
+	overflow: hidden;
+}
+#sidebar1.collapsed {
+	width: 65px;
+}
+#sidebar1.collapsed #logo,
+#sidebar1.collapsed #toggleButton {
+	opacity: 1; /* 保持可见 */
+}
+
+/* article-index.html styles */
+.article-index ul {
+    padding-left: 1em;
+}
+
+.article-index ul li {
+    list-style: none;
+}
+
+.article-index ul li a {
+    font-size: 14px !important; /* 统一字体大小 */
+    font-weight: 400 !important; /* 统一字重 */
+}
+
+/* nav.html styles */
+.nav>li>a {
+    padding: 10px 15px;
+}
+.navbar-logo {
+    background: transparent;
+    border-radius: 50%;
+    transition: box-shadow 0.2s, background 0.2s;
+    box-shadow: none;
+    outline: none;
+}
+.navbar-logo:hover, .navbar-logo:focus {
+    background: #f6f8fa;
+    box-shadow: 0 4px 16px rgba(60,60,60,0.10), 0 1.5px 4px rgba(60,60,60,0.08);
+}
+.submenu {
+    transition: max-height 0.3s cubic-bezier(.4,0,.2,1);
+    overflow: hidden;
+}
+.table-of-contents__left-border a:hover, .table-of-contents__left-border a:focus {
+    background: #2563eb;
+    color: #fff;
+    /* border-radius: 8px; */
+    outline: none;
+}
+.navbar-toggle:focus {
+    outline: 2px solid #2563eb;
+}
+/* 菜单展开动画 */
+.navbar-collapse {
+    transition: max-height 0.3s cubic-bezier(.4,0,.2,1);
+    overflow: hidden;
+    max-height: 0;
+}
+.navbar-collapse.show {
+    max-height: 500px; /* 适当调整 */
+}
+.navbar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+.navbar-logo-hover-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.navbar-logo-popover {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 120%;
+    z-index: 999;
+    background: #fff;
+    box-shadow: 0 8px 32px rgba(60,60,60,0.18), 0 1.5px 4px rgba(60,60,60,0.08);
+    border-radius: 14px;
+    padding: 10px 0;
+    min-width: 210px;
+    animation: fadeIn 0.18s cubic-bezier(.4,0,.2,1);
+    border: 1px solid #e5e7eb;
+}
+.navbar-logo-hover-wrap:hover .navbar-logo-popover,
+.navbar-logo-hover-wrap:focus-within .navbar-logo-popover {
+    display: block;
+}
+.navbar-logo-popover .popover-arrow {
+    position: absolute;
+    top: -8px;
+    left: 32px;
+    width: 16px;
+    height: 16px;
+    background: transparent;
+}
+.navbar-logo-popover .popover-arrow::after {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-left: 1px solid #e5e7eb;
+    border-top: 1px solid #e5e7eb;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: -2px -2px 6px rgba(60,60,60,0.06);
+}
+.navbar-logo-popover ul {
+    margin: 0;
+    padding: 0 0;
+    list-style: none;
+}
+.navbar-logo-popover li {
+    margin: 0;
+    padding: 0;
+}
+.popover-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px 8px 18px;
+    border-radius: 8px;
+    color: #222;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background 0.18s, color 0.18s;
+    position: relative;
+}
+.popover-link:hover, .popover-link:focus {
+    background: #f0f1f3;
+    color: #2563eb;
+}
+.popover-link .fa {
+    color: #b1b1b1;
+    font-size: 16px;
+    min-width: 18px;
+}
+.popover-link-text {
+    letter-spacing: 0.5px;
+}
+@media (max-width: 768px) {
+    .navbar-header {
+        justify-content: space-between !important;
+    }
+    .navbar-logo-popover {
+        left: 0 !important;
+        right: auto !important;
+        min-width: 140px;
+        border-radius: 10px;
+    }
+    .navbar-logo-popover .popover-arrow {
+        left: 16px;
+    }
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

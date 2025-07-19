@@ -8,7 +8,6 @@ categories:
 tags:
     - 笔记
     - 软件移植
-permalink: /blog/2019/jekyll/in/linux/
 ---
 
 * 申明：背景图来自微博@胡歌，侵删～不过胡歌这么可爱应该不会介意的

@@ -9,7 +9,6 @@ categories:
 tags:
     - Web
     - 技巧
-permalink: /blog/2019/nginx/with/jekyll-site/
 ---
 
 ---

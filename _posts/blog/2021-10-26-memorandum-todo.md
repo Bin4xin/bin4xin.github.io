@@ -10,7 +10,6 @@ categories:
 tags:
 - 笔记
 - Github Action
-permalink: /blog/2021/memorandum-todo/
 ---
 
 

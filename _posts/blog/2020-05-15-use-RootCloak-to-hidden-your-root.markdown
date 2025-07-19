@@ -8,7 +8,6 @@ categories:
 tags:
     - 笔记
     - Android Reverse
-permalink: /blog/2020/escape/from_android_root/
 ---
 
 

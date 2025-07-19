@@ -10,7 +10,6 @@ tags:
     - 软件移植
     - ARM
     - 笔记
-permalink: /blog/2019/Ubuntu/with/arm/
 ---
 
 * 声明：本文章首发于华为云鲲鹏社区，同步于作者个人博客:)

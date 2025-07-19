@@ -10,7 +10,6 @@ categories:
 tags:
     - 漏洞复现
     - 笔记
-permalink: /blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView/
 ---
 
 ### # 仿真通讯靶场搭建

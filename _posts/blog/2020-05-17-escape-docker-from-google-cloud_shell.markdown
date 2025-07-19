@@ -10,7 +10,6 @@ tags:
     - 笔记
     - docker
     - CVE
-permalink: /blog/2020/docker/escape/
 ---
 
 ## Google Cloud Shell Docker逃逸

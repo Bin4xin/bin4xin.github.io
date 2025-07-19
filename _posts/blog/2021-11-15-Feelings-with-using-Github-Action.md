@@ -10,7 +10,6 @@ categories:
 tags:
 - 笔记
 - Github Actions
-permalink: /blog/2021/Feelings-with-using-Github-Action/
 ---
 
 {% include wrench-inject.html %}

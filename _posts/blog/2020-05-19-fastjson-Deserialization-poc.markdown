@@ -10,7 +10,6 @@ tags:
     - 笔记
     - vulnhub
     - Sql-Inject
-permalink: /blog/2020/fastjson/UNdeser/
 ---
 
 ### fastjson指纹特征

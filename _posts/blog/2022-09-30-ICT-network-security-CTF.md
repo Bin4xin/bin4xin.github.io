@@ -10,7 +10,6 @@ categories:
 tags:
 - 笔记
 - CTF
-permalink: /blog/2022/ICT-network-security-CTF-2022-walkthrough/
 ---
 
 ## Misc

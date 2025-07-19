@@ -9,7 +9,6 @@ categories:
 - blog
 tags:
 - Cloud
-permalink: /blog/2021/The-boundary-between-public-cloud-and-private-cloud/
 
 ---
 

@@ -9,7 +9,6 @@ categories:
 tags:
     - 主动防御
     - 信息搜集
-permalink: /blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/
 ---
 
 <h3><em>《Bin4xin：我的网安从业朔源事件记录》</em></h3>

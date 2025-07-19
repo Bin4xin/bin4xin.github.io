@@ -10,7 +10,6 @@ tags:
     - 笔记
     - 技巧
     - 排错
-permalink: /blog/2019/nginx/with/php/404error/
 ---
 
 * php+nginx解析错误，报错404-Not Found

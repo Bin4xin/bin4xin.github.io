@@ -9,7 +9,6 @@ tags:
     - 笔记
     - 渗透
     - Android Reverse
-permalink: /blog/2019/android/debug/brige/
 ---
 
 ## adb简介

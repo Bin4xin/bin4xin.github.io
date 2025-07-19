@@ -9,7 +9,6 @@ categories:
     - blog
 tags:
     - 反序列化
-permalink: /blog/2021/yonyou-nc6.5-java-underser/
 ---
 
 ## 零： 用友nc6.5反序列化依赖jar包

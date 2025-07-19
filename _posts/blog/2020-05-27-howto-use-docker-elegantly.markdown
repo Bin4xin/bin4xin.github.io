@@ -10,7 +10,6 @@ tags:
     - 漏洞复现
     - 排错
     - 笔记
-permalink: /blog/2020/use/Docker/Elegently/
 ---
 
 网上有很多关于vulhub的docker构建教程，就不重复造轮子了。记录一些日常使用dokcer遇到的问题

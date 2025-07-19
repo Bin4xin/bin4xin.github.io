@@ -10,7 +10,6 @@ tags:
     - 笔记
     - BASH
     - 信息搜集
-permalink: /blog/2020/use/vim/in/linux/
 ---
 
 

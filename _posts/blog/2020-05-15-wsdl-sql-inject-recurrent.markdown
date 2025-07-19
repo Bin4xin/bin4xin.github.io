@@ -9,7 +9,6 @@ tags:
     - Web
     - 笔记
     - 渗透
-permalink: /blog/2020/wsdl/inject/
 ---
 
 > 由于一些机缘巧合，发现了一些SQL注入的新姿势，记录一下；

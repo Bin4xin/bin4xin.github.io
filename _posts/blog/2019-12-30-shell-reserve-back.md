@@ -9,7 +9,6 @@ tags:
     - 安全工具
     - 渗透
     - 笔记
-permalink: /blog/2019/shell/reserve/back/
 ---
 
 记录：关于bash shell的反弹:)随笔记<br>

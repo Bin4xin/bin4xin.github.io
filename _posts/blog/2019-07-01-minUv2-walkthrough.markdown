@@ -10,7 +10,6 @@ tags:
 - 漏洞复现
 - 渗透
 - vulnhub
-permalink: /blog/2019/minUv2/
 ---
 
 - categories:

@@ -8,7 +8,6 @@ categories:
     - blog
 tags:
     - 笔记
-permalink: /blog/2021/thereis-something2say/
 ---
 
 

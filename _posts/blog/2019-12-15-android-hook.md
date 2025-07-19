@@ -9,7 +9,6 @@ tags:
     - 笔记
     - Android Reverse
     - 渗透
-permalink: /blog/2019/Android/hook/
 ---
 
 * 忙里偷闲，本文是记录Hook-Frida框架，如何使用Frida注入代码，做到对安卓apk进行代码hook注入。

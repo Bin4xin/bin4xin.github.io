@@ -10,7 +10,6 @@ tags:
     - 漏洞复现
     - CVE
     - 笔记
-permalink: /blog/2020/Apache/Strut2/Vuln/
 ---
 
 

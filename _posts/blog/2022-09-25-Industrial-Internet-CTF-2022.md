@@ -9,7 +9,6 @@ categories:
 tags:
 - 笔记
 - CTF
-permalink: /blog/2022/Industrial-Internet-CTF-2022-walkthrough/
 ---
 
 > 2022 工业互联网 CTF 一道WEB；

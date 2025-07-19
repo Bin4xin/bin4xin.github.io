@@ -10,7 +10,6 @@ tags:
     - 笔记
     - Maven
     - Web
-permalink: /blog/2020/maven/build/mavaProject/
 ---
 
 - 2020/01/21更新；

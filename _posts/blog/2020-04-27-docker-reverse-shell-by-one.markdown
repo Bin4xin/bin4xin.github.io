@@ -9,7 +9,6 @@ tags:
     - docker
     - Web
     - 渗透
-permalink: /blog/2020/docker/reverse/shell/by1/
 ---
 
 > 一句话木马反弹shell

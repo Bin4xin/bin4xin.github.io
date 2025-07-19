@@ -9,7 +9,6 @@ tags:
     - 笔记
     - Android Reverse
     - 渗透
-permalink: /blog/2019/Drozer/Scan/in/android/
 ---
 
 

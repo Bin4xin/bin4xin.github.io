@@ -8,7 +8,6 @@ categories:
 tags:
     - 代码审计
     - 笔记
-permalink: /blog/2020/fortify/no-fules-file/found/
 ---
 
 > 最近在接触代码审计的活儿。碰到了一些问题，随手记录下来；

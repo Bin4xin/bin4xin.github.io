@@ -10,7 +10,6 @@ tags:
     - 笔记
     - Web
     - WAF
-permalink: /blog/2019/ABOUT/Modsec/waf/
 ---
 
 **添加于2021/02/05**

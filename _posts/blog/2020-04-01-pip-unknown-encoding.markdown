@@ -8,7 +8,6 @@ categories:
 tags:
     - python
     - Terminal
-permalink: /blog/2020/pip/said/unkown/encoding/
 ---
 
 * 可怖的unkown encoding.

@@ -544,6 +544,7 @@ html input[type="button"],
 input[type="reset"],
 input[type="submit"] {
   -webkit-appearance: button;
+  appearance: button;
   cursor: pointer;
 }
 button[disabled],
@@ -570,7 +571,7 @@ input[type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
 input[type="search"] {
-  -webkit-appearance: textfield;
+  -appearance: textfield;
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
@@ -1946,7 +1947,7 @@ kbd,
 code-index-css,
 pre,
 samp {
-  font-family: Ubuntu, "times new roman", times, roman, serif;
+  font-family: 'Fira Mono', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace !important;
 }
 code {
   padding: 2.720px 5.440px;
@@ -1989,7 +1990,6 @@ pre {
   overflow: auto!important;
   overflow-x: auto!important;
   margin-top: 0;
-  margin-bottom: 16px;
 }
 pre code {
   padding: 0;

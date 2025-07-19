@@ -8,7 +8,6 @@ categories:
 tags:
     - BASH
     - 笔记
-permalink: /blog/2020/get/TTY/terminal/
 ---
 
 写在前面，本方法适用于在反弹shell后把shell提升为完全交互式shell，也是自己实战了一段时间后摸索出来的，记一下笔记

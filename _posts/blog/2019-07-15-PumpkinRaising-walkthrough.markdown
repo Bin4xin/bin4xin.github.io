@@ -11,7 +11,6 @@ tags:
     - 漏洞复现
     - 渗透
     - vulnhub
-permalink: /blog/2019/vulnhub/PumpkinRaising/
 ---
 
 # 序言

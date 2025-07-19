@@ -9,7 +9,6 @@ tags:
     - Web
     - 排错
     - 笔记
-permalink: /blog/2019/how-nginx/http2https/
 ---
 
 

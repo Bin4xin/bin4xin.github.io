@@ -9,7 +9,6 @@ tags:
     - 笔记
     - fuzz
     - 信息搜集
-permalink: /blog/2020/learn/to/fuzz/
 ---
 
 写在文前：

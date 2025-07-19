@@ -2,29 +2,33 @@
 layout: default
 title: 哨兵安全博客
 permalink: /blog/
+pagination:
+  enabled: true
+  category: blog
 ---
 
 <div class="container mtb">
     <div class="row">
         <div class="col-lg-9">
-            {% include pagination.html %}
-
-            {% assign blog_posts = site.categories['blog'] %}
-            {% assign total_posts = blog_posts.size %}
-            {% for page in blog_posts %}
-            {% include paginator-blog.html %}
-            {% endfor %}
-
-                {% comment %}
-                <!-- Maybe TODO in the future?-->
-                <div class="lm-contents" >
-                    {% for page in site.categories['blog'] limit: 5 %}
-                        {% include paginator-blog.html %}
-                    {% endfor %}
-                </div>
-                {% endcomment %}
+            {% if paginator.posts %}
+                {% for post in paginator.posts %}
+                    {% assign page = post %}
+                    {% include paginator-blog.html %}
+                {% endfor %}
+                <nav class="pagination">
+                    {% if paginator.previous_page %}
+                        <a href="{{ paginator.previous_page_path }}" class="btn btn-primary">上一页</a>
+                    {% endif %}
+                    <span>第 {{ paginator.page }} 页 / 共 {{ paginator.total_pages }} 页</span>
+                    {% if paginator.next_page %}
+                        <a href="{{ paginator.next_page_path }}" class="btn btn-primary">下一页</a>
+                    {% endif %}
+                </nav>
+            {% else %}
+                <p>暂无文章。</p>
+            {% endif %}
         </div><!--/col-lg-9 -->
-        <div class="sticky limit-sticky flex flex-column">{% include sentrybar.html %}</div>
+        <div class="sticky limit-sticky flex flex-column">{% include search-provider/notice.html %}</div>
     </div><!--/row -->
 </div><!--/container -->
 <!-- 代码引用申明/code reference declaration:
@@ -33,20 +37,3 @@ permalink: /blog/
     - {@link https://github.com/orgs/github-community/discussions/categories/github-education}
     - {@link https://github.githubassets.com/assets/github-4b5f4883df19.css}
 -->
-<!--<script src="/assets/js/btnloadmore.js"></script>-->
-<!--<script>-->
-<!--    /**-->
-<!--     *  blog article load more function.-->
-<!--     *  - @printpage func() 代码引用申明/code reference declaration:-->
-<!--     *  - {@link GitHub repo: https://github.com/nttps/js-loadmore }-->
-<!--     *  - @param lm-contents `assets/js/btnloadmore.js`-->
-<!--     **/-->
-<!--    $(document).ready(function(){-->
-<!--        $('.lm-contents').btnLoadmore({-->
-<!--            showItem : 5,-->
-<!--            whenClickBtn : 2,-->
-<!--            textBtn : '加载更多',-->
-<!--            classBtn : 'btn-primary btn btn-block media'-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
