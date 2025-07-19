@@ -13,14 +13,8 @@
 
     <meta name="baidu-site-verification" content="codeva-Bt0LqEvH6L" />
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJ5SFQ4KCM"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-TJ5SFQ4KCM');
-</script>
+<script defer src="https://www.googletagmanager.com/gtag/js?id=G-TJ5SFQ4KCM"></script>
+<script defer src="/assets/js/gta.js"></script>
 <link rel="shortcut icon" href="/assets/img/favicon.png">
 <link type="application/atom+xml" rel="alternate" href="/feed.xml" title="© 哨兵" />
 
@@ -72,112 +66,72 @@
     <body>
         <startprint2pdfs>
             <div id="research-content" class="col-sm-12 flex flex-column">
-                <script>
-	document.addEventListener('DOMContentLoaded', () => {
-		const button = document.getElementById('toggleButton');
-		const sidebar = document.getElementById('sidebar1');
-		const ulsElements = document.querySelectorAll('ul.nav.nav-pills.nav-stacked');
-		const logoElement = document.getElementById('logo');
-		const figmaElements = document.querySelectorAll('.new_figma_des'); // 选中所有 new_figma_des 元素
-
-		if (!button || !sidebar) return; // 确保必要的元素存在，避免错误
-
-		button.addEventListener('click', () => {
-			const isCollapsed = sidebar.classList.toggle('collapsed');
-			button.setAttribute('aria-expanded', !isCollapsed);
-
-			// 切换 ul 元素的显示状态
-			[...ulsElements, logoElement].forEach(element => {
-				if (element) element.style.display = isCollapsed ? 'none' : '';
-			});
-
-			// 切换 .new_figma_des 的 padding
-			figmaElements.forEach(element => {
-				element.style.padding = isCollapsed ? '0px' : '32px';
-			});
-		});
-	});
-</script>
-
-<style>
-	.new_figma_des {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		align-content: center;
-		flex: none;
-		order: 0;
-		align-self: stretch;
-		padding: 32px;
-		transition: padding 0.3s ease; /* 添加过渡效果 */
-	}
-
-	#toggleButton {
-		transition: opacity 0.3s;
-		background-color: transparent;
-		cursor: pointer;
-	}
-	#sidebar1 {
-		transition: width 0.3s;
-		overflow: hidden;
-	}
-	#sidebar1.collapsed {
-		width: 65px;
-	}
-	#sidebar1.collapsed #logo,
-	#sidebar1.collapsed #toggleButton {
-		opacity: 1; /* 保持可见 */
-	}
-</style>
-
-
+                
 
 <div id="help-page">
 	<div class="visible-xs"><!--nav banner with logo. 响应式::菜单::表单-->
-		<!--
-#####################################################################################################################
-|  1.Fixed navbar issues #3 visit https://github.com/Bin4xin/bin4xin.github.io/issues/3                             |
-|    change `position: fixed` to `position: sticky`                                                                 |
-|                                                                                                                   |
-|  2.Fixed navbar padding-top equals to 70px                                                                        |
-|    `./assets/css/style.scss` @import struture in `./assets/css/_struture.scss` del `padding-top=70px` in body.    |
-#####################################################################################################################-->
-<style>
-.nav>li>a {
-    padding: 10px 15px;
-}
-</style>
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <div class="flex-justify-center-l flex-justify-between">
-                <!-- 代码引用申明/code reference declaration:
-                @ [click this icon -> scroll to top of page;] code from anquanke. visit any posts in https://www.anquanke.com/
-                <del>also this icon func are under-construction</del>
-                DONE.
-                -->
-                <div>
+            <!-- logo+popover整体包裹，便于布局和交互 -->
+            <div class="navbar-logo-hover-wrap">
+                <a class="gb_A flex-justify-center-l navbar-logo" href="/" title="返回首页" tabindex="0" aria-label="返回首页">
                     <picture>
-  
-  
-  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
-  
-  
-  
-  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
+  <svg style="vertical-align: middle;" aria-hidden="true" focusable="false" role="img" class="color-fg-default" viewBox="0 0 16 16" width="42" height="42" fill="currentColor" style=""><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
   
 </picture>
+                </a>
+                <!-- Apple/GitHub 风格美化的 popover -->
+                <div class="navbar-logo-popover" tabindex="-1">
+                    <div class="popover-arrow"></div>
+                    <ul>
                     
+                    
+                        
+                    
+                        
+                            
+                            <li>
+                                <a class="popover-link" href="https://github.com/Bin4xin/bigger-than-bigger/" target="_blank">
+                                    <span class="fa fa-code-fork"></span>
+                                    <span class="popover-link-text">BIGGER THAN BIGGER</span>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a class="popover-link" href="https://github.com/Bin4xin/bigger-than-bigger/tree/master/CoVV" target="_blank">
+                                    <span class="fa fa-code-fork"></span>
+                                    <span class="popover-link-text">COLLECTION OF VERIFIED VULNERABILITIES</span>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a class="popover-link" href="https://github.com/Bin4xin/sweet-ysoserial" target="_blank">
+                                    <span class="fa fa-code-fork"></span>
+                                    <span class="popover-link-text">SWEET-YSOSERIAL</span>
+                                </a>
+                            </li>
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    </ul>
                 </div>
-                <div>
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button></div>
             </div>
+            <!-- 菜单按钮 -->
+            <button type="button" class="navbar-toggle" id="navbar-toggle-btn" data-toggle="collapse" data-target=".navbar-collapse" aria-label="切换导航菜单" aria-expanded="false" aria-controls="main-nav" style="outline:2px solid transparent; margin-left: 8px;">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
         </div>
         <div class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
@@ -194,64 +148,85 @@
         </div><!--/.nav-collapse -->
     </div>
 </div>
+<script>
+// 菜单展开/收起交互优化，支持键盘操作
+(function() {
+    var btn = document.getElementById('navbar-toggle-btn');
+    var nav = document.querySelector('.navbar-collapse');
+    if (!btn || !nav) return;
+    btn.addEventListener('click', function() {
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', !expanded);
+        nav.classList.toggle('show');
+    });
+    btn.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            btn.click();
+            e.preventDefault();
+        }
+    });
+})();
+</script>
+
 		<div class="spacing"></div>
 
 		<form class="form-inline">
 			<div class="form-group"><details>
 				
-					
-				
-					
-				
-					
-				
-					
-					<summary class="edSFyN flex justify-between">
-						<a><strong>鱼叉攻击策略</strong></a>
-					</summary>
-					
-					<ul class="nav nav-pills nav-stacked">
-						<li id="toc-鱼叉攻击策略落地：从零到一" class="table-of-contents table-of-contents__left-border ">
-							<a href="/about/Harpoon-strategy-attack-from-0-to-1/">I. 鱼叉攻击策略落地：从零到一</a>
-						</li>
-					</ul>
-					
-					<ul class="nav nav-pills nav-stacked">
-						<li id="toc-鱼叉攻击策略落地：邮件网关应用" class="table-of-contents table-of-contents__left-border  active">
-							<a href="/about/2022-05-17-Harpoon-strategy-attack-EmailGateway-usage/">II. 鱼叉攻击策略落地：邮件网关应用</a>
-						</li>
-					</ul>
-					
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
-					
-				
+	
+
+	
+
+	
+
+	
+	<summary class="edSFyN flex justify-between">
+		<a><strong>鱼叉攻击策略</strong></a>
+	</summary>
+	
+	<ul class="nav nav-pills nav-stacked">
+		<li id="toc-鱼叉攻击策略落地：从零到一" class="table-of-contents table-of-contents__left-border ">
+			<a href="/about/Harpoon-strategy-attack-from-0-to-1/">I. 鱼叉攻击策略落地：从零到一</a>
+		</li>
+	</ul>
+	
+	<ul class="nav nav-pills nav-stacked">
+		<li id="toc-鱼叉攻击策略落地：邮件网关应用" class="table-of-contents table-of-contents__left-border  active">
+			<a href="/about/2022-05-17-Harpoon-strategy-attack-EmailGateway-usage/">II. 鱼叉攻击策略落地：邮件网关应用</a>
+		</li>
+	</ul>
+	
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
 			</details>
 			</div>
 		</form>
@@ -273,460 +248,403 @@
 </picture>
 						
 					</a>
-
-					<a id="toggleButton" aria-expanded="true" aria-label="折叠边栏" class="">
-						<picture>
-  
-  
-  <source srcset="/assets/img/expand-icon-dark.png 1x, /assets/img/expand-icon-dark@2x.png 2x, /assets/img/expand-icon-dark@3x.png 3x" media="(prefers-color-scheme: dark)" />
-  
-  
-  
-  <img src="/assets/img/expand-icon.png" srcset="/assets/img/expand-icon.png 1x, /assets/img/expand-icon@2x.png 2x, /assets/img/expand-icon@3x.png 3x" />
-  
-</picture>
-					</a>
 				</div>
-				<ul id="help-nav" aria-expanded="true" class="nav nav-pills nav-stacked" >
+				<div id="help-nav" aria-expanded="true" class="nav nav-pills nav-stacked" >
 					
-					<details >
-						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-							<a class="no-underline"><strong>JMREPORT</strong></a>
-						</summary>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-JimuReport Vuln WalkThrough backup" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/JimuReport-Vuln-WalkThrough-backup/">I. JIMUREPORT VULN WALKTHROUGH BACKUP</a>
-								
-							</li>
-						</ul>
-						
-					</details>
-					
-					<details >
-						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-							<a class="no-underline"><strong>OPENLITESPEED</strong></a>
-						</summary>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-OpenliteSpeed CVE-2022-0072 Vulns" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/2022-11-23-openlitespeed-cve-vuln-walkthrough/">I. OPENLITESPEED CVE-2022-0072 VULNS</a>
-								
-							</li>
-						</ul>
-						
-					</details>
-					
-					<details >
-						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-							<a class="no-underline"><strong>APEREO CAS</strong></a>
-						</summary>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-Apereo CAS < 4.2.x 反序列化远程代码执行" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/Apereo-CAS-Less-than-4-2-x-RCE/">I. APEREO CAS < 4.2.X 反序列化远程代码执行</a>
-								
-							</li>
-						</ul>
-						
-					</details>
-					
-					<details open>
-						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-							<a class="no-underline"><strong>鱼叉攻击策略</strong></a>
-						</summary>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-鱼叉攻击策略落地：从零到一" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/Harpoon-strategy-attack-from-0-to-1/">I. 鱼叉攻击策略落地：从零到一</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-鱼叉攻击策略落地：邮件网关应用" class="table-of-contents table-of-contents__left-border  active">
-								<a href="/about/2022-05-17-Harpoon-strategy-attack-EmailGateway-usage/">II. 鱼叉攻击策略落地：邮件网关应用</a>
-								
-							</li>
-						</ul>
-						
-					</details>
-					
-					<details >
-						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-							<a class="no-underline"><strong>GITLAB</strong></a>
-						</summary>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-GitLab CVE-2020-10977 任意文件读取漏洞" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/GitLab-CVE-2020-10977/">I. GITLAB CVE-2020-10977 任意文件读取漏洞</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-GitLab CVE-2020-10977 任意文件读取漏洞导致的RCE" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/GitLab-CVE-2020-10977-RCE/">II. GITLAB CVE-2020-10977 任意文件读取漏洞导致的RCE</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-GitLab CVE-2021-22205 snippet RCE" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/Gitlab-RCE-with-snippet-function/">III. GITLAB CVE-2021-22205 SNIPPET RCE</a>
-								
-							</li>
-						</ul>
-						
-					</details>
-					
-					<details >
-						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-							<a class="no-underline"><strong>COBALT STRIKE</strong></a>
-						</summary>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-Cobalt Strike服务器搭建历程" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/Cobalt-Strike-Server-build-walkthrough/">I. COBALT STRIKE服务器搭建历程</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-Cobalt Strike服务器隐藏真实ip" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/Cobalt-Stike-hidden-true-ip/">II. COBALT STRIKE服务器隐藏真实IP</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-CS上线木马免杀入门" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/Cobalt-Strike-beacon-bypass-walkthrough/">III. CS上线木马免杀入门</a>
-								
-							</li>
-						</ul>
-						
-					</details>
-					
-					<details >
-						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-							<a class="no-underline"><strong>APACHE LOG4J2</strong></a>
-						</summary>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-Apache Log4J2 RCE复现历程" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/Apache-Log4j2-RCE-WalkThrough/">I. APACHE LOG4J2 RCE复现历程</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-Apache Log4J2 RCE JDK限制实验" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/Apache-log4j2-affect-By-JDK-version-walkthrough/">II. APACHE LOG4J2 RCE JDK限制实验</a>
-								
-							</li>
-						</ul>
-						
-					</details>
-					
-					<details >
-						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-							<a class="no-underline"><strong>OCR IN BP</strong></a>
-						</summary>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-BurpSuite验证码插件实验" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/CAPTCHA-BYPASS-WALKTHROUGH/">I. BURPSUITE验证码插件实验</a>
-								
-							</li>
-						</ul>
-						
-					</details>
-					
-					<details >
-						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-							<a class="no-underline"><strong>GET-STARTED</strong></a>
-						</summary>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-en" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/en/">I. EN</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-zh" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/">II. ZH</a>
-								
-							</li>
-						</ul>
-						
-					</details>
-					
-					<details >
-						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-							<a class="no-underline"><strong>CTF</strong></a>
-						</summary>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-CTF - 代码审计向" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/CTF-Code-Audit-WalkThrough/">I. CTF - 代码审计向</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-CTF - 杂项" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/CTF-Misc-WalkThrough/">II. CTF - 杂项</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-CTF - 密码学与杂项" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/CTF-Crypto-and-Misc-etc-WalkThrough/">III. CTF - 密码学与杂项</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-2022年网鼎杯玄武组-解题记录" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/WANGDINGCTF2022-Walkthrough/">IV. 2022年网鼎杯玄武组-解题记录</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-2022年网鼎杯玄武组赛题复盘-[Web-FindIT]" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/WANGDINGCTF2022-WEB-FindIT-Walkthrough/">V. 2022年网鼎杯玄武组赛题复盘-[WEB-FINDIT]</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-2022年网鼎杯玄武组赛题复盘-[Web-ezJava]" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/WANGDINGCTF2022-WEB-ezJava-Walkthrough/">VI. 2022年网鼎杯玄武组赛题复盘-[WEB-EZJAVA]</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-2024年网鼎杯玄武组赛题历程" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/WANGDINGCTF2024-Walkthrough/">VII. 2024年网鼎杯玄武组赛题历程</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-在棉花糖及以下版本中获取图案密码" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/Get-Pattern-password-in-Marshmallow-and-below/">VIII. 在棉花糖及以下版本中获取图案密码</a>
-								
-							</li>
-						</ul>
-						
-					</details>
-					
-					<details >
-						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-							<a class="no-underline"><strong>二进制研究/BIN</strong></a>
-						</summary>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-Hikvision-ConfigurationFiles-decrypter" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/Hikvision-ConfigurationFiles-decrypter/">I. HIKVISION-CONFIGURATIONFILES-DECRYPTER</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-Router-BinFile-Analysis" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/Router-BinFile-Analysis/">II. ROUTER-BINFILE-ANALYSIS</a>
-								
-							</li>
-						</ul>
-						
-					</details>
-					
-					<details >
-						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-							<a class="no-underline"><strong>POLKIT</strong></a>
-						</summary>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-Polkit-CVE-2021-3560" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/polkit-CVE-2021-3560/">I. POLKIT-CVE-2021-3560</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-Polkit-CVE-2021-4034复现" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/polkit-CVE-2021-4034/">II. POLKIT-CVE-2021-4034复现</a>
-								
-							</li>
-						</ul>
-						
-					</details>
-					
-					<details >
-						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-							<a class="no-underline"><strong>代理池：BASED ON SCYLLA</strong></a>
-						</summary>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-scylla 搭建步骤" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/Thousand-people-Thousand-faces-Red-team-penetration-agent-pool-based-on-scylla/">I. SCYLLA 搭建步骤</a>
-								
-							</li>
-						</ul>
-						
-					</details>
-					
-					<details >
-						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-							<a class="no-underline"><strong>WAF</strong></a>
-						</summary>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-Mod-Waf-Bypass-Walkthrough" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/Mod-Waf-Bypass-Walkthrough/">I. MOD-WAF-BYPASS-WALKTHROUGH</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-ModSec & CloudFlare WAF Initial Research" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/WAF-developed-by-Grayscale-forwarding/">II. MODSEC & CLOUDFLARE WAF INITIAL RESEARCH</a>
-								
-							</li>
-						</ul>
-						
-					</details>
-					
-					<details >
-						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-							<a class="no-underline"><strong>代码审计</strong></a>
-						</summary>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-Dynamic-analysis-of-java-framework-code" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/Dynamic-analysis-of-java-framework-code/">I. DYNAMIC-ANALYSIS-OF-JAVA-FRAMEWORK-CODE</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-安全与开发之：Maven构建排错" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/ALL-mvn-build-errors/">II. 安全与开发之：MAVEN构建排错</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-浪潮ClusterEngineV4.0代码审计历程" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/inspur-Cluster-Engine-V4.0-code-aduit-walkthrough/">III. 浪潮CLUSTERENGINEV4.0代码审计历程</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-CVE-2022-40664 Shiro Bypass研究历程" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/CVE-2022-40664-Research-Walkthrough/">IV. CVE-2022-40664 SHIRO BYPASS研究历程</a>
-								
-							</li>
-						</ul>
-						
-					</details>
-					
-					<details >
-						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-							<a class="no-underline"><strong>SPRING</strong></a>
-						</summary>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-SpringBoot-Memory-files-heapdump-Analysis" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/SpringBoot-Memory-files-heapdump-Analysis/">I. SPRINGBOOT-MEMORY-FILES-HEAPDUMP-ANALYSIS</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-CVE-2022-22947 Spring-Cloud-Gateway-RCE" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/CVE-2022-22947-Spring-Cloud-Gateway-RCE/">II. CVE-2022-22947 SPRING-CLOUD-GATEWAY-RCE</a>
-								
-							</li>
-						</ul>
-						
-					</details>
-					
-					<details >
-						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-							<a class="no-underline"><strong>其他研究</strong></a>
-						</summary>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-SQL注入原理分析" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/ALL-SQL-INJECTION-ANALYSIS/">I. SQL注入原理分析</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-Struts2Deser" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/Struts2Deser/">II. STRUTS2DESER</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-基于内存的Shiro框架Webshell攻击研究" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/Research-on-Webshell-Attack-of-Shiro-Framework-Based-on-Memory/">III. 基于内存的SHIRO框架WEBSHELL攻击研究</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-通达OA利用代码分析" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/ToDa-OA-VulnPoc-by-java-analysis/">IV. 通达OA利用代码分析</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-JRMP-Gadget" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/JRMP-Gadget/">V. JRMP-GADGET</a>
-								
-							</li>
-						</ul>
-						
-					</details>
-					
-					<details >
-						<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-							<a class="no-underline"><strong>反序列化</strong></a>
-						</summary>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-ShiroDeser" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/ShiroDeser/">I. SHIRODESER</a>
-								
-							</li>
-						</ul>
-						
-						<ul class="nav nav-pills nav-stacked no-underline">
-							<li id="toc-javaDeser" class="table-of-contents table-of-contents__left-border ">
-								<a href="/about/javaDeser/">II. JAVADESER</a>
-								
-							</li>
-						</ul>
-						
-					</details>
-					
-				</ul>
+	<details >
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>JMREPORT</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-JimuReport Vuln WalkThrough backup" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/JimuReport-Vuln-WalkThrough-backup/">I. JIMUREPORT VULN WALKTHROUGH BACKUP</a>
+			</li>
+		</ul>
+		
+	</details>
+
+	<details >
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>OPENLITESPEED</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-OpenliteSpeed CVE-2022-0072 Vulns" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/2022-11-23-openlitespeed-cve-vuln-walkthrough/">I. OPENLITESPEED CVE-2022-0072 VULNS</a>
+			</li>
+		</ul>
+		
+	</details>
+
+	<details >
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>APEREO CAS</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-Apereo CAS < 4.2.x 反序列化远程代码执行" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/Apereo-CAS-Less-than-4-2-x-RCE/">I. APEREO CAS < 4.2.X 反序列化远程代码执行</a>
+			</li>
+		</ul>
+		
+	</details>
+
+	<details open>
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>鱼叉攻击策略</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-鱼叉攻击策略落地：从零到一" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/Harpoon-strategy-attack-from-0-to-1/">I. 鱼叉攻击策略落地：从零到一</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-鱼叉攻击策略落地：邮件网关应用" class="table-of-contents table-of-contents__left-border  active">
+				<a href="/about/2022-05-17-Harpoon-strategy-attack-EmailGateway-usage/">II. 鱼叉攻击策略落地：邮件网关应用</a>
+			</li>
+		</ul>
+		
+	</details>
+
+	<details >
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>GITLAB</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-GitLab CVE-2020-10977 任意文件读取漏洞" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/GitLab-CVE-2020-10977/">I. GITLAB CVE-2020-10977 任意文件读取漏洞</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-GitLab CVE-2020-10977 任意文件读取漏洞导致的RCE" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/GitLab-CVE-2020-10977-RCE/">II. GITLAB CVE-2020-10977 任意文件读取漏洞导致的RCE</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-GitLab CVE-2021-22205 snippet RCE" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/Gitlab-RCE-with-snippet-function/">III. GITLAB CVE-2021-22205 SNIPPET RCE</a>
+			</li>
+		</ul>
+		
+	</details>
+
+	<details >
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>COBALT STRIKE</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-Cobalt Strike服务器搭建历程" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/Cobalt-Strike-Server-build-walkthrough/">I. COBALT STRIKE服务器搭建历程</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-Cobalt Strike服务器隐藏真实ip" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/Cobalt-Stike-hidden-true-ip/">II. COBALT STRIKE服务器隐藏真实IP</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-CS上线木马免杀入门" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/Cobalt-Strike-beacon-bypass-walkthrough/">III. CS上线木马免杀入门</a>
+			</li>
+		</ul>
+		
+	</details>
+
+	<details >
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>APACHE LOG4J2</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-Apache Log4J2 RCE复现历程" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/Apache-Log4j2-RCE-WalkThrough/">I. APACHE LOG4J2 RCE复现历程</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-Apache Log4J2 RCE JDK限制实验" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/Apache-log4j2-affect-By-JDK-version-walkthrough/">II. APACHE LOG4J2 RCE JDK限制实验</a>
+			</li>
+		</ul>
+		
+	</details>
+
+	<details >
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>OCR IN BP</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-BurpSuite验证码插件实验" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/CAPTCHA-BYPASS-WALKTHROUGH/">I. BURPSUITE验证码插件实验</a>
+			</li>
+		</ul>
+		
+	</details>
+
+	<details >
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>GET-STARTED</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-en" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/en/">I. EN</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-zh" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/">II. ZH</a>
+			</li>
+		</ul>
+		
+	</details>
+
+	<details >
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>CTF</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-CTF - 代码审计向" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/CTF-Code-Audit-WalkThrough/">I. CTF - 代码审计向</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-CTF - 杂项" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/CTF-Misc-WalkThrough/">II. CTF - 杂项</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-CTF - 密码学与杂项" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/CTF-Crypto-and-Misc-etc-WalkThrough/">III. CTF - 密码学与杂项</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-2022年网鼎杯玄武组-解题记录" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/WANGDINGCTF2022-Walkthrough/">IV. 2022年网鼎杯玄武组-解题记录</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-2022年网鼎杯玄武组赛题复盘-[Web-FindIT]" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/WANGDINGCTF2022-WEB-FindIT-Walkthrough/">V. 2022年网鼎杯玄武组赛题复盘-[WEB-FINDIT]</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-2022年网鼎杯玄武组赛题复盘-[Web-ezJava]" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/WANGDINGCTF2022-WEB-ezJava-Walkthrough/">VI. 2022年网鼎杯玄武组赛题复盘-[WEB-EZJAVA]</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-2024年网鼎杯玄武组赛题历程" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/WANGDINGCTF2024-Walkthrough/">VII. 2024年网鼎杯玄武组赛题历程</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-在棉花糖及以下版本中获取图案密码" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/Get-Pattern-password-in-Marshmallow-and-below/">VIII. 在棉花糖及以下版本中获取图案密码</a>
+			</li>
+		</ul>
+		
+	</details>
+
+	<details >
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>二进制研究/BIN</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-Hikvision-ConfigurationFiles-decrypter" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/Hikvision-ConfigurationFiles-decrypter/">I. HIKVISION-CONFIGURATIONFILES-DECRYPTER</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-Router-BinFile-Analysis" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/Router-BinFile-Analysis/">II. ROUTER-BINFILE-ANALYSIS</a>
+			</li>
+		</ul>
+		
+	</details>
+
+	<details >
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>POLKIT</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-Polkit-CVE-2021-3560" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/polkit-CVE-2021-3560/">I. POLKIT-CVE-2021-3560</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-Polkit-CVE-2021-4034复现" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/polkit-CVE-2021-4034/">II. POLKIT-CVE-2021-4034复现</a>
+			</li>
+		</ul>
+		
+	</details>
+
+	<details >
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>代理池：BASED ON SCYLLA</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-scylla 搭建步骤" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/Thousand-people-Thousand-faces-Red-team-penetration-agent-pool-based-on-scylla/">I. SCYLLA 搭建步骤</a>
+			</li>
+		</ul>
+		
+	</details>
+
+	<details >
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>WAF</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-Mod-Waf-Bypass-Walkthrough" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/Mod-Waf-Bypass-Walkthrough/">I. MOD-WAF-BYPASS-WALKTHROUGH</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-ModSec & CloudFlare WAF Initial Research" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/WAF-developed-by-Grayscale-forwarding/">II. MODSEC & CLOUDFLARE WAF INITIAL RESEARCH</a>
+			</li>
+		</ul>
+		
+	</details>
+
+	<details >
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>代码审计</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-Dynamic-analysis-of-java-framework-code" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/Dynamic-analysis-of-java-framework-code/">I. DYNAMIC-ANALYSIS-OF-JAVA-FRAMEWORK-CODE</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-安全与开发之：Maven构建排错" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/ALL-mvn-build-errors/">II. 安全与开发之：MAVEN构建排错</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-浪潮ClusterEngineV4.0代码审计历程" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/inspur-Cluster-Engine-V4.0-code-aduit-walkthrough/">III. 浪潮CLUSTERENGINEV4.0代码审计历程</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-CVE-2022-40664 Shiro Bypass研究历程" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/CVE-2022-40664-Research-Walkthrough/">IV. CVE-2022-40664 SHIRO BYPASS研究历程</a>
+			</li>
+		</ul>
+		
+	</details>
+
+	<details >
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>SPRING</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-SpringBoot-Memory-files-heapdump-Analysis" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/SpringBoot-Memory-files-heapdump-Analysis/">I. SPRINGBOOT-MEMORY-FILES-HEAPDUMP-ANALYSIS</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-CVE-2022-22947 Spring-Cloud-Gateway-RCE" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/CVE-2022-22947-Spring-Cloud-Gateway-RCE/">II. CVE-2022-22947 SPRING-CLOUD-GATEWAY-RCE</a>
+			</li>
+		</ul>
+		
+	</details>
+
+	<details >
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>其他研究</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-SQL注入原理分析" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/ALL-SQL-INJECTION-ANALYSIS/">I. SQL注入原理分析</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-Struts2Deser" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/Struts2Deser/">II. STRUTS2DESER</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-基于内存的Shiro框架Webshell攻击研究" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/Research-on-Webshell-Attack-of-Shiro-Framework-Based-on-Memory/">III. 基于内存的SHIRO框架WEBSHELL攻击研究</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-通达OA利用代码分析" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/ToDa-OA-VulnPoc-by-java-analysis/">IV. 通达OA利用代码分析</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-JRMP-Gadget" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/JRMP-Gadget/">V. JRMP-GADGET</a>
+			</li>
+		</ul>
+		
+	</details>
+
+	<details >
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>反序列化</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-ShiroDeser" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/ShiroDeser/">I. SHIRODESER</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-javaDeser" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/javaDeser/">II. JAVADESER</a>
+			</li>
+		</ul>
+		
+	</details>
+
+
+				</div>
 			</div><!-- side menu end. 左边菜单栏结束-->
-			<!--中间内容-->
-			<div class="flex-column">
+			<div class="flex-column col-md-9">
 				
 <div>
     <div class="c_banner c_r c_cw c_agl c_mz c_jg c_fa c_fb"><!--start content bar. -->
@@ -783,18 +701,19 @@
     </div><!--end content bar. -->
 </div>
 
-				<div id="help-content"><!--page main content-->
-					<div class="px-md-6">
-						<h1>
-							<span class="post-print pull-right"><a onclick="printpage()"><!--href="javascript:window.print()"-->
-							<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Print document</title><path d="M400,96V56a8,8,0,0,0-8-8H120a8,8,0,0,0-8,8V96"/><rect x="152" y="264" width="208" height="160" rx="4" ry="4" style="fill:none;stroke:none;"/><path d="M408,112H104a56,56,0,0,0-56,56V376a8,8,0,0,0,8,8h56v72a8,8,0,0,0,8,8H392a8,8,0,0,0,8-8V384h56a8,8,0,0,0,8-8V168A56,56,0,0,0,408,112ZM360,420a4,4,0,0,1-4,4H156a4,4,0,0,1-4-4V268a4,4,0,0,1,4-4H356a4,4,0,0,1,4,4ZM394,207.92a24,24,0,1,1,22-22A24,24,0,0,1,394,207.92Z"/></svg>
-							</ion-icon></a></span>
-							<span class="post-print pull-right"><a href="https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/鱼叉攻击策略/2022-05-17-Harpoon-strategy-attack-EmailGateway-usage.md" target="_blank">
-							<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Edit on github</title><path d="M459.94,53.25a16.06,16.06,0,0,0-23.22-.56L424.35,65a8,8,0,0,0,0,11.31l11.34,11.32a8,8,0,0,0,11.34,0l12.06-12C465.19,69.54,465.76,59.62,459.94,53.25Z"/><path d="M399.34,90,218.82,270.2a9,9,0,0,0-2.31,3.93L208.16,299a3.91,3.91,0,0,0,4.86,4.86l24.85-8.35a9,9,0,0,0,3.93-2.31L422,112.66A9,9,0,0,0,422,100L412.05,90A9,9,0,0,0,399.34,90Z"/><path d="M386.34,193.66,264.45,315.79A41.08,41.08,0,0,1,247.58,326l-25.9,8.67a35.92,35.92,0,0,1-44.33-44.33l8.67-25.9a41.08,41.08,0,0,1,10.19-16.87L318.34,125.66A8,8,0,0,0,312.69,112H104a56,56,0,0,0-56,56V408a56,56,0,0,0,56,56H344a56,56,0,0,0,56-56V199.31A8,8,0,0,0,386.34,193.66Z"/></svg>
-							</ion-icon>
-							</a></span>
-						</h1>
-						<blockquote>
+				<div class="d-flex">
+					<div id="help-content" class="flex-grow-1"><!--page main content-->
+						<div class="px-md-6">
+							<h1>
+								<span class="post-print pull-right"><a onclick="printpage()"><!--href="javascript:window.print()"-->
+								<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Print document</title><path d="M400,96V56a8,8,0,0,0-8-8H120a8,8,0,0,0-8,8V96"/><rect x="152" y="264" width="208" height="160" rx="4" ry="4" style="fill:none;stroke:none;"/><path d="M408,112H104a56,56,0,0,0-56,56V376a8,8,0,0,0,8,8h56v72a8,8,0,0,0,8,8H392a8,8,0,0,0,8-8V384h56a8,8,0,0,0,8-8V168A56,56,0,0,0,408,112ZM360,420a4,4,0,0,1-4,4H156a4,4,0,0,1-4-4V268a4,4,0,0,1,4-4H356a4,4,0,0,1,4,4ZM394,207.92a24,24,0,1,1,22-22A24,24,0,0,1,394,207.92Z"/></svg>
+								</ion-icon></a></span>
+								<span class="post-print pull-right"><a href="https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/鱼叉攻击策略/2022-05-17-Harpoon-strategy-attack-EmailGateway-usage.md" target="_blank">
+								<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Edit on github</title><path d="M459.94,53.25a16.06,16.06,0,0,0-23.22-.56L424.35,65a8,8,0,0,0,0,11.31l11.34,11.32a8,8,0,0,0,11.34,0l12.06-12C465.19,69.54,465.76,59.62,459.94,53.25Z"/><path d="M399.34,90,218.82,270.2a9,9,0,0,0-2.31,3.93L208.16,299a3.91,3.91,0,0,0,4.86,4.86l24.85-8.35a9,9,0,0,0,3.93-2.31L422,112.66A9,9,0,0,0,422,100L412.05,90A9,9,0,0,0,399.34,90Z"/><path d="M386.34,193.66,264.45,315.79A41.08,41.08,0,0,1,247.58,326l-25.9,8.67a35.92,35.92,0,0,1-44.33-44.33l8.67-25.9a41.08,41.08,0,0,1,10.19-16.87L318.34,125.66A8,8,0,0,0,312.69,112H104a56,56,0,0,0-56,56V408a56,56,0,0,0,56,56H344a56,56,0,0,0,56-56V199.31A8,8,0,0,0,386.34,193.66Z"/></svg>
+								</ion-icon>
+								</a></span>
+							</h1>
+							<blockquote>
   <p>实现：如何尽可能快的落地邮件网关，并实现具有一定欺骗性的钓鱼邮件。</p>
 </blockquote>
 
@@ -919,9 +838,9 @@
 
 <p>以上。</p>
 
-					</div>
-					<div class="spacing"></div>
-					<!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
+						</div>
+						<div class="spacing"></div>
+						<!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
 <footer>
 	<style>.border-top {
 		border-top: 1.5px solid #d0d7de!important;
@@ -966,11 +885,10 @@
 			</div>
 		</section>
 </footer>
-				</div><!--page main content end-->
-			</div><!--content display end-->
-			<!--右边文章目录开始-->
-<div class="col-md-4 ml-hide table-of-contents__left-border" style="max-height: 100%">
-    <div class="nav nav-stacked tableOfContents_35-E thin-scrollbar position-sticky top-0">
+					</div><!--page main content end-->
+					<!--右边文章目录开始-->
+<div class="ml-hide article-index thin-scrollbar position-sticky top-0" style="max-height: 100vh; overflow-y: auto;">
+    <div class="nav nav-stacked tableOfContents_35-E">
         <li class=" table-of-contents">
             <code-index-css>
                 <ul><li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column"><a>文章目录</a></li></ul>
@@ -984,14 +902,19 @@
         </li>
     </div>
 </div>
+
 <!--右边目录结束-->
+				</div>
+			</div><!--content display end-->
 		</div>
 	</div>
 </div>
 <!--/pages -->
 <!--</div>
+<script src="/assets/js/about.js"></script>
 vim: ts=2 sts=2 sw=2 noexpandtab
 -->
+
             </div>
         </startprint2pdfs>
     </body>

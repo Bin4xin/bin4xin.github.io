@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 gem 'github-pages'
+gem 'jekyll-paginate'
+gem 'jekyll-paginate-v2'
 gem 'jekyll-babel'
 gem 'jekyll-toc', '~> 0.17.1'
 gem 'jekyll-roman', '= 0.0.1'

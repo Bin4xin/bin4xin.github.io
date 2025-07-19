@@ -7,11 +7,11 @@
     <link>https://bin4xin.sentrylab.cn</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
     <pubDate>
-         2025/07/18
+         2025/07/19
         
     </pubDate>
     <lastBuildDate>
-         2025/07/18
+         2025/07/19
         
     </lastBuildDate>
     <generator>Jekyll Ver 3.9.5.</generator>
@@ -309,8 +309,8 @@
          2022/09/30
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2022/ICT-network-security-CTF-2022-walkthrough/</link>
-        <guid isPermaLink="true">/blog/2022/ICT-network-security-CTF-2022-walkthrough/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2022/ICT-network-security-CTF/</link>
+        <guid isPermaLink="true">/blog/2022/ICT-network-security-CTF/</guid>
         
         <category>笔记</category>
         
@@ -328,8 +328,8 @@
          2022/09/25
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2022/Industrial-Internet-CTF-2022-walkthrough/</link>
-        <guid isPermaLink="true">/blog/2022/Industrial-Internet-CTF-2022-walkthrough/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2022/Industrial-Internet-CTF-2022/</link>
+        <guid isPermaLink="true">/blog/2022/Industrial-Internet-CTF-2022/</guid>
         
         <category>笔记</category>
         
@@ -922,8 +922,8 @@
          2021/05/7
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView/</link>
-        <guid isPermaLink="true">/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-I/</link>
+        <guid isPermaLink="true">/blog/2021/Realization-of-Openplc-simulation-communication-based-on-Modbus-protocol-and-KingView-I/</guid>
         
         <category>漏洞复现</category>
         
@@ -941,8 +941,8 @@
          2021/03/13
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2021/yonyou-nc6.5-java-underser/</link>
-        <guid isPermaLink="true">/blog/2021/yonyou-nc6.5-java-underser/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2021/yonyou-java-underser/</link>
+        <guid isPermaLink="true">/blog/2021/yonyou-java-underser/</guid>
         
         <category>反序列化</category>
         
@@ -958,8 +958,8 @@
          2021/03/13
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/</link>
-        <guid isPermaLink="true">/blog/2021/Record-a-suffocating-emergency-response-and-traceability-incident/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2021/find-source-in-cyber/</link>
+        <guid isPermaLink="true">/blog/2021/find-source-in-cyber/</guid>
         
         <category>主动防御</category>
         
@@ -1114,8 +1114,8 @@
          2020/09/25
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/think-about-cyber-security/</link>
-        <guid isPermaLink="true">/blog/2020/think-about-cyber-security/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/thinking-about-net-Cyber-Security/</link>
+        <guid isPermaLink="true">/blog/2020/thinking-about-net-Cyber-Security/</guid>
         
         <category>笔记</category>
         
@@ -1131,8 +1131,8 @@
          2020/09/25
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/Spring-boot/</link>
-        <guid isPermaLink="true">/blog/2020/Spring-boot/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/spring-boot-vuln-summary/</link>
+        <guid isPermaLink="true">/blog/2020/spring-boot-vuln-summary/</guid>
         
         <category>src</category>
         
@@ -1154,8 +1154,8 @@
          2020/09/11
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/docker/vuln/problems/</link>
-        <guid isPermaLink="true">/blog/2020/docker/vuln/problems/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/docker-vulnhub-problems/</link>
+        <guid isPermaLink="true">/blog/2020/docker-vulnhub-problems/</guid>
         
         <category>docker</category>
         
@@ -1177,8 +1177,8 @@
          2020/09/1
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/use/vim/in/linux/</link>
-        <guid isPermaLink="true">/blog/2020/use/vim/in/linux/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/vim-2-usage/</link>
+        <guid isPermaLink="true">/blog/2020/vim-2-usage/</guid>
         
         <category>笔记</category>
         
@@ -1198,8 +1198,8 @@
          2020/06/21
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/useSecTools/aq_AWVS/</link>
-        <guid isPermaLink="true">/blog/2020/useSecTools/aq_AWVS/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/usetools-in-linux(aq+awvs)-server/</link>
+        <guid isPermaLink="true">/blog/2020/usetools-in-linux(aq+awvs)-server/</guid>
         
         <category>笔记</category>
         
@@ -1219,8 +1219,8 @@
          2020/06/10
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/learn/to/fuzz/</link>
-        <guid isPermaLink="true">/blog/2020/learn/to/fuzz/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/learn-to-fuzz/</link>
+        <guid isPermaLink="true">/blog/2020/learn-to-fuzz/</guid>
         
         <category>笔记</category>
         
@@ -1240,8 +1240,8 @@
          2020/06/8
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/walkthrough/insideNet/</link>
-        <guid isPermaLink="true">/blog/2020/walkthrough/insideNet/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/inside-internet-walk-through/</link>
+        <guid isPermaLink="true">/blog/2020/inside-internet-walk-through/</guid>
         
         <category>vulnhub</category>
         
@@ -1276,8 +1276,8 @@
          2020/05/27
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/use/Docker/Elegently/</link>
-        <guid isPermaLink="true">/blog/2020/use/Docker/Elegently/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/howto-use-docker-elegantly/</link>
+        <guid isPermaLink="true">/blog/2020/howto-use-docker-elegantly/</guid>
         
         <category>vulnhub</category>
         
@@ -1299,8 +1299,8 @@
          2020/05/26
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/Apache/Strut2/Vuln/</link>
-        <guid isPermaLink="true">/blog/2020/Apache/Strut2/Vuln/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/structs-2-vuln-poc/</link>
+        <guid isPermaLink="true">/blog/2020/structs-2-vuln-poc/</guid>
         
         <category>vulnhub</category>
         
@@ -1322,8 +1322,8 @@
          2020/05/20
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/get/TTY/terminal/</link>
-        <guid isPermaLink="true">/blog/2020/get/TTY/terminal/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/how-to-get-TTY-terminal-in-linux/</link>
+        <guid isPermaLink="true">/blog/2020/how-to-get-TTY-terminal-in-linux/</guid>
         
         <category>BASH</category>
         
@@ -1341,8 +1341,8 @@
          2020/05/19
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/fastjson/UNdeser/</link>
-        <guid isPermaLink="true">/blog/2020/fastjson/UNdeser/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/fastjson-Deserialization-poc/</link>
+        <guid isPermaLink="true">/blog/2020/fastjson-Deserialization-poc/</guid>
         
         <category>漏洞复现</category>
         
@@ -1379,8 +1379,8 @@
          2020/05/17
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/docker/escape/</link>
-        <guid isPermaLink="true">/blog/2020/docker/escape/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/escape-docker-from-google-cloud_shell/</link>
+        <guid isPermaLink="true">/blog/2020/escape-docker-from-google-cloud_shell/</guid>
         
         <category>漏洞复现</category>
         
@@ -1402,8 +1402,8 @@
          2020/05/15
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/wsdl/inject/</link>
-        <guid isPermaLink="true">/blog/2020/wsdl/inject/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/wsdl-sql-inject-recurrent/</link>
+        <guid isPermaLink="true">/blog/2020/wsdl-sql-inject-recurrent/</guid>
         
         <category>Web</category>
         
@@ -1423,8 +1423,8 @@
          2020/05/15
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/escape/from_android_root/</link>
-        <guid isPermaLink="true">/blog/2020/escape/from_android_root/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/use-RootCloak-to-hidden-your-root/</link>
+        <guid isPermaLink="true">/blog/2020/use-RootCloak-to-hidden-your-root/</guid>
         
         <category>笔记</category>
         
@@ -1442,8 +1442,8 @@
          2020/04/27
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/docker/reverse/shell/by1/</link>
-        <guid isPermaLink="true">/blog/2020/docker/reverse/shell/by1/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/docker-reverse-shell-by-one/</link>
+        <guid isPermaLink="true">/blog/2020/docker-reverse-shell-by-one/</guid>
         
         <category>docker</category>
         
@@ -1484,8 +1484,8 @@
          2020/04/1
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/pip/said/unkown/encoding/</link>
-        <guid isPermaLink="true">/blog/2020/pip/said/unkown/encoding/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/pip-unknown-encoding/</link>
+        <guid isPermaLink="true">/blog/2020/pip-unknown-encoding/</guid>
         
         <category>python</category>
         
@@ -1524,8 +1524,8 @@
          2020/01/21
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/Lets/GyoiThon/</link>
-        <guid isPermaLink="true">/blog/2020/Lets/GyoiThon/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/GyoiThon-scanner/</link>
+        <guid isPermaLink="true">/blog/2020/GyoiThon-scanner/</guid>
         
         <category>笔记</category>
         
@@ -1545,8 +1545,8 @@
          2020/01/19
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/maven/build/mavaProject/</link>
-        <guid isPermaLink="true">/blog/2020/maven/build/mavaProject/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/maven-build-javapro/</link>
+        <guid isPermaLink="true">/blog/2020/maven-build-javapro/</guid>
         
         <category>笔记</category>
         
@@ -1566,8 +1566,8 @@
          2020/01/7
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2020/fortify/no-fules-file/found/</link>
-        <guid isPermaLink="true">/blog/2020/fortify/no-fules-file/found/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2020/fortify-error-no-rules-file-found/</link>
+        <guid isPermaLink="true">/blog/2020/fortify-error-no-rules-file-found/</guid>
         
         <category>代码审计</category>
         
@@ -1585,8 +1585,8 @@
          2019/12/31
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2019/scrcpy/</link>
-        <guid isPermaLink="true">/blog/2019/scrcpy/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2019/scrcpy-android-in-linux/</link>
+        <guid isPermaLink="true">/blog/2019/scrcpy-android-in-linux/</guid>
         
         <category>笔记</category>
         
@@ -1602,8 +1602,8 @@
          2019/12/30
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2019/shell/reserve/back/</link>
-        <guid isPermaLink="true">/blog/2019/shell/reserve/back/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2019/shell-reserve-back/</link>
+        <guid isPermaLink="true">/blog/2019/shell-reserve-back/</guid>
         
         <category>安全工具</category>
         
@@ -1623,8 +1623,8 @@
          2019/12/25
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2019/ABOUT/Modsec/waf/</link>
-        <guid isPermaLink="true">/blog/2019/ABOUT/Modsec/waf/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2019/modsec-test/</link>
+        <guid isPermaLink="true">/blog/2019/modsec-test/</guid>
         
         <category>笔记</category>
         
@@ -1644,8 +1644,8 @@
          2019/12/18
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2019/Drozer/Scan/in/android/</link>
-        <guid isPermaLink="true">/blog/2019/Drozer/Scan/in/android/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2019/android-drozer-scan/</link>
+        <guid isPermaLink="true">/blog/2019/android-drozer-scan/</guid>
         
         <category>笔记</category>
         
@@ -1665,8 +1665,8 @@
          2019/12/15
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2019/Android/hook/</link>
-        <guid isPermaLink="true">/blog/2019/Android/hook/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2019/android-hook/</link>
+        <guid isPermaLink="true">/blog/2019/android-hook/</guid>
         
         <category>笔记</category>
         
@@ -1686,8 +1686,8 @@
          2019/12/7
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2019/how-nginx/http2https/</link>
-        <guid isPermaLink="true">/blog/2019/how-nginx/http2https/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2019/nginx-http2https/</link>
+        <guid isPermaLink="true">/blog/2019/nginx-http2https/</guid>
         
         <category>Web</category>
         
@@ -1707,8 +1707,8 @@
          2019/12/4
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2019/nginx/with/php/404error/</link>
-        <guid isPermaLink="true">/blog/2019/nginx/with/php/404error/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2019/php-with-nginx-error/</link>
+        <guid isPermaLink="true">/blog/2019/php-with-nginx-error/</guid>
         
         <category>Web</category>
         
@@ -1730,8 +1730,8 @@
          2019/11/30
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2019/android/debug/brige/</link>
-        <guid isPermaLink="true">/blog/2019/android/debug/brige/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2019/android-debug-brige/</link>
+        <guid isPermaLink="true">/blog/2019/android-debug-brige/</guid>
         
         <category>笔记</category>
         
@@ -1751,8 +1751,8 @@
          2019/11/22
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2019/nginx/with/jekyll-site/</link>
-        <guid isPermaLink="true">/blog/2019/nginx/with/jekyll-site/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2019/nginx-with-jekyll-site/</link>
+        <guid isPermaLink="true">/blog/2019/nginx-with-jekyll-site/</guid>
         
         <category>Web</category>
         
@@ -1770,8 +1770,8 @@
          2019/11/21
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2019/docker/t/pot/</link>
-        <guid isPermaLink="true">/blog/2019/docker/t/pot/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2019/dokcer-t-pot/</link>
+        <guid isPermaLink="true">/blog/2019/dokcer-t-pot/</guid>
         
         <category>安全工具</category>
         
@@ -1789,8 +1789,8 @@
          2019/11/18
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2019/jekyll/in/linux/</link>
-        <guid isPermaLink="true">/blog/2019/jekyll/in/linux/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2019/jekyll-in-linux/</link>
+        <guid isPermaLink="true">/blog/2019/jekyll-in-linux/</guid>
         
         <category>笔记</category>
         
@@ -1827,8 +1827,8 @@
          2019/09/1
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2019/Ubuntu/with/arm/</link>
-        <guid isPermaLink="true">/blog/2019/Ubuntu/with/arm/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2019/Ubuntu-linux-with-arm/</link>
+        <guid isPermaLink="true">/blog/2019/Ubuntu-linux-with-arm/</guid>
         
         <category>软件移植</category>
         
@@ -1867,8 +1867,8 @@
          2019/09/1
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2019/minUv2/</link>
-        <guid isPermaLink="true">/blog/2019/minUv2/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2019/minUv2-walkthrough/</link>
+        <guid isPermaLink="true">/blog/2019/minUv2-walkthrough/</guid>
         
         <category>Web</category>
         
@@ -1890,8 +1890,8 @@
          2019/07/15
         
         </pubDate>
-        <link>https://bin4xin.sentrylab.cn/blog/2019/vulnhub/PumpkinRaising/</link>
-        <guid isPermaLink="true">/blog/2019/vulnhub/PumpkinRaising/</guid>
+        <link>https://bin4xin.sentrylab.cn/blog/2019/PumpkinRaising-walkthrough/</link>
+        <guid isPermaLink="true">/blog/2019/PumpkinRaising-walkthrough/</guid>
         
         <category>Web</category>
         

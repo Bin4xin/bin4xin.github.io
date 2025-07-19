@@ -13,14 +13,8 @@
 
     <meta name="baidu-site-verification" content="codeva-Bt0LqEvH6L" />
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-TJ5SFQ4KCM"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-TJ5SFQ4KCM');
-</script>
+<script defer src="https://www.googletagmanager.com/gtag/js?id=G-TJ5SFQ4KCM"></script>
+<script defer src="/assets/js/gta.js"></script>
 <link rel="shortcut icon" href="/assets/img/favicon.png">
 <link type="application/atom+xml" rel="alternate" href="/feed.xml" title="© 哨兵" />
 
@@ -348,49 +342,68 @@ $(document).ready(function(){
 
     <body>
 
-                <!--
-#####################################################################################################################
-|  1.Fixed navbar issues #3 visit https://github.com/Bin4xin/bin4xin.github.io/issues/3                             |
-|    change `position: fixed` to `position: sticky`                                                                 |
-|                                                                                                                   |
-|  2.Fixed navbar padding-top equals to 70px                                                                        |
-|    `./assets/css/style.scss` @import struture in `./assets/css/_struture.scss` del `padding-top=70px` in body.    |
-#####################################################################################################################-->
-<style>
-.nav>li>a {
-    padding: 10px 15px;
-}
-</style>
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <div class="flex-justify-center-l flex-justify-between">
-                <!-- 代码引用申明/code reference declaration:
-                @ [click this icon -> scroll to top of page;] code from anquanke. visit any posts in https://www.anquanke.com/
-                <del>also this icon func are under-construction</del>
-                DONE.
-                -->
-                <div>
+            <!-- logo+popover整体包裹，便于布局和交互 -->
+            <div class="navbar-logo-hover-wrap">
+                <a class="gb_A flex-justify-center-l navbar-logo" href="/" title="返回首页" tabindex="0" aria-label="返回首页">
                     <picture>
-  
-  
-  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
-  
-  
-  
-  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
+  <svg style="vertical-align: middle;" aria-hidden="true" focusable="false" role="img" class="color-fg-default" viewBox="0 0 16 16" width="42" height="42" fill="currentColor" style=""><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
   
 </picture>
+                </a>
+                <!-- Apple/GitHub 风格美化的 popover -->
+                <div class="navbar-logo-popover" tabindex="-1">
+                    <div class="popover-arrow"></div>
+                    <ul>
                     
+                    
+                        
+                    
+                        
+                            
+                            <li>
+                                <a class="popover-link" href="https://github.com/Bin4xin/bigger-than-bigger/" target="_blank">
+                                    <span class="fa fa-code-fork"></span>
+                                    <span class="popover-link-text">BIGGER THAN BIGGER</span>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a class="popover-link" href="https://github.com/Bin4xin/bigger-than-bigger/tree/master/CoVV" target="_blank">
+                                    <span class="fa fa-code-fork"></span>
+                                    <span class="popover-link-text">COLLECTION OF VERIFIED VULNERABILITIES</span>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a class="popover-link" href="https://github.com/Bin4xin/sweet-ysoserial" target="_blank">
+                                    <span class="fa fa-code-fork"></span>
+                                    <span class="popover-link-text">SWEET-YSOSERIAL</span>
+                                </a>
+                            </li>
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    </ul>
                 </div>
-                <div>
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button></div>
             </div>
+            <!-- 菜单按钮 -->
+            <button type="button" class="navbar-toggle" id="navbar-toggle-btn" data-toggle="collapse" data-target=".navbar-collapse" aria-label="切换导航菜单" aria-expanded="false" aria-controls="main-nav" style="outline:2px solid transparent; margin-left: 8px;">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
         </div>
         <div class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
@@ -407,6 +420,26 @@ $(document).ready(function(){
         </div><!--/.nav-collapse -->
     </div>
 </div>
+<script>
+// 菜单展开/收起交互优化，支持键盘操作
+(function() {
+    var btn = document.getElementById('navbar-toggle-btn');
+    var nav = document.querySelector('.navbar-collapse');
+    if (!btn || !nav) return;
+    btn.addEventListener('click', function() {
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', !expanded);
+        nav.classList.toggle('show');
+    });
+    btn.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            btn.click();
+            e.preventDefault();
+        }
+    });
+})();
+</script>
+
                 <div class="container mtb">
   <div class="row">
 
