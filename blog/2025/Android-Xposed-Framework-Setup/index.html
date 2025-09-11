@@ -1,5 +1,7 @@
+<!DOCTYPE html>
 <html>
-  <head>
+
+    <head>
 <meta charset="utf-8">
 <!--dev siwtch-->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,7 +23,7 @@
 
 <!-- Open Graph metadata -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="© 哨兵" />
+<meta property="og:title" content="「安卓」:Xposed框架安装与模块开发 | © 哨兵" />
 <meta property="og:description" content=" &lt;div class=&quot;container mtb&quot;&gt;
     &lt;div class=&quot;row d-flex &quot;&gt;
         &lt;!-- SINGLE POST --&gt;
@@ -388,8 +390,8 @@ mount /system
     &lt;/div&gt;&lt;!--/row --&gt;
 &lt;/div&gt;&lt;!--/container --&gt;哨兵安全实验室 SENTINEL SECURITY, LAB" />
 <meta property="og:image" content="https://bin4xin.sentrylab.cn/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
-<meta property="og:url" content="https://bin4xin.sentrylab.cn/404.html" />
-<title> 404 |© 哨兵 | SENTINEL SECURITY, LAB</title>
+<meta property="og:url" content="https://bin4xin.sentrylab.cn/blog/2025/Android-Xposed-Framework-Setup/" />
+<title> 「安卓」:Xposed框架安装与模块开发 | © 哨兵 | SENTINEL SECURITY, LAB</title>
 
 <link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
@@ -425,8 +427,10 @@ mount /system
 
 </head>
 
-  <body>
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+
+    <body>
+
+                <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <!-- logo+popover整体包裹，便于布局和交互 -->
@@ -493,7 +497,7 @@ mount /system
             <ul class="nav navbar-nav">
                 
                 <li ><a href="/"><div class="fa fa-search"></div></a></li>
-                <li ><a href="/blog/">BLOG</a></li>
+                <li class="active"><a href="/blog/">BLOG</a></li>
                 <li ><a href="/categories/">CATEGORIES</a></li>
                 <li ><a href="/daily/">DAILY</a></li>
                 <li ><a href="/newest">NEWEST</a></li>
@@ -524,15 +528,372 @@ mount /system
 })();
 </script>
 
-    <div id="mirrors">
-      <div class="spacing hidden-xs"></div>
-      <div class="container">
-        <div class="row">
-        <div class="not-found">    <div class="not-found-bg"></div>    <div class="not-found-hint"><div class="not-found-code">            404. 谢谢你这么好看还来看我博客:D</div>        <span class="thuhidden">Oops!你来到了没有知识的荒原。</span>        </div><div class="not-found-text thuhidden"><strong>如果您认为这一定是出了什么问题，欢迎您前往<a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> 哨兵/issues</a>            提交<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,404&template=2-bug_report.yaml&title=_primaryindex/404.html&nbsp;© 哨兵 | SENTINEL SECURITY, LAB" id="new_issue_bug" target="_blank">错误报告</a></strong></div><div class="not-found-links"><a class="not-found-link" href="javascript:history.back()"><i class="fa fa-arrow-left"></i> 返回上一页</a></div></div>
-        </div>
-      </div><!--/container -->
-    </div><!--/mirrors -->
-    <!-- 代码引用申明/code reference declaration:
+                <div class="container mtb">
+    <div class="row d-flex ">
+        <!-- SINGLE POST -->
+        <div class="col-lg-8 markdown-body-img flex-column">
+            <!-- Blog Post  -->
+            <a href="/blog/2025/Android-Xposed-Framework-Setup/"><h1 class="ctitle">「安卓」:Xposed框架安装与模块开发</h1></a>
+            <csmall><div class="d-flex items-center">
+                <!--article author end-->
+
+<!-- site build time set to the latest time.-->
+
+<!-- post time-->
+
+
+
+
+
+<div class="ml-hide">
+    <a class="f2 d-flex color-fg-default" href="https://github.com/Bin4xin" target="_blank">
+        Bin4xin
+
+        
+            
+        post
+        
+
+        
+        
+        
+        
+        
+
+        
+            
+            on Jun 12, 2025
+            
+        
+    </a>
+</div>
+            </div></csmall>
+            <div class="post-content"> 
+            <h2 id="xposed框架简介">Xposed框架简介</h2>
+
+<p>Xposed框架是Android平台上最强大的Hook框架之一，它允许在不修改APK的情况下影响程序运行，通过替换/system/bin/app_process程序控制zygote进程，使得app_process在启动过程中会加载XposedBridge.jar这个jar包，从而完成对Zygote进程及其创建的Dalvik虚拟机的劫持。</p>
+
+<h2 id="一xposed框架安装">一、Xposed框架安装</h2>
+
+<h3 id="11-环境要求">1.1 环境要求</h3>
+<ul>
+  <li>Root权限的Android设备</li>
+  <li>解锁Bootloader</li>
+  <li>自定义Recovery（TWRP推荐）</li>
+</ul>
+
+<h3 id="12-安装步骤">1.2 安装步骤</h3>
+
+<h4 id="方法一通过xposed-installer安装">方法一：通过Xposed Installer安装</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 下载Xposed Installer APK</span>
+wget https://repo.xposed.info/module/de.robv.android.xposed.installer
+adb <span class="nb">install </span>XposedInstaller_3.1.5.apk
+
+<span class="c"># 在应用中选择对应架构的框架包进行安装</span>
+<span class="c"># 支持架构：arm, arm64, x86, x86_64</span>
+</code></pre></div></div>
+
+<h4 id="方法二通过recovery刷入">方法二：通过Recovery刷入</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 下载对应架构的框架包</span>
+<span class="c"># 例如：xposed-v90-sdk25-arm64.zip</span>
+
+<span class="c"># 进入Recovery模式</span>
+adb reboot recovery
+
+<span class="c"># 在TWRP中选择Install，刷入框架包</span>
+<span class="c"># 重启设备完成安装</span>
+</code></pre></div></div>
+
+<h3 id="13-安装验证">1.3 安装验证</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 检查Xposed是否正常运行</span>
+adb shell
+su
+<span class="nb">ls</span> <span class="nt">-la</span> /system/bin/app_process<span class="k">*</span>
+
+<span class="c"># 查看Xposed日志</span>
+logcat | <span class="nb">grep</span> <span class="nt">-i</span> xposed
+</code></pre></div></div>
+
+<h2 id="二xposed模块开发">二、Xposed模块开发</h2>
+
+<h3 id="21-开发环境配置">2.1 开发环境配置</h3>
+
+<h4 id="创建android项目">创建Android项目</h4>
+<div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// app/build.gradle</span>
+<span class="n">android</span> <span class="o">{</span>
+    <span class="n">compileSdkVersion</span> <span class="mi">30</span>
+    
+    <span class="n">defaultConfig</span> <span class="o">{</span>
+        <span class="n">applicationId</span> <span class="s2">"com.example.xposedmodule"</span>
+        <span class="n">minSdkVersion</span> <span class="mi">21</span>
+        <span class="n">targetSdkVersion</span> <span class="mi">30</span>
+        <span class="n">versionCode</span> <span class="mi">1</span>
+        <span class="n">versionName</span> <span class="s2">"1.0"</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="k">dependencies</span> <span class="o">{</span>
+    <span class="n">compileOnly</span> <span class="s1">'de.robv.android.xposed:api:82'</span>
+    <span class="n">compileOnly</span> <span class="s1">'de.robv.android.xposed:api:82:sources'</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="配置模块信息">配置模块信息</h4>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- AndroidManifest.xml --&gt;</span>
+<span class="nt">&lt;application&gt;</span>
+    <span class="nt">&lt;meta-data</span>
+        <span class="na">android:name=</span><span class="s">"xposedmodule"</span>
+        <span class="na">android:value=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;meta-data</span>
+        <span class="na">android:name=</span><span class="s">"xposeddescription"</span>
+        <span class="na">android:value=</span><span class="s">"Root权限隐藏模块"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;meta-data</span>
+        <span class="na">android:name=</span><span class="s">"xposedminversion"</span>
+        <span class="na">android:value=</span><span class="s">"54"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/application&gt;</span>
+</code></pre></div></div>
+
+<h3 id="22-hook实现示例">2.2 Hook实现示例</h3>
+
+<h4 id="主hook类">主Hook类</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainHook</span> <span class="kd">implements</span> <span class="nc">IXposedHookLoadPackage</span> <span class="o">{</span>
+    
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleLoadPackage</span><span class="o">(</span><span class="n">XC_LoadPackage</span><span class="o">.</span><span class="na">LoadPackageParam</span> <span class="n">lpparam</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Throwable</span> <span class="o">{</span>
+        
+        <span class="c1">// Hook Root检测相关方法</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">lpparam</span><span class="o">.</span><span class="na">packageName</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"com.target.app"</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">hookRootDetection</span><span class="o">(</span><span class="n">lpparam</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">hookRootDetection</span><span class="o">(</span><span class="n">XC_LoadPackage</span><span class="o">.</span><span class="na">LoadPackageParam</span> <span class="n">lpparam</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="c1">// Hook su命令检测</span>
+        <span class="nc">XposedHelpers</span><span class="o">.</span><span class="na">findAndHookMethod</span><span class="o">(</span><span class="s">"java.lang.Runtime"</span><span class="o">,</span> <span class="n">lpparam</span><span class="o">.</span><span class="na">classLoader</span><span class="o">,</span>
+                <span class="s">"exec"</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="k">new</span> <span class="n">XC_MethodHook</span><span class="o">()</span> <span class="o">{</span>
+                    <span class="nd">@Override</span>
+                    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">beforeHookedMethod</span><span class="o">(</span><span class="nc">MethodHookParam</span> <span class="n">param</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Throwable</span> <span class="o">{</span>
+                        <span class="nc">String</span> <span class="n">command</span> <span class="o">=</span> <span class="o">(</span><span class="nc">String</span><span class="o">)</span> <span class="n">param</span><span class="o">.</span><span class="na">args</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="n">command</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"su"</span><span class="o">)</span> <span class="o">||</span> <span class="n">command</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"which su"</span><span class="o">))</span> <span class="o">{</span>
+                            <span class="n">param</span><span class="o">.</span><span class="na">setResult</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+                        <span class="o">}</span>
+                    <span class="o">}</span>
+                <span class="o">});</span>
+        
+        <span class="c1">// Hook文件存在性检测</span>
+        <span class="nc">XposedHelpers</span><span class="o">.</span><span class="na">findAndHookMethod</span><span class="o">(</span><span class="s">"java.io.File"</span><span class="o">,</span> <span class="n">lpparam</span><span class="o">.</span><span class="na">classLoader</span><span class="o">,</span>
+                <span class="s">"exists"</span><span class="o">,</span> <span class="k">new</span> <span class="n">XC_MethodHook</span><span class="o">()</span> <span class="o">{</span>
+                    <span class="nd">@Override</span>
+                    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">beforeHookedMethod</span><span class="o">(</span><span class="nc">MethodHookParam</span> <span class="n">param</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Throwable</span> <span class="o">{</span>
+                        <span class="nc">File</span> <span class="n">file</span> <span class="o">=</span> <span class="o">(</span><span class="nc">File</span><span class="o">)</span> <span class="n">param</span><span class="o">.</span><span class="na">thisObject</span><span class="o">;</span>
+                        <span class="nc">String</span> <span class="n">path</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">();</span>
+                        
+                        <span class="c1">// 隐藏常见Root文件</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="n">isRootPath</span><span class="o">(</span><span class="n">path</span><span class="o">))</span> <span class="o">{</span>
+                            <span class="n">param</span><span class="o">.</span><span class="na">setResult</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+                        <span class="o">}</span>
+                    <span class="o">}</span>
+                <span class="o">});</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">isRootPath</span><span class="o">(</span><span class="nc">String</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">String</span><span class="o">[]</span> <span class="n">rootPaths</span> <span class="o">=</span> <span class="o">{</span>
+            <span class="s">"/system/bin/su"</span><span class="o">,</span>
+            <span class="s">"/system/xbin/su"</span><span class="o">,</span> 
+            <span class="s">"/sbin/su"</span><span class="o">,</span>
+            <span class="s">"/system/app/Superuser.apk"</span><span class="o">,</span>
+            <span class="s">"/system/app/SuperSU.apk"</span>
+        <span class="o">};</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="nc">String</span> <span class="n">rootPath</span> <span class="o">:</span> <span class="n">rootPaths</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">path</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">rootPath</span><span class="o">))</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="23-模块入口配置">2.3 模块入口配置</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># assets/xposed_init
+com.example.xposedmodule.MainHook
+</code></pre></div></div>
+
+<h2 id="三常见问题解决">三、常见问题解决</h2>
+
+<h3 id="31-框架安装失败">3.1 框架安装失败</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 检查设备架构</span>
+adb shell getprop ro.product.cpu.abi
+
+<span class="c"># 确保下载正确架构的框架包</span>
+<span class="c"># arm64-v8a -&gt; arm64</span>
+<span class="c"># armeabi-v7a -&gt; arm</span>
+</code></pre></div></div>
+
+<h3 id="32-模块不生效">3.2 模块不生效</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 检查模块是否被Xposed识别</span>
+adb shell
+su
+<span class="nb">ls</span> /data/data/de.robv.android.xposed.installer/conf/modules.list
+
+<span class="c"># 查看Xposed日志</span>
+logcat <span class="nt">-s</span> Xposed
+</code></pre></div></div>
+
+<h3 id="33-系统启动异常">3.3 系统启动异常</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 进入Recovery模式</span>
+<span class="c"># 删除Xposed框架文件</span>
+mount /system
+<span class="nb">rm</span> /system/bin/app_process32_xposed
+<span class="nb">rm</span> /system/bin/app_process64_xposed
+<span class="nb">mv</span> /system/bin/app_process32_original /system/bin/app_process32
+<span class="nb">mv</span> /system/bin/app_process64_original /system/bin/app_process64
+</code></pre></div></div>
+
+<h2 id="四高级技巧">四、高级技巧</h2>
+
+<h3 id="41-动态hook">4.1 动态Hook</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 运行时Hook方法</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">dynamicHook</span><span class="o">(</span><span class="nc">String</span> <span class="n">className</span><span class="o">,</span> <span class="nc">String</span> <span class="n">methodName</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Class</span><span class="o">&lt;?&gt;</span> <span class="n">clazz</span> <span class="o">=</span> <span class="nc">XposedHelpers</span><span class="o">.</span><span class="na">findClass</span><span class="o">(</span><span class="n">className</span><span class="o">,</span> <span class="n">lpparam</span><span class="o">.</span><span class="na">classLoader</span><span class="o">);</span>
+    <span class="nc">XposedBridge</span><span class="o">.</span><span class="na">hookAllMethods</span><span class="o">(</span><span class="n">clazz</span><span class="o">,</span> <span class="n">methodName</span><span class="o">,</span> <span class="k">new</span> <span class="n">XC_MethodHook</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">afterHookedMethod</span><span class="o">(</span><span class="nc">MethodHookParam</span> <span class="n">param</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Throwable</span> <span class="o">{</span>
+            <span class="c1">// Hook逻辑</span>
+        <span class="o">}</span>
+    <span class="o">});</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="42-资源hook">4.2 资源Hook</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleInitPackageResources</span><span class="o">(</span><span class="n">XC_InitPackageResources</span><span class="o">.</span><span class="na">InitPackageResourcesParam</span> <span class="n">resparam</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Throwable</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">resparam</span><span class="o">.</span><span class="na">packageName</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"com.target.app"</span><span class="o">))</span>
+        <span class="k">return</span><span class="o">;</span>
+        
+    <span class="c1">// Hook字符串资源</span>
+    <span class="n">resparam</span><span class="o">.</span><span class="na">res</span><span class="o">.</span><span class="na">setReplacement</span><span class="o">(</span><span class="s">"com.target.app"</span><span class="o">,</span> <span class="s">"string"</span><span class="o">,</span> <span class="s">"app_name"</span><span class="o">,</span> <span class="s">"Modified App"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="参考资料">参考资料</h2>
+
+<ul>
+  <li><a href="https://github.com/rovo89/Xposed">Xposed Framework官方文档</a></li>
+  <li><a href="https://github.com/rovo89/XposedBridge/wiki/Development-tutorial">Xposed模块开发教程</a></li>
+  <li><a href="https://blog.csdn.net/coder_ken/article/details/50853927">Android Hook技术详解</a></li>
+</ul>
+
+                <!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
+<footer>
+	<style>.border-top {
+		border-top: 1.5px solid #d0d7de!important;
+	}</style>
+	<div class="border-top"></div>
+		<section class="container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto">
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix ">
+				<h2 class="lead">申明</h2>
+				<div>
+					<div class="mb-2"><a href="/blog/2025/Android-Xposed-Framework-Setup/" target="_blank" class=" text-bold">
+						<div class="fa fa-link"></div>
+						转载请申明本文档链接</a></div>
+					<div><a href="https://github.com/Bin4xin" target="_blank"  class="text-bold">
+						<div class="fa fa-user"></div>
+						Post by Bin4xin.</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">贡献开源文档</h2>
+				<div>
+					<a href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2025-06-12-Android-Xposed-Framework-Setup.md" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
+						<svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
+						贡献当前开源文档
+					</a>
+					<p class="f0_8-l mt-2 text-bold">此之前，学习开源贡献<a target="_blank" href="https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码">CN&nbsp;|</a>
+						<a target="_blank" href="https://github.com/github/docs/blob/main/CONTRIBUTING.md">EN</a></p>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">此文档对您有帮助吗</h2>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/" target="_blank" class="no-underline">
+				<span class="btn mr-1 color-border-accent-emphasis" title="给文档仓库点个赞!">
+					<div class="fa fa-thumbs-o-up"></div>
+				</span>
+				</a>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_posts/blog/2025-06-12-Android-Xposed-Framework-Setup.md&nbsp; 「安卓」:Xposed框架安装与模块开发 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
+				<span class="btn mr-1 color-border-accent-emphasis" title="本文档有问题?">
+				<div class="fa fa-thumbs-o-down"></div>
+				</span>
+				</a>
+			</div>
+		</section>
+</footer>
+            </div>
+            <div class="spacing"></div>
+        </div><!--/col-lg-8 -->
+        
+<div class="ml-hide article-index thin-scrollbar position-sticky top-0" style="max-height: 100vh; overflow-y: auto;">
+    <div class="nav nav-stacked tableOfContents_35-E">
+        <li class=" table-of-contents">
+            <code-index-css>
+                <ul><li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column"><a>文章目录</a></li></ul>
+                <ul id="toc" class="section-nav">
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#xposed框架简介">Xposed框架简介</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#一xposed框架安装">一、Xposed框架安装</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#11-环境要求">1.1 环境要求</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#12-安装步骤">1.2 安装步骤</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#方法一通过xposed-installer安装">方法一：通过Xposed Installer安装</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#方法二通过recovery刷入">方法二：通过Recovery刷入</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#13-安装验证">1.3 安装验证</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#二xposed模块开发">二、Xposed模块开发</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#21-开发环境配置">2.1 开发环境配置</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#创建android项目">创建Android项目</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#配置模块信息">配置模块信息</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#22-hook实现示例">2.2 Hook实现示例</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h4"><a href="#主hook类">主Hook类</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#23-模块入口配置">2.3 模块入口配置</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#三常见问题解决">三、常见问题解决</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#31-框架安装失败">3.1 框架安装失败</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#32-模块不生效">3.2 模块不生效</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#33-系统启动异常">3.3 系统启动异常</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#四高级技巧">四、高级技巧</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#41-动态hook">4.1 动态Hook</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#42-资源hook">4.2 资源Hook</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#参考资料">参考资料</a></li>
+</ul>
+            </code-index-css>
+        </li>
+    </div>
+</div>
+
+
+    </div><!--/row -->
+</div><!--/container -->
+                <!-- 代码引用申明/code reference declaration:
 #############################################################################
 ## code from cloudflare. visit footer in https://www.cloudflare.com/zh-cn/ ##
 #############################################################################
@@ -787,9 +1148,34 @@ mount /system
         </div>
     </div>
 </div><!--/footerwrap -->
-  </body>
-</html>
-<!--
-  vim: ts=2 sts=2 sw=2 noexpandtab
+
+    </body>
+
+    <script src="/assets/js/copy.js"></script>
+<!--TODONE.
+**FireFox display BUG**
+position-fixed in FireFox display position -> none
+- Reference:
+    - { @link https://developer.mozilla.org/zh-CN/docs/Web/CSS/position#browser_compatibility }
+    - { @link https://blog.csdn.net/DDD4V/article/details/123354124 }
+    - { @link https://juejin.cn/post/6844904100576886797 }
+        - { @link Demo https://codepen.io/li377242494/pen/VwLGGaR }
+Fiex In `[assets/css/style.scss](https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/css/style.scss)`
+    - tooltipped css postion.
 -->
 
+<!--<link rel="preload" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" as="style"/>-->
+<!--<link rel="stylesheet" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" data-n-g=""/>-->
+
+<divs role="tooltip" class="position-fixed bottom-0 mb-4 right-5 mr-4 z-1 transition-200 opacity-0" onclick="$(&quot;html,body&quot;).animate({scrollTop:0}, 1000);">
+    <button class="tooltipped tooltipped-n tooltipped-no-delay color-bg-accent-emphasis color-fg-on-emphasis circle border-0" style="width:45px;height:45px"
+            aria-label="滚动到顶部">
+        <svg aria-hidden="true" role="img" class="octicon octicon-chevron-up" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible">
+            <path fill-rule="evenodd" d="M3.22 9.78a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 0l4.25 4.25a.75.75 0 01-1.06 1.06L8 6.06 4.28 9.78a.75.75 0 01-1.06 0z">
+            </path>
+        </svg>
+    </button>
+</divs>
+
+
+</html>

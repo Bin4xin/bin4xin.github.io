@@ -7,14 +7,98 @@
     <link>https://bin4xin.sentrylab.cn</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
     <pubDate>
-         2025/09/10
+         2025/09/11
         
     </pubDate>
     <lastBuildDate>
-         2025/09/10
+         2025/09/11
         
     </lastBuildDate>
     <generator>Jekyll Ver 3.9.5.</generator>
+    
+      <item>
+        <title>blog: 「安卓」:Xposed框架安装与模块开发</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2025/06/12
+        
+        </pubDate>
+        <link>https://bin4xin.sentrylab.cn/blog/2025/Android-Xposed-Framework-Setup/</link>
+        <guid isPermaLink="true">/blog/2025/Android-Xposed-Framework-Setup/</guid>
+        
+        <category>笔记</category>
+        
+        <category>Android Reverse</category>
+        
+        <category>Xposed</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「安卓」:Android安全测试工具集与实战应用</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2025/06/12
+        
+        </pubDate>
+        <link>https://bin4xin.sentrylab.cn/blog/2025/Android-Security-Testing-Tools/</link>
+        <guid isPermaLink="true">/blog/2025/Android-Security-Testing-Tools/</guid>
+        
+        <category>笔记</category>
+        
+        <category>Android Reverse</category>
+        
+        <category>安全测试</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「安卓」:Magisk Root管理与模块系统</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2025/06/12
+        
+        </pubDate>
+        <link>https://bin4xin.sentrylab.cn/blog/2025/Android-Magisk-Root-Management/</link>
+        <guid isPermaLink="true">/blog/2025/Android-Magisk-Root-Management/</guid>
+        
+        <category>笔记</category>
+        
+        <category>Android Reverse</category>
+        
+        <category>Magisk</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「安卓」:Android开发环境配置与常见问题解决</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2025/06/12
+        
+        </pubDate>
+        <link>https://bin4xin.sentrylab.cn/blog/2025/Android-Development-Environment-Setup/</link>
+        <guid isPermaLink="true">/blog/2025/Android-Development-Environment-Setup/</guid>
+        
+        <category>笔记</category>
+        
+        <category>Android Reverse</category>
+        
+        <category>开发环境</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
     
       <item>
         <title>blog: Android逆向学习</title>
