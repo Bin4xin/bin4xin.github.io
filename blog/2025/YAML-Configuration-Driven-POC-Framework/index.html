@@ -1,5 +1,7 @@
+<!DOCTYPE html>
 <html>
-  <head>
+
+    <head>
 <meta charset="utf-8">
 <!--dev siwtch-->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,7 +23,7 @@
 
 <!-- Open Graph metadata -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="© 哨兵" />
+<meta property="og:title" content="「Android安全」:YAML 配置驱动的 Android POC 框架设计 | © 哨兵" />
 <meta property="og:description" content=" &lt;div class=&quot;container mtb&quot;&gt;
     &lt;div class=&quot;row d-flex &quot;&gt;
         &lt;!-- SINGLE POST --&gt;
@@ -298,8 +300,8 @@
     &lt;/div&gt;&lt;!--/row --&gt;
 &lt;/div&gt;&lt;!--/container --&gt;哨兵安全实验室 SENTINEL SECURITY, LAB" />
 <meta property="og:image" content="https://bin4xin.sentrylab.cn/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
-<meta property="og:url" content="https://bin4xin.sentrylab.cn/404.html" />
-<title> 404 |© 哨兵 | SENTINEL SECURITY, LAB</title>
+<meta property="og:url" content="https://bin4xin.sentrylab.cn/blog/2025/YAML-Configuration-Driven-POC-Framework/" />
+<title> 「Android安全」:YAML 配置驱动的 Android POC 框架设计 | © 哨兵 | SENTINEL SECURITY, LAB</title>
 
 <link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
@@ -335,8 +337,10 @@
 
 </head>
 
-  <body>
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+
+    <body>
+
+                <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <!-- logo+popover整体包裹，便于布局和交互 -->
@@ -403,7 +407,7 @@
             <ul class="nav navbar-nav">
                 
                 <li ><a href="/"><div class="fa fa-search"></div></a></li>
-                <li ><a href="/blog/">BLOG</a></li>
+                <li class="active"><a href="/blog/">BLOG</a></li>
                 <li ><a href="/categories/">CATEGORIES</a></li>
                 <li ><a href="/daily/">DAILY</a></li>
                 <li ><a href="/newest">NEWEST</a></li>
@@ -434,15 +438,282 @@
 })();
 </script>
 
-    <div id="mirrors">
-      <div class="spacing hidden-xs"></div>
-      <div class="container">
-        <div class="row">
-        <div class="not-found">    <div class="not-found-bg"></div>    <div class="not-found-hint"><div class="not-found-code">            404. 谢谢你这么好看还来看我博客:D</div>        <span class="thuhidden">Oops!你来到了没有知识的荒原。</span>        </div><div class="not-found-text thuhidden"><strong>如果您认为这一定是出了什么问题，欢迎您前往<a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> 哨兵/issues</a>            提交<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,404&template=2-bug_report.yaml&title=_primaryindex/404.html&nbsp;© 哨兵 | SENTINEL SECURITY, LAB" id="new_issue_bug" target="_blank">错误报告</a></strong></div><div class="not-found-links"><a class="not-found-link" href="javascript:history.back()"><i class="fa fa-arrow-left"></i> 返回上一页</a></div></div>
-        </div>
-      </div><!--/container -->
-    </div><!--/mirrors -->
-    <!-- 代码引用申明/code reference declaration:
+                <div class="container mtb">
+    <div class="row d-flex ">
+        <!-- SINGLE POST -->
+        <div class="col-lg-8 markdown-body-img flex-column">
+            <!-- Blog Post  -->
+            <a href="/blog/2025/YAML-Configuration-Driven-POC-Framework/"><h1 class="ctitle">「Android安全」:YAML 配置驱动的 Android POC 框架设计</h1></a>
+            <csmall><div class="d-flex items-center">
+                <!--article author end-->
+
+<!-- site build time set to the latest time.-->
+
+<!-- post time-->
+
+
+
+
+
+<div class="ml-hide">
+    <a class="f2 d-flex color-fg-default" href="https://github.com/Bin4xin" target="_blank">
+        Bin4xin
+
+        
+            
+        post
+        
+
+        
+        
+        
+        
+        
+
+        
+            
+                
+                        23 hours ago
+                
+            
+        
+    </a>
+</div>
+            </div></csmall>
+            <div class="post-content"> 
+            <h2 id="概述">概述</h2>
+
+<p>在 Android 应用安全测试中，POC（Proof of Concept）框架是验证漏洞存在性的重要工具。本文将深入分析基于 YAML 配置驱动的 Android POC 框架设计，探讨如何通过声明式配置实现灵活、可扩展的移动应用漏洞验证系统。从 Android 渗透测试自动化的角度，YAML 驱动允许通过配置文件自动化 POC 执行，无需修改代码。这提高了框架的可复用性，便于团队共享 POC，并在 CI/CD 中集成，实现自动漏洞验证和报告生成。</p>
+
+<h2 id="1-yaml-配置驱动架构设计">1. YAML 配置驱动架构设计</h2>
+
+<h3 id="11-核心设计理念">1.1 核心设计理念</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 伪代码：结果数据类
+</span><span class="o">@</span><span class="n">dataclass</span>
+<span class="k">class</span> <span class="nc">POCResult</span><span class="p">:</span>
+    <span class="n">status</span><span class="p">:</span> <span class="n">POCStatus</span>
+    <span class="n">vulnerable</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">message</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">...</span>
+</code></pre></div></div>
+
+<h3 id="12-yaml-配置结构设计">1.2 YAML 配置结构设计</h3>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 示例配置</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">android-webview-file-exposure"</span>
+<span class="na">steps</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">check_webview_settings"</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">frida_script"</span>
+    <span class="na">script</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/*</span><span class="nv"> </span><span class="s">监控</span><span class="nv"> </span><span class="s">WebView</span><span class="nv"> </span><span class="s">设置</span><span class="nv"> </span><span class="s">*/"</span>
+<span class="na">vulnerability_rules</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">condition</span><span class="pi">:</span> <span class="s2">"</span><span class="s">all_steps_success"</span>
+</code></pre></div></div>
+
+<p><strong>自动化分析</strong>：YAML 配置使 POC 易于扩展，自动化引擎可以解析并执行，提高测试速度。</p>
+
+<h2 id="2-poc-执行引擎实现">2. POC 执行引擎实现</h2>
+
+<h3 id="21-yaml-解析与验证">2.1 YAML 解析与验证</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 伪代码：验证器
+</span><span class="k">class</span> <span class="nc">AndroidPOCConfigValidator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">validate_config</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">REQUIRED_FIELDS</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
+                <span class="n">errors</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s">"Missing: </span><span class="si">{</span><span class="n">field</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">errors</span>
+</code></pre></div></div>
+
+<h3 id="22-frida-脚本生成器">2.2 Frida 脚本生成器</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 伪代码：脚本生成
+</span><span class="k">class</span> <span class="nc">FridaScriptGenerator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">generate_script</span><span class="p">(</span><span class="n">step_config</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">step_config</span><span class="p">[</span><span class="s">'type'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'webview_monitor'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s">"Java.perform(function() { /* 监控 WebView */ });"</span>
+</code></pre></div></div>
+
+<p><strong>自动化好处</strong>：动态生成脚本允许自动化适应不同漏洞类型。</p>
+
+<h2 id="3-漏洞检测实现">3. 漏洞检测实现</h2>
+
+<h3 id="31-webview-漏洞检测">3.1 WebView 漏洞检测</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 伪代码：检测器
+</span><span class="k">class</span> <span class="nc">WebViewVulnDetector</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">check_vulnerabilities</span><span class="p">():</span>
+        <span class="n">script</span> <span class="o">=</span> <span class="n">inject_monitoring_script</span><span class="p">()</span>
+        <span class="n">launch_app</span><span class="p">()</span>
+        <span class="n">messages</span> <span class="o">=</span> <span class="n">script</span><span class="p">.</span><span class="n">get_messages</span><span class="p">()</span>
+        <span class="n">vulns</span> <span class="o">=</span> <span class="n">analyze_messages</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>  <span class="c1"># 检查 JS 启用等
+</span>        <span class="k">return</span> <span class="n">vulns</span>
+</code></pre></div></div>
+
+<h3 id="32-activity-导出检测">3.2 Activity 导出检测</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 伪代码：导出检测
+</span><span class="k">class</span> <span class="nc">ActivityExportDetector</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">check_exported_activities</span><span class="p">():</span>
+        <span class="n">apk</span> <span class="o">=</span> <span class="n">load_apk</span><span class="p">()</span>
+        <span class="n">vulns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">activity</span> <span class="ow">in</span> <span class="n">apk</span><span class="p">.</span><span class="n">get_activities</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">is_exported</span><span class="p">(</span><span class="n">activity</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">protected</span><span class="p">:</span>
+                <span class="n">vulns</span><span class="p">.</span><span class="n">append</span><span class="p">({</span><span class="s">'type'</span><span class="p">:</span> <span class="s">'exported_activity'</span><span class="p">})</span>
+        <span class="k">return</span> <span class="n">vulns</span>
+</code></pre></div></div>
+
+<h2 id="4-结果分析与报告">4. 结果分析与报告</h2>
+
+<h3 id="41-漏洞验证结果分析">4.1 漏洞验证结果分析</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 伪代码：分析器
+</span><span class="k">class</span> <span class="nc">VulnerabilityAnalyzer</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">analyze_results</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
+        <span class="n">analysis</span> <span class="o">=</span> <span class="p">{</span><span class="s">'summary'</span><span class="p">:</span> <span class="p">{},</span> <span class="s">'details'</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">apply_rules</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
+                <span class="n">analysis</span><span class="p">[</span><span class="s">'summary'</span><span class="p">][</span><span class="s">'vulnerabilities'</span><span class="p">].</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">analysis</span>
+</code></pre></div></div>
+
+<h3 id="42-报告生成">4.2 报告生成</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 伪代码：报告生成
+</span><span class="k">class</span> <span class="nc">ReportGenerator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">generate_html_report</span><span class="p">():</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="n">html_template</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">template</span><span class="p">.</span><span class="n">render</span><span class="p">(</span><span class="n">analysis_data</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>自动化分析</strong>：自动报告生成便于集成到安全平台。</p>
+
+<h2 id="5-使用示例与最佳实践">5. 使用示例与最佳实践</h2>
+
+<h3 id="51-基本使用流程">5.1 基本使用流程</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">detector</span> <span class="o">=</span> <span class="n">AndroidVulnDetector</span><span class="p">(</span><span class="s">"config.yaml"</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">detector</span><span class="p">.</span><span class="n">run_detection</span><span class="p">()</span>
+<span class="n">analysis</span> <span class="o">=</span> <span class="n">analyzer</span><span class="p">.</span><span class="n">analyze_results</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<span class="n">report</span> <span class="o">=</span> <span class="n">generator</span><span class="p">.</span><span class="n">generate_html_report</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="52-自定义-poc-配置">5.2 自定义 POC 配置</h3>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 示例</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">android-activity-export"</span>
+<span class="na">steps</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">scan_manifest"</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">manifest_analysis"</span>
+</code></pre></div></div>
+
+<h2 id="6-总结">6. 总结</h2>
+
+<p>YAML 驱动框架提供灵活的漏洞验证。</p>
+
+<h2 id="7-自动化渗透测试的优势">7. 自动化渗透测试的优势</h2>
+
+<p>YAML 配置使 POC 自动化易于维护和扩展，在渗透测试中可以批量验证漏洞，提高效率并确保一致性，适合企业级安全扫描。</p>
+
+<h2 id="参考资料">参考资料</h2>
+
+<ul>
+  <li><a href="https://github.com/OWASP/owasp-mstg">Android 安全测试指南</a></li>
+  <li><a href="https://frida.re/docs/examples/android/">Frida Android 示例</a></li>
+  <li><a href="https://github.com/OWASP/owasp-mstg/blob/master/Document/0x05i-Testing-Code-Quality-and-Build-Settings.md">Android 漏洞模式</a></li>
+  <li><a href="https://yaml.org/spec/1.2/spec.html">YAML 规范</a></li>
+</ul>
+
+                <!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
+<footer>
+	<style>.border-top {
+		border-top: 1.5px solid #d0d7de!important;
+	}</style>
+	<div class="border-top"></div>
+		<section class="container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto">
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix ">
+				<h2 class="lead">申明</h2>
+				<div>
+					<div class="mb-2"><a href="/blog/2025/YAML-Configuration-Driven-POC-Framework/" target="_blank" class=" text-bold">
+						<div class="fa fa-link"></div>
+						转载请申明本文档链接</a></div>
+					<div><a href="https://github.com/Bin4xin" target="_blank"  class="text-bold">
+						<div class="fa fa-user"></div>
+						Post by Bin4xin.</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">贡献开源文档</h2>
+				<div>
+					<a href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2025-09-11-YAML-Configuration-Driven-POC-Framework.markdown" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
+						<svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
+						贡献当前开源文档
+					</a>
+					<p class="f0_8-l mt-2 text-bold">此之前，学习开源贡献<a target="_blank" href="https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码">CN&nbsp;|</a>
+						<a target="_blank" href="https://github.com/github/docs/blob/main/CONTRIBUTING.md">EN</a></p>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">此文档对您有帮助吗</h2>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/" target="_blank" class="no-underline">
+				<span class="btn mr-1 color-border-accent-emphasis" title="给文档仓库点个赞!">
+					<div class="fa fa-thumbs-o-up"></div>
+				</span>
+				</a>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_posts/blog/2025-09-11-YAML-Configuration-Driven-POC-Framework.markdown&nbsp; 「Android安全」:YAML 配置驱动的 Android POC 框架设计 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
+				<span class="btn mr-1 color-border-accent-emphasis" title="本文档有问题?">
+				<div class="fa fa-thumbs-o-down"></div>
+				</span>
+				</a>
+			</div>
+		</section>
+</footer>
+            </div>
+            <div class="spacing"></div>
+        </div><!--/col-lg-8 -->
+        
+<div class="ml-hide article-index thin-scrollbar position-sticky top-0" style="max-height: 100vh; overflow-y: auto;">
+    <div class="nav nav-stacked tableOfContents_35-E">
+        <li class=" table-of-contents">
+            <code-index-css>
+                <ul><li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column"><a>文章目录</a></li></ul>
+                <ul id="toc" class="section-nav">
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#概述">概述</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#1-yaml-配置驱动架构设计">1. YAML 配置驱动架构设计</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#11-核心设计理念">1.1 核心设计理念</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#12-yaml-配置结构设计">1.2 YAML 配置结构设计</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#2-poc-执行引擎实现">2. POC 执行引擎实现</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#21-yaml-解析与验证">2.1 YAML 解析与验证</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#22-frida-脚本生成器">2.2 Frida 脚本生成器</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#3-漏洞检测实现">3. 漏洞检测实现</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#31-webview-漏洞检测">3.1 WebView 漏洞检测</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#32-activity-导出检测">3.2 Activity 导出检测</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#4-结果分析与报告">4. 结果分析与报告</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#41-漏洞验证结果分析">4.1 漏洞验证结果分析</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#42-报告生成">4.2 报告生成</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#5-使用示例与最佳实践">5. 使用示例与最佳实践</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#51-基本使用流程">5.1 基本使用流程</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#52-自定义-poc-配置">5.2 自定义 POC 配置</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#6-总结">6. 总结</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#7-自动化渗透测试的优势">7. 自动化渗透测试的优势</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#参考资料">参考资料</a></li>
+</ul>
+            </code-index-css>
+        </li>
+    </div>
+</div>
+
+
+    </div><!--/row -->
+</div><!--/container -->
+                <!-- 代码引用申明/code reference declaration:
 #############################################################################
 ## code from cloudflare. visit footer in https://www.cloudflare.com/zh-cn/ ##
 #############################################################################
@@ -697,9 +968,34 @@
         </div>
     </div>
 </div><!--/footerwrap -->
-  </body>
-</html>
-<!--
-  vim: ts=2 sts=2 sw=2 noexpandtab
+
+    </body>
+
+    <script src="/assets/js/copy.js"></script>
+<!--TODONE.
+**FireFox display BUG**
+position-fixed in FireFox display position -> none
+- Reference:
+    - { @link https://developer.mozilla.org/zh-CN/docs/Web/CSS/position#browser_compatibility }
+    - { @link https://blog.csdn.net/DDD4V/article/details/123354124 }
+    - { @link https://juejin.cn/post/6844904100576886797 }
+        - { @link Demo https://codepen.io/li377242494/pen/VwLGGaR }
+Fiex In `[assets/css/style.scss](https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/css/style.scss)`
+    - tooltipped css postion.
 -->
 
+<!--<link rel="preload" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" as="style"/>-->
+<!--<link rel="stylesheet" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" data-n-g=""/>-->
+
+<divs role="tooltip" class="position-fixed bottom-0 mb-4 right-5 mr-4 z-1 transition-200 opacity-0" onclick="$(&quot;html,body&quot;).animate({scrollTop:0}, 1000);">
+    <button class="tooltipped tooltipped-n tooltipped-no-delay color-bg-accent-emphasis color-fg-on-emphasis circle border-0" style="width:45px;height:45px"
+            aria-label="滚动到顶部">
+        <svg aria-hidden="true" role="img" class="octicon octicon-chevron-up" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible">
+            <path fill-rule="evenodd" d="M3.22 9.78a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 0l4.25 4.25a.75.75 0 01-1.06 1.06L8 6.06 4.28 9.78a.75.75 0 01-1.06 0z">
+            </path>
+        </svg>
+    </button>
+</divs>
+
+
+</html>

@@ -33,7 +33,7 @@
                     &lt;div class=&quot;py-2&quot;&gt;
     &lt;div class=&quot;row blog-bar-display&quot;&gt;
         &lt;div class=&quot;Box-header d-flex flex-justify-between&quot;&gt;&lt;!--box header--&gt;
-            &lt;a class=&quot;my-3 col-7 color-fg-default text-bold mb-1 lh-condensed css-truncate-target d-flex&quot; style=&quot;max-width: 100%; font-size: 20px&quot; href=&quot;/blog/2019/dokcer-t-pot/&quot;&gt;《Docker环境下T-pot蜜罐部署记录》&lt;/a&gt;
+            &lt;a class=&quot;my-3 col-7 color-fg-default text-bold mb-1 lh-condensed css-truncate-target d-flex&quot; style=&quot;max-width: 100%; font-size: 20px&quot; href=&quot;/blog/2019/android-hook/&quot;&gt;《「安卓渗透」： Let&#39;s hook APK with frida～》&lt;/a&gt;
             &lt;!--article title end--&gt;
             &lt;a class=&quot;display-nav-li no-underline d-flex&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/blob/main/&quot; target=&quot;_blank&quot;&gt;
                 &lt;span class=&quot;completeness-indicator completeness-indicator-problem&quot;&gt;
@@ -43,11 +43,16 @@
             &lt;!--article relation git repos &lt;branch/md files.&gt; end--&gt;
         &lt;/div&gt;&lt;!--box header stop--&gt;
         &lt;div class=&quot;Box-row&quot;&gt;
-            &lt;a class=&quot;d-flex flex-justify-around flex-column overflow-hidden flex-items-stretch&quot; style=&quot;z-index: 2;&quot; href=&quot;/blog/2019/dokcer-t-pot/&quot;&gt;&lt;/a&gt;
+            &lt;a class=&quot;d-flex flex-justify-around flex-column overflow-hidden flex-items-stretch&quot; style=&quot;z-index: 2;&quot; href=&quot;/blog/2019/android-hook/&quot;&gt;&lt;/a&gt;
             &lt;div class=&quot;discussion-spotlight-details position-relative p-3 pr-5 css-truncate width-fit d-flex flex-column flex-items-start&quot; style=&quot;z-index: 3;&quot;&gt;
                 &lt;a class=&quot;my-3 col-7 color-fg-default text-bold f3 no-underline d-flex flex-items-center mt-2&quot; aria-label=&quot;elisemoe (author)&quot;&gt;
                     &lt;span class=&quot;mr-1&quot;&gt;
-  摘要:最近在网上冲浪看到一个开源蜜罐项目，看到是基于web的蜜罐项目，web页面是真好看。突发奇想正好手头有个公网ip，最近也在为论文数据来源发愁，...&lt;/span&gt;&lt;/a&gt;
+  忙里偷闲，本文是记录Hook-Frida框架，如何使用Frida注入代码，做到对安卓apk进行代码hook注入。
+
+
+Frida框架准备
+
+1.fr...&lt;/span&gt;&lt;/a&gt;
             &lt;/div&gt;
         &lt;/div&gt;
         &lt;div class=&quot;Box-row discussion-spotlight-details position-relative py-2 pr-5 css-truncate width-fit d-flex flex-column flex-items-start&quot; style=&quot;z-index: 3;&quot;&gt;
@@ -60,7 +65,7 @@
                     &lt;!--article author avatar img. end--&gt;
                     &lt;div class=&quot;color-fg-success-icon scrollbar-16-16&quot;&gt;&lt;/div&gt;&lt;!--article GitHub action success.site.commitString--&gt;
                     
-                    &lt;a class=&quot;d-flex color-fg-default px-md-6&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/79fd2db&quot; target=&quot;_blank&quot;&gt;79fd2db&lt;/a&gt;
+                    &lt;a class=&quot;d-flex color-fg-default px-md-6&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/647145a&quot; target=&quot;_blank&quot;&gt;647145a&lt;/a&gt;
                     &lt;!--article author end--&gt;
 
 &lt;!-- site build time set to the latest time.--&gt;
@@ -87,7 +92,7 @@
         
 
         
-            on Nov 21, 2019
+            on Dec 15, 2019
         
     &lt;/a&gt;
 &lt;/div&gt;
@@ -101,7 +106,7 @@
                     &lt;div class=&quot;py-2&quot;&gt;
     &lt;div class=&quot;row blog-bar-display&quot;&gt;
         &lt;div class=&quot;Box-header d-flex flex-justify-between&quot;&gt;&lt;!--box header--&gt;
-            &lt;a class=&quot;my-3 col-7 color-fg-default text-bold mb-1 lh-condensed css-truncate-target d-flex&quot; style=&quot;max-width: 100%; font-size: 20px&quot; href=&quot;/blog/2019/jekyll-in-linux/&quot;&gt;《「笔记」：Jekyll for linux.服务器部署历程》&lt;/a&gt;
+            &lt;a class=&quot;my-3 col-7 color-fg-default text-bold mb-1 lh-condensed css-truncate-target d-flex&quot; style=&quot;max-width: 100%; font-size: 20px&quot; href=&quot;/blog/2019/nginx-http2https/&quot;&gt;《NGINX笔记：http升级https协议》&lt;/a&gt;
             &lt;!--article title end--&gt;
             &lt;a class=&quot;display-nav-li no-underline d-flex&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/blob/main/&quot; target=&quot;_blank&quot;&gt;
                 &lt;span class=&quot;completeness-indicator completeness-indicator-problem&quot;&gt;
@@ -111,15 +116,12 @@
             &lt;!--article relation git repos &lt;branch/md files.&gt; end--&gt;
         &lt;/div&gt;&lt;!--box header stop--&gt;
         &lt;div class=&quot;Box-row&quot;&gt;
-            &lt;a class=&quot;d-flex flex-justify-around flex-column overflow-hidden flex-items-stretch&quot; style=&quot;z-index: 2;&quot; href=&quot;/blog/2019/jekyll-in-linux/&quot;&gt;&lt;/a&gt;
+            &lt;a class=&quot;d-flex flex-justify-around flex-column overflow-hidden flex-items-stretch&quot; style=&quot;z-index: 2;&quot; href=&quot;/blog/2019/nginx-http2https/&quot;&gt;&lt;/a&gt;
             &lt;div class=&quot;discussion-spotlight-details position-relative p-3 pr-5 css-truncate width-fit d-flex flex-column flex-items-start&quot; style=&quot;z-index: 3;&quot;&gt;
                 &lt;a class=&quot;my-3 col-7 color-fg-default text-bold f3 no-underline d-flex flex-items-center mt-2&quot; aria-label=&quot;elisemoe (author)&quot;&gt;
-                    &lt;span class=&quot;mr-1&quot;&gt;
-  申明：背景图来自微博@胡歌，侵删～不过胡歌这么可爱应该不会介意的
+                    &lt;span class=&quot;mr-1&quot;&gt;窈窕HTTPS，正是TCP的好逑；
 
-
-第一个问题：这玩意儿是什么？通俗的来讲：
-Jekyll = web serve...&lt;/span&gt;&lt;/a&gt;
+how to used http to https with nginx? Is’s sounds fantasti...&lt;/span&gt;&lt;/a&gt;
             &lt;/div&gt;
         &lt;/div&gt;
         &lt;div class=&quot;Box-row discussion-spotlight-details position-relative py-2 pr-5 css-truncate width-fit d-flex flex-column flex-items-start&quot; style=&quot;z-index: 3;&quot;&gt;
@@ -132,7 +134,7 @@ Jekyll = web serve...&lt;/span&gt;&lt;/a&gt;
                     &lt;!--article author avatar img. end--&gt;
                     &lt;div class=&quot;color-fg-success-icon scrollbar-16-16&quot;&gt;&lt;/div&gt;&lt;!--article GitHub action success.site.commitString--&gt;
                     
-                    &lt;a class=&quot;d-flex color-fg-default px-md-6&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/79fd2db&quot; target=&quot;_blank&quot;&gt;79fd2db&lt;/a&gt;
+                    &lt;a class=&quot;d-flex color-fg-default px-md-6&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/647145a&quot; target=&quot;_blank&quot;&gt;647145a&lt;/a&gt;
                     &lt;!--article author end--&gt;
 
 &lt;!-- site build time set to the latest time.--&gt;
@@ -159,7 +161,7 @@ Jekyll = web serve...&lt;/span&gt;&lt;/a&gt;
         
 
         
-            on Nov 18, 2019
+            on Dec 7, 2019
         
     &lt;/a&gt;
 &lt;/div&gt;
@@ -173,7 +175,7 @@ Jekyll = web serve...&lt;/span&gt;&lt;/a&gt;
                     &lt;div class=&quot;py-2&quot;&gt;
     &lt;div class=&quot;row blog-bar-display&quot;&gt;
         &lt;div class=&quot;Box-header d-flex flex-justify-between&quot;&gt;&lt;!--box header--&gt;
-            &lt;a class=&quot;my-3 col-7 color-fg-default text-bold mb-1 lh-condensed css-truncate-target d-flex&quot; style=&quot;max-width: 100%; font-size: 20px&quot; href=&quot;/blog/2019/Ubuntu-linux-with-arm/&quot;&gt;《「移植」Ubuntu With Arm公网存储容器搭建记录》&lt;/a&gt;
+            &lt;a class=&quot;my-3 col-7 color-fg-default text-bold mb-1 lh-condensed css-truncate-target d-flex&quot; style=&quot;max-width: 100%; font-size: 20px&quot; href=&quot;/blog/2019/php-with-nginx-error/&quot;&gt;《「排错」：php-fpm解析404-not found》&lt;/a&gt;
             &lt;!--article title end--&gt;
             &lt;a class=&quot;display-nav-li no-underline d-flex&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/blob/main/&quot; target=&quot;_blank&quot;&gt;
                 &lt;span class=&quot;completeness-indicator completeness-indicator-problem&quot;&gt;
@@ -183,16 +185,15 @@ Jekyll = web serve...&lt;/span&gt;&lt;/a&gt;
             &lt;!--article relation git repos &lt;branch/md files.&gt; end--&gt;
         &lt;/div&gt;&lt;!--box header stop--&gt;
         &lt;div class=&quot;Box-row&quot;&gt;
-            &lt;a class=&quot;d-flex flex-justify-around flex-column overflow-hidden flex-items-stretch&quot; style=&quot;z-index: 2;&quot; href=&quot;/blog/2019/Ubuntu-linux-with-arm/&quot;&gt;&lt;/a&gt;
+            &lt;a class=&quot;d-flex flex-justify-around flex-column overflow-hidden flex-items-stretch&quot; style=&quot;z-index: 2;&quot; href=&quot;/blog/2019/php-with-nginx-error/&quot;&gt;&lt;/a&gt;
             &lt;div class=&quot;discussion-spotlight-details position-relative p-3 pr-5 css-truncate width-fit d-flex flex-column flex-items-start&quot; style=&quot;z-index: 3;&quot;&gt;
                 &lt;a class=&quot;my-3 col-7 color-fg-default text-bold f3 no-underline d-flex flex-items-center mt-2&quot; aria-label=&quot;elisemoe (author)&quot;&gt;
                     &lt;span class=&quot;mr-1&quot;&gt;
-  声明：本文章首发于华为云鲲鹏社区，同步于作者个人博客:)
+  php+nginx解析错误，报错404-Not Found
 
 
-鲲鹏云服务器Ubuntu 18.04 64bit with ARM
-
-PHP+NGIN...&lt;/span&gt;&lt;/a&gt;
+前言
+容器内是自己写的个人博客，处于安全考虑用的是静态页面博客。但是由于公网维护博客...&lt;/span&gt;&lt;/a&gt;
             &lt;/div&gt;
         &lt;/div&gt;
         &lt;div class=&quot;Box-row discussion-spotlight-details position-relative py-2 pr-5 css-truncate width-fit d-flex flex-column flex-items-start&quot; style=&quot;z-index: 3;&quot;&gt;
@@ -205,7 +206,7 @@ PHP+NGIN...&lt;/span&gt;&lt;/a&gt;
                     &lt;!--article author avatar img. end--&gt;
                     &lt;div class=&quot;color-fg-success-icon scrollbar-16-16&quot;&gt;&lt;/div&gt;&lt;!--article GitHub action success.site.commitString--&gt;
                     
-                    &lt;a class=&quot;d-flex color-fg-default px-md-6&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/79fd2db&quot; target=&quot;_blank&quot;&gt;79fd2db&lt;/a&gt;
+                    &lt;a class=&quot;d-flex color-fg-default px-md-6&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/647145a&quot; target=&quot;_blank&quot;&gt;647145a&lt;/a&gt;
                     &lt;!--article author end--&gt;
 
 &lt;!-- site build time set to the latest time.--&gt;
@@ -232,7 +233,7 @@ PHP+NGIN...&lt;/span&gt;&lt;/a&gt;
         
 
         
-            on Sep 1, 2019
+            on Dec 4, 2019
         
     &lt;/a&gt;
 &lt;/div&gt;
@@ -246,7 +247,7 @@ PHP+NGIN...&lt;/span&gt;&lt;/a&gt;
                     
                         &lt;a href=&quot;/blog/page/17/&quot; class=&quot;btn btn-primary&quot;&gt;上一页&lt;/a&gt;
                     
-                    &lt;span&gt;第 18 页 / 共 19 页&lt;/span&gt;
+                    &lt;span&gt;第 18 页 / 共 21 页&lt;/span&gt;
                     
                         &lt;a href=&quot;/blog/page/19/&quot; class=&quot;btn btn-primary&quot;&gt;下一页&lt;/a&gt;
                     
@@ -413,7 +414,7 @@ PHP+NGIN...&lt;/span&gt;&lt;/a&gt;
         
         &lt;p&gt;
             &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; BLOG
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;57&lt;/span&gt;
+            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;62&lt;/span&gt;
         &lt;/p&gt;
         
         &lt;p&gt;
@@ -589,7 +590,7 @@ PHP+NGIN...&lt;/span&gt;&lt;/a&gt;
                     <div class="py-2">
     <div class="row blog-bar-display">
         <div class="Box-header d-flex flex-justify-between"><!--box header-->
-            <a class="my-3 col-7 color-fg-default text-bold mb-1 lh-condensed css-truncate-target d-flex" style="max-width: 100%; font-size: 20px" href="/blog/2019/dokcer-t-pot/">《Docker环境下T-pot蜜罐部署记录》</a>
+            <a class="my-3 col-7 color-fg-default text-bold mb-1 lh-condensed css-truncate-target d-flex" style="max-width: 100%; font-size: 20px" href="/blog/2019/android-hook/">《「安卓渗透」： Let's hook APK with frida～》</a>
             <!--article title end-->
             <a class="display-nav-li no-underline d-flex" href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/" target="_blank">
                 <span class="completeness-indicator completeness-indicator-problem">
@@ -599,11 +600,16 @@ PHP+NGIN...&lt;/span&gt;&lt;/a&gt;
             <!--article relation git repos <branch/md files.> end-->
         </div><!--box header stop-->
         <div class="Box-row">
-            <a class="d-flex flex-justify-around flex-column overflow-hidden flex-items-stretch" style="z-index: 2;" href="/blog/2019/dokcer-t-pot/"></a>
+            <a class="d-flex flex-justify-around flex-column overflow-hidden flex-items-stretch" style="z-index: 2;" href="/blog/2019/android-hook/"></a>
             <div class="discussion-spotlight-details position-relative p-3 pr-5 css-truncate width-fit d-flex flex-column flex-items-start" style="z-index: 3;">
                 <a class="my-3 col-7 color-fg-default text-bold f3 no-underline d-flex flex-items-center mt-2" aria-label="elisemoe (author)">
                     <span class="mr-1">
-  摘要:最近在网上冲浪看到一个开源蜜罐项目，看到是基于web的蜜罐项目，web页面是真好看。突发奇想正好手头有个公网ip，最近也在为论文数据来源发愁，...</span></a>
+  忙里偷闲，本文是记录Hook-Frida框架，如何使用Frida注入代码，做到对安卓apk进行代码hook注入。
+
+
+Frida框架准备
+
+1.fr...</span></a>
             </div>
         </div>
         <div class="Box-row discussion-spotlight-details position-relative py-2 pr-5 css-truncate width-fit d-flex flex-column flex-items-start" style="z-index: 3;">
@@ -616,7 +622,7 @@ PHP+NGIN...&lt;/span&gt;&lt;/a&gt;
                     <!--article author avatar img. end-->
                     <div class="color-fg-success-icon scrollbar-16-16"></div><!--article GitHub action success.site.commitString-->
                     
-                    <a class="d-flex color-fg-default px-md-6" href="https://github.com/Bin4xin/bin4xin.github.io/commit/79fd2db" target="_blank">79fd2db</a>
+                    <a class="d-flex color-fg-default px-md-6" href="https://github.com/Bin4xin/bin4xin.github.io/commit/647145a" target="_blank">647145a</a>
                     <!--article author end-->
 
 <!-- site build time set to the latest time.-->
@@ -643,7 +649,7 @@ PHP+NGIN...&lt;/span&gt;&lt;/a&gt;
         
 
         
-            on Nov 21, 2019
+            on Dec 15, 2019
         
     </a>
 </div>
@@ -657,7 +663,7 @@ PHP+NGIN...&lt;/span&gt;&lt;/a&gt;
                     <div class="py-2">
     <div class="row blog-bar-display">
         <div class="Box-header d-flex flex-justify-between"><!--box header-->
-            <a class="my-3 col-7 color-fg-default text-bold mb-1 lh-condensed css-truncate-target d-flex" style="max-width: 100%; font-size: 20px" href="/blog/2019/jekyll-in-linux/">《「笔记」：Jekyll for linux.服务器部署历程》</a>
+            <a class="my-3 col-7 color-fg-default text-bold mb-1 lh-condensed css-truncate-target d-flex" style="max-width: 100%; font-size: 20px" href="/blog/2019/nginx-http2https/">《NGINX笔记：http升级https协议》</a>
             <!--article title end-->
             <a class="display-nav-li no-underline d-flex" href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/" target="_blank">
                 <span class="completeness-indicator completeness-indicator-problem">
@@ -667,15 +673,12 @@ PHP+NGIN...&lt;/span&gt;&lt;/a&gt;
             <!--article relation git repos <branch/md files.> end-->
         </div><!--box header stop-->
         <div class="Box-row">
-            <a class="d-flex flex-justify-around flex-column overflow-hidden flex-items-stretch" style="z-index: 2;" href="/blog/2019/jekyll-in-linux/"></a>
+            <a class="d-flex flex-justify-around flex-column overflow-hidden flex-items-stretch" style="z-index: 2;" href="/blog/2019/nginx-http2https/"></a>
             <div class="discussion-spotlight-details position-relative p-3 pr-5 css-truncate width-fit d-flex flex-column flex-items-start" style="z-index: 3;">
                 <a class="my-3 col-7 color-fg-default text-bold f3 no-underline d-flex flex-items-center mt-2" aria-label="elisemoe (author)">
-                    <span class="mr-1">
-  申明：背景图来自微博@胡歌，侵删～不过胡歌这么可爱应该不会介意的
+                    <span class="mr-1">窈窕HTTPS，正是TCP的好逑；
 
-
-第一个问题：这玩意儿是什么？通俗的来讲：
-Jekyll = web serve...</span></a>
+how to used http to https with nginx? Is’s sounds fantasti...</span></a>
             </div>
         </div>
         <div class="Box-row discussion-spotlight-details position-relative py-2 pr-5 css-truncate width-fit d-flex flex-column flex-items-start" style="z-index: 3;">
@@ -688,7 +691,7 @@ Jekyll = web serve...</span></a>
                     <!--article author avatar img. end-->
                     <div class="color-fg-success-icon scrollbar-16-16"></div><!--article GitHub action success.site.commitString-->
                     
-                    <a class="d-flex color-fg-default px-md-6" href="https://github.com/Bin4xin/bin4xin.github.io/commit/79fd2db" target="_blank">79fd2db</a>
+                    <a class="d-flex color-fg-default px-md-6" href="https://github.com/Bin4xin/bin4xin.github.io/commit/647145a" target="_blank">647145a</a>
                     <!--article author end-->
 
 <!-- site build time set to the latest time.-->
@@ -715,7 +718,7 @@ Jekyll = web serve...</span></a>
         
 
         
-            on Nov 18, 2019
+            on Dec 7, 2019
         
     </a>
 </div>
@@ -729,7 +732,7 @@ Jekyll = web serve...</span></a>
                     <div class="py-2">
     <div class="row blog-bar-display">
         <div class="Box-header d-flex flex-justify-between"><!--box header-->
-            <a class="my-3 col-7 color-fg-default text-bold mb-1 lh-condensed css-truncate-target d-flex" style="max-width: 100%; font-size: 20px" href="/blog/2019/Ubuntu-linux-with-arm/">《「移植」Ubuntu With Arm公网存储容器搭建记录》</a>
+            <a class="my-3 col-7 color-fg-default text-bold mb-1 lh-condensed css-truncate-target d-flex" style="max-width: 100%; font-size: 20px" href="/blog/2019/php-with-nginx-error/">《「排错」：php-fpm解析404-not found》</a>
             <!--article title end-->
             <a class="display-nav-li no-underline d-flex" href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/" target="_blank">
                 <span class="completeness-indicator completeness-indicator-problem">
@@ -739,16 +742,15 @@ Jekyll = web serve...</span></a>
             <!--article relation git repos <branch/md files.> end-->
         </div><!--box header stop-->
         <div class="Box-row">
-            <a class="d-flex flex-justify-around flex-column overflow-hidden flex-items-stretch" style="z-index: 2;" href="/blog/2019/Ubuntu-linux-with-arm/"></a>
+            <a class="d-flex flex-justify-around flex-column overflow-hidden flex-items-stretch" style="z-index: 2;" href="/blog/2019/php-with-nginx-error/"></a>
             <div class="discussion-spotlight-details position-relative p-3 pr-5 css-truncate width-fit d-flex flex-column flex-items-start" style="z-index: 3;">
                 <a class="my-3 col-7 color-fg-default text-bold f3 no-underline d-flex flex-items-center mt-2" aria-label="elisemoe (author)">
                     <span class="mr-1">
-  声明：本文章首发于华为云鲲鹏社区，同步于作者个人博客:)
+  php+nginx解析错误，报错404-Not Found
 
 
-鲲鹏云服务器Ubuntu 18.04 64bit with ARM
-
-PHP+NGIN...</span></a>
+前言
+容器内是自己写的个人博客，处于安全考虑用的是静态页面博客。但是由于公网维护博客...</span></a>
             </div>
         </div>
         <div class="Box-row discussion-spotlight-details position-relative py-2 pr-5 css-truncate width-fit d-flex flex-column flex-items-start" style="z-index: 3;">
@@ -761,7 +763,7 @@ PHP+NGIN...</span></a>
                     <!--article author avatar img. end-->
                     <div class="color-fg-success-icon scrollbar-16-16"></div><!--article GitHub action success.site.commitString-->
                     
-                    <a class="d-flex color-fg-default px-md-6" href="https://github.com/Bin4xin/bin4xin.github.io/commit/79fd2db" target="_blank">79fd2db</a>
+                    <a class="d-flex color-fg-default px-md-6" href="https://github.com/Bin4xin/bin4xin.github.io/commit/647145a" target="_blank">647145a</a>
                     <!--article author end-->
 
 <!-- site build time set to the latest time.-->
@@ -788,7 +790,7 @@ PHP+NGIN...</span></a>
         
 
         
-            on Sep 1, 2019
+            on Dec 4, 2019
         
     </a>
 </div>
@@ -802,7 +804,7 @@ PHP+NGIN...</span></a>
                     
                         <a href="/blog/page/17/" class="btn btn-primary">上一页</a>
                     
-                    <span>第 18 页 / 共 19 页</span>
+                    <span>第 18 页 / 共 21 页</span>
                     
                         <a href="/blog/page/19/" class="btn btn-primary">下一页</a>
                     
@@ -969,7 +971,7 @@ PHP+NGIN...</span></a>
         
         <p>
             <i class="fa fa-angle-right"></i> BLOG
-            <span class="badge badge-theme pull-right">57</span>
+            <span class="badge badge-theme pull-right">62</span>
         </p>
         
         <p>

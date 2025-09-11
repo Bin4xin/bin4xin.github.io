@@ -17,6 +17,131 @@
     <generator>Jekyll Ver 3.9.5.</generator>
     
       <item>
+        <title>blog: 「Android安全」:YAML 配置驱动的 Android POC 框架设计</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2025/09/11
+        
+        </pubDate>
+        <link>https://bin4xin.sentrylab.cn/blog/2025/YAML-Configuration-Driven-POC-Framework/</link>
+        <guid isPermaLink="true">/blog/2025/YAML-Configuration-Driven-POC-Framework/</guid>
+        
+        <category>YAML</category>
+        
+        <category>POC 框架</category>
+        
+        <category>Android 安全</category>
+        
+        <category>漏洞验证</category>
+        
+        <category>移动应用测试</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「Android安全」:Android 渗透测试中的会话劫持与日志分析技术</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2025/09/11
+        
+        </pubDate>
+        <link>https://bin4xin.sentrylab.cn/blog/2025/Session-Logging-System-Implementation/</link>
+        <guid isPermaLink="true">/blog/2025/Session-Logging-System-Implementation/</guid>
+        
+        <category>Android 渗透测试</category>
+        
+        <category>会话劫持</category>
+        
+        <category>日志分析</category>
+        
+        <category>移动安全</category>
+        
+        <category>Frida</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「Android安全」:Android应用测试中的异常处理与稳定性优化</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2025/09/11
+        
+        </pubDate>
+        <link>https://bin4xin.sentrylab.cn/blog/2025/Python-Exception-Handling-Stability-Optimization/</link>
+        <guid isPermaLink="true">/blog/2025/Python-Exception-Handling-Stability-Optimization/</guid>
+        
+        <category>笔记</category>
+        
+        <category>Python</category>
+        
+        <category>Android安全</category>
+        
+        <category>异常处理</category>
+        
+        <category>代码优化</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「Android安全」:Android 网络扫描器实现：移动应用流量分析与漏洞检测</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2025/09/11
+        
+        </pubDate>
+        <link>https://bin4xin.sentrylab.cn/blog/2025/Multi-threaded-Network-Scanner-Implementation/</link>
+        <guid isPermaLink="true">/blog/2025/Multi-threaded-Network-Scanner-Implementation/</guid>
+        
+        <category>Android 安全</category>
+        
+        <category>网络扫描</category>
+        
+        <category>流量分析</category>
+        
+        <category>移动应用安全</category>
+        
+        <category>Frida</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「Android安全」:CTFKits Android自动化渗透测试框架分析</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2025/09/11
+        
+        </pubDate>
+        <link>https://bin4xin.sentrylab.cn/blog/2025/CTFKits-Automated-Testing-Framework-Analysis/</link>
+        <guid isPermaLink="true">/blog/2025/CTFKits-Automated-Testing-Framework-Analysis/</guid>
+        
+        <category>笔记</category>
+        
+        <category>自动化测试</category>
+        
+        <category>Python</category>
+        
+        <category>Android安全</category>
+        
+        <category>移动应用渗透测试</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
         <title>blog: 「安卓」:Xposed框架安装与模块开发</title>
         <description>[MORE]</description>
         <pubDate>
