@@ -1,6 +1,51 @@
 [
 
   {
+    "title"    : "微信小程序逆向II",
+    "category" : "about",
+    "tags"     : "",
+    "url"      : "/about/wechat-miniapp-reverse-intermediate-frida-hook/",
+    "date"     : "Jan 26, 2026",
+    "content"  : "微信小程序逆向进阶：抓包+FridaHook打印加密明文（2026超详细版）上一期我们拿到了源码，这一期重点解决“源码有了，但加密函数看不懂、key藏在哪里”的问题。通过抓包+动态Hook，我们可以直接在运行时打印出明文参数、key、iv等核心信息。目标读者&amp;前置技能已完成第一次解包并导入开发者工具能看懂最基础的JavaScript愿意花30分钟搭建Frida环境工具准备（2026推荐配置）工具用途安装/下载方式备注HttpCanary安卓抓包GooglePlay/apkpure真机首选PCFiddler/CharlesPC微信抓包官网需证书信任mitmproxy命令行抓包pipinstallmitmproxy高级Frida动态Hookpipinstallfrida-tools核心frida-server手机端githubreleases架构需匹配r0capture内存明文github兜底方案Frida环境搭建（安卓）下载对应架构的frida-serveradbpush到/data/local/tmp/chmod755frida-server&amp;&amp;./frida-server&amp;PC端frida-ps-U验证高频Hook脚本合集（hook.js）console.log(\"[*]HookWeChatMiniApp\");Java.perform(function(){//AESvarCipher=Java.use(\"javax.crypto.Cipher\");Cipher.doFinal.overload('[B').implementation=function(input){console.log(\"[AES明文]\",Java.use(\"java.lang.String\").$new(input));returnthis.doFinal(input);};//MD5/SHAvarMessageDigest=Java.use(\"java.security.MessageDigest\");MessageDigest.update.overload('[B').implementation=function(b){console.log(\"[Digest输入]\",b);returnthis.update(b);};});启动：frida-U-fcom.tencent.mm-lhook.js--no-pause实战案例：打印登录接口AES参数操作流程：启动Frida打开目标小程序触发登录/下单等接口示例输出：[AES明文]{\"phone\":\"13800000000\",\"code\":\"123456\"}[AESkey]0123456789abcdef0123456789abcdef[AESiv]fedcba9876543210常见问题&amp;绕过问题原因解决方案Frida闪退server不匹配换版本无输出Hook点不对HookJSON/String证书抓不到PinningJustTrustMe被检测Root反调试Magisk+Shamiko实战闭环：从Frida明文到HTTPS接口复现✅你已经掌握的关键信息算法：AES-CBCkey/iv明文结构接口URLPython本地解密验证fromCrypto.CipherimportAESimportbase64,jsonkey=b'0123456789abcdef0123456789abcdef'iv=b'fedcba9876543210'cipher=AES.new(key,AES.MODE_CBC,iv)plain=cipher.decrypt(base64.b64decode(\"U2FsdGVkX1+...\"))print(plain)本地加密并重放接口importrequestspayload=encrypt({\"phone\":\"13800000000\",\"code\":\"123456\"},key,iv)r=requests.post(\"https://api.example.com/login\",json={\"data\":payload})print(r.text)本篇你真正获得的能力✅能在运行时无视HTTPS能稳定拿到key/iv能复现真实业务接口下一篇：👉高级工具链&amp;自动化解密流水线"
+  },
+
+  {
+    "title"    : "微信小程序逆向IV",
+    "category" : "about",
+    "tags"     : "",
+    "url"      : "/about/wechat-miniapp-reverse-beginner/",
+    "date"     : "Jan 26, 2026",
+    "content"  : "微信小程序逆向专家篇：字节码虚拟机、内存dump&amp;加固对抗（2026）当小程序使用了字节码保护（V8/QuickJSbytecode）、多层wrapper、自校验、花指令后，常规解包工具基本失效。这时需要转向内存级逆向。当前最难的三类防护（2026现状）防护类型特征关键词难度主流绕过成功率V8/QuickJS字节码V8Snapshot、BytecodeArray★★★★★70–85%多层wrapper+自校验wrapper、checksum、setInterval校验★★★★80–90%行为/环境指纹检测canvas、WebGL、touch、navigator★★★★75–95%终极突破思路总结核心原则：“无论多少层加密，最终明文都会在内存中组装好发出去——找到那块内存就赢了。”推荐工具&amp;技术栈工具/技术用途难度成功率FridaMemory.scan搜索明文特征（手机号、token）★★★★★★★★★r0capture自动抓取所有网络明文流量★★★★★★★★FridaHookfetch/XMLHttpRequest拦截最终请求体★★★★★★★★☆bytenode/v8-decompile字节码→JS尝试还原★★★★★★★★☆Ghidra/IDAPro分析小程序壳native层★★★★★★★☆实战三板斧（几乎万能组合）Memory.scan搜明文varpattern=Memory.scanSync(Process.getModuleByName(\"libwechat.so\"),'13812345678',{json:true});console.log(\"找到地址:\"+pattern[0].address);Hook最终网络发送点Hookwx.request、XMLHttpRequest.send、fetchDump所有TypedArray/ArrayBufferInterceptor.attach(Module.findExportByName(null,\"send\"),{onEnter:function(args){console.log(\"准备发送的数据缓冲区:\",args[1].readByteArray(512));}});真实案例：绕过某支付小程序字节码保护常规解包→app-service.js是乱码字节码Frida附加→Memory.scan搜索订单号20260125找到地址→读前后1000字节→发现明文JSON定位加密函数→HookCipher.doFinal→拿到key后续流量全部可解高手进阶方向：熟练r0capture+frida-trace+自定义内存搜索脚本。终极对抗：VM之下，HTTPS与业务加密的最终归宿⚔️这一节是整个五篇的“终点”看到这里，你应该彻底放弃“靠加密本身防逆向”的幻想VM到底防住了什么？又没防住什么？✅VM防住的是：静态阅读源码批量解包新手脚本❌VM永远防不住：明文在运行时存在于内存VM场景下HTTPS+AES的真实路径JSBytecode→VM执行→构造明文对象→AES.encrypt()→ArrayBuffer→HTTPSsend终极打法一：Hook明文汇聚点Java.perform(function(){varJSONObject=Java.use(\"org.json.JSONObject\");JSONObject.toString.implementation=function(){varret=this.toString();console.log(\"[VM明文]\",ret);returnret;};});终极打法二：内存扫描捞明文Memory.scan(Process.getModuleByName(\"libwechat.so\"),\"13800000000\",{onMatch(addr){console.log(addr.readByteArray(512));}});防守方的物理极限你无法做到：不在内存中存在明文不构造请求体不在运行时生成key现实防守建议VM+NativeNative生成key行为指纹+服务端校验目标是拖垮规模化攻击五篇最终结论HTTPS解决网络问题加密解决静态分析VM解决批量逆向内存，解决一切防护至此，小程序HTTPS加解密攻防体系完整闭环。"
+  },
+
+  {
+    "title"    : "微信小程序逆向I",
+    "category" : "about",
+    "tags"     : "",
+    "url"      : "/about/wechat-miniapp-reverse-beginner/",
+    "date"     : "Jan 26, 2026",
+    "content"  : "微信小程序逆向入门（2026超详细新手版）——从找到包到成功导入开发者工具微信小程序逆向的核心目标通常是：拿到源码→看懂页面结构→找到网络请求逻辑→分析加密/签名算法。本文针对零基础读者，从最基础的操作开始，一步一步带你完成第一次完整逆向。重要声明：本文内容仅供学习研究、合法安全测试使用。任何用于商业竞争、黑产、侵犯用户隐私的行为均属违法，请严格遵守法律法规。1.为什么2026年逆向小程序仍然有意义？UI/交互/动效设计参考（很多小程序前端体验远超H5）接口参数构造学习（尤其是加密参数的生成逻辑）安全评估（是否存在明文传输敏感信息、弱签名等问题）协议模拟/抓包补环境（爬虫、自动化测试场景）个人兴趣/技术钻研2.环境准备（强烈建议PC微信路线，无需Root）（原内容保持不变）6.第一次逆向后的下一步行动清单（原内容保持不变）7.新手必做实战：识别HTTPS下的业务加密请求关键认知升级：HTTPS≠参数不可逆你现在要学会的是：识别“业务层加密”，而不是去解HTTPS7.1抓包时你会看到什么？使用Charles/Proxyman抓包后，新手通常会看到两种情况：✅情况A：明文JSON（低安全）{\"phone\":\"138****8888\",\"code\":\"123456\"}✅情况B：明显的业务加密（高频）{\"data\":\"U2FsdGVkX1+9X6l0d7Y8W...\",\"sign\":\"a8f1c3e9...\"}👉看到长Base64/Hex字符串，99%是AES/DES/SM47.2在源码中快速定位“加密入口”打开app-service.js，按顺序搜索：encryptAESCryptoJSmd5sha1sha256sign新手最常见的加密函数长这样：functionencryptData(data){constkey=getKey()returnCryptoJS.AES.encrypt(JSON.stringify(data),key,{mode:CryptoJS.mode.CBC}).toString()}✅判断要点：是否在wx.request前调用是否对整个payload加密key是否来自storage/全局变量7.3为什么“看得见代码=理论上可解”哪怕你暂时不会Hook，也可以先验证算法正确性。✅用Node.js复现AES（验证你理解没错）constCryptoJS=require('crypto-js')constcipher='U2FsdGVkX1+9X6l0...'constkey='testkey12345678'constbytes=CryptoJS.AES.decrypt(cipher,key)console.log(bytes.toString(CryptoJS.enc.Utf8))如果能还原JSON，说明：✅算法确认✅模式确认✅参数结构确认剩下的只是“key从哪里来”7.4新手阶段你不需要做的事（很重要）❌不需要Root❌不需要Frida❌不需要HookHTTPS❌不需要破解TLS你现在的目标只有一个：能看懂：哪些参数是业务加密，哪些函数负责加密7.5本阶段达成的能力清单✅✅能区分HTTPS与业务层加密✅能在源码中定位加密函数✅能判断AES/签名/混合加密✅能用脚本验证算法正确性下一篇文章我们将进入FridaHook阶段，你将第一次在真机上看到：👉“加密前的明文，是如何被直接打印出来的”"
+  },
+
+  {
+    "title"    : "微信小程序逆向III",
+    "category" : "about",
+    "tags"     : "",
+    "url"      : "/about/wechat-miniapp-reverse-advanced-toolchain/",
+    "date"     : "Jan 26, 2026",
+    "content"  : "微信小程序逆向高级篇：2026主流工具全流程+KillWxapkg自动化实战当你已经熟练解包+Hook后，就可以开始使用更高效的自动化工具了。本文重点介绍2026年最活跃的工具链，特别是KillWxapkg的完整使用方式。2026年推荐工具链对比工具自动化程度支持新微信4.xHook能力还原工程质量推荐指数wux1an/wxapkg高是无★★★★☆★★★★★zhuweiyou/wxapkg极高是无★★★★★★★★☆KillWxapkg最高是有★★★★★★★★★★wxappUnpacker中部分无★★★备用r0capture中是内存dump★★★★最后手段KillWxapkg完整使用指南（强烈推荐）为什么选它？自动扫描+解密+解包+尝试还原工程目录内置常见Hook点（AES、RSA、MD5、wx.request）支持分包合并2026年仍活跃更新安装&amp;运行gitclonehttps://github.com/Ackites/KillWxapkgpipinstall-rrequirements.txtpythonmain.py常用命令#扫描所有已安装小程序pythonmain.pyscan#解包指定小程序pythonmain.pyunpack--name\"小程序名称\"#Hook模式（自动打印加密key）pythonmain.pyhook--name\"目标小程序\"运行完成后，会在output/下生成完整工程目录。实战流程示例scan→找到目标小程序unpack→解包生成工程导入微信开发者工具启动小程序→控制台自动输出Hook日志高级Tips&amp;常见坑分包没合并→加--merge解密失败→先用wux1an/wxapkg解密一次Hook没输出→改用自定义Frida脚本微信更新导致路径变化→用Everything搜索最新radium/Applet自动化实战：构建HTTPS业务解密与协议复现流水线🚀这是高级篇的“分水岭”从这里开始，你做的已经不是“逆向”，而是协议工程目标小程序运行即抓key/iv参数自动加密HTTPS接口脚本化调用全程无人值守Hook输出结构化[AES]key=0123456789abcdef0123456789abcdef[AES]iv=fedcba9876543210[AES]plain={\"uid\":123,\"token\":\"xxx\"}建议写入文件：fs.appendFileSync('/data/local/tmp/crypto_dump.json',JSON.stringify(obj)+'\\n')Python自动加载key/ivimportjsonctx=json.loads(open(\"crypto_dump.json\").read().splitlines()[-1])key=bytes.fromhex(ctx[\"key\"])iv=bytes.fromhex(ctx[\"iv\"])自动化构造加密请求fromCrypto.CipherimportAESimportbase64,json,requestsdefencrypt(data,key,iv):raw=json.dumps(data).encode()pad=16-len(raw)%16raw+=bytes([pad])*padreturnbase64.b64encode(AES.new(key,AES.MODE_CBC,iv).encrypt(raw)).decode()payload=encrypt({\"uid\":123,\"amount\":100},key,iv)r=requests.post(\"https://api.example.com/pay\",json={\"data\":payload})print(r.text)对防守方的现实结论HTTPS+AES+动态key在工程化逆向面前远远不够下一篇进入专家级：字节码虚拟机、内存解密与反自动化对抗"
+  },
+
+  {
+    "title"    : "小程序安全加固指南",
+    "category" : "about",
+    "tags"     : "",
+    "url"      : "/about/protect-wechat-miniapp-from-reverse-engineering/",
+    "date"     : "Jan 26, 2026",
+    "content"  : "小程序安全加固指南：如何让逆向者“解得心累、收益为负”（2026版）目标读者：小程序开发者、安全工程师、风控同学。逆向成本=时间×技术难度×法律风险好的加固不是让黑客完全解不开，而是让成本远高于收益。2026年性价比最高加固组合（从易到难）优先级加固手段实现难度防逆向提升维护成本1AES-256-CBC+RSA-OAEP混合+动态key★★★★★★★☆低2WebCryptoAPI+SM2/SM4国密★★★★★★★★☆中3字节码虚拟机（腾讯/字节/第三方服务）★★★★★★★★★★高4多层wrapper+花指令+函数自校验★★★★★★★★☆中5设备/行为指纹+RASP+二次校验★★★★★★★★☆中高6代码分割+按需加载+反调试检测★★★★★★★★中案例一：HTTPS之上，业务层AES加密是如何被解的？误区：用了HTTPS，就没人能看到请求内容现实：HTTPS只能防“中间人”，防不了“终端逆向”✅小程序端真实加密代码（攻击目标）importCryptoJSfrom'crypto-js'functionencryptPayload(data,key,iv){returnCryptoJS.AES.encrypt(JSON.stringify(data),CryptoJS.enc.Utf8.parse(key),{iv:CryptoJS.enc.Utf8.parse(iv),mode:CryptoJS.mode.CBC,padding:CryptoJS.pad.Pkcs7}).toString()}wx.request({url:'/api/order/create',data:{payload:encryptPayload({skuId:123,count:1},sessionKey,timestamp.slice(0,16))}})抓包只能看到：{\"payload\":\"U2FsdGVkX1+9X6l0...\"}❌攻击者真实解法（FridaHook）HTTPS并不会阻止如下Hook：Java.perform(function(){constAES=Java.use('javax.crypto.Cipher')AES.doFinal.overload('[B').implementation=function(data){console.log('[AES明文]',Java.use('java.lang.String').$new(data))returnthis.doFinal(data)}})✅防守侧升级建议AESkey不应直接存在于JS运行时key应通过RSA公钥加密下发解密逻辑拆散到多个wrapper/VM内案例二：动态key≠安全（如果派生方式可预测）❌常见“伪动态key”设计constkey=md5(openid+Date.now()).substr(0,16)攻击者视角Date.now=()=&gt;1700000000000✅正确做法key=HKDF(server_nonce,device_fp,session_secret)并在服务端二次校验设备行为指纹。加密设计必须遵守的8条铁律（含逆向解释）密钥永不写死在前端AESkey必须服务器生成并公钥加密下发每次请求使用不同IV敏感字段分包加密行为指纹必须参与服务端校验核心函数做toString校验上线前自己完整逆一遍定期轮换公钥并监控异常解包攻击者真实工作流（你必须假设他们会这样做）1.Charles抓包2.KillWxapkg解包3.FridaHookAES/RSA4.自动化解密脚本快速落地方案（1–2周）当前状态→推荐升级路径只有MD5签名→AES-CBC+RSA-OAEP固定AESkey→登录态动态下发无环境校验→指纹+RASP代码可读性高→字节码+wrapper一句话总结：真正有效的防护，是让逆向者花一个月才解出接口，而业务窗口只剩三天。"
+  },
+
+  {
     "title"    : "「Android安全」:YAML 配置驱动的 Android POC 框架设计",
     "category" : "",
     "tags"     : "YAML, POC 框架, Android 安全, 漏洞验证, 移动应用测试",

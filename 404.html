@@ -22,14 +22,660 @@
 <!-- Open Graph metadata -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="© 哨兵" />
-<meta property="og:description" content=" &lt;div class=&quot;container mtb&quot;&gt;
-    &lt;div class=&quot;row d-flex &quot;&gt;
-        &lt;!-- SINGLE POST --&gt;
-        &lt;div class=&quot;col-lg-8 markdown-body-img flex-column&quot;&gt;
-            &lt;!-- Blog Post  --&gt;
-            &lt;a href=&quot;/blog/2025/YAML-Configuration-Driven-POC-Framework/&quot;&gt;&lt;h1 class=&quot;ctitle&quot;&gt;「Android安全」:YAML 配置驱动的 Android POC 框架设计&lt;/h1&gt;&lt;/a&gt;
-            &lt;csmall&gt;&lt;div class=&quot;d-flex items-center&quot;&gt;
-                &lt;!--article author end--&gt;
+<meta property="og:description" content=" 
+
+&lt;div id=&quot;help-page&quot;&gt;
+	&lt;div class=&quot;visible-xs&quot;&gt;&lt;!--nav banner with logo. 响应式::菜单::表单--&gt;
+		&lt;div class=&quot;navbar navbar-default navbar-fixed-top&quot; role=&quot;navigation&quot;&gt;
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;div class=&quot;navbar-header&quot;&gt;
+            &lt;!-- logo+popover整体包裹，便于布局和交互 --&gt;
+            &lt;div class=&quot;navbar-logo-hover-wrap&quot;&gt;
+                &lt;a class=&quot;gb_A flex-justify-center-l navbar-logo&quot; href=&quot;/&quot; title=&quot;返回首页&quot; tabindex=&quot;0&quot; aria-label=&quot;返回首页&quot;&gt;
+                    &lt;picture&gt;
+  &lt;svg style=&quot;vertical-align: middle;&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot; role=&quot;img&quot; class=&quot;color-fg-default&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;42&quot; height=&quot;42&quot; fill=&quot;currentColor&quot; style=&quot;&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+  
+&lt;/picture&gt;
+                &lt;/a&gt;
+                &lt;!-- Apple/GitHub 风格美化的 popover --&gt;
+                &lt;div class=&quot;navbar-logo-popover&quot; tabindex=&quot;-1&quot;&gt;
+                    &lt;div class=&quot;popover-arrow&quot;&gt;&lt;/div&gt;
+                    &lt;ul&gt;
+                    
+                    
+                        
+                    
+                        
+                            
+                            &lt;li&gt;
+                                &lt;a class=&quot;popover-link&quot; href=&quot;https://github.com/Bin4xin/bigger-than-bigger/&quot; target=&quot;_blank&quot;&gt;
+                                    &lt;span class=&quot;fa fa-code-fork&quot;&gt;&lt;/span&gt;
+                                    &lt;span class=&quot;popover-link-text&quot;&gt;BIGGER THAN BIGGER&lt;/span&gt;
+                                &lt;/a&gt;
+                            &lt;/li&gt;
+                            
+                            &lt;li&gt;
+                                &lt;a class=&quot;popover-link&quot; href=&quot;https://github.com/Bin4xin/bigger-than-bigger/tree/master/CoVV&quot; target=&quot;_blank&quot;&gt;
+                                    &lt;span class=&quot;fa fa-code-fork&quot;&gt;&lt;/span&gt;
+                                    &lt;span class=&quot;popover-link-text&quot;&gt;COLLECTION OF VERIFIED VULNERABILITIES&lt;/span&gt;
+                                &lt;/a&gt;
+                            &lt;/li&gt;
+                            
+                            &lt;li&gt;
+                                &lt;a class=&quot;popover-link&quot; href=&quot;https://github.com/Bin4xin/sweet-ysoserial&quot; target=&quot;_blank&quot;&gt;
+                                    &lt;span class=&quot;fa fa-code-fork&quot;&gt;&lt;/span&gt;
+                                    &lt;span class=&quot;popover-link-text&quot;&gt;SWEET-YSOSERIAL&lt;/span&gt;
+                                &lt;/a&gt;
+                            &lt;/li&gt;
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;!-- 菜单按钮 --&gt;
+            &lt;button type=&quot;button&quot; class=&quot;navbar-toggle&quot; id=&quot;navbar-toggle-btn&quot; data-toggle=&quot;collapse&quot; data-target=&quot;.navbar-collapse&quot; aria-label=&quot;切换导航菜单&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;main-nav&quot; style=&quot;outline:2px solid transparent; margin-left: 8px;&quot;&gt;
+                &lt;span class=&quot;sr-only&quot;&gt;Toggle navigation&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+            &lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;navbar-collapse collapse navbar-right&quot;&gt;
+            &lt;ul class=&quot;nav navbar-nav&quot;&gt;
+                
+                &lt;li &gt;&lt;a href=&quot;/&quot;&gt;&lt;div class=&quot;fa fa-search&quot;&gt;&lt;/div&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;li &gt;&lt;a href=&quot;/blog/&quot;&gt;BLOG&lt;/a&gt;&lt;/li&gt;
+                &lt;li &gt;&lt;a href=&quot;/categories/&quot;&gt;CATEGORIES&lt;/a&gt;&lt;/li&gt;
+                &lt;li &gt;&lt;a href=&quot;/daily/&quot;&gt;DAILY&lt;/a&gt;&lt;/li&gt;
+                &lt;li &gt;&lt;a href=&quot;/newest&quot;&gt;NEWEST&lt;/a&gt;&lt;/li&gt;
+                &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;/about/&quot;&gt;RESEARCH&lt;/a&gt;&lt;/li&gt;
+                &lt;li &gt;&lt;a href=&quot;/feed.xml&quot;&gt;RSS&lt;/a&gt;&lt;/li&gt;
+                
+            &lt;/ul&gt;
+        &lt;/div&gt;&lt;!--/.nav-collapse --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+// 菜单展开/收起交互优化，支持键盘操作
+(function() {
+    var btn = document.getElementById(&#39;navbar-toggle-btn&#39;);
+    var nav = document.querySelector(&#39;.navbar-collapse&#39;);
+    if (!btn || !nav) return;
+    btn.addEventListener(&#39;click&#39;, function() {
+        var expanded = btn.getAttribute(&#39;aria-expanded&#39;) === &#39;true&#39;;
+        btn.setAttribute(&#39;aria-expanded&#39;, !expanded);
+        nav.classList.toggle(&#39;show&#39;);
+    });
+    btn.addEventListener(&#39;keydown&#39;, function(e) {
+        if (e.key === &#39;Enter&#39; || e.key === &#39; &#39;) {
+            btn.click();
+            e.preventDefault();
+        }
+    });
+})();
+&lt;/script&gt;
+
+		&lt;div class=&quot;spacing&quot;&gt;&lt;/div&gt;
+
+		&lt;form class=&quot;form-inline&quot;&gt;
+			&lt;div class=&quot;form-group&quot;&gt;&lt;details&gt;
+				
+	
+	&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;
+		&lt;a&gt;&lt;strong&gt;移动攻防&lt;/strong&gt;&lt;/a&gt;
+	&lt;/summary&gt;
+	
+	&lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
+		&lt;li id=&quot;toc-微信小程序逆向II&quot; class=&quot;table-of-contents table-of-contents__left-border  active&quot;&gt;
+			&lt;a href=&quot;/about/wechat-miniapp-reverse-intermediate-frida-hook/&quot;&gt;I. 微信小程序逆向II&lt;/a&gt;
+		&lt;/li&gt;
+	&lt;/ul&gt;
+	
+	&lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
+		&lt;li id=&quot;toc-微信小程序逆向IV&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+			&lt;a href=&quot;/about/wechat-miniapp-reverse-beginner/&quot;&gt;II. 微信小程序逆向IV&lt;/a&gt;
+		&lt;/li&gt;
+	&lt;/ul&gt;
+	
+	&lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
+		&lt;li id=&quot;toc-微信小程序逆向I&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+			&lt;a href=&quot;/about/wechat-miniapp-reverse-beginner/&quot;&gt;III. 微信小程序逆向I&lt;/a&gt;
+		&lt;/li&gt;
+	&lt;/ul&gt;
+	
+	&lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
+		&lt;li id=&quot;toc-微信小程序逆向III&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+			&lt;a href=&quot;/about/wechat-miniapp-reverse-advanced-toolchain/&quot;&gt;IV. 微信小程序逆向III&lt;/a&gt;
+		&lt;/li&gt;
+	&lt;/ul&gt;
+	
+	&lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
+		&lt;li id=&quot;toc-小程序安全加固指南&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+			&lt;a href=&quot;/about/protect-wechat-miniapp-from-reverse-engineering/&quot;&gt;V. 小程序安全加固指南&lt;/a&gt;
+		&lt;/li&gt;
+	&lt;/ul&gt;
+	
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+			&lt;/details&gt;
+			&lt;/div&gt;
+		&lt;/form&gt;
+	&lt;/div&gt;&lt;!--响应式::菜单::表单 end class=&quot;area-scroll&quot; style=&quot;height:100vh&quot;--&gt;
+		&lt;!--left area: menu 左边菜单栏 col-sm-3 ./25%--&gt;
+		&lt;div id=&quot;post-content&quot; class=&quot;row markdown-body-img d-flex&quot;&gt;
+			&lt;div id=&quot;sidebar1&quot; class=&quot;flex-column col-md-3 position-sticky ml-hide overflow-y-auto top-0 d-none d-lg-block flex-shrink-0 border-right&quot; style=&quot;height:100vh&quot;&gt;
+				&lt;div tabindex=&quot;-1&quot; class=&quot;position-sticky navbar-default top-0 color-bg-default new_figma_des&quot; style=&quot;z-index:3&quot;&gt;
+					&lt;a href=&quot;/&quot; target=&quot;blank&quot; id=&quot;logo&quot;&gt;
+						&lt;picture&gt;
+  
+  
+  &lt;source srcset=&quot;/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x&quot; media=&quot;(prefers-color-scheme: dark)&quot; /&gt;
+  
+  
+  
+  &lt;img src=&quot;/assets/img/logo-small.jpg&quot; srcset=&quot;/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x&quot; /&gt;
+  
+&lt;/picture&gt;
+						
+					&lt;/a&gt;
+				&lt;/div&gt;
+				&lt;div id=&quot;help-nav&quot; aria-expanded=&quot;true&quot; class=&quot;nav nav-pills nav-stacked&quot; &gt;
+					
+	&lt;details open&gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;移动攻防&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-微信小程序逆向II&quot; class=&quot;table-of-contents table-of-contents__left-border  active&quot;&gt;
+				&lt;a href=&quot;/about/wechat-miniapp-reverse-intermediate-frida-hook/&quot;&gt;I. 微信小程序逆向II&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-微信小程序逆向IV&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/wechat-miniapp-reverse-beginner/&quot;&gt;II. 微信小程序逆向IV&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-微信小程序逆向I&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/wechat-miniapp-reverse-beginner/&quot;&gt;III. 微信小程序逆向I&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-微信小程序逆向III&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/wechat-miniapp-reverse-advanced-toolchain/&quot;&gt;IV. 微信小程序逆向III&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-小程序安全加固指南&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/protect-wechat-miniapp-from-reverse-engineering/&quot;&gt;V. 小程序安全加固指南&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;JMREPORT&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-JimuReport Vuln WalkThrough backup&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/JimuReport-Vuln-WalkThrough-backup/&quot;&gt;I. JIMUREPORT VULN WALKTHROUGH BACKUP&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;OPENLITESPEED&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-OpenliteSpeed CVE-2022-0072 Vulns&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/2022-11-23-openlitespeed-cve-vuln-walkthrough/&quot;&gt;I. OPENLITESPEED CVE-2022-0072 VULNS&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;APEREO CAS&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-Apereo CAS &lt; 4.2.x 反序列化远程代码执行&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/Apereo-CAS-Less-than-4-2-x-RCE/&quot;&gt;I. APEREO CAS &lt; 4.2.X 反序列化远程代码执行&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;鱼叉攻击策略&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-鱼叉攻击策略落地：从零到一&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/Harpoon-strategy-attack-from-0-to-1/&quot;&gt;I. 鱼叉攻击策略落地：从零到一&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-鱼叉攻击策略落地：邮件网关应用&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/2022-05-17-Harpoon-strategy-attack-EmailGateway-usage/&quot;&gt;II. 鱼叉攻击策略落地：邮件网关应用&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;GITLAB&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-GitLab CVE-2020-10977 任意文件读取漏洞&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/GitLab-CVE-2020-10977/&quot;&gt;I. GITLAB CVE-2020-10977 任意文件读取漏洞&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-GitLab CVE-2020-10977 任意文件读取漏洞导致的RCE&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/GitLab-CVE-2020-10977-RCE/&quot;&gt;II. GITLAB CVE-2020-10977 任意文件读取漏洞导致的RCE&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-GitLab CVE-2021-22205 snippet RCE&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/Gitlab-RCE-with-snippet-function/&quot;&gt;III. GITLAB CVE-2021-22205 SNIPPET RCE&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;COBALT STRIKE&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-Cobalt Strike服务器搭建历程&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/Cobalt-Strike-Server-build-walkthrough/&quot;&gt;I. COBALT STRIKE服务器搭建历程&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-Cobalt Strike服务器隐藏真实ip&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/Cobalt-Stike-hidden-true-ip/&quot;&gt;II. COBALT STRIKE服务器隐藏真实IP&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-CS上线木马免杀入门&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/Cobalt-Strike-beacon-bypass-walkthrough/&quot;&gt;III. CS上线木马免杀入门&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;APACHE LOG4J2&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-Apache Log4J2 RCE复现历程&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/Apache-Log4j2-RCE-WalkThrough/&quot;&gt;I. APACHE LOG4J2 RCE复现历程&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-Apache Log4J2 RCE JDK限制实验&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/Apache-log4j2-affect-By-JDK-version-walkthrough/&quot;&gt;II. APACHE LOG4J2 RCE JDK限制实验&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;OCR IN BP&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-BurpSuite验证码插件实验&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/CAPTCHA-BYPASS-WALKTHROUGH/&quot;&gt;I. BURPSUITE验证码插件实验&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;GET-STARTED&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-en&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/en/&quot;&gt;I. EN&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-zh&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/&quot;&gt;II. ZH&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;CTF&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-CTF - 代码审计向&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/CTF-Code-Audit-WalkThrough/&quot;&gt;I. CTF - 代码审计向&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-CTF - 杂项&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/CTF-Misc-WalkThrough/&quot;&gt;II. CTF - 杂项&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-CTF - 密码学与杂项&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/CTF-Crypto-and-Misc-etc-WalkThrough/&quot;&gt;III. CTF - 密码学与杂项&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-2022年网鼎杯玄武组-解题记录&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/WANGDINGCTF2022-Walkthrough/&quot;&gt;IV. 2022年网鼎杯玄武组-解题记录&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-2022年网鼎杯玄武组赛题复盘-[Web-FindIT]&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/WANGDINGCTF2022-WEB-FindIT-Walkthrough/&quot;&gt;V. 2022年网鼎杯玄武组赛题复盘-[WEB-FINDIT]&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-2022年网鼎杯玄武组赛题复盘-[Web-ezJava]&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/WANGDINGCTF2022-WEB-ezJava-Walkthrough/&quot;&gt;VI. 2022年网鼎杯玄武组赛题复盘-[WEB-EZJAVA]&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-2024年网鼎杯玄武组赛题历程&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/WANGDINGCTF2024-Walkthrough/&quot;&gt;VII. 2024年网鼎杯玄武组赛题历程&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-在棉花糖及以下版本中获取图案密码&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/Get-Pattern-password-in-Marshmallow-and-below/&quot;&gt;VIII. 在棉花糖及以下版本中获取图案密码&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;二进制研究/BIN&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-Hikvision-ConfigurationFiles-decrypter&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/Hikvision-ConfigurationFiles-decrypter/&quot;&gt;I. HIKVISION-CONFIGURATIONFILES-DECRYPTER&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-Router-BinFile-Analysis&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/Router-BinFile-Analysis/&quot;&gt;II. ROUTER-BINFILE-ANALYSIS&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;POLKIT&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-Polkit-CVE-2021-3560&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/polkit-CVE-2021-3560/&quot;&gt;I. POLKIT-CVE-2021-3560&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-Polkit-CVE-2021-4034复现&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/polkit-CVE-2021-4034/&quot;&gt;II. POLKIT-CVE-2021-4034复现&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;代理池：BASED ON SCYLLA&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-scylla 搭建步骤&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/Thousand-people-Thousand-faces-Red-team-penetration-agent-pool-based-on-scylla/&quot;&gt;I. SCYLLA 搭建步骤&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;WAF&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-Mod-Waf-Bypass-Walkthrough&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/Mod-Waf-Bypass-Walkthrough/&quot;&gt;I. MOD-WAF-BYPASS-WALKTHROUGH&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-ModSec &amp; CloudFlare WAF Initial Research&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/WAF-developed-by-Grayscale-forwarding/&quot;&gt;II. MODSEC &amp; CLOUDFLARE WAF INITIAL RESEARCH&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;代码审计&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-Dynamic-analysis-of-java-framework-code&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/Dynamic-analysis-of-java-framework-code/&quot;&gt;I. DYNAMIC-ANALYSIS-OF-JAVA-FRAMEWORK-CODE&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-安全与开发之：Maven构建排错&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/ALL-mvn-build-errors/&quot;&gt;II. 安全与开发之：MAVEN构建排错&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-浪潮ClusterEngineV4.0代码审计历程&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/inspur-Cluster-Engine-V4.0-code-aduit-walkthrough/&quot;&gt;III. 浪潮CLUSTERENGINEV4.0代码审计历程&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-CVE-2022-40664 Shiro Bypass研究历程&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/CVE-2022-40664-Research-Walkthrough/&quot;&gt;IV. CVE-2022-40664 SHIRO BYPASS研究历程&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;SPRING&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-SpringBoot-Memory-files-heapdump-Analysis&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/SpringBoot-Memory-files-heapdump-Analysis/&quot;&gt;I. SPRINGBOOT-MEMORY-FILES-HEAPDUMP-ANALYSIS&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-CVE-2022-22947 Spring-Cloud-Gateway-RCE&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/CVE-2022-22947-Spring-Cloud-Gateway-RCE/&quot;&gt;II. CVE-2022-22947 SPRING-CLOUD-GATEWAY-RCE&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;其他研究&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-SQL注入原理分析&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/ALL-SQL-INJECTION-ANALYSIS/&quot;&gt;I. SQL注入原理分析&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-Struts2Deser&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/Struts2Deser/&quot;&gt;II. STRUTS2DESER&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-基于内存的Shiro框架Webshell攻击研究&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/Research-on-Webshell-Attack-of-Shiro-Framework-Based-on-Memory/&quot;&gt;III. 基于内存的SHIRO框架WEBSHELL攻击研究&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-通达OA利用代码分析&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/ToDa-OA-VulnPoc-by-java-analysis/&quot;&gt;IV. 通达OA利用代码分析&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-JRMP-Gadget&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/JRMP-Gadget/&quot;&gt;V. JRMP-GADGET&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;反序列化&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-ShiroDeser&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/ShiroDeser/&quot;&gt;I. SHIRODESER&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-javaDeser&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/javaDeser/&quot;&gt;II. JAVADESER&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
+
+				&lt;/div&gt;
+			&lt;/div&gt;&lt;!-- side menu end. 左边菜单栏结束--&gt;
+			&lt;div class=&quot;flex-column col-md-9&quot;&gt;
+				
+&lt;div&gt;
+    &lt;div class=&quot;c_banner c_r c_cw c_agl c_mz c_jg c_fa c_fb&quot;&gt;&lt;!--start content bar. --&gt;
+        &lt;div class=&quot;c_fa c_fb c_iu c_iv&quot;&gt;
+            &lt;div class=&quot;white&quot;&gt;
+                
+
+                &lt;div style=&quot;font-family: &#39;DM Mono&#39;, monospace;&quot;&gt;
+                    &lt;csmall class=&quot;flex-justify-center-l white&quot;&gt;
+                        &lt;!--&lt;div class=&quot;build-show-icon scrollbar-16-16&quot;&gt;&lt;/div&gt;--&gt;
+                        &lt;a class=&quot;px-md-6 white f2 fw4&quot; href=&quot;/&quot;&gt;sentrylab.cn&lt;/a&gt; /
+                        &lt;a class=&quot;px-md-6 white f2 fw4&quot;&gt;
+                研究
+                 &lt;/a&gt;/
+                        &lt;a class=&quot;px-md-6 white f2 fw4 items-center&quot;&gt;
+                             移动攻防 
+                        &lt;/a&gt;
+                        &lt;!--article author end--&gt;
 
 &lt;!-- site build time set to the latest time.--&gt;
 
@@ -56,148 +702,249 @@
 
         
             
-            on Sep 11, 2025
+                
+                        13 hours ago
+                
             
         
     &lt;/a&gt;
 &lt;/div&gt;
-            &lt;/div&gt;&lt;/csmall&gt;
-            &lt;div class=&quot;post-content&quot;&gt; 
-            &lt;h2 id=&quot;概述&quot;&gt;概述&lt;/h2&gt;
+                    &lt;/csmall&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;&lt;!--end content bar. --&gt;
+&lt;/div&gt;
 
-&lt;p&gt;在 Android 应用安全测试中，POC（Proof of Concept）框架是验证漏洞存在性的重要工具。本文将深入分析基于 YAML 配置驱动的 Android POC 框架设计，探讨如何通过声明式配置实现灵活、可扩展的移动应用漏洞验证系统。从 Android 渗透测试自动化的角度，YAML 驱动允许通过配置文件自动化 POC 执行，无需修改代码。这提高了框架的可复用性，便于团队共享 POC，并在 CI/CD 中集成，实现自动漏洞验证和报告生成。&lt;/p&gt;
+				&lt;div class=&quot;d-flex&quot;&gt;
+					&lt;div id=&quot;help-content&quot; class=&quot;flex-grow-1&quot;&gt;&lt;!--page main content--&gt;
+						&lt;div class=&quot;px-md-6&quot;&gt;
+							&lt;h1&gt;
+								&lt;span class=&quot;post-print pull-right&quot;&gt;&lt;a onclick=&quot;printpage()&quot;&gt;&lt;!--href=&quot;javascript:window.print()&quot;--&gt;
+								&lt;ion-icon&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;49&quot; height=&quot;49&quot; viewBox=&quot;0 0 512 512&quot; style=&quot;fill:currentColor;stroke:none;&quot;&gt;&lt;title&gt;Print document&lt;/title&gt;&lt;path d=&quot;M400,96V56a8,8,0,0,0-8-8H120a8,8,0,0,0-8,8V96&quot;/&gt;&lt;rect x=&quot;152&quot; y=&quot;264&quot; width=&quot;208&quot; height=&quot;160&quot; rx=&quot;4&quot; ry=&quot;4&quot; style=&quot;fill:none;stroke:none;&quot;/&gt;&lt;path d=&quot;M408,112H104a56,56,0,0,0-56,56V376a8,8,0,0,0,8,8h56v72a8,8,0,0,0,8,8H392a8,8,0,0,0,8-8V384h56a8,8,0,0,0,8-8V168A56,56,0,0,0,408,112ZM360,420a4,4,0,0,1-4,4H156a4,4,0,0,1-4-4V268a4,4,0,0,1,4-4H356a4,4,0,0,1,4,4ZM394,207.92a24,24,0,1,1,22-22A24,24,0,0,1,394,207.92Z&quot;/&gt;&lt;/svg&gt;
+								&lt;/ion-icon&gt;&lt;/a&gt;&lt;/span&gt;
+								&lt;span class=&quot;post-print pull-right&quot;&gt;&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/wechat-miniapps/2026-01-26-wechat-miniapp-reverse-intermediate-frida-hook-2026.md&quot; target=&quot;_blank&quot;&gt;
+								&lt;ion-icon&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;49&quot; height=&quot;49&quot; viewBox=&quot;0 0 512 512&quot; style=&quot;fill:currentColor;stroke:none;&quot;&gt;&lt;title&gt;Edit on github&lt;/title&gt;&lt;path d=&quot;M459.94,53.25a16.06,16.06,0,0,0-23.22-.56L424.35,65a8,8,0,0,0,0,11.31l11.34,11.32a8,8,0,0,0,11.34,0l12.06-12C465.19,69.54,465.76,59.62,459.94,53.25Z&quot;/&gt;&lt;path d=&quot;M399.34,90,218.82,270.2a9,9,0,0,0-2.31,3.93L208.16,299a3.91,3.91,0,0,0,4.86,4.86l24.85-8.35a9,9,0,0,0,3.93-2.31L422,112.66A9,9,0,0,0,422,100L412.05,90A9,9,0,0,0,399.34,90Z&quot;/&gt;&lt;path d=&quot;M386.34,193.66,264.45,315.79A41.08,41.08,0,0,1,247.58,326l-25.9,8.67a35.92,35.92,0,0,1-44.33-44.33l8.67-25.9a41.08,41.08,0,0,1,10.19-16.87L318.34,125.66A8,8,0,0,0,312.69,112H104a56,56,0,0,0-56,56V408a56,56,0,0,0,56,56H344a56,56,0,0,0,56-56V199.31A8,8,0,0,0,386.34,193.66Z&quot;/&gt;&lt;/svg&gt;
+								&lt;/ion-icon&gt;
+								&lt;/a&gt;&lt;/span&gt;
+							&lt;/h1&gt;
+							&lt;h1 id=&quot;微信小程序逆向进阶抓包--frida-hook-打印加密明文2026超详细版&quot;&gt;微信小程序逆向进阶：抓包 + Frida Hook 打印加密明文（2026超详细版）&lt;/h1&gt;
 
-&lt;h2 id=&quot;1-yaml-配置驱动架构设计&quot;&gt;1. YAML 配置驱动架构设计&lt;/h2&gt;
+&lt;p&gt;上一期我们拿到了源码，这一期重点解决“源码有了，但加密函数看不懂、key藏在哪里”的问题。通过抓包 + 动态 Hook，我们可以直接在运行时打印出明文参数、key、iv 等核心信息。&lt;/p&gt;
 
-&lt;h3 id=&quot;11-核心设计理念&quot;&gt;1.1 核心设计理念&lt;/h3&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 伪代码：结果数据类
-&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dataclass&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;POCResult&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;POCStatus&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;vulnerable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bool&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;12-yaml-配置结构设计&quot;&gt;1.2 YAML 配置结构设计&lt;/h3&gt;
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 示例配置&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;android-webview-file-exposure&quot;&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;check_webview_settings&quot;&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;frida_script&quot;&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;/*&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;监控&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;WebView&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;设置&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;*/&quot;&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;vulnerability_rules&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;condition&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;all_steps_success&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;自动化分析&lt;/strong&gt;：YAML 配置使 POC 易于扩展，自动化引擎可以解析并执行，提高测试速度。&lt;/p&gt;
-
-&lt;h2 id=&quot;2-poc-执行引擎实现&quot;&gt;2. POC 执行引擎实现&lt;/h2&gt;
-
-&lt;h3 id=&quot;21-yaml-解析与验证&quot;&gt;2.1 YAML 解析与验证&lt;/h3&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 伪代码：验证器
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AndroidPOCConfigValidator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;validate_config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;field&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;REQUIRED_FIELDS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;field&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sa&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Missing: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;field&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;22-frida-脚本生成器&quot;&gt;2.2 Frida 脚本生成器&lt;/h3&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 伪代码：脚本生成
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;FridaScriptGenerator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;generate_script&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;step_config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;variables&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;step_config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;type&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;webview_monitor&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Java.perform(function() { /* 监控 WebView */ });&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;自动化好处&lt;/strong&gt;：动态生成脚本允许自动化适应不同漏洞类型。&lt;/p&gt;
-
-&lt;h2 id=&quot;3-漏洞检测实现&quot;&gt;3. 漏洞检测实现&lt;/h2&gt;
-
-&lt;h3 id=&quot;31-webview-漏洞检测&quot;&gt;3.1 WebView 漏洞检测&lt;/h3&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 伪代码：检测器
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;WebViewVulnDetector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;check_vulnerabilities&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inject_monitoring_script&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;launch_app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;messages&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_messages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;vulns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;analyze_messages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;messages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 检查 JS 启用等
-&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vulns&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;32-activity-导出检测&quot;&gt;3.2 Activity 导出检测&lt;/h3&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 伪代码：导出检测
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ActivityExportDetector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;check_exported_activities&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;apk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;load_apk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;vulns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;activity&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;apk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_activities&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_exported&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;activity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;protected&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;vulns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;type&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;exported_activity&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vulns&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;4-结果分析与报告&quot;&gt;4. 结果分析与报告&lt;/h2&gt;
-
-&lt;h3 id=&quot;41-漏洞验证结果分析&quot;&gt;4.1 漏洞验证结果分析&lt;/h3&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 伪代码：分析器
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;VulnerabilityAnalyzer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;analyze_results&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;results&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;analysis&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;summary&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;details&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]}&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;results&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;apply_rules&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;analysis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;summary&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;vulnerabilities&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;analysis&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;42-报告生成&quot;&gt;4.2 报告生成&lt;/h3&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 伪代码：报告生成
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ReportGenerator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;generate_html_report&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;html_template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;analysis_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;自动化分析&lt;/strong&gt;：自动报告生成便于集成到安全平台。&lt;/p&gt;
-
-&lt;h2 id=&quot;5-使用示例与最佳实践&quot;&gt;5. 使用示例与最佳实践&lt;/h2&gt;
-
-&lt;h3 id=&quot;51-基本使用流程&quot;&gt;5.1 基本使用流程&lt;/h3&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;detector&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AndroidVulnDetector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;config.yaml&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;results&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;detector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run_detection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;analysis&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;analyzer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;analyze_results&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;results&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;report&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generate_html_report&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;52-自定义-poc-配置&quot;&gt;5.2 自定义 POC 配置&lt;/h3&gt;
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 示例&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;android-activity-export&quot;&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;scan_manifest&quot;&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;manifest_analysis&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;6-总结&quot;&gt;6. 总结&lt;/h2&gt;
-
-&lt;p&gt;YAML 驱动框架提供灵活的漏洞验证。&lt;/p&gt;
-
-&lt;h2 id=&quot;7-自动化渗透测试的优势&quot;&gt;7. 自动化渗透测试的优势&lt;/h2&gt;
-
-&lt;p&gt;YAML 配置使 POC 自动化易于维护和扩展，在渗透测试中可以批量验证漏洞，提高效率并确保一致性，适合企业级安全扫描。&lt;/p&gt;
-
-&lt;h2 id=&quot;参考资料&quot;&gt;参考资料&lt;/h2&gt;
+&lt;h2 id=&quot;目标读者--前置技能&quot;&gt;目标读者 &amp;amp; 前置技能&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/OWASP/owasp-mstg&quot;&gt;Android 安全测试指南&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://frida.re/docs/examples/android/&quot;&gt;Frida Android 示例&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/OWASP/owasp-mstg/blob/master/Document/0x05i-Testing-Code-Quality-and-Build-Settings.md&quot;&gt;Android 漏洞模式&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://yaml.org/spec/1.2/spec.html&quot;&gt;YAML 规范&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;已完成第一次解包并导入开发者工具&lt;/li&gt;
+  &lt;li&gt;能看懂最基础的 JavaScript&lt;/li&gt;
+  &lt;li&gt;愿意花 30 分钟搭建 Frida 环境&lt;/li&gt;
 &lt;/ul&gt;
 
-                &lt;!-- [x] 2022/10/20/10:49:36 fixed: while width &lt; some inch. would be flex column not display like a row.--&gt;
+&lt;h2 id=&quot;工具准备2026-推荐配置&quot;&gt;工具准备（2026 推荐配置）&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;工具&lt;/th&gt;
+      &lt;th&gt;用途&lt;/th&gt;
+      &lt;th&gt;安装 / 下载方式&lt;/th&gt;
+      &lt;th&gt;备注&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;HttpCanary&lt;/td&gt;
+      &lt;td&gt;安卓抓包&lt;/td&gt;
+      &lt;td&gt;Google Play / apkpure&lt;/td&gt;
+      &lt;td&gt;真机首选&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;PC Fiddler / Charles&lt;/td&gt;
+      &lt;td&gt;PC 微信抓包&lt;/td&gt;
+      &lt;td&gt;官网&lt;/td&gt;
+      &lt;td&gt;需证书信任&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;mitmproxy&lt;/td&gt;
+      &lt;td&gt;命令行抓包&lt;/td&gt;
+      &lt;td&gt;pip install mitmproxy&lt;/td&gt;
+      &lt;td&gt;高级&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Frida&lt;/td&gt;
+      &lt;td&gt;动态 Hook&lt;/td&gt;
+      &lt;td&gt;pip install frida-tools&lt;/td&gt;
+      &lt;td&gt;核心&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;frida-server&lt;/td&gt;
+      &lt;td&gt;手机端&lt;/td&gt;
+      &lt;td&gt;github releases&lt;/td&gt;
+      &lt;td&gt;架构需匹配&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;r0capture&lt;/td&gt;
+      &lt;td&gt;内存明文&lt;/td&gt;
+      &lt;td&gt;github&lt;/td&gt;
+      &lt;td&gt;兜底方案&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;frida-环境搭建安卓&quot;&gt;Frida 环境搭建（安卓）&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;下载对应架构的 frida-server&lt;/li&gt;
+  &lt;li&gt;adb push 到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/data/local/tmp/&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chmod 755 frida-server &amp;amp;&amp;amp; ./frida-server &amp;amp;&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;PC 端 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;frida-ps -U&lt;/code&gt; 验证&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;高频-hook-脚本合集hookjs&quot;&gt;高频 Hook 脚本合集（hook.js）&lt;/h2&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] Hook WeChat MiniApp&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;Java&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// AES&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Cipher&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Java&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;javax.crypto.Cipher&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;Cipher&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;doFinal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;overload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&#39;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;[B&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;implementation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[AES 明文]&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Java&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;java.lang.String&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;doFinal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// MD5 / SHA&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MessageDigest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Java&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;java.security.MessageDigest&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;MessageDigest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;overload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&#39;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;[B&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;implementation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[Digest 输入]&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;启动：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;frida &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; com.tencent.mm &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; hook.js &lt;span class=&quot;nt&quot;&gt;--no-pause&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;实战案例打印登录接口-aes-参数&quot;&gt;实战案例：打印登录接口 AES 参数&lt;/h2&gt;
+
+&lt;p&gt;操作流程：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;启动 Frida&lt;/li&gt;
+  &lt;li&gt;打开目标小程序&lt;/li&gt;
+  &lt;li&gt;触发登录 / 下单等接口&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;示例输出：&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[AES 明文] {&quot;phone&quot;:&quot;13800000000&quot;,&quot;code&quot;:&quot;123456&quot;}
+[AES key ] 0123456789abcdef0123456789abcdef
+[AES iv  ] fedcba9876543210
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;常见问题--绕过&quot;&gt;常见问题 &amp;amp; 绕过&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;问题&lt;/th&gt;
+      &lt;th&gt;原因&lt;/th&gt;
+      &lt;th&gt;解决方案&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Frida 闪退&lt;/td&gt;
+      &lt;td&gt;server 不匹配&lt;/td&gt;
+      &lt;td&gt;换版本&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;无输出&lt;/td&gt;
+      &lt;td&gt;Hook 点不对&lt;/td&gt;
+      &lt;td&gt;Hook JSON / String&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;证书抓不到&lt;/td&gt;
+      &lt;td&gt;Pinning&lt;/td&gt;
+      &lt;td&gt;JustTrustMe&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;被检测 Root&lt;/td&gt;
+      &lt;td&gt;反调试&lt;/td&gt;
+      &lt;td&gt;Magisk + Shamiko&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;实战闭环从-frida-明文到-https-接口复现-&quot;&gt;实战闭环：从 Frida 明文到 HTTPS 接口复现 ✅&lt;/h2&gt;
+
+&lt;h3 id=&quot;你已经掌握的关键信息&quot;&gt;你已经掌握的关键信息&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;算法：AES-CBC&lt;/li&gt;
+  &lt;li&gt;key / iv&lt;/li&gt;
+  &lt;li&gt;明文结构&lt;/li&gt;
+  &lt;li&gt;接口 URL&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;python-本地解密验证&quot;&gt;Python 本地解密验证&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Crypto.Cipher&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AES&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;base64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sa&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;0123456789abcdef0123456789abcdef&#39;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;iv&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sa&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;fedcba9876543210&#39;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;cipher&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AES&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AES&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MODE_CBC&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cipher&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;decrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;base64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b64decode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;U2FsdGVkX1+...&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;本地加密并重放接口&quot;&gt;本地加密并重放接口&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encrypt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;phone&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;13800000000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;code&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;123456&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iv&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;&quot;https://api.example.com/login&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;data&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;payload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;本篇你真正获得的能力-&quot;&gt;本篇你真正获得的能力 ✅&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;能在运行时无视 HTTPS&lt;/li&gt;
+  &lt;li&gt;能稳定拿到 key / iv&lt;/li&gt;
+  &lt;li&gt;能复现真实业务接口&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;下一篇：&lt;br /&gt;
+👉 &lt;strong&gt;高级工具链 &amp;amp; 自动化解密流水线&lt;/strong&gt;&lt;/p&gt;
+
+						&lt;/div&gt;
+						&lt;div class=&quot;spacing&quot;&gt;&lt;/div&gt;
+						&lt;!-- [x] 2022/10/20/10:49:36 fixed: while width &lt; some inch. would be flex column not display like a row.--&gt;
 &lt;footer&gt;
 	&lt;style&gt;.border-top {
 		border-top: 1.5px solid #d0d7de!important;
@@ -207,7 +954,7 @@
 			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix &quot;&gt;
 				&lt;h2 class=&quot;lead&quot;&gt;申明&lt;/h2&gt;
 				&lt;div&gt;
-					&lt;div class=&quot;mb-2&quot;&gt;&lt;a href=&quot;/blog/2025/YAML-Configuration-Driven-POC-Framework/&quot; target=&quot;_blank&quot; class=&quot; text-bold&quot;&gt;
+					&lt;div class=&quot;mb-2&quot;&gt;&lt;a href=&quot;/about/wechat-miniapp-reverse-intermediate-frida-hook/&quot; target=&quot;_blank&quot; class=&quot; text-bold&quot;&gt;
 						&lt;div class=&quot;fa fa-link&quot;&gt;&lt;/div&gt;
 						转载请申明本文档链接&lt;/a&gt;&lt;/div&gt;
 					&lt;div&gt;&lt;a href=&quot;https://github.com/Bin4xin&quot; target=&quot;_blank&quot;  class=&quot;text-bold&quot;&gt;
@@ -219,7 +966,7 @@
 			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
 				&lt;h2 class=&quot;lead&quot;&gt;贡献开源文档&lt;/h2&gt;
 				&lt;div&gt;
-					&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2025-09-11-YAML-Configuration-Driven-POC-Framework.markdown&quot; target=&quot;_blank&quot; class=&quot;no-underline btn mr-1 color-border-accent-emphasis&quot;&gt;
+					&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/about/wechat-miniapps/2026-01-26-wechat-miniapp-reverse-intermediate-frida-hook-2026.md&quot; target=&quot;_blank&quot; class=&quot;no-underline btn mr-1 color-border-accent-emphasis&quot;&gt;
 						&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; role=&quot;img&quot; class=&quot;octicon mr-1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;currentColor&quot; style=&quot;display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
 						贡献当前开源文档
 					&lt;/a&gt;
@@ -234,7 +981,7 @@
 					&lt;div class=&quot;fa fa-thumbs-o-up&quot;&gt;&lt;/div&gt;
 				&lt;/span&gt;
 				&lt;/a&gt;
-				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&amp;template=2-bug_report.yaml&amp;title=_posts/blog/2025-09-11-YAML-Configuration-Driven-POC-Framework.markdown&amp;nbsp; 「Android安全」:YAML 配置驱动的 Android POC 框架设计 | © 哨兵 | SENTINEL SECURITY, LAB&quot; target=&quot;_blank&quot;&gt;
+				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&amp;template=2-bug_report.yaml&amp;title=_posts/about/wechat-miniapps/2026-01-26-wechat-miniapp-reverse-intermediate-frida-hook-2026.md&amp;nbsp;微信小程序逆向II | © 哨兵 | SENTINEL SECURITY, LAB&quot; target=&quot;_blank&quot;&gt;
 				&lt;span class=&quot;btn mr-1 color-border-accent-emphasis&quot; title=&quot;本文档有问题?&quot;&gt;
 				&lt;div class=&quot;fa fa-thumbs-o-down&quot;&gt;&lt;/div&gt;
 				&lt;/span&gt;
@@ -242,59 +989,53 @@
 			&lt;/div&gt;
 		&lt;/section&gt;
 &lt;/footer&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;spacing&quot;&gt;&lt;/div&gt;
-        &lt;/div&gt;&lt;!--/col-lg-8 --&gt;
-        
+					&lt;/div&gt;&lt;!--page main content end--&gt;
+					&lt;!--右边文章目录开始--&gt;
 &lt;div class=&quot;ml-hide article-index thin-scrollbar position-sticky top-0&quot; style=&quot;max-height: 100vh; overflow-y: auto;&quot;&gt;
     &lt;div class=&quot;nav nav-stacked tableOfContents_35-E&quot;&gt;
         &lt;li class=&quot; table-of-contents&quot;&gt;
             &lt;code-index-css&gt;
                 &lt;ul&gt;&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column&quot;&gt;&lt;a&gt;文章目录&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
                 &lt;ul id=&quot;toc&quot; class=&quot;section-nav&quot;&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#概述&quot;&gt;概述&lt;/a&gt;&lt;/li&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#1-yaml-配置驱动架构设计&quot;&gt;1. YAML 配置驱动架构设计&lt;/a&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h1&quot;&gt;&lt;a href=&quot;#微信小程序逆向进阶抓包--frida-hook-打印加密明文2026超详细版&quot;&gt;微信小程序逆向进阶：抓包 + Frida Hook 打印加密明文（2026超详细版）&lt;/a&gt;
 &lt;ul&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#11-核心设计理念&quot;&gt;1.1 核心设计理念&lt;/a&gt;&lt;/li&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#12-yaml-配置结构设计&quot;&gt;1.2 YAML 配置结构设计&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#目标读者--前置技能&quot;&gt;目标读者 &amp;amp; 前置技能&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#工具准备2026-推荐配置&quot;&gt;工具准备（2026 推荐配置）&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#frida-环境搭建安卓&quot;&gt;Frida 环境搭建（安卓）&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#2-poc-执行引擎实现&quot;&gt;2. POC 执行引擎实现&lt;/a&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#高频-hook-脚本合集hookjs&quot;&gt;高频 Hook 脚本合集（hook.js）&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#实战案例打印登录接口-aes-参数&quot;&gt;实战案例：打印登录接口 AES 参数&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#常见问题--绕过&quot;&gt;常见问题 &amp;amp; 绕过&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#实战闭环从-frida-明文到-https-接口复现-&quot;&gt;实战闭环：从 Frida 明文到 HTTPS 接口复现 ✅&lt;/a&gt;
 &lt;ul&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#21-yaml-解析与验证&quot;&gt;2.1 YAML 解析与验证&lt;/a&gt;&lt;/li&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#22-frida-脚本生成器&quot;&gt;2.2 Frida 脚本生成器&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#你已经掌握的关键信息&quot;&gt;你已经掌握的关键信息&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#python-本地解密验证&quot;&gt;Python 本地解密验证&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#本地加密并重放接口&quot;&gt;本地加密并重放接口&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#本篇你真正获得的能力-&quot;&gt;本篇你真正获得的能力 ✅&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#3-漏洞检测实现&quot;&gt;3. 漏洞检测实现&lt;/a&gt;
-&lt;ul&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#31-webview-漏洞检测&quot;&gt;3.1 WebView 漏洞检测&lt;/a&gt;&lt;/li&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#32-activity-导出检测&quot;&gt;3.2 Activity 导出检测&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#4-结果分析与报告&quot;&gt;4. 结果分析与报告&lt;/a&gt;
-&lt;ul&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#41-漏洞验证结果分析&quot;&gt;4.1 漏洞验证结果分析&lt;/a&gt;&lt;/li&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#42-报告生成&quot;&gt;4.2 报告生成&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#5-使用示例与最佳实践&quot;&gt;5. 使用示例与最佳实践&lt;/a&gt;
-&lt;ul&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#51-基本使用流程&quot;&gt;5.1 基本使用流程&lt;/a&gt;&lt;/li&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#52-自定义-poc-配置&quot;&gt;5.2 自定义 POC 配置&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#6-总结&quot;&gt;6. 总结&lt;/a&gt;&lt;/li&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#7-自动化渗透测试的优势&quot;&gt;7. 自动化渗透测试的优势&lt;/a&gt;&lt;/li&gt;
-&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#参考资料&quot;&gt;参考资料&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
             &lt;/code-index-css&gt;
         &lt;/li&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 
-
-    &lt;/div&gt;&lt;!--/row --&gt;
-&lt;/div&gt;&lt;!--/container --&gt;哨兵安全实验室 SENTINEL SECURITY, LAB" />
+&lt;!--右边目录结束--&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;&lt;!--content display end--&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;!--/pages --&gt;
+&lt;!--&lt;/div&gt;
+&lt;script src=&quot;/assets/js/about.js&quot;&gt;&lt;/script&gt;
+vim: ts=2 sts=2 sw=2 noexpandtab
+--&gt;
+哨兵安全实验室 SENTINEL SECURITY, LAB" />
 <meta property="og:image" content="https://bin4xin.sentrylab.cn/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
 <meta property="og:url" content="https://bin4xin.sentrylab.cn/404.html" />
 <title> 404 |© 哨兵 | SENTINEL SECURITY, LAB</title>

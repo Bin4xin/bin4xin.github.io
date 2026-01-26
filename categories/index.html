@@ -79,36 +79,33 @@
         &lt;div class=&quot;sentinel-card&quot;&gt;
             &lt;div class=&quot;card-info&quot;&gt;
                 
-                &lt;a href=&quot;/about/Get-Pattern-password-in-Marshmallow-and-below/&quot;&gt;
+                &lt;a href=&quot;/about/wechat-miniapp-reverse-intermediate-frida-hook/&quot;&gt;
                     &lt;h1 id=&quot;card-info-title&quot; class=&quot;hp-gradient_blue-green_v hp-gradient_text&quot;&gt;
-                        最新有关::CTF::的描述。
+                        最新有关::移动攻防::的描述。
                     &lt;/h1&gt;
                 &lt;/a&gt;
                 &lt;p&gt;&lt;span data-view-component=&quot;true&quot; class=&quot;badge badge-theme&quot;&gt;about&lt;/span&gt;
-                    CTF::在棉花糖及以下版本中获取图案密码::&lt;/p&gt;
-                    &lt;p class=&quot;card-info-desc-center&quot;&gt;# 0、解题准备
+                    移动攻防::微信小程序逆向II::&lt;/p&gt;
+                    &lt;p class=&quot;card-info-desc-center&quot;&gt;微信小程序逆向进阶：抓包 + Frida Hook 打印加密明文（2026超详细版）
 
-需要提前准备：
+上一期我们拿到了源码，这一期重点解决“源码有了，但加密函数看不懂、key藏在哪里”的问题。通过抓包 + 动态 Hook，我们可以直接在运行时打印出明文参数、key、iv 等核心信息。
 
-
-  python2.7
-  getekeeper-pattern.key 文件
+目标读者 &amp;amp; 前置技能
 
 
-# 1、前提
+  已完成第一次解包并导入开发者工具
+  能看懂最基础的 JavaScript
+  愿意花 30 分钟搭建 Frida 环境
 
 
-  前置知识1：
-在早期版本(2.3-5.1)的Android手机中，锁屏密码相关的文件如下，这种类型的加密方式比较简单，只需要破解相关的SHA1的哈希值即可。
+工具准备（2026 推荐配置）
+
+
   
-    /data/system/password.key
-    /data/system/gesture.key
-  
-
-  在6.0-8.0版本的Android手机中
-文件加密方式则相对复杂，应该采用的是：
-  
-...&lt;/p&gt;
+    
+      工具
+      用途
+ ...&lt;/p&gt;
                 
             &lt;/div&gt;
         &lt;/div&gt;
@@ -793,8 +790,62 @@
                     
                     研究相关
                     
-                    &lt;span data-view-component=&quot;true&quot; class=&quot;badge badge-theme&quot;&gt;44&lt;/span&gt;&lt;/a&gt;&lt;/summary&gt;
+                    &lt;span data-view-component=&quot;true&quot; class=&quot;badge badge-theme&quot;&gt;49&lt;/span&gt;&lt;/a&gt;&lt;/summary&gt;
                 
+                
+                &lt;h4 style=&quot;padding-left: 32px&quot;&gt;&lt;span class=&quot;label label-success&quot;&gt;&lt;i class=&quot;fa fa-calendar fa-fw&quot;&gt;&lt;/i&gt; 2026&lt;/span&gt;
+                    &lt;span class=&quot;label label-success&quot;&gt;5 Posts&lt;/span&gt;&lt;/h4&gt;
+                    
+                    &lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
+
+                        &lt;li class=&quot;Box-row&quot;&gt;
+                        &lt;a href=&quot;/about/wechat-miniapp-reverse-intermediate-frida-hook/&quot;&gt;
+                            &lt;i class=&quot;far fa fa-file-text-o&quot;&gt;&lt;/i&gt; 微信小程序逆向II
+                            
+                            &lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;
+                        &lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                    
+                    &lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
+
+                        &lt;li class=&quot;Box-row&quot;&gt;
+                        &lt;a href=&quot;/about/wechat-miniapp-reverse-beginner/&quot;&gt;
+                            &lt;i class=&quot;far fa fa-file-text-o&quot;&gt;&lt;/i&gt; 微信小程序逆向IV
+                            
+                            &lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;
+                        &lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                    
+                    &lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
+
+                        &lt;li class=&quot;Box-row&quot;&gt;
+                        &lt;a href=&quot;/about/wechat-miniapp-reverse-beginner/&quot;&gt;
+                            &lt;i class=&quot;far fa fa-file-text-o&quot;&gt;&lt;/i&gt; 微信小程序逆向I
+                            
+                            &lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;
+                        &lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                    
+                    &lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
+
+                        &lt;li class=&quot;Box-row&quot;&gt;
+                        &lt;a href=&quot;/about/wechat-miniapp-reverse-advanced-toolchain/&quot;&gt;
+                            &lt;i class=&quot;far fa fa-file-text-o&quot;&gt;&lt;/i&gt; 微信小程序逆向III
+                            
+                            &lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;
+                        &lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                    
+                    &lt;ul class=&quot;nav nav-pills nav-stacked&quot;&gt;
+
+                        &lt;li class=&quot;Box-row&quot;&gt;
+                        &lt;a href=&quot;/about/protect-wechat-miniapp-from-reverse-engineering/&quot;&gt;
+                            &lt;i class=&quot;far fa fa-file-text-o&quot;&gt;&lt;/i&gt; 小程序安全加固指南
+                            
+                            &lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge badge-theme&quot;&gt;&lt;/span&gt;
+                        &lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;
+                    
                 
                 &lt;h4 style=&quot;padding-left: 32px&quot;&gt;&lt;span class=&quot;label label-success&quot;&gt;&lt;i class=&quot;fa fa-calendar fa-fw&quot;&gt;&lt;/i&gt; 2025&lt;/span&gt;
                     &lt;span class=&quot;label label-success&quot;&gt;2 Posts&lt;/span&gt;&lt;/h4&gt;
@@ -1523,36 +1574,33 @@
         <div class="sentinel-card">
             <div class="card-info">
                 
-                <a href="/about/Get-Pattern-password-in-Marshmallow-and-below/">
+                <a href="/about/wechat-miniapp-reverse-intermediate-frida-hook/">
                     <h1 id="card-info-title" class="hp-gradient_blue-green_v hp-gradient_text">
-                        最新有关::CTF::的描述。
+                        最新有关::移动攻防::的描述。
                     </h1>
                 </a>
                 <p><span data-view-component="true" class="badge badge-theme">about</span>
-                    CTF::在棉花糖及以下版本中获取图案密码::</p>
-                    <p class="card-info-desc-center"># 0、解题准备
+                    移动攻防::微信小程序逆向II::</p>
+                    <p class="card-info-desc-center">微信小程序逆向进阶：抓包 + Frida Hook 打印加密明文（2026超详细版）
 
-需要提前准备：
+上一期我们拿到了源码，这一期重点解决“源码有了，但加密函数看不懂、key藏在哪里”的问题。通过抓包 + 动态 Hook，我们可以直接在运行时打印出明文参数、key、iv 等核心信息。
 
-
-  python2.7
-  getekeeper-pattern.key 文件
+目标读者 &amp; 前置技能
 
 
-# 1、前提
+  已完成第一次解包并导入开发者工具
+  能看懂最基础的 JavaScript
+  愿意花 30 分钟搭建 Frida 环境
 
 
-  前置知识1：
-在早期版本(2.3-5.1)的Android手机中，锁屏密码相关的文件如下，这种类型的加密方式比较简单，只需要破解相关的SHA1的哈希值即可。
+工具准备（2026 推荐配置）
+
+
   
-    /data/system/password.key
-    /data/system/gesture.key
-  
-
-  在6.0-8.0版本的Android手机中
-文件加密方式则相对复杂，应该采用的是：
-  
-...</p>
+    
+      工具
+      用途
+ ...</p>
                 
             </div>
         </div>
@@ -2237,8 +2285,62 @@
                     
                     研究相关
                     
-                    <span data-view-component="true" class="badge badge-theme">44</span></a></summary>
+                    <span data-view-component="true" class="badge badge-theme">49</span></a></summary>
                 
+                
+                <h4 style="padding-left: 32px"><span class="label label-success"><i class="fa fa-calendar fa-fw"></i> 2026</span>
+                    <span class="label label-success">5 Posts</span></h4>
+                    
+                    <ul class="nav nav-pills nav-stacked">
+
+                        <li class="Box-row">
+                        <a href="/about/wechat-miniapp-reverse-intermediate-frida-hook/">
+                            <i class="far fa fa-file-text-o"></i> 微信小程序逆向II
+                            
+                            <span class="badge badge-theme"></span><span class="badge badge-theme"></span><span class="badge badge-theme"></span><span class="badge badge-theme"></span><span class="badge badge-theme"></span>
+                        </a></li>
+                    </ul>
+                    
+                    <ul class="nav nav-pills nav-stacked">
+
+                        <li class="Box-row">
+                        <a href="/about/wechat-miniapp-reverse-beginner/">
+                            <i class="far fa fa-file-text-o"></i> 微信小程序逆向IV
+                            
+                            <span class="badge badge-theme"></span><span class="badge badge-theme"></span><span class="badge badge-theme"></span><span class="badge badge-theme"></span><span class="badge badge-theme"></span>
+                        </a></li>
+                    </ul>
+                    
+                    <ul class="nav nav-pills nav-stacked">
+
+                        <li class="Box-row">
+                        <a href="/about/wechat-miniapp-reverse-beginner/">
+                            <i class="far fa fa-file-text-o"></i> 微信小程序逆向I
+                            
+                            <span class="badge badge-theme"></span><span class="badge badge-theme"></span><span class="badge badge-theme"></span><span class="badge badge-theme"></span><span class="badge badge-theme"></span>
+                        </a></li>
+                    </ul>
+                    
+                    <ul class="nav nav-pills nav-stacked">
+
+                        <li class="Box-row">
+                        <a href="/about/wechat-miniapp-reverse-advanced-toolchain/">
+                            <i class="far fa fa-file-text-o"></i> 微信小程序逆向III
+                            
+                            <span class="badge badge-theme"></span><span class="badge badge-theme"></span><span class="badge badge-theme"></span><span class="badge badge-theme"></span><span class="badge badge-theme"></span>
+                        </a></li>
+                    </ul>
+                    
+                    <ul class="nav nav-pills nav-stacked">
+
+                        <li class="Box-row">
+                        <a href="/about/protect-wechat-miniapp-from-reverse-engineering/">
+                            <i class="far fa fa-file-text-o"></i> 小程序安全加固指南
+                            
+                            <span class="badge badge-theme"></span><span class="badge badge-theme"></span><span class="badge badge-theme"></span><span class="badge badge-theme"></span><span class="badge badge-theme"></span>
+                        </a></li>
+                    </ul>
+                    
                 
                 <h4 style="padding-left: 32px"><span class="label label-success"><i class="fa fa-calendar fa-fw"></i> 2025</span>
                     <span class="label label-success">2 Posts</span></h4>
