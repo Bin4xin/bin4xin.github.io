@@ -4,7 +4,7 @@ category: about
 Researchname: 微信小程序逆向IV
 toc: true
 author: Bin4xin
-permalink: /about/wechat-miniapp-reverse-beginner/
+permalink: /about/wechat-miniapp-reverse-expert-vm-bypass/
 desc: 「移动攻防」
 ---
 
