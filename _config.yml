@@ -5,7 +5,7 @@ title: © 哨兵
 brand: SENTINEL SECURITY, LAB
 description: 哨兵安全实验室
 baseurl: "" #important: start with /
-url: "https://bin4xin.sentrylab.cn"
+url: "https://bin4xin.github.io"
 root: "sentrylab.cn"
 web_version: V3.0.1
 script_version: v1.0.2
