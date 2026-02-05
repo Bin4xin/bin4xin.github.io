@@ -17,6 +17,33 @@
     <generator>Jekyll Ver 3.9.5.</generator>
     
       <item>
+        <title>blog: Compiled 「steghide」 for macOS 10.15.7/Catalina</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2026/02/5
+        
+        </pubDate>
+        <link>https://bin4xin.sentrylab.cn/blog/2026/compile-steghide-for-macOS-10.15.7-Catalina/</link>
+        <guid isPermaLink="true">/blog/2026/compile-steghide-for-macOS-10.15.7-Catalina/</guid>
+        
+        <category>编译</category>
+        
+        <category>CTF</category>
+        
+        <category>MISC</category>
+        
+        <category>libmcrypt</category>
+        
+        <category>jpegsrc</category>
+        
+        <category>steghide</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
         <title>about: Wechat Miniapp Reverse Intermediate Frida Hook 2026</title>
         <description>[MORE]</description>
         <pubDate>

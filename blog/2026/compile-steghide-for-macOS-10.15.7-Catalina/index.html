@@ -1,5 +1,7 @@
+<!DOCTYPE html>
 <html>
-  <head>
+
+    <head>
 <meta charset="utf-8">
 <!--dev siwtch-->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,7 +23,7 @@
 
 <!-- Open Graph metadata -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="© 哨兵" />
+<meta property="og:title" content="Compiled 「steghide」 for macOS 10.15.7/Catalina | © 哨兵" />
 <meta property="og:description" content=" &lt;div class=&quot;container mtb&quot;&gt;
     &lt;div class=&quot;row d-flex &quot;&gt;
         &lt;!-- SINGLE POST --&gt;
@@ -224,8 +226,8 @@ qsnctf&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;07f..d10&lt;span class=&quot
     &lt;/div&gt;&lt;!--/row --&gt;
 &lt;/div&gt;&lt;!--/container --&gt;哨兵安全实验室 SENTINEL SECURITY, LAB" />
 <meta property="og:image" content="https://bin4xin.sentrylab.cn/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
-<meta property="og:url" content="https://bin4xin.sentrylab.cn/404.html" />
-<title> 404 |© 哨兵 | SENTINEL SECURITY, LAB</title>
+<meta property="og:url" content="https://bin4xin.sentrylab.cn/blog/2026/compile-steghide-for-macOS-10.15.7-Catalina/" />
+<title> Compiled 「steghide」 for macOS 10.15.7/Catalina | © 哨兵 | SENTINEL SECURITY, LAB</title>
 
 <link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
@@ -261,8 +263,10 @@ qsnctf&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;07f..d10&lt;span class=&quot
 
 </head>
 
-  <body>
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+
+    <body>
+
+                <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <!-- logo+popover整体包裹，便于布局和交互 -->
@@ -329,7 +333,7 @@ qsnctf&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;07f..d10&lt;span class=&quot
             <ul class="nav navbar-nav">
                 
                 <li ><a href="/"><div class="fa fa-search"></div></a></li>
-                <li ><a href="/blog/">BLOG</a></li>
+                <li class="active"><a href="/blog/">BLOG</a></li>
                 <li ><a href="/categories/">CATEGORIES</a></li>
                 <li ><a href="/daily/">DAILY</a></li>
                 <li ><a href="/newest">NEWEST</a></li>
@@ -360,15 +364,208 @@ qsnctf&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;07f..d10&lt;span class=&quot
 })();
 </script>
 
-    <div id="mirrors">
-      <div class="spacing hidden-xs"></div>
-      <div class="container">
-        <div class="row">
-        <div class="not-found">    <div class="not-found-bg"></div>    <div class="not-found-hint"><div class="not-found-code">            404. 谢谢你这么好看还来看我博客:D</div>        <span class="thuhidden">Oops!你来到了没有知识的荒原。</span>        </div><div class="not-found-text thuhidden"><strong>如果您认为这一定是出了什么问题，欢迎您前往<a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> 哨兵/issues</a>            提交<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,404&template=2-bug_report.yaml&title=_primaryindex/404.html&nbsp;© 哨兵 | SENTINEL SECURITY, LAB" id="new_issue_bug" target="_blank">错误报告</a></strong></div><div class="not-found-links"><a class="not-found-link" href="javascript:history.back()"><i class="fa fa-arrow-left"></i> 返回上一页</a></div></div>
-        </div>
-      </div><!--/container -->
-    </div><!--/mirrors -->
-    <!-- 代码引用申明/code reference declaration:
+                <div class="container mtb">
+    <div class="row d-flex ">
+        <!-- SINGLE POST -->
+        <div class="col-lg-8 markdown-body-img flex-column">
+            <!-- Blog Post  -->
+            <a href="/blog/2026/compile-steghide-for-macOS-10.15.7-Catalina/"><h1 class="ctitle">Compiled 「steghide」 for macOS 10.15.7/Catalina</h1></a>
+            <csmall><div class="d-flex items-center">
+                <!--article author end-->
+
+<!-- site build time set to the latest time.-->
+
+<!-- post time-->
+
+
+
+
+
+<div class="ml-hide">
+    <a class="f2 d-flex color-fg-default" href="https://github.com/Bin4xin" target="_blank">
+        Bin4xin
+
+        
+            
+        post
+        
+
+        
+        
+        
+        
+        
+
+        
+            
+                
+                        13 hours ago
+                
+            
+        
+    </a>
+</div>
+            </div></csmall>
+            <div class="post-content"> 
+            <h2 id="1-安装-libmcrypt-库">1. 安装 libmcrypt 库</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 下载源码包</span>
+curl <span class="nt">-LO</span> https://downloads.sourceforge.net/project/mcrypt/Libmcrypt/2.5.8/libmcrypt-2.5.8.tar.gz
+
+<span class="c"># 解压</span>
+<span class="nb">tar </span>xzf libmcrypt-2.5.8.tar.gz
+
+<span class="c"># 进入目录</span>
+<span class="nb">cd </span>libmcrypt-2.5.8
+
+<span class="c"># 配置编译参数（使用特定的 CFLAGS）</span>
+./configure <span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">"-g -O2 -Wno-implicit-function-declaration"</span>
+
+<span class="c"># 编译</span>
+make
+
+<span class="c"># 安装（需要管理员权限）</span>
+<span class="nb">sudo </span>make <span class="nb">install</span>
+</code></pre></div></div>
+
+<h2 id="2-安装-jpeg-库">2. 安装 JPEG 库</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 下载 JPEG 源码</span>
+curl <span class="nt">-O</span> https://www.ijg.org/files/jpegsrc.v9f.tar.gz
+
+<span class="c"># 解压</span>
+<span class="nb">tar </span>xzf jpegsrc.v9f.tar.gz
+
+<span class="c"># 进入目录</span>
+<span class="nb">cd </span>jpeg-9f
+
+<span class="c"># 配置（指定安装路径为 /usr/local）</span>
+./configure <span class="nt">--prefix</span><span class="o">=</span>/usr/local
+
+<span class="c"># 编译</span>
+make
+
+<span class="c"># 安装</span>
+<span class="nb">sudo </span>make <span class="nb">install</span>
+</code></pre></div></div>
+
+<h2 id="3-安装-steghide">3. 安装 steghide</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 克隆源代码</span>
+git clone https://github.com/StegHigh/steghide.git
+
+<span class="c"># 进入目录</span>
+<span class="nb">cd </span>steghide/
+
+<span class="c"># 配置（指定 JPEG 和 libmcrypt 的路径）</span>
+./configure <span class="se">\</span>
+  <span class="nv">CPPFLAGS</span><span class="o">=</span><span class="s2">"-I/usr/local/Cellar/jpeg/9f/include -I/usr/local/include"</span> <span class="se">\</span>
+  <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">"-L/usr/local/Cellar/jpeg/9f/lib -L/usr/local/lib -ljpeg -lmcrypt"</span>
+
+<span class="c"># 编译（指定使用 glibtool）</span>
+make <span class="nv">LIBTOOL</span><span class="o">=</span>glibtool
+
+<span class="c"># 安装</span>
+<span class="nb">sudo </span>make <span class="nv">LIBTOOL</span><span class="o">=</span>glibtool <span class="nb">install</span>
+</code></pre></div></div>
+
+<h2 id="依赖关系说明">依赖关系说明</h2>
+
+<ol>
+  <li><strong>libmcrypt</strong>：加密算法库</li>
+  <li><strong>JPEG 库</strong>：图像处理库，版本为 9f</li>
+  <li><strong>steghide</strong>：依赖于上述两个库，用于在图像中隐藏信息</li>
+</ol>
+
+<h2 id="注意事项">注意事项</h2>
+
+<ol>
+  <li>这些命令需要在 Unix/Linux/macOS 系统下执行</li>
+  <li>部分命令需要管理员权限（sudo）</li>
+  <li>确保系统已安装必要的开发工具：gcc, make, autoconf, automake, libtool 等</li>
+  <li>如果遇到路径问题，可能需要根据实际安装位置调整 CPPFLAGS 和 LDFLAGS 中的路径</li>
+</ol>
+
+<h2 id="赛题相关">赛题相关</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>steghide extract <span class="nt">-sf</span> shanghao.jpg <span class="nt">-p</span> qsnctf
+wrote extracted data to <span class="s2">"flag.txt"</span><span class="nb">.</span>
+
+<span class="nb">cat </span>flag.txt 
+qsnctf<span class="o">{</span>07f..d10<span class="o">}</span>
+</code></pre></div></div>
+
+                <!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
+<footer>
+	<style>.border-top {
+		border-top: 1.5px solid #d0d7de!important;
+	}</style>
+	<div class="border-top"></div>
+		<section class="container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto">
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix ">
+				<h2 class="lead">申明</h2>
+				<div>
+					<div class="mb-2"><a href="/blog/2026/compile-steghide-for-macOS-10.15.7-Catalina/" target="_blank" class=" text-bold">
+						<div class="fa fa-link"></div>
+						转载请申明本文档链接</a></div>
+					<div><a href="https://github.com/Bin4xin" target="_blank"  class="text-bold">
+						<div class="fa fa-user"></div>
+						Post by Bin4xin.</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">贡献开源文档</h2>
+				<div>
+					<a href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2026-02-05-compile-steghide-for-macOS-10.15.7-Catalina.md" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
+						<svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
+						贡献当前开源文档
+					</a>
+					<p class="f0_8-l mt-2 text-bold">此之前，学习开源贡献<a target="_blank" href="https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码">CN&nbsp;|</a>
+						<a target="_blank" href="https://github.com/github/docs/blob/main/CONTRIBUTING.md">EN</a></p>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">此文档对您有帮助吗</h2>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/" target="_blank" class="no-underline">
+				<span class="btn mr-1 color-border-accent-emphasis" title="给文档仓库点个赞!">
+					<div class="fa fa-thumbs-o-up"></div>
+				</span>
+				</a>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_posts/blog/2026-02-05-compile-steghide-for-macOS-10.15.7-Catalina.md&nbsp; Compiled 「steghide」 for macOS 10.15.7/Catalina | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
+				<span class="btn mr-1 color-border-accent-emphasis" title="本文档有问题?">
+				<div class="fa fa-thumbs-o-down"></div>
+				</span>
+				</a>
+			</div>
+		</section>
+</footer>
+            </div>
+            <div class="spacing"></div>
+        </div><!--/col-lg-8 -->
+        
+<div class="ml-hide article-index thin-scrollbar position-sticky top-0" style="max-height: 100vh; overflow-y: auto;">
+    <div class="nav nav-stacked tableOfContents_35-E">
+        <li class=" table-of-contents">
+            <code-index-css>
+                <ul><li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column"><a>文章目录</a></li></ul>
+                <ul id="toc" class="section-nav">
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#1-安装-libmcrypt-库">1. 安装 libmcrypt 库</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#2-安装-jpeg-库">2. 安装 JPEG 库</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#3-安装-steghide">3. 安装 steghide</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#依赖关系说明">依赖关系说明</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#注意事项">注意事项</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#赛题相关">赛题相关</a></li>
+</ul>
+            </code-index-css>
+        </li>
+    </div>
+</div>
+
+
+    </div><!--/row -->
+</div><!--/container -->
+                <!-- 代码引用申明/code reference declaration:
 #############################################################################
 ## code from cloudflare. visit footer in https://www.cloudflare.com/zh-cn/ ##
 #############################################################################
@@ -623,9 +820,34 @@ qsnctf&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;07f..d10&lt;span class=&quot
         </div>
     </div>
 </div><!--/footerwrap -->
-  </body>
-</html>
-<!--
-  vim: ts=2 sts=2 sw=2 noexpandtab
+
+    </body>
+
+    <script src="/assets/js/copy.js"></script>
+<!--TODONE.
+**FireFox display BUG**
+position-fixed in FireFox display position -> none
+- Reference:
+    - { @link https://developer.mozilla.org/zh-CN/docs/Web/CSS/position#browser_compatibility }
+    - { @link https://blog.csdn.net/DDD4V/article/details/123354124 }
+    - { @link https://juejin.cn/post/6844904100576886797 }
+        - { @link Demo https://codepen.io/li377242494/pen/VwLGGaR }
+Fiex In `[assets/css/style.scss](https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/css/style.scss)`
+    - tooltipped css postion.
 -->
 
+<!--<link rel="preload" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" as="style"/>-->
+<!--<link rel="stylesheet" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" data-n-g=""/>-->
+
+<divs role="tooltip" class="position-fixed bottom-0 mb-4 right-5 mr-4 z-1 transition-200 opacity-0" onclick="$(&quot;html,body&quot;).animate({scrollTop:0}, 1000);">
+    <button class="tooltipped tooltipped-n tooltipped-no-delay color-bg-accent-emphasis color-fg-on-emphasis circle border-0" style="width:45px;height:45px"
+            aria-label="滚动到顶部">
+        <svg aria-hidden="true" role="img" class="octicon octicon-chevron-up" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible">
+            <path fill-rule="evenodd" d="M3.22 9.78a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 0l4.25 4.25a.75.75 0 01-1.06 1.06L8 6.06 4.28 9.78a.75.75 0 01-1.06 0z">
+            </path>
+        </svg>
+    </button>
+</divs>
+
+
+</html>
