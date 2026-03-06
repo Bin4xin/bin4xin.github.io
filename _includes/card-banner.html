@@ -1,17 +1,53 @@
+
 <div class="sentinel-container" id="app">
     <section>
         <div class="sentinel-card">
             <div class="card-info">
-                {% for about in site.categories['about'] limit:1 %}
-                <a href="{{ about.url | prepend: about.baseurl }}">
-                    <h1 id="card-info-title" class="hp-gradient_blue-green_v hp-gradient_text">
-                        最新有关{% if about.desc %}::{{ about.desc | replace: "「", "" | replace: "」", ""|upcase }}::{% endif %}的描述。
-                    </h1>
-                </a>
-                <p><span data-view-component="true" class="badge badge-theme">{{ about.category }}</span>
-                    {{ about.desc | replace: "「", "" | replace: "」", ""|upcase }}::{{about.Researchname}}::</p>
-                    <p class="card-info-desc-center">{{ about.excerpt | strip_html | truncate: 268, '...'}}</p>
-                {% endfor %}
+                {% if page.relink %}
+                <h4>📣 引用声明 / Attention: This is a quote document 📣</h4>
+                    <section class="container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto">
+                        <div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix ">
+                            <h2 class="lead">申明</h2>
+                            <div>
+                                <div class="mb-2"><a href="{{ page.relink }}" target="_blank" class=" text-bold">
+                                    <div class="fa fa-link"></div>文章来源声明</a></div>
+                                <div><a href="https://github.com/{{ page.author }}" target="_blank"  class="text-bold">
+                                    <div class="fa fa-user"></div>
+                                    Source: {{ page.author }}.
+                                    </a>
+                                </div>
+                                <div><a href="https://github.com/Bin4xin" target="_blank"  class="text-bold">
+                                    <div class="fa fa-user"></div>
+                                    Edited: Bin4xin.
+                                </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+                            <h2 class="lead">侵权？</h2>
+                            <div>
+                                <a href="{{site.githubAccess}}/{{site.githubRepos}}/issues/new?labels=acticle+rights+feedback&template=2-bug_report.yaml&title={{page.path}}侵权反馈/feedback" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
+                                    <svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
+                                    点击反馈侵权
+                                </a>
+                                <p class="f1-l mt-2 text-bold">此之前，学习开源贡献<a target="_blank" href="{{site.githubAccess}}/{{site.githubRepos}}/wiki/Git操作-Git如何贡献仓库代码">CN&nbsp;|</a>
+                                    <a target="_blank" href="https://github.com/github/docs">EN</a></p>
+                            </div>
+                        </div>
+                    </section>
+
+                        {% else %}
+                    {% for about in site.categories['about'] limit:1 %}
+                    <a href="{{ about.url | prepend: about.baseurl }}">
+                        <h1 id="card-info-title" class="hp-gradient_blue-green_v hp-gradient_text">
+                            最新有关{% if about.desc %}::{{ about.desc | replace: "「", "" | replace: "」", ""|upcase }}::{% endif %}的描述。
+                        </h1>
+                    </a>
+                    <p><span data-view-component="true" class="badge badge-theme">{{ about.category }}</span>
+                        {{ about.desc | replace: "「", "" | replace: "」", ""|upcase }}::{{about.Researchname}}::</p>
+                        <p class="card-info-desc-center">{{ about.excerpt | strip_html | truncate: 268, '...'}}</p>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </section>

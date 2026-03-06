@@ -20,10 +20,10 @@ tags:
 ### 当下同步流程问题
 
 - [B4xinSynchronize]({{site.githubAccess}}/B4xinSynchronize)同步对应仓库
-	- `bin4xin.github.io  =>git push> www.sentrylab.cn`
-	- `bin4xin.gitee.io   =>git push> about.sentrylab.cn`
-	- `sentrylab-www-cn   =>scp> $vps/nginx_web/sentrylab/www   =>git-checkout> www.sentrylab.cn`
-	- `sentrylab-about-cn =>scp> $vps/nginx_web/sentrylab/about =>git-checkout> about.sentrylab.cn`
+	- `bin4xin.github.io  =>git push> www.domain.com`
+	- `bin4xin.gitee.io   =>git push> about.domain.com`
+	- `domain-www-cn   =>scp> $vps/nginx_web/domain/www   =>git-checkout> www.domain.com`
+	- `domain-about-cn =>scp> $vps/nginx_web/domain/about =>git-checkout> about.domain.com`
 
 #### 如何解决？
 

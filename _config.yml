@@ -6,7 +6,6 @@ brand: SENTINEL SECURITY, LAB
 description: 哨兵安全实验室
 baseurl: "" #important: start with /
 url: "https://bin4xin.github.io"
-root: "sentrylab.cn"
 web_version: V3.0.1
 script_version: v1.0.2
 www_google_verify: "apz36MBrhPsyyKahn-qJWKDq0PQUASdgn5_nju0NwQE"
@@ -57,7 +56,6 @@ exclude: ['BUILD.md', 'README.md','vendor']
 # Short text about your company. Shown in footer on every page and also separately on Home and Contact page.
 about: "本站由哨兵安全实验室支持创办"
 
-contactMail: "administrator@sentrylab.cn"
 # option.
 githubAccess: "https://github.com/Bin4xin"
 githubRepos: "bin4xin.github.io"

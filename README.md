@@ -1,4 +1,4 @@
-<h1 align="center">哨兵::</a><a href="https://bin4xin.sentrylab.cn/">Bin4xin::</a></h1>
+<h1 align="center">哨兵::</a><a href="https://github.com/Bin4xin">Bin4xin::</a></h1>
 
 <div align="center">
 

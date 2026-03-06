@@ -2,10 +2,12 @@
 <html>
 
     {% include head.html %}
-
     <body>
 
                 {% include nav.html%}
+                {% if page.relink %}
+                    <div class="Box-row">{% include top-banner.html %}</div>
+                {% endif %}
                 {{ content }}
                 {% include footer.html %}
 

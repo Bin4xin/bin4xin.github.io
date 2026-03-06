@@ -3,8 +3,9 @@ layout: post
 title: "不得不谈的：「Spring Boot」未授权渗透"
 date: 2020-09-25
 wrench: 2022-10-08
-toc: true
+toc: false
 author: LandGrey
+relink: https://github.com/LandGrey/SpringBootVulExploit
 categories:
     - blog
 tags:

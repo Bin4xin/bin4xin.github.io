@@ -60,7 +60,7 @@ firewall:`https://dash.cloudflare.com/{random-token-value}/{domain.value}/firewa
 	- `(http.request.uri.path contains "etc/passwd")`
     - 
         ```
-        ➜ bin4xin src curl https://about.sentrylab.cn/etc/passwd -I
+        ➜ bin4xin src curl https://domain.com/etc/passwd -I
         HTTP/2 403
         date: Fri, 23 Jul 2021 02:05:34 GMT
         content-type: text/plain; charset=UTF-8

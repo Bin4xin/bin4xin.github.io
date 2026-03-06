@@ -24,7 +24,7 @@ title: 文章分类
     -->
     <div class="row blog-bar-display" style="margin-bottom: 20px;"><div class="Box-header">
         <a class="col-7 color-fg-default text-bold mb-1 lh-condensed" style="max-width: 100%; font-size: 20px;">
-            <center>{{site.root |upcase}}::{{ page.title }}</center></a>
+            <center>{{ page.title }}</center></a>
     </div>
         <div class="Box-row">{% include top-banner.html %}</div>
         {% for category in site.categories %}

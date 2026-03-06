@@ -22,7 +22,7 @@ tags:
 
 刚好年底总结博客，总结到WAF这一块，正好把这一篇的文章给补上，整理文章可以查看，较于下面这篇文章，主要增加了自定义规则库的配置和相关验证，可通过上方目录链接直接跳转：
 
-- [「分享」ModsecWAF：老牌开源waf的绕过历程](https://sentrylab.cn/about/Mod-Waf-Bypass-Walkthrough/)
+- [「分享」ModsecWAF：老牌开源waf的绕过历程](/about/Mod-Waf-Bypass-Walkthrough/)
 
 正好把这篇文章收个尾，我的有些文章写到一半，写不下去了就放着了。这个习惯不是很好。
 

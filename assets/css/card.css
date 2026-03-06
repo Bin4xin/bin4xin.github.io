@@ -253,7 +253,7 @@ margin: 0;
     align-self: start;
 }
 .card-info a {
-    display: grid;
+    /*display: grid;*/
     grid-template-columns: max-content 20px;
     align-items: center;
     column-gap: 7px;
@@ -271,8 +271,8 @@ margin: 0;
     transform: translateX(5px);
 }
 .card-info svg {
-    width: 20px;
-    height: 10px;
+    /*width: 20px;*/
+    /*height: 10px;*/
     transform: translateX(0px);
     transition: transform 0.3s ease-out;
 }

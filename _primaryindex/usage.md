@@ -26,10 +26,10 @@ permalink: /usage/
 - 文件名称`年-月-日-时-间-中英文-均可-空格-用横杠代替.md`
   - `2022-01-09-Learning-process-about-virtual-function-table.md`
 - 仓库博文分为几个栏目：
-  - [BLOG](https://sentrylab.cn/blog/) - 相关技术博客对应仓库文件位置[`_posts/blog`](https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog)，下面不赘述，以此类推；
-  - [TOPS](https://sentrylab.cn/top/) - 相关博客置顶
-  - [DAILY](https://sentrylab.cn/daily/) - 相关日常闲谈文章
-  - [ABOUT](https://sentrylab.cn/about/) - 个人研究文章
+  - [BLOG](/blog/) - 相关技术博客对应仓库文件位置[`_posts/blog`](https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog)，下面不赘述，以此类推；
+  - [TOPS](/top/) - 相关博客置顶
+  - [DAILY](/daily/) - 相关日常闲谈文章
+  - [ABOUT](/about/) - 个人研究文章
 - 所以所有MD格式文件都应按照的仓库POST文件格式添加上文件头：
 
 {% include wrench-inject.html %}
@@ -70,7 +70,7 @@ permalink: /blog/2022/Learning-process-about-virtual-function-table/
   - `[时间]<操作::相关文件>commit by someone.`
 
 - 上传完成后就可以访问文章：
-  - [关于虚函数表的学习过程](https://www.sentrylab.cn/blog/2022/Learning-process-about-virtual-function-table/)
+  - [关于虚函数表的学习过程](https://sentrycybersec.github.io/blog/2022-01-09-Learning-process-about-virtual-function-table/)
   - [2022-01-09-Learning-process-about-virtual-function-table.md](https://github.com/sentryCyberSec/sentryCyberSec.github.io/blob/main/_posts/blog/2022-01-09-Learning-process-about-virtual-function-table.md)
 
 ### # 路由问题
@@ -139,8 +139,8 @@ jekyll build
 ```
 
 在MacOS BigSur v11.2下测试无任何问题，之后在博客文件夹根目录下`jekyll serve -P 80` 或`bundle exec jekyll server -P 80`即可运行demo，可参考：
-- [#markdown语法介绍与批注](https://about.sentrylab.cn/news/sentry-lab-markdown-usage/)
-- [Jekyll for linux.服务器部署历程](https://www.sentrylab.cn/blog/2019/jekyll/in/linux/)
+- [#markdown语法介绍与批注](/news/sentry-lab-markdown-usage/)
+- [Jekyll for linux.服务器部署历程](/blog/2019/jekyll/in/linux/)
 
 #### 常规Git Push操作
 
