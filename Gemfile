@@ -1,4 +1,5 @@
 source 'https://mirrors.cloud.tencent.com/rubygems/'
+# source 'https://gems.ruby-china.com'
 gem 'github-pages'
 gem 'jekyll-paginate'
 gem 'jekyll-paginate-v2'
