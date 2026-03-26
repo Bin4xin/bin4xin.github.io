@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html><style></style>
 <link rel="stylesheet" type="text/css" href="/assets/css/common.css">
+<style>
+    .col-sm-bb {
+        position: relative;
+        min-height: 1px;
+        padding-left: 15px;
+    }
+</style>
 <head>
 <meta charset="utf-8">
 <!--dev siwtch-->
@@ -13,8 +20,8 @@
 
     <meta name="baidu-site-verification" content="codeva-Bt0LqEvH6L" />
     <!-- Google tag (gtag.js) -->
-<script defer src="https://www.googletagmanager.com/gtag/js?id=G-TJ5SFQ4KCM"></script>
-<script defer src="/assets/js/gta.js"></script>
+<!--<script defer src="https://www.googletagmanager.com/gtag/js?id=G-TJ5SFQ4KCM"></script>-->
+<!--<script defer src="/assets/js/gta.js"></script>-->
 <link rel="shortcut icon" href="/assets/img/favicon.png">
 <link type="application/atom+xml" rel="alternate" href="/feed.xml" title="© 哨兵" />
 
@@ -24,7 +31,13 @@
 <!-- Open Graph metadata -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Dynamic Analysis Of Java Framework Code | © 哨兵" />
-<meta property="og:description" content=" 
+<meta property="og:description" content=" &lt;style&gt;
+	.d-flex {
+		display: flex !important;
+		align-items: stretch;
+	}
+&lt;/style&gt;
+
 
 &lt;div id=&quot;help-page&quot;&gt;
 	&lt;div class=&quot;visible-xs&quot;&gt;&lt;!--nav banner with logo. 响应式::菜单::表单--&gt;
@@ -162,6 +175,8 @@
 	
 
 	
+
+	
 	&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;
 		&lt;a&gt;&lt;strong&gt;代码审计&lt;/strong&gt;&lt;/a&gt;
 	&lt;/summary&gt;
@@ -223,6 +238,25 @@
 				&lt;/div&gt;
 				&lt;div id=&quot;help-nav&quot; aria-expanded=&quot;true&quot; class=&quot;nav nav-pills nav-stacked&quot; &gt;
 					
+	&lt;details &gt;
+		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
+			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;AI-CLI&lt;/strong&gt;&lt;/a&gt;
+		&lt;/summary&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-CVE-2025-59828-and-CVE-2025-65099 RCE复现历程&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/ai-cli/CVE-2025-59828-and-CVE-2025-65099/&quot;&gt;I. CVE-2025-59828-AND-CVE-2025-65099 RCE复现历程&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+		&lt;ul class=&quot;nav nav-pills nav-stacked no-underline&quot;&gt;
+			&lt;li id=&quot;toc-zh&quot; class=&quot;table-of-contents table-of-contents__left-border &quot;&gt;
+				&lt;a href=&quot;/about/ai-cli/&quot;&gt;II. ZH&lt;/a&gt;
+			&lt;/li&gt;
+		&lt;/ul&gt;
+		
+	&lt;/details&gt;
+
 	&lt;details &gt;
 		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
 			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;移动攻防&lt;/strong&gt;&lt;/a&gt;
@@ -653,7 +687,7 @@
 
 				&lt;/div&gt;
 			&lt;/div&gt;&lt;!-- side menu end. 左边菜单栏结束--&gt;
-			&lt;div class=&quot;flex-column col-md-9&quot;&gt;
+			&lt;div class=&quot;flex-column d-flex&quot;&gt;
 				
 &lt;div&gt;
     &lt;div class=&quot;c_banner c_r c_cw c_agl c_mz c_jg c_fa c_fb&quot;&gt;&lt;!--start content bar. --&gt;
@@ -838,7 +872,7 @@
 		&lt;/section&gt;
 &lt;/footer&gt;
 					&lt;/div&gt;&lt;!--page main content end--&gt;
-					&lt;!--右边文章目录开始--&gt;
+					
 &lt;div class=&quot;ml-hide article-index thin-scrollbar position-sticky top-0&quot; style=&quot;max-height: 100vh; overflow-y: auto;&quot;&gt;
     &lt;div class=&quot;nav nav-stacked tableOfContents_35-E&quot;&gt;
         &lt;li class=&quot; table-of-contents&quot;&gt;
@@ -864,8 +898,8 @@
 
 &lt;!--右边目录结束--&gt;
 				&lt;/div&gt;
-			&lt;/div&gt;&lt;!--content display end--&gt;
-		&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;&lt;!--content display end--&gt;
 	&lt;/div&gt;
 &lt;/div&gt;
 &lt;!--/pages --&gt;
@@ -914,8 +948,14 @@ vim: ts=2 sts=2 sw=2 noexpandtab
 
     <body>
         <startprint2pdfs>
-            <div id="research-content" class="col-sm-12 flex flex-column">
-                
+            <div id="research-content" class="col-sm-bb">
+                <style>
+	.d-flex {
+		display: flex !important;
+		align-items: stretch;
+	}
+</style>
+
 
 <div id="help-page">
 	<div class="visible-xs"><!--nav banner with logo. 响应式::菜单::表单-->
@@ -1053,6 +1093,8 @@ vim: ts=2 sts=2 sw=2 noexpandtab
 	
 
 	
+
+	
 	<summary class="edSFyN flex justify-between">
 		<a><strong>代码审计</strong></a>
 	</summary>
@@ -1114,6 +1156,25 @@ vim: ts=2 sts=2 sw=2 noexpandtab
 				</div>
 				<div id="help-nav" aria-expanded="true" class="nav nav-pills nav-stacked" >
 					
+	<details >
+		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
+			<a class="no-underline"><strong>AI-CLI</strong></a>
+		</summary>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-CVE-2025-59828-and-CVE-2025-65099 RCE复现历程" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/ai-cli/CVE-2025-59828-and-CVE-2025-65099/">I. CVE-2025-59828-AND-CVE-2025-65099 RCE复现历程</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills nav-stacked no-underline">
+			<li id="toc-zh" class="table-of-contents table-of-contents__left-border ">
+				<a href="/about/ai-cli/">II. ZH</a>
+			</li>
+		</ul>
+		
+	</details>
+
 	<details >
 		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
 			<a class="no-underline"><strong>移动攻防</strong></a>
@@ -1544,7 +1605,7 @@ vim: ts=2 sts=2 sw=2 noexpandtab
 
 				</div>
 			</div><!-- side menu end. 左边菜单栏结束-->
-			<div class="flex-column col-md-9">
+			<div class="flex-column d-flex">
 				
 <div>
     <div class="c_banner c_r c_cw c_agl c_mz c_jg c_fa c_fb"><!--start content bar. -->
@@ -1729,7 +1790,7 @@ vim: ts=2 sts=2 sw=2 noexpandtab
 		</section>
 </footer>
 					</div><!--page main content end-->
-					<!--右边文章目录开始-->
+					
 <div class="ml-hide article-index thin-scrollbar position-sticky top-0" style="max-height: 100vh; overflow-y: auto;">
     <div class="nav nav-stacked tableOfContents_35-E">
         <li class=" table-of-contents">
@@ -1755,8 +1816,8 @@ vim: ts=2 sts=2 sw=2 noexpandtab
 
 <!--右边目录结束-->
 				</div>
-			</div><!--content display end-->
-		</div>
+			</div>
+		</div><!--content display end-->
 	</div>
 </div>
 <!--/pages -->
