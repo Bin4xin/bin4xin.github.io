@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html><style></style>
 <link rel="stylesheet" type="text/css" href="/assets/css/common.css">
+<style>
+    .col-sm-bb {
+        position: relative;
+        min-height: 1px;
+        padding-left: 15px;
+    }
+</style>
 {% include head.html %}
     <body>
         <startprint2pdfs>
-            <div id="research-content" class="col-sm-12 flex flex-column">
+            <div id="research-content" class="col-sm-bb">
                 {{ content }}
             </div>
         </startprint2pdfs>

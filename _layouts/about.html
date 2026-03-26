@@ -1,7 +1,12 @@
 ---
 layout: about-default
 ---
-
+<style>
+	.d-flex {
+		display: flex !important;
+		align-items: stretch;
+	}
+</style>
 {% assign posts_about_desc = site.categories["about"] | sort: 'date' | group_by_exp:"post", "post.desc" |reverse %}
 {% assign posts_about = site.categories["about"] | sort: 'date' %}
 <div id="help-page">
@@ -31,7 +36,7 @@ layout: about-default
 					{% include about-nav.html %}
 				</div>
 			</div><!-- side menu end. 左边菜单栏结束-->
-			<div class="flex-column col-md-9">
+			<div class="flex-column d-flex">
 				{% include top-banner.html %}
 				<div class="d-flex">
 					<div id="help-content" class="flex-grow-1"><!--page main content-->
@@ -50,10 +55,10 @@ layout: about-default
 						<div class="spacing"></div>
 						{% include suggestion.html %}
 					</div><!--page main content end-->
-					<!--右边文章目录开始-->{% include article-index.html %}<!--右边目录结束-->
+					{% include article-index.html %}<!--右边目录结束-->
 				</div>
-			</div><!--content display end-->
-		</div>
+			</div>
+		</div><!--content display end-->
 	</div>
 </div>
 <!--/pages -->
