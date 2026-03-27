@@ -36,6 +36,136 @@
 		display: flex !important;
 		align-items: stretch;
 	}
+	/* 侧边栏基础样式 (继承原有结构，并确保折叠时平滑) */
+	#sidebar1 {
+		transition: width 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1), padding 0.2s ease, border 0.2s ease;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+
+	/* 折叠状态：宽度归零，隐藏所有内部内容（包括logo，菜单等完全隐藏） */
+	#sidebar1.collapsed {
+		width: 0 !important;
+		min-width: 0 !important;
+		flex: 0 0 0 !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		border-right-width: 0 !important;
+		overflow: hidden;
+		opacity: 0;
+		visibility: collapse;
+	}
+
+	/* 为了保证折叠时侧边栏内的logo彻底消失（视觉和DOM不可见），加一层安全隐藏 */
+	#sidebar1.collapsed #logo,
+	#sidebar1.collapsed .logo-link,
+	#sidebar1.collapsed #help-nav {
+		display: none !important;
+	}
+
+	/* 侧边栏内部滚动条美化，无功能影响 */
+	#sidebar1::-webkit-scrollbar {
+		width: 4px;
+	}
+	/* ---------- 切换按钮容器样式 (悬浮显示，定位在侧边栏右侧中间) ---------- */
+	.aside-area-toggle-btn {
+		position: fixed;
+		z-index: 1000;
+		width: 32px;          /* 略微加宽以更好容纳图片 */
+		height: 32px;
+		background: #ffffff;
+		/*mark*/
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+		border-radius: 15px 15px 15px 15px ;
+		border: 1px solid #e1e4e8;
+		border-right: none;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		opacity: 0;
+		visibility: hidden;
+		transform: translateX(4px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	/* 按钮显示状态 */
+	.aside-area-toggle-btn.visible {
+		opacity: 1;
+		visibility: visible;
+		transform: translateX(0);
+	}
+
+	/* 内部表格布局保持原有结构，但改用flex确保图片居中 */
+	.aside-area-toggle-btn .dp-table-cell {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+	}
+
+	.aside-area-toggle-btn .btn-ctnr {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	/* 实际可点击按钮 - 完全填充容器，图片居中 */
+	.restore-btn {
+		width: 100%;
+		height: 100%;
+		background: transparent;
+		border: 1px;
+		cursor: pointer;
+		outline: none;
+		align-items: center;
+		justify-content: center;
+		padding: 1px;
+		margin: 0;
+		transition: background-color 0.15s;
+		border-radius: 15px 15px 15px 15px;
+	}
+
+	.restore-btn:hover {
+		background-color: rgba(0, 0, 0, 0.05);
+	}
+
+	/* 切换按钮内部的图片样式：作为logo显示，自适应大小 */
+	.toggle-logo-img {
+		width: 28px;
+		height: auto;
+		max-width: 32px;
+		max-height: 32px;
+		object-fit: contain;
+		display: block;
+		pointer-events: none;  /* 确保点击穿透到按钮 */
+		border-radius: 4px;
+	}
+
+	/* 侧边栏内部原有logo样式保持 */
+	.logo-link {
+		display: flex;
+		align-items: center;
+		text-decoration: none;
+		padding: 1rem 1.2rem;
+		border-bottom: 1px solid #eaecef;
+	}
+
+	.logo-link img, .logo-link svg {
+		height: 32px;
+		width: auto;
+	}
+	/* 响应式辅助 */
+	@media (min-width: 768px) {
+		#sidebar1.collapsed {
+			flex: 0 0 0 !important;
+			max-width: 0 !important;
+		}
+	}
 &lt;/style&gt;
 
 
@@ -242,26 +372,222 @@
 			&lt;/div&gt;
 		&lt;/form&gt;
 	&lt;/div&gt;&lt;!--响应式::菜单::表单 end class=&quot;area-scroll&quot; style=&quot;height:100vh&quot;--&gt;
-		&lt;!--left area: menu 左边菜单栏 col-sm-3 ./25%--&gt;
-		&lt;div id=&quot;post-content&quot; class=&quot;row markdown-body-img d-flex&quot;&gt;
-			&lt;div id=&quot;sidebar1&quot; class=&quot;flex-column col-md-3 position-sticky ml-hide overflow-y-auto top-0 d-none d-lg-block flex-shrink-0 border-right&quot; style=&quot;height:100vh&quot;&gt;
-				&lt;div tabindex=&quot;-1&quot; class=&quot;position-sticky navbar-default top-0 color-bg-default new_figma_des&quot; style=&quot;z-index:3&quot;&gt;
-					&lt;a href=&quot;/&quot; target=&quot;blank&quot; id=&quot;logo&quot;&gt;
-						&lt;picture&gt;
-  
-  
-  &lt;source srcset=&quot;/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x&quot; media=&quot;(prefers-color-scheme: dark)&quot; /&gt;
-  
-  
-  
-  &lt;img src=&quot;/assets/img/logo-small.jpg&quot; srcset=&quot;/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x&quot; /&gt;
-  
-&lt;/picture&gt;
-						
-					&lt;/a&gt;
-				&lt;/div&gt;
-				&lt;div id=&quot;help-nav&quot; aria-expanded=&quot;true&quot; class=&quot;nav nav-pills nav-stacked&quot; &gt;
-					
+	&lt;div id=&quot;post-content&quot; class=&quot;row markdown-body-img d-flex&quot;&gt;
+		&lt;div id=&quot;sidebar1&quot; class=&quot;flex-column col-md-3 position-sticky ml-hide overflow-y-auto top-0 d-none d-lg-block flex-shrink-0 border-right&quot; style=&quot;height:100vh&quot;&gt;
+
+			
+			&lt;div style=&quot;padding-top: 20px&quot;&gt;
+				
+
+
+
+
+
+&lt;style&gt;
+    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
+    .gh-banner {
+        --banner-bg: #eef5ff;
+        --banner-border: rgba(84, 174, 255, 0.3);
+        --banner-icon-color: #1f7bdf;
+        --banner-text: #1f2328;
+        --banner-link: #0969da;
+        --banner-link-hover: #0550ae;
+        --banner-close-color: #656d76;
+        --banner-close-hover-bg: rgba(0, 0, 0, 0.05);
+        --banner-close-hover-color: #1f2328;
+        background-color: var(--banner-bg);
+        border: 1px solid var(--banner-border);
+        border-radius: 12px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 1rem 1rem 1rem 1.25rem;
+        transition: all 0.2s ease;
+        position: relative;
+    }
+    /* 错误主题 */
+    .gh-banner.error {
+        --banner-bg: #ffebe9;
+        --banner-border: rgba(255, 129, 130, 0.4);
+        --banner-icon-color: #cf222e;
+    }
+    /* 警告主题 */
+    .gh-banner.warn {
+        --banner-bg: #fff8e7;
+        --banner-border: rgba(215, 173, 62, 0.4);
+        --banner-icon-color: #bc6f00;
+    }
+    /* 深色模式适配 */
+    @media (prefers-color-scheme: dark) {
+        .gh-banner {
+            --banner-bg: #1c2a3e;
+            --banner-border: #2d4a6e;
+            --banner-icon-color: #6cb4ff;
+            --banner-text: #e6edf3;
+            --banner-link: #6cb4ff;
+            --banner-link-hover: #9acbff;
+            --banner-close-color: #9aa6b2;
+            --banner-close-hover-bg: rgba(177, 186, 196, 0.12);
+            --banner-close-hover-color: #f0f3f6;
+            background-color: var(--banner-bg);
+            border-color: #2d4a6e;
+        }
+        .gh-banner.error {
+            --banner-bg: #3b1e1e;
+            --banner-border: #da3633;
+            --banner-icon-color: #f85149;
+        }
+        .gh-banner.warn {
+            --banner-bg: #382d1a;
+            --banner-border: #d29922;
+            --banner-icon-color: #e3b341;
+        }
+    }
+    .banner-icon {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1px;
+    }
+    .banner-icon svg {
+        width: 20px;
+        height: 20px;
+        color: var(--banner-icon-color);
+        fill: currentColor;
+        display: block;
+    }
+    .banner-content {
+        flex: 1;
+        font-size: 0.9375rem;
+        font-weight: 400;
+        color: var(--banner-text);
+        line-height: 1.5;
+        word-break: break-word;
+    }
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    }
+    .banner-content a {
+        color: var(--banner-link);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.12s ease, text-decoration 0.12s;
+    }
+    .banner-content a:hover {
+        color: var(--banner-link-hover);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
+    .banner-text {
+        display: inline;
+        /*font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;Noto Sans&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;*/
+    }
+    .banner-close {
+        flex-shrink: 0;
+        background: transparent;
+        border: 0;
+        padding: 4px;
+        margin: -4px -4px 0 0;
+        cursor: pointer;
+        border-radius: 6px;
+        color: var(--banner-close-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s, color 0.2s;
+        line-height: 1;
+    }
+    .banner-close:hover {
+        background-color: var(--banner-close-hover-bg);
+        color: var(--banner-close-hover-color);
+    }
+    .banner-close:focus-visible {
+        outline: 2px solid var(--banner-icon-color);
+        outline-offset: 2px;
+    }
+    .banner-close svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+        display: block;
+    }
+    .gh-banner.hide-banner {
+        display: none;
+    }
+    @media (max-width: 640px) {
+        .gh-banner {
+            padding: 0.875rem 1rem;
+            gap: 0.5rem;
+        }
+        .banner-content {
+            font-size: 0.875rem;
+        }
+        .banner-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+    }
+    .banner-content span {
+        display: inline;
+    }
+    .banner-content a {
+        display: inline-block;
+    }
+&lt;/style&gt;
+
+&lt;section class=&quot;gh-banner info&quot; aria-labelledby=&quot;banner-title-欢迎并请注意-未经授权的渗透测试访问或滥用行为将被严格禁止-并将受到法律制裁-br-welcome-and-attention-plz-unauthorized-pentest-access-or-misuse-is-strictly-prohibited-and-will-be-prosecuted&quot; role=&quot;region&quot; data-dismissible=&quot;true&quot;&gt;
+    &lt;div class=&quot;banner-icon&quot; aria-hidden=&quot;true&quot;&gt;
+        
+        &lt;svg viewBox=&quot;0 0 16 16&quot; fill=&quot;currentColor&quot;&gt;
+            &lt;path d=&quot;M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z&quot;&gt;&lt;/path&gt;
+        &lt;/svg&gt;
+        
+    &lt;/div&gt;
+
+    &lt;div class=&quot;banner-content&quot;&gt;
+        &lt;span class=&quot;banner-text&quot;&gt;欢迎并请注意：未经授权的渗透测试访问或滥用行为将被严格禁止，并将受到法律制裁。&lt;br&gt;
+				Welcome and attention plz: Unauthorized Pentest access or misuse is strictly prohibited and will be prosecuted.&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;button class=&quot;banner-close&quot; aria-label=&quot;关闭通知横幅&quot; title=&quot;Dismiss banner&quot; type=&quot;button&quot;&gt;
+        &lt;svg viewBox=&quot;0 0 16 16&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
+            &lt;path d=&quot;M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z&quot;&gt;&lt;/path&gt;
+        &lt;/svg&gt;
+    &lt;/button&gt;
+&lt;/section&gt;
+
+&lt;script&gt;
+    (function() {
+        // 全局只初始化一次关闭事件委托
+        if (!window._ghBannerInitialized) {
+            window._ghBannerInitialized = true;
+            document.addEventListener(&#39;click&#39;, function(e) {
+                const closeBtn = e.target.closest(&#39;.banner-close&#39;);
+                if (closeBtn) {
+                    const banner = closeBtn.closest(&#39;.gh-banner&#39;);
+                    if (banner) {
+                        banner.classList.add(&#39;hide-banner&#39;);
+                        banner.setAttribute(&#39;aria-hidden&#39;, &#39;true&#39;);
+                    }
+                }
+            });
+        }
+    })();
+&lt;/script&gt;
+			&lt;/div&gt;
+			&lt;!--left area: menu 左边菜单栏 col-sm-3 ./25%--&gt;
+			&lt;div id=&quot;help-nav&quot; aria-expanded=&quot;true&quot; class=&quot;nav nav-pills nav-stacked&quot; style=&quot;padding-top: 20px; padding-bottom: 20px&quot;&gt;
+				
 	&lt;details &gt;
 		&lt;summary class=&quot;edSFyN flex justify-between&quot;&gt;&lt;!--left - detail - summary--&gt;
 			&lt;a class=&quot;no-underline&quot;&gt;&lt;strong&gt;AI-CLI&lt;/strong&gt;&lt;/a&gt;
@@ -709,10 +1035,10 @@
 	&lt;/details&gt;
 
 
-				&lt;/div&gt;
-			&lt;/div&gt;&lt;!-- side menu end. 左边菜单栏结束--&gt;
-			&lt;div class=&quot;flex-column d-flex&quot;&gt;
-				
+			&lt;/div&gt;
+		&lt;/div&gt;&lt;!-- side menu end. 左边菜单栏结束--&gt;
+		&lt;div class=&quot;flex-column d-flex&quot;&gt;
+			
 &lt;div&gt;
     &lt;div class=&quot;c_banner c_r c_cw c_agl c_mz c_jg c_fa c_fb&quot;&gt;&lt;!--start content bar. --&gt;
         &lt;div class=&quot;c_fa c_fb c_iu c_iv&quot;&gt;
@@ -768,19 +1094,19 @@
     &lt;/div&gt;&lt;!--end content bar. --&gt;
 &lt;/div&gt;
 
-				&lt;div class=&quot;d-flex&quot;&gt;
-					&lt;div id=&quot;help-content&quot; class=&quot;flex-grow-1&quot;&gt;&lt;!--page main content--&gt;
-						&lt;div class=&quot;px-md-6&quot;&gt;
-							&lt;h1&gt;
-								&lt;span class=&quot;post-print pull-right&quot;&gt;&lt;a onclick=&quot;printpage()&quot;&gt;&lt;!--href=&quot;javascript:window.print()&quot;--&gt;
-								&lt;ion-icon&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;49&quot; height=&quot;49&quot; viewBox=&quot;0 0 512 512&quot; style=&quot;fill:currentColor;stroke:none;&quot;&gt;&lt;title&gt;Print document&lt;/title&gt;&lt;path d=&quot;M400,96V56a8,8,0,0,0-8-8H120a8,8,0,0,0-8,8V96&quot;/&gt;&lt;rect x=&quot;152&quot; y=&quot;264&quot; width=&quot;208&quot; height=&quot;160&quot; rx=&quot;4&quot; ry=&quot;4&quot; style=&quot;fill:none;stroke:none;&quot;/&gt;&lt;path d=&quot;M408,112H104a56,56,0,0,0-56,56V376a8,8,0,0,0,8,8h56v72a8,8,0,0,0,8,8H392a8,8,0,0,0,8-8V384h56a8,8,0,0,0,8-8V168A56,56,0,0,0,408,112ZM360,420a4,4,0,0,1-4,4H156a4,4,0,0,1-4-4V268a4,4,0,0,1,4-4H356a4,4,0,0,1,4,4ZM394,207.92a24,24,0,1,1,22-22A24,24,0,0,1,394,207.92Z&quot;/&gt;&lt;/svg&gt;
-								&lt;/ion-icon&gt;&lt;/a&gt;&lt;/span&gt;
-								&lt;span class=&quot;post-print pull-right&quot;&gt;&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/CTF/2022-09-07-WANGDINGCTF2022-Walkthrough.md&quot; target=&quot;_blank&quot;&gt;
-								&lt;ion-icon&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;49&quot; height=&quot;49&quot; viewBox=&quot;0 0 512 512&quot; style=&quot;fill:currentColor;stroke:none;&quot;&gt;&lt;title&gt;Edit on github&lt;/title&gt;&lt;path d=&quot;M459.94,53.25a16.06,16.06,0,0,0-23.22-.56L424.35,65a8,8,0,0,0,0,11.31l11.34,11.32a8,8,0,0,0,11.34,0l12.06-12C465.19,69.54,465.76,59.62,459.94,53.25Z&quot;/&gt;&lt;path d=&quot;M399.34,90,218.82,270.2a9,9,0,0,0-2.31,3.93L208.16,299a3.91,3.91,0,0,0,4.86,4.86l24.85-8.35a9,9,0,0,0,3.93-2.31L422,112.66A9,9,0,0,0,422,100L412.05,90A9,9,0,0,0,399.34,90Z&quot;/&gt;&lt;path d=&quot;M386.34,193.66,264.45,315.79A41.08,41.08,0,0,1,247.58,326l-25.9,8.67a35.92,35.92,0,0,1-44.33-44.33l8.67-25.9a41.08,41.08,0,0,1,10.19-16.87L318.34,125.66A8,8,0,0,0,312.69,112H104a56,56,0,0,0-56,56V408a56,56,0,0,0,56,56H344a56,56,0,0,0,56-56V199.31A8,8,0,0,0,386.34,193.66Z&quot;/&gt;&lt;/svg&gt;
-								&lt;/ion-icon&gt;
-								&lt;/a&gt;&lt;/span&gt;
-							&lt;/h1&gt;
-							&lt;h1 id=&quot;零web&quot;&gt;零：WEB&lt;/h1&gt;
+			&lt;div class=&quot;d-flex&quot;&gt;
+				&lt;div id=&quot;help-content&quot; class=&quot;flex-grow-1&quot;&gt;&lt;!--page main content--&gt;
+					&lt;div class=&quot;px-md-6&quot;&gt;
+						&lt;h1&gt;
+							&lt;span class=&quot;post-print pull-right&quot;&gt;&lt;a onclick=&quot;printpage()&quot;&gt;&lt;!--href=&quot;javascript:window.print()&quot;--&gt;
+							&lt;ion-icon&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;49&quot; height=&quot;49&quot; viewBox=&quot;0 0 512 512&quot; style=&quot;fill:currentColor;stroke:none;&quot;&gt;&lt;title&gt;Print document&lt;/title&gt;&lt;path d=&quot;M400,96V56a8,8,0,0,0-8-8H120a8,8,0,0,0-8,8V96&quot;/&gt;&lt;rect x=&quot;152&quot; y=&quot;264&quot; width=&quot;208&quot; height=&quot;160&quot; rx=&quot;4&quot; ry=&quot;4&quot; style=&quot;fill:none;stroke:none;&quot;/&gt;&lt;path d=&quot;M408,112H104a56,56,0,0,0-56,56V376a8,8,0,0,0,8,8h56v72a8,8,0,0,0,8,8H392a8,8,0,0,0,8-8V384h56a8,8,0,0,0,8-8V168A56,56,0,0,0,408,112ZM360,420a4,4,0,0,1-4,4H156a4,4,0,0,1-4-4V268a4,4,0,0,1,4-4H356a4,4,0,0,1,4,4ZM394,207.92a24,24,0,1,1,22-22A24,24,0,0,1,394,207.92Z&quot;/&gt;&lt;/svg&gt;
+							&lt;/ion-icon&gt;&lt;/a&gt;&lt;/span&gt;
+							&lt;span class=&quot;post-print pull-right&quot;&gt;&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/CTF/2022-09-07-WANGDINGCTF2022-Walkthrough.md&quot; target=&quot;_blank&quot;&gt;
+							&lt;ion-icon&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;49&quot; height=&quot;49&quot; viewBox=&quot;0 0 512 512&quot; style=&quot;fill:currentColor;stroke:none;&quot;&gt;&lt;title&gt;Edit on github&lt;/title&gt;&lt;path d=&quot;M459.94,53.25a16.06,16.06,0,0,0-23.22-.56L424.35,65a8,8,0,0,0,0,11.31l11.34,11.32a8,8,0,0,0,11.34,0l12.06-12C465.19,69.54,465.76,59.62,459.94,53.25Z&quot;/&gt;&lt;path d=&quot;M399.34,90,218.82,270.2a9,9,0,0,0-2.31,3.93L208.16,299a3.91,3.91,0,0,0,4.86,4.86l24.85-8.35a9,9,0,0,0,3.93-2.31L422,112.66A9,9,0,0,0,422,100L412.05,90A9,9,0,0,0,399.34,90Z&quot;/&gt;&lt;path d=&quot;M386.34,193.66,264.45,315.79A41.08,41.08,0,0,1,247.58,326l-25.9,8.67a35.92,35.92,0,0,1-44.33-44.33l8.67-25.9a41.08,41.08,0,0,1,10.19-16.87L318.34,125.66A8,8,0,0,0,312.69,112H104a56,56,0,0,0-56,56V408a56,56,0,0,0,56,56H344a56,56,0,0,0,56-56V199.31A8,8,0,0,0,386.34,193.66Z&quot;/&gt;&lt;/svg&gt;
+							&lt;/ion-icon&gt;
+							&lt;/a&gt;&lt;/span&gt;
+						&lt;/h1&gt;
+						&lt;h1 id=&quot;零web&quot;&gt;零：WEB&lt;/h1&gt;
 
 &lt;h2 id=&quot;-0x00-web237-openlitespeed&quot;&gt;# 0x00 web237-openlitespeed&lt;/h2&gt;
 
@@ -831,9 +1157,9 @@
 
 &lt;p&gt;&lt;a href=&quot;/about/WANGDINGCTF2022-WEB-ezJava-Walkthrough/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;base&lt;/code&gt; 参数如何？进一步查看writeUp：&lt;/a&gt;&lt;/p&gt;
 
-						&lt;/div&gt;
-						&lt;div class=&quot;spacing&quot;&gt;&lt;/div&gt;
-						&lt;!-- [x] 2022/10/20/10:49:36 fixed: while width &lt; some inch. would be flex column not display like a row.--&gt;
+					&lt;/div&gt;
+					&lt;div class=&quot;spacing&quot;&gt;&lt;/div&gt;
+					&lt;!-- [x] 2022/10/20/10:49:36 fixed: while width &lt; some inch. would be flex column not display like a row.--&gt;
 &lt;footer&gt;
 	&lt;style&gt;.border-top {
 		border-top: 1.5px solid #d0d7de!important;
@@ -878,8 +1204,9 @@
 			&lt;/div&gt;
 		&lt;/section&gt;
 &lt;/footer&gt;
-					&lt;/div&gt;&lt;!--page main content end--&gt;
-					
+				&lt;/div&gt;&lt;!--page main content end--&gt;
+
+				
 &lt;div class=&quot;ml-hide article-index thin-scrollbar position-sticky top-0&quot; style=&quot;max-height: 100vh; overflow-y: auto;&quot;&gt;
     &lt;div class=&quot;nav nav-stacked tableOfContents_35-E&quot;&gt;
         &lt;li class=&quot; table-of-contents&quot;&gt;
@@ -907,14 +1234,27 @@
 &lt;/div&gt;
 
 &lt;!--右边目录结束--&gt;
-				&lt;/div&gt;
 			&lt;/div&gt;
-		&lt;/div&gt;&lt;!--content display end--&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;&lt;!--content display end--&gt;
+&lt;/div&gt;
+&lt;!-- 侧边栏切换按钮容器（结构符合原始提供，内部按钮使用图片logo） --&gt;
+&lt;div class=&quot;aside-area-toggle-btn dp-none p-absolute&quot;&gt;
+	&lt;div class=&quot;dp-table-cell w-100 v-middle&quot;&gt;
+		&lt;div class=&quot;btn-ctnr p-relative&quot;&gt;
+			&lt;button class=&quot;restore-btn dp-none h-100 p-absolute bg-no-repeat pointer a-fade-in&quot; id=&quot;aside-area-toggle-btn&quot;&gt;
+				&lt;img class=&quot;toggle-logo-img&quot;
+					 src=&quot;/assets/img/logo-small.jpg&quot;
+					 srcset=&quot;/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x&quot;
+					 alt=&quot;toggle sidebar logo&quot;&gt;
+			&lt;/button&gt;
+			&lt;div class=&quot;btn-slider dp-none h-100 p-absolute a-fade-in&quot;&gt;&lt;/div&gt;
+		&lt;/div&gt;
 	&lt;/div&gt;
 &lt;/div&gt;
 &lt;!--/pages --&gt;
-&lt;!--&lt;/div&gt;
 &lt;script src=&quot;/assets/js/about.js&quot;&gt;&lt;/script&gt;
+&lt;!--
 vim: ts=2 sts=2 sw=2 noexpandtab
 --&gt;
 哨兵安全实验室 SENTINEL SECURITY, LAB" />
@@ -963,6 +1303,136 @@ vim: ts=2 sts=2 sw=2 noexpandtab
 	.d-flex {
 		display: flex !important;
 		align-items: stretch;
+	}
+	/* 侧边栏基础样式 (继承原有结构，并确保折叠时平滑) */
+	#sidebar1 {
+		transition: width 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1), padding 0.2s ease, border 0.2s ease;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+
+	/* 折叠状态：宽度归零，隐藏所有内部内容（包括logo，菜单等完全隐藏） */
+	#sidebar1.collapsed {
+		width: 0 !important;
+		min-width: 0 !important;
+		flex: 0 0 0 !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		border-right-width: 0 !important;
+		overflow: hidden;
+		opacity: 0;
+		visibility: collapse;
+	}
+
+	/* 为了保证折叠时侧边栏内的logo彻底消失（视觉和DOM不可见），加一层安全隐藏 */
+	#sidebar1.collapsed #logo,
+	#sidebar1.collapsed .logo-link,
+	#sidebar1.collapsed #help-nav {
+		display: none !important;
+	}
+
+	/* 侧边栏内部滚动条美化，无功能影响 */
+	#sidebar1::-webkit-scrollbar {
+		width: 4px;
+	}
+	/* ---------- 切换按钮容器样式 (悬浮显示，定位在侧边栏右侧中间) ---------- */
+	.aside-area-toggle-btn {
+		position: fixed;
+		z-index: 1000;
+		width: 32px;          /* 略微加宽以更好容纳图片 */
+		height: 32px;
+		background: #ffffff;
+		/*mark*/
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+		border-radius: 15px 15px 15px 15px ;
+		border: 1px solid #e1e4e8;
+		border-right: none;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		opacity: 0;
+		visibility: hidden;
+		transform: translateX(4px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	/* 按钮显示状态 */
+	.aside-area-toggle-btn.visible {
+		opacity: 1;
+		visibility: visible;
+		transform: translateX(0);
+	}
+
+	/* 内部表格布局保持原有结构，但改用flex确保图片居中 */
+	.aside-area-toggle-btn .dp-table-cell {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+	}
+
+	.aside-area-toggle-btn .btn-ctnr {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	/* 实际可点击按钮 - 完全填充容器，图片居中 */
+	.restore-btn {
+		width: 100%;
+		height: 100%;
+		background: transparent;
+		border: 1px;
+		cursor: pointer;
+		outline: none;
+		align-items: center;
+		justify-content: center;
+		padding: 1px;
+		margin: 0;
+		transition: background-color 0.15s;
+		border-radius: 15px 15px 15px 15px;
+	}
+
+	.restore-btn:hover {
+		background-color: rgba(0, 0, 0, 0.05);
+	}
+
+	/* 切换按钮内部的图片样式：作为logo显示，自适应大小 */
+	.toggle-logo-img {
+		width: 28px;
+		height: auto;
+		max-width: 32px;
+		max-height: 32px;
+		object-fit: contain;
+		display: block;
+		pointer-events: none;  /* 确保点击穿透到按钮 */
+		border-radius: 4px;
+	}
+
+	/* 侧边栏内部原有logo样式保持 */
+	.logo-link {
+		display: flex;
+		align-items: center;
+		text-decoration: none;
+		padding: 1rem 1.2rem;
+		border-bottom: 1px solid #eaecef;
+	}
+
+	.logo-link img, .logo-link svg {
+		height: 32px;
+		width: auto;
+	}
+	/* 响应式辅助 */
+	@media (min-width: 768px) {
+		#sidebar1.collapsed {
+			flex: 0 0 0 !important;
+			max-width: 0 !important;
+		}
 	}
 </style>
 
@@ -1170,26 +1640,222 @@ vim: ts=2 sts=2 sw=2 noexpandtab
 			</div>
 		</form>
 	</div><!--响应式::菜单::表单 end class="area-scroll" style="height:100vh"-->
-		<!--left area: menu 左边菜单栏 col-sm-3 ./25%-->
-		<div id="post-content" class="row markdown-body-img d-flex">
-			<div id="sidebar1" class="flex-column col-md-3 position-sticky ml-hide overflow-y-auto top-0 d-none d-lg-block flex-shrink-0 border-right" style="height:100vh">
-				<div tabindex="-1" class="position-sticky navbar-default top-0 color-bg-default new_figma_des" style="z-index:3">
-					<a href="/" target="blank" id="logo">
-						<picture>
-  
-  
-  <source srcset="/assets/img/logo-small-dark.png 1x, /assets/img/logo-small-dark@2x.png 2x, /assets/img/logo-small-dark@3x.png 3x, /assets/img/logo-small-dark@4x.png 4x" media="(prefers-color-scheme: dark)" />
-  
-  
-  
-  <img src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" />
-  
-</picture>
-						
-					</a>
-				</div>
-				<div id="help-nav" aria-expanded="true" class="nav nav-pills nav-stacked" >
-					
+	<div id="post-content" class="row markdown-body-img d-flex">
+		<div id="sidebar1" class="flex-column col-md-3 position-sticky ml-hide overflow-y-auto top-0 d-none d-lg-block flex-shrink-0 border-right" style="height:100vh">
+
+			
+			<div style="padding-top: 20px">
+				
+
+
+
+
+
+<style>
+    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
+    .gh-banner {
+        --banner-bg: #eef5ff;
+        --banner-border: rgba(84, 174, 255, 0.3);
+        --banner-icon-color: #1f7bdf;
+        --banner-text: #1f2328;
+        --banner-link: #0969da;
+        --banner-link-hover: #0550ae;
+        --banner-close-color: #656d76;
+        --banner-close-hover-bg: rgba(0, 0, 0, 0.05);
+        --banner-close-hover-color: #1f2328;
+        background-color: var(--banner-bg);
+        border: 1px solid var(--banner-border);
+        border-radius: 12px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 1rem 1rem 1rem 1.25rem;
+        transition: all 0.2s ease;
+        position: relative;
+    }
+    /* 错误主题 */
+    .gh-banner.error {
+        --banner-bg: #ffebe9;
+        --banner-border: rgba(255, 129, 130, 0.4);
+        --banner-icon-color: #cf222e;
+    }
+    /* 警告主题 */
+    .gh-banner.warn {
+        --banner-bg: #fff8e7;
+        --banner-border: rgba(215, 173, 62, 0.4);
+        --banner-icon-color: #bc6f00;
+    }
+    /* 深色模式适配 */
+    @media (prefers-color-scheme: dark) {
+        .gh-banner {
+            --banner-bg: #1c2a3e;
+            --banner-border: #2d4a6e;
+            --banner-icon-color: #6cb4ff;
+            --banner-text: #e6edf3;
+            --banner-link: #6cb4ff;
+            --banner-link-hover: #9acbff;
+            --banner-close-color: #9aa6b2;
+            --banner-close-hover-bg: rgba(177, 186, 196, 0.12);
+            --banner-close-hover-color: #f0f3f6;
+            background-color: var(--banner-bg);
+            border-color: #2d4a6e;
+        }
+        .gh-banner.error {
+            --banner-bg: #3b1e1e;
+            --banner-border: #da3633;
+            --banner-icon-color: #f85149;
+        }
+        .gh-banner.warn {
+            --banner-bg: #382d1a;
+            --banner-border: #d29922;
+            --banner-icon-color: #e3b341;
+        }
+    }
+    .banner-icon {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1px;
+    }
+    .banner-icon svg {
+        width: 20px;
+        height: 20px;
+        color: var(--banner-icon-color);
+        fill: currentColor;
+        display: block;
+    }
+    .banner-content {
+        flex: 1;
+        font-size: 0.9375rem;
+        font-weight: 400;
+        color: var(--banner-text);
+        line-height: 1.5;
+        word-break: break-word;
+    }
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    }
+    .banner-content a {
+        color: var(--banner-link);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.12s ease, text-decoration 0.12s;
+    }
+    .banner-content a:hover {
+        color: var(--banner-link-hover);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
+    .banner-text {
+        display: inline;
+        /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";*/
+    }
+    .banner-close {
+        flex-shrink: 0;
+        background: transparent;
+        border: 0;
+        padding: 4px;
+        margin: -4px -4px 0 0;
+        cursor: pointer;
+        border-radius: 6px;
+        color: var(--banner-close-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s, color 0.2s;
+        line-height: 1;
+    }
+    .banner-close:hover {
+        background-color: var(--banner-close-hover-bg);
+        color: var(--banner-close-hover-color);
+    }
+    .banner-close:focus-visible {
+        outline: 2px solid var(--banner-icon-color);
+        outline-offset: 2px;
+    }
+    .banner-close svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+        display: block;
+    }
+    .gh-banner.hide-banner {
+        display: none;
+    }
+    @media (max-width: 640px) {
+        .gh-banner {
+            padding: 0.875rem 1rem;
+            gap: 0.5rem;
+        }
+        .banner-content {
+            font-size: 0.875rem;
+        }
+        .banner-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+    }
+    .banner-content span {
+        display: inline;
+    }
+    .banner-content a {
+        display: inline-block;
+    }
+</style>
+
+<section class="gh-banner info" aria-labelledby="banner-title-欢迎并请注意-未经授权的渗透测试访问或滥用行为将被严格禁止-并将受到法律制裁-br-welcome-and-attention-plz-unauthorized-pentest-access-or-misuse-is-strictly-prohibited-and-will-be-prosecuted" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text">欢迎并请注意：未经授权的渗透测试访问或滥用行为将被严格禁止，并将受到法律制裁。<br>
+				Welcome and attention plz: Unauthorized Pentest access or misuse is strictly prohibited and will be prosecuted.</span>
+    </div>
+
+    <button class="banner-close" aria-label="关闭通知横幅" title="Dismiss banner" type="button">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
+        </svg>
+    </button>
+</section>
+
+<script>
+    (function() {
+        // 全局只初始化一次关闭事件委托
+        if (!window._ghBannerInitialized) {
+            window._ghBannerInitialized = true;
+            document.addEventListener('click', function(e) {
+                const closeBtn = e.target.closest('.banner-close');
+                if (closeBtn) {
+                    const banner = closeBtn.closest('.gh-banner');
+                    if (banner) {
+                        banner.classList.add('hide-banner');
+                        banner.setAttribute('aria-hidden', 'true');
+                    }
+                }
+            });
+        }
+    })();
+</script>
+			</div>
+			<!--left area: menu 左边菜单栏 col-sm-3 ./25%-->
+			<div id="help-nav" aria-expanded="true" class="nav nav-pills nav-stacked" style="padding-top: 20px; padding-bottom: 20px">
+				
 	<details >
 		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
 			<a class="no-underline"><strong>AI-CLI</strong></a>
@@ -1637,10 +2303,10 @@ vim: ts=2 sts=2 sw=2 noexpandtab
 	</details>
 
 
-				</div>
-			</div><!-- side menu end. 左边菜单栏结束-->
-			<div class="flex-column d-flex">
-				
+			</div>
+		</div><!-- side menu end. 左边菜单栏结束-->
+		<div class="flex-column d-flex">
+			
 <div>
     <div class="c_banner c_r c_cw c_agl c_mz c_jg c_fa c_fb"><!--start content bar. -->
         <div class="c_fa c_fb c_iu c_iv">
@@ -1696,19 +2362,19 @@ vim: ts=2 sts=2 sw=2 noexpandtab
     </div><!--end content bar. -->
 </div>
 
-				<div class="d-flex">
-					<div id="help-content" class="flex-grow-1"><!--page main content-->
-						<div class="px-md-6">
-							<h1>
-								<span class="post-print pull-right"><a onclick="printpage()"><!--href="javascript:window.print()"-->
-								<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Print document</title><path d="M400,96V56a8,8,0,0,0-8-8H120a8,8,0,0,0-8,8V96"/><rect x="152" y="264" width="208" height="160" rx="4" ry="4" style="fill:none;stroke:none;"/><path d="M408,112H104a56,56,0,0,0-56,56V376a8,8,0,0,0,8,8h56v72a8,8,0,0,0,8,8H392a8,8,0,0,0,8-8V384h56a8,8,0,0,0,8-8V168A56,56,0,0,0,408,112ZM360,420a4,4,0,0,1-4,4H156a4,4,0,0,1-4-4V268a4,4,0,0,1,4-4H356a4,4,0,0,1,4,4ZM394,207.92a24,24,0,1,1,22-22A24,24,0,0,1,394,207.92Z"/></svg>
-								</ion-icon></a></span>
-								<span class="post-print pull-right"><a href="https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/CTF/2022-09-07-WANGDINGCTF2022-Walkthrough.md" target="_blank">
-								<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Edit on github</title><path d="M459.94,53.25a16.06,16.06,0,0,0-23.22-.56L424.35,65a8,8,0,0,0,0,11.31l11.34,11.32a8,8,0,0,0,11.34,0l12.06-12C465.19,69.54,465.76,59.62,459.94,53.25Z"/><path d="M399.34,90,218.82,270.2a9,9,0,0,0-2.31,3.93L208.16,299a3.91,3.91,0,0,0,4.86,4.86l24.85-8.35a9,9,0,0,0,3.93-2.31L422,112.66A9,9,0,0,0,422,100L412.05,90A9,9,0,0,0,399.34,90Z"/><path d="M386.34,193.66,264.45,315.79A41.08,41.08,0,0,1,247.58,326l-25.9,8.67a35.92,35.92,0,0,1-44.33-44.33l8.67-25.9a41.08,41.08,0,0,1,10.19-16.87L318.34,125.66A8,8,0,0,0,312.69,112H104a56,56,0,0,0-56,56V408a56,56,0,0,0,56,56H344a56,56,0,0,0,56-56V199.31A8,8,0,0,0,386.34,193.66Z"/></svg>
-								</ion-icon>
-								</a></span>
-							</h1>
-							<h1 id="零web">零：WEB</h1>
+			<div class="d-flex">
+				<div id="help-content" class="flex-grow-1"><!--page main content-->
+					<div class="px-md-6">
+						<h1>
+							<span class="post-print pull-right"><a onclick="printpage()"><!--href="javascript:window.print()"-->
+							<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Print document</title><path d="M400,96V56a8,8,0,0,0-8-8H120a8,8,0,0,0-8,8V96"/><rect x="152" y="264" width="208" height="160" rx="4" ry="4" style="fill:none;stroke:none;"/><path d="M408,112H104a56,56,0,0,0-56,56V376a8,8,0,0,0,8,8h56v72a8,8,0,0,0,8,8H392a8,8,0,0,0,8-8V384h56a8,8,0,0,0,8-8V168A56,56,0,0,0,408,112ZM360,420a4,4,0,0,1-4,4H156a4,4,0,0,1-4-4V268a4,4,0,0,1,4-4H356a4,4,0,0,1,4,4ZM394,207.92a24,24,0,1,1,22-22A24,24,0,0,1,394,207.92Z"/></svg>
+							</ion-icon></a></span>
+							<span class="post-print pull-right"><a href="https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/CTF/2022-09-07-WANGDINGCTF2022-Walkthrough.md" target="_blank">
+							<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Edit on github</title><path d="M459.94,53.25a16.06,16.06,0,0,0-23.22-.56L424.35,65a8,8,0,0,0,0,11.31l11.34,11.32a8,8,0,0,0,11.34,0l12.06-12C465.19,69.54,465.76,59.62,459.94,53.25Z"/><path d="M399.34,90,218.82,270.2a9,9,0,0,0-2.31,3.93L208.16,299a3.91,3.91,0,0,0,4.86,4.86l24.85-8.35a9,9,0,0,0,3.93-2.31L422,112.66A9,9,0,0,0,422,100L412.05,90A9,9,0,0,0,399.34,90Z"/><path d="M386.34,193.66,264.45,315.79A41.08,41.08,0,0,1,247.58,326l-25.9,8.67a35.92,35.92,0,0,1-44.33-44.33l8.67-25.9a41.08,41.08,0,0,1,10.19-16.87L318.34,125.66A8,8,0,0,0,312.69,112H104a56,56,0,0,0-56,56V408a56,56,0,0,0,56,56H344a56,56,0,0,0,56-56V199.31A8,8,0,0,0,386.34,193.66Z"/></svg>
+							</ion-icon>
+							</a></span>
+						</h1>
+						<h1 id="零web">零：WEB</h1>
 
 <h2 id="-0x00-web237-openlitespeed"># 0x00 web237-openlitespeed</h2>
 
@@ -1759,9 +2425,9 @@ vim: ts=2 sts=2 sw=2 noexpandtab
 
 <p><a href="/about/WANGDINGCTF2022-WEB-ezJava-Walkthrough/"><code class="language-plaintext highlighter-rouge">base</code> 参数如何？进一步查看writeUp：</a></p>
 
-						</div>
-						<div class="spacing"></div>
-						<!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
+					</div>
+					<div class="spacing"></div>
+					<!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
 <footer>
 	<style>.border-top {
 		border-top: 1.5px solid #d0d7de!important;
@@ -1806,8 +2472,9 @@ vim: ts=2 sts=2 sw=2 noexpandtab
 			</div>
 		</section>
 </footer>
-					</div><!--page main content end-->
-					
+				</div><!--page main content end-->
+
+				
 <div class="ml-hide article-index thin-scrollbar position-sticky top-0" style="max-height: 100vh; overflow-y: auto;">
     <div class="nav nav-stacked tableOfContents_35-E">
         <li class=" table-of-contents">
@@ -1835,14 +2502,27 @@ vim: ts=2 sts=2 sw=2 noexpandtab
 </div>
 
 <!--右边目录结束-->
-				</div>
 			</div>
-		</div><!--content display end-->
+		</div>
+	</div><!--content display end-->
+</div>
+<!-- 侧边栏切换按钮容器（结构符合原始提供，内部按钮使用图片logo） -->
+<div class="aside-area-toggle-btn dp-none p-absolute">
+	<div class="dp-table-cell w-100 v-middle">
+		<div class="btn-ctnr p-relative">
+			<button class="restore-btn dp-none h-100 p-absolute bg-no-repeat pointer a-fade-in" id="aside-area-toggle-btn">
+				<img class="toggle-logo-img"
+					 src="/assets/img/logo-small.jpg"
+					 srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x"
+					 alt="toggle sidebar logo">
+			</button>
+			<div class="btn-slider dp-none h-100 p-absolute a-fade-in"></div>
+		</div>
 	</div>
 </div>
 <!--/pages -->
-<!--</div>
 <script src="/assets/js/about.js"></script>
+<!--
 vim: ts=2 sts=2 sw=2 noexpandtab
 -->
 
