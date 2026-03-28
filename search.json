@@ -1,14 +1,11 @@
 ---
 ---
-[
-{% for post in site.posts %}{% unless post.layout == "encrypt" %}
-  {
-    "title"    : "{% if post.Researchname %}{{ post.Researchname}}{% else %}{{ post.title | escape }}{% endif %}",
+[{% for post in site.posts %}{% unless post.layout == "encrypt" %}
+    {"title"    : "{% if post.Researchname %}{{ post.Researchname}}{% else %}{{ post.title | escape }}{% endif %}",
     "category" : "{{ post.category }}",
     "tags"     : "{{ post.tags | join: ', ' }}",
     "url"      : "{{ site.baseurl }}{{ post.url }}",
     "date"     : "{{ post.date | date: "%b %-d, %Y" }}",
-    "content"  : {{ post.content | strip_html | replace :' ', '' | strip_newlines | jsonify }}
+    "content"  : "{{ post.content | strip_html | replace :' ', '' | strip_newlines | jsonify |base64_encode}}"
   }{% unless forloop.last %},{% endunless %}{% endunless %}
-{% endfor %}
-]
+{% endfor %}]

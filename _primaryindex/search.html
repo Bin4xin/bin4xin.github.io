@@ -32,36 +32,74 @@ permalink: /
 <script>
     /**
      * SimpleJekyllSearch FUNC
-     * @param results-container,search-input
      * - @SimpleJekyllSearch/getQueryVariable func() 代码引用申明/code reference declaration:
      * - {@link - https://github.com/christian-fei/Simple-Jekyll-Search }
      * - {@link - https://github.com/Mabbs/mabbs.github.io/blob/master/search.html#L14 }
+     * @param variable
      **/
-    function getQueryVariable(variable)
-    {
-        var query = window.location.search.substring(1);
-        var vars = query.split("&");
-        for (var i=0;i<vars.length;i++) {
-            var pair = vars[i].split("=");
-            if(pair[0] == variable){return pair[1];}
+    function getQueryVariable(variable) {
+        const query = window.location.search.substring(1);
+        const vars = query.split("&");
+        for (let i = 0; i < vars.length; i++) {
+            const pair = vars[i].split("=");
+            if (pair[0] === variable) return pair[1];
         }
-        return('');
+        return "";
     }
-    var mykeyword = decodeURI(getQueryVariable("keyword"));
-    var sbox = document.getElementById('search-input');
-    var status = false;
-    if(mykeyword != null && mykeyword.toString().length>1){
+
+    const mykeyword = decodeURI(getQueryVariable("keyword"));
+    const sbox = document.getElementById("search-input");
+    if (mykeyword && mykeyword.toString().length > 1) {
         sbox.value = mykeyword;
     }
-    $.getJSON("search.json", function(json){
-        var sjs = SimpleJekyllSearch({
+    function base64Decode(str) {
+        if (!str) return str;
+        try {
+            const decoded = atob(str);
+            return decodeURIComponent(escape(decoded));
+        } catch (e) {
+            console.warn(
+                "Base64解码失败，返回原字符串:",
+                str.substring(0, 50) + "...",
+                e,
+            );
+            return str;
+        }
+    }
+
+    $.getJSON("search.json", function (json) {
+        console.log("加载 search.json 成功，条目数:", json.length);
+
+        const sjs = SimpleJekyllSearch({
             searchInput: sbox,
-            resultsContainer: document.getElementById('results-container'),
+            resultsContainer: document.getElementById("results-container"),
             json: json,
-            searchResultTemplate: '{% include search-provider/results-container.html mode="searchResultTemplate" %}',
-            noResultsText: '{% include search-provider/results-container.html mode="noResultsText" %}',
-            limit: 8
+            searchResultTemplate:
+                '{% include search-provider/results-container.html mode="searchResultTemplate" %}',
+            noResultsText:
+                '{% include search-provider/results-container.html mode="noResultsText" %}',
+            limit: 8,
+            templateMiddleware: function (prop, value, template) {
+                if (prop === "content" && value && typeof value === "string") {
+                    console.log(
+                        value.substring(0, 50),
+                    );
+                    const decoded = base64Decode(value);
+                    if (decoded !== value) {
+                        return decoded; // 返回解码后的值覆盖默认值
+                    } else {
+                    }
+                }
+                return undefined;
+            },
         });
-        sjs.search(mykeyword);
+
+        if (mykeyword) {
+            sjs.search(mykeyword);
+        } else {
+            console.error("Search is something wrong else.")
+        }
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        console.error("Load search.json failed:", textStatus, errorThrown);
     });
 </script>
