@@ -15,17 +15,6 @@ tags:
     - 笔记
 ---
 
-### 声明
-
-[这是转载地址](https://github.com/LandGrey/SpringBootVulExploit)，
-**若作者介意请联系：「{{site.contactMail}}」删除转载文章**
-
-#### [Spring Boot Vulnerability Exploit CheckList](https://github.com/LandGrey/SpringBootVulExploit){:target="_blank"}
-
-Spring Boot 相关漏洞学习资料，利用方法和技巧合集，黑盒安全评估 check list
-
-**Bin4xin edited. Source from LandGrey**
-
 ## 零：路由和版本
 
 ### 0x01：路由知识
@@ -558,7 +547,7 @@ ${T(java.lang.Runtime).getRuntime().exec(new String(new byte[]{0x6f,0x70,0x65,0x
 
 #### 漏洞分析：
 
-​	[SpringBoot SpEL表达式注入漏洞-分析与复现](https://www.cnblogs.com/litlife/p/10183137.html)
+- [SpringBoot SpEL表达式注入漏洞-分析与复现](https://www.cnblogs.com/litlife/p/10183137.html)
 
 
 
@@ -677,7 +666,7 @@ Content-Type: application/json
 
 #### 漏洞分析：
 
-​	[Exploit Spring Boot Actuator 之 Spring Cloud Env 学习笔记](https://b1ngz.github.io/exploit-spring-boot-actuator-spring-cloud-env-note/)
+- [Exploit Spring Boot Actuator 之 Spring Cloud Env 学习笔记](https://b1ngz.github.io/exploit-spring-boot-actuator-spring-cloud-env-note/)
 
 
 
@@ -776,7 +765,7 @@ Content-Type: application/json
 
 #### 漏洞分析：
 
-​	[Spring Boot Actuator从未授权访问到getshell](https://www.freebuf.com/column/234719.html)
+- [Spring Boot Actuator从未授权访问到getshell](https://www.freebuf.com/column/234719.html)
 
 
 
@@ -893,7 +882,7 @@ nc -lv 443
 
 #### 漏洞分析：
 
-​	[spring boot actuator rce via jolokia](https://xz.aliyun.com/t/4258)
+- [spring boot actuator rce via jolokia](https://xz.aliyun.com/t/4258)
 
 
 
@@ -987,7 +976,7 @@ nc -lvp 443
 
 #### 漏洞分析：
 
-​	[Yet Another Way to Exploit Spring Boot Actuators via Jolokia](https://static.anquanke.com/download/b/security-geek-2019-q1/article-10.html)
+- [Yet Another Way to Exploit Spring Boot Actuators via Jolokia](https://static.anquanke.com/download/b/security-geek-2019-q1/article-10.html)
 
 
 
@@ -1072,7 +1061,7 @@ Content-Type: application/json
 
 #### 漏洞分析：
 
-​	[remote-code-execution-in-three-acts-chaining-exposed-actuators-and-h2-database](https://spaceraccoon.dev/remote-code-execution-in-three-acts-chaining-exposed-actuators-and-h2-database)
+- [remote-code-execution-in-three-acts-chaining-exposed-actuators-and-h2-database](https://spaceraccoon.dev/remote-code-execution-in-three-acts-chaining-exposed-actuators-and-h2-database)
 
 
 
@@ -1173,7 +1162,7 @@ language=en&setting=Generic+H2+%28Embedded%29&name=Generic+H2+%28Embedded%29&dri
 
 #### 漏洞分析：
 
-​	[Spring Boot + H2数据库JNDI注入](https://mp.weixin.qq.com/s/Yn5U8WHGJZbTJsxwUU3UiQ)
+- [Spring Boot + H2数据库JNDI注入](https://mp.weixin.qq.com/s/Yn5U8WHGJZbTJsxwUU3UiQ)
 
 
 
@@ -1308,9 +1297,7 @@ Content-Type: application/json
 
 #### 漏洞分析：
 
-​	[New-Exploit-Technique-In-Java-Deserialization-Attack](https://i.blackhat.com/eu-19/Thursday/eu-19-Zhang-New-Exploit-Technique-In-Java-Deserialization-Attack.pdf)
-
-
+- [New-Exploit-Technique-In-Java-Deserialization-Attack](https://i.blackhat.com/eu-19/Thursday/eu-19-Zhang-New-Exploit-Technique-In-Java-Deserialization-Attack.pdf)
 
 #### 漏洞环境：
 
