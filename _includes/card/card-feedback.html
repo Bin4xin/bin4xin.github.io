@@ -1,0 +1,428 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .main-header-coding-agents__tag {
+        background-color: #8d48ff;
+        border-radius: 6px 6px 0 0;
+        left: 436px;
+        padding: 6px 12px;
+        position: absolute;
+        top: 190px;
+        transform: rotate(270deg);
+    }
+    .border-grid-container {
+        max-width: 1012px;
+        margin: 0 auto;
+        background: linear-gradient(250deg, rgb(253,200,147), #82318E), #ffffff;
+        border: 1px solid #d0d7de;
+        border-radius: 12px;
+        box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+        overflow: hidden;
+    }
+    .border-grid-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        border-bottom: 1px solid #d0d7de;
+    }
+    .border-grid-row a{
+        color: #ffffff;
+    }
+    .Button-label a{
+
+    }
+    /* 每个单元格的内边距与样式，模拟 GitHub BorderGrid-cell */
+    .border-grid-cell {
+        padding: 1.5rem;
+        border-right: 1px solid #d0d7de;
+    }
+
+    /* 最后一个单元格去掉右边框（适应两列，右侧无边框） */
+    .border-grid-cell:last-child {
+        border-right: none;
+    }
+
+    /* 响应式：屏幕宽度小于768px时，改为上下排列，右侧边框取消 */
+    @media (max-width: 767px) {
+        .border-grid-row {
+            grid-template-columns: 1fr;
+        }
+        .border-grid-cell {
+            border-right: none;
+            border-bottom: 1px solid #d0d7de;
+        }
+        .border-grid-cell:last-child {
+            border-bottom: none;
+        }
+    }
+
+    /* ========== 公用工具类 (模仿 GitHub 常用类) ========== */
+    .h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        line-height: 1.25;
+    }
+    .tmp-mb-3 {
+        margin-bottom: 1rem !important;
+    }
+    .tmp-mt-3 {
+        margin-top: 1rem !important;
+    }
+    .list-style-none {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+    .d-flex {
+        display: flex;
+    }
+    .flex-items-center {
+        align-items: center;
+    }
+    .flex-justify-center {
+        justify-content: center;
+    }
+    .flex-self-center {
+        align-self: center;
+    }
+    .flex-auto {
+        flex: auto;
+    }
+    .min-width-0 {
+        min-width: 0;
+    }
+    .width-fit {
+        width: fit-content;
+    }
+    .mb-2 {
+        margin-bottom: 0.5rem !important;
+    }
+    .mr-2 {
+        margin-right: 0.5rem !important;
+    }
+    .d-block {
+        display: block;
+    }
+    .rounded-2 {
+        border-radius: 6px;
+    }
+    .circle {
+        border-radius: 50%;
+    }
+    .avatar {
+        display: inline-block;
+        overflow: hidden;
+        line-height: 1;
+        vertical-align: middle;
+        border-radius: 50%;
+        background-color: #fff;
+    }
+    .avatar-user {
+        border-radius: 50%;
+    }
+    .no-underline {
+        text-decoration: none;
+    }
+    .Link--primary {
+        color: #0969da;
+        text-decoration: none;
+    }
+    .Link--primary:hover {
+        text-decoration: underline;
+    }
+    .Link {
+        color: #0969da;
+        text-decoration: none;
+    }
+    .Link:hover {
+        text-decoration: underline;
+    }
+    .Link--inTextBlock {
+        color: #0969da;
+    }
+    .color-fg-muted {
+        color: #000000;
+    }
+    .color-fg-sponsors {
+        color: #bf3989;
+    }
+    .css-truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .css-truncate-target {
+        max-width: 100%;
+        display: inline-block;
+    }
+    .v-align-middle {
+        vertical-align: middle;
+    }
+    /* 按钮样式（仿 GitHub 小按钮） */
+    .Button--small {
+        padding: 3px 12px;
+        font-size: 12px;
+        line-height: 20px;
+    }
+    .Button--secondary {
+        color: #24292f;
+        background-color: #f6f8fa;
+        border: 1px solid rgba(27, 31, 36, 0.15);
+        border-radius: 6px;
+        transition: 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    }
+    .Button--secondary:hover {
+        background-color: #f3f4f6;
+        border-color: rgba(27, 31, 36, 0.15);
+        transition-duration: 0.1s;
+    }
+    .Button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+        white-space: nowrap;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .Button-content {
+        display: inline-flex;
+        align-items: center;
+    }
+    .Button-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        color: #000000;
+    }
+    .icon-sponsor {
+        margin-right: 4px;
+    }
+    .Counter {
+        display: inline-block;
+        min-width: 20px;
+        padding: 0 6px;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 18px;
+        color: #1f2328;
+        text-align: center;
+        background-color: rgba(175, 184, 193, 0.2);
+        border-radius: 2em;
+        margin-left: 4px;
+    }
+    .flex-wrap {
+        flex-wrap: wrap;
+    }
+    .mb-n2 {
+        margin-bottom: -0.5rem;
+    }
+    .mr-2 {
+        margin-right: 0.5rem;
+    }
+    .mb-2 {
+        margin-bottom: 0.5rem;
+    }
+    .text-small {
+        font-size: 12px;
+    }
+    /* 赞助头像行调整 */
+    .sponsor-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: #eaeef2;
+    }
+    /* 让 Contributors 头像网格整齐 */
+    .contributors-avatar-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    .contributors-avatar-list a {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+    }
+    .contributors-avatar-list img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #fff;
+        border: 1px solid #eaeef2;
+    }
+    /* 平台图标定制 */
+    .platform-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .octicon {
+        display: inline-block;
+        vertical-align: text-bottom;
+        fill: currentColor;
+    }
+    .anim-pulse-in {
+        animation: pulse-in 0.2s ease-out;
+    }
+    @keyframes pulse-in {
+        0% { transform: scale(0.8); opacity: 0.5; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+</style>
+{% assign author = site.data.writer[page.author] %}
+{% assign edited = site.data.writer['Bin4xin'] %}
+{% assign org = site.data.writer['sentryCyberSec'] %}
+<div style="display: flex">
+    <!--<span class="_rs-text-2_1owszn1_1 _rs-typography_theme_dark_1owszn1_1 _rs-text_hardness_hard_1owszn1_1 main-header-coding-agents__tag">Attention</span>-->
+    <div class="border-grid-container" style="line-height: 1.5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;">
+    <!-- 两列布局：Sponsor 区块 | Contributors 区块 从左到右排列 --><br>
+        <div class="border-grid-row">
+            <div class="border-grid-cell">
+                <h3 class="h4 tmp-mb-3" style="color: #FFFFFF">侵权？</h3>
+                <ul class="list-style-none">
+                    <li class="mb-2 d-flex">
+                        <a data-hovercard-type="user" href="https://github.com/{{ author.display_name }}" target="_blank" rel="noopener noreferrer" class="mr-2">
+                            <img class="avatar d-block mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/{{ author.gh_avatars }}?s=64&v=4" width="32" height="32" alt="@{{ author.display_name }}">
+                        </a>
+                        <span class="mr-2 flex-self-center flex-auto min-width-0 css-truncate css-truncate-target width-fit">
+                            <a class="Link--primary no-underline" href="https://github.com/{{ author.display_name }}" target="_blank" rel="noopener">
+                                <strong>{{ author.display_name }}</strong>
+                                <span class="color-fg-muted">{{ author.display_name }}</span>
+                            </a>
+                        </span>
+                        <a href="{{site.githubAccess}}/{{site.githubRepos}}/issues/new?labels=acticle+rights+feedback&template=2-bug_report.yaml&title={{page.path}}侵权反馈/feedback" target="_blank" rel="noopener noreferrer" class="Button--secondary Button--small Button d-flex flex-items-center">
+                            <span class="Button-content">
+                                <span class="Button-label">反馈侵权
+                                    <svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
+                                </span>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="list-style-none">
+                    <li class="mb-2 d-flex">
+                        <span class="mr-2 d-flex flex-items-center flex-justify-center platform-icon">
+                            <img width="32" height="32" class="avatar d-block mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/{{ org.gh_avatars }}?s=64&v=4">
+                        </span>
+                        <span class="flex-self-center flex-auto min-width-0 css-truncate css-truncate-target width-fit">
+                            <a target="_blank" rel="noopener noreferrer" href="https://opencollective.com/tabby">
+                                <span><strong>{{ org.display_name }}</strong></span>
+                            </a>
+                        </span>
+                    </li>
+                    <li class="mb-2 d-flex">
+                        <span class="mr-2 d-flex flex-items-center flex-justify-center platform-icon">
+                            <img width="32" height="32" class="avatar d-block mr-2 avatar-user" alt="ko_fi" src="https://avatars.githubusercontent.com/u/{{ edited.gh_avatars }}?s=64&v=4">
+                        </span>
+                        <span class="flex-self-center flex-auto min-width-0 css-truncate css-truncate-target width-fit">
+                            <a target="_blank" rel="noopener noreferrer" href="https://github.com/{{ edited.display_name }}">
+                                <span>github.com/<strong>{{ edited.display_name }}</strong></span>
+                            </a>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="border-grid-cell">
+                <h2 class="h4 tmp-mb-3">
+                    <a href="{{site.githubAccess}}/{{site.githubRepos}}/tree/{{site.githubRepos-Branch}}/{{page.path}}" target="_blank" rel="noopener noreferrer" class="Link--primary no-underline Link d-flex flex-items-center">
+                        Contributors
+                        {% for tag in page.tags %}
+                        <span class="Counter ml-1">{{ tag }}</span>
+                        {% endfor %}
+                    </a>
+                </h2>
+
+                <div class="contributors-avatar-list">
+                    <a href="https://github.com/{{ author.gh_avatars }}" target="_blank" rel="noopener">
+                        <img src="https://avatars.githubusercontent.com/u/{{ author.gh_avatars }}?s=64&v=4" alt="{{ author.display_name }}">
+                    </a>
+                    <a href="https://github.com/{{ edited.display_name }}" target="_blank" rel="noopener">
+                        <img src="https://avatars.githubusercontent.com/u/{{ edited.gh_avatars }}?s=64&v=4" alt="{{ edited.display_name }}">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- 预留位置-->
+<!--    <div class="border-grid-container" style="line-height: 1.5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;">-->
+<!--        &lt;!&ndash; 两列布局：Sponsor 区块 | Contributors 区块 从左到右排列 &ndash;&gt;<br>-->
+<!--        <div class="border-grid-row">-->
+<!--            <div class="border-grid-cell">-->
+<!--                <h3 class="h4 tmp-mb-3" style="color: #FFFFFF">侵权？</h3>-->
+<!--                <ul class="list-style-none">-->
+<!--                    <li class="mb-2 d-flex">-->
+<!--                        <a data-hovercard-type="user" href="https://github.com/{{ author.display_name }}" target="_blank" rel="noopener noreferrer" class="mr-2">-->
+<!--                            <img class="avatar d-block mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/{{ author.gh_avatars }}?s=64&v=4" width="32" height="32" alt="@{{ author.display_name }}">-->
+<!--                        </a>-->
+<!--                        <span class="mr-2 flex-self-center flex-auto min-width-0 css-truncate css-truncate-target width-fit">-->
+<!--                            <a class="Link&#45;&#45;primary no-underline" href="https://github.com/{{ author.display_name }}" target="_blank" rel="noopener">-->
+<!--                                <strong>{{ author.display_name }}</strong>-->
+<!--                                <span class="color-fg-muted">{{ author.display_name }}</span>-->
+<!--                            </a>-->
+<!--                        </span>-->
+<!--                        <a href="{{site.githubAccess}}/{{site.githubRepos}}/issues/new?labels=acticle+rights+feedback&template=2-bug_report.yaml&title={{page.path}}侵权反馈/feedback" target="_blank" rel="noopener noreferrer" class="Button&#45;&#45;secondary Button&#45;&#45;small Button d-flex flex-items-center">-->
+<!--                            <span class="Button-content">-->
+<!--                                <span class="Button-label">反馈侵权-->
+<!--                                    <svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>-->
+<!--                                </span>-->
+<!--                            </span>-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+
+<!--                <ul class="list-style-none">-->
+<!--                    <li class="mb-2 d-flex">-->
+<!--                        <span class="mr-2 d-flex flex-items-center flex-justify-center platform-icon">-->
+<!--                            <img width="32" height="32" class="avatar d-block mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/{{ org.gh_avatars }}?s=64&v=4">-->
+<!--                        </span>-->
+<!--                        <span class="flex-self-center flex-auto min-width-0 css-truncate css-truncate-target width-fit">-->
+<!--                            <a target="_blank" rel="noopener noreferrer" href="https://opencollective.com/tabby">-->
+<!--                                <span><strong>{{ org.display_name }}</strong></span>-->
+<!--                            </a>-->
+<!--                        </span>-->
+<!--                    </li>-->
+<!--                    <li class="mb-2 d-flex">-->
+<!--                        <span class="mr-2 d-flex flex-items-center flex-justify-center platform-icon">-->
+<!--                            <img width="32" height="32" class="avatar d-block mr-2 avatar-user" alt="ko_fi" src="https://avatars.githubusercontent.com/u/{{ edited.gh_avatars }}?s=64&v=4">-->
+<!--                        </span>-->
+<!--                        <span class="flex-self-center flex-auto min-width-0 css-truncate css-truncate-target width-fit">-->
+<!--                            <a target="_blank" rel="noopener noreferrer" href="https://github.com/{{ edited.display_name }}">-->
+<!--                                <span>github.com/<strong>{{ edited.display_name }}</strong></span>-->
+<!--                            </a>-->
+<!--                        </span>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+
+<!--            <div class="border-grid-cell">-->
+<!--                <h2 class="h4 tmp-mb-3">-->
+<!--                    <a href="{{site.githubAccess}}/{{site.githubRepos}}/tree/{{site.githubRepos-Branch}}/{{page.path}}" target="_blank" rel="noopener noreferrer" class="Link&#45;&#45;primary no-underline Link d-flex flex-items-center">-->
+<!--                        Contributors-->
+<!--                        {% for tag in page.tags %}-->
+<!--                        <span class="Counter ml-1">{{ tag }}</span>-->
+<!--                        {% endfor %}-->
+<!--                    </a>-->
+<!--                </h2>-->
+
+<!--                <div class="contributors-avatar-list">-->
+<!--                    <a href="https://github.com/{{ author.gh_avatars }}" target="_blank" rel="noopener">-->
+<!--                        <img src="https://avatars.githubusercontent.com/u/{{ author.gh_avatars }}?s=64&v=4" alt="{{ author.display_name }}">-->
+<!--                    </a>-->
+<!--                    <a href="https://github.com/{{ edited.display_name }}" target="_blank" rel="noopener">-->
+<!--                        <img src="https://avatars.githubusercontent.com/u/{{ edited.gh_avatars }}?s=64&v=4" alt="{{ edited.display_name }}">-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+</div>
