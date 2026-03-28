@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <!--dev siwtch-->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name='apple-mobile-web-app-capable' content='yes'/>
+<meta name='mobile-web-app-capable' content='yes'/>
 <meta name='full-screen' content='true'/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--dev switch end-->
@@ -154,41 +154,79 @@
 &lt;script&gt;
     /**
      * SimpleJekyllSearch FUNC
-     * @param results-container,search-input
      * - @SimpleJekyllSearch/getQueryVariable func() 代码引用申明/code reference declaration:
      * - {@link - https://github.com/christian-fei/Simple-Jekyll-Search }
      * - {@link - https://github.com/Mabbs/mabbs.github.io/blob/master/search.html#L14 }
+     * @param variable
      **/
-    function getQueryVariable(variable)
-    {
-        var query = window.location.search.substring(1);
-        var vars = query.split(&quot;&amp;&quot;);
-        for (var i=0;i&lt;vars.length;i++) {
-            var pair = vars[i].split(&quot;=&quot;);
-            if(pair[0] == variable){return pair[1];}
+    function getQueryVariable(variable) {
+        const query = window.location.search.substring(1);
+        const vars = query.split(&quot;&amp;&quot;);
+        for (let i = 0; i &lt; vars.length; i++) {
+            const pair = vars[i].split(&quot;=&quot;);
+            if (pair[0] === variable) return pair[1];
         }
-        return(&#39;&#39;);
+        return &quot;&quot;;
     }
-    var mykeyword = decodeURI(getQueryVariable(&quot;keyword&quot;));
-    var sbox = document.getElementById(&#39;search-input&#39;);
-    var status = false;
-    if(mykeyword != null &amp;&amp; mykeyword.toString().length&gt;1){
+
+    const mykeyword = decodeURI(getQueryVariable(&quot;keyword&quot;));
+    const sbox = document.getElementById(&quot;search-input&quot;);
+    if (mykeyword &amp;&amp; mykeyword.toString().length &gt; 1) {
         sbox.value = mykeyword;
     }
-    $.getJSON(&quot;search.json&quot;, function(json){
-        var sjs = SimpleJekyllSearch({
+    function base64Decode(str) {
+        if (!str) return str;
+        try {
+            const decoded = atob(str);
+            return decodeURIComponent(escape(decoded));
+        } catch (e) {
+            console.warn(
+                &quot;Base64解码失败，返回原字符串:&quot;,
+                str.substring(0, 50) + &quot;...&quot;,
+                e,
+            );
+            return str;
+        }
+    }
+
+    $.getJSON(&quot;search.json&quot;, function (json) {
+        console.log(&quot;加载 search.json 成功，条目数:&quot;, json.length);
+
+        const sjs = SimpleJekyllSearch({
             searchInput: sbox,
-            resultsContainer: document.getElementById(&#39;results-container&#39;),
+            resultsContainer: document.getElementById(&quot;results-container&quot;),
             json: json,
-            searchResultTemplate: &#39;\
+            searchResultTemplate:
+                &#39;\
 &lt;ul class=&quot;nav nav-pills nav-stacked&quot; id=&quot;ul-results-container&quot;&gt;&lt;li class=&quot;nav nav-pills nav-stacked no-underline table-of-contents&quot;&gt;&lt;a href=&quot;{url}&quot;&gt;&lt;div class=&quot;fa fa-search px-md-6&quot;&gt;&lt;/div&gt;{title}&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;\
 &#39;,
-            noResultsText: &#39;\
+            noResultsText:
+                &#39;\
 &lt;div class=&quot;not-found&quot;&gt;    &lt;div class=&quot;not-found-bg&quot;&gt;&lt;/div&gt;    &lt;div class=&quot;not-found-hint&quot;&gt;&lt;div class=&quot;not-found-code&quot;&gt;            404. 谢谢你这么好看还来看我博客:D&lt;/div&gt;        &lt;span class=&quot;thuhidden&quot;&gt;Oops!你来到了没有知识的荒原。&lt;/span&gt;        &lt;/div&gt;&lt;div class=&quot;not-found-text thuhidden&quot;&gt;&lt;strong&gt;如果您认为这一定是出了什么问题，欢迎您前往&lt;a href=&quot;https://github.com/Bin4xin/&quot;&gt;&lt;i class=&quot;fa fa-github&quot;&gt;&lt;/i&gt; 哨兵/issues&lt;/a&gt;            提交&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,404&amp;template=2-bug_report.yaml&amp;title=_primaryindex/search.html&amp;nbsp; 搜索 | © 哨兵 | SENTINEL SECURITY, LAB&quot; id=&quot;new_issue_bug&quot; target=&quot;_blank&quot;&gt;错误报告&lt;/a&gt;&lt;/strong&gt;&lt;/div&gt;&lt;div class=&quot;not-found-links&quot;&gt;&lt;a class=&quot;not-found-link&quot; href=&quot;javascript:history.back()&quot;&gt;&lt;i class=&quot;fa fa-arrow-left&quot;&gt;&lt;/i&gt; 返回上一页&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;\
 &#39;,
-            limit: 8
+            limit: 8,
+            templateMiddleware: function (prop, value, template) {
+                if (prop === &quot;content&quot; &amp;&amp; value &amp;&amp; typeof value === &quot;string&quot;) {
+                    console.log(
+                        value.substring(0, 50),
+                    );
+                    const decoded = base64Decode(value);
+                    if (decoded !== value) {
+                        return decoded; // 返回解码后的值覆盖默认值
+                    } else {
+                    }
+                }
+                return undefined;
+            },
         });
-        sjs.search(mykeyword);
+
+        if (mykeyword) {
+            sjs.search(mykeyword);
+        } else {
+            console.error(&quot;Search is something wrong else.&quot;)
+        }
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        console.error(&quot;Load search.json failed:&quot;, textStatus, errorThrown);
     });
 &lt;/script&gt;哨兵安全实验室 SENTINEL SECURITY, LAB" />
 <meta property="og:image" content="https://bin4xin.github.io/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
@@ -460,41 +498,79 @@
 <script>
     /**
      * SimpleJekyllSearch FUNC
-     * @param results-container,search-input
      * - @SimpleJekyllSearch/getQueryVariable func() 代码引用申明/code reference declaration:
      * - {@link - https://github.com/christian-fei/Simple-Jekyll-Search }
      * - {@link - https://github.com/Mabbs/mabbs.github.io/blob/master/search.html#L14 }
+     * @param variable
      **/
-    function getQueryVariable(variable)
-    {
-        var query = window.location.search.substring(1);
-        var vars = query.split("&");
-        for (var i=0;i<vars.length;i++) {
-            var pair = vars[i].split("=");
-            if(pair[0] == variable){return pair[1];}
+    function getQueryVariable(variable) {
+        const query = window.location.search.substring(1);
+        const vars = query.split("&");
+        for (let i = 0; i < vars.length; i++) {
+            const pair = vars[i].split("=");
+            if (pair[0] === variable) return pair[1];
         }
-        return('');
+        return "";
     }
-    var mykeyword = decodeURI(getQueryVariable("keyword"));
-    var sbox = document.getElementById('search-input');
-    var status = false;
-    if(mykeyword != null && mykeyword.toString().length>1){
+
+    const mykeyword = decodeURI(getQueryVariable("keyword"));
+    const sbox = document.getElementById("search-input");
+    if (mykeyword && mykeyword.toString().length > 1) {
         sbox.value = mykeyword;
     }
-    $.getJSON("search.json", function(json){
-        var sjs = SimpleJekyllSearch({
+    function base64Decode(str) {
+        if (!str) return str;
+        try {
+            const decoded = atob(str);
+            return decodeURIComponent(escape(decoded));
+        } catch (e) {
+            console.warn(
+                "Base64解码失败，返回原字符串:",
+                str.substring(0, 50) + "...",
+                e,
+            );
+            return str;
+        }
+    }
+
+    $.getJSON("search.json", function (json) {
+        console.log("加载 search.json 成功，条目数:", json.length);
+
+        const sjs = SimpleJekyllSearch({
             searchInput: sbox,
-            resultsContainer: document.getElementById('results-container'),
+            resultsContainer: document.getElementById("results-container"),
             json: json,
-            searchResultTemplate: '\
+            searchResultTemplate:
+                '\
 <ul class="nav nav-pills nav-stacked" id="ul-results-container"><li class="nav nav-pills nav-stacked no-underline table-of-contents"><a href="{url}"><div class="fa fa-search px-md-6"></div>{title}</a></li></ul>\
 ',
-            noResultsText: '\
+            noResultsText:
+                '\
 <div class="not-found">    <div class="not-found-bg"></div>    <div class="not-found-hint"><div class="not-found-code">            404. 谢谢你这么好看还来看我博客:D</div>        <span class="thuhidden">Oops!你来到了没有知识的荒原。</span>        </div><div class="not-found-text thuhidden"><strong>如果您认为这一定是出了什么问题，欢迎您前往<a href="https://github.com/Bin4xin/"><i class="fa fa-github"></i> 哨兵/issues</a>            提交<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,404&template=2-bug_report.yaml&title=_primaryindex/search.html&nbsp; 搜索 | © 哨兵 | SENTINEL SECURITY, LAB" id="new_issue_bug" target="_blank">错误报告</a></strong></div><div class="not-found-links"><a class="not-found-link" href="javascript:history.back()"><i class="fa fa-arrow-left"></i> 返回上一页</a></div></div>\
 ',
-            limit: 8
+            limit: 8,
+            templateMiddleware: function (prop, value, template) {
+                if (prop === "content" && value && typeof value === "string") {
+                    console.log(
+                        value.substring(0, 50),
+                    );
+                    const decoded = base64Decode(value);
+                    if (decoded !== value) {
+                        return decoded; // 返回解码后的值覆盖默认值
+                    } else {
+                    }
+                }
+                return undefined;
+            },
         });
-        sjs.search(mykeyword);
+
+        if (mykeyword) {
+            sjs.search(mykeyword);
+        } else {
+            console.error("Search is something wrong else.")
+        }
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        console.error("Load search.json failed:", textStatus, errorThrown);
     });
 </script>
 
