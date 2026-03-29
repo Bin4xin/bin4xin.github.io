@@ -28,10 +28,7 @@ permalink: /newest/
         </div>
       </div>
     </article>
-    {% for page in site.categories['about'] limit:1 %}
-      {% include card/card.html %}
-    {% endfor %}
-    {% for page in abouts limit:4 %}
+    {% for page in abouts limit:5 %}
       {% if page.wrench %}{% include card/card.html %}{% endif %}
     {% endfor %}
   </section>
