@@ -9,7 +9,7 @@
         </a>
     </header>
     <div class="page-abstract">
-        {{ page.excerpt | strip_html | truncate: 60, '...'}}
+        {{ page.excerpt | strip_html | strip | slice: 0, 50 | truncate: 60, '...' }}
     </div>
     <div class="card-author">
         <a class="author-avatar">
