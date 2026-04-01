@@ -45,7 +45,7 @@
                 <li><a target="blank" href="{{"/2016-11/29/c_135866990.htm" | prepend: site.harmonyURL }}">:: CONTACT US</a></li>
                 {% else %}
                 <li {% if page.permalink == "/" %}class="active"{% endif %}><a href="{{"/" | prepend: site.baseurl }}"><div class="fa fa-search"></div></a></li>
-                <li {% if page.permalink == "/blog/" or page.categories contains "blog" %}class="active"{% endif %}><a href="{{"/blog/" | prepend: site.baseurl }}">BLOG</a></li>
+                <li {% if page.permalink contains "/blog/" or page.categories contains "blog" %}class="active"{% endif %}><a href="{{"/blog/" | prepend: site.baseurl }}">BLOG</a></li>
                 <li {% if page.permalink == "/categories/" or page.categories contains "categories" %}class="active"{% endif %}><a href="{{"/categories/" | prepend: site.baseurl }}">CATEGORIES</a></li>
                 <li {% if page.permalink == "/daily/" or page.categories contains "daily" %}class="active"{% endif %}><a href="{{"/daily/" | prepend: site.baseurl }}">DAILY</a></li>
                 <li {% if page.permalink == "/newest/" %}class="active"{% endif %}><a href="{{"/newest" | prepend: site.baseurl }}">NEWEST</a></li>
