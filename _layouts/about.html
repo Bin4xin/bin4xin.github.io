@@ -141,17 +141,17 @@ layout: about-default
 {% assign posts_about_desc = site.categories["about"] | sort: 'date' | group_by_exp:"post", "post.desc" |reverse %}
 {% assign posts_about = site.categories["about"] | sort: 'date' %}
 <div id="help-page">
-	<div class="visible-xs"><!--nav banner with logo. 响应式::菜单::表单-->
-		{% include nav.html %}
-		<div class="spacing"></div>
-
-		<form class="form-inline">
-			<div class="form-group"><details>
-				{% include about-nav-responsive.html %}
-			</details>
-			</div>
-		</form>
-	</div><!--响应式::菜单::表单 end class="area-scroll" style="height:100vh"-->
+	<!--<div class="visible-xs">nav banner with logo. 响应式::菜单::表单-->
+		{% comment %}
+			<div class="spacing"></div>
+			<form class="form-inline">
+				<div class="form-group"><details>
+					{% include about-nav-responsive.html %}
+				</details>
+				</div>
+			</form>
+		</div><!--响应式::菜单::表单 end class="area-scroll" style="height:100vh"-->
+		{% endcomment %}
 	<div id="post-content" class="row markdown-body-img d-flex">
 		<div id="sidebar1" class="flex-column col-md-3 position-sticky ml-hide overflow-y-auto top-0 d-none d-lg-block flex-shrink-0 border-right" style="height:100vh">
 

@@ -52,26 +52,8 @@
                 <li {% if page.permalink == "/about/" or page.categories contains "about" %}class="active"{% endif %}><a href="{{"/about/" | prepend: site.baseurl }}">RESEARCH</a></li>
                 <li {% if page.permalink == "/feed.xml" or page.categories contains "feed" %}class="active"{% endif %}><a href="{{"/feed.xml" | prepend: site.baseurl }}">RSS</a></li>
                 {% endif %}
+                <li><a>{% include common-index/prefers-color-scheme.html %}</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
 </div>
-<script>
-// 菜单展开/收起交互优化，支持键盘操作
-(function() {
-    var btn = document.getElementById('navbar-toggle-btn');
-    var nav = document.querySelector('.navbar-collapse');
-    if (!btn || !nav) return;
-    btn.addEventListener('click', function() {
-        var expanded = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', !expanded);
-        nav.classList.toggle('show');
-    });
-    btn.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-            btn.click();
-            e.preventDefault();
-        }
-    });
-})();
-</script>

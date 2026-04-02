@@ -220,11 +220,7 @@ ion-icon:hover {
     justify-content: space-between;
     position: relative;
 }
-.navbar-logo-hover-wrap {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
+
 .navbar-logo-popover {
     display: none;
     position: absolute;
@@ -301,13 +297,18 @@ ion-icon:hover {
 }
 @media (max-width: 768px) {
     .navbar-header {
-        justify-content: space-between !important;
+        display: grid;
+        justify-self: end;
+        grid-template-columns: 1fr;
     }
     .navbar-logo-popover {
         left: 0 !important;
         right: auto !important;
         min-width: 140px;
         border-radius: 10px;
+    }
+    .navbar-logo-hover-wrap {
+        justify-self: start;
     }
     .navbar-logo-popover .popover-arrow {
         left: 16px;
