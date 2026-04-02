@@ -550,29 +550,142 @@ back-end DBMS: Oracle
                 <li ><a href="/about/">RESEARCH</a></li>
                 <li ><a href="/feed.xml">RSS</a></li>
                 
+                <li><a><style>
+    .color-scheme-toggle label:hover {
+        background: var(--color-code-bg, #f0f0f0);
+    }
+    .color-scheme-toggle input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        width: 0;
+        height: 0;
+    }
+    .color-scheme-toggle .text {
+        display: inline-block;
+    }
+    .color-scheme-toggle input:checked + .text {
+        background: var(--color-primary, #82318E);
+        color: #ffffff;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        border-radius: 40px;
+        padding: 6px 16px;
+        margin: -6px -16px;
+    }
+
+    /* 暗色模式适配 (系统) */
+    @media (prefers-color-scheme: dark) {
+        .color-scheme-toggle {
+            background: var(--color-btn-bg-dark, #21262d);
+            border-color: var(--color-primary, #C353D3);
+        }
+        .color-scheme-toggle label {
+            color: var(--color-text, #ddd);
+        }
+        .color-scheme-toggle label:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .color-scheme-toggle input:checked + .text {
+            background: var(--color-primary, #C353D3);
+            color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+        }
+    }
+
+    /* 手动主题覆盖 */
+    body.theme-dark {
+        background-color: #1c1c1e;
+        color: #f5f5f7;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.theme-dark .color-scheme-toggle {
+        background: #21262d;
+        border-color: #C353D3;
+    }
+
+    body.theme-dark .highlight,
+    body.theme-dark pre,
+    body.theme-dark code {
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    body.theme-dark .navbar-logo {
+        background: #21262d;
+        border-color: #C353D3;
+    }
+    body.theme-dark .color-scheme-toggle label {
+        color: #ddd;
+    }
+    body.theme-dark .color-scheme-toggle input:checked + .text {
+        background: #C353D3;
+    }
+    body.theme-dark .color-fg-default {
+        color: #ffffff;
+    }
+    body.theme-dark .Box-header{
+        background: transparent;
+    }
+    body.theme-light {
+        background-color: #ffffff;
+        color: #1d1d1f;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body.theme-light .color-scheme-toggle {
+        background: #f0f0f0;
+        border-color: #82318E;
+    }
+    body.theme-light .color-scheme-toggle label {
+        color: #384452;
+    }
+    body.theme-light .color-scheme-toggle input:checked + .text {
+        background: #82318E;
+    }
+
+    /* kbd 样式 */
+    kbd {
+        background: var(--color-code-bg, #e8e8ed);
+        color: var(--color-text, #384452);
+        padding: 2px 6px;
+        border-radius: 6px;
+        font-family: monospace;
+        font-size: 0.85rem;
+    }
+    body.theme-dark kbd {
+        background: #2c2c2e;
+        color: #fff;
+    }
+    body.theme-light kbd {
+        background: #e8e8ed;
+        color: #384452;
+    }
+</style><div class="color-scheme-toggle" role="group" aria-label="Select a color scheme preference" style="font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace">
+    <!-- Light 选项 -->
+    <label data-color-scheme-option="light">
+        <input type="radio" name="color-scheme-radio" value="light">
+        <span class="text">Light</span>
+    </label>
+    <!-- Dark 选项 -->
+    <label data-color-scheme-option="dark">
+        <input type="radio" name="color-scheme-radio" value="dark">
+        <span class="text">Dark</span>
+    </label>
+    <!-- Auto 选项 (跟随系统) -->
+    <label data-color-scheme-option="auto">
+        <input type="radio" name="color-scheme-radio" value="auto">
+        <span class="text">Auto</span>
+    </label>
+</div>
+<!--<script>-->
+<!--    if (!localStorage.getItem('preferredColorScheme')) {-->
+<!--        localStorage.setItem('preferredColorScheme', 'auto');-->
+<!--    }-->
+<!--</script>-->
+<!--<script async="" src="/assets/js/scripts/color-scheme-toggle.js"></script>--></a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
 </div>
-<script>
-// 菜单展开/收起交互优化，支持键盘操作
-(function() {
-    var btn = document.getElementById('navbar-toggle-btn');
-    var nav = document.querySelector('.navbar-collapse');
-    if (!btn || !nav) return;
-    btn.addEventListener('click', function() {
-        var expanded = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', !expanded);
-        nav.classList.toggle('show');
-    });
-    btn.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-            btn.click();
-            e.preventDefault();
-        }
-    });
-})();
-</script>
 
                 
                 <div class="container mtb">
@@ -1157,7 +1270,7 @@ back-end DBMS: Oracle
                 <ul class="pa1 table-of-contents flex-xl-justify-between flex-xl-column">
                     <li class="outstanding"><a>© 2019-2026 </a></li>
                     <li class="outstanding"><a>SENTINEL SECURITY, LAB</a></li>
-                    <li class="outstanding"><a>Jekyll Ver 3.9.5.</a></li>
+                    </li>
                 </ul>
             </div>
         </div>

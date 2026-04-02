@@ -14,6 +14,84 @@ html {
   box-sizing: border-box;
   filter: grayscale(0); }
 
+:root {
+  color-scheme: light dark;
+  --color-bg: #ffffff;
+  --color-text: #384452;
+  --color-primary: #82318E;
+  --color-link: #088acb;
+  --color-navbar-bg: #d3d3d3;
+  --color-code-bg: #f6f8fa; }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #222;
+    --color-text: #ddd;
+    --color-primary: #C353D3;
+    --color-link: #6793cf;
+    --color-navbar-bg: #1a1a1a;
+    --color-code-bg: #1e1e1e; } }
+body.theme-dark {
+  --color-bg: #222;
+  --color-text: #ddd;
+  --color-primary: #C353D3;
+  --color-link: #6793cf;
+  --color-navbar-bg: #1a1a1a;
+  --color-code-bg: #1e1e1e; }
+
+body.theme-dark .emcav {
+  background: rgba(255, 255, 255, 0.15); }
+
+body.theme-light {
+  --color-bg: #ffffff;
+  --color-text: #384452;
+  --color-primary: #82318E;
+  --color-link: #088acb;
+  --color-navbar-bg: #d3d3d3;
+  --color-code-bg: #f6f8fa; }
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease; }
+
+.color-scheme-toggle {
+  display: inline-flex;
+  background: var(--color-code-bg, #e8e8ed);
+  border-radius: 100px;
+  padding: 2px;
+  gap: 2px;
+  border: 1px solid var(--color-border, #ddd); }
+  .color-scheme-toggle label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 400;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--color-text, #384452);
+    background: transparent;
+    user-select: none; }
+    .color-scheme-toggle label:hover {
+      background: var(--color-code-bg, #f0f0f0); }
+  .color-scheme-toggle input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0; }
+  .color-scheme-toggle .text {
+    display: inline-block;
+    transition: inherit; }
+  .color-scheme-toggle input:checked + .text {
+    background: var(--color-primary, #82318E);
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    border-radius: 40px;
+    padding: 6px 16px;
+    margin: -6px -16px; }
+
 /* Webfont: Lato-Bold */
 @font-face {
   font-family: 'Lato';
@@ -224,11 +302,6 @@ a:hover, a:focus {
   justify-content: space-between;
   position: relative; }
 
-.navbar-logo-hover-wrap {
-  position: relative;
-  display: flex;
-  align-items: center; }
-
 .navbar-logo-popover {
   display: none;
   position: absolute;
@@ -305,13 +378,18 @@ a:hover, a:focus {
 
 @media (max-width: 768px) {
   .navbar-header {
-    justify-content: space-between !important; }
+    display: grid;
+    justify-self: end;
+    grid-template-columns: 1fr; }
 
   .navbar-logo-popover {
     left: 0 !important;
     right: auto !important;
     min-width: 140px;
     border-radius: 10px; }
+
+  .navbar-logo-hover-wrap {
+    justify-self: start; }
 
   .navbar-logo-popover .popover-arrow {
     left: 16px; } }
@@ -344,10 +422,11 @@ BOOTSTRAP MODIFICATIONS & TWEAKS
 
 .navbar-default {
   background-color: #ffffff;
-  border-color: transparent; }
+  border-color: #000000; }
   @media (prefers-color-scheme: dark) {
     .navbar-default {
-      background-color: #222; } }
+      background-color: #222;
+      border-color: #d0d7de; } }
   .navbar-default .navbar-nav > li.active > a {
     color: #82318E;
     border-bottom: 2px solid #82318E; }
@@ -2425,7 +2504,6 @@ devsite-header .devsite-collapsible-section, devsite-header[no-lower-row][fixed]
 
 /* 优化代码块显示效果 */
 .highlight, pre {
-  background: #f6f8fa !important;
   color: #24292e !important;
   border-radius: 8px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
@@ -2437,7 +2515,6 @@ devsite-header .devsite-collapsible-section, devsite-header[no-lower-row][fixed]
 
 @media (prefers-color-scheme: dark) {
   .highlight, pre {
-    background: #23272e !important;
     color: #e6e6e6 !important;
     box-shadow: 0 6px 32px rgba(0, 0, 0, 0.28); } }
 /* 分页美化 */
@@ -2492,7 +2569,6 @@ nav.pagination span {
   max-width: 220px;
   width: 100%;
   box-sizing: border-box;
-  background: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   padding: 1.2em 1em;

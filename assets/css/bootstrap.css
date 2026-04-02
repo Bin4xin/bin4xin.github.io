@@ -2037,10 +2037,6 @@ div.highlight:hover > pre > div.btn-pre-copy-position
 }
 .rounded-md {
   border-radius: 0.375rem;
-  border-top-left-radius: 0.375rem;
-  border-top-right-radius: 0.375rem;
-  border-bottom-right-radius: 0.375rem;
-  border-bottom-left-radius: 0.375rem;
 }
 .border-gray-500 {
   --tw-border-opacity: 1;
@@ -2112,7 +2108,11 @@ div.highlight:hover > pre > div.btn-pre-copy-position
 /*tag menu drip down end*/
 @media (min-width: 768px) {
   .container {
-    width: 750px;
+    /*width: 750px;*/
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 @media (min-width: 992px) {
@@ -3139,7 +3139,6 @@ legend {
 label {
   display: inline-block;
   max-width: 100%;
-  margin-bottom: 5px;
   font-weight: 700;
 }
 input[type="search"] {
@@ -4778,12 +4777,15 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     border-radius: 4px;
   }
 }
-@media (min-width: 768px) {
-  .navbar-header {
-    float: left;
-    /*position: fixed;*/
-  }
-}
+/*@media (min-width: 768px) {*/
+/*  .navbar-header {*/
+/*    float: left;*/
+/*    display: grid;*/
+/*    justify-items: center;*/
+/*    grid-template-columns: 1fr 1fr;*/
+/*    align-items: center;*/
+/*  }*/
+/*}*/
 .navbar-collapse {
   padding-right: 15px;
   padding-left: 15px;
@@ -4932,6 +4934,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   line-height: 20px;
 }
 @media (max-width: 767px) {
+  .navbar-nav {
+    display: grid;
+    justify-self: end;
+    grid-template-columns: 1fr;
+  }
   .navbar-nav .open .dropdown-menu {
     position: static;
     float: none;
@@ -4956,6 +4963,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 @media (min-width: 768px) {
   .navbar-nav {
+
     float: left;
     margin: 0;
   }
@@ -6629,7 +6637,6 @@ button.close {
   line-height: 1.42857143;
   line-break: auto;
   text-align: left;
-  text-align: start;
   text-decoration: none;
   text-shadow: none;
   text-transform: none;
@@ -6747,7 +6754,6 @@ button.close {
   line-height: 1.42857143;
   line-break: auto;
   text-align: left;
-  text-align: start;
   text-decoration: none;
   text-shadow: none;
   text-transform: none;
@@ -6760,7 +6766,6 @@ button.close {
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
