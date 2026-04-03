@@ -1,4 +1,4 @@
-name: sentrylab build sync and reload.
+name: sentinel-sec, lab build sync and reload.
 
 on:
   push:
@@ -50,6 +50,21 @@ jobs:
         run: |
           bundle config set --local path 'vendor/bundle'
           bundle exec jekyll build --trace
+      # ---------- 新增：CSS 优化 ----------
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.18.1'  # 你也可以用 20 或 LTS
+
+      - name: Install CSS optimization dependencies
+        run: |
+          npm install glob critters
+          # 如果你的 css-optimize.js 还需要其他包（如 fs-extra），请一并加上
+
+      - name: Run CSS optimizer on _site
+        run: node scripts/css-optimize.js
+      # ---------------------------------
+
       - name: simple deploy with git
         uses: JamesIves/github-pages-deploy-action@v4
         with:

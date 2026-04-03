@@ -4,7 +4,7 @@
 
 © 哨兵博客 V3.0.1 Power by Bin4xin | Jekyll | Github Action.
 
-![sentrylab build sync and reload.](https://github.com/Bin4xin/bin4xin.github.io/workflows/sentrylab%20build%20sync%20and%20reload./badge.svg)
+![Repo build sync and reload.](https://github.com/Bin4xin/bin4xin.github.io/workflows/sentrylab%20build%20sync%20and%20reload./badge.svg)
 
 <p align="center">
   <a href="https://bin4xin.github.io/">网站</a> •
@@ -16,7 +16,10 @@
 </div>
 <ul>
 <li><h3>目录</h3></li>
+
+---
 <li><a href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/_includes/CHANGELOG.md">::历史记录相关文档::</a></li>
+<li><a href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/_includes/jekyll-optimization.md">::jekyll-optimization::</a></li>
 </ul>
 
 > 详细内容移步点击以[参见：Wiki](https://github.com/Bin4xin/bin4xin.github.io/wiki)

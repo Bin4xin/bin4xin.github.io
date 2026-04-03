@@ -9,11 +9,9 @@
 
                 <div style="font-family: 'DM Mono', monospace;">
                     <csmall class="flex-justify-center-l white">
-                        <a class="px-md-6 white f2 fw4" href="/">home</a> /
-                        <a class="px-md-6 white f2 fw4">{{page_cn_category}} </a>/
-                        <a class="px-md-6 white f2 fw4 items-center">
-                            {%if page.desc%} {{ page.desc|replace :"「", "" | replace: "」", ""| replace: " ", ""}} {%endif%}
-                        </a>
+                        <a class="px-md-6 f2 fw4" href="/">home /</a>
+                        <a class="px-md-6 f2 fw4">{{page_cn_category}} /</a>
+                        <a class="px-md-6 f2 fw4 items-center">::{%if page.desc%} {{ page.desc|replace :"「", "" | replace: "」", ""| replace: " ", ""}} {%endif%}::</a>
                         {% include article-YMH-note.html %}
                     </csmall>
                 </div>
