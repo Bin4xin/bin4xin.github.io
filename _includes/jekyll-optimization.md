@@ -2,8 +2,12 @@
 
 - [localhost](https://bin4xin.github.io/about/ai-cli/CVE-2025-59828-and-CVE-2025-65099/)：
   - (1.05+0.655+1.02)/3=0.908s
+![localhost-singletime-timecost.png](https://image.isisy.com/images/2026/04/03/localhost-singletime-timecost.png)
+
 - [github repo cloud deploy](https://bin4xin.github.io/about/ai-cli/CVE-2025-59828-and-CVE-2025-65099/)
   - (3.03+4.68+4.87)/3=4.193s
+    ![github-repo-cloud-deploy-single-cost.png](https://image.isisy.com/images/2026/04/03/github-repo-cloud-deploy-single-cost.png)
+
 
 
 # Jekyll 站点前端优化方案
