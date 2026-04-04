@@ -2566,13 +2566,13 @@ nav.pagination span {
 .article-index, .toc-sidebar, .right-toc, #article-index, #toc-sidebar {
   font-family: 'DM Mono', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
   min-width: 220px;
-  max-width: 220px;
+  max-width: 245px;
   width: 100%;
   box-sizing: border-box;
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   padding: 1.2em 1em;
-  margin: 1.5em 0 1.5em 1.5em;
+  margin: 1.5em 0 0em 0em;
   overflow-y: auto;
   max-height: 80vh;
   transition: box-shadow 0.2s, background 0.2s; }
