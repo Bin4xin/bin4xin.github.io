@@ -1,16 +1,28 @@
-# 优化效果
-
-- [localhost](https://bin4xin.github.io/about/ai-cli/CVE-2025-59828-and-CVE-2025-65099/)：
-  - (1.05+0.655+1.02)/3=0.908s
-![localhost-singletime-timecost.png](https://image.isisy.com/images/2026/04/03/localhost-singletime-timecost.png)
-
-- [github repo cloud deploy](https://bin4xin.github.io/about/ai-cli/CVE-2025-59828-and-CVE-2025-65099/)
-  - (3.03+4.68+4.87)/3=4.193s
-    ![github-repo-cloud-deploy-single-cost.png](https://image.isisy.com/images/2026/04/03/github-repo-cloud-deploy-single-cost.png)
-
-
-
 # Jekyll 站点前端优化方案
+
+## CSS optimize: glob+critters
+
+[![localhost-singletime-timecost.md.png](https://image.isisy.com/images/2026/04/03/localhost-singletime-timecost.md.png)](https://image.isisy.com/image/trKS)
+[![github-repo-cloud-deploy-single-cost.md.png](https://image.isisy.com/images/2026/04/03/github-repo-cloud-deploy-single-cost.md.png)](https://image.isisy.com/image/tUPz)
+---
+### 优化前
+$$
+(789+697+790+766+748) / 5 = 758\ \text{ms} =  0.758s\ \text{s}
+$$
+
+### 优化后
+$$
+(591+789+696+570+639) / 5 = 657\ \text{ms} = 0.657\ \text{s}
+$$
+
+| target                   | before optimize | optimized   | storage-before  | storage-before  |
+|--------------------------|-----------------|-------------|-----------------|-----------------|
+| localhost                | 758 (ms)        | 657 (ms)    | 27,8MB 21 Items | 32,4MB 21 Items |
+| github repo cloud deploy | 4193(s)         | Unknown s   | -               | -               |
+
+---
+
+## TODOMARK
 
 ---
 
