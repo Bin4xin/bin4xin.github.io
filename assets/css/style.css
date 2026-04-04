@@ -2565,12 +2565,10 @@ nav.pagination span {
 /* 统一右侧目录区域样式 */
 .article-index, .toc-sidebar, .right-toc, #article-index, #toc-sidebar {
   font-family: 'DM Mono', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
-  min-width: 220px;
-  max-width: 245px;
   width: 100%;
   box-sizing: border-box;
   border-radius: 10px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 12px #000000;
   padding: 1.2em 1em;
   margin: 1.5em 0 0em 0em;
   overflow-y: auto;
@@ -2578,7 +2576,8 @@ nav.pagination span {
   transition: box-shadow 0.2s, background 0.2s; }
   @media (prefers-color-scheme: dark) {
     .article-index, .toc-sidebar, .right-toc, #article-index, #toc-sidebar {
-      background: #222; } }
+      background: #222;
+      box-shadow: 0 2px 12px #ffffff; } }
 
 body, .post-content, .article-content {
   font-family: 'Lato', 'Hiragino Sans GB', 'Source Han Sans SC', 'Source Han Sans CN', 'Noto Sans CJK SC', 'WenQuanYi Zen Hei', 'WenQuanYi Micro Hei', '微软雅黑', sans-serif; }
