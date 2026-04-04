@@ -15,10 +15,14 @@ $$
 (591+789+696+570+639) / 5 = 657\ \text{ms} = 0.657\ \text{s}
 $$
 
-| target                   | before optimize | optimized   | storage-before  | storage-before  |
-|--------------------------|-----------------|-------------|-----------------|-----------------|
-| localhost                | 758 (ms)        | 657 (ms)    | 27,8MB 21 Items | 32,4MB 21 Items |
-| github repo cloud deploy | 4193(s)         | Unknown s   | -               | -               |
+$$
+(2.54+1.36+1.17+1.13+1.16)/5 = 1473\ \text{ms} =  1.472\ \text{s}
+$$
+
+| target                   | before optimize | optimized | storage-before  | storage-before  |
+|--------------------------|-----------------|-----------|-----------------|-----------------|
+| localhost                | 758 (ms)        | 657 (ms)  | 27,8MB 21 Items | 32,4MB 21 Items |
+| github repo cloud deploy | 4193(s)         | 1.472 s   | -               | -               |
 
 ---
 
