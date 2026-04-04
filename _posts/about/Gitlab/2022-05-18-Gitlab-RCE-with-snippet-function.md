@@ -7,10 +7,6 @@ author: Bin4xin
 desc: 「Gitlab」
 description: GitLab | CVE-2021-22205 | snippet导致的远程代码执行 | snippet RCE
 ---
-<br>
-<br>
-<br>
-{% include common-index/index-preset.html %}
 
 ### 复现
 

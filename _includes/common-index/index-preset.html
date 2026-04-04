@@ -5,15 +5,30 @@
 {% include common-index/index-preset.html level="info" msg="这是一条普通提示" %}
 {% include common-index/index-preset.html level="warn" msg="请注意操作风险" %}
 {% include common-index/index-preset.html level="error" msg="发生严重错误" %}
+Eng
+Any direct or indirect consequences and losses caused by the dissemination and use of the information provided by this
+library/text are the responsibility of the user himself, and the author of this article does not bear any responsibility for this.
 参数：
 level : 可选值 error / warn / info，默认 info
 msg   : 要显示的消息文本，必填
 
 {% endcomment %}
 {% assign level = include.level | default: "warn" %}
-{% assign message = include.msg | default: "由于传播、利用此库/文所提供的信息而造成的任何直接或者间接的后果及损失，均由使用者本人负责，本文作者不为此承担任何责任。<br>
-Any direct or indirect consequences and losses caused by the dissemination and use of the information provided by this library/text are the responsibility of the user himself, and the author of this article does not bear any responsibility for this." %}
 
+{% if level == "error" %}
+    {% capture default_msg %}
+    注意: 任何形式的未授权访问都是禁止的<br>
+    Attention: Unauthorized access of any form is prohibited.
+    {% endcapture %}
+{% else %}
+    {% capture default_msg %}
+    由于传播、利用此库/文所提供的信息而造成的任何直接或者间接的后果及损失，均由使用者本人负责，本文作者不为此承担任何责任。<br>
+    Any direct or indirect consequences or losses caused by disseminating or using the information provided in this repository/document
+    shall be borne solely by the user. The author of this article assumes no responsibility for such consequences or losses.
+    {% endcapture %}
+{% endif %}
+
+{% assign message = include.msg | default: default_msg | upcase %}
 {% if level == "error" %}
 {% assign banner_class = "error" %}
 {% assign icon_type = "alert" %}

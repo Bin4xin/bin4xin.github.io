@@ -30,7 +30,6 @@
 
 <link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
-<script src="/assets/js/pace.min.js"></script>
 <!-- Bootstrap core CSS -->
 <link href="{{ "/assets/css/bootstrap.css" | prepend: site.baseurl }}" rel="stylesheet">
 <link href="{{ "/assets/css/bilibili_icon.css" | prepend: site.baseurl }}" rel="stylesheet">
@@ -42,11 +41,16 @@
 <link rel="stylesheet" type="text/css" href="/assets/css/card.css">
 
 <script src="{{ "/assets/js/jquery.min.js" | prepend: site.baseurl }}"></script>
-<script src="{{ "/assets/js/jquery_lazyload/1.9.7/jquery.lazyload.min.js" | prepend: site.baseurl }}"></script>
-<script src="{{ "/assets/js/jquery.sticky/1.0.4/jquery.sticky.js" | prepend: site.baseurl }}"></script>
+<!-- #### defer load ####################################################################################-->
+<script src="{{ "/assets/js/jquery_lazyload/1.9.7/jquery.lazyload.min.js" | relative_url }}"></script>
+<script defer src="{{"/assets/js/pace.min.js" | relative_url}}"></script>
+<!-- #### defer load end ################################################################################-->
+
+<script defer src="{{ "/assets/js/jquery.sticky/1.0.4/jquery.sticky.js" | prepend: site.baseurl }}"></script>
 <script src="{{ "/assets/js/bootstrap.min.js" | prepend: site.baseurl }}"></script>
 
-<!--mathjax-config scripts.-->
+{% if page.math %}
+<!--mathjax-config scripts. MathJax：仅在含数学公式的页面按需加载 -->
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
       tex2jax: {
@@ -55,51 +59,7 @@
       }
     });
 </script>
-<script src="{{ "/assets/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML" | prepend: site.baseurl }}"></script>
+<script src="{{ "/assets/js/MathJax.js?config=TeX-AMS-MML_HTMLorMML" | prepend: relative_url }}"></script>
 <!--mathjax-config scripts stop.-->
-
-{% if page.legacy %}
-    <style>
-        .container {
-            width: 85%;
-        }
-        .container > .navbar-header {
-            margin-right: 0;
-            margin-left: 0;
-        }
-        .navbar-nav {
-            float: left;
-            margin: 0;
-        }
-        .navbar-nav > li {
-            float: left;
-        }
-        .navbar-nav > li > a {
-            padding-top: 15px;
-            padding-bottom: 15px;
-        }
-        .navbar-nav.navbar-right:last-child {
-            margin-right: -15px;
-        }
-        .navbar-left {
-            float: left !important;
-        }
-        .navbar-right {
-            float: right !important;
-        }
-        .navbar-header:after {
-            clear: none;
-        }
-        a.navbar-brand {
-            width: 20em;
-        }
-        @media (max-width: 767px) {
-            .col-xs-1,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9,
-            .col-xs-10,.col-xs-11,.col-xs-12 {
-                padding: 0px;
-            }
-        }
-</style>
 {% endif %}
-
 </head>

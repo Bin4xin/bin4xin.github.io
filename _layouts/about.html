@@ -5,35 +5,12 @@ layout: about-default
 {% assign posts_about_desc = site.categories["about"] | sort: 'date' | group_by_exp:"post", "post.desc" |reverse %}
 {% assign posts_about = site.categories["about"] | sort: 'date' %}
 <div id="help-page">
-	<!--<div class="visible-xs">nav banner with logo. 响应式::菜单::表单-->
-		{% comment %}
-			<div class="spacing"></div>
-			<form class="form-inline">
-				<div class="form-group"><details>
-					{% include about-nav-responsive.html %}
-				</details>
-				</div>
-			</form>
-		</div><!--响应式::菜单::表单 end class="area-scroll" style="height:100vh"-->
-		{% endcomment %}
 	<div id="post-content" class="row markdown-body-img d-flex">
-		<div id="sidebar1" class="flex-column col-md-3 position-sticky ml-hide overflow-y-auto top-0 d-none d-lg-block flex-shrink-0 border-right" style="height:100vh">
-
-			{% comment %}
-			<div tabindex="-1" class="position-sticky navbar-default top-0 color-bg-default new_figma_des" style="z-index:3">
-					<a href="/" target="blank" id="logo">
-						{% include pic.html name="logo-small" %}
-						{% if site.harmony %}
-						<span class="f4 text-semibold color-fg-default no-underline no-wrap pl-2">{{ site.harmony }}</span>
-						{% endif %}
-					</a>
-			</div>
-			{% endcomment %}
+		<div id="sidebar1" class="flex-column col-md-2 position-sticky ml-hide overflow-y-auto top-0 d-none d-lg-block flex-shrink-0 border-right" style="height:100vh">
 			<div style="padding-top: 20px">
-				{% include common-index/index-preset.html level="info" msg="欢迎并请注意：未经授权的渗透测试访问或滥用行为将被严格禁止，并将受到法律制裁。<br>
-				Welcome and attention plz: Unauthorized Pentest access or misuse is strictly prohibited and will be prosecuted." %}
+				{% include common-index/index-preset.html level="error" %}
 			</div>
-			<!--left area: menu 左边菜单栏 col-sm-3 ./25%-->
+			<!--left area: menu 左边菜单栏-->
 			<div id="help-nav" aria-expanded="true" class="nav nav-pills nav-stacked" style="padding-top: 20px; padding-bottom: 20px">
 				{% include about-nav.html %}
 			</div>
@@ -52,6 +29,10 @@ layout: about-default
 							</ion-icon>
 							</a></span>
 						</h1>
+						{% assign posts_about_cate = site.categories["about"] %}
+						{% if posts_about_cate %}<br><br><br>
+						{% include common-index/index-preset.html level="info" %}
+						{% endif %}
 						{{ content }}
 					</div>
 					<div class="spacing"></div>

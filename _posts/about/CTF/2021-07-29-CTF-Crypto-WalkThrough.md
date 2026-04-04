@@ -5,6 +5,7 @@ wrench: 2021-11-19
 toc: true
 Researchname: CTF - 密码学与杂项
 author: Bin4xin
+math: true
 permalink: /about/CTF-Crypto-and-Misc-etc-WalkThrough/
 desc: 「CTF」
 ---

@@ -1,12 +1,14 @@
 {% if page.toc %}
-<div class="ml-hide article-index thin-scrollbar position-sticky top-0" style="max-height: 100vh; overflow-y: auto;">
-    <div class="nav nav-stacked tableOfContents_35-E">
-        <li class=" table-of-contents">
-            <code-index-css>
-                <ul><li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column"><a>文章目录</a></li></ul>
-                {{ content | toc_only }}
-            </code-index-css>
-        </li>
+<div class="col-md-4">
+    <div class="ml-hide article-index thin-scrollbar position-sticky top-0" style="max-height: 100vh; overflow-y: auto;">
+        <div class="nav nav-stacked tableOfContents_35-E">
+            <li class="table-of-contents">
+                <code-index-css>
+                    <h3><i class="fa fa-list"></i> 文章目录</h3>
+                    {{ content | toc_only }}
+                </code-index-css>
+            </li>
+        </div>
     </div>
 </div>
 {% endif %}

@@ -8,10 +8,6 @@ toc: true
 permalink: /about/Apereo-CAS-Less-than-4-2-x-RCE/
 desc: 「Apereo CAS」
 ---
-<br>
-<br>
-<br>
-{% include common-index/index-preset.html %}
 
 ### CAS靶场搭建
 
