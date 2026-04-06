@@ -1,0 +1,59 @@
+﻿{
+    "_source_md":  "Deser-Walkthrough/2020-11-07-Struts2Deser.md",
+    "version":  "struts2-deserialization",
+    "title":  {
+                  "zh":  "Struts2反序列化漏洞分析",
+                  "en":  "Struts2 Deserialization Vulnerability Analysis"
+              },
+    "description":  {
+                        "zh":  "Struts2框架反序列化漏洞分析，包括框架简介、反序列化分析和getshell过程。",
+                        "en":  "Struts2 framework deserialization vulnerability analysis, including framework intro, deserialization analysis and getshell process."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "分析Struts2反序列化漏洞",
+                                      "en":  "Analyze Struts2 deserialization vulnerability"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "Struts2框架简介：Apache Struts2是一个基于MVC设计模式的Web应用框架",
+                                      "en":  "Struts2 framework intro: Apache Struts2 is a Web application framework based on MVC design pattern"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "漏洞原理：通过表达式计算注入执行代码，利用OGNL表达式实现RCE",
+                                      "en":  "Vulnerability principle: Execute code through expression injection, use OGNL expression to achieve RCE"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "exec",
+                      "content":  {
+                                      "zh":  "最终目标：Getshell获取服务器权限",
+                                      "en":  "Final goal: Getshell to obtain server privileges"
+                                  },
+                      "annotation":  {
+                                         "zh":  "工具执行结果",
+                                         "en":  "工具执行结果"
+                                     }
+                  }
+              ]
+}

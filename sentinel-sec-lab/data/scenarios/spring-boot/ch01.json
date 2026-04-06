@@ -1,0 +1,114 @@
+{
+    "_source_md":  "spring/sping_boot/2020-11-24-SpringBoot-Memory-files-heapdump-Analysis.md",
+    "version":  "springboot-heapdump-analysis",
+    "title":  {
+                  "zh":  "Spring Boot Heapdump 文件分析：敏感信息提取",
+                  "en":  "Spring Boot Heapdump File Analysis: Sensitive Information Extraction"
+              },
+    "description":  {
+                        "zh":  "介绍 Spring Boot heapdump 文件的发现、下载和分析方法，使用 MAT 工具和 OQL 查询语言提取内存中的敏感信息如密码明文。",
+                        "en":  "Introduction to discovery, download and analysis methods of Spring Boot heapdump files, using MAT tool and OQL query language to extract sensitive information like plaintext passwords from memory."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "如何发现 Spring Boot 的 heapdump 文件？",
+                                      "en":  "How to discover Spring Boot heapdump files?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户询问 heapdump 发现方法",
+                                         "en":  "User asks about heapdump discovery methods"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "select \u003cJavaScript expression to select\u003e\n[ from [instanceof] \u003cclass name\u003e \u003cidentifier\u003e\n[ where \u003cJavaScript boolean expression to filter\u003e ] ]",
+                                             "language":  "java"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "select * from java.util.LinkedHashMap$Entry x WHERE (toString(x.key).contains(\"password\"))",
+                                             "language":  "sql"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "select * from org.springframework.web.context.support.StandardServletEnvironment",
+                                             "language":  "sql"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "select * from java.util.Hashtable$Entry x WHERE (toString(x.key).contains(\"password\"))",
+                                             "language":  "sql"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "Heapdump 文件下载路由：Spring Boot v1 版本使用 /heapdump，v2 版本使用 /actuator/heapdump。建议针对 actuator 结点作为分割点进行判别，根据错误页面路由层级判断版本。实际渗透中，通过识别 Whitelabel Error Page 特征可快速定位 Spring Boot 框架，然后测试各端点是否存在未授权访问。",
+                                      "en":  "Heapdump file download routes: Spring Boot v1 uses /heapdump, v2 uses /actuator/heapdump. Recommend using actuator node as delimiter to determine version based on error page route level. In actual penetration, identify Spring Boot framework through Whitelabel Error Page characteristics, then test various endpoints for unauthorized access."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "如何分析 heapdump 文件？",
+                                      "en":  "How to analyze heapdump files?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "分析工具 MAT：使用 Memory Analyzer Tool (MAT) 打开 heapdump 文件，使用 OQL（Object Query Language）进行查询。常用 OQL 语句：1) select * from java.util.LinkedHashMap$Entry x WHERE (toString(x.key).contains(\"password\")) - 查找包含 password 的键值对；2) select * from org.springframework.web.context.support.StandardServletEnvironment - 查找环境配置信息。",
+                                      "en":  "Analysis tool MAT: Use Memory Analyzer Tool (MAT) to open heapdump files, use OQL (Object Query Language) for queries. Common OQL statements: 1) select * from java.util.LinkedHashMap$Entry x WHERE (toString(x.key).contains(\"password\")) - Find key-value pairs containing password; 2) select * from org.springframework.web.context.support.StandardServletEnvironment - Find environment configuration information."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "OQL 查询语句有哪些实用示例？",
+                                      "en":  "What are some practical OQL query examples?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "实用 OQL 语句：1) 查找 LinkedHashMap 中的密码：select * from java.util.LinkedHashMap$Entry x WHERE (toString(x.key).contains(\"password\"))；2) 查找 Hashtable 中的密码：select * from java.util.Hashtable$Entry x WHERE (toString(x.key).contains(\"password\"))；3) 查找 StandardServletEnvironment 获取 propertySourceList 中的敏感配置。通过 propertySourceList -\u003e array -\u003e tables 查找链可定位敏感信息。",
+                                      "en":  "Practical OQL statements: 1) Find passwords in LinkedHashMap: select * from java.util.LinkedHashMap$Entry x WHERE (toString(x.key).contains(\"password\")); 2) Find passwords in Hashtable: select * from java.util.Hashtable$Entry x WHERE (toString(x.key).contains(\"password\")); 3) Find StandardServletEnvironment to get sensitive configuration in propertySourceList. Through propertySourceList -\u003e array -\u003e tables lookup chain can locate sensitive information."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  }
+              ]
+}

@@ -1,0 +1,103 @@
+{
+  "version": "polkit-cve-2021-3560-reverse",
+  "title": {
+    "zh": "Polkit CVE-2021-3560 本地提权漏洞复现",
+    "en": "Polkit CVE-2021-3560 Local Privilege Escalation Reproduction"
+  },
+  "description": {
+    "zh": "利用 Polkit 在 dbus-send 认证完成前强制终止引发的错误，绕过身份验证，创建具有 sudo 权限的用户。",
+    "en": "Exploit the error in Polkit when dbus-send is terminated before authentication completes, bypassing authentication and creating a sudo-privileged user."
+  },
+  "steps": [
+    {
+      "type": "user_message",
+      "content": {
+        "zh": "检查系统是否使用 Systemd 和 Polkit（默认 Ubuntu 20.04）",
+        "en": "Check if the system uses Systemd and Polkit (default on Ubuntu 20.04)"
+      },
+      "annotation": {
+        "zh": "执行：ps aux | grep polkit 或 systemctl status polkit",
+        "en": "Run: ps aux | grep polkit or systemctl status polkit"
+      }
+    },
+    {
+      "type": "system_event",
+      "content": {
+        "zh": "确认 dbus 服务处于 active 状态",
+        "en": "Confirm dbus service is active"
+      },
+      "annotation": {
+        "zh": "执行：/etc/init.d/dbus status 或 systemctl status dbus",
+        "en": "Run: /etc/init.d/dbus status or systemctl status dbus"
+      }
+    },
+    {
+      "type": "tool_result",
+      "content": {
+        "zh": "dbus.service active (running)，Polkit 正常运行",
+        "en": "dbus.service active (running), Polkit is operational"
+      },
+      "toolName": "systemctl",
+      "annotation": {
+        "zh": "漏洞利用需要 polkit 与 dbus 交互",
+        "en": "Exploit requires interaction between polkit and dbus"
+      }
+    },
+    {
+      "type": "user_message",
+      "content": {
+        "zh": "下载漏洞利用脚本：\nbash polkit-CVE-2021-3560.sh <username> <password>",
+        "en": "Download exploit script:\nbash polkit-CVE-2021-3560.sh <username> <password>"
+      },
+      "annotation": {
+        "zh": "脚本来源：https://github.com/Bin4xin/bigger-than-bigger/blob/master/CoVV/polkit-CVE-2021-3560/polkit-CVE-2021-3560.sh",
+        "en": "Script source: https://github.com/Bin4xin/bigger-than-bigger/blob/master/CoVV/polkit-CVE-2021-3560/polkit-CVE-2021-3560.sh"
+      }
+    },
+    {
+      "type": "system_event",
+      "content": {
+        "zh": "脚本执行过程：\n1. 构造 dbus-send 请求添加用户\n2. 在认证完成前通过延时 kill 掉 dbus-send 进程\n3. 触发 polkit 错误处理不当",
+        "en": "Script execution:\n1. Construct dbus-send request to add user\n2. Kill dbus-send process before authentication completes via delay\n3. Trigger improper error handling in polkit"
+      },
+      "annotation": {
+        "zh": "关键点：kill 时机需要精确调整（毫秒级延时）",
+        "en": "Key point: kill timing needs precise adjustment (millisecond delay)"
+      }
+    },
+    {
+      "type": "tool_result",
+      "content": {
+        "zh": "成功执行后，输出：\n[+] User 'testuser' added successfully with password 'pass123'",
+        "en": "After successful execution, output:\n[+] User 'testuser' added successfully with password 'pass123'"
+      },
+      "toolName": "polkit-CVE-2021-3560.sh",
+      "annotation": {
+        "zh": "可能需要多次运行并调整延迟参数",
+        "en": "May need multiple runs and adjust delay parameter"
+      }
+    },
+    {
+      "type": "user_message",
+      "content": {
+        "zh": "验证新创建的用户是否具有 sudo 权限：\nsudo -i -u testuser\nsudo whoami",
+        "en": "Verify that the newly created user has sudo privileges:\nsudo -i -u testuser\nsudo whoami"
+      },
+      "annotation": {
+        "zh": "预期输出：root",
+        "en": "Expected output: root"
+      }
+    },
+    {
+      "type": "assistant_text",
+      "content": {
+        "zh": "漏洞原理总结：\n- Polkit 在调用 polkit_system_bus_name_get_creds_sync 时未检查错误状态\n- 当 dbus-send 被提前终止，返回的 uid 为 0（root），从而绕过认证\n- 非特权用户可利用此漏洞添加任意管理员账户",
+        "en": "Vulnerability summary:\n- Polkit does not check error status in polkit_system_bus_name_get_creds_sync\n- When dbus-send is terminated early, the returned uid is 0 (root), bypassing authentication\n- Unprivileged users can add arbitrary administrator accounts"
+      },
+      "annotation": {
+        "zh": "参考：GitHub Blog 和 Kevin Backhouse 的分析",
+        "en": "References: GitHub Blog and Kevin Backhouse's analysis"
+      }
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+    "_source_md":  "CobaltStrike/2022-02-19-Cobalt-Stike-hidden-true-ip.md",
+    "version":  "cobalt-strike-hidden-ip",
+    "title":  {
+                  "zh":  "Cobalt Strike 服务器隐藏真实 IP：CDN 接入技术",
+                  "en":  "Cobalt Strike Server Hidden True IP: CDN Integration Technology"
+              },
+    "description":  {
+                        "zh":  "介绍如何通过 Cloudflare CDN 接入技术隐藏 Cobalt Strike C2 服务器的真实 IP 地址，包括 DNS 配置、SSL 设置、Listeners 配置等关键技术。",
+                        "en":  "Introduction to hiding Cobalt Strike C2 server real IP address through Cloudflare CDN integration technology, including DNS configuration, SSL settings, Listeners configuration and other key techniques."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "如何通过 CDN 隐藏 CS 服务器真实 IP？",
+                                      "en":  "How to hide CS server real IP through CDN?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户询问 CS 服务器隐匿技术",
+                                         "en":  "User asks about CS server anonymity techniques"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "beacon\u003e shell ipconfig",
+                                             "language":  "bash"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "CDN 隐藏 IP 流程：1) 登录 VPS 启动 teamserver；2) 修改域名 DNS 到 Cloudflare；3) 添加 DNS A 记录指向 VPS 真实 IP；4) 配置 Cloudflare SSL/TLS 设置：关闭自动 HTTPS 重写和始终使用 HTTPS；5) 关闭 Always Online 缓存功能。等待 DNS 生效后即可通过域名访问。",
+                                      "en":  "CDN hiding IP process: 1) Login to VPS and start teamserver; 2) Modify domain DNS to Cloudflare; 3) Add DNS A record pointing to VPS real IP; 4) Configure Cloudflare SSL/TLS settings: disable automatic HTTPS rewrite and Always Use HTTPS; 5) Disable Always Online caching. Wait for DNS to take effect then access via domain."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "CS 客户端 Listeners 如何配置？",
+                                      "en":  "How to configure CS client Listeners?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "Listeners 配置要点：填写 Host 和 Port，Cloudflare HTTP 端口支持：80, 8080, 8880, 2052, 2082, 2086, 2095；HTTPS 端口支持：443, 2053, 2083, 2087, 2096, 8443。关键发现：使用 CDN 隐藏 IP 时，HTTP(s) Hosts 栏必须填写 CS 主机的真实 IP，而非域名。",
+                                      "en":  "Listeners configuration points: Fill in Host and Port, Cloudflare HTTP ports support: 80, 8080, 8880, 2052, 2082, 2086, 2095; HTTPS ports support: 443, 2053, 2083, 2087, 2096, 8443. Key finding: When using CDN to hide IP, HTTP(s) Hosts field must be filled with CS host\u0027s real IP, not domain name."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "如何验证隐藏效果？",
+                                      "en":  "How to verify the hiding effect?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "验证方法：1) 生成 windows/beacon_http/reverse_http 木马；2) 在靶机执行 shell 命令如 ipconfig；3) 使用 Wireshark 监听流量，确认流量已发送到对应域名而非真实 IP；4) 等待命令返回包验证通信正常。CDN 接入成功后，流量特征显示域名访问。",
+                                      "en":  "Verification method: 1) Generate windows/beacon_http/reverse_http trojan; 2) Execute shell command like ipconfig on target machine; 3) Use Wireshark to monitor traffic, confirm traffic sent to corresponding domain instead of real IP; 4) Wait for command return packet to verify normal communication. After successful CDN integration, traffic features show domain access."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  }
+              ]
+}

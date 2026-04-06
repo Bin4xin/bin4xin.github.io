@@ -1,0 +1,106 @@
+{
+    "_source_md":  "code-audit/2020-12-30-Dynamic-analysis-of-java-framework-code.md",
+    "version":  "Dynamic-analysis-of-java-framework-code",
+    "title":  {
+                  "zh":  "Java动态分析 - IDEA调试基础与实战",
+                  "en":  "Java Dynamic Analysis - IDEA Debug Basics and Practice"
+              },
+    "description":  {
+                        "zh":  "介绍Java动态分析的基本方法，使用IDEA进行断点调试，以SHIRO框架为例展示实际分析过程",
+                        "en":  "Introduce basic methods of Java dynamic analysis, use IDEA for breakpoint debugging, demonstrate practical analysis process with SHIRO framework"
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  "如何进行Java代码的动态分析调试？",
+                      "annotation":  {
+                                         "zh":  "用户请求Java调试方法",
+                                         "en":  "User requests Java debugging method"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "    public class hello {\n    \n            public static void main(String[] args) {\n                    \n                    System.out.println(\"this is a block test message\");\n                    System.out.println(\"hello world\");\n    \n            }\n    }",
+                                             "language":  "java"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "       路路路\n       路路路\n       this is a block test message\n       hello world\n       \n       Process finished with exit code 0",
+                                             "language":  "bash"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  "Java动态分析主要通过IDE的debug模式进行，常用IDEA或Eclipse。可以设置断点、查看变量值、控制程序执行流程。",
+                      "annotation":  {
+                                         "zh":  "介绍Java动态分析基本概念",
+                                         "en":  "Introduce Java dynamic analysis basics"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  "IDEA如何设置断点进行调试？",
+                      "annotation":  {
+                                         "zh":  "用户请求IDEA断点设置方法",
+                                         "en":  "User requests IDEA breakpoint setting method"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  "IDEA断点设置：在代码行号左侧点击设置断点，或使用快捷键Ctrl+F8。右键断点可设置条件断点。调试时使用F7(Step Into)、F8(Step Over)、F9(Resume)等控制执行。",
+                      "annotation":  {
+                                         "zh":  "说明IDEA断点设置和使用方法",
+                                         "en":  "Explain IDEA breakpoint setting and usage"
+                                     }
+                  },
+                  {
+                      "type":  "tool_call",
+                      "content":  "在IDEA中创建hello.java测试程序并设置断点调试",
+                      "toolName":  "bash",
+                      "annotation":  {
+                                         "zh":  "演示简单的Java调试过程",
+                                         "en":  "Demonstrate simple Java debugging process"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "content":  "程序执行到断点处暂停，可以查看变量值：\n- this is a block test message (已输出)\n- hello world (断点后执行)",
+                      "toolName":  "bash",
+                      "annotation":  {
+                                         "zh":  "调试成功，程序在断点处暂停",
+                                         "en":  "Debug successful, program paused at breakpoint"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  "如何使用动态分析来审计SHIRO框架代码？",
+                      "annotation":  {
+                                         "zh":  "用户请求SHIRO框架分析方法",
+                                         "en":  "User requests SHIRO framework analysis method"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  "SHIRO框架动态分析步骤：1. 创建SpringBoot+Shiro项目 2. 配置IDEA远程调试 3. 在关键代码处设置断点（如认证逻辑、过滤器链） 4. 发送请求触发断点，观察变量值和执行流程 5. 分析认证绕过、权限校验等漏洞",
+                      "annotation":  {
+                                         "zh":  "说明SHIRO框架动态分析方法",
+                                         "en":  "Explain SHIRO framework dynamic analysis method"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  "Java动态分析总结：1. 掌握IDEA/Eclipse调试技巧 2. 理解断点类型（行断点、方法断点、条件断点） 3. 结合静态代码分析，动态验证漏洞 4. 分析框架时关注过滤器、拦截器、认证逻辑等关键路径",
+                      "annotation":  {
+                                         "zh":  "总结Java动态分析方法",
+                                         "en":  "Summarize Java dynamic analysis method"
+                                     }
+                  }
+              ]
+}

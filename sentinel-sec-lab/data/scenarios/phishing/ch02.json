@@ -1,0 +1,90 @@
+{
+    "_source_md":  "钓鱼攻击研究/2022-05-17-Harpoon-strategy-attack-EmailGateway-usage.md",
+    "version":  "harpoon-email-gateway",
+    "title":  {
+                  "zh":  "鱼叉式钓鱼攻击：邮件网关应用实战",
+                  "en":  "Harpoon Phishing Attack: Email Gateway Application Practice"
+              },
+    "description":  {
+                        "zh":  "详细介绍如何使用 SendCloud 邮件网关实施鱼叉式钓鱼攻击，包括域名配置、API 集成、模板创建以及钓鱼邮件的发送和效果验证。",
+                        "en":  "Detailed introduction to implementing harpoon phishing attacks using SendCloud email gateway, including domain configuration, API integration, template creation, and phishing email sending and effect verification."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "如何使用 SendCloud 发送钓鱼邮件？",
+                                      "en":  "How to use SendCloud to send phishing emails?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户询问 SendCloud 使用方法",
+                                         "en":  "User asks about SendCloud usage methods"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "python3 sendcloud_bin4xin_telecom.py\n{\"result\":true,\"statusCode\":200,\"message\":\"请求成功\",\"info\":{\"emailIdList\":[\"1$nd0$bin4xin[at]domain.com\"]}}",
+                                             "language":  "bash"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "SendCloud 配置流程：1) 注册账号并验证域名 DNS；2) 创建 API_USER 获取 apiuser 和 apikey；3) 创建邮件模板获取 templateInvokeName；4) 参考 SendCloud 文档的 Python 模板发送示例；5) 自定义 fromName、from、subject 等参数。执行 python3 sendcloud_script.py 发送邮件，成功返回包含 emailIdList 的 JSON。",
+                                      "en":  "SendCloud configuration process: 1) Register account and verify domain DNS; 2) Create API_USER to get apiuser and apikey; 3) Create email template to get templateInvokeName; 4) Refer to SendCloud documentation Python template sending example; 5) Customize fromName, from, subject and other parameters. Execute python3 sendcloud_script.py to send email, success returns JSON containing emailIdList."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "如何提高钓鱼邮件的欺骗性？",
+                                      "en":  "How to improve the deception of phishing emails?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "提高欺骗性技巧：1) 使用 punycode 编码创建视觉相似的域名，如使用特殊字符模拟中国电信域名；2) 邮件内容中使用超链接伪装，如 \u003ca href=\"http://www.eval.me\"\u003ewww.aliyun.com\u003c/a\u003e；3) 邮件客户端和移动端显示效果可能不同，需要分别测试；4) 邮件头信息中显示的发件人地址可以通过配置伪装。",
+                                      "en":  "Improve deception techniques: 1) Use punycode encoding to create visually similar domains, such as using special characters to mimic China Telecom domains; 2) Use hyperlink disguise in email content, such as \u003ca href=\"http://www.eval.me\"\u003ewww.aliyun.com\u003c/a\u003e; 3) Email client and mobile display effects may differ, need separate testing; 4) Sender address shown in email header can be disguised through configuration."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "钓鱼邮件有哪些设计要点？",
+                                      "en":  "What are the design points for phishing emails?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "钓鱼邮件设计三要素：1) 标题党：邮件主题需要吸引目标查看；2) 贴合性：邮件内容需要符合目标日常工作习惯，如公司内部通知、业务往来邮件等；3) 紧迫性：邮件需要促使目标尽快点击链接或打开附件，如账户异常提醒、紧急通知等。参考《钓鱼邮件的投递和伪装》获取更多技巧。",
+                                      "en":  "Phishing email design three elements: 1) Headlines: Email subject needs to attract target to view; 2) Relevance: Email content needs to match target\u0027s daily work habits, such as internal company notifications, business correspondence; 3) Urgency: Email needs to prompt target to click link or open attachment quickly, such as account anomaly alerts, urgent notifications. Refer to \"Phishing Email Delivery and Disguise\" for more techniques."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  }
+              ]
+}

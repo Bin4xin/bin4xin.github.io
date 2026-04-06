@@ -1,0 +1,141 @@
+{
+    "_source_md":  "wechat-miniapps/2026-01-26-wechat-miniapp-reverse-expert-vm-bypass-2026.md",
+    "version":  "wechat-miniapp-expert-vm-bypass",
+    "title":  {
+                  "zh":  "微信小程序逆向 IV - 字节码虚拟机、内存转储与加固对抗",
+                  "en":  "WeChat MiniApp Reverse IV - Bytecode VM, Memory Dump, and Hardening Countermeasures"
+              },
+    "description":  {
+                        "zh":  "当小程序采用字节码保护、多层包装壳后，常规静态解包完全失效，需转向内存级动态逆向分析。",
+                        "en":  "When MiniApps use bytecode protection and multi-layer wrappers, static unpacking fails, requiring memory-level dynamic reverse engineering."
+                    },
+    "steps":  [
+                  {
+                      "type":  "system_event",
+                      "content":  {
+                                      "zh":  "主流防护类型与绕过成功率：\n- V8/QuickJS 字节码保护：绕过率 70-85%\n- 多层包装壳与自校验：绕过率 80-90%\n- 行为与环境指纹检测：绕过率 75-95%",
+                                      "en":  "Main protection types and bypass rates:\n- V8/QuickJS bytecode protection: 70-85% bypass rate\n- Multi-layer wrapper with self-check: 80-90% bypass rate\n- Behavior and environment fingerprint: 75-95% bypass rate"
+                                  },
+                      "annotation":  {
+                                         "zh":  "核心原则：业务明文最终都会在内存中完成组装",
+                                         "en":  "Core principle: business plaintext will eventually be assembled in memory"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "推荐技术栈选择：\n- Frida Memory.scan：特征值搜索内存明文\n- r0capture：自动化提取网络明文流量\n- Frida Hook fetch/XMLHttpRequest：拦截请求体\n- bytenode/v8-decompile：尝试字节码还原",
+                                      "en":  "Recommended tech stack:\n- Frida Memory.scan: search memory plaintext by signature\n- r0capture: automated network plaintext extraction\n- Frida Hook fetch/XMLHttpRequest: intercept request body\n- bytenode/v8-decompile: attempt bytecode restoration"
+                                  },
+                      "annotation":  {
+                                         "zh":  "Ghidra/IDA Pro 用于分析 Native 层壳逻辑",
+                                         "en":  "Ghidra/IDA Pro for analyzing Native layer wrapper logic"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "var pattern = Memory.scanSync(\n  Process.getModuleByName(\"libwechat.so\"),\n  \u002713812345678\u0027,\n  { json: true }\n);\nconsole.log(\"鎵惧埌鐗瑰緛鍦板潃: \" + pattern[0].address);",
+                                             "language":  "javascript"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "Interceptor.attach(Module.findExportByName(null, \"send\"), {\n  onEnter: function(args) {\n    console.log(\n      \"寰呭彂閫佹暟鎹紦鍐插尯:\",\n      args[1].readByteArray(512)\n    );\n  }\n});",
+                                             "language":  "javascript"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "JavaScript瀛楄妭鐮? 鈫?VM瑙ｉ噴鎵ц\n 鈫?鏋勯€犱笟鍔℃槑鏂囧璞? 鈫?璋冪敤AES.encrypt()瀹屾垚鍔犲瘑\n 鈫?鐢熸垚鍔犲瘑鍚庣殑ArrayBuffer缂撳啿鍖? 鈫?璋冪敤HTTPS鎺ュ彛鍙戦€佹暟鎹?",
+                                             "language":  "text"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "Java.perform(function () {\n  var JSONObject = Java.use(\"org.json.JSONObject\");\n  JSONObject.toString.implementation = function () {\n    var ret = this.toString();\n    console.log(\"[VM灞傛槑鏂嘳\", ret);\n    return ret;\n  };\n});",
+                                             "language":  "javascript"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "Memory.scan(\n  Process.getModuleByName(\"libwechat.so\"),\n  \"13800000000\",\n  {\n    onMatch(addr) {\n      console.log(addr.readByteArray(512));\n    }\n  }\n);",
+                                             "language":  "javascript"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "HTTPS 瑙ｅ喅缃戠粶浼犺緭灞傜殑绐冨惉椋庨櫓\n闈欐€佸姞瀵?瑙ｅ喅婧愮爜闈欐€佹硠闇茬殑椋庨櫓\n瀛楄妭鐮乂M 瑙ｅ喅鎵归噺鑷姩鍖栭潤鎬侀€嗗悜鐨勯闄?鍐呭瓨绾у姩鎬佸垎鏋?鍙獊鐮寸粷澶у鏁伴潤鎬侀槻鎶や綋绯?",
+                                             "language":  "text"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "system_event",
+                      "content":  {
+                                      "zh":  "内存分析策略：\n1. Memory.scanSync 搜索业务特征值（如手机号、订单号）\n2. Hook 网络请求发送入口 wx.request、XMLHttpRequest.send\n3. 内存转储 TypedArray 与 ArrayBuffer 缓冲区",
+                                      "en":  "Memory analysis strategies:\n1. Memory.scanSync to search for business signatures (phone, order ID)\n2. Hook network request entry points wx.request, XMLHttpRequest.send\n3. Memory dump TypedArray and ArrayBuffer buffers"
+                                  },
+                      "annotation":  {
+                                         "zh":  "定位到特征值地址后，读取前后 1000 字节提取完整明文",
+                                         "en":  "After locating signature address, read 1000 bytes before/after to extract complete plaintext"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "实战案例：绕过某支付小程序字节码保护\n1. 静态分析：app-service.js 为加密字节码\n2. 动态附加：Frida 附加微信进程\n3. 内存扫描：搜索订单号特征值\n4. 密钥定位：Hook Cipher.doFinal 提取 AES 密钥\n5. 流量解密：完成后续业务流量解密",
+                                      "en":  "Case study: bypass bytecode protection of payment MiniApp\n1. Static analysis: app-service.js is encrypted bytecode\n2. Dynamic attach: Frida attach to WeChat process\n3. Memory scan: search for order ID signature\n4. Key location: Hook Cipher.doFinal to extract AES key\n5. Traffic decryption: complete subsequent traffic decryption"
+                                  },
+                      "annotation":  {
+                                         "zh":  "进阶优化：结合 r0capture、frida-trace 实现自动化明文提取",
+                                         "en":  "Advanced: combine r0capture, frida-trace for automated plaintext extraction"
+                                     }
+                  },
+                  {
+                      "type":  "system_event",
+                      "content":  {
+                                      "zh":  "字节码 VM 场景下的加密请求流程：\nJavaScript字节码 → VM解释执行 → 构造业务明文 → AES.encrypt() → ArrayBuffer → HTTPS发送",
+                                      "en":  "Encrypted request flow under bytecode VM:\nJavaScript bytecode → VM interpretation → Build business plaintext → AES.encrypt() → ArrayBuffer → HTTPS send"
+                                  },
+                      "annotation":  {
+                                         "zh":  "VM 无法阻止明文在运行时出现在进程内存中",
+                                         "en":  "VM cannot prevent plaintext from appearing in process memory at runtime"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "突破方案：\n方案一：Hook org.json.JSONObject.toString() 捕获明文汇聚点\n方案二：Memory.scan 扫描 libwechat.so 模块提取明文",
+                                      "en":  "Bypass solutions:\nOption 1: Hook org.json.JSONObject.toString() to capture plaintext aggregation\nOption 2: Memory.scan libwechat.so module to extract plaintext"
+                                  },
+                      "annotation":  {
+                                         "zh":  "建议扩大扫描范围至整个进程可读写内存区域",
+                                         "en":  "Recommend extending scan range to entire process read-write memory"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "技术边界总结：\n- HTTPS 解决网络传输层窃听风险\n- 静态加密解决源码静态泄露风险\n- 字节码 VM 解决批量自动化静态逆向风险\n- 内存级动态分析可突破绝大多数静态防护",
+                                      "en":  "Technical boundary summary:\n- HTTPS: network layer eavesdropping risk\n- Static encryption: source code leak risk\n- Bytecode VM: automated static reverse risk\n- Memory-level dynamic analysis: bypass most static protections"
+                                  },
+                      "annotation":  {
+                                         "zh":  "防护建议：字节码 VM + Native 加固 + 行为指纹 + 服务端实时校验",
+                                         "en":  "Protection: bytecode VM + Native hardening + behavior fingerprint + server-side real-time validation"
+                                     }
+                  }
+              ]
+}
