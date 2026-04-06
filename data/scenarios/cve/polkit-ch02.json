@@ -1,0 +1,13 @@
+{
+  "_source_md": "Polkit/2022-02-09-CVE-2021-4034-复现.md",
+  "version": "cve-2021-4034-pwnkit",
+  "title": { "zh": "Polkit CVE-2021-4034 PwnKit本地提权漏洞", "en": "Polkit CVE-2021-4034 PwnKit Local Privilege Escalation" },
+  "description": { "zh": "Qualys研究团队在polkit的pkexec中发现的内存损坏漏洞，允许非特权用户获取root权限。", "en": "Memory corruption vulnerability found by Qualys in polkit's pkexec, allowing unprivileged users to gain root privileges." },
+  "steps": [
+    { "type": "user_message", "content": { "zh": "复现CVE-2021-4034 PwnKit漏洞", "en": "Reproduce CVE-2021-4034 PwnKit vulnerability" } },
+    { "type": "assistant_text", "content": { "zh": "影响版本：polkit 0.105及之前版本，影响主流Linux发行版", "en": "Affected versions: polkit 0.105 and earlier, affects major Linux distributions" } },
+    { "type": "tool_result", "toolName": "exec", "content": { "zh": "环境：Ubuntu 5.8.0-55-generic, pkexec version 0.105", "en": "Environment: Ubuntu 5.8.0-55-generic, pkexec version 0.105" } },
+    { "type": "assistant_text", "content": { "zh": "EXP原理：编译payload.so共享库，创建GCONV_PATH=.目录和gconv-modules配置文件，利用pkexec的环境变量注入触发gconv执行", "en": "EXP principle: Compile payload.so shared library, create GCONV_PATH=. directory and gconv-modules config file, trigger gconv execution via pkexec environment variable injection" } },
+    { "type": "tool_result", "toolName": "exec", "content": { "zh": "修复方案：chmod 0755 /usr/bin/pkexec 或升级到安全版本", "en": "Fix: chmod 0755 /usr/bin/pkexec or upgrade to secure version" } }
+  ]
+}

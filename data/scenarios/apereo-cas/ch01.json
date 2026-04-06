@@ -1,0 +1,53 @@
+﻿{
+  "_source_md": "Apereo-CAS/2022-06-06-Apereo-CAS-LessThan-4-2-x-RCE.md",
+  "version": "apereo-cas-deserialization-rce",
+  "title": {
+    "zh": "Apereo CAS < 4.2.x 反序列化远程代码执行",
+    "en": "Apereo CAS < 4.2.x Deserialization RCE"
+  },
+  "description": {
+    "zh": "Apereo CAS 4.2.x以下版本存在反序列化漏洞，通过execution参数可触发RCE。",
+    "en": "Apereo CAS versions below 4.2.x contain deserialization vulnerability. RCE via execution parameter."
+  },
+  "steps": [
+    {
+      "type": "user_message",
+      "content": { "zh": "分析Apereo CAS反序列化漏洞", "en": "Analyze Apereo CAS deserialization vulnerability" },
+      "annotation": { "zh": "用户询问", "en": "User asks" }
+    },
+    {
+      "type": "assistant_text",
+      "content": { "zh": "CAS靶场搭建：从Maven仓库下载cas-server-webapp 4.1.6或4.2.7版本WAR包部署到Tomcat。", "en": "CAS lab setup: Download cas-server-webapp 4.1.6 or 4.2.7 WAR from Maven and deploy to Tomcat." },
+      "annotation": { "zh": "助手响应", "en": "Assistant response" }
+    },
+    {
+      "type": "system_event",
+      "content": { "zh": "资产发现 - 通过404路由查看版本：", "en": "Asset discovery - view version via 404 route:" },
+      "codeBlocks": [
+        {
+          "language": "http",
+          "code": "GET /cas/iwana404;) HTTP/1.1\nHost: cas.example.com\n\n# Response shows version in error page",
+          "caption": { "zh": "404页面显示CAS版本", "en": "404 page shows CAS version" }
+        }
+      ],
+      "annotation": { "zh": "系统事件", "en": "System event" }
+    },
+    {
+      "type": "user_message",
+      "content": { "zh": "反序列化入口在哪里？", "en": "Where is the deserialization entry point?" },
+      "annotation": { "zh": "用户询问", "en": "User asks" }
+    },
+    {
+      "type": "assistant_text",
+      "content": { "zh": "登录POST请求包中的execution参数是反序列化入口。攻击者可构造恶意序列化数据注入到execution参数触发RCE。", "en": "The execution parameter in login POST request is the deserialization entry point. Attackers can inject malicious serialized data to trigger RCE." },
+      "codeBlocks": [
+        {
+          "language": "http",
+          "code": "POST /login;jsessionid=SESSION_ID HTTP/1.1\nHost: localhost:8000\nContent-Type: application/x-www-form-urlencoded\n\nusername=admin&password=123&execution=MALICIOUS_SERIALIZED_DATA",
+          "caption": { "zh": "execution参数注入点", "en": "execution parameter injection point" }
+        }
+      ],
+      "annotation": { "zh": "助手响应", "en": "Assistant response" }
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+﻿{
+  "_source_md": "code-audit/2021-03-10-ALL-mvn-build-errors.md",
+  "version": "ALL-mvn-build-errors",
+  "title": {
+    "zh": "Maven构建排错 - ysoserial项目构建实战",
+    "en": "Maven Build Troubleshooting - ysoserial Project Build Practice"
+  },
+  "description": {
+    "zh": "记录Maven项目构建过程中的常见错误及解决方法，以ysoserial魔改项目为例详解依赖缺失和POM配置问题",
+    "en": "Document common errors during Maven project build process, using ysoserial modified project as example to explain dependency missing and POM configuration issues"
+  },
+  "steps": [
+    {
+      "type": "user_message",
+      "content": { "zh": "构建ysoserial项目时遇到编译错误如何解决？", "en": "How to solve compilation errors when building ysoserial project?" },
+      "annotation": { "zh": "用户请求Maven构建问题帮助", "en": "User requests Maven build troubleshooting help" }
+    },
+    {
+      "type": "assistant_text",
+      "content": { "zh": "常见Maven构建错误包括：1. 找不到符号 - 依赖缺失 2. POM文件依赖版本问题 3. 子模块依赖顺序问题。", "en": "Common Maven build errors: 1. Symbol not found - missing dependency 2. POM dependency version issues 3. Submodule dependency order issues." },
+      "annotation": { "zh": "介绍常见Maven构建错误类型", "en": "Introduce common Maven build error types" }
+    },
+    {
+      "type": "system_event",
+      "content": { "zh": "克隆项目并构建：", "en": "Clone project and build:" },
+      "codeBlocks": [
+        {
+          "language": "bash",
+          "code": "git clone https://github.com/threedr3am/ysoserial.git\ncd ysoserial\nmvn clean package -DskipTests",
+          "caption": { "zh": "克隆ysoserial项目并尝试构建", "en": "Clone ysoserial project and try to build" }
+        }
+      ],
+      "annotation": { "zh": "系统执行构建命令", "en": "System executes build command" }
+    },
+    {
+      "type": "tool_result",
+      "content": { "zh": "构建错误输出：", "en": "Build error output:" },
+      "codeBlocks": [
+        {
+          "language": "text",
+          "code": "[ERROR] COMPILATION ERROR:\n[INFO] -------------------------------------------------------------\n[ERROR] /ysoserial-failed/src/main/java/ysoserial/payloads/FileUpload1.java:[11,35] 错误: 找不到符号\n[ERROR]   符号:   类 DeferredFileOutputStream\n  位置: 程序包 org.apache.commons.io.output",
+          "caption": { "zh": "依赖缺失错误", "en": "Missing dependency error" }
+        }
+      ],
+      "toolName": "mvn",
+      "annotation": { "zh": "遇到依赖缺失错误", "en": "Encounter dependency missing error" }
+    },
+    {
+      "type": "user_message",
+      "content": { "zh": "分析并解决找不到符号的错误", "en": "Analyze and fix symbol not found error" },
+      "annotation": { "zh": "用户请求解决方案", "en": "User requests solution" }
+    },
+    {
+      "type": "assistant_text",
+      "content": { "zh": "解决方法：1. 定位报错的Java文件和依赖包名称 2. 使用IDEA快捷键添加Maven依赖 3. 或手动在pom.xml中添加缺失的依赖。", "en": "Solution: 1. Locate the error Java file and dependency package name 2. Use IDEA shortcut to add Maven dependency 3. Or manually add missing dependency in pom.xml." },
+      "annotation": { "zh": "提供解决方案", "en": "Provide solution" }
+    },
+    {
+      "type": "system_event",
+      "content": { "zh": "在pom.xml中添加缺失依赖：", "en": "Add missing dependency in pom.xml:" },
+      "codeBlocks": [
+        {
+          "language": "xml",
+          "code": "<dependency>\n    <groupId>commons-io</groupId>\n    <artifactId>commons-io</artifactId>\n    <version>2.11.0</version>\n</dependency>",
+          "caption": { "zh": "添加commons-io依赖", "en": "Add commons-io dependency" }
+        }
+      ],
+      "annotation": { "zh": "添加缺失的依赖到POM文件", "en": "Add missing dependency to POM file" }
+    },
+    {
+      "type": "tool_result",
+      "content": { "zh": "重新构建后仍有错误：POM文件依赖版本爆红", "en": "After rebuild still has error: POM dependency version shows red" },
+      "toolName": "mvn",
+      "annotation": { "zh": "POM版本问题", "en": "POM version issues" }
+    },
+    {
+      "type": "assistant_text",
+      "content": { "zh": "POM文件依赖版本问题解决：访问Maven仓库（如阿里云Maven仓库）查询正确的版本号，修改pom.xml中对应的<version>标签。", "en": "POM dependency version fix: Visit Maven repository (e.g. Aliyun Maven) to find correct version number, modify the <version> tag in pom.xml." },
+      "annotation": { "zh": "说明POM版本修复方法", "en": "Explain POM version fix method" }
+    },
+    {
+      "type": "tool_result",
+      "content": { "zh": "构建成功：target/ysoserial-0.0.6-SNAPSHOT-all.jar (60MB)", "en": "Build successful: target/ysoserial-0.0.6-SNAPSHOT-all.jar (60MB)" },
+      "toolName": "mvn",
+      "annotation": { "zh": "构建成功生成jar文件", "en": "Build successful, jar files generated" }
+    },
+    {
+      "type": "assistant_text",
+      "content": { "zh": "Maven构建排错总结：1. 源码构建需导入对应lib库 2. 修改POM文件依赖版本需查询Maven仓库获取正确版本号 3. 使用mvn clean package -DskipTests进行构建", "en": "Maven build troubleshooting summary: 1. Source build needs corresponding lib imports 2. Modify POM dependency versions by querying Maven repository 3. Use mvn clean package -DskipTests to build" },
+      "annotation": { "zh": "总结Maven构建排错要点", "en": "Summarize Maven build troubleshooting key points" }
+    }
+  ]
+}

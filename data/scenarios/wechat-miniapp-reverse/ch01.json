@@ -1,0 +1,167 @@
+{
+  "version": "wechat-miniapp-reverse",
+  "title": {
+    "zh": "微信小程序逆向进阶 - 抓包与 Frida Hook 提取加密明文",
+    "en": "WeChat MiniApp Reverse Advanced - Packet Capture & Frida Hook to Extract Plaintext"
+  },
+  "description": {
+    "zh": "通过流量抓包结合 Frida 动态 Hook，在运行时提取加密参数、密钥、IV，并完成接口重放验证。",
+    "en": "Combine packet capture with Frida dynamic hooking to extract encryption parameters, keys, IV at runtime and replay API requests."
+  },
+  "steps": [
+    {
+      "type": "user_message",
+      "content": {
+        "zh": "启动微信小程序，触发登录业务（输入手机号 13800000000 和验证码 123456）",
+        "en": "Launch WeChat MiniApp, trigger login (phone 13800000000, code 123456)"
+      },
+      "annotation": {
+        "zh": "目标业务接口：/login，使用 AES-CBC 加密",
+        "en": "Target API: /login, uses AES-CBC encryption"
+      }
+    },
+    {
+      "type": "system_event",
+      "content": {
+        "zh": "PC 端启动 Frida 服务：",
+        "en": "Start Frida service on PC:"
+      },
+      "codeBlocks": [
+        {
+          "language": "bash",
+          "code": "adb shell /data/local/tmp/frida-server &\nfrida-ps -U",
+          "caption": {
+            "zh": "确保 frida-server 与客户端版本匹配",
+            "en": "Ensure frida-server version matches client"
+          }
+        }
+      ],
+      "annotation": {
+        "zh": "确保 frida-server 与客户端版本匹配，且设备已 root",
+        "en": "Ensure frida-server version matches client, device rooted"
+      }
+    },
+    {
+      "type": "tool_result",
+      "content": {
+        "zh": "Frida 服务正常，设备列表显示 'com.tencent.mm'",
+        "en": "Frida service OK, device list shows 'com.tencent.mm'"
+      },
+      "toolName": "frida-ps",
+      "annotation": {
+        "zh": "微信进程已附加，可注入脚本",
+        "en": "WeChat process attached, ready to inject script"
+      }
+    },
+    {
+      "type": "user_message",
+      "content": {
+        "zh": "执行 Hook 脚本：",
+        "en": "Run hook script:"
+      },
+      "codeBlocks": [
+        {
+          "language": "bash",
+          "code": "frida -U -f com.tencent.mm -l hook.js --no-pause",
+          "caption": {
+            "zh": "hook.js 包含对 Cipher.doFinal 和 MessageDigest.update 的拦截",
+            "en": "hook.js intercepts Cipher.doFinal and MessageDigest.update"
+          }
+        }
+      ],
+      "annotation": {
+        "zh": "hook.js 包含对 Cipher.doFinal 和 MessageDigest.update 的拦截",
+        "en": "hook.js intercepts Cipher.doFinal and MessageDigest.update"
+      }
+    },
+    {
+      "type": "system_event",
+      "content": {
+        "zh": "脚本注入成功，开始监听 Java 层加密调用",
+        "en": "Script injected, monitoring Java crypto calls"
+      },
+      "annotation": {
+        "zh": "Hook 点命中 javax.crypto.Cipher 和 java.security.MessageDigest",
+        "en": "Hooking javax.crypto.Cipher and java.security.MessageDigest"
+      }
+    },
+    {
+      "type": "system_event",
+      "content": {
+        "zh": "[AES 明文] {\"phone\":\"13800000000\",\"code\":\"123456\"}\n[AES key ] 0123456789abcdef0123456789abcdef\n[AES iv  ] fedcba9876543210",
+        "en": "[AES plaintext] {\"phone\":\"13800000000\",\"code\":\"123456\"}\n[AES key ] 0123456789abcdef0123456789abcdef\n[AES iv  ] fedcba9876543210"
+      },
+      "annotation": {
+        "zh": "Frida 输出捕获的明文、密钥和初始向量",
+        "en": "Frida outputs captured plaintext, key, and IV"
+      }
+    },
+    {
+      "type": "tool_result",
+      "content": {
+        "zh": "登录请求的加密 payload: U2FsdGVkX1+... (Base64)",
+        "en": "Login request encrypted payload: U2FsdGVkX1+... (Base64)"
+      },
+      "toolName": "HttpCanary",
+      "annotation": {
+        "zh": "抓包工具同时捕获到密文，与 Frida 输出对应",
+        "en": "Packet capture tool also records ciphertext, matching Frida output"
+      }
+    },
+    {
+      "type": "tool_result",
+      "content": {
+        "zh": "使用 Python 本地解密验证：",
+        "en": "Local decryption with Python:"
+      },
+      "codeBlocks": [
+        {
+          "language": "python",
+          "code": "from Crypto.Cipher import AES\nimport base64\n\nkey = b'0123456789abcdef0123456789abcdef'\niv  = b'fedcba9876543210'\n\ncipher = AES.new(key, AES.MODE_CBC, iv)\nplain = cipher.decrypt(base64.b64decode(\"U2FsdGVkX1+...\"))\nprint(plain)",
+          "caption": {
+            "zh": "AES-CBC 解密",
+            "en": "AES-CBC decryption"
+          }
+        }
+      ],
+      "toolName": "python",
+      "annotation": {
+        "zh": "解密结果与 Frida 捕获的明文一致，验证成功",
+        "en": "Decrypted plaintext matches Frida output, verification successful"
+      }
+    },
+    {
+      "type": "user_message",
+      "content": {
+        "zh": "构造加密请求并重放接口：",
+        "en": "Replay API with encrypted payload:"
+      },
+      "codeBlocks": [
+        {
+          "language": "python",
+          "code": "import requests\n\n# 构造 payload\npayload = encrypt({\"phone\":\"13800000000\",\"code\":\"123456\"}, key, iv)\n\n# 重放接口\nr = requests.post(\"https://api.example.com/login\", json={\"data\": payload})\nprint(r.text)",
+          "caption": {
+            "zh": "接口重放攻击",
+            "en": "API replay attack"
+          }
+        }
+      ],
+      "toolName": "python",
+      "annotation": {
+        "zh": "重放成功，返回登录成功 token，完成闭环验证",
+        "en": "Replay successful, returns login token, full loop validated"
+      }
+    },
+    {
+      "type": "assistant_text",
+      "content": {
+        "zh": "总结：\n- 绕过 SSL Pinning（使用 JustTrustMe）\n- 动态 Hook 提取 AES 明文、Key、IV\n- 本地解密验证并实现接口重放\n- 完整闭环：从流量抓包到业务复现",
+        "en": "Summary:\n- Bypass SSL Pinning (using JustTrustMe)\n- Dynamic hook to extract AES plaintext, Key, IV\n- Local decryption verification and API replay\n- Full loop: from packet capture to business reproduction"
+      },
+      "annotation": {
+        "zh": "适用于小程序、App 的加密接口逆向分析",
+        "en": "Applicable to reverse engineering of encrypted APIs in MiniApps and Apps"
+      }
+    }
+  ]
+}

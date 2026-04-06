@@ -1,0 +1,154 @@
+{
+    "_source_md":  "CobaltStrike/2022-02-15-Cobalt-Stike-Server-build-walkthrough.md",
+    "version":  "cobalt-strike-server-build",
+    "title":  {
+                  "zh":  "Cobalt Strike 服务器搭建历程：配置与特征消除",
+                  "en":  "Cobalt Strike Server Build Walkthrough: Configuration and Feature Elimination"
+              },
+    "description":  {
+                        "zh":  "详细介绍 Cobalt Strike C2 服务器的搭建过程，包括使用 profile 配置流量特征、修改默认端口、伪造证书以及重签自有证书等隐匿技术。",
+                        "en":  "Detailed walkthrough of Cobalt Strike C2 server setup, including using profile to configure traffic features, modifying default ports, forging certificates, and re-signing own certificates for anonymity."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "如何搭建 Cobalt Strike C2 服务器？",
+                                      "en":  "How to set up a Cobalt Strike C2 server?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户请求 CS 服务器搭建指导",
+                                         "en":  "User requests CS server setup guidance"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "#client\nscp Cobalt-Stike.tar.gz username@\u003cvps_ip\u003e:~\n\n#server\ntar -zxvf Cobalt-Stike.tar.gz",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "#server\nnohup ./teamserver \u003cvps_ip\u003e \u003cconnect_password\u003e \u0026\n\n#client\njava -XX:ParallelGCThreads=4 -XX:+AggressiveHeap -XX:+UseParallelGC -jar cobaltstrike.jar\n#杈撳叆\u003cvps_ip\u003e \u003cconnect_password\u003e\n#鍚嶅瓧浠绘剰濉叆",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "#server\nnohup ./teamserver \u003cvps_ip\u003e \u003cconnect_password\u003e your_mode.profile \u0026\n\n#client\njava -XX:ParallelGCThreads=4 -XX:+AggressiveHeap -XX:+UseParallelGC -jar cobaltstrike.jar\n#杈撳叆\u003cvps_ip\u003e \u003cconnect_password\u003e\n#鍚嶅瓧浠绘剰濉叆",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "sed -i \u0027s/50050/10080/g\u0027 teamserver \nchmod +x teamserver\nnohup ./teamserver \u003cvps_ip\u003e \u003cconnect_password\u003e \u0026",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "rm ./cobaltstrike.store",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "keytool -list -v -storepass 123456 -keystore cobaltstrike.store",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "rm ./cobaltstrike.store\nsed -i \u0027s!-alias cobaltstrike -dname \"CN=Major Cobalt Strike, OU=AdvancedPenTesting, O=cobaltstrike, L=Somewhere, S=Cyberspace, C=Earth\"!-alias common-domain.com -dname \"CN=common-domain Windows, OU=MOPR, O=Sentrylab Inc, L=Redmond, ST=HEFEI, C=CN\"!g\u0027 teamserver",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "PORT      STATE SERVICE     VERSION\n10080/tcp open  ssl/unknown\n| ssl-cert: Subject: commonName=common-domain Windows/organizationName=Sentrylab Inc/stateOrProvinceName=HEFEI/countryName=CN\n| Issuer: commonName=common-domain Windows/organizationName=Sentrylab Inc/stateOrProvinceName=HEFEI/countryName=CN\n| Public Key type: rsa\n| Public Key bits: 2048\n| Signature Algorithm: sha256WithRSAEncryption\n| Not valid before: 2022-02-17T09:06:25\n| Not valid after:  2022-05-18T09:06:25\n| MD5:   2d0b efaa d942 3336 f561 bb5d 9e0b 9751\n|_SHA-1: ee50 0484 7d73 d8c4 fe5d 3ef0 80fe 390c a3ed 5bcc\n|_ssl-date: TLS randomness does not represent time",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "#鐢熸垚p12鏂囦欢\nopenssl pkcs12 -export -in public.pem -inkey private.key -out domain-test.p12 -name domain-test.com -passout pass:123456\n#鐢熸垚store鏂囦欢\nkeytool -importkeystore -deststorepass 123456 -destkeypass 123456 -destkeystore domain-test.store -srckeystore domain-test.p12 -srcstoretype PKCS12 -srcstorepass 123456 -alias domain-test.com\n#鐢熸垚鐨勬枃浠跺悕瀛楀彲浠ラ殢鎰忥紝鍩熷悕闇€瀵瑰簲涓婏紱",
+                                             "language":  "bash"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "基本搭建流程：客户端上传 CS 包到 VPS，服务端解压后启动 teamserver。两种启动方式：1) 无 profile 模式：nohup ./teamserver \u003cvps_ip\u003e \u003cpassword\u003e \u0026；2) 使用 profile：添加自定义 profile 文件参数，可修改 HTTP/S 流量特征避免被检测。",
+                                      "en":  "Basic setup process: Client uploads CS package to VPS, server extracts and starts teamserver. Two startup methods: 1) No profile mode: nohup ./teamserver \u003cvps_ip\u003e \u003cpassword\u003e \u0026; 2) Using profile: Add custom profile file parameter to modify HTTP/S traffic features and avoid detection."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "如何消除 CS 服务器的特征？",
+                                      "en":  "How to eliminate CS server features?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "特征消除三步骤：1) 修改默认端口：编辑 teamserver 文件将 50050 改为其他端口；2) 伪造证书：删除默认 cobaltstrike.store，使用 keytool 重签证书；3) 重签自有证书：从 Cloudflare 获取源服务器证书，转换为 store 格式使用。",
+                                      "en":  "Three steps to eliminate features: 1) Modify default port: Edit teamserver file to change 50050 to another port; 2) Forged certificate: Delete default cobaltstrike.store, use keytool to re-sign certificate; 3) Re-sign own certificate: Obtain origin server certificate from Cloudflare, convert to store format."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "证书修改后的效果如何验证？",
+                                      "en":  "How to verify the effect after certificate modification?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "使用 nmap 扫描验证：执行 nmap 扫描 10080 端口，检查 ssl-cert 信息。修改后的证书应显示自定义的 CN、O、L、S、C 字段，而非默认的 Cobalt Strike 特征。注意：即使修改证书，网络测绘平台仍可能识别出 CS 特征。",
+                                      "en":  "Use nmap scan to verify: Execute nmap scan on port 10080, check ssl-cert information. Modified certificate should show custom CN, O, L, S, C fields instead of default Cobalt Strike features. Note: Even with modified certificates, network mapping platforms may still identify CS features."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  }
+              ]
+}

@@ -1,0 +1,115 @@
+{
+    "_source_md":  "WAF/2021-07-22-WAF-developed-by-Grayscale-forwarding.md",
+    "version":  "cloudflare-waf-deployment",
+    "title":  {
+                  "zh":  "CloudFlare WAF 部署实践 - 域名前置与流量检测",
+                  "en":  "CloudFlare WAF Deployment Practice - Domain Fronting and Traffic Inspection"
+              },
+    "description":  {
+                        "zh":  "使用 CloudFlare 云 WAF 保护静态站点，配置自定义规则拦截恶意流量。",
+                        "en":  "Use CloudFlare cloud WAF to protect static sites with custom rules to block malicious traffic."
+                    },
+    "steps":  [
+                  {
+                      "type":  "system_event",
+                      "content":  {
+                                      "zh":  "CloudFlare WAF 所需条件：\n- 拥有域名\n- 域名对应解析 IP 开放 Web Server\n- CloudFlare 账号（注册即可）",
+                                      "en":  "CloudFlare WAF requirements:\n- Own a domain\n- Domain DNS IP runs Web Server\n- CloudFlare account (free registration)"
+                                  },
+                      "annotation":  {
+                                         "zh":  "免费方案适合个人站点防护",
+                                         "en":  "Free plan suitable for personal site protection"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "部署步骤：\n1. 阿里云域名面板设置解析 IP\n2. 修改 DNS Server 为 CloudFlare：diva.ns.cloudflare.com / nitin.ns.cloudflare.com\n3. 进入 CloudFlare 添加站点，上传认证文件到 Web root\n4. 配置 WAF 规则",
+                                      "en":  "Deployment steps:\n1. Set DNS IP in domain panel\n2. Change DNS Server to CloudFlare: diva.ns.cloudflare.com / nitin.ns.cloudflare.com\n3. Add site in CloudFlare, upload auth file to web root\n4. Configure WAF rules"
+                                  },
+                      "annotation":  {
+                                         "zh":  "DNS 生效需要等待一段时间",
+                                         "en":  "DNS propagation takes time"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$ yum install -y readline-devel pcre pcre-devel openssl openssl-devel gcc curl GeoIP-devel wget perl\n$ wget https://openresty.org/download/openresty-1.15.8.3.tar.gz \n$ tar -xvf openresty-1.15.8.3.tar.gz \n$ cd openresty-1.15.8.3 \n$ ./configure -j2 \n$ make -j2 \n$ sudo make install",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$ vi HelloWorld.lua\nprint(\"Hello World!\")\n$ lua HelloWorld.lua\nHello World!",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "[bin4xin@ingeek openresty]$ pwd\n/usr/local/openresty\n$ vi nginx/conf/nginx.conf\n#nginx.conf\nworker_processes  1;\nevents {\n    worker_connections  1024;\n}\nhttp {\nlua_code_cache off;\n    server {\n        location /test {\n           default_type \u0027text/plain\u0027;\n           content_by_lua_file \u0027/opt/lua/test.lua\u0027;\n        }\n    }\n}\n\n$ sudo bin/openresty -t\nnginx: [alert] lua_code_cache is off; this will hurt performance in /usr/local/openresty/nginx/conf/nginx.conf:39\nnginx: the configuration file /usr/local/openresty/nginx/conf/nginx.conf syntax is ok\n$ ps -ef|grep open\nroot      17903      1  0 23:17 ?        00:00:00 nginx: master process bin/openresty\n$ cat /opt/lua/test.lua\n#test.lua\nlocal name =  \"Anonymous\"\nngx.say(\"Hello, \", name, \"!\")\nngx.say(\"test\")",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$ curl localhost/test\nHello, Anonymous!\ntest",
+                                             "language":  "bash"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "自定义 WAF 规则：\n- 静态站点禁用 POST：(http.request.method eq \"POST\")\n- 文件读取防护：(http.request.uri.path contains \"etc/passwd\")\n- 目录遍历防护：(http.request.uri.path contains \".\") or (contains \"%2e\")",
+                                      "en":  "Custom WAF rules:\n- Disable POST for static sites: (http.request.method eq \"POST\")\n- File read protection: (http.request.uri.path contains \"etc/passwd\")\n- Directory traversal: (http.request.uri.path contains \".\") or (contains \"%2e\")"
+                                  },
+                      "annotation":  {
+                                         "zh":  "规则作用于根域名及其所有子域名",
+                                         "en":  "Rules apply to root domain and all subdomains"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "content":  {
+                                      "zh":  "规则生效测试：\ncurl https://domain.com/etc/passwd -I\nHTTP/2 403\n返回 403 表示 WAF 规则生效",
+                                      "en":  "Rule activation test:\ncurl https://domain.com/etc/passwd -I\nHTTP/2 403\n403 response indicates WAF rule is active"
+                                  },
+                      "toolName":  "curl",
+                      "annotation":  {
+                                         "zh":  "CloudFlare 返回 403 表示请求被拦截",
+                                         "en":  "CloudFlare returns 403 when request is blocked"
+                                     }
+                  },
+                  {
+                      "type":  "system_event",
+                      "content":  {
+                                      "zh":  "本地 WAF 方案（JXWAF）：\n1. 安装 OpenResty：./configure \u0026\u0026 make \u0026\u0026 make install\n2. 配置 nginx.conf 加载 Lua 脚本\n3. 接入 JXWAF 规则库\n4. 实现自定义拦截规则",
+                                      "en":  "Local WAF solution (JXWAF):\n1. Install OpenResty: ./configure \u0026\u0026 make \u0026\u0026 make install\n2. Configure nginx.conf to load Lua scripts\n3. Connect to JXWAF rule set\n4. Implement custom blocking rules"
+                                  },
+                      "annotation":  {
+                                         "zh":  "OpenResty 基于 Nginx + Lua，高性能 WAF 方案",
+                                         "en":  "OpenResty is Nginx + Lua based, high-performance WAF solution"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "WAF 部署总结：\n- CloudFlare 适合快速部署，免费方案功能有限\n- 自建 WAF（JXWAF）灵活性更高\n- 规则需根据实际攻击场景持续优化\n- 注意避免误报影响正常业务",
+                                      "en":  "WAF deployment summary:\n- CloudFlare for quick deployment, free plan has limitations\n- Self-hosted WAF (JXWAF) offers more flexibility\n- Rules need continuous optimization based on attack scenarios\n- Avoid false positives affecting normal business"
+                                  },
+                      "annotation":  {
+                                         "zh":  "WAF 是纵深防御的一环，不是唯一防线",
+                                         "en":  "WAF is one layer of defense in depth, not the only line"
+                                     }
+                  }
+              ]
+}

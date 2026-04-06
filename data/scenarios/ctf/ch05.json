@@ -1,0 +1,163 @@
+{
+    "_source_md":  "CTF/2021-07-29-CTF-Crypto-WalkThrough.md",
+    "version":  "ctf-crypto-walkthrough",
+    "title":  {
+                  "zh":  "CTF密码学题目详解",
+                  "en":  "CTF Cryptography Challenges Walkthrough"
+              },
+    "description":  {
+                        "zh":  "CTF密码学方向题目的详细解题指南，包括RSA算法、栅栏密码、凯撒密码、摩尔斯电码等经典加密算法。",
+                        "en":  "Detailed guide for CTF cryptography challenges, covering RSA algorithm, rail fence cipher, Caesar cipher, Morse code and other classic encryption methods."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "帮我分析CTF中的密码学题目类型和解题方法",
+                                      "en":  "Help me analyze CTF cryptography challenge types and solving methods"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户请求密码学题目分析",
+                                         "en":  "User requests cryptography challenge analysis"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "鉃?ll\n-rw-r--r--@  1 bin4xin  staff   32  4 29  2016 flag.enc\n-rw-r--r--@  1 bin4xin  staff  138  4 29  2016 pubkey.pem\n\n鉃?file flag.enc\nflag.enc: data\n鉃?file pubkey.pem\npubkey.pem: ASCII text\n鉃?cat pubkey.pem\n-----BEGIN PUBLIC KEY-----\nMDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhAMJjauXD2OQ/+5erCQKPGqxsC/bNPXDr\nyigb/+l/vjDdAgMBAAE=\n-----END PUBLIC KEY-----",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "solve.py --verbose -k pubkey.pem --decrypt flag.enc`",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$ rsatools --publickey public.pem  --uncipherfile flag.enc\nprivate argument is not set, the private key will not be displayed, even if recovered.\n\n[*] Testing key public.pem.\n[*] Performing pastctfprimes attack on public.pem.\n 90%|鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枅鈻堚枌    / 102/113 [00:00\u003c00:00, 1445.70it/s]\n[*] Attack success with pastctfprimes method !\n\nResults for public.pem:\n\nUnciphered data :\nHEX : 0x61666374667b5235345f7c355f24305f423072696e397d\nINT (big endian) : 9329062300443879711046737916988523093598680555377801597\nINT (little endian) : 11994109012077315504651226639166102749077267728721733217\nutf-8 : afctf{R54_|5_$0_B0rin9}\nSTR : b\u0027afctf{R54_|5_$0_B0rin9}\u0027\n路路路",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "鉃?ln -s /{path/to}/CTF-RSA-tool/solve.py /usr/local/bin/rsatools\n鉃?rsatools --verbose --private -N 2135733555619387051 -e 17 -p 473398607161 -q 4511491",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "from Crypto.Util.number import *\nimport binascii\nimport gmpy2\nflag = \u0027*****************************************\u0027\nhex_flag=int(flag.encode(\"hex\"),16)\n\np=getPrime(256)\nq=getPrime(256)\nn=p*q\n\ne=0x3\nc1=pow(hex_flag,e,n)\nc2=pow(hex_flag+1,e,n)\n\nprint(\"n=\",hex(n))\nprint(\"e=\",hex(e))\nprint(\"c1=\",hex(c1))\nprint(\"c2=\",hex(c2))\n\n#(\u0027n=\u0027, \u00270xb28ae8f29f8b90e8b8c5667b2b71e49929446b41f7f7a3e9e45bc52a1e8c45d59c1788be48a9c365d51feee0b2cd3295001cdad1ba5ccf808686b5ce5a269ae5L\u0027)\n#(\u0027e=\u0027, \u00270x3\u0027)\n#(\u0027c1=\u0027, \u00270x7ba5502ecbc3b15ad8c2db8f30a593eb062dde4d7dfacadf0a28291d1a576389a18dfba0607c0243f843f637449089dd2090d47ee9845d4147f02afd4d891f19L\u0027)\n#(\u0027c2=\u0027, \u00270x891ac4f663df41c1f6433ee3513d749c3ba02fe0aacd7f51d791b9bac4f7e5194bd484d78d972c344faf600f7d3aa580485774768efc47ab8ddb67eeeb330fa1L\u0027)",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "import gmpy\nimport binascii\n\ndef getM2(a,b,c1,c2,n,e):\n\ta3 = pow(a,e,n)\n\tb3 = pow(b,e,n)\n\tfirst = c1-a3*c2+2*b3\n\tprint(\"first:\")\n\tprint(first)\n\tfirst = first % n\n\tsecond = e*b*(a3*c2-b3)\n\tsecond = second % n\n\tthird = second*gmpy.invert(first,n)\n\tthird = third % n\n\tfourth = (third+b)*gmpy.invert(a,n)\n\treturn fourth % n\n\ne=0x3\na=1\nb=-1 #padding1-padding2\nc1=0x7ba5502ecbc3b15ad8c2db8f30a593eb062dde4d7dfacadf0a28291d1a576389a18dfba0607c0243f843f637449089dd2090d47ee9845d4147f02afd4d891f19\nc2=0x891ac4f663df41c1f6433ee3513d749c3ba02fe0aacd7f51d791b9bac4f7e5194bd484d78d972c344faf600f7d3aa580485774768efc47ab8ddb67eeeb330fa1\npadding2=1 #padding2\nn=0xb28ae8f29f8b90e8b8c5667b2b71e49929446b41f7f7a3e9e45bc52a1e8c45d59c1788be48a9c365d51feee0b2cd3295001cdad1ba5ccf808686b5ce5a269ae5\n\nm = getM2(a,b,c1,c2,n,e)-padding2\n\n#print m\n#print hex(m)\n#print binascii.unhexlify(hex(m))\nprint(binascii.unhexlify(hex(m)[2:].strip(\"L\")))",
+                                             "language":  "python"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "\u003e\u003e\u003e s=\"ATTACKANDDEFENCEWORLDISINTERESTING\"\n\u003e\u003e\u003e print(s.lower())\nattackanddefenceworldisinteresting",
+                                             "language":  "bash"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "CTF密码学题目主要分为RSA类和算法解密类。RSA类题目涉及公钥分析、数学推导；算法解密类涉及古典密码和编码转换。",
+                                      "en":  "CTF cryptography challenges mainly divide into RSA and algorithm decryption. RSA involves public key analysis and mathematical derivation; algorithm decryption involves classical ciphers and encoding conversion."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手介绍密码学题型分类",
+                                         "en":  "Assistant introduces cryptography challenge classification"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "rsatool",
+                      "content":  {
+                                      "zh":  "RSA题目：给定公钥文件(.pem)和密文文件(.enc)，通过分解n恢复私钥解密",
+                                      "en":  "RSA challenge: Given public key file (.pem) and ciphertext file (.enc), recover private key by factoring n for decryption"
+                                  },
+                      "annotation":  {
+                                         "zh":  "RSA公钥加密文题型",
+                                         "en":  "RSA public key ciphertext challenge type"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "RSA题目的核心是找到n的因子p和q。对于小n可以直接分解，大n需要利用特殊性质如共模攻击、广播攻击等。",
+                                      "en":  "The core of RSA challenges is finding factors p and q of n. Small n can be factored directly, large n requires special properties like common modulus attack, broadcast attack, etc."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手讲解RSA攻击方法",
+                                         "en":  "Assistant explains RSA attack methods"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "python",
+                      "content":  {
+                                      "zh":  "RSA Padding Attack示例：利用m和m+1的关系，推导数学公式求解明文",
+                                      "en":  "RSA Padding Attack example: Using relationship between m and m+1, derive mathematical formulas to solve for plaintext"
+                                  },
+                      "annotation":  {
+                                         "zh":  "RSA Padding Attack示例",
+                                         "en":  "RSA Padding Attack example"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "算法解密类题目包括栅栏密码(栏数提示)、凯撒密码(位移)、摩尔斯电码(.和-转换)、培根密码(AB编码)等。",
+                                      "en":  "Algorithm decryption challenges include rail fence cipher (fence count hint), Caesar cipher (shift), Morse code (. and - conversion), Bacon cipher (AB encoding), etc."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手介绍古典密码类型",
+                                         "en":  "Assistant introduces classical cipher types"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "cyberchef",
+                      "content":  {
+                                      "zh":  "摩尔斯电码转换：将--/.-/-.--格式转换为MAY_BE_HAVE_ANOTHER_DECODE，再通过培根密码解码",
+                                      "en":  "Morse code conversion: Convert --/.-/-.-- format to MAY_BE_HAVE_ANOTHER_DECODE, then decode via Bacon cipher"
+                                  },
+                      "annotation":  {
+                                         "zh":  "多重编码解码示例",
+                                         "en":  "Multiple encoding decoding example"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "密码学题目需要熟悉各种加密算法原理，灵活运用工具进行解密。多层加密时注意分析特征逐层剥离。",
+                                      "en":  "Cryptography challenges require familiarity with various encryption algorithm principles, flexible use of tools for decryption. For multi-layer encryption, analyze characteristics and peel layers one by one."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手总结密码学解题要点",
+                                         "en":  "Assistant summarizes cryptography solving points"
+                                     }
+                  }
+              ]
+}

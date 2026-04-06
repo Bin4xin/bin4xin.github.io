@@ -1,0 +1,98 @@
+{
+  "_source_md": "AI-CLI/2026-03-26-zh-cn.md",
+  "version": "claude-code-zh-cn",
+  "title": {
+    "zh": "Claude Code 中文指南：下载、反编译与配置",
+    "en": "Claude Code Chinese Guide: Download, Decompilation and Configuration"
+  },
+  "description": {
+    "zh": "Claude Code CLI 工具的下载、反编译脚本使用，以及服务检查失败和版本绕过运行等问题的解决方案。",
+    "en": "Guide for downloading and decompiling Claude Code CLI tool, along with solutions for service check failures and version bypass issues."
+  },
+  "steps": [
+    {
+      "type": "user_message",
+      "content": {
+        "zh": "如何下载和反编译 Claude Code？",
+        "en": "How to download and decompile Claude Code?"
+      },
+      "annotation": {
+        "zh": "用户询问 Claude Code 的逆向分析方法",
+        "en": "User asks about Claude Code reverse engineering methods"
+      },
+      "codeBlocks": [
+        {
+          "caption": {
+            "zh": "",
+            "en": ""
+          },
+          "code": "#!/bin/bash\n\nset -e\n\n# 检查参数\nif [ -z \"$1\" ]; then\n    echo \"用法: $0 <version>\"\n    echo \"示例: $0 1.0.0\"\n    exit 1\nfi\n\nVERSION=\"$1\"\nVERSION_DIR=\"$VERSION\"\nDECOMPILED_DIR=\"decompiled_$VERSION\"\nPACKAGE_NAME=\"@anthropic-ai/claude-code\"\n\necho \"==========================================\"\necho \"Claude Code 版本下载与反编译脚本\"\necho \"版本: $VERSION\"\necho \"==========================================\"\n\n# 清理并创建目录\necho \"\"\necho \"[1/5] 准备目录...\"\nrm -rf \"$VERSION_DIR\"\nrm -rf \"$DECOMPILED_DIR\"\nmkdir -p \"$VERSION_DIR\"\n\n# 下载指定版本的包\necho \"\"\necho \"[2/5] 下载 $PACKAGE_NAME@$VERSION ...\"\ncd \"$VERSION_DIR\"\nnpm pack \"$PACKAGE_NAME@$VERSION\"\n\n# 找到下载的 tgz 文件\nTGZ_FILE=$(ls *.tgz | head -n 1)\nif [ -z \"$TGZ_FILE\" ]; then\n    echo \"错误: 下载失败，未找到 tgz 文件\"\n    exit 1\nfi\necho \"已下载: $TGZ_FILE\"\n\n# 解压包\necho \"\"\necho \"[3/5] 解压到 $VERSION_DIR 目录...\"\ntar -xzf \"$TGZ_FILE\"\nmv package/ $VERSION/\n# PACKAGE_DIR=$(tar -tzf \"$TGZ_FILE\" | head -n 1 | cut -f1 -d\"/\")\n# mv \"$PACKAGE_DIR\"*/* .\n# rm -rf \"$PACKAGE_DIR\"*\nrm \"$TGZ_FILE\"\n\ncd ..\n\n# 检查是否安装了 webcrack\necho \"\"\necho \"[4/5] 检查 webcrack...\"\nif ! command -v webcrack &> /dev/null; then\n    echo \"webcrack 未安装，正在安装...\"\n    npm install -g webcrack\nfi\n\n# 反编译代码\necho \"\"\necho \"[5/5] 反编译代码到 $DECOMPILED_DIR ...\"\nwebcrack \"$VERSION_DIR/$VERSION_DIR/cli.js\" -o \"$VERSION_DIR/$DECOMPILED_DIR\"\n\necho \"\"\necho \"==========================================\"\necho \"完成！\"\necho \"==========================================\"\necho \"\"\necho \"目录结构：\"\necho \"  $VERSION_DIR/       - 原始包（可用 npx 调用）\"\necho \"  $DECOMPILED_DIR/    - 反编译后的代码\"\necho \"\"\necho \"使用方法：\"\necho \"  cd $VERSION_DIR\"\necho \"  npx .        # 调用该版本的 Claude Code\"\necho \"\"",
+          "language": "bash"
+        },
+        {
+          "caption": {
+            "zh": "",
+            "en": ""
+          },
+          "code": "{\n  \"installMethod\": \"unknown\",\n  \"autoUpdates\": true,\n  \"userID\": \"[your_user_id]\",\n  \"firstStartTime\": \"[time]\",\n  \"projects\": {\n    \"/Users/[your_home_folder]\": {\n      \"allowedTools\": [],\n      \"history\": [],\n      \"mcpContextUris\": [],\n      \"mcpServers\": {},\n      \"enabledMcpjsonServers\": [],\n      \"disabledMcpjsonServers\": [],\n      \"hasTrustDialogAccepted\": false,\n      \"projectOnboardingSeenCount\": 0,\n      \"hasClaudeMdExternalIncludesApproved\": false,\n      \"hasClaudeMdExternalIncludesWarningShown\": false\n    }\n  },\n  \"hasCompletedOnboarding\": true\n}",
+          "language": "json"
+        }
+      ]
+    },
+    {
+      "type": "assistant_text",
+      "content": {
+        "zh": "使用提供的 bash 脚本可以自动化下载和反编译：1) 清理并创建目录；2) 使用 npm pack 下载指定版本；3) 解压包文件；4) 检查并安装 webcrack；5) 反编译代码到输出目录。运行示例：./down2crack.sh 1.0.38",
+        "en": "Use the provided bash script for automated download and decompilation: 1) Clean and create directories; 2) Use npm pack to download specified version; 3) Extract package files; 4) Check and install webcrack; 5) Decompile code to output directory. Run example: ./down2crack.sh 1.0.38"
+      },
+      "annotation": {
+        "zh": "助手响应",
+        "en": "助手响应"
+      }
+    },
+    {
+      "type": "user_message",
+      "content": {
+        "zh": "遇到服务检查失败怎么办？",
+        "en": "What to do about service check failure?"
+      },
+      "annotation": {
+        "zh": "用户执行操作",
+        "en": "用户执行操作"
+      }
+    },
+    {
+      "type": "assistant_text",
+      "content": {
+        "zh": "服务检查失败提示：无法连接到 Anthropic 服务。解决方案：修改 .claude.json 文件，添加 hasCompletedOnboarding: true 字段到配置中，绕过服务检查限制。",
+        "en": "Service check failure message: Unable to connect to Anthropic services. Solution: Modify .claude.json file, add hasCompletedOnboarding: true field to configuration to bypass service check restrictions."
+      },
+      "annotation": {
+        "zh": "助手响应",
+        "en": "助手响应"
+      }
+    },
+    {
+      "type": "user_message",
+      "content": {
+        "zh": "如何绕过版本更新提示？",
+        "en": "How to bypass version update prompts?"
+      },
+      "annotation": {
+        "zh": "用户执行操作",
+        "en": "用户执行操作"
+      }
+    },
+    {
+      "type": "assistant_text",
+      "content": {
+        "zh": "低版本绕过运行方法：修改 cli.js 文件第 2115 行，将 `,sI(1)}catch(A)` 改为 `}catch(A)`，移除版本检查逻辑，允许低版本继续运行。",
+        "en": "Low version bypass method: Modify line 2115 in cli.js file, change `,sI(1)}catch(A)` to `}catch(A)`, remove version check logic to allow older versions to continue running."
+      },
+      "annotation": {
+        "zh": "助手响应",
+        "en": "助手响应"
+      }
+    }
+  ]
+}

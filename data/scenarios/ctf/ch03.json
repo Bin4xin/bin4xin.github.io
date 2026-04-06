@@ -1,0 +1,105 @@
+{
+  "_source_md": "CTF/2022-09-07-WANGDINGCTF2022-Walkthrough.md",
+  "version": "wangdingctf2022-walkthrough",
+  "title": {
+    "zh": "2022年网鼎杯玄武组解题记录",
+    "en": "2022 Wangding CTF Xuanwu Group Writeup"
+  },
+  "description": {
+    "zh": "网鼎杯CTF玄武组多道Web题目的解题记录，包括SSRF漏洞利用和Java路由绕过等。",
+    "en": "Writeup of multiple web challenges from Wangding CTF Xuanwu Group, covering SSRF exploitation and Java route bypass."
+  },
+  "steps": [
+    {
+      "type": "user_message",
+      "content": {
+        "zh": "分析网鼎杯玄武组的Web题目",
+        "en": "Analyze Wangding CTF Xuanwu Group web challenges"
+      },
+      "annotation": {
+        "zh": "用户请求分析网鼎杯Web题目",
+        "en": "User requests analysis of Wangding CTF web challenges"
+      }
+    },
+    {
+      "type": "assistant_text",
+      "content": {
+        "zh": "网鼎杯玄武组有多个Web题目。首先分析web237-openlitespeed这道SSRF题目。",
+        "en": "Wangding CTF Xuanwu Group has multiple web challenges. First analyzing web237-openlitespeed SSRF challenge."
+      },
+      "annotation": {
+        "zh": "助手开始分析SSRF题目",
+        "en": "Assistant starts analyzing SSRF challenge"
+      }
+    },
+    {
+      "type": "tool_result",
+      "toolName": "curl",
+      "content": {
+        "zh": "目标页面存在curl_opt参数，可以控制curl选项进行SSRF攻击",
+        "en": "Target page has curl_opt parameter, can control curl options for SSRF attack"
+      },
+      "annotation": {
+        "zh": "发现SSRF漏洞点",
+        "en": "Found SSRF vulnerability"
+      }
+    },
+    {
+      "type": "assistant_text",
+      "content": {
+        "zh": "发现PHP curl_setopt可控，存在SSRF漏洞。尝试通过SSRF写入webshell。",
+        "en": "Found PHP curl_setopt is controllable, SSRF vulnerability exists. Trying to write webshell via SSRF."
+      },
+      "annotation": {
+        "zh": "助手尝试SSRF写shell",
+        "en": "Assistant attempts SSRF write shell"
+      }
+    },
+    {
+      "type": "tool_result",
+      "toolName": "burpsuite",
+      "content": {
+        "zh": "尝试通过file://协议写shell失败，需要寻找其他利用方式",
+        "en": "Attempt to write shell via file:// protocol failed, need other exploitation methods"
+      },
+      "annotation": {
+        "zh": "SSRF利用尝试",
+        "en": "SSRF exploitation attempt"
+      }
+    },
+    {
+      "type": "assistant_text",
+      "content": {
+        "zh": "接下来分析web441-ezJava题目，这是一道Java反序列化题目，需要绕过路由过滤。",
+        "en": "Next analyzing web441-ezJava challenge, a Java deserialization problem requiring route bypass."
+      },
+      "annotation": {
+        "zh": "助手转向分析Java题目",
+        "en": "Assistant turns to analyze Java challenge"
+      }
+    },
+    {
+      "type": "tool_result",
+      "toolName": "curl",
+      "content": {
+        "zh": "使用/;Evil绕过startsWith检查，成功访问Evil端点",
+        "en": "Using /;Evil bypasses startsWith check, successfully accessed Evil endpoint"
+      },
+      "annotation": {
+        "zh": "Java路由绕过成功",
+        "en": "Java route bypass successful"
+      }
+    },
+    {
+      "type": "assistant_text",
+      "content": {
+        "zh": "成功绕过路由保护。利用base参数传入恶意序列化对象，获取flag。",
+        "en": "Successfully bypassed route protection. Using base parameter to inject malicious serialized object, captured flag."
+      },
+      "annotation": {
+        "zh": "完成Java题目解题",
+        "en": "Completed Java challenge solution"
+      }
+    }
+  ]
+}

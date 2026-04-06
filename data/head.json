@@ -1,0 +1,21 @@
+{
+  "title": "Sentinel Sec - Lab Simulator",
+  "meta": [
+    { "name": "description", "content": "Sentinel Sec 实验室模拟器 - 交互式安全场景演示平台" },
+    { "name": "keywords", "content": "sentinel, security, simulator, lab, interactive, scenarios, CVE" },
+    { "name": "author", "content": "Sentinel Sec Team" },
+    { "name": "viewport", "content": "width=device-width, initial-scale=1" },
+    { "property": "og:title", "content": "Sentinel Sec - Lab Simulator" },
+    { "property": "og:description", "content": "交互式安全场景模拟器" },
+    { "property": "og:image", "content": "/assets/pics/logo-share.png" },
+    { "property": "og:type", "content": "website" },
+    { "name": "twitter:card", "content": "summary_large_image" },
+    { "name": "twitter:title", "content": "Sentinel Sec - Lab Simulator" },
+    { "name": "twitter:image", "content": "/assets/pics/logo-share.png" }
+  ],
+  "links": [
+    { "rel": "icon", "href": "/assets/pics/favicon.png" },
+    { "rel": "apple-touch-icon", "href": "/assets/pics/logo-small.png" }
+  ],
+  "darkModeScript": "(function(){var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}})();"
+}

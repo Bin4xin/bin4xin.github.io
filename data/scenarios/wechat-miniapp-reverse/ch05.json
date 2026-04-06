@@ -1,0 +1,152 @@
+{
+    "_source_md":  "wechat-miniapps/2026-01-26-wechat-miniapp-reverse-advanced-toolchain-2026.md",
+    "version":  "wechat-miniapp-advanced-toolchain",
+    "title":  {
+                  "zh":  "微信小程序逆向 III - KillWxapkg 自动化工具链实战",
+                  "en":  "WeChat MiniApp Reverse III - KillWxapkg Automated Toolchain in Practice"
+              },
+    "description":  {
+                        "zh":  "介绍 2026 年主流自动化逆向工具链，重点推荐 KillWxapkg 工具的完整使用流程。",
+                        "en":  "Introduce mainstream 2026 automated reverse engineering toolchains, focusing on KillWxapkg."
+                    },
+    "steps":  [
+                  {
+                      "type":  "system_event",
+                      "content":  {
+                                      "zh":  "主流工具对比：\n| 工具 | 自动化程度 | Hook 能力 | 推荐指数 |\n| wux1an/wxapkg | 高 | 无 | ★★★★★ |\n| zhuweiyou/wxapkg | 极高 | 无 | ★★★★☆ |\n| KillWxapkg | 最高 | 内置通用 Hook | ★★★★★ |\n| wxappUnpacker | 中 | 无 | 备用 |\n| r0capture | 中 | 内存转储 | 补充 |",
+                                      "en":  "Mainstream tools comparison:\n| Tool | Automation | Hook Ability | Rating |\n| wux1an/wxapkg | High | None | ★★★★★ |\n| zhuweiyou/wxapkg | Very High | None | ★★★★☆ |\n| KillWxapkg | Highest | Built-in Hook | ★★★★★ |\n| wxappUnpacker | Medium | None | Backup |\n| r0capture | Medium | Memory dump | Supplement |"
+                                  },
+                      "annotation":  {
+                                         "zh":  "KillWxapkg 支持微信 4.x，2026 年仍活跃更新",
+                                         "en":  "KillWxapkg supports WeChat 4.x, still actively updated in 2026"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "KillWxapkg 核心优势：\n- 自动化扫描、解密、解包、工程目录还原\n- 内置通用 Hook：AES、RSA、MD5、wx.request\n- 支持小程序分包自动合并\n- 2026 年仍保持活跃更新",
+                                      "en":  "KillWxapkg core advantages:\n- Automated scan, decrypt, unpack, project restore\n- Built-in hooks: AES, RSA, MD5, wx.request\n- Support sub-package auto-merge\n- Still actively updated in 2026"
+                                  },
+                      "annotation":  {
+                                         "zh":  "一站式完成从缓存到源码的全流程",
+                                         "en":  "One-stop complete flow from cache to source code"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "git clone https://github.com/Ackites/KillWxapkg\npip install -r requirements.txt\npython main.py",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "# 鎵弿鏈湴鎵€鏈夊凡瀹夎鐨勫皬绋嬪簭\npython main.py scan\n# 瑙ｅ寘鎸囧畾鍚嶇О鐨勫皬绋嬪簭\npython main.py unpack --name \"灏忕▼搴忓悕绉?\n# Hook妯″紡锛岃嚜鍔ㄦ彁鍙栧姞瀵嗗瘑閽?python main.py hook --name \"鐩爣灏忕▼搴?",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "[AES] key = 0123456789abcdef0123456789abcdef\n[AES] iv  = fedcba9876543210\n[AES] plain = {\"uid\":123,\"token\":\"xxx\"}",
+                                             "language":  "text"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "fs.appendFileSync(\n  \u0027/data/local/tmp/crypto_dump.json\u0027,\n  JSON.stringify(obj) + \u0027\\n\u0027\n)",
+                                             "language":  "javascript"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "import json\nctx = json.loads(open(\"crypto_dump.json\").read().splitlines()[-1])\nkey = bytes.fromhex(ctx[\"key\"])\niv  = bytes.fromhex(ctx[\"iv\"])",
+                                             "language":  "python"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "from Crypto.Cipher import AES\nimport base64, json, requests\ndef encrypt(data, key, iv):\n    raw = json.dumps(data).encode()\n    pad = 16 - len(raw) % 16\n    raw += bytes([pad]) * pad\n    return base64.b64encode(\n        AES.new(key, AES.MODE_CBC, iv).encrypt(raw)\n    ).decode()\npayload = encrypt({\"uid\":123,\"amount\":100}, key, iv)\nr = requests.post(\n    \"https://api.example.com/pay\",\n    json={\"data\": payload}\n)\nprint(r.text)",
+                                             "language":  "python"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "安装与运行：\ngit clone https://github.com/Ackites/KillWxapkg\npip install -r requirements.txt\npython main.py",
+                                      "en":  "Install and run:\ngit clone https://github.com/Ackites/KillWxapkg\npip install -r requirements.txt\npython main.py"
+                                  },
+                      "annotation":  {
+                                         "zh":  "需要 Python 环境和 pip 包管理器",
+                                         "en":  "Requires Python environment and pip package manager"
+                                     }
+                  },
+                  {
+                      "type":  "system_event",
+                      "content":  {
+                                      "zh":  "常用命令：\n# 扫描本地所有已安装的小程序\npython main.py scan\n\n# 解包指定名称的小程序\npython main.py unpack --name \"小程序名称\"\n\n# Hook 模式，自动提取加密密钥\npython main.py hook --name \"目标小程序\"",
+                                      "en":  "Common commands:\n# Scan all locally installed MiniApps\npython main.py scan\n\n# Unpack specified MiniApp by name\npython main.py unpack --name \"MiniApp name\"\n\n# Hook mode, auto extract encryption keys\npython main.py hook --name \"target MiniApp\""
+                                  },
+                      "annotation":  {
+                                         "zh":  "输出目录为 output/，包含完整工程目录",
+                                         "en":  "Output directory is output/, containing complete project"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "实战流程示例：\n1. scan 扫描定位目标小程序\n2. unpack 完成自动解密与解包\n3. 将工程导入微信开发者工具\n4. 启动小程序，自动输出 Hook 日志",
+                                      "en":  "Practical workflow:\n1. scan to locate target MiniApp\n2. unpack for auto decryption and unpacking\n3. Import project to WeChat DevTools\n4. Start MiniApp, auto output Hook logs"
+                                  },
+                      "annotation":  {
+                                         "zh":  "Hook 日志包含加密密钥、明文等关键信息",
+                                         "en":  "Hook logs contain encryption keys, plaintext, and other key info"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "自动化流水线目标：\n- 小程序启动后自动提取加密密钥与 IV\n- 自动完成请求参数加密\n- 实现 HTTPS 接口脚本化调用\n- 全程无需人工值守",
+                                      "en":  "Automated pipeline goals:\n- Auto extract encryption keys and IV on MiniApp start\n- Auto encrypt request parameters\n- Implement script-based HTTPS API calls\n- Fully automated without manual intervention"
+                                  },
+                      "annotation":  {
+                                         "zh":  "将单次逆向升级为协议工程化分析",
+                                         "en":  "Upgrade from one-time reverse to protocol engineering analysis"
+                                     }
+                  },
+                  {
+                      "type":  "system_event",
+                      "content":  {
+                                      "zh":  "Hook 输出结构化处理：\n[AES] key = 0123456789abcdef...\n[AES] iv  = fedcba9876543210\n[AES] plain = {\"uid\":123,\"token\":\"xxx\"}\n\n写入本地文件供后续脚本读取",
+                                      "en":  "Hook output structuring:\n[AES] key = 0123456789abcdef...\n[AES] iv  = fedcba9876543210\n[AES] plain = {\"uid\":123,\"token\":\"xxx\"}\n\nWrite to local file for subsequent script reading"
+                                  },
+                      "annotation":  {
+                                         "zh":  "结合 Python 脚本实现自动化协议复现",
+                                         "en":  "Combine Python scripts for automated protocol reproduction"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "常见问题与优化：\n- 分包未合并：添加 --merge 参数\n- 解密失败：先用 wux1an/wxapkg 预解密\n- Hook 无输出：自定义 Frida 脚本补充 Hook 点\n\n技术结论：仅靠 HTTPS、AES、动态密钥的防护，在工程化逆向面前存在明显局限",
+                                      "en":  "Common issues and optimization:\n- Sub-packages not merged: add --merge parameter\n- Decryption failed: use wux1an/wxapkg for pre-decryption\n- Hook no output: custom Frida scripts for additional hooks\n\nConclusion: HTTPS, AES, dynamic keys alone have clear limitations against engineering-level reverse"
+                                  },
+                      "annotation":  {
+                                         "zh":  "从单次分析升级为流水线作业",
+                                         "en":  "Upgrade from one-time analysis to pipeline operations"
+                                     }
+                  }
+              ]
+}

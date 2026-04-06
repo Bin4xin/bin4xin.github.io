@@ -1,0 +1,220 @@
+{
+  "categories": [
+    {
+      "id": "ai-cli",
+      "name": "Ai Cli",
+      "description": "Category: ai-cli",
+      "files": [
+        "ch01.json",
+        "ch02.json"
+      ]
+    },
+    {
+      "id": "apache-log4j2",
+      "name": "Apache Log4j2",
+      "description": "Category: apache-log4j2",
+      "files": [
+        "ch01.json",
+        "ch02.json"
+      ]
+    },
+    {
+      "id": "apereo-cas",
+      "name": "Apereo Cas",
+      "description": "",
+      "files": [
+        "ch01.json"
+      ]
+    },
+    {
+      "id": "binfiles",
+      "name": "Binfiles",
+      "description": "Category: binfiles",
+      "files": [
+        "ch01.json",
+        "ch02.json"
+      ]
+    },
+    {
+      "id": "burp",
+      "name": "Burp",
+      "description": "Category: burp",
+      "files": [
+        "ch01.json"
+      ]
+    },
+    {
+      "id": "claude-code-dive",
+      "name": "Claude Code Dive",
+      "description": "Category: claude-code-dive",
+      "files": [
+        "ch01.json",
+        "ch02.json",
+        "ch03.json",
+        "ch04.json",
+        "ch05.json",
+        "ch06.json",
+        "ch07.json",
+        "ch08.json",
+        "ch09.json",
+        "ch10.json",
+        "ch11.json",
+        "ch12.json",
+        "ch13.json"
+      ]
+    },
+    {
+      "id": "cobalt-strike",
+      "name": "Cobalt Strike",
+      "description": "Category: cobalt-strike",
+      "files": [
+        "ch01.json",
+        "ch02.json",
+        "ch03.json"
+      ]
+    },
+    {
+      "id": "code-audit",
+      "name": "Code Audit",
+      "description": "Category: code-audit",
+      "files": [
+        "ch01.json",
+        "ch02.json",
+        "ch03.json",
+        "ch04.json"
+      ]
+    },
+    {
+      "id": "ctf",
+      "name": "Ctf",
+      "description": "Category: ctf",
+      "files": [
+        "ch01.json",
+        "ch02.json",
+        "ch03.json",
+        "ch04.json",
+        "ch05.json",
+        "ch06.json",
+        "ch07.json",
+        "ch08.json"
+      ]
+    },
+    {
+      "id": "cve",
+      "name": "Cve",
+      "description": "Category: cve",
+      "files": [
+        "ch01.json",
+        "ch02.json"
+      ]
+    },
+    {
+      "id": "deser-walkthrough",
+      "name": "Deser Walkthrough",
+      "description": "Category: deser-walkthrough",
+      "files": [
+        "ch01.json",
+        "ch02.json",
+        "ch03.json",
+        "ch04.json",
+        "ch05.json"
+      ]
+    },
+    {
+      "id": "gitlab",
+      "name": "Gitlab",
+      "description": "Category: gitlab",
+      "files": [
+        "ch01.json",
+        "ch02.json",
+        "ch03.json"
+      ]
+    },
+    {
+      "id": "jmreport",
+      "name": "Jmreport",
+      "description": "",
+      "files": [
+        "ch01.json"
+      ]
+    },
+    {
+      "id": "openlitespeed",
+      "name": "Openlitespeed",
+      "description": "Category: openlitespeed",
+      "files": [
+        "ch01.json"
+      ]
+    },
+    {
+      "id": "phishing",
+      "name": "Phishing",
+      "description": "",
+      "files": [
+        "ch01.json",
+        "ch02.json"
+      ]
+    },
+    {
+      "id": "spring-boot",
+      "name": "Spring Boot",
+      "description": "Category: spring-boot",
+      "files": [
+        "ch01.json"
+      ]
+    },
+    {
+      "id": "spring-cloud",
+      "name": "Spring Cloud",
+      "description": "Category: spring-cloud",
+      "files": [
+        "ch01.json"
+      ]
+    },
+    {
+      "id": "sql-injection",
+      "name": "Sql Injection",
+      "description": "Category: sql-injection",
+      "files": [
+        "ch01.json"
+      ]
+    },
+    {
+      "id": "todo-oa",
+      "name": "Todo Oa",
+      "description": "Category: todo-oa",
+      "files": [
+        "ch01.json"
+      ]
+    },
+    {
+      "id": "tools",
+      "name": "Tools",
+      "description": "Category: tools",
+      "files": [
+        "ch01.json"
+      ]
+    },
+    {
+      "id": "waf",
+      "name": "Waf",
+      "description": "Category: waf",
+      "files": [
+        "ch01.json",
+        "ch02.json"
+      ]
+    },
+    {
+      "id": "wechat-miniapp-reverse",
+      "name": "Wechat Miniapp Reverse",
+      "description": "Category: wechat-miniapp-reverse",
+      "files": [
+        "ch01.json",
+        "ch02.json",
+        "ch03.json",
+        "ch04.json",
+        "ch05.json"
+      ]
+    }
+  ]
+}

