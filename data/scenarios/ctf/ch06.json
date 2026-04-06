@@ -1,0 +1,155 @@
+{
+    "_source_md":  "CTF/2021-07-27-CTF-Code-Audit-WalkThrough.md",
+    "version":  "ctf-code-audit-walkthrough",
+    "title":  {
+                  "zh":  "CTF代码审计题目详解",
+                  "en":  "CTF Code Audit Challenges Walkthrough"
+              },
+    "description":  {
+                        "zh":  "CTF代码审计方向题目的详细解题指南，包括PHP文件包含、JavaScript代码分析、PHP伪协议利用、类型转换漏洞等。",
+                        "en":  "Detailed guide for CTF code audit challenges, covering PHP file inclusion, JavaScript code analysis, PHP pseudo-protocol exploitation, type conversion vulnerabilities, etc."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "分析CTF代码审计类题目的常见漏洞类型",
+                                      "en":  "Analyze common vulnerability types in CTF code audit challenges"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户请求代码审计题型分析",
+                                         "en":  "User requests code audit challenge type analysis"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "\u0026\u0026 emmm::checkFile($_REQUEST[\u0027file\u0027]))",
+                                             "language":  "php"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$whitelist = [\"source\"=\u003e\"source.php\",\"hint\"=\u003e\"hint.php\"]; \n\nif (in_array($page, $whitelist)) {return true;}",
+                                             "language":  "php"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$_page = mb_substr(\n    $page,\n    0,\n    mb_strpos($page . \u0027?\u0027, \u0027?\u0027)\n);",
+                                             "language":  "php"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "\u003c?php\nhighlight_file(__FILE__);\nclass emmm\n{\n    public static function checkFile(\u0026$page)\n    {\n        $whitelist = [\"source\"=\u003e\"source.php\",\"hint\"=\u003e\"hint.php\"];\n        if (! isset($page) || !is_string($page)) {\n            echo \"you can\u0027t see it\";\n            return false;\n        }\n\n        if (in_array($page, $whitelist)) {\n            return true;\n        }\n\n        $_page = mb_substr(\n            $page,\n            0,\n            mb_strpos($page . \u0027?\u0027, \u0027?\u0027)\n        );\n        if (in_array($_page, $whitelist)) {\n            return true;\n        }\n\n        $_page = urldecode($page);\n        $_page = mb_substr(\n            $_page,\n            0,\n            mb_strpos($_page . \u0027?\u0027, \u0027?\u0027)\n        );\n        if (in_array($_page, $whitelist)) {\n            return true;\n        }\n        echo \"you can\u0027t see it\";\n        return false;\n    }\n}\n\nif (! empty($_REQUEST[\u0027file\u0027])\n    \u0026\u0026 is_string($_REQUEST[\u0027file\u0027])\n    \u0026\u0026 emmm::checkFile($_REQUEST[\u0027file\u0027])\n) {\n    include $_REQUEST[\u0027file\u0027];\n    exit;\n} else {\n    echo \"\u003cbr\u003e\u003cimg src=\\\"https://i.loli.net/2018/11/01/5bdb0d93dc794.jpg\\\" /\u003e\";\n}",
+                                             "language":  "php"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "function $(){\n    var e=document.getElementById(\"c\").value;\n    if(e.length==16)\n    if(e.match(/^be0f23/)!=null)\n    if(e.match(/233ac/)!=null)\n    if(e.match(/e98aa$/)!=null)\n    if(e.match(/c7be9/)!=null)\n    {\n        var t=[\"fl\",\"s_a\",\"i\",\"e}\"];\n        var n=[\"a\",\"_h0l\",\"n\"];\n        var r=[\"g{\",\"e\",\"_0\"];\n        var i=[\"it\u0027\",\"_\",\"n\"];\n        var s=[t,n,r,i];\n        for(var o=0;o\u003c13;++o){document.write(s[o%4][0]);s[o%4].splice(0,1)\n        }\n    }\n}\n    document.write(\u0027\u003cinput id=\"c\"\u003e\u003cbutton onclick=$()\u003eOk\u003c/button\u003e\u0027);\n    delete _",
+                                             "language":  "js"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "鉃?echo PG1ldGEgY2hhcnNldD0iVVRGLTgiPgo8P3BocAogICAgaW5jbHVkZSAnLi9mbGFnLnBocCc7CiAgICBlcnJvcl9yZXBvcnRpbmcoMCk7CiAgICAkcGFyMSA9ICRfR0VUWydwYXIxJ107CiAgICAkcGFyMiA9ICRfR0VUWydwYXIyJ107CiAgICAkcGFyMyA9ICRfUE9TVFsncGFyMyddOwogICAgJHBhcjQgPSAkX1BPU1RbJ3BhcjQnXTsKICAgIGlmIChpc3NldCgkcGFyMSkmJmlzc2V0KCRwYXIyKSYmaXNzZXQoJHBhcjMpJiZpc3NldCgkcGFyNCkpIHsKICAgICAgICBpZiAoJHBhcjEgPT09ICRwYXIyICYmIG1kNSgkcGFyMSkgIT09IG1kNSgkcGFyMikpIHsKICAgICAgICAgICAgZGllKCfov5jmg7Por7vlj5ZmbGFn77yfJyk7CiAgICAgICAgfQogICAgICAgIGlmIChoYXNoKCJtZDQiLCAkcGFyMykgPT0gaGFzaCgibWQ0IiwgJHBhcjQpKSB7CiAgICAgICAgICAgIGVjaG8gJ+e7meS9oGZsYWfvvIEnIC4gJGZsYWc7CiAgICAgICAgfQogICAgfQo=|base64 -d\n#secure.php:\n\u003cmeta charset=\"UTF-8\"\u003e\n\u003c?php\n    include \u0027./flag.php\u0027;\n    error_reporting(0);\n    $par1 = $_GET[\u0027par1\u0027];\n    $par2 = $_GET[\u0027par2\u0027];\n    $par3 = $_POST[\u0027par3\u0027];\n    $par4 = $_POST[\u0027par4\u0027];\n    if (isset($par1)\u0026\u0026isset($par2)\u0026\u0026isset($par3)\u0026\u0026isset($par4)) {\n        if ($par1 === $par2 \u0026\u0026 md5($par1) !== md5($par2)) {\n            die(\u0027杩樻兂璇诲彇flag锛?);\n        }\n        if (hash(\"md4\", $par3) == hash(\"md4\", $par4)) {\n            echo \u0027缁欎綘flag锛? . $flag;\n        }\n    }",
+                                             "language":  "bash"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "代码审计题目主要涉及文件包含、反序列化、类型比较等漏洞。以PHP代码审计最为常见。",
+                                      "en":  "Code audit challenges mainly involve file inclusion, deserialization, type comparison vulnerabilities. PHP code audit is most common."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手介绍代码审计题型",
+                                         "en":  "Assistant introduces code audit challenge types"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "curl",
+                      "content":  {
+                                      "zh":  "文件包含题目：通过URL双重编码绕过白名单检查，payload: source.php%3f/../../../etc/passwd",
+                                      "en":  "File inclusion challenge: Bypass whitelist check via double URL encoding, payload: source.php%3f/../../../etc/passwd"
+                                  },
+                      "annotation":  {
+                                         "zh":  "文件包含绕过示例",
+                                         "en":  "File inclusion bypass example"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "PHP的mb_strpos和urldecode函数配合不当可导致绕过。理解代码逻辑是关键。",
+                                      "en":  "Improper combination of PHP mb_strpos and urldecode functions can lead to bypass. Understanding code logic is key."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手分析绕过原理",
+                                         "en":  "Assistant analyzes bypass principle"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "javascript",
+                      "content":  {
+                                      "zh":  "JS混淆题目：修改eval为alert揭示代码逻辑，通过正则匹配构造满足条件的输入",
+                                      "en":  "JS obfuscation challenge: Modify eval to alert to reveal code logic, construct satisfying input via regex matching"
+                                  },
+                      "annotation":  {
+                                         "zh":  "JavaScript代码分析示例",
+                                         "en":  "JavaScript code analysis example"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "JavaScript题目常通过eval混淆代码。替换为alert或console.log可查看原始代码，分析后构造payload。",
+                                      "en":  "JavaScript challenges often obfuscate code via eval. Replacing with alert or console.log reveals original code, then construct payload after analysis."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手讲解JS去混淆方法",
+                                         "en":  "Assistant explains JS deobfuscation method"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "burpsuite",
+                      "content":  {
+                                      "zh":  "PHP伪协议题目：使用php://filter读取源码，利用MD4弱类型比较获取flag",
+                                      "en":  "PHP pseudo-protocol challenge: Use php://filter to read source, exploit MD4 weak type comparison to get flag"
+                                  },
+                      "annotation":  {
+                                         "zh":  "PHP伪协议利用示例",
+                                         "en":  "PHP pseudo-protocol exploitation example"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "代码审计需要仔细分析输入处理流程、过滤逻辑和输出方式，寻找逻辑漏洞或边界条件。",
+                                      "en":  "Code audit requires careful analysis of input processing flow, filtering logic and output methods, finding logic vulnerabilities or boundary conditions."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手总结代码审计要点",
+                                         "en":  "Assistant summarizes code audit points"
+                                     }
+                  }
+              ]
+}

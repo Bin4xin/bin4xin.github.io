@@ -1,0 +1,155 @@
+{
+    "_source_md":  "wechat-miniapps/2026-01-26-wechat-miniapp-reverse-beginner-2026-full.md",
+    "version":  "wechat-miniapp-reverse-beginner",
+    "title":  {
+                  "zh":  "微信小程序逆向入门 - PC 微信缓存解包与开发者工具调试",
+                  "en":  "WeChat MiniApp Reverse Beginner - PC WeChat Cache Unpacking and DevTools Debugging"
+              },
+    "description":  {
+                        "zh":  "从零基础开始，利用 PC 版微信运行小程序产生的本地缓存包文件，通过解密和提取获得前端源码。",
+                        "en":  "Starting from zero, use local cache files from PC WeChat to decrypt and extract frontend source code."
+                    },
+    "steps":  [
+                  {
+                      "type":  "system_event",
+                      "content":  {
+                                      "zh":  "2026 年小程序逆向实践价值：\n- UI/交互设计参考\n- 接口参数构造学习\n- 安全评估（明文传输、弱签名）\n- 协议模拟与自动化测试",
+                                      "en":  "2026 MiniApp reverse engineering value:\n- UI/interaction design reference\n- API parameter construction learning\n- Security assessment (plaintext transmission, weak signatures)\n- Protocol simulation and automated testing"
+                                  },
+                      "annotation":  {
+                                         "zh":  "PC 微信方案无需 Root 权限，是入门首选",
+                                         "en":  "PC WeChat approach requires no root, ideal for beginners"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "环境准备工具清单：\n- PC 版微信：运行目标小程序产生缓存\n- 解密工具：UnpackMiniApp、wechatAppDecrypt\n- Node.js 环境：运行解密脚本\n- 微信开发者工具：加载调试源码",
+                                      "en":  "Environment setup tools:\n- PC WeChat: run target MiniApp to generate cache\n- Decrypt tools: UnpackMiniApp, wechatAppDecrypt\n- Node.js: run decryption scripts\n- WeChat DevTools: load and debug source"
+                                  },
+                      "annotation":  {
+                                         "zh":  "工具均可从 GitHub 搜索获取",
+                                         "en":  "All tools available via GitHub search"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "{\n  \"phone\": \"138****8888\",\n  \"code\": \"123456\"\n}",
+                                             "language":  "json"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "{\n  \"data\": \"U2FsdGVkX1+9X6l0d7Y8W...\",\n  \"sign\": \"a8f1c3e9...\"\n}",
+                                             "language":  "json"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "encrypt\nAES\nCryptoJS\nmd5\nsha1\nsha256\nsign",
+                                             "language":  "text"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "function encryptData(data) {\n  const key = getKey()\n  return CryptoJS.AES.encrypt(\n    JSON.stringify(data),\n    key,\n    { mode: CryptoJS.mode.CBC }\n  ).toString()\n}",
+                                             "language":  "javascript"
+                                         },
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "const CryptoJS = require(\u0027crypto-js\u0027)\nconst cipher = \u0027U2FsdGVkX1+9X6l0...\u0027\nconst key = \u0027testkey12345678\u0027\nconst bytes = CryptoJS.AES.decrypt(cipher, key)\nconsole.log(bytes.toString(CryptoJS.enc.Utf8))",
+                                             "language":  "javascript"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "定位小程序缓存目录：\nC:\\Users\\[用户名]\\Documents\\WeChat Files\\Applet\n找到 wx 开头的文件夹（如 wx1234567890abcdef），通过修改时间定位目标",
+                                      "en":  "Locate MiniApp cache directory:\nC:\\Users\\[username]\\Documents\\WeChat Files\\Applet\nFind wx-prefixed folders, identify target by modification time"
+                                  },
+                      "annotation":  {
+                                         "zh":  "每个 wx 文件夹对应一个小程序",
+                                         "en":  "Each wx folder corresponds to one MiniApp"
+                                     }
+                  },
+                  {
+                      "type":  "system_event",
+                      "content":  {
+                                      "zh":  "提取缓存包文件：\n找到较大的 .wxapkg 文件（通常是 __APP__.wxapkg），这就是小程序的加密包文件",
+                                      "en":  "Extract cache package:\nFind the larger .wxapkg file (usually __APP__.wxapkg), this is the encrypted MiniApp package"
+                                  },
+                      "annotation":  {
+                                         "zh":  ".wxapkg 是微信小程序的标准包格式",
+                                         "en":  ".wxapkg is the standard WeChat MiniApp package format"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "解密与解包：\nnode unpack.js [.wxapkg文件路径] [输出目录]\n输出：.wxss（样式）、.wxml（结构）、.js（逻辑）、.json（配置）",
+                                      "en":  "Decrypt and unpack:\nnode unpack.js [.wxapkg path] [output dir]\nOutput: .wxss (style), .wxml (structure), .js (logic), .json (config)"
+                                  },
+                      "annotation":  {
+                                         "zh":  "不同工具命令略有差异，参考各工具 README",
+                                         "en":  "Commands vary by tool, refer to each tool\u0027s README"
+                                     }
+                  },
+                  {
+                      "type":  "system_event",
+                      "content":  {
+                                      "zh":  "导入开发者工具：\n1. 打开微信开发者工具，选择「导入项目」\n2. 项目目录选择解包输出目录\n3. 填写测试 AppID\n4. 点击「导入」即可看到小程序界面和源码",
+                                      "en":  "Import to DevTools:\n1. Open WeChat DevTools, select \u0027Import Project\u0027\n2. Select unpacked output directory\n3. Fill in test AppID\n4. Click \u0027Import\u0027 to see MiniApp UI and source"
+                                  },
+                      "annotation":  {
+                                         "zh":  "如报错 app.json 未找到，检查目录结构",
+                                         "en":  "If app.json not found error, check directory structure"
+                                     }
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "后续分析清单：\n- 代码结构梳理：阅读 app.js 和 app.json\n- 静态分析加密位置：搜索 encrypt、AES、sign 关键词\n- 网络请求定位：开发者工具 Network 面板\n- 基础修改调试：console.log 打印、断点调试",
+                                      "en":  "Follow-up analysis checklist:\n- Code structure: read app.js and app.json\n- Static encryption analysis: search encrypt, AES, sign keywords\n- Network request location: DevTools Network panel\n- Basic debugging: console.log, breakpoints"
+                                  },
+                      "annotation":  {
+                                         "zh":  "如静态分析无法理清加密逻辑，进入 Frida Hook 阶段",
+                                         "en":  "If static analysis can\u0027t clarify encryption, proceed to Frida Hook phase"
+                                     }
+                  },
+                  {
+                      "type":  "system_event",
+                      "content":  {
+                                      "zh":  "识别业务层加密：\n场景 A：明文 JSON（低安全防护）\n场景 B：业务层加密（长 Base64 或 Hex 字符串）\n若抓包到长 Base64，大概率为 AES/DES/SM4 加密",
+                                      "en":  "Identify business-layer encryption:\nScenario A: Plaintext JSON (low security)\nScenario B: Business-layer encryption (long Base64 or Hex)\nLong Base64 likely indicates AES/DES/SM4 encryption"
+                                  },
+                      "annotation":  {
+                                         "zh":  "HTTPS 仅保障传输层安全，不代表业务参数不可逆",
+                                         "en":  "HTTPS only ensures transport security, not irreversible business parameters"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "入门阶段总结：\n- 可区分 HTTPS 传输层加密与业务层加密\n- 可在源码中快速定位业务加密函数\n- 可识别 AES、签名或混合加密场景\n- 可通过脚本完成加密算法正确性验证",
+                                      "en":  "Beginner phase summary:\n- Can distinguish HTTPS transport encryption from business-layer encryption\n- Can quickly locate business encryption functions in source\n- Can identify AES, signature, or hybrid encryption scenarios\n- Can verify encryption algorithm correctness via scripts"
+                                  },
+                      "annotation":  {
+                                         "zh":  "下一阶段：Frida Hook 动态分析",
+                                         "en":  "Next phase: Frida Hook dynamic analysis"
+                                     }
+                  }
+              ]
+}

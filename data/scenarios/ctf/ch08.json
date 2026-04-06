@@ -1,0 +1,142 @@
+{
+  "_source_md": "CTF/2025-02-18-Pattern-Password-in-Marshmallow.md",
+  "version": "pattern-password-marshmallow",
+  "title": {
+    "zh": "Android棉花糖版本图案密码破解",
+    "en": "Cracking Android Pattern Password in Marshmallow"
+  },
+  "description": {
+    "zh": "Android 6.0-8.0版本图案密码破解详解，通过分析gatekeeper.pattern.key文件使用scrypt算法暴力破解。",
+    "en": "Detailed explanation of Android 6.0-8.0 pattern password cracking, analyzing gatekeeper.pattern.key file using scrypt algorithm brute force."
+  },
+  "steps": [
+    {
+      "type": "user_message",
+      "content": {
+        "zh": "分析Android棉花糖及以下版本的图案密码破解方法",
+        "en": "Analyze Android Marshmallow and below pattern password cracking methods"
+      },
+      "annotation": {
+        "zh": "用户请求Android密码破解分析",
+        "en": "User requests Android password cracking analysis"
+      },
+      "codeBlocks": [
+        {
+          "caption": { "zh": "", "en": "" },
+          "code": "<?xml version='1.0' encoding='utf-8' standalone='yes' ?>\n<policies setup-complete=\"true\">\n<admin name=\"com.google.android.gms/com.google.android.gms.mdm.receivers.MdmDeviceAdminReceiver\">\n<policies flags=\"540\" />\n<disable-bt-contacts-sharing value=\"true\" />\n</admin>\n<active-password quality=\"65536\" length=\"7\" uppercase=\"0\" lowercase=\"0\" letters=\"0\" numeric=\"0\" symbols=\"0\" nonletter=\"0\" />\n</policies>",
+          "language": "xml"
+        },
+        {
+          "caption": { "zh": "", "en": "" },
+          "code": "# 生成所有不重复的9位密码组合\nwith open('password.txt', 'a') as file1:\n    for perm in itertools.permutations(\"123456789\", 7):\n    # 生成所有9位不重复的排列\n        password = ''.join(perm)\n        # 组合成字符串\n        file1.write(password + '\\n')\n        # 写入文件",
+          "language": "python"
+        },
+        {
+          "caption": { "zh": "", "en": "" },
+          "code": "# Scrypt Lib依赖参数\nN = 16384  # CPU/内存消耗参数，控制计算复杂度\nr = 8      # 块大小参数，控制内存使用\np = 1      # 并行化参数，控制并行计算的数量\n\n# 读取 gatekeeper.pattern.key 文件\nwith open('gatekeeper.pattern.key', 'rb') as f:  # 以二进制模式打开文件\n    blob = f.read()  # 读取文件内容到变量 blob\n\n# 提取关键信息\ns = struct.Struct('<' + '17s 8s 32s')  # 定义二进制数据的解析格式：17字节字符串 + 8字节字符串 + 32字节字符串\n(meta, salt, signature) = s.unpack_from(blob)  # 从 blob 中解析出 meta、salt 和 signature\n\n# 读取字典文件\nwith open('password.txt', 'r') as f1:  # 以只读模式打开字典文件\n    lines = f1.readlines()  # 读取所有行到列表 lines\n\n# 遍历字典尝试破解\nfor data in lines:\n    password = data.strip()  # 去除每行首尾的空白字符（如换行符）\n    \n    # 确保密码为二进制格式\n    password_bytes = password.encode('utf-8')  # 将密码字符串编码为 UTF-8 格式的字节\n    to_hash = meta + password_bytes  # 组合 meta 和密码字节，形成待哈希的数据\n    \n    # 计算 Scrypt Hash\n    hash_result = scrypt.hash(to_hash, salt, N, r, p)  # 使用 Scrypt 算法计算哈希值\n\n    # 打印调试信息\n    print 'Passed: %s' % password  # 打印当前尝试的密码\n    print 'signature: %s' % signature.encode('hex')  # 打印签名（十六进制格式）\n    print 'Hash:      %s' % hash_result[0:32].encode('hex')  # 打印哈希值的前 32 位（十六进制格式）\n    print 'Equal:     %s' % (hash_result[0:32] == signature)  # 比较哈希值的前 32 位与签名是否相等\n\n    if hash_result[0:32] == signature:  # 如果匹配，打印成功密码并终止程序\n        print \"Matched: %s\" % password  # 打印找到的密码\n        print \"SUccess\"  # 打印成功信息\n        exit(0)  # 退出程序\n\n# 如果遍历完所有密码仍未找到匹配项\nprint \"Unmatched...\"  # 打印未找到匹配密码的信息",
+          "language": "python"
+        },
+        {
+          "caption": { "zh": "", "en": "" },
+          "code": "$ python2 crack.py\nPassed: 1256987\nsignature: ef68fd098aad3083794dbebaf9190bf1d981956d8a3301aece73cdfb4ed3bd6e\nHash:      ef68fd098aad3083794dbebaf9190bf1d981956d8a3301aece73cdfb4ed3bd6e\nEqual:     True\nMatched: 1256987\nSuccess!",
+          "language": "bash"
+        },
+        {
+          "caption": { "zh": "", "en": "" },
+          "code": "#!/usr/bin/python\n# -*- coding:utf-8 -*-\n\nimport itertools\nimport struct\nimport binascii\nimport scrypt\n\ndef Rock():\n    N = 16384\n    r = 8\n    p = 1\n    with open('gatekeeper.pattern.key', 'rb') as f:\n        blob = f.read()\n    s = struct.Struct('<' + '17s 8s 32s')\n    (meta, salt, signature) = s.unpack_from(blob)\n\n    with open('password.txt', 'r') as f1:\n        lines = f1.readlines()\n\n    for data in lines:\n        password = data.strip()\n        password_bytes = password.encode('utf-8')  \n        to_hash = meta + password_bytes\n        hash_result = scrypt.hash(to_hash, salt, N, r, p)\n        print 'Passed: %s' % password\n        print 'signature: %s' % signature.encode('hex')\n        print 'Hash:      %s' % hash_result[0:32].encode('hex')\n        print 'Equal:     %s' % (hash_result[0:32] == signature)\n        if hash_result[0:32] == signature:\n            print \"Matched: %s\" % password\n            print \"Success!\"\n            exit(0)\n    print \"Unmatched...\"\n\ndef Passlist():\n    with open('password.txt', 'a') as file1:\n        for perm in itertools.permutations(\"123456789\", 7):\n            password = ''.join(perm)\n            file1.write(password + '\\n')\n    Rock()\n\nif __name__ == \"__main__\":\n    Passlist()",
+          "language": "python"
+        },
+        {
+          "caption": { "zh": "", "en": "" },
+          "code": "ps> python2 .\\crypt.py\nTraceback (most recent call last):\n  File \".\\crypt.py\", line 4, in <module>\n    import scrypt\n  File \"C:\\Python27\\lib\\site-packages\\scrypt.py\", line 11, in <module>\n    _scrypt = cdll.LoadLibrary(imp.find_module('_scrypt')[1])\n  File \"C:\\Python27\\lib\\ctypes\\__init__.py\", line 444, in LoadLibrary\n    return self._dlltype(name)\n  File \"C:\\Python27\\lib\\__init__.py\", line 366, in LoadLibrary\n    self._handle = _dlopen(self._name, mode)\nWindowsError: [Error 126]",
+          "language": "powershell"
+        },
+        {
+          "caption": { "zh": "", "en": "" },
+          "code": "python2 -m pip install scrypt==0.8.11",
+          "language": "bash"
+        }
+      ]
+    },
+    {
+      "type": "assistant_text",
+      "content": {
+        "zh": "Android不同版本锁屏密码存储方式不同。早期版本使用SHA1，6.0+使用scrypt算法加密。",
+        "en": "Different Android versions store lock screen passwords differently. Early versions use SHA1, 6.0+ uses scrypt algorithm encryption."
+      },
+      "annotation": {
+        "zh": "助手介绍Android密码存储机制",
+        "en": "Assistant introduces Android password storage mechanism"
+      }
+    },
+    {
+      "type": "tool_result",
+      "toolName": "adb",
+      "content": {
+        "zh": "获取关键文件：gatekeeper.pattern.key包含meta、salt、signature三部分",
+        "en": "Obtain key files: gatekeeper.pattern.key contains meta, salt, signature three parts"
+      },
+      "annotation": {
+        "zh": "获取密钥文件",
+        "en": "Obtain key file"
+      }
+    },
+    {
+      "type": "assistant_text",
+      "content": {
+        "zh": "gatekeeper.pattern.key文件结构：17字节meta + 8字节salt + 32字节signature。需要暴力破解匹配signature。",
+        "en": "gatekeeper.pattern.key file structure: 17 bytes meta + 8 bytes salt + 32 bytes signature. Need brute force to match signature."
+      },
+      "annotation": {
+        "zh": "助手分析文件结构",
+        "en": "Assistant analyzes file structure"
+      }
+    },
+    {
+      "type": "tool_result",
+      "toolName": "cat",
+      "content": {
+        "zh": "从device_policies.xml获取密码长度=length=\"7\"",
+        "en": "Obtain password length from device_policies.xml: length=\"7\""
+      },
+      "annotation": {
+        "zh": "获取密码长度信息",
+        "en": "Obtain password length info"
+      }
+    },
+    {
+      "type": "assistant_text",
+      "content": {
+        "zh": "知道密码长度为7位，使用1-9数字不重复排列生成字典。9选7排列共9!/(9-7)!=181440种可能。",
+        "en": "Knowing password length is 7 digits, generate dictionary using 1-9 non-repeating permutations. 9 choose 7 gives 181440 possibilities."
+      },
+      "annotation": {
+        "zh": "助手计算破解复杂度",
+        "en": "Assistant calculates cracking complexity"
+      }
+    },
+    {
+      "type": "tool_result",
+      "toolName": "python",
+      "content": {
+        "zh": "使用scrypt库计算每个候选密码的哈希，与signature比对找到匹配：1256987",
+        "en": "Use scrypt library to calculate hash for each candidate password, compare with signature to find match: 1256987"
+      },
+      "annotation": {
+        "zh": "暴力破解成功",
+        "en": "Brute force successful"
+      }
+    },
+    {
+      "type": "assistant_text",
+      "content": {
+        "zh": "成功破解图案密码。关键步骤：获取密钥文件结构、确定密码长度、生成字典、scrypt比对。Android取证必备技能。",
+        "en": "Successfully cracked pattern password. Key steps: obtain key file structure, determine password length, generate dictionary, scrypt comparison. Essential Android forensics skill."
+      },
+      "annotation": {
+        "zh": "助手总结破解方法",
+        "en": "Assistant summarizes cracking method"
+      }
+    }
+  ]
+}

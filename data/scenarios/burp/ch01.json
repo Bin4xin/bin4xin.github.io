@@ -1,0 +1,80 @@
+{
+    "_source_md":  "burp/2021-11-23-CAPTCHA-BYPASS-WALKTHROUGH.md",
+    "version":  "captcha-bypass-burp",
+    "title":  {
+                  "zh":  "BurpSuite 验证码插件实验 - 自动化绕过验证码爆破",
+                  "en":  "BurpSuite CAPTCHA Plugin Experiment - Automated CAPTCHA Bypass for Brute Force"
+              },
+    "description":  {
+                        "zh":  "使用 NEW_xp_CAPTCHA 插件实现 BurpSuite 验证码自动识别，提升登录爆破效率。",
+                        "en":  "Use NEW_xp_CAPTCHA plugin to implement automated CAPTCHA recognition in BurpSuite for more efficient brute forcing."
+                    },
+    "steps":  [
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "部署验证码识别服务：\ngit clone https://github.com/smxiazi/NEW_xp_CAPTCHA\ncd NEW_xp_CAPTCHA\npython3 -m pip install muggle_ocr\npython3 server.py\nStarting server, listen at: 0.0.0.0:8899",
+                                      "en":  "Deploy CAPTCHA recognition service:\ngit clone https://github.com/smxiazi/NEW_xp_CAPTCHA\ncd NEW_xp_CAPTCHA\npython3 -m pip install muggle_ocr\npython3 server.py\nStarting server, listen at: 0.0.0.0:8899"
+                                  },
+                      "annotation":  {
+                                         "zh":  "免费验证码识别接口，基于 muggle_ocr",
+                                         "en":  "Free CAPTCHA recognition API based on muggle_ocr"
+                                     },
+                      "codeBlocks":  [
+                                         {
+                                             "caption":  {
+                                                             "zh":  "",
+                                                             "en":  ""
+                                                         },
+                                             "code":  "$ git clone https://github.com/smxiazi/NEW_xp_CAPTCHA.git\n$ cd NEW_xp_CAPTCHA\n$ python3 -m pip install muggle_ocr\n$ python3 server.py\nStarting server, listen at: 0.0.0.0:8899",
+                                             "language":  "bash"
+                                         }
+                                     ]
+                  },
+                  {
+                      "type":  "user_message",
+                      "content":  {
+                                      "zh":  "BurpSuite 安装插件：\nExtender -\u003e Extensions -\u003e [ADD] -\u003e Type: Python -\u003e 选择 xp_CAPTCHA.py\n需要先安装 Jython Jar（2.7.1 及以上版本）",
+                                      "en":  "Install BurpSuite plugin:\nExtender -\u003e Extensions -\u003e [ADD] -\u003e Type: Python -\u003e Select xp_CAPTCHA.py\nRequires Jython Jar (2.7.1 or above)"
+                                  },
+                      "annotation":  {
+                                         "zh":  "Python 扩展需要 Jython 支持",
+                                         "en":  "Python extensions require Jython support"
+                                     }
+                  },
+                  {
+                      "type":  "system_event",
+                      "content":  {
+                                      "zh":  "Intruder 配置：\n1. 在请求包 Header 中添加：xiapao: http://url/verify.html（验证码生成链接）\n2. Payload Type 选择 Extension-generated\n3. Select Generator 选择 xp_CAPTCHA\n4. 设置单线程（Number of threads = 1）",
+                                      "en":  "Intruder configuration:\n1. Add Header: xiapao: http://url/verify.html (CAPTCHA generation URL)\n2. Payload Type: Extension-generated\n3. Select Generator: xp_CAPTCHA\n4. Set single thread (Number of threads = 1)"
+                                  },
+                      "annotation":  {
+                                         "zh":  "单线程保证验证码识别准确性",
+                                         "en":  "Single thread ensures CAPTCHA recognition accuracy"
+                                     }
+                  },
+                  {
+                      "type":  "tool_result",
+                      "content":  {
+                                      "zh":  "爆破成功率统计：\n简单验证码成功率较高\n带混淆字符的验证码识别率较低：P(success) ≈ 1%",
+                                      "en":  "Brute force success rate:\nSimple CAPTCHAs have high success rate\nCAPTCHAs with obfuscation have low recognition rate: P(success) ≈ 1%"
+                                  },
+                      "toolName":  "burp-intruder",
+                      "annotation":  {
+                                         "zh":  "实际渗透中混淆验证码识别率较低",
+                                         "en":  "In real penetration testing, obfuscated CAPTCHA recognition is limited"
+                                     }
+                  },
+                  {
+                      "type":  "assistant_text",
+                      "content":  {
+                                      "zh":  "验证码绕过总结：\n- 免费 OCR 接口适用于简单验证码\n- 复杂混淆验证码需要更高级的 ML 模型\n- 单线程限制影响爆破效率\n- 可结合其他手段（社工、字典优化）提升成功率",
+                                      "en":  "CAPTCHA bypass summary:\n- Free OCR API works for simple CAPTCHAs\n- Complex obfuscated CAPTCHAs need advanced ML models\n- Single thread limits brute force efficiency\n- Combine with other methods (social engineering, dictionary optimization)"
+                                  },
+                      "annotation":  {
+                                         "zh":  "验证码不是安全的银弹",
+                                         "en":  "CAPTCHA is not a security silver bullet"
+                                     }
+                  }
+              ]
+}
