@@ -1,19 +1,20 @@
 ---
 layout: post
 toc: true
-title: "「Src」：Nexus-Repository-Manager3-漏洞复现总结"
-date: 2020-08-23
+title: "「Src」：Nexus-Repository-Manager3 漏洞复现总结"
+wrench: 2020-08-25
 author: Bin4xin
 categories:
     - blog
     - 笔记
     - src
     - CVE
-    - 信息搜集
+    - 漏洞复现
+    - Java
 permalink: /blog/2020/Nexus/vuln-Cve/
 ---
 
-只是简单记录一下关于这个管理软件的poc代码；
+> 简单记录关于Nexus Repository Manager 3的POC代码，主要涉及OGNL注入导致的RCE漏洞。
 
 ```bash
 POST /service/extdirect HTTP/1.1

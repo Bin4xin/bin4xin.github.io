@@ -1,25 +1,27 @@
 ---
 layout: post
-title: "PHP:部署的一揽子问题"
-date: 2020-11-25
+title: "「PHP」:部署一揽子问题记录"
+wrench: 2020-11-28
 author: Bin4xin
 toc: true
 categories:
     - blog
     - php
     - 笔记
+    - 运维
 permalink: /blog/2020/php-depoly/
 ---
 
-```bash
+```log
 [Wed Nov 25 17:19:33.475439 2020] [php7:notice] [pid 11872] [client 10.211.55.2:53568] PHP Notice:  Undefined index: step in /var/www/
 html/code/BabyOnline1/setup/setupwizard.php on line 4 [Wed Nov 25 17:19:33.475577 2020] [php7:error] [pid 11872] [client 10.211.55.2:53568] 
 PHP Fatal error:  Uncaught Error: Class 'DOMDocument' not found in /var/www/html/code/BabyOnline1/setup/setupwizard.php:46\n
 Stack trace:\n#0 {main}\n  thrown in /var/www/html/code/BabyOnline1/setup/setupwizard.php on line 46
 ```
 
+---
 
-```
+```log
 [Wed Nov 25 17:21:46.224793 2020] [php7:error] [pid 11882] [client 10.211.55.2:53602] PHP Fatal error:  Uncaught Error: 
 Call to undefined function mysqli_connect() in 
 
@@ -29,12 +31,14 @@ Conn->__construct('localhost', '3306', 'root', 'tsinglink', 'qx_bbol', 'UTF8', t
 ini.php(41): Utility->__construct()\n#3 /var/www/html/code/BabyOnline1/platform/php/plat_manage.php(5): require_once('/var/www/html/c...')
 \n#4 {main}\n  thrown in /var/www/html/code/BabyOnline1/utility/mysqli5.php on line 39, referer: http://10.211.55.4/platform/
 ```
+
 提示在`/var/www/html/code/BabyOnline1/utility/fun.class.php(281)`文件、
 `/var/www/html/code/BabyOnline1/platform/php/ini.php(41)`文件
 `/var/www/html/code/BabyOnline1/utility/mysqli5.php on line 39`文件
 
 第一个fun.class.php文件是实现的日志写入数据库的功能；
-```
+
+```php
 function WriterToDB($typeid,$clientAddress,$datetime,$file,$line,$function,$content)
 	{
 		global $utility;
@@ -49,8 +53,10 @@ function WriterToDB($typeid,$clientAddress,$datetime,$file,$line,$function,$cont
 		return true;
 	}
 ```
+
 连库WriterToDB实现功能如上；同样的`ini.php`同样定义了数据库的配置信息包括类型、url和连接信息：
-```
+
+```php
 define('LOGSAVETYPE',1);
 define('LOGLEVEL',1);
 
@@ -58,9 +64,11 @@ define('DB_TYPE', "mysql");
 define('IMAGE_URL', "http://61.191.35.32:8580/BabyOnline/");
 define('DB_SOURCEFILE_PATH',dirname(dirname(dirname(__FILE__)))."/utility/dbsource.ini");
 ```
+
 `dbsource.ini`文件里面则详细配置了jdbc的配置信息，就不单独放出来了；再来看看最后一个文件，同样是连接数据库，然后发现了一些有趣的：
 随意捡了一些构造函数：
-```
+
+```php
 function QueryRecordCount($sqlstr)
 	{
 		if($this->connect)
@@ -81,4 +89,5 @@ if($link->FetchArray($link->query("SELECT * FROM User WHERE `Identity`='$UserId'
     ···
     }
 ```
+
 咳咳，跑偏了，以上来看就直接修改ini文件就行了。
