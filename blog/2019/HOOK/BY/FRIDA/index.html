@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html data-critters-container>
+
+    <head>
+<meta charset="utf-8">
+<!--dev siwtch-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="full-screen" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--dev switch end-->
+<meta name="description" content="本站由哨兵安全实验室支持创办">
+
+    <meta name="baidu-site-verification" content="codeva-Bt0LqEvH6L">
+    <!-- Google tag (gtag.js) -->
+<!--<script defer src="https://www.googletagmanager.com/gtag/js?id=G-TJ5SFQ4KCM"></script>-->
+<!--<script defer src="/assets/js/gta.js"></script>-->
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="© 哨兵">
+
+
+
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="「安卓渗透」:HOOK-Frida原理详解 | © 哨兵">
+<meta property="og:description" content=" &lt;div class=&quot;container mtb&quot;&gt;
+    &lt;div class=&quot;row d-flex &quot;&gt;
+        &lt;!-- SINGLE POST --&gt;
+        &lt;div class=&quot;col-lg-8 markdown-body-img flex-column&quot;&gt;
+            &lt;!-- Blog Post  --&gt;
+            &lt;a href=&quot;/blog/2019/HOOK/BY/FRIDA/&quot;&gt;&lt;h1 class=&quot;ctitle&quot;&gt;「安卓渗透」:HOOK-Frida原理详解&lt;/h1&gt;&lt;/a&gt;
+            &lt;csmall&gt;&lt;div class=&quot;d-flex items-center&quot;&gt;
+                &lt;!--article author end--&gt;
+
+&lt;!-- site build time set to the latest time.--&gt;
+
+&lt;!-- post time--&gt;
+
+
+
+
+
+&lt;div class=&quot;ml-hide&quot;&gt;
+    &lt;a class=&quot;f2 d-flex color-fg-default&quot; href=&quot;https://github.com/Bin4xin&quot; target=&quot;_blank&quot;&gt;
+        Bin4xin
+
+        
+            
+        post
+        
+
+        
+        
+        
+        
+        
+
+        
+            on Dec 26, 2019
+        
+    &lt;/a&gt;
+&lt;/div&gt;
+            &lt;/div&gt;&lt;/csmall&gt;
+            &lt;div class=&quot;post-content&quot;&gt; 
+            &lt;blockquote&gt;
+  &lt;p&gt;在安卓安全测试中，Hook技术是最核心的动态分析手段。本文梳理Hook技术的基本原理，重点介绍Frida框架的使用方式。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;0x00-hook技术概述&quot;&gt;0x00 Hook技术概述&lt;/h2&gt;
+
+&lt;p&gt;Hook技术是指在Android上进行的跨进程操作，主要分为三个层次：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Native层Hook&lt;/strong&gt;：针对JNI（Java Native Interface）本地调用的Hook&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Java层Hook&lt;/strong&gt;：针对Java方法的Hook&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;框架层Hook&lt;/strong&gt;：针对Android Framework层的Hook&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;┌─────────────────────────────────────┐
+│           Android App               │
+├─────────────────────────────────────┤
+│   Java层  ←── Java Hook (Frida/Xposed) │
+├─────────────────────────────────────┤
+│   JNI桥  ←── JNI Hook                │
+├─────────────────────────────────────┤
+│  Native层 ←── Native Hook (Substrate/Inline) │
+├─────────────────────────────────────┤
+│   Linux Kernel                       │
+└─────────────────────────────────────┘
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;0x01-事件分发机制&quot;&gt;0x01 事件分发机制&lt;/h2&gt;
+
+&lt;p&gt;Android本身维护着一套事件分发机制，应用程序包括&lt;strong&gt;应用触发事件&lt;/strong&gt;和&lt;strong&gt;后台逻辑处理&lt;/strong&gt;两部分：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;应用触发事件&lt;/strong&gt;：比如App中一个按钮对应一个URL，点击则跳转浏览器访问该URL&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;后台逻辑处理&lt;/strong&gt;：用户看不到的后台处理逻辑&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;以一个URL按钮为例，用户点击后看到的流程是：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;按钮点击 → 跳转默认浏览器 → 地址栏填充URL → 访问
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;但对于后台来说，处理过程要复杂得多——查看log日志可以发现，后台代码所做的工作远比我们看到的多。&lt;/p&gt;
+
+&lt;h2 id=&quot;0x02-frida简介&quot;&gt;0x02 Frida简介&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://frida.re/&quot;&gt;Frida&lt;/a&gt; 是一个动态二进制插桩框架，支持在Windows、macOS、Linux、iOS、Android和QNX上运行。其核心优势：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;动态注入&lt;/strong&gt;：无需修改APK即可Hook运行中的进程&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;JavaScript驱动&lt;/strong&gt;：用JS编写Hook脚本，实时修改行为&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;跨平台&lt;/strong&gt;：同一套工具链支持多个平台&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;双向通信&lt;/strong&gt;：支持Python/JS与目标进程的实时数据交互&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;架构&quot;&gt;架构&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;┌──────────────┐     USB/TCP      ┌─────────────────┐
+│  Host (PC)   │ ◄──────────────► │  Target Device   │
+│  frida-cli   │                  │  frida-server    │
+│  frida-trace │                  │    ↓ 注入        │
+│  Python API  │                  │  目标进程        │
+└──────────────┘                  └─────────────────┘
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;0x03-环境搭建&quot;&gt;0x03 环境搭建&lt;/h2&gt;
+
+&lt;h3 id=&quot;安装frida&quot;&gt;安装Frida&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# PC端安装&lt;/span&gt;
+pip3 &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;frida-tools
+pip3 &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;frida
+
+&lt;span class=&quot;c&quot;&gt;# 验证安装&lt;/span&gt;
+frida &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;设备端部署&quot;&gt;设备端部署&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 下载frida-server，需与PC端版本一致&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# https://github.com/frida/frida/releases&lt;/span&gt;
+wget https://github.com/frida/frida/releases/download/12.8.0/frida-server-12.8.0-android-x86.xz
+
+&lt;span class=&quot;c&quot;&gt;# 解压并推送到设备&lt;/span&gt;
+xz &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; frida-server-12.8.0-android-x86.xz
+adb push frida-server-12.8.0-android-x86 /data/local/tmp/frida-server
+adb shell &lt;span class=&quot;nb&quot;&gt;chmod &lt;/span&gt;755 /data/local/tmp/frida-server
+
+&lt;span class=&quot;c&quot;&gt;# 启动frida-server（需要root权限）&lt;/span&gt;
+adb shell
+su
+/data/local/tmp/frida-server &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;验证连接&quot;&gt;验证连接&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 列出设备上运行的进程&lt;/span&gt;
+frida-ps &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 列出设备上已安装的应用&lt;/span&gt;
+frida-ps &lt;span class=&quot;nt&quot;&gt;-Ua&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;0x04-frida-hook-java方法&quot;&gt;0x04 Frida Hook Java方法&lt;/h2&gt;
+
+&lt;h3 id=&quot;基本用法&quot;&gt;基本用法&lt;/h3&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// hook_java.js&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;Java&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// 获取类&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;LoginActivity&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Java&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;com.example.app.LoginActivity&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// Hook方法&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;LoginActivity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;implementation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] login() called&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] username: &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] password: &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;// 调用原方法&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;login&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] login result: &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 注入到目标进程&lt;/span&gt;
+frida &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; com.example.app &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; hook_java.js &lt;span class=&quot;nt&quot;&gt;--no-pause&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;hook重载方法&quot;&gt;Hook重载方法&lt;/h3&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;Java&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MyClass&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Java&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;com.example.app.MyClass&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// 指定参数类型来区分重载方法&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;MyClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;overload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;java.lang.String&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;implementation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] process(String): &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;MyClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;overload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;implementation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] process(int): &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;主动调用方法&quot;&gt;主动调用方法&lt;/h3&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;Java&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MyClass&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Java&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;com.example.app.MyClass&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// 主动调用静态方法&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;MyClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;generateToken&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;admin&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] Token: &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// 主动调用实例方法（需要先获取实例）&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;Java&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;choose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;com.example.app.MyClass&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;onMatch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] Found instance: &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;instance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] Data: &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;onComplete&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] Search complete&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;0x05-frida-hook-native函数&quot;&gt;0x05 Frida Hook Native函数&lt;/h2&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// hook_native.js&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Hook libc的open函数&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;Interceptor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;attach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;findExportByName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;libc.so&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;onEnter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// 第一个参数是文件路径&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;readUtf8String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] open(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;onLeave&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;retval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] open returned: &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;retval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;0x06-frida绕过ssl-pinning&quot;&gt;0x06 Frida绕过SSL Pinning&lt;/h2&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;Java&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// TrustManagerImpl&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TrustManagerImpl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Java&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;com.android.org.conscrypt.TrustManagerImpl&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;TrustManagerImpl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;verifyChain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;implementation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;untrustedChain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;trustAnchorChain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;clientAuth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ocspData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tlsSctData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] SSL Pinning bypassed for: &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;untrustedChain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// OkHttp3 CertificatePinner&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CertificatePinner&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Java&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;okhttp3.CertificatePinner&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;CertificatePinner&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;overload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;java.lang.String&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;java.util.List&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;implementation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hostname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;peerCertificates&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[*] OkHttp3 CertificatePinner bypassed for: &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;hostname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[-] OkHttp3 not found&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;0x07-frida-vs-xposed&quot;&gt;0x07 Frida vs Xposed&lt;/h2&gt;
+
+&lt;table class=&quot;table&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;特性&lt;/th&gt;
+      &lt;th&gt;Frida&lt;/th&gt;
+      &lt;th&gt;Xposed&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;运行方式&lt;/td&gt;
+      &lt;td&gt;注入式，进程级别&lt;/td&gt;
+      &lt;td&gt;系统级，需重启&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;脚本语言&lt;/td&gt;
+      &lt;td&gt;JavaScript&lt;/td&gt;
+      &lt;td&gt;Java&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;设备要求&lt;/td&gt;
+      &lt;td&gt;需要root（或Gadget免root）&lt;/td&gt;
+      &lt;td&gt;需要root + 刷框架&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;适用场景&lt;/td&gt;
+      &lt;td&gt;临时调试、渗透测试&lt;/td&gt;
+      &lt;td&gt;长期功能修改&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;反检测&lt;/td&gt;
+      &lt;td&gt;较易被检测&lt;/td&gt;
+      &lt;td&gt;可通过改名绕过&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;开发效率&lt;/td&gt;
+      &lt;td&gt;高（JS即写即用）&lt;/td&gt;
+      &lt;td&gt;中（需编译模块）&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Frida更适合安全测试场景，Xposed更适合长期使用的功能模块。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;0x08-frida-trace快速跟踪&quot;&gt;0x08 frida-trace快速跟踪&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 跟踪指定Java类的所有方法&lt;/span&gt;
+frida-trace &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; com.example.app &lt;span class=&quot;nt&quot;&gt;-j&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;*!*login*&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 跟踪Native函数&lt;/span&gt;
+frida-trace &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; com.example.app &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;open&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;connect&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://frida.re/docs/home/&quot; target=&quot;_blank&quot;&gt;Frida官方文档&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/0x192/universal-android-debloater&quot; target=&quot;_blank&quot;&gt;Frida实战指南&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/qq_36869808/article/details/88601819&quot; target=&quot;_blank&quot;&gt;Android Hook技术防范漫谈&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;以上。&lt;/p&gt;
+
+                &lt;!-- [x] 2022/10/20/10:49:36 fixed: while width &lt; some inch. would be flex column not display like a row.--&gt;
+&lt;footer&gt;
+	&lt;style&gt;.border-top {
+		border-top: 1.5px solid #d0d7de!important;
+	}&lt;/style&gt;
+	&lt;div class=&quot;border-top&quot;&gt;&lt;/div&gt;
+		&lt;section class=&quot;container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto&quot;&gt;
+			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix &quot;&gt;
+				&lt;h2 class=&quot;lead&quot;&gt;申明&lt;/h2&gt;
+				&lt;div&gt;
+					&lt;div class=&quot;mb-2&quot;&gt;&lt;a href=&quot;/blog/2019/HOOK/BY/FRIDA/&quot; target=&quot;_blank&quot; class=&quot; text-bold&quot;&gt;
+						&lt;div class=&quot;fa fa-link&quot;&gt;&lt;/div&gt;
+						转载请申明本文档链接&lt;/a&gt;&lt;/div&gt;
+					&lt;div&gt;&lt;a href=&quot;https://github.com/Bin4xin&quot; target=&quot;_blank&quot;  class=&quot;text-bold&quot;&gt;
+						&lt;div class=&quot;fa fa-user&quot;&gt;&lt;/div&gt;
+						Post by Bin4xin.&lt;/a&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
+				&lt;h2 class=&quot;lead&quot;&gt;贡献开源文档&lt;/h2&gt;
+				&lt;div&gt;
+					&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2019-12-26-how-hook-android-work.md&quot; target=&quot;_blank&quot; class=&quot;no-underline btn mr-1 color-border-accent-emphasis&quot;&gt;
+						&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; role=&quot;img&quot; class=&quot;octicon mr-1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;currentColor&quot; style=&quot;display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+						贡献当前开源文档
+					&lt;/a&gt;
+					&lt;p class=&quot;f1-l mt-2 text-bold&quot;&gt;此之前，学习开源贡献&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码&quot;&gt;CN&amp;nbsp;|&lt;/a&gt;
+						&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/github/docs&quot;&gt;EN&lt;/a&gt;&lt;/p&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
+				&lt;h2 class=&quot;lead&quot;&gt;此文档对您有帮助吗&lt;/h2&gt;
+				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/&quot; target=&quot;_blank&quot; class=&quot;no-underline&quot;&gt;
+				&lt;span class=&quot;btn mr-1 color-border-accent-emphasis&quot; title=&quot;给文档仓库点个赞!&quot;&gt;
+					&lt;div class=&quot;fa fa-thumbs-o-up&quot;&gt;&lt;/div&gt;
+				&lt;/span&gt;
+				&lt;/a&gt;
+				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&amp;template=2-bug_report.yaml&amp;title=_posts/blog/2019-12-26-how-hook-android-work.md&amp;nbsp; 「安卓渗透」:HOOK-Frida原理详解 | © 哨兵 | SENTINEL SECURITY, LAB&quot; target=&quot;_blank&quot;&gt;
+				&lt;span class=&quot;btn mr-1 color-border-accent-emphasis&quot; title=&quot;本文档有问题?&quot;&gt;
+				&lt;div class=&quot;fa fa-thumbs-o-down&quot;&gt;&lt;/div&gt;
+				&lt;/span&gt;
+				&lt;/a&gt;
+			&lt;/div&gt;
+		&lt;/section&gt;
+&lt;/footer&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;spacing&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;&lt;!--/col-lg-8 --&gt;
+        
+&lt;div class=&quot;col-md-4&quot;&gt;
+    &lt;div class=&quot;ml-hide article-index thin-scrollbar position-sticky top-0&quot; style=&quot;max-height: 100vh; overflow-y: auto;&quot;&gt;
+        &lt;div class=&quot;nav nav-stacked tableOfContents_35-E&quot;&gt;
+            &lt;li class=&quot;table-of-contents&quot;&gt;
+                &lt;code-index-css&gt;
+                    &lt;h3&gt;&lt;i class=&quot;fa fa-list&quot;&gt;&lt;/i&gt; 文章目录&lt;/h3&gt;
+                    &lt;ul id=&quot;toc&quot; class=&quot;section-nav&quot;&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#0x00-hook技术概述&quot;&gt;0x00 Hook技术概述&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#0x01-事件分发机制&quot;&gt;0x01 事件分发机制&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#0x02-frida简介&quot;&gt;0x02 Frida简介&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#架构&quot;&gt;架构&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#0x03-环境搭建&quot;&gt;0x03 环境搭建&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#安装frida&quot;&gt;安装Frida&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#设备端部署&quot;&gt;设备端部署&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#验证连接&quot;&gt;验证连接&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#0x04-frida-hook-java方法&quot;&gt;0x04 Frida Hook Java方法&lt;/a&gt;
+&lt;ul&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#基本用法&quot;&gt;基本用法&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#hook重载方法&quot;&gt;Hook重载方法&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3&quot;&gt;&lt;a href=&quot;#主动调用方法&quot;&gt;主动调用方法&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#0x05-frida-hook-native函数&quot;&gt;0x05 Frida Hook Native函数&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#0x06-frida绕过ssl-pinning&quot;&gt;0x06 Frida绕过SSL Pinning&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#0x07-frida-vs-xposed&quot;&gt;0x07 Frida vs Xposed&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#0x08-frida-trace快速跟踪&quot;&gt;0x08 frida-trace快速跟踪&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2&quot;&gt;&lt;a href=&quot;#参考&quot;&gt;参考&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+                &lt;/code-index-css&gt;
+            &lt;/li&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+    &lt;/div&gt;&lt;!--/row --&gt;
+&lt;/div&gt;&lt;!--/container --&gt;哨兵安全实验室 SENTINEL SECURITY, LAB">
+<meta property="og:image" content="https://bin4xin.github.io/assets/img/logo-share.png"> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="https://bin4xin.github.io/blog/2019/HOOK/BY/FRIDA/">
+<title> 「安卓渗透」:HOOK-Frida原理详解 | © 哨兵 | SENTINEL SECURITY, LAB</title>
+
+<link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css" media="print" onload="this.media='all'"></noscript>
+<style>a,blockquote,body,code,div,footer,h1,h2,h3,html,li,ol,p,pre,section,table,td,th,tr,ul{box-sizing:border-box}.bb{border-bottom-style:solid;border-bottom-width:1px}.top-0{top:0}.bottom-0{bottom:0}.db{display:block}.dib{display:inline-block}.flex{display:flex}.flex-column{flex-direction:column}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.fw4{font-weight:400!important}.fw6{font-weight:600!important}.lh-copy{line-height:1.5}.list{list-style-type:none}.collapse{border-collapse:collapse;border-spacing:0}.no-underline{text-decoration:none}.mx-auto{margin-right:auto;margin-left:auto}.z-1{z-index:1}code{font-family:monospace,monospace;font-size:1em}button,input{font-family:inherit;font-size:100%;line-height:1.15;margin:0}[type=radio]{box-sizing:border-box;padding:0}.pa0{padding:0}.pb0{padding-bottom:0}.ma0{margin:0}.mt0{margin-top:0}.mb0{margin-bottom:0}.pa1{padding:8px}.mt1{margin-top:8px}.pv2{padding-bottom:16px}.pv2{padding-top:16px}.mr2{margin-right:16px}.mt2{margin-top:16px}.pt3{padding-top:24px}.mb3{margin-bottom:24px}.f2{font-size:14px}.b--white{border-color:#fff}.lh-1{line-height:1}.lh-6{line-height:1.5}@media screen and (min-width: 576px){.bb-ns{border-bottom-style:solid;border-bottom-width:1px}}@media screen and (min-width: 576px) and (max-width:991px){.bb-m{border-bottom-style:solid;border-bottom-width:1px}}@media screen and (min-width: 992px){.bn-l{border-style:none;border-width:0}}@media screen and (min-width: 576px){.pb0-ns{padding-bottom:0}.mb0-ns{margin-bottom:0}.pv2-ns{padding-bottom:16px}.pv2-ns{padding-top:16px}.mt2-ns{margin-top:16px}.pt3-ns{padding-top:24px}.mt3-ns{margin-top:24px}.mb3-ns{margin-bottom:24px}}@media screen and (min-width: 576px) and (min-width:576px) and (max-width:991px){.pb0-m{padding-bottom:0}.mb0-m{margin-bottom:0}.pv2-m{padding-bottom:16px}.pv2-m{padding-top:16px}.mt2-m{margin-top:16px}.pt3-m{padding-top:24px}.mb3-m{margin-bottom:24px}}@media screen and (min-width: 576px) and (min-width:992px){.pv0-l{padding-bottom:0}.pv0-l{padding-top:0}.mt0-l{margin-top:0}.mb0-l{margin-bottom:0}.mb1-l{margin-bottom:8px}.pb5-l{padding-bottom:40px}.pt7-l{padding-top:64px}}@media screen and (min-width: 576px){.f2-ns{font-size:14px}}@media screen and (min-width: 576px) and (max-width:991px){.f2-m{font-size:14px}}@media screen and (min-width: 992px){.f1-l{font-size:12px}.f3-l{font-size:16px}}@media screen and (min-width: 576px){.db-ns{display:block}}@media screen and (min-width: 576px) and (max-width:991px){.db-m{display:block}}@media screen and (min-width: 992px){.db-l{display:block}}@media screen and (min-width: 992px){.flex-wrap-l{flex-wrap:wrap}}button,input{overflow:visible}button{text-transform:none}[type=button],button{-webkit-appearance:button}[type=button]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}@media (min-width: 1000px){.footer-bottom-row-margin{margin-top:-24px}}.footer-container{width:100%;padding-right:18px;padding-left:18px;margin-right:auto;margin-left:auto}@media (min-width: 576px){.footer-container{max-width:100%}}@media (min-width: 768px){.footer-container{max-width:100%}}@media (min-width: 992px){.footer-container{max-width:1127px}}@media (min-width: 1200px){.footer-container{max-width:1128px}}.footer-row{display:flex;flex-wrap:wrap;margin-right:-18px;margin-left:-18px}.footer-col-lg-2{position:relative;width:100%;padding-right:18px;padding-left:18px}@media (min-width: 992px){.footer-col-lg-2{flex:0 0 16.66667%;max-width:16.66667%}}.d-flex{display:flex!important}.mr-1{margin-right:.25rem!important}.mt-2{margin-top:.5rem!important}.mb-2{margin-bottom:.5rem!important}.mr-4{margin-right:1.5rem!important}.mb-4{margin-bottom:1.5rem!important}.px-3{padding-right:1rem!important}.px-3{padding-left:1rem!important}.pr-4{padding-right:1.5rem!important}.mx-auto{margin-right:auto!important}.mx-auto{margin-left:auto!important}.footer-container{padding-left:24px;padding-right:24px}@media screen and (min-width: 992px) and (max-width:1191px){.footer-container{padding-left:32px!important;padding-right:32px!important}}@media screen and (min-width: 992px){.footer-container{padding-left:0;padding-right:0}}.footer-abstract{font-size:14px;color:#000000;font-family:ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace !important}.dotted-underline{border-bottom:1px dotted;border-color:#000000;text-decoration:none;word-wrap:break-word}.dotted-underline:hover,.dotted-underline:focus{border-bottom-style:solid}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}.octicon{vertical-align:text-bottom;display:inline-block;overflow:visible !important;vertical-align:text-bottom;fill:currentColor}:root{--theme-main-color:#82318e;--copy-cilpboard-icon:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white pointer-events-none copy-code-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" class="media-object"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" class="hidden copy-code-icon-path-2"></path></svg>');--content-summary-icon:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" class="octicon octicon-git-branch"><path fill-rule="evenodd" d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"></path></svg>');--color-fg-success-icon:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" ><path fill="green" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg>');--build-show-icon:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" ><title>Build</title><path d="M469.54,120.52h0a16,16,0,0,0-25.54-4L382.56,178a16.12,16.12,0,0,1-22.63,0L333.37,151.4a16,16,0,0,1,0-22.63l61.18-61.19a16,16,0,0,0-4.78-25.92h0C343.56,21,285.88,31.78,249.51,67.88c-30.9,30.68-40.11,78.62-25.25,131.53a15.89,15.89,0,0,1-4.49,16L53.29,367.46a64.17,64.17,0,1,0,90.6,90.64L297.57,291.25a15.9,15.9,0,0,1,15.77-4.57,179.3,179.3,0,0,0,46.22,6.37c33.4,0,62.71-10.81,83.85-31.64C482.56,222.84,488.53,157.42,469.54,120.52ZM99.48,447.15a32,32,0,1,1,28.34-28.35A32,32,0,0,1,99.48,447.15Z"/></svg>');--devsite-elevation-key-shadow-color:rgba(60,64,67,0.3);--devsite-elevation-ambient-shadow-color:rgba(60,64,67,0.15);--dark-devsite-elevation-key-shadow-color:rgba(0, 0, 0,0);--dark-devsite-elevation-ambient-shadow-color:rgba(0, 0, 0,0.3);--ra-admonition-background-color:var(--ifm-alert-background-color);--ra-admonition-border-width:var(--ifm-alert-border-width);--ra-admonition-border-color:var(--ifm-alert-border-color);--ra-admonition-border-radius:var(--ifm-alert-border-radius);--ra-admonition-color:var(--ifm-alert-color);--ra-admonition-padding-vertical:var(--ifm-alert-padding-vertical);--ra-admonition-padding-horizontal:var(--ifm-alert-padding-horizontal);--ra-color-note:var(--ifm-color-secondary);--ra-color-important:var(--ifm-color-info);--ra-color-tip:var(--ifm-color-success);--ra-color-caution:var(--ifm-color-warning);--ra-color-warning:var(--ifm-color-danger);--ra-color-text-dark:var(--ifm-color-gray-900);--color-btn-bg:#f6f8fa;--color-btn-bg-dark:#21262d;--color-btn-shadow:0 1px 0 rgba(27,31,36,0.04);--color-btn-inset-shadow:inset 0 1px 0 rgba(255,255,255,0.25);--color-btn-text:#24292f;--color-accent-emphasis:#0969da;--color-accent-emphasis-dark:#1f6feb;--ifm-dark-value:10%;--ifm-darker-value:15%;--ifm-darkest-value:30%;--ifm-light-value:15%;--ifm-lighter-value:30%;--ifm-lightest-value:50%;--ifm-color-primary:#3578e5;--ifm-color-primary-dark:#306cce;--ifm-color-primary-darker:#2d66c3;--ifm-color-primary-darkest:#2554a0;--ifm-color-primary-light:#538ce9;--ifm-color-primary-lighter:#72a1ed;--ifm-color-primary-lightest:#9abcf2;--ifm-color-secondary:#ebedf0;--ifm-color-secondary-dark:#d4d5d8;--ifm-color-secondary-darker:#c8c9cc;--ifm-color-secondary-darkest:#a4a6a8;--ifm-color-secondary-light:#eef0f2;--ifm-color-secondary-lighter:#f1f2f5;--ifm-color-secondary-lightest:#f5f6f8;--ifm-color-success:#00a400;--ifm-color-success-dark:#009400;--ifm-color-success-darker:#008b00;--ifm-color-success-darkest:#007300;--ifm-color-success-light:#26b226;--ifm-color-success-lighter:#4dbf4d;--ifm-color-success-lightest:#80d280;--ifm-color-info:#54c7ec;--ifm-color-info-dark:#4cb3d4;--ifm-color-info-darker:#47a9c9;--ifm-color-info-darkest:#3b8ba5;--ifm-color-info-light:#6ecfef;--ifm-color-info-lighter:#87d8f2;--ifm-color-info-lightest:#aae3f6;--ifm-color-warning:#ffba00;--ifm-color-warning-dark:#e6a700;--ifm-color-warning-darker:#d99e00;--ifm-color-warning-darkest:#b38200;--ifm-color-warning-light:#ffc426;--ifm-color-warning-lighter:#ffcf4d;--ifm-color-warning-lightest:#ffdd80;--ifm-color-danger:#fa383e;--ifm-color-danger-dark:#e13238;--ifm-color-danger-darker:#d53035;--ifm-color-danger-darkest:#af272b;--ifm-color-danger-light:#fb565b;--ifm-color-danger-lighter:#fb7478;--ifm-color-danger-lightest:#fd9c9f;--ifm-color-white:#fff;--ifm-color-black:#000;--ifm-color-gray-0:var(--ifm-color-white);--ifm-color-gray-100:#f5f6f7;--ifm-color-gray-200:#ebedf0;--ifm-color-gray-300:#dadde1;--ifm-color-gray-400:#ccd0d5;--ifm-color-gray-500:#bec3c9;--ifm-color-gray-600:#8d949e;--ifm-color-gray-700:#606770;--ifm-color-gray-800:#444950;--ifm-color-gray-900:#1c1e21;--ifm-color-gray-1000:var(--ifm-color-black);--ifm-color-emphasis-0:var(--ifm-color-gray-0);--ifm-color-emphasis-100:var(--ifm-color-gray-100);--ifm-color-emphasis-200:var(--ifm-color-gray-200);--ifm-color-emphasis-300:var(--ifm-color-gray-300);--ifm-color-emphasis-400:var(--ifm-color-gray-400);--ifm-color-emphasis-600:var(--ifm-color-gray-600);--ifm-color-emphasis-700:var(--ifm-color-gray-700);--ifm-color-emphasis-800:var(--ifm-color-gray-800);--ifm-color-emphasis-900:var(--ifm-color-gray-900);--ifm-color-emphasis-1000:var(--ifm-color-gray-1000);--ifm-color-content:var(--ifm-color-emphasis-900);--ifm-color-content-inverse:var(--ifm-color-emphasis-0);--ifm-color-content-secondary:#606770;--ifm-background-color:transparent;--ifm-background-surface-color:var(--ifm-color-content-inverse);--ifm-global-border-width:1px;--ifm-global-radius:0.4rem;--ifm-hover-overlay:rgba(0,0,0,0.05);--ifm-font-color-base:var(--ifm-color-content);--ifm-font-color-base-inverse:var(--ifm-color-content-inverse);--ifm-font-color-secondary:var(--ifm-color-content-secondary);--ifm-font-family-base:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";--ifm-font-family-monospace:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;--ifm-font-size-base:100%;--ifm-font-weight-light:300;--ifm-font-weight-normal:400;--ifm-font-weight-semibold:500;--ifm-font-weight-bold:700;--ifm-font-weight-base:var(--ifm-font-weight-normal);--ifm-line-height-base:1.65;--ifm-global-spacing:1rem;--ifm-spacing-vertical:var(--ifm-global-spacing);--ifm-spacing-horizontal:var(--ifm-global-spacing);--ifm-transition-fast:200ms;--ifm-transition-slow:400ms;--ifm-transition-timing-default:cubic-bezier(0.08,0.52,0.52,1);--ifm-global-shadow-lw:0 1px 2px 0 rgba(0,0,0,0.1);--ifm-global-shadow-md:0 5px 40px rgba(0,0,0,0.2);--ifm-global-shadow-tl:0 12px 28px 0 rgba(0,0,0,0.2),0 2px 4px 0 rgba(0,0,0,0.1);--ifm-z-index-dropdown:2;--ifm-z-index-fixed:3;--ifm-z-index-overlay:4;--ifm-container-width:1140px;--ifm-container-width-xl:1320px;--ifm-code-background:#f6f7f8;--ifm-code-border-radius:var(--ifm-global-radius);--ifm-code-color:var(--ifm-color-emphasis-900);--ifm-code-font-size:90%;--ifm-code-padding-horizontal:0.3rem;--ifm-code-padding-vertical:0.1rem;--ifm-pre-background:var(--ifm-color-emphasis-100);--ifm-pre-border-radius:var(--ifm-code-border-radius);--ifm-pre-color:inherit;--ifm-pre-line-height:1.45;--ifm-pre-padding:1rem;--ifm-heading-color:inherit;--ifm-heading-margin-top:0;--ifm-heading-margin-bottom:var(--ifm-spacing-vertical);--ifm-heading-font-family:inherit;--ifm-heading-font-weight:var(--ifm-font-weight-bold);--ifm-heading-line-height:1.25;--ifm-h1-font-size:2rem;--ifm-h2-font-size:1.5rem;--ifm-h3-font-size:1.25rem;--ifm-h4-font-size:1rem;--ifm-h5-font-size:0.875rem;--ifm-h6-font-size:0.85rem;--ifm-image-alignment-padding:1.25rem;--ifm-leading-desktop:1.25;--ifm-leading:calc(var(--ifm-leading-desktop)*1rem);--ifm-list-left-padding:2rem;--ifm-list-margin:1rem;--ifm-list-item-margin:0.25rem;--ifm-list-paragraph-margin:1rem;--ifm-table-cell-padding:0.75rem;--ifm-table-background:transparent;--ifm-table-stripe-background:var(--ifm-color-emphasis-100);--ifm-table-border-width:1px;--ifm-table-border-color:var(--ifm-color-emphasis-300);--ifm-table-head-background:inherit;--ifm-table-head-color:inherit;--ifm-table-head-font-weight:var(--ifm-font-weight-bold);--ifm-table-cell-color:inherit;--ifm-link-color:var(--ifm-color-primary);--ifm-link-decoration:none;--ifm-link-hover-color:var(--ifm-link-color);--ifm-link-hover-decoration:underline;--ifm-paragraph-margin-bottom:var(--ifm-leading);--ifm-blockquote-color:#6a737d;--ifm-blockquote-font-size:var(--ifm-font-size-base);--ifm-blockquote-padding-horizontal:1rem;--ifm-blockquote-padding-vertical:1rem;--ifm-hr-border-color:var(--ifm-color-emphasis-500);--ifm-hr-border-width:1px;--ifm-hr-margin-vertical:1.5rem;--ifm-alert-background-color:inherit;--ifm-alert-border-color:inherit;--ifm-alert-border-radius:var(--ifm-global-radius);--ifm-alert-border-width:var(--ifm-global-border-width);--ifm-alert-color:var(--ifm-font-color-base-inverse);--ifm-alert-padding-horizontal:var(--ifm-spacing-horizontal);--ifm-alert-padding-vertical:var(--ifm-spacing-vertical);--ifm-avatar-intro-margin:1rem;--ifm-avatar-intro-alignment:inherit;--ifm-avatar-photo-size-sm:2rem;--ifm-avatar-photo-size-md:3rem;--ifm-avatar-photo-size-lg:4rem;--ifm-avatar-photo-size-xl:6rem;--ifm-badge-background-color:inherit;--ifm-badge-border-color:inherit;--ifm-badge-border-radius:var(--ifm-global-radius);--ifm-badge-border-width:var(--ifm-global-border-width);--ifm-badge-color:var(--ifm-color-white);--ifm-badge-padding-horizontal:calc(var(--ifm-spacing-horizontal)*0.5);--ifm-badge-padding-vertical:calc(var(--ifm-spacing-vertical)*0.25);--ifm-breadcrumb-border-radius:1.5rem;--ifm-breadcrumb-spacing:0.0625rem;--ifm-breadcrumb-color-active:var(--ifm-color-primary);--ifm-breadcrumb-item-background-active:var(--ifm-hover-overlay);--ifm-breadcrumb-padding-horizontal:1rem;--ifm-breadcrumb-padding-vertical:0.5rem;--ifm-breadcrumb-size-multiplier:1;--ifm-breadcrumb-separator:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 256 256"><g><g><polygon points="79.093,0 48.907,30.187 146.72,128 48.907,225.813 79.093,256 207.093,128"/></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>');--ifm-breadcrumb-separator-filter:none;--ifm-breadcrumb-separator-size:0.5rem;--ifm-breadcrumb-separator-size-multiplier:1.25;--ifm-button-background-color:inherit;--ifm-button-border-color:var(--ifm-button-background-color);--ifm-button-border-width:var(--ifm-global-border-width);--ifm-button-font-weight:var(--ifm-font-weight-bold);--ifm-button-padding-horizontal:1.5rem;--ifm-button-padding-vertical:0.375rem;--ifm-button-size-multiplier:1;--ifm-button-transition-duration:var(--ifm-transition-fast);--ifm-button-border-radius:calc(var(--ifm-global-radius)*var(--ifm-button-size-multiplier));--ifm-button-group-margin:2px;--ifm-card-background-color:var(--ifm-background-surface-color);--ifm-card-border-radius:calc(var(--ifm-global-radius)*2);--ifm-card-horizontal-spacing:var(--ifm-global-spacing);--ifm-card-vertical-spacing:var(--ifm-global-spacing);--ifm-toc-border-color:var(--ifm-color-emphasis-300);--ifm-toc-link-color:var(--ifm-color-content-secondary);--ifm-toc-padding-vertical:0.5rem;--ifm-toc-padding-horizontal:0.5rem;--ifm-dropdown-background-color:var(--ifm-background-surface-color);--ifm-dropdown-font-weight:var(--ifm-font-weight-semibold);--ifm-dropdown-link-color:var(--ifm-font-color-base);--ifm-dropdown-hover-background-color:var(--ifm-hover-overlay);--ifm-footer-background-color:var(--ifm-color-emphasis-100);--ifm-footer-color:inherit;--ifm-footer-link-color:var(--ifm-color-emphasis-700);--ifm-footer-link-hover-color:var(--ifm-color-primary);--ifm-footer-link-horizontal-spacing:0.5rem;--ifm-footer-padding-horizontal:calc(var(--ifm-spacing-horizontal)*2);--ifm-footer-padding-vertical:calc(var(--ifm-spacing-vertical)*2);--ifm-footer-title-color:inherit;--ifm-hero-background-color:var(--ifm-background-surface-color);--ifm-hero-text-color:var(--ifm-color-emphasis-800);--ifm-menu-color:var(--ifm-color-emphasis-700);--ifm-menu-color-active:var(--ifm-color-primary);--ifm-menu-color-background-active:var(--ifm-hover-overlay);--ifm-menu-color-background-hover:var(--ifm-hover-overlay);--ifm-menu-link-padding-horizontal:1rem;--ifm-menu-link-padding-vertical:0.375rem;--ifm-menu-link-sublist-icon:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="rgba(0,0,0,0.5)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');--ifm-menu-link-sublist-icon-filter:none;--ifm-navbar-background-color:var(--ifm-background-surface-color);--ifm-navbar-height:3.75rem;--ifm-navbar-item-padding-horizontal:1rem;--ifm-navbar-item-padding-vertical:0.25rem;--ifm-navbar-link-color:var(--ifm-font-color-base);--ifm-navbar-link-active-color:var(--ifm-link-color);--ifm-navbar-padding-horizontal:var(--ifm-spacing-horizontal);--ifm-navbar-padding-vertical:calc(var(--ifm-spacing-vertical)*0.5);--ifm-navbar-shadow:var(--ifm-global-shadow-lw);--ifm-navbar-search-input-background-color:var(--ifm-color-emphasis-200);--ifm-navbar-search-input-color:var(--ifm-color-emphasis-800);--ifm-navbar-search-input-placeholder-color:var(--ifm-color-emphasis-500);--ifm-navbar-search-input-icon:url('data:image/svg+xml;utf8,<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" height="16px" width="16px"><path d="M6.02945,10.20327a4.17382,4.17382,0,1,1,4.17382-4.17382A4.15609,4.15609,0,0,1,6.02945,10.20327Zm9.69195,4.2199L10.8989,9.59979A5.88021,5.88021,0,0,0,12.058,6.02856,6.00467,6.00467,0,1,0,9.59979,10.8989l4.82338,4.82338a.89729.89729,0,0,0,1.29912,0,.89749.89749,0,0,0-.00087-1.29909Z" /></svg>');--ifm-navbar-sidebar-width:80vw;--ifm-pagination-border-radius:calc(var(--ifm-global-radius)*var(--ifm-pagination-size-multiplier));--ifm-pagination-color-active:var(--ifm-color-primary);--ifm-pagination-font-size:1rem;--ifm-pagination-item-active-background:var(--ifm-hover-overlay);--ifm-pagination-page-spacing:0.0625rem;--ifm-pagination-padding-horizontal:calc(var(--ifm-spacing-horizontal)*1);--ifm-pagination-padding-vertical:calc(var(--ifm-spacing-vertical)*0.25);--ifm-pagination-size-multiplier:1;--ifm-pagination-nav-border-radius:var(--ifm-global-radius);--ifm-pagination-nav-color-hover:var(--ifm-color-primary);--ifm-pills-color-active:var(--ifm-color-primary);--ifm-pills-color-background-active:var(--ifm-hover-overlay);--ifm-pills-spacing:0.0625rem;--ifm-tabs-color:var(--ifm-font-color-secondary);--ifm-tabs-color-active:var(--ifm-color-primary);--ifm-tabs-padding-horizontal:1rem;--ifm-tabs-padding-vertical:1rem;--ifm-tabs-spacing:0.0625rem;--ifm-scrollbar-size:7px;--ifm-scrollbar-track-background-color:#f1f1f1;--ifm-scrollbar-thumb-background-color:#888;--ifm-scrollbar-thumb-hover-background-color:#555;--ifm-color-primary:#25c2a0;--ifm-color-primary-dark:#21af90;--ifm-color-primary-darker:#1fa588;--ifm-color-primary-darkest:#1a8870;--ifm-color-primary-light:#46cbae;--ifm-color-primary-lighter:#66d4bd;--ifm-color-primary-lightest:#92e0d0;--ifm-code-font-size:95%;--docusaurus-announcement-bar-height:auto;--collapse-button-bg-color-dark:#2e333a;--doc-sidebar-width:300px
+}@media (max-width: 768px){.ml-hide{display:none !important}}.point{cursor:pointer}summary::-webkit-details-marker{display:none}summary:after{border-radius:5px;content:url("/assets/img/svg/chevron-down.svg");font-size:16px;padding:2px;width:20px;align-items:center;justify-content:center}details[open] summary:after{content:url("/assets/img/svg/chevron-up.svg")}details,footer,section,summary{display:block}a{background-color:transparent}a:active,a:hover{outline:0}strong{font-weight:700}h1{font-size:2em;margin:0.67em 0}svg:not(:root){overflow:hidden}code,pre{font-family:monospace, monospace;font-size:1em}button,input{color:inherit;font:inherit;margin:0}button{overflow:visible}button{text-transform:none}button{-webkit-appearance:button;appearance:button;cursor:pointer}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}input{line-height:normal}input[type="radio"]{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;padding:0}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}@media print{*,*:before,*:after{color:#000 !important;text-shadow:none !important;background:transparent !important;-webkit-box-shadow:none !important;box-shadow:none !important}a,a:visited{text-decoration:underline}a[href]:after{content:" (" attr(href) ")"}a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr{page-break-inside:avoid}p,h2,h3{orphans:3;widows:3}h2,h3{page-break-after:avoid}.navbar{display:none}.table{border-collapse:collapse !important}.table td,.table th{background-color:#fff !important}}*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-size:16px;-webkit-tap-highlight-color:rgba(0, 0, 0, 0);height:100%}body{font-family:"Helvetica Neue", Lato, Arial, sans-serif;font-size:16px;line-height:1.45;color:#333333;background-color:#fff;min-height:100%}input,button{font-family:inherit;font-size:inherit;line-height:inherit}a{color:#337ab7;text-decoration:none}a:hover,a:focus{color:#23527c;text-decoration:underline}a:focus{outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);border:0}h1,h2,h3{font-family:inherit;font-weight:500;line-height:1.1;color:inherit}h1,h2,h3{margin-top:20px;margin-bottom:10px}h1{font-size:36px}h2{font-size:30px}h3{font-size:24px}.lead{margin-bottom:20px;font-size:16px!important;line-height:1.4}@media (min-width: 768px){.lead{font-size:21px}}ul,ol{margin-top:0;margin-bottom:10px}ul ul{margin-bottom:0}blockquote{padding:10px 20px;margin:0 0 20px;font-size:17.5px;border-left:5px solid #eeeeee}blockquote p:last-child{margin-bottom:0}code,code-index-css,pre{font-family:'Fira Mono', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace !important}code{padding:2.720px 5.440px;font-size:90%;word-wrap:break-word;background-color:rgba(175,184,193,0.2);border-radius:4px}code-index-css{font-size:90%;border-radius:4px}pre{font-size:85%;display:block;position:relative;padding:16px;word-break:break-all;word-wrap:break-word;background-color:#f6f8fa;line-height:1.45;border-radius:6px;overflow:auto!important;overflow-x:auto!important;margin-top:0}pre code{padding:0;font-size:85%;color:inherit;white-space:pre-wrap;background-color:transparent;border-radius:0}.items-center{align-items:center}.container{padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}@media (min-width: 768px){.container{display:flex;flex-direction:row;justify-content:space-between;align-items:center}}@media (min-width: 992px){.container{width:970px}}@media (min-width: 1200px){.container{width:1170px}}.row{padding-right:-15px;padding-left:-15px;margin-right:auto;margin-left:auto;width:100%}.col-xs-4-5,.col-md-4,.col-lg-8{position:relative;min-height:1px;padding-right:15px;padding-left:15px}.col-xs-4-5{float:left}@media (min-width: 992px){.col-md-4{float:left}.col-md-4{width:33.33333333%;max-width:33.33333333%}}@media (min-width: 1200px){.col-lg-8{float:left}.col-lg-8{width:66.66666667%}}table{background-color:transparent}th{text-align:left}.table{width:100%;max-width:100%;margin-bottom:20px}.table > thead > tr > th,.table > tbody > tr > td{padding:8px;line-height:1.42857143;vertical-align:top;border-top:1px solid #ddd}.table > thead > tr > th{vertical-align:bottom;border-bottom:2px solid #ddd}.table > thead:first-child > tr:first-child > th{border-top:0}label{display:inline-block;max-width:100%;font-weight:700}input[type="radio"]{margin:4px 0 0;margin-top:1px \9;line-height:normal}input[type="radio"]:focus{outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}.btn:focus,.btn:active:focus{outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}.btn:hover,.btn:focus{color:#333;text-decoration:none}.btn:active{background-image:none;outline:0;-webkit-box-shadow:inset 0 3px 5px rgba(0, 0, 0, 0.125);box-shadow:inset 0 3px 5px rgba(0, 0, 0, 0.125)}.collapse{display:none}.nav{margin-bottom:0;list-style:none}.nav > li{position:relative;display:block}.nav > li > a{position:relative;display:block;padding:3px 4px 3px 8px}.nav > li > a:hover,.nav > li > a:focus{text-decoration:none;background-color:#eeeeee}.nav-stacked > li{float:none}.navbar{position:relative;min-height:50px;margin-bottom:20px;border:1px solid transparent}@media (min-width: 768px){.navbar{border-radius:4px}}.navbar-collapse{padding-right:15px;padding-left:15px;overflow-x:visible;border-top:1px solid transparent;-webkit-box-shadow:inset 0 1px 0 rgba(255, 255, 255, 0.1);box-shadow:inset 0 1px 0 rgba(255, 255, 255, 0.1);-webkit-overflow-scrolling:touch}@media (min-width: 768px){.navbar-collapse{width:auto;border-top:0;-webkit-box-shadow:none;box-shadow:none}.navbar-collapse.collapse{display:block !important;height:auto !important;padding-bottom:0;overflow:visible !important}.navbar-fixed-top .navbar-collapse{padding-right:0;padding-left:0}}.navbar-fixed-top{right:0;left:0;z-index:1030}.navbar-fixed-top .navbar-collapse{max-height:340px}@media (max-device-width: 480px) and (orientation: landscape){.navbar-fixed-top .navbar-collapse{max-height:200px}}@media (min-width: 768px){.navbar-fixed-top{border-radius:0}}.navbar-fixed-top{top:0;border-width:0 0 1px}.container > .navbar-header,.container > .navbar-collapse{margin-right:-15px;margin-left:-15px}@media (min-width: 768px){.container > .navbar-header,.container > .navbar-collapse{margin-right:0;margin-left:0}}.navbar-toggle{position:relative;padding:14px 16px;margin-right:3px;margin-top:8px;margin-bottom:8px;background-color:transparent;background-image:none;border:1px solid transparent;border-radius:12px}.navbar-toggle:focus{outline:0}.navbar-toggle .icon-bar{display:block;width:22px;height:2px;border-radius:1px}.navbar-toggle .icon-bar + .icon-bar{margin-top:4px}@media (min-width: 768px){.navbar-toggle{display:none}}.navbar-nav{margin:7.5px -15px}.navbar-nav > li > a{padding-top:10px;padding-bottom:10px;line-height:20px}@media (max-width: 767px){.navbar-nav{display:grid;justify-self:end;grid-template-columns:1fr}}@media (min-width: 768px){.navbar-nav{float:left;margin:0}.navbar-nav > li{float:left}.navbar-nav > li > a{padding-top:15px;padding-bottom:15px}}@media (min-width: 768px){.navbar-right{float:right !important;margin-right:-15px}}.navbar-default{background-color:#f8f8f8;border-color:#e7e7e7}.navbar-default .navbar-nav > li > a{color:#777}.navbar-default .navbar-nav > li > a:hover,.navbar-default .navbar-nav > li > a:focus{color:#333;background-color:transparent}.navbar-default .navbar-nav > .active > a,.navbar-default .navbar-nav > .active > a:hover,.navbar-default .navbar-nav > .active > a:focus{color:#555;background-color:#e7e7e7}.navbar-default .navbar-toggle{border-color:#ddd}.navbar-default .navbar-toggle:hover,.navbar-default .navbar-toggle:focus{background-color:#ddd}.navbar-default .navbar-toggle .icon-bar{background-color:#888}.navbar-default .navbar-collapse{border-color:#e7e7e7;margin-top:8px!important}@-webkit-keyframes progress-bar-stripes{from{background-position:40px 0}to{background-position:0 0}}.clearfix:before,.clearfix:after,.container:before,.container:after,.row:before,.row:after,.nav:before,.nav:after,.navbar:before,.navbar:after,.navbar-header:before,.navbar-header:after,.navbar-collapse:before,.navbar-collapse:after{display:table;content:" "}.clearfix:after,.container:after,.row:after,.nav:after,.navbar:after,.navbar-header:after,.navbar-collapse:after{clear:both}@-ms-viewport{width:device-width}@media print{.hidden-print{display:none !important}}.text-bold{font-weight:600!important}.mb-8{margin-bottom:40px!important}.px-md-6{padding-right:15px!important;padding-left:15px!important}.no-underline{text-decoration:none !important}*,:after,:before{--tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000}.flex-justify-center-l{display:flex;align-items:center;justify-content:center}.top-0{top:0 !important}.container-xl{max-width:1280px}.fa{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:inline-block;font-style:normal;font-variant:normal;text-rendering:auto;line-height:1}.fa-link:before{content:"\f0c1"}.fa-list:before{content:"\f03a"}.fa-search:before{content:"\f002"}.fa-user:before{content:"\f007"}.sr-only{border:0;clip:rect(0,0,0,0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.fa{font-family:"Font Awesome 5 Free"}.fa{font-weight:900}.fa.fa-thumbs-o-up{font-family:"Font Awesome 5 Free";font-weight:400}.fa.fa-thumbs-o-up:before{content:"\f164"}.fa.fa-thumbs-o-down{font-family:"Font Awesome 5 Free";font-weight:400}.fa.fa-thumbs-o-down:before{content:"\f165"}.fa.fa-code-fork:before{content:"\f126"}@mixin dark{@content}.tableOfContents_35-E{overflow-y:auto;position:-webkit-sticky;position:sticky}.tableOfContents_35-E{max-height:calc(100vh - var(--ifm-navbar-height) - 2rem);top:calc(var(--ifm-navbar-height) + 2rem)}@media only screen and (max-width: 768px){.tableOfContents_35-E{display:none}}.thin-scrollbar::-webkit-scrollbar{height:var(--ifm-scrollbar-size);width:var(--ifm-scrollbar-size)}.thin-scrollbar::-webkit-scrollbar-track{background:var(--ifm-scrollbar-track-background-color);border-radius:10px}.thin-scrollbar::-webkit-scrollbar-thumb{background:var(--ifm-scrollbar-thumb-background-color);border-radius:10px}.thin-scrollbar::-webkit-scrollbar-thumb:hover{background:var(--ifm-scrollbar-thumb-hover-background-color)}.table-of-contents{margin-bottom:0;padding:6px 8px 6px 16px}.table-of-contents,.table-of-contents ul{list-style-type:none;padding-left:var(--ifm-toc-padding-horizontal);border-left:0px}.table-of-contents li{margin:var(--ifm-toc-padding-vertical) var(--ifm-toc-padding-horizontal)}a:hover{text-decoration:var(--ifm-link-hover-decoration)}ol,ul{margin:0 0 var(--ifm-list-margin);padding-left:var(--ifm-list-left-padding);word-wrap:break-word}ul ul{margin:0}body{margin:0;transition:var(--ifm-transition-fast) ease color}@-webkit-keyframes gt-kf-rotate{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.clearfix{overflow:hidden;zoom:1}.clearfix:after{content:"";display:block;clear:both;width:100%;height:0}@media (hover:hover) and (pointer:fine){.edSFyN:hover{background:var( --item-hover-bg-override,rgba(208,215,222,0.32) );cursor:pointer}}.edSFyN:not(:first-of-type):not(.Divider__StyledDivider-sc-1cj74ix-0 + .Item__StyledItem-sc-yeql7o-2):not(.Header__StyledHeader-sc-1ym0mwn-0 + .Item__StyledItem-sc-yeql7o-2){margin-top:0}.edSFyN{display:-ms-flexbox;display:flex;border-radius:12px;-webkit-transition:background 33.333ms linear;transition:background 33.333ms linear;-webkit-text-decoration:none;text-decoration:none;list-style:none;padding:6px 8px 6px 10px}.edSFyN:active{background:rgba(208,215,222,0.48)}.mr-1{margin-right:4px!important}.mb-2{margin-bottom:8px!important}.position-sticky{position:-webkit-sticky!important;position:sticky!important}.border-top{border-top:1px solid #d0d7de!important}.position-fixed{position:fixed!important}.mb-4{margin-bottom:24px!important}.bottom-0{bottom:0!important}.right-5{right:5px!important}.mr-4{margin-right:24px!important}.z-1{z-index:1}.transition-200{-webkit-transition:.2s;transition:.2s}.opacity-0{opacity:0}.color-bg-accent-emphasis{background-color:var(--theme-main-color)!important}.color-fg-on-emphasis{color:#f0f6fc!important}.circle{border-radius:50%!important}.border-0{border:0!important}.octicon{display:inline-block;overflow:visible!important;vertical-align:text-bottom;fill:currentColor}.d-flex{display:flex}.mb-2{margin-bottom:0.5rem !important}.circle{border-radius:50%}.no-underline{text-decoration:none}.mb-2{margin-bottom:0.5rem}.octicon{display:inline-block;vertical-align:text-bottom;fill:currentColor}.color-scheme-toggle label:hover{background:var(--color-code-bg, #f0f0f0)}.color-scheme-toggle input{position:absolute;opacity:0;pointer-events:none;width:0;height:0}.color-scheme-toggle .text{display:inline-block}.color-scheme-toggle input:checked + .text{background:var(--color-primary, #82318E);color:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,0.15);border-radius:40px;padding:6px 16px;margin:-6px -16px}@media (prefers-color-scheme: dark){.color-scheme-toggle{background:var(--color-btn-bg-dark, #21262d);border-color:var(--color-primary, #C353D3)}.color-scheme-toggle label{color:var(--color-text, #ddd)}.color-scheme-toggle label:hover{background:rgba(255,255,255,0.1)}.color-scheme-toggle input:checked + .text{background:var(--color-primary, #C353D3);color:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,0.4)}}.border-top{border-top:1.5px solid #d0d7de!important}</style><link rel="stylesheet" type="text/css" href="/assets/css/footer.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" type="text/css" href="/assets/css/footer.css" media="print" onload="this.media='all'"></noscript>
+<!-- Bootstrap core CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="/assets/css/bootstrap.css" rel="stylesheet" media="print" onload="this.media='all'"></noscript>
+<link href="/assets/css/bilibili_icon.css" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="/assets/css/bilibili_icon.css" rel="stylesheet" media="print" onload="this.media='all'"></noscript>
+
+    <!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="/assets/css/font-awesome.min.css" rel="stylesheet" media="print" onload="this.media='all'"></noscript>
+<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet" media="print" onload="this.media='all'"></noscript>
+<link rel="stylesheet" type="text/css" href="/assets/css/card.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" type="text/css" href="/assets/css/card.css" media="print" onload="this.media='all'"></noscript>
+
+<script src="/assets/js/jquery.min.js"></script>
+<!-- #### defer load ####################################################################################-->
+<script src="/assets/js/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+<script defer src="/assets/js/pace.min.js"></script>
+<!-- #### defer load end ################################################################################-->
+
+<script defer src="/assets/js/jquery.sticky/1.0.4/jquery.sticky.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+
+</head>
+
+    <body>
+
+                <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <!-- logo+popover整体包裹，便于布局和交互 -->
+            <div class="navbar-logo-hover-wrap">
+                <a class="gb_A flex-justify-center-l navbar-logo" href="/" title="返回首页" tabindex="0" aria-label="返回首页">
+                    <picture>
+  <svg style="vertical-align: middle;" aria-hidden="true" focusable="false" role="img" class="color-fg-default" viewBox="0 0 16 16" width="42" height="42" fill="currentColor"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+  
+</picture>
+                </a>
+                <!-- Apple/GitHub 风格美化的 popover -->
+                <div class="navbar-logo-popover" tabindex="-1">
+                    <div class="popover-arrow"></div>
+                    <ul>
+                    
+                    
+                        
+                    
+                        
+                            
+                            <li>
+                                <a class="popover-link" href="https://github.com/Bin4xin/bigger-than-bigger/" target="_blank">
+                                    <span class="fa fa-code-fork"></span>
+                                    <span class="popover-link-text">BIGGER THAN BIGGER</span>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a class="popover-link" href="https://github.com/Bin4xin/bigger-than-bigger/tree/master/CoVV" target="_blank">
+                                    <span class="fa fa-code-fork"></span>
+                                    <span class="popover-link-text">COLLECTION OF VERIFIED VULNERABILITIES</span>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a class="popover-link" href="https://github.com/Bin4xin/sweet-ysoserial" target="_blank">
+                                    <span class="fa fa-code-fork"></span>
+                                    <span class="popover-link-text">SWEET-YSOSERIAL</span>
+                                </a>
+                            </li>
+                            
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                    </ul>
+                </div>
+            </div>
+            <!-- 菜单按钮 -->
+            <button type="button" class="navbar-toggle" id="navbar-toggle-btn" data-toggle="collapse" data-target=".navbar-collapse" aria-label="切换导航菜单" aria-expanded="false" aria-controls="main-nav" style="outline:2px solid transparent; margin-left: 8px;">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse navbar-right">
+            <ul class="nav navbar-nav">
+                
+                <li><a href="/"><div class="fa fa-search"></div></a></li>
+                <li class="active"><a href="/blog/">BLOG</a></li>
+                <li><a href="/categories/">CATEGORIES</a></li>
+                <li><a href="/daily/">DAILY</a></li>
+                <li><a href="/newest">NEWEST</a></li>
+                <li><a href="/about/">RESEARCH</a></li>
+                <li><a href="/feed.xml">RSS</a></li>
+                
+                <li><a><div class="color-scheme-toggle" role="group" aria-label="Select a color scheme preference" style="font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace">
+    <!-- Light 选项 -->
+    <label data-color-scheme-option="light">
+        <input type="radio" name="color-scheme-radio" value="light">
+        <span class="text">Light</span>
+    </label>
+    <!-- Dark 选项 -->
+    <label data-color-scheme-option="dark">
+        <input type="radio" name="color-scheme-radio" value="dark">
+        <span class="text">Dark</span>
+    </label>
+    <!-- Auto 选项 (跟随系统) -->
+    <label data-color-scheme-option="auto">
+        <input type="radio" name="color-scheme-radio" value="auto">
+        <span class="text">Auto</span>
+    </label>
+</div>
+<!--<script>-->
+<!--    if (!localStorage.getItem('preferredColorScheme')) {-->
+<!--        localStorage.setItem('preferredColorScheme', 'auto');-->
+<!--    }-->
+<!--</script>-->
+<!--<script async="" src="/assets/js/scripts/color-scheme-toggle.js"></script>--></a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+                
+                <div class="container mtb">
+    <div class="row d-flex ">
+        <!-- SINGLE POST -->
+        <div class="col-lg-8 markdown-body-img flex-column">
+            <!-- Blog Post  -->
+            <a href="/blog/2019/HOOK/BY/FRIDA/"><h1 class="ctitle">「安卓渗透」:HOOK-Frida原理详解</h1></a>
+            <csmall><div class="d-flex items-center">
+                <!--article author end-->
+
+<!-- site build time set to the latest time.-->
+
+<!-- post time-->
+
+
+
+
+
+<div class="ml-hide">
+    <a class="f2 d-flex color-fg-default" href="https://github.com/Bin4xin" target="_blank">
+        Bin4xin
+
+        
+            
+        post
+        
+
+        
+        
+        
+        
+        
+
+        
+            on Dec 26, 2019
+        
+    </a>
+</div>
+            </div></csmall>
+            <div class="post-content"> 
+            <blockquote>
+  <p>在安卓安全测试中，Hook技术是最核心的动态分析手段。本文梳理Hook技术的基本原理，重点介绍Frida框架的使用方式。</p>
+</blockquote>
+
+<h2 id="0x00-hook技术概述">0x00 Hook技术概述</h2>
+
+<p>Hook技术是指在Android上进行的跨进程操作，主要分为三个层次：</p>
+
+<ol>
+  <li><strong>Native层Hook</strong>：针对JNI（Java Native Interface）本地调用的Hook</li>
+  <li><strong>Java层Hook</strong>：针对Java方法的Hook</li>
+  <li><strong>框架层Hook</strong>：针对Android Framework层的Hook</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌─────────────────────────────────────┐
+│           Android App               │
+├─────────────────────────────────────┤
+│   Java层  ←── Java Hook (Frida/Xposed) │
+├─────────────────────────────────────┤
+│   JNI桥  ←── JNI Hook                │
+├─────────────────────────────────────┤
+│  Native层 ←── Native Hook (Substrate/Inline) │
+├─────────────────────────────────────┤
+│   Linux Kernel                       │
+└─────────────────────────────────────┘
+</code></pre></div></div>
+
+<h2 id="0x01-事件分发机制">0x01 事件分发机制</h2>
+
+<p>Android本身维护着一套事件分发机制，应用程序包括<strong>应用触发事件</strong>和<strong>后台逻辑处理</strong>两部分：</p>
+
+<ul>
+  <li><strong>应用触发事件</strong>：比如App中一个按钮对应一个URL，点击则跳转浏览器访问该URL</li>
+  <li><strong>后台逻辑处理</strong>：用户看不到的后台处理逻辑</li>
+</ul>
+
+<p>以一个URL按钮为例，用户点击后看到的流程是：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>按钮点击 → 跳转默认浏览器 → 地址栏填充URL → 访问
+</code></pre></div></div>
+
+<p>但对于后台来说，处理过程要复杂得多——查看log日志可以发现，后台代码所做的工作远比我们看到的多。</p>
+
+<h2 id="0x02-frida简介">0x02 Frida简介</h2>
+
+<p><a href="https://frida.re/">Frida</a> 是一个动态二进制插桩框架，支持在Windows、macOS、Linux、iOS、Android和QNX上运行。其核心优势：</p>
+
+<ul>
+  <li><strong>动态注入</strong>：无需修改APK即可Hook运行中的进程</li>
+  <li><strong>JavaScript驱动</strong>：用JS编写Hook脚本，实时修改行为</li>
+  <li><strong>跨平台</strong>：同一套工具链支持多个平台</li>
+  <li><strong>双向通信</strong>：支持Python/JS与目标进程的实时数据交互</li>
+</ul>
+
+<h3 id="架构">架构</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──────────────┐     USB/TCP      ┌─────────────────┐
+│  Host (PC)   │ ◄──────────────► │  Target Device   │
+│  frida-cli   │                  │  frida-server    │
+│  frida-trace │                  │    ↓ 注入        │
+│  Python API  │                  │  目标进程        │
+└──────────────┘                  └─────────────────┘
+</code></pre></div></div>
+
+<h2 id="0x03-环境搭建">0x03 环境搭建</h2>
+
+<h3 id="安装frida">安装Frida</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># PC端安装</span>
+pip3 <span class="nb">install </span>frida-tools
+pip3 <span class="nb">install </span>frida
+
+<span class="c"># 验证安装</span>
+frida <span class="nt">--version</span>
+</code></pre></div></div>
+
+<h3 id="设备端部署">设备端部署</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 下载frida-server，需与PC端版本一致</span>
+<span class="c"># https://github.com/frida/frida/releases</span>
+wget https://github.com/frida/frida/releases/download/12.8.0/frida-server-12.8.0-android-x86.xz
+
+<span class="c"># 解压并推送到设备</span>
+xz <span class="nt">-d</span> frida-server-12.8.0-android-x86.xz
+adb push frida-server-12.8.0-android-x86 /data/local/tmp/frida-server
+adb shell <span class="nb">chmod </span>755 /data/local/tmp/frida-server
+
+<span class="c"># 启动frida-server（需要root权限）</span>
+adb shell
+su
+/data/local/tmp/frida-server &amp;
+</code></pre></div></div>
+
+<h3 id="验证连接">验证连接</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 列出设备上运行的进程</span>
+frida-ps <span class="nt">-U</span>
+
+<span class="c"># 列出设备上已安装的应用</span>
+frida-ps <span class="nt">-Ua</span>
+</code></pre></div></div>
+
+<h2 id="0x04-frida-hook-java方法">0x04 Frida Hook Java方法</h2>
+
+<h3 id="基本用法">基本用法</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// hook_java.js</span>
+<span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 获取类</span>
+    <span class="kd">var</span> <span class="nx">LoginActivity</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="dl">"</span><span class="s2">com.example.app.LoginActivity</span><span class="dl">"</span><span class="p">);</span>
+
+    <span class="c1">// Hook方法</span>
+    <span class="nx">LoginActivity</span><span class="p">.</span><span class="nx">login</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">[*] login() called</span><span class="dl">"</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">[*] username: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">username</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">[*] password: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">password</span><span class="p">);</span>
+
+        <span class="c1">// 调用原方法</span>
+        <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">login</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span> <span class="nx">password</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">[*] login result: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">result</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 注入到目标进程</span>
+frida <span class="nt">-U</span> <span class="nt">-f</span> com.example.app <span class="nt">-l</span> hook_java.js <span class="nt">--no-pause</span>
+</code></pre></div></div>
+
+<h3 id="hook重载方法">Hook重载方法</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">MyClass</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="dl">"</span><span class="s2">com.example.app.MyClass</span><span class="dl">"</span><span class="p">);</span>
+
+    <span class="c1">// 指定参数类型来区分重载方法</span>
+    <span class="nx">MyClass</span><span class="p">.</span><span class="nx">process</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="dl">"</span><span class="s2">java.lang.String</span><span class="dl">"</span><span class="p">).</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">arg</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">[*] process(String): </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">arg</span><span class="p">);</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">process</span><span class="p">(</span><span class="nx">arg</span><span class="p">);</span>
+    <span class="p">};</span>
+
+    <span class="nx">MyClass</span><span class="p">.</span><span class="nx">process</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="dl">"</span><span class="s2">int</span><span class="dl">"</span><span class="p">).</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">arg</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">[*] process(int): </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">arg</span><span class="p">);</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">process</span><span class="p">(</span><span class="nx">arg</span><span class="p">);</span>
+    <span class="p">};</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="主动调用方法">主动调用方法</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">MyClass</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="dl">"</span><span class="s2">com.example.app.MyClass</span><span class="dl">"</span><span class="p">);</span>
+
+    <span class="c1">// 主动调用静态方法</span>
+    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">MyClass</span><span class="p">.</span><span class="nx">generateToken</span><span class="p">(</span><span class="dl">"</span><span class="s2">admin</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">[*] Token: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">result</span><span class="p">);</span>
+
+    <span class="c1">// 主动调用实例方法（需要先获取实例）</span>
+    <span class="nx">Java</span><span class="p">.</span><span class="nx">choose</span><span class="p">(</span><span class="dl">"</span><span class="s2">com.example.app.MyClass</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+        <span class="na">onMatch</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">instance</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">[*] Found instance: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">instance</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">getData</span><span class="p">();</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">[*] Data: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">data</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="na">onComplete</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">[*] Search complete</span><span class="dl">"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="0x05-frida-hook-native函数">0x05 Frida Hook Native函数</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// hook_native.js</span>
+<span class="c1">// Hook libc的open函数</span>
+<span class="nx">Interceptor</span><span class="p">.</span><span class="nx">attach</span><span class="p">(</span><span class="nx">Module</span><span class="p">.</span><span class="nx">findExportByName</span><span class="p">(</span><span class="dl">"</span><span class="s2">libc.so</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">open</span><span class="dl">"</span><span class="p">),</span> <span class="p">{</span>
+    <span class="na">onEnter</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 第一个参数是文件路径</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">path</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">readUtf8String</span><span class="p">();</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">[*] open(</span><span class="dl">"</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">path</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">)</span><span class="dl">"</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="na">onLeave</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">retval</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">[*] open returned: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">retval</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="0x06-frida绕过ssl-pinning">0x06 Frida绕过SSL Pinning</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// TrustManagerImpl</span>
+    <span class="kd">var</span> <span class="nx">TrustManagerImpl</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="dl">"</span><span class="s2">com.android.org.conscrypt.TrustManagerImpl</span><span class="dl">"</span><span class="p">);</span>
+
+    <span class="nx">TrustManagerImpl</span><span class="p">.</span><span class="nx">verifyChain</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">untrustedChain</span><span class="p">,</span> <span class="nx">trustAnchorChain</span><span class="p">,</span> <span class="nx">host</span><span class="p">,</span> <span class="nx">clientAuth</span><span class="p">,</span> <span class="nx">ocspData</span><span class="p">,</span> <span class="nx">tlsSctData</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">[*] SSL Pinning bypassed for: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">host</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nx">untrustedChain</span><span class="p">;</span>
+    <span class="p">};</span>
+
+    <span class="c1">// OkHttp3 CertificatePinner</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">CertificatePinner</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="dl">"</span><span class="s2">okhttp3.CertificatePinner</span><span class="dl">"</span><span class="p">);</span>
+        <span class="nx">CertificatePinner</span><span class="p">.</span><span class="nx">check</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="dl">"</span><span class="s2">java.lang.String</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">java.util.List</span><span class="dl">"</span><span class="p">).</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">hostname</span><span class="p">,</span> <span class="nx">peerCertificates</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">[*] OkHttp3 CertificatePinner bypassed for: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">hostname</span><span class="p">);</span>
+        <span class="p">};</span>
+    <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">[-] OkHttp3 not found</span><span class="dl">"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="0x07-frida-vs-xposed">0x07 Frida vs Xposed</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>特性</th>
+      <th>Frida</th>
+      <th>Xposed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>运行方式</td>
+      <td>注入式，进程级别</td>
+      <td>系统级，需重启</td>
+    </tr>
+    <tr>
+      <td>脚本语言</td>
+      <td>JavaScript</td>
+      <td>Java</td>
+    </tr>
+    <tr>
+      <td>设备要求</td>
+      <td>需要root（或Gadget免root）</td>
+      <td>需要root + 刷框架</td>
+    </tr>
+    <tr>
+      <td>适用场景</td>
+      <td>临时调试、渗透测试</td>
+      <td>长期功能修改</td>
+    </tr>
+    <tr>
+      <td>反检测</td>
+      <td>较易被检测</td>
+      <td>可通过改名绕过</td>
+    </tr>
+    <tr>
+      <td>开发效率</td>
+      <td>高（JS即写即用）</td>
+      <td>中（需编译模块）</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>Frida更适合安全测试场景，Xposed更适合长期使用的功能模块。</p>
+</blockquote>
+
+<h2 id="0x08-frida-trace快速跟踪">0x08 frida-trace快速跟踪</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 跟踪指定Java类的所有方法</span>
+frida-trace <span class="nt">-U</span> <span class="nt">-f</span> com.example.app <span class="nt">-j</span> <span class="s2">"*!*login*"</span>
+
+<span class="c"># 跟踪Native函数</span>
+frida-trace <span class="nt">-U</span> <span class="nt">-f</span> com.example.app <span class="nt">-i</span> <span class="s2">"open"</span> <span class="nt">-i</span> <span class="s2">"connect"</span>
+</code></pre></div></div>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+  <li><a href="https://frida.re/docs/home/" target="_blank">Frida官方文档</a></li>
+  <li><a href="https://github.com/0x192/universal-android-debloater" target="_blank">Frida实战指南</a></li>
+  <li><a href="https://blog.csdn.net/qq_36869808/article/details/88601819" target="_blank">Android Hook技术防范漫谈</a></li>
+</ul>
+
+<p>以上。</p>
+
+                <!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
+<footer>
+	
+	<div class="border-top"></div>
+		<section class="container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto">
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix ">
+				<h2 class="lead">申明</h2>
+				<div>
+					<div class="mb-2"><a href="/blog/2019/HOOK/BY/FRIDA/" target="_blank" class=" text-bold">
+						<div class="fa fa-link"></div>
+						转载请申明本文档链接</a></div>
+					<div><a href="https://github.com/Bin4xin" target="_blank" class="text-bold">
+						<div class="fa fa-user"></div>
+						Post by Bin4xin.</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">贡献开源文档</h2>
+				<div>
+					<a href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2019-12-26-how-hook-android-work.md" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
+						<svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"/></svg>
+						贡献当前开源文档
+					</a>
+					<p class="f1-l mt-2 text-bold">此之前，学习开源贡献<a target="_blank" href="https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码">CN&nbsp;|</a>
+						<a target="_blank" href="https://github.com/github/docs">EN</a></p>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">此文档对您有帮助吗</h2>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/" target="_blank" class="no-underline">
+				<span class="btn mr-1 color-border-accent-emphasis" title="给文档仓库点个赞!">
+					<div class="fa fa-thumbs-o-up"></div>
+				</span>
+				</a>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_posts/blog/2019-12-26-how-hook-android-work.md&nbsp; 「安卓渗透」:HOOK-Frida原理详解 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
+				<span class="btn mr-1 color-border-accent-emphasis" title="本文档有问题?">
+				<div class="fa fa-thumbs-o-down"></div>
+				</span>
+				</a>
+			</div>
+		</section>
+</footer>
+            </div>
+            <div class="spacing"></div>
+        </div><!--/col-lg-8 -->
+        
+<div class="col-md-4">
+    <div class="ml-hide article-index thin-scrollbar position-sticky top-0" style="max-height: 100vh; overflow-y: auto;">
+        <div class="nav nav-stacked tableOfContents_35-E">
+            <li class="table-of-contents">
+                <code-index-css>
+                    <h3><i class="fa fa-list"></i> 文章目录</h3>
+                    <ul id="toc" class="section-nav">
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#0x00-hook技术概述">0x00 Hook技术概述</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#0x01-事件分发机制">0x01 事件分发机制</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#0x02-frida简介">0x02 Frida简介</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#架构">架构</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#0x03-环境搭建">0x03 环境搭建</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#安装frida">安装Frida</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#设备端部署">设备端部署</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#验证连接">验证连接</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#0x04-frida-hook-java方法">0x04 Frida Hook Java方法</a>
+<ul>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#基本用法">基本用法</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#hook重载方法">Hook重载方法</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h3"><a href="#主动调用方法">主动调用方法</a></li>
+</ul>
+</li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#0x05-frida-hook-native函数">0x05 Frida Hook Native函数</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#0x06-frida绕过ssl-pinning">0x06 Frida绕过SSL Pinning</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#0x07-frida-vs-xposed">0x07 Frida vs Xposed</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#0x08-frida-trace快速跟踪">0x08 frida-trace快速跟踪</a></li>
+<li class="no-underline table-of-contents Item__StyledItem-sc-yeql7o-2 edSFyN flex-column toc-h2"><a href="#参考">参考</a></li>
+</ul>
+                </code-index-css>
+            </li>
+        </div>
+    </div>
+</div>
+
+
+    </div><!--/row -->
+</div><!--/container -->
+                <!-- 代码引用申明/code reference declaration:
+#############################################################################
+## code from cloudflare. visit footer in https://www.cloudflare.com/zh-cn/ ##
+#############################################################################
+-->
+
+<div id="footerwrap" class="hidden-print">
+    <div class="footer-container">
+        <div class="pt3 pt3-ns pt3-m pt7-l pb0 pb0-ns pb0-m pb5-l">
+            <div class="footer-row">
+                
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>入门</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/usage/" target="_blank">快速开始</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/blog/2019/jekyll/in/linux/" target="_blank">博客搭建</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/blog/2019/nginx/with/jekyll-site/" target="_blank">公网部署</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/tuna/mirror-web/" target="_blank">Jekyll Tuna源码</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>社区</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/bigger-than-bigger/" target="_blank">Bigger than Bigger</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/bigger-than-bigger/tree/master/CoVV" target="_blank">Collection Of Verified Vulnerabilities</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/sweet-ysoserial" target="_blank">sweet-ysoserial</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>技术栈</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://jekyllrb.com/docs/" target="_blank">Jekyll</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://www.markdownguide.org/" target="_blank">MarkDown</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://www.cloudflare.com/waf/" target="_blank">CloudFlare WAF</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://dash.cloudflare.com/dns/" target="_blank">CloudFlare CDN</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/features/actions" target="_blank">Github Action</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>关于</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/about/" target="_blank">近期研究</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/blog/" target="_blank">博客</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/bin4xin.github.io/wiki" target="_blank">WIKI</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>贡献者</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/bin4xin" target="_blank">本阿信</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/dnf-2008" target="_blank">夏天の风</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Yang2635" target="_blank">Yang2635</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+<div class="footer-col-lg-2">
+    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
+        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
+            <span class="footer-abstract point"><strong>其他</strong></span>
+        </summary>
+        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/usage/" target="_blank">帮助</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/privacy/" target="_blank">隐私</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/privacy/#cookie" target="_blank">Cookie偏好</a></li>
+            
+            
+        </ul>
+    </details>
+</div>
+
+            </div><!-- "/row"-->
+            <div class="pv2-ns">
+                <div class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l flex footer-bottom-row-margin">
+                    <!--
+   - FlipClock design
+   -    @link { https://github.com/objectivehtml/FlipClock }
+-->
+
+<div class="flex items-center mb3 mb3-ns mb3-m mb0-l lh-1 mt0 mt3-ns">
+    
+    
+    
+    <div id="SentinelLAB"><a class="lh-1 dib mr2" title="SentinelLAB" target="_blank" rel="noopener" href="https://www.vulbox.com/team/ERRORS"></a></div>
+    
+    
+    
+    <div id="YouTuBe"><a class="lh-1 dib mr2" title="YouTuBe" target="_blank" rel="noopener" href="https://www.youtube.com/@bin4xin"></a></div>
+    
+    
+    
+    <div id="Twitter"><a class="lh-1 dib mr2" title="Twitter" target="_blank" rel="noopener" href="https://twitter.com/bin4xin"></a></div>
+    
+    
+    
+    <div id="Linkedin"><a class="lh-1 dib mr2" title="Linkedin" target="_blank" rel="noopener" href="https://www.linkedin.com/#"></a></div>
+    
+    
+    
+    <div id="Facebook"><a class="lh-1 dib mr2" title="Facebook" target="_blank" rel="noopener" href="https://www.facebook.com/#"></a></div>
+    
+    
+    
+    <div id="Bilibili"><a class="lh-1 dib mr2" title="Bilibili" target="_blank" rel="noopener" href="https://space.bilibili.com/67373868"></a></div>
+    
+</div>
+                </div>
+            </div><!-- "/pv5" -->
+        </div>
+    </div>
+    <div class="tertiary d-flex">
+        <div class="wrapper">
+            <div class="col justify-center flex-wrap-l d-flex justify-content-center">
+                <ul class="pa1 table-of-contents flex-xl-justify-between flex-xl-column">
+                    <li class="outstanding"><a>© 2019-2026 </a></li>
+                    <li class="outstanding"><a>SENTINEL SECURITY, LAB</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div><!--/footerwrap -->
+
+    </body>
+
+    <script src="/assets/js/copy.js"></script>
+<!--TODONE.
+**FireFox display BUG**
+position-fixed in FireFox display position -> none
+- Reference:
+    - { @link https://developer.mozilla.org/zh-CN/docs/Web/CSS/position#browser_compatibility }
+    - { @link https://blog.csdn.net/DDD4V/article/details/123354124 }
+    - { @link https://juejin.cn/post/6844904100576886797 }
+        - { @link Demo https://codepen.io/li377242494/pen/VwLGGaR }
+Fiex In `[assets/css/style.scss](https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/css/style.scss)`
+    - tooltipped css postion.
+-->
+
+<!--<link rel="preload" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" as="style"/>-->
+<!--<link rel="stylesheet" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" data-n-g=""/>-->
+
+<divs role="tooltip" class="position-fixed bottom-0 mb-4 right-5 mr-4 z-1 transition-200 opacity-0" onclick="$(&quot;html,body&quot;).animate({scrollTop:0}, 1000);">
+    <button class="tooltipped tooltipped-n tooltipped-no-delay color-bg-accent-emphasis color-fg-on-emphasis circle border-0" style="width:45px;height:45px" aria-label="滚动到顶部">
+        <svg aria-hidden="true" role="img" class="octicon octicon-chevron-up" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible">
+            <path fill-rule="evenodd" d="M3.22 9.78a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 0l4.25 4.25a.75.75 0 01-1.06 1.06L8 6.06 4.28 9.78a.75.75 0 01-1.06 0z">
+            </path>
+        </svg>
+    </button>
+</divs>
+
+
+</html>

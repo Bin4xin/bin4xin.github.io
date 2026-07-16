@@ -969,6 +969,21 @@
       </item>
     
       <item>
+        <title>about: Cobalt Stike C2 Server Hidden</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2022/02/20
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/about/Cobalt-Strike-C2-domain-front-hidden/</link>
+        <guid isPermaLink="true">/about/Cobalt-Strike-C2-domain-front-hidden/</guid>
+        
+        
+        <category>about</category>
+        
+      </item>
+    
+      <item>
         <title>about: Cobalt Stike Hidden True Ip</title>
         <description>[MORE]</description>
         <pubDate>
@@ -1204,6 +1219,29 @@
         
         
         <category>about</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「CTF」:Morse编码与CTF中的常见编码题解</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2021/07/12
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/blog/2021/morse-code-ctf/</link>
+        <guid isPermaLink="true">/blog/2021/morse-code-ctf/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>CTF</category>
+        
+        <category>笔记</category>
+        
+        <category>Python</category>
+        
+        <category>密码学</category>
         
       </item>
     
@@ -1479,6 +1517,48 @@
       </item>
     
       <item>
+        <title>blog: 「vulnhub」：GainPower靶场渗透历程</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2020/12/2
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/blog/GainPower/walkthrough/</link>
+        <guid isPermaLink="true">/blog/GainPower/walkthrough/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>Vulnhub</category>
+        
+        <category>笔记</category>
+        
+        <category>渗透</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「PHP」:部署一揽子问题记录</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2020/11/25
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/blog/2020/php-depoly/</link>
+        <guid isPermaLink="true">/blog/2020/php-depoly/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>php</category>
+        
+        <category>笔记</category>
+        
+        <category>运维</category>
+        
+      </item>
+    
+      <item>
         <title>about: Springboot Memory Files Heapdump Analysis</title>
         <description>[MORE]</description>
         <pubDate>
@@ -1619,6 +1699,125 @@
         
         
         <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「Src」：Nexus-Repository-Manager3 漏洞复现总结</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2020/08/23
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/blog/2020/Nexus/vuln-Cve/</link>
+        <guid isPermaLink="true">/blog/2020/Nexus/vuln-Cve/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>src</category>
+        
+        <category>CVE</category>
+        
+        <category>漏洞复现</category>
+        
+        <category>Java</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「漏洞复现」:Apache-Solr &amp; ActiveMQ RCE漏洞复现</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2020/08/22
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/blog/2020/Apache/vuln-Cve/</link>
+        <guid isPermaLink="true">/blog/2020/Apache/vuln-Cve/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>CVE</category>
+        
+        <category>漏洞复现</category>
+        
+        <category>Java</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「漏洞复现」:Jackson反序列化漏洞利用总结</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2020/08/14
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/blog/2020/json/vuln-Cve/</link>
+        <guid isPermaLink="true">/blog/2020/json/vuln-Cve/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>CVE</category>
+        
+        <category>漏洞复现</category>
+        
+        <category>Java</category>
+        
+        <category>Jackson</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「Src」:Confluence漏洞复现总结</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2020/07/23
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/blog/2020/Confluence/vuln-Cve/</link>
+        <guid isPermaLink="true">/blog/2020/Confluence/vuln-Cve/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>src</category>
+        
+        <category>CVE</category>
+        
+        <category>信息搜集</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「CS」:内网渗透工具学习笔记</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2020/06/22
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/blog/2020/C-S/use/internet-Inside/</link>
+        <guid isPermaLink="true">/blog/2020/C-S/use/internet-Inside/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>安全工具</category>
+        
+        <category>Cobalt Strike</category>
+        
+        <category>内网渗透</category>
         
       </item>
     
@@ -1766,6 +1965,31 @@
       </item>
     
       <item>
+        <title>blog: 「SQL注入」:MSSQL-SHELL后利用笔记</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2020/05/20
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/blog/2020/SQL/SHELL/</link>
+        <guid isPermaLink="true">/blog/2020/SQL/SHELL/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>漏洞复现</category>
+        
+        <category>笔记</category>
+        
+        <category>CVE</category>
+        
+        <category>Sql-Inject</category>
+        
+        <category>MSSQL</category>
+        
+      </item>
+    
+      <item>
         <title>blog: 「fastjson」:浅谈json的反序列化</title>
         <description>[MORE]</description>
         <pubDate>
@@ -1785,6 +2009,31 @@
         
         
         <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「Shiro」:Apache-Shiro反序列化漏洞利用整理</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2020/05/18
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/blog/2020/shiro/Deser/</link>
+        <guid isPermaLink="true">/blog/2020/shiro/Deser/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>漏洞复现</category>
+        
+        <category>笔记</category>
+        
+        <category>CVE</category>
+        
+        <category>Java</category>
+        
+        <category>Shiro</category>
         
       </item>
     
@@ -1949,6 +2198,27 @@
       </item>
     
       <item>
+        <title>blog: 「Python」:pip环境配置与换源记录</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2020/02/21
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/blog/2020/sk_learn/record/</link>
+        <guid isPermaLink="true">/blog/2020/sk_learn/record/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>python</category>
+        
+        <category>笔记</category>
+        
+        <category>运维</category>
+        
+      </item>
+    
+      <item>
         <title>blog: 「资产扫描」:Let's GyoiThon !</title>
         <description>[MORE]</description>
         <pubDate>
@@ -1987,6 +2257,50 @@
         
         
         <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「搬运工笔记」:Maven构建Java Web项目实操</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2020/01/9
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/blog/2020/maven/build/mavaProject/</link>
+        <guid isPermaLink="true">/blog/2020/maven/build/mavaProject/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>Maven</category>
+        
+        <category>代码审计</category>
+        
+        <category>Web</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「渗透」：vulnhub-me-and-myGirlfriend</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2020/01/8
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/blog/2020/vulnhub-me-and-myGirlfriend/</link>
+        <guid isPermaLink="true">/blog/2020/vulnhub-me-and-myGirlfriend/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>漏洞复现</category>
+        
+        <category>渗透</category>
+        
+        <category>vulnhub</category>
         
       </item>
     
@@ -2044,6 +2358,29 @@
         
         
         <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「安卓渗透」:HOOK-Frida原理详解</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2019/12/26
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/blog/2019/HOOK/BY/FRIDA/</link>
+        <guid isPermaLink="true">/blog/2019/HOOK/BY/FRIDA/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>Android Reverse</category>
+        
+        <category>HOOK</category>
+        
+        <category>Frida</category>
         
       </item>
     
@@ -2151,6 +2488,27 @@
         
         
         <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: 「安卓渗透」：总览</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2019/11/30
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/blog/2019/android/reversr/blog/</link>
+        <guid isPermaLink="true">/blog/2019/android/reversr/blog/</guid>
+        
+        
+        <category>blog</category>
+        
+        <category>笔记</category>
+        
+        <category>渗透</category>
+        
+        <category>Android Reverse</category>
         
       </item>
     
