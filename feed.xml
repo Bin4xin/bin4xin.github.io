@@ -17,6 +17,96 @@
     <generator>Jekyll Ver 3.9.5.</generator>
     
       <item>
+        <title>about: Username Enumeration</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2026/07/16
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/about/poseidon3-username-enumeration/</link>
+        <guid isPermaLink="true">/about/poseidon3-username-enumeration/</guid>
+        
+        
+        <category>about</category>
+        
+      </item>
+    
+      <item>
+        <title>about: User Registration Unauthorized Access</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2026/07/16
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/about/poseidon3-user-registration-unauthorized-access/</link>
+        <guid isPermaLink="true">/about/poseidon3-user-registration-unauthorized-access/</guid>
+        
+        
+        <category>about</category>
+        
+      </item>
+    
+      <item>
+        <title>about: System Config Information Disclosure</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2026/07/16
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/about/poseidon3-system-config-information-disclosure/</link>
+        <guid isPermaLink="true">/about/poseidon3-system-config-information-disclosure/</guid>
+        
+        
+        <category>about</category>
+        
+      </item>
+    
+      <item>
+        <title>about: Sub Account Management Unauthorized Access</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2026/07/16
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/about/poseidon3-sub-account-management-unauthorized-access/</link>
+        <guid isPermaLink="true">/about/poseidon3-sub-account-management-unauthorized-access/</guid>
+        
+        
+        <category>about</category>
+        
+      </item>
+    
+      <item>
+        <title>about: File Upload Unauthorized Access</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2026/07/16
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/about/poseidon3-file-upload-unauthorized-access/</link>
+        <guid isPermaLink="true">/about/poseidon3-file-upload-unauthorized-access/</guid>
+        
+        
+        <category>about</category>
+        
+      </item>
+    
+      <item>
+        <title>about: Anti Burp Token Leakage</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2026/07/16
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/about/poseidon3-anti-burp-token-leakage/</link>
+        <guid isPermaLink="true">/about/poseidon3-anti-burp-token-leakage/</guid>
+        
+        
+        <category>about</category>
+        
+      </item>
+    
+      <item>
         <title>about: Claude Code Cve 2025 59828 And Cve 2025 65099</title>
         <description>[MORE]</description>
         <pubDate>
