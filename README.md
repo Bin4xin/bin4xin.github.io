@@ -88,6 +88,6 @@ I'm **Bin4xin** (哨兵), a security researcher who builds, breaks, and document
 
 <sub>Palette: <code>Macintosh</code> · rosepink · peach · sapphire · lavender · yellow · green</sub>
 <br>
-<sub>© 2020-2026 哨兵博客 · Power by Bin4xin · Jekyll · GitHub Actions</sub>
+<sub>© 2020-2026 V3.0.1 · Power by Bin4xin · Jekyll · GitHub Actions</sub>
 
 </div>
