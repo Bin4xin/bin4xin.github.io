@@ -52,9 +52,6 @@ msg   : 要显示的消息文本，必填
         --banner-text: #1f2328;
         --banner-link: #0969da;
         --banner-link-hover: #0550ae;
-        --banner-close-color: #656d76;
-        --banner-close-hover-bg: rgba(0, 0, 0, 0.05);
-        --banner-close-hover-color: #1f2328;
         background-color: var(--banner-bg);
         border: 1px solid var(--banner-border);
         border-radius: 12px;
@@ -65,6 +62,7 @@ msg   : 要显示的消息文本，必填
         padding: 1rem 1rem 1rem 1.25rem;
         transition: all 0.2s ease;
         position: relative;
+        margin: 25px;
     }
     /* 错误主题 */
     .gh-banner.error {
@@ -87,9 +85,6 @@ msg   : 要显示的消息文本，必填
             --banner-text: #e6edf3;
             --banner-link: #6cb4ff;
             --banner-link-hover: #9acbff;
-            --banner-close-color: #9aa6b2;
-            --banner-close-hover-bg: rgba(177, 186, 196, 0.12);
-            --banner-close-hover-color: #f0f3f6;
             background-color: var(--banner-bg);
             border-color: #2d4a6e;
         }
@@ -152,35 +147,6 @@ msg   : 要显示的消息文本，必填
         display: inline;
         /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";*/
     }
-    .banner-close {
-        flex-shrink: 0;
-        background: transparent;
-        border: 0;
-        padding: 4px;
-        margin: -4px -4px 0 0;
-        cursor: pointer;
-        border-radius: 6px;
-        color: var(--banner-close-color);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background-color 0.2s, color 0.2s;
-        line-height: 1;
-    }
-    .banner-close:hover {
-        background-color: var(--banner-close-hover-bg);
-        color: var(--banner-close-hover-color);
-    }
-    .banner-close:focus-visible {
-        outline: 2px solid var(--banner-icon-color);
-        outline-offset: 2px;
-    }
-    .banner-close svg {
-        width: 16px;
-        height: 16px;
-        fill: currentColor;
-        display: block;
-    }
     .gh-banner.hide-banner {
         display: none;
     }
@@ -222,28 +188,9 @@ msg   : 要显示的消息文本，必填
         <span class="banner-text">{{ message }}</span>
     </div>
 
-    <button class="banner-close" aria-label="关闭通知横幅" title="Dismiss banner" type="button">
+    <!-- <button class="banner-close" aria-label="关闭通知横幅" title="Dismiss banner" type="button">
         <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
             <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
         </svg>
-    </button>
+    </button> -->
 </section>
-
-<script>
-    (function() {
-        // 全局只初始化一次关闭事件委托
-        if (!window._ghBannerInitialized) {
-            window._ghBannerInitialized = true;
-            document.addEventListener('click', function(e) {
-                const closeBtn = e.target.closest('.banner-close');
-                if (closeBtn) {
-                    const banner = closeBtn.closest('.gh-banner');
-                    if (banner) {
-                        banner.classList.add('hide-banner');
-                        banner.setAttribute('aria-hidden', 'true');
-                    }
-                }
-            });
-        }
-    })();
-</script>
