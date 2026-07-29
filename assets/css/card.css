@@ -415,19 +415,23 @@ margin: 0;
     background: var(--ifm-scrollbar-thumb-hover-background-color)
 }
 
+/* Legacy .table-of-contents base styles
+   (overridden by _structure.scss .toc-nav rules on article pages) */
 .table-of-contents {
     margin-bottom: 0;
-    padding: 6px 8px 6px 16px;
+    padding: 0;
 }
 
-.table-of-contents,.table-of-contents ul {
+.table-of-contents,
+.table-of-contents ul {
     list-style-type: none;
-    padding-left: var(--ifm-toc-padding-horizontal);
+    padding-left: 0;
     border-left: 0px;
 }
 
 .table-of-contents li {
-    margin: var(--ifm-toc-padding-vertical) var(--ifm-toc-padding-horizontal);
+    margin: 0;
+    padding: 0;
 }
 
 .table-of-contents__left-border {
