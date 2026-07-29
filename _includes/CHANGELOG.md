@@ -17,6 +17,12 @@
 | 日期 | 变更内容 | 备注 |
 |:---|:---|:---|
 | 2026/07/16 | 新增 Poseidon3 漏洞报告（未授权访问/信息泄露/用户名枚举） | — |
+| 2026/07/29 | TOC 侧边栏 GitHub MiniToc 样式重设计；新增 "复制为 Markdown"/"在另一个选项卡中打开" 按钮组 | — |
+| 2026/07/29 | 新增同研究分类文章导航（"X 篇中的第 Y 篇"） | — |
+| 2026/07/29 | 侧边栏折叠按钮跟随 border-right 贴合；保留折叠后 1px 分割线 | — |
+| 2026/07/29 | 博客列表 `paginator-blog.html` 重构为 `.blog-card` 卡片布局 | — |
+| 2026/07/29 | 修复 `blog-card-footer` 中 `ymh-*` 样式在白色背景下的兼容性 | — |
+| 2026/07/29 | About 页面侧边栏滚动条修复；折叠按钮始终保持可点击 | — |
 | 2026/07/16 | 删除多个草稿文件，清理项目文档 | — |
 | 2026/04/03 | 新增 `scripts/css-optimize.js` 及 Action 自动化 CSS 优化 | [jekyll-optimization.md](https://github.com/Bin4xin/bin4xin.github.io/blob/main/_includes/jekyll-optimization.md) |
 | 2026/04/04 | 优化 About 分类展示 & 默认提示信息 | — |

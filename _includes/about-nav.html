@@ -1,14 +1,16 @@
-{% for descs in posts_about_desc %}
-	<details {%if page.desc contains descs.name %}open{%endif%}>
-		<summary class="edSFyN flex justify-between"><!--left - detail - summary-->
-			<a class="no-underline"><strong>{{descs.name | replace: "「", "" | replace: "」", ""|upcase}}</strong></a>
+{% for group in posts_about_desc %}
+	<details class="nav-group" {% if page.desc contains group.name %}open{% endif %}>
+		<summary class="nav-group-title">
+			{{ group.name | replace: "「", "" | replace: "」", "" | upcase }}
 		</summary>
-		{% for post in descs.items %}
-		<ul class="nav nav-pills nav-stacked no-underline">
-			<li id="toc-{{ post.Researchname }}" class="table-of-contents table-of-contents__left-border {% if post.Researchname == page.Researchname or post.redirect_help_id == page.Researchname %} active{%endif%}">
-				<a href="{{ post.url }}">{{ forloop.index| roman }}. {{ post.Researchname | upcase}}</a>
+		<ul class="nav-list">
+			{% for post in group.items %}
+			<li class="nav-item {% if post.Researchname == page.Researchname or post.redirect_help_id == page.Researchname %}active{% endif %}">
+				<a class="nav-link" href="{{ post.url }}">
+					{{ forloop.index | roman }}. {{ post.Researchname | upcase }}
+				</a>
 			</li>
+			{% endfor %}
 		</ul>
-		{% endfor %}
 	</details>
 {% endfor %}

@@ -1234,16 +1234,16 @@ nav.pagination span {
   //background: #fff;
   width: 100%;
   box-sizing: border-box;
-  border-radius: 10px;
-  box-shadow: 0 2px 12px #000000;
+  // border-radius: 10px;
+  // box-shadow: 0 2px 12px #000000;
   padding: 1.2em 1em;
-  margin: 1.5em 0 0em 0em;
+  margin: 0em 0em 0em 0em;
   overflow-y: auto;
   max-height: 80vh;
   transition: box-shadow 0.2s, background 0.2s;
   @include dark{
     background: $color_bg_dark;
-    box-shadow: 0 2px 12px #ffffff;
+    // box-shadow: 0 2px 12px #ffffff;
   }
 }
 

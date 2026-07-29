@@ -18,14 +18,50 @@
 /**
  * ADD class display for External Link
  * **/
+// jQuery(function($) {
+//     $(document.links)
+//         .filter(function() {return this.hostname;})
+//         .each(function() {
+//             if (this.hostname !== location.hostname || this.hostname !== 'github.com' || this.hostname !== 'githubusercontent.com'){
+//                 $(this).addClass('fa fa-external-link-alt');
+//             } else if (this.hostname === 'github.io'){
+//                 $(this).addClass('fa fa-github');
+//             }
+//         });
+// });
 jQuery(function($) {
+    // 配置规则
+    var rules = {
+        // 白名单：这些域名不加外链标识
+        whitelist: [
+            location.hostname,
+            'github.com',
+            'githubusercontent.com'
+        ],
+        // 特殊域名：这些域名加特定图标
+        specialIcons: {
+            'github.io': 'fa-github'
+        }
+    };
+    
+    // 合并白名单和特殊域名（特殊域名不加外链标识）
+    var noExternalList = rules.whitelist.concat(Object.keys(rules.specialIcons));
+    
     $(document.links)
-        .filter(function() {return this.hostname;})
+        .filter(function() {
+            return this.hostname && !this.href.startsWith('javascript:');
+        })
         .each(function() {
-            if (this.hostname !== location.hostname && this.hostname !== 'github.com'){
+            var host = this.hostname;
+            
+            if (noExternalList.indexOf(host) !== -1) {
+                // 在白名单或特殊列表中，检查是否有特殊图标
+                if (rules.specialIcons[host]) {
+                    $(this).addClass('fa ' + rules.specialIcons[host]);
+                }
+            } else {
+                // 不在任何列表中，加外链标识
                 $(this).addClass('fa fa-external-link-alt');
-            } else if (this.hostname === 'github.io'){
-                $(this).addClass('fa fa-github');
             }
         });
 });

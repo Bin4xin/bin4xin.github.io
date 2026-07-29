@@ -50,8 +50,21 @@ p {
     padding: 1rem 0;
     margin: 1rem auto 0;
     border: none;
-    max-width: -moz-calc(100% - 2rem);
-    //max-width: calc(100% - 2rem);
+    width: auto;
+    height: auto;
+}
+
+/* Constrain images inside about layout to column width */
+.about-layout img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Ensure all images inside #help-content fit */
+#help-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 // *  TODO mark: define default img display while cannot find online image.
@@ -151,30 +164,802 @@ ion-icon:hover {
 	background-color: transparent;
 	cursor: pointer;
 }
-#sidebar1 {
-	transition: width 0.3s;
-	overflow: hidden;
+/* ==========================================================================
+   Sidebar (#sidebar1) - GitHub sidebar style
+   ========================================================================== */
+
+#sidebar1,
+aside#sidebar1 {
+	transition: width 0.3s, transform 0.3s;
+	overflow-y: auto;
+	overflow-x: hidden;
+	background: var(--color-canvas-default, #fff);
+	height: 100vh;
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	flex-shrink: 0;
+	border-right: 1px solid #d0d7de;
+	@include dark{
+		background: #161b22;
+		border-right-color: #30363d;
+	}
 }
+
+.sidebar-alert {
+	padding: 20px 0 8px;
+}
+
 #sidebar1.collapsed {
-	width: 65px;
-}
-#sidebar1.collapsed #logo,
-#sidebar1.collapsed #toggleButton {
-	opacity: 1; /* 保持可见 */
-}
-
-/* article-index.html styles */
-.article-index ul {
-    padding-left: 1em;
+	width: 1px !important;
+	min-width: 1px !important;
+	flex: 0 0 1px !important;
+	border-right: 1px solid #d0d7de;
+	overflow: hidden;
+	@include dark{
+		border-right-color: #30363d;
+	}
 }
 
-.article-index ul li {
-    list-style: none;
+/* Sidebar nav */
+#help-nav {
+	padding: 8px 0;
+	overflow-y: auto;
 }
 
-.article-index ul li a {
-    font-size: 14px !important; /* 统一字体大小 */
-    font-weight: 400 !important; /* 统一字重 */
+/* Details/summary groups - GitHub sidebar style */
+#help-nav .nav-group,
+#sidebar1 details {
+	padding: 0;
+	margin: 0;
+}
+
+#help-nav .nav-group-title,
+#sidebar1 details > summary {
+	display: flex;
+	align-items: center;
+	padding: 6px 16px;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	color: #1f2328;
+	cursor: pointer;
+	transition: background 0.15s ease;
+	border-radius: 6px;
+	margin: 1px 8px;
+	@include dark{
+		color: #e6edf3;
+	}
+}
+
+#help-nav .nav-group-title:hover,
+#sidebar1 details > summary:hover {
+	background: rgba(208, 215, 222, 0.32);
+	@include dark{
+		background: rgba(136, 154, 175, 0.15);
+	}
+}
+
+#help-nav summary::-webkit-details-marker,
+#help-nav summary::marker,
+#sidebar1 details > summary::-webkit-details-marker,
+#sidebar1 details > summary::marker {
+	display: none;
+}
+
+/* Nav items list */
+#help-nav .nav-list,
+#help-nav .nav {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+/* Nav items */
+#help-nav .nav-item,
+#help-nav .nav > li {
+	margin: 0 !important;
+	padding: 0 !important;
+	list-style: none !important;
+}
+
+/* Nav links */
+#help-nav .nav-link,
+#help-nav .nav > li > a {
+	display: block;
+	padding: 5px 16px 5px 28px;
+	font-weight: 500;
+	font-size: 0.8125rem;
+	line-height: 1.5;
+	color: #57606a;
+	text-decoration: none;
+	transition: color 0.15s ease, background 0.15s ease;
+	border-left: 2px solid transparent;
+	margin: 0 8px;
+	border-radius: 0 6px 6px 0;
+	@include dark{
+		color: #8b949e;
+	}
+}
+
+#help-nav .nav-link:hover,
+#help-nav .nav > li > a:hover {
+	color: #1f2328;
+	background: rgba(208, 215, 222, 0.32);
+	@include dark{
+		color: #e6edf3;
+		background: rgba(136, 154, 175, 0.15);
+	}
+}
+
+/* Active state */
+#help-nav .nav-item.active > .nav-link,
+#help-nav .nav > li.active > a {
+	color: var(--theme-main-color);
+	font-weight: 500;
+	border-left-color: #0969da;
+	background: rgba(208, 215, 222, 0.32);
+	@include dark{
+		border-left-color: #58a6ff;
+		background: rgba(136, 154, 175, 0.15);
+	}
+}
+
+/* Sidebar toggle button */
+.sidebar-toggle {
+	display: none;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	background: #ffffff;
+	border: 1px solid #d0d7de;
+	border-radius: 15px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+	cursor: pointer;
+	position: fixed;
+	z-index: 1000;
+	transition: all 0.2s ease;
+	padding: 0;
+	@include dark{
+		background: #222;
+		border-color: #30363d;
+	}
+}
+
+.sidebar-toggle:hover {
+	background: #f6f8fa;
+	@include dark{
+		background: #30363d;
+	}
+}
+
+.sidebar-toggle .toggle-logo-img {
+	width: 22px;
+	height: auto;
+	object-fit: contain;
+	border-radius: 4px;
+	transition: transform 0.3s ease;
+}
+
+/* JS classes: shown/hidden by about.js */
+#sidebar-toggle-btn {
+	display: none;
+	top: 50%;
+	left: 244px; /* sidebar width (260px) - half button width (16px) */
+	transform: translateY(-50%);
+	transition: left 0.25s ease;
+}
+
+#sidebar-toggle-btn.toggle-btn-visible,
+#sidebar-toggle-btn.sidebar-collapsed {
+	display: flex;
+}
+
+/* When sidebar collapsed, button sticks to the 1px border edge */
+#sidebar-toggle-btn.sidebar-collapsed {
+	left: 0px;
+}
+
+#sidebar-toggle-btn.sidebar-collapsed .toggle-logo-img {
+	transform: rotate(180deg);
+}
+
+/* Show sidebar toggle on mobile/tablet */
+@media (max-width: 991px) {
+	#sidebar-toggle-btn {
+		display: flex;
+		bottom: 24px;
+		right: 24px;
+		top: auto;
+		transform: none;
+	}
+}
+
+/* ==========================================================================
+   Post Layout - CSS Grid for content + TOC sidebar
+   ========================================================================== */
+
+.post-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    grid-template-rows: auto;
+    gap: 0;
+    align-items: start;
+}
+
+.post-layout > .markdown-body-img {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+}
+
+.post-layout > .toc-sidebar {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+}
+
+.about-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    grid-template-rows: auto;
+    align-items: start;
+    transition: grid-template-columns 0.3s ease;
+}
+
+.about-layout > #sidebar1 {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+}
+
+.about-layout > .about-main {
+    grid-column: 2;
+    grid-row: 1;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    align-items: start;
+    min-width: 0;
+}
+
+/* When sidebar collapsed, expand content to full width */
+.about-layout > #sidebar1.collapsed + .about-main {
+    grid-column: 1 / -1;
+}
+
+.about-main .about-top-banner {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    margin-left: 0;
+}
+
+.about-main #help-content {
+    grid-column: 1;
+    grid-row: 2;
+    min-width: 0;
+    overflow-x: hidden;
+    overflow-y: visible;
+}
+
+.about-main .toc-sidebar {
+    grid-column: 2;
+    grid-row: 2;
+    min-width: 0;
+}
+
+@media (max-width: 991px) {
+    .post-layout {
+        grid-template-columns: 1fr;
+    }
+    .about-layout {
+        grid-template-columns: 1fr;
+    }
+    .about-layout > #sidebar1 {
+        display: none;
+    }
+    .about-layout > .about-main {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Mobile - iPhone 12 Pro etc (<= 390px) */
+@media (max-width: 480px) {
+    .post-layout {
+        display: block;
+    }
+
+    .about-layout {
+        display: block;
+    }
+
+    .about-layout > #sidebar1 {
+        display: none;
+    }
+
+    .about-main {
+        display: block;
+    }
+
+    .about-main #help-content {
+        overflow-x: hidden;
+        overflow-y: visible;
+        width: 100%;
+        padding: 0 8px;
+    }
+
+    .toc-sidebar {
+        display: none;
+    }
+
+    #help-content img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
+
+/* ==========================================================================
+   TOC Sidebar - GitHub ActionList / MiniToc Style
+   ========================================================================== */
+
+/* Sidebar container */
+.toc-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    padding: 0;
+    // border-left: 1px solid #d0d7de;
+    margin-left: 1.5rem;
+    @include dark{
+        border-left-color: #30363d;
+    }
+}
+
+@media (max-width: 991px) {
+    .toc-sidebar {
+        display: none;
+    }
+}
+
+.toc-sidebar-inner {
+    padding: 1rem 0 1.5rem 0;
+}
+
+/* ==========================================================================
+   TOC Article Actions & Category Navigation
+   ========================================================================== */
+
+/* Action buttons toolbar - Primer ButtonGroup style */
+.toc-article-actions {
+    margin-bottom: 12px;
+}
+
+.prc-ButtonGroup-ButtonGroup-vFUrY {
+    display: inline-flex;
+    border-radius: 6px;
+    overflow: visible;
+}
+
+/* Copy button (left side) */
+.toc-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 20px;
+    color: #24292f;
+    background-color: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-radius: 6px 0 0 6px;
+    border-right: 0;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    white-space: nowrap;
+    position: relative;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+    @include dark {
+        color: #e6edf3;
+        background-color: #21262d;
+        border-color: #30363d;
+    }
+}
+
+.toc-copy-btn:hover {
+    background-color: #eaeef2;
+    @include dark {
+        background-color: #30363d;
+    }
+}
+
+.toc-btn-leading-visual {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toc-btn-text {
+    font-size: 0.75rem;
+}
+
+.toc-copy-success {
+    background-color: #dafbe1 !important;
+    color: #1a7f37 !important;
+    @include dark {
+        background-color: #0f5323 !important;
+        color: #3fb950 !important;
+    }
+}
+
+/* Dropdown trigger (right side) */
+.toc-dropdown-wrap {
+    position: relative;
+}
+
+.toc-dropdown-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 32px;
+    padding: 0;
+    color: #24292f;
+    background-color: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    @include dark {
+        color: #e6edf3;
+        background-color: #21262d;
+        border-color: #30363d;
+    }
+}
+
+.toc-dropdown-trigger:hover {
+    background-color: #eaeef2;
+    @include dark {
+        background-color: #30363d;
+    }
+}
+
+/* Dropdown menu */
+.toc-dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 4px);
+    z-index: 100;
+    min-width: 220px;
+    background: #ffffff;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(140,149,159,0.2);
+    padding: 4px 0;
+    @include dark {
+        background: #161b22;
+        border-color: #30363d;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+}
+
+.toc-dropdown-open {
+    display: block;
+}
+
+.toc-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    color: #24292f;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.1s ease;
+    @include dark {
+        color: #e6edf3;
+    }
+}
+
+.toc-dropdown-item:hover {
+    background-color: #f6f8fa;
+    color: #24292f;
+    text-decoration: none;
+    @include dark {
+        background-color: #21262d;
+        color: #e6edf3;
+    }
+}
+
+/* Same-category article navigation */
+.toc-category-nav {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #d8dee4;
+    @include dark {
+        border-bottom-color: #30363d;
+    }
+}
+
+.toc-category-label {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: #1f2328;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    @include dark {
+        color: #e6edf3;
+    }
+}
+
+.toc-category-count {
+    display: block;
+    font-size: 0.6875rem;
+    color: #8b949e;
+    margin-bottom: 6px;
+    @include dark {
+        color: #6e7681;
+    }
+}
+
+.toc-category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.toc-category-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: #57606a;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.15s ease, color 0.15s ease;
+    @include dark {
+        color: #8b949e;
+    }
+}
+
+.toc-category-item:hover {
+    background: rgba(208, 215, 222, 0.32);
+    color: #1f2328;
+    text-decoration: none;
+    @include dark {
+        background: rgba(136, 154, 175, 0.15);
+        color: #e6edf3;
+    }
+}
+
+.toc-category-item.active {
+    background: rgba(208, 215, 222, 0.32);
+    color: var(--theme-main-color);
+    font-weight: 500;
+    @include dark {
+        background: rgba(136, 154, 175, 0.15);
+    }
+}
+
+.toc-category-index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: rgba(208, 215, 222, 0.4);
+    color: #57606a;
+    font-size: 0.625rem;
+    font-weight: 600;
+    flex-shrink: 0;
+    @include dark {
+        background: rgba(136, 154, 175, 0.2);
+        color: #8b949e;
+    }
+}
+
+.toc-category-item.active .toc-category-index {
+    background: var(--theme-main-color);
+    color: #ffffff;
+}
+
+/* "在本文中" heading - GitHub style */
+.toc-heading {
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    color: #1f2328;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 0.5rem 1rem !important;
+    padding: 0;
+    line-height: 1.5;
+    @include dark{
+        color: #e6edf3;
+    }
+}
+
+/* Nav wrapper */
+.toc-nav {
+    margin: 0.25rem 0;
+}
+
+/* ==========================================================================
+   jekyll-toc generated <ol> styled as GitHub ActionList
+   Force reset all list styles with highest specificity
+   ========================================================================== */
+
+.toc-sidebar .table-of-contents,
+.toc-sidebar .table-of-contents *,
+.toc-sidebar ol,
+.toc-sidebar li {
+    list-style: none !important;
+    list-style-type: none !important;
+    list-style-image: none !important;
+    list-style-position: inside !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.toc-nav .table-of-contents,
+.toc-nav ol {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    counter-reset: none;
+}
+
+/* Top-level items */
+.toc-nav .table-of-contents > li,
+.toc-nav ol > li {
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+/* Links - GitHub ActionList.ActionListContent style */
+.toc-nav .table-of-contents a,
+.toc-nav ol a,
+.toc-nav .toc-entry a {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px 6px 16px;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #1f2328;
+    text-decoration: none !important;
+    border-radius: 6px;
+    margin: 0 0.5rem;
+    transition: background 0.15s ease, color 0.15s ease;
+    position: relative;
+    @include dark{
+        color: #e6edf3;
+    }
+}
+
+.toc-nav .table-of-contents a:hover,
+.toc-nav ol a:hover,
+.toc-nav .toc-entry a:hover {
+    background: rgba(208, 215, 222, 0.32);
+    color: #1f2328;
+    text-decoration: none !important;
+    cursor: pointer;
+    @include dark{
+        background: rgba(136, 154, 175, 0.15);
+        color: #e6edf3;
+    }
+}
+
+/* Active link style - GitHub ActionList active */
+.toc-nav .table-of-contents a.active,
+.toc-nav ol a.active,
+.toc-nav .toc-entry a.active,
+.toc-nav .table-of-contents__link--active {
+    font-weight: 500;
+    color: #1f2328;
+    background: rgba(208, 215, 222, 0.32);
+    @include dark{
+        color: #e6edf3;
+        background: rgba(136, 154, 175, 0.15);
+    }
+}
+
+/* Left border indicator for active item */
+.toc-nav .table-of-contents a.active::before,
+.toc-nav ol a.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: #0969da;
+    border-radius: 1px;
+    @include dark{
+        background: #58a6ff;
+    }
+}
+
+/* Nested list indentation - matching --subitem-depth pattern */
+.toc-nav .table-of-contents ol,
+.toc-nav ol ol,
+.toc-nav .toc-entry ol {
+    padding: 0 !important;
+    margin: 0 !important;
+    list-style: none !important;
+}
+
+/* h3 level - depth 1 */
+.toc-nav .table-of-contents ol > li > a,
+.toc-nav ol ol > li > a {
+    padding-left: 28px;
+    font-size: 0.8125rem;
+    color: #57606a;
+    @include dark{
+        color: #8b949e;
+    }
+}
+
+/* h4 level - depth 2 */
+.toc-nav .table-of-contents ol > li > ol > li > a,
+.toc-nav ol ol > li > ol > li > a {
+    padding-left: 40px;
+    font-size: 0.75rem;
+    color: #8b949e;
+    @include dark{
+        color: #6e7681;
+    }
+}
+
+/* h5 level - depth 3 */
+.toc-nav .table-of-contents ol > li > ol > li > ol > li > a,
+.toc-nav ol ol > li > ol > li > ol > li > a {
+    padding-left: 52px;
+    font-size: 0.75rem;
+    color: #8b949e;
+    @include dark{
+        color: #6e7681;
+    }
+}
+
+/* Sub-item hover reset color */
+.toc-nav .table-of-contents ol a:hover,
+.toc-nav ol ol a:hover {
+    color: #1f2328;
+    @include dark{
+        color: #e6edf3;
+    }
+}
+
+/* Remove any default list decorations */
+.toc-nav li::before,
+.toc-nav li::after,
+.toc-nav .toc-entry::before {
+    display: none !important;
+    content: none !important;
+}
+
+/* Smooth scrollbar for sidebar */
+.toc-sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+.toc-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.toc-sidebar::-webkit-scrollbar-thumb {
+    background: #d0d7de;
+    border-radius: 4px;
+    @include dark{
+        background: #30363d;
+    }
+}
+.toc-sidebar::-webkit-scrollbar-thumb:hover {
+    background: #8b949e;
 }
 
 /* nav.html styles */
@@ -196,11 +981,22 @@ ion-icon:hover {
     transition: max-height 0.3s cubic-bezier(.4,0,.2,1);
     overflow: hidden;
 }
+/* General left-border hover - but NOT inside #help-nav */
 .table-of-contents__left-border a:hover, .table-of-contents__left-border a:focus {
     background: #2563eb;
     color: #fff;
-    /* border-radius: 8px; */
     outline: none;
+}
+
+/* Override for sidebar nav - use GitHub sidebar hover instead */
+#help-nav .table-of-contents__left-border a:hover,
+#help-nav .table-of-contents__left-border a:focus {
+    background: rgba(208, 215, 222, 0.32);
+    color: #1f2328;
+    @include dark{
+        background: rgba(136, 154, 175, 0.15);
+        color: #e6edf3;
+    }
 }
 .navbar-toggle:focus {
     outline: 2px solid #2563eb;
@@ -317,4 +1113,433 @@ ion-icon:hover {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   About Page Top Banner - Apple/GitHub Minimal Breadcrumb Style
+   ========================================================================== */
+
+/* Author badge - base styles (light/neutral for white backgrounds) */
+.ymh-author-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 0;
+    padding-left: 8px;
+    border-left: 1px solid #d0d7de;
+    vertical-align: middle;
+    @include dark {
+        border-left-color: #30363d;
+    }
+}
+
+.ymh-author-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #57606a !important;
+    text-decoration: none !important;
+    font-weight: 500;
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+    @include dark {
+        color: #8b949e !important;
+    }
+}
+
+.ymh-author-link:hover {
+    background: rgba(208, 215, 222, 0.32);
+    color: #24292f !important;
+    @include dark {
+        background: rgba(136, 154, 175, 0.15);
+        color: #e6edf3 !important;
+    }
+}
+
+.ymh-author-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(208, 215, 222, 0.4);
+    color: #57606a;
+    font-size: 0.625rem;
+    font-weight: 700;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+    flex-shrink: 0;
+    @include dark {
+        background: rgba(136, 154, 175, 0.2);
+        color: #8b949e;
+    }
+}
+
+.ymh-time-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.6875rem;
+    color: #8b949e;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    @include dark {
+        color: #6e7681;
+    }
+}
+
+/* White-on-theme override - only inside the about top banner */
+.about-top-banner .ymh-author-badge {
+    margin-left: 12px;
+    padding-left: 10px;
+    border-left-color: rgba(255, 255, 255, 0.2);
+}
+
+.about-top-banner .ymh-author-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.about-top-banner .ymh-author-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff !important;
+}
+
+.about-top-banner .ymh-author-avatar {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.about-top-banner .ymh-time-badge {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.about-top-banner {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 0;
+    text-align: center;
+    background: linear-gradient(135deg, #82318e 0%, #6a2572 50%, #4e1a55 100%);
+    @include dark{
+        background: linear-gradient(135deg, #9b3faa 0%, #7d2d8a 50%, #5a1f66 100%);
+    }
+}
+
+.breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.breadcrumb-link {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+}
+
+.breadcrumb-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.breadcrumb-sep {
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0 2px;
+    font-weight: 300;
+    font-size: 0.875rem;
+}
+
+.breadcrumb-current {
+    color: #ffffff;
+    font-weight: 600;
+    padding: 2px 8px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
+}
+
+/* ==========================================================================
+   Blog Card - Modern card style for blog listing
+   ========================================================================== */
+
+.blog-card {
+    background: #ffffff;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: border-color 0.15s ease, box-shadow 0.2s ease;
+    margin-bottom: 12px;
+    @include dark {
+        background: #161b22;
+        border-color: #30363d;
+    }
+}
+
+.blog-card:hover {
+    border-color: #8b949e;
+    box-shadow: 0 2px 8px rgba(140, 149, 159, 0.15);
+    @include dark {
+        border-color: #484f58;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.blog-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid #d8dee4;
+    @include dark {
+        border-bottom-color: #30363d;
+    }
+}
+
+.blog-card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f2328;
+    text-decoration: none;
+    line-height: 1.4;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    @include dark {
+        color: #e6edf3;
+    }
+}
+
+.blog-card-title:hover {
+    color: #0969da;
+    text-decoration: none;
+    @include dark {
+        color: #58a6ff;
+    }
+}
+
+.blog-card-actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+    margin-left: 8px;
+}
+
+.blog-card-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    color: #656d76;
+    transition: background 0.15s ease, color 0.15s ease;
+    text-decoration: none;
+    @include dark {
+        color: #8b949e;
+    }
+}
+
+.blog-card-action-btn:hover {
+    background: rgba(208, 215, 222, 0.32);
+    color: #24292f;
+    text-decoration: none;
+    @include dark {
+        background: rgba(136, 154, 175, 0.15);
+        color: #e6edf3;
+    }
+}
+
+.blog-card-body {
+    padding: 12px 16px;
+}
+
+.blog-card-excerpt {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: #656d76;
+    margin: 0;
+    @include dark {
+        color: #8b949e;
+    }
+}
+
+.blog-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    border-top: 1px solid #d8dee4;
+    @include dark {
+        border-top-color: #30363d;
+    }
+}
+
+.blog-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: #656d76;
+    @include dark {
+        color: #8b949e;
+    }
+}
+
+.blog-card-author {
+    display: inline-flex;
+    align-items: center;
+}
+
+.blog-card-author img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+/* Override ymh banner styles for white card context */
+.blog-card-footer .ymh-author-badge {
+    border-left-color: #d0d7de;
+    margin-left: 0;
+    padding-left: 8px;
+    @include dark {
+        border-left-color: #30363d;
+    }
+}
+
+.blog-card-footer .ymh-author-link {
+    color: #57606a !important;
+    padding: 1px 4px;
+    border-radius: 4px;
+    @include dark {
+        color: #8b949e !important;
+    }
+}
+
+.blog-card-footer .ymh-author-link:hover {
+    color: #24292f !important;
+    background: rgba(208, 215, 222, 0.32);
+    @include dark {
+        color: #e6edf3 !important;
+        background: rgba(136, 154, 175, 0.15);
+    }
+}
+
+.blog-card-footer .ymh-author-avatar {
+    background: rgba(208, 215, 222, 0.4);
+    color: #57606a;
+    @include dark {
+        background: rgba(136, 154, 175, 0.2);
+        color: #8b949e;
+    }
+}
+
+.blog-card-footer .ymh-time-badge {
+    color: #8b949e;
+    @include dark {
+        color: #6e7681;
+    }
+}
+
+.blog-card-status-dot {
+    display: inline-flex;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #1a7f37;
+    @include dark {
+        background: #3fb950;
+    }
+}
+
+.blog-card-hash {
+    font-size: 0.75rem;
+    font-family: 'DM Mono', SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+    color: #0969da;
+    text-decoration: none;
+    @include dark {
+        color: #58a6ff;
+    }
+}
+
+.blog-card-hash:hover {
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Print Styles - Fix content truncation on about/post pages
+   ========================================================================== */
+
+@media print {
+    /* Reset grid layouts to single column for printing */
+    .about-layout,
+    .post-layout {
+        display: block !important;
+    }
+
+    .about-layout > #sidebar1 {
+        display: none !important;
+    }
+
+    .about-layout > .about-main {
+        display: block !important;
+    }
+
+    .about-main #help-content {
+        overflow: visible !important;
+        min-width: auto !important;
+        max-width: none !important;
+        width: 100% !important;
+    }
+
+    /* Hide TOC sidebar when printing */
+    .toc-sidebar {
+        display: none !important;
+    }
+
+    /* Remove sticky positioning */
+    .position-sticky {
+        position: static !important;
+    }
+
+    /* Ensure all content is visible */
+    * {
+        overflow: visible !important;
+        max-height: none !important;
+        height: auto !important;
+    }
+
+    /* Reset page margins */
+    .container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Ensure images and tables don't break */
+    img, table, pre, blockquote {
+        page-break-inside: avoid;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+    }
+
+    /* Show print button hint as nothing */
+    .post-print {
+        display: none !important;
+    }
 }

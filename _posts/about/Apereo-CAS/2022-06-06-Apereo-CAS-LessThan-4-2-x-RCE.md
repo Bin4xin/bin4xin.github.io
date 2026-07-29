@@ -9,7 +9,9 @@ permalink: /about/Apereo-CAS-Less-than-4-2-x-RCE/
 desc: 「Apereo CAS」
 ---
 
-### CAS靶场搭建
+# Apereo CAS < 4.2.x
+
+## CAS靶场搭建
 
 <div class="content">
 <a href="https://mvnrepository.com/artifact/org.jasig.cas/cas-server-webapp" class="btn-primary btn color-border-accent-emphasis" target="blank">
@@ -29,7 +31,7 @@ cas-server-webapp::4.2.7</a>
 
 分别进入下载Pom或者War，不想麻烦直接下载WAR包放到tomcat web文件夹就行。
 
-### 如何发现CAS资产
+## 如何发现CAS资产
 
 - `Apereo Central Authentication Service`版本
 
