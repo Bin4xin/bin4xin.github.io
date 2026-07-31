@@ -2181,6 +2181,333 @@ data-styled.g135[id="sc-gsDKAQ"]{content:"iGLrqc,"}/*!sc*/
     background: #fff;
     border: 1px solid #eaeef2;
 }
+/* ========== card-feedback 美化区块 ========== */
+
+/* 布局基础 */
+.card-feedback-wrapper {
+    display: flex;
+    animation: card-feedback-fadeIn 0.5s ease-out both;
+}
+
+/* 玻璃拟态 */
+.card-feedback-glass {
+    background: linear-gradient(250deg, rgba(253,200,147,0.85), rgba(130,49,142,0.85)), #ffffff;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 24px rgba(130,49,142,0.15), 0 1px 0 rgba(0,0,0,0.04);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card-feedback-glass:hover {
+    box-shadow: 0 8px 32px rgba(130,49,142,0.25), 0 2px 8px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+}
+
+/* 标题 */
+.card-feedback-title {
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.card-feedback-icon {
+    flex-shrink: 0;
+    opacity: 0.9;
+}
+
+/* 链接下划线动画 */
+.card-feedback-link {
+    position: relative;
+    text-decoration: none;
+}
+.card-feedback-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: currentColor;
+    transition: width 0.25s ease;
+}
+.card-feedback-link:hover::after {
+    width: 100%;
+}
+
+/* 头像 hover 放大 + 描边 */
+.card-feedback-avatar {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    border: 2px solid transparent;
+}
+.card-feedback-avatar:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 3px rgba(130,49,142,0.3);
+    border-color: rgba(130,49,142,0.5);
+}
+
+/* Contributors 头像 hover */
+.card-feedback-contributor-avatar {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-feedback-contributor-avatar:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 3px rgba(130,49,142,0.35);
+    border-radius: 50%;
+}
+.card-feedback-contributor-avatar img {
+    transition: border-color 0.2s ease;
+}
+.card-feedback-contributor-avatar:hover img {
+    border-color: rgba(130,49,142,0.5);
+}
+
+/* 按钮 hover 发光 + 点击 scale */
+.card-feedback-btn {
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+.card-feedback-btn:hover {
+    box-shadow: 0 0 12px rgba(130,49,142,0.35), 0 2px 8px rgba(0,0,0,0.1);
+    border-color: #82318e;
+    color: #82318e;
+}
+.card-feedback-btn:active {
+    transform: scale(0.95);
+}
+
+/* 贡献者行 hover 背景 */
+.card-feedback-contributor {
+    border-radius: 6px;
+    padding: 4px 8px;
+    margin: -4px -8px;
+    transition: background 0.2s ease;
+}
+.card-feedback-contributor:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+/* 左右分区呼吸线 */
+.card-feedback-left {
+    position: relative;
+}
+.card-feedback-right {
+    position: relative;
+}
+@media (min-width: 768px) {
+    .card-feedback-left::after {
+        content: '';
+        position: absolute;
+        top: 10%;
+        right: 0;
+        height: 80%;
+        width: 1px;
+        background: linear-gradient(180deg, transparent, rgba(255,255,255,0.3), transparent);
+    }
+}
+
+/* 转载声明横幅 */
+.card-feedback-repost-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 14px;
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+}
+.card-feedback-repost-banner > svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    opacity: 0.85;
+}
+.card-feedback-repost-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.card-feedback-repost-label {
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+.card-feedback-repost-orig {
+    word-break: break-all;
+}
+.card-feedback-repost-orig a {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+.card-feedback-external-icon {
+    flex-shrink: 0;
+    opacity: 0.7;
+}
+.card-feedback-repost-disclaimer {
+    font-size: 0.78rem;
+    opacity: 0.75;
+}
+
+/* 文章元信息 */
+.card-feedback-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+.card-feedback-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+.card-feedback-meta-item svg {
+    flex-shrink: 0;
+    opacity: 0.75;
+}
+.card-feedback-meta-tag {
+    background: rgba(255, 255, 255, 0.12);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* 同类推荐 */
+.card-feedback-related {
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+.card-feedback-related-title {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+.card-feedback-related-title svg {
+    opacity: 0.8;
+}
+.card-feedback-related-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.card-feedback-related-item a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.06);
+    transition: background 0.2s ease, transform 0.15s ease;
+    font-size: 0.82rem;
+}
+.card-feedback-related-item a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(3px);
+}
+.card-feedback-related-title-text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.card-feedback-related-date {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    opacity: 0.6;
+}
+
+/* 入场动画 */
+@keyframes card-feedback-fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== 暗黑模式适配 ========== */
+@media (prefers-color-scheme: dark) {
+    .card-feedback-glass {
+        background: linear-gradient(250deg, rgba(253,200,147,0.7), rgba(130,49,142,0.7)), #161b22;
+        box-shadow: 0 4px 24px rgba(130,49,142,0.3), 0 1px 0 rgba(0,0,0,0.2);
+    }
+    .card-feedback-glass:hover {
+        box-shadow: 0 8px 32px rgba(130,49,142,0.45), 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .card-feedback-title {
+        color: #e6edf3;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+    .card-feedback-btn:hover {
+        box-shadow: 0 0 14px rgba(195,83,211,0.45), 0 2px 8px rgba(0,0,0,0.2);
+        border-color: #C353D3;
+        color: #C353D3;
+    }
+    .card-feedback-avatar:hover {
+        box-shadow: 0 0 0 3px rgba(195,83,211,0.4);
+        border-color: rgba(195,83,211,0.6);
+    }
+    .card-feedback-contributor-avatar:hover {
+        box-shadow: 0 0 0 3px rgba(195,83,211,0.45);
+    }
+    .card-feedback-contributor:hover {
+        background: rgba(255,255,255,0.06);
+    }
+    .card-feedback-repost-banner {
+        background: rgba(0, 0, 0, 0.25);
+        border-color: rgba(255, 255, 255, 0.12);
+        color: rgba(230, 237, 243, 0.9);
+    }
+    .card-feedback-repost-disclaimer {
+        color: rgba(139, 148, 158, 0.8);
+    }
+    .card-feedback-meta {
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+    .card-feedback-meta-item {
+        color: rgba(139, 148, 158, 0.9);
+    }
+    .card-feedback-meta-tag {
+        background: rgba(139, 148, 158, 0.15);
+        color: rgba(230, 237, 243, 0.8);
+    }
+    .card-feedback-related {
+        border-top-color: rgba(255, 255, 255, 0.1);
+    }
+    .card-feedback-related-title {
+        color: #e6edf3;
+    }
+    .card-feedback-related-item a {
+        color: rgba(230, 237, 243, 0.9);
+        background: rgba(139, 148, 158, 0.08);
+    }
+    .card-feedback-related-item a:hover {
+        background: rgba(139, 148, 158, 0.15);
+    }
+}
+
 /* 平台图标定制 */
 .platform-icon {
     display: flex;

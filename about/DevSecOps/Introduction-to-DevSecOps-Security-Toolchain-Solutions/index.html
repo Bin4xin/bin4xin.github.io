@@ -1,0 +1,2404 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-critters-container><style>@media (prefers-color-scheme: dark){html:not([mode]) hr{border-color:var(--main-border-color)}}a,aside,blockquote,body,code,div,footer,h1,h2,h3,h4,html,li,nav,ol,p,pre,section,table,td,th,tr,ul{box-sizing:border-box}.top-0{top:0}.bottom-0{bottom:0}.collapse{border-collapse:collapse;border-spacing:0}.no-underline{text-decoration:none}.mx-auto{margin-right:auto;margin-left:auto}.z-1{z-index:1}code{font-family:monospace,monospace;font-size:1em}button{font-family:inherit;font-size:100%;line-height:1.15;margin:0}@media screen and (min-width: 992px){.f1-l{font-size:12px}}button{overflow:visible}button{text-transform:none}[type=button],button{-webkit-appearance:button}[type=button]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}.mr-1{margin-right:.25rem!important}.mt-2{margin-top:.5rem!important}.mb-2{margin-bottom:.5rem!important}.mb-3{margin-bottom:1rem!important}.ml-3{margin-left:1rem!important}.mr-4{margin-right:1.5rem!important}.mb-4{margin-bottom:1.5rem!important}.px-3{padding-right:1rem!important}.px-3{padding-left:1rem!important}.pr-4{padding-right:1.5rem!important}.mx-auto{margin-right:auto!important}.mx-auto{margin-left:auto!important}html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}.octicon{vertical-align:text-bottom;display:inline-block;overflow:visible !important;vertical-align:text-bottom;fill:currentColor}:root{--theme-main-color:#82318e;--copy-cilpboard-icon:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white pointer-events-none copy-code-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" class="media-object"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" class="hidden copy-code-icon-path-2"></path></svg>');--content-summary-icon:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" class="octicon octicon-git-branch"><path fill-rule="evenodd" d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"></path></svg>');--color-fg-success-icon:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" ><path fill="green" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg>');--build-show-icon:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 16 16" version="1.1" data-view-component="true" ><title>Build</title><path d="M469.54,120.52h0a16,16,0,0,0-25.54-4L382.56,178a16.12,16.12,0,0,1-22.63,0L333.37,151.4a16,16,0,0,1,0-22.63l61.18-61.19a16,16,0,0,0-4.78-25.92h0C343.56,21,285.88,31.78,249.51,67.88c-30.9,30.68-40.11,78.62-25.25,131.53a15.89,15.89,0,0,1-4.49,16L53.29,367.46a64.17,64.17,0,1,0,90.6,90.64L297.57,291.25a15.9,15.9,0,0,1,15.77-4.57,179.3,179.3,0,0,0,46.22,6.37c33.4,0,62.71-10.81,83.85-31.64C482.56,222.84,488.53,157.42,469.54,120.52ZM99.48,447.15a32,32,0,1,1,28.34-28.35A32,32,0,0,1,99.48,447.15Z"/></svg>');--devsite-elevation-key-shadow-color:rgba(60,64,67,0.3);--devsite-elevation-ambient-shadow-color:rgba(60,64,67,0.15);--dark-devsite-elevation-key-shadow-color:rgba(0, 0, 0,0);--dark-devsite-elevation-ambient-shadow-color:rgba(0, 0, 0,0.3);--ra-admonition-background-color:var(--ifm-alert-background-color);--ra-admonition-border-width:var(--ifm-alert-border-width);--ra-admonition-border-color:var(--ifm-alert-border-color);--ra-admonition-border-radius:var(--ifm-alert-border-radius);--ra-admonition-color:var(--ifm-alert-color);--ra-admonition-padding-vertical:var(--ifm-alert-padding-vertical);--ra-admonition-padding-horizontal:var(--ifm-alert-padding-horizontal);--ra-color-note:var(--ifm-color-secondary);--ra-color-important:var(--ifm-color-info);--ra-color-tip:var(--ifm-color-success);--ra-color-caution:var(--ifm-color-warning);--ra-color-warning:var(--ifm-color-danger);--ra-color-text-dark:var(--ifm-color-gray-900);--color-btn-bg:#f6f8fa;--color-btn-bg-dark:#21262d;--color-btn-shadow:0 1px 0 rgba(27,31,36,0.04);--color-btn-inset-shadow:inset 0 1px 0 rgba(255,255,255,0.25);--color-btn-text:#24292f;--color-accent-emphasis:#0969da;--color-accent-emphasis-dark:#1f6feb;--ifm-dark-value:10%;--ifm-darker-value:15%;--ifm-darkest-value:30%;--ifm-light-value:15%;--ifm-lighter-value:30%;--ifm-lightest-value:50%;--ifm-color-primary:#3578e5;--ifm-color-primary-dark:#306cce;--ifm-color-primary-darker:#2d66c3;--ifm-color-primary-darkest:#2554a0;--ifm-color-primary-light:#538ce9;--ifm-color-primary-lighter:#72a1ed;--ifm-color-primary-lightest:#9abcf2;--ifm-color-secondary:#ebedf0;--ifm-color-secondary-dark:#d4d5d8;--ifm-color-secondary-darker:#c8c9cc;--ifm-color-secondary-darkest:#a4a6a8;--ifm-color-secondary-light:#eef0f2;--ifm-color-secondary-lighter:#f1f2f5;--ifm-color-secondary-lightest:#f5f6f8;--ifm-color-success:#00a400;--ifm-color-success-dark:#009400;--ifm-color-success-darker:#008b00;--ifm-color-success-darkest:#007300;--ifm-color-success-light:#26b226;--ifm-color-success-lighter:#4dbf4d;--ifm-color-success-lightest:#80d280;--ifm-color-info:#54c7ec;--ifm-color-info-dark:#4cb3d4;--ifm-color-info-darker:#47a9c9;--ifm-color-info-darkest:#3b8ba5;--ifm-color-info-light:#6ecfef;--ifm-color-info-lighter:#87d8f2;--ifm-color-info-lightest:#aae3f6;--ifm-color-warning:#ffba00;--ifm-color-warning-dark:#e6a700;--ifm-color-warning-darker:#d99e00;--ifm-color-warning-darkest:#b38200;--ifm-color-warning-light:#ffc426;--ifm-color-warning-lighter:#ffcf4d;--ifm-color-warning-lightest:#ffdd80;--ifm-color-danger:#fa383e;--ifm-color-danger-dark:#e13238;--ifm-color-danger-darker:#d53035;--ifm-color-danger-darkest:#af272b;--ifm-color-danger-light:#fb565b;--ifm-color-danger-lighter:#fb7478;--ifm-color-danger-lightest:#fd9c9f;--ifm-color-white:#fff;--ifm-color-black:#000;--ifm-color-gray-0:var(--ifm-color-white);--ifm-color-gray-100:#f5f6f7;--ifm-color-gray-200:#ebedf0;--ifm-color-gray-300:#dadde1;--ifm-color-gray-400:#ccd0d5;--ifm-color-gray-500:#bec3c9;--ifm-color-gray-600:#8d949e;--ifm-color-gray-700:#606770;--ifm-color-gray-800:#444950;--ifm-color-gray-900:#1c1e21;--ifm-color-gray-1000:var(--ifm-color-black);--ifm-color-emphasis-0:var(--ifm-color-gray-0);--ifm-color-emphasis-100:var(--ifm-color-gray-100);--ifm-color-emphasis-200:var(--ifm-color-gray-200);--ifm-color-emphasis-300:var(--ifm-color-gray-300);--ifm-color-emphasis-400:var(--ifm-color-gray-400);--ifm-color-emphasis-600:var(--ifm-color-gray-600);--ifm-color-emphasis-700:var(--ifm-color-gray-700);--ifm-color-emphasis-800:var(--ifm-color-gray-800);--ifm-color-emphasis-900:var(--ifm-color-gray-900);--ifm-color-emphasis-1000:var(--ifm-color-gray-1000);--ifm-color-content:var(--ifm-color-emphasis-900);--ifm-color-content-inverse:var(--ifm-color-emphasis-0);--ifm-color-content-secondary:#606770;--ifm-background-color:transparent;--ifm-background-surface-color:var(--ifm-color-content-inverse);--ifm-global-border-width:1px;--ifm-global-radius:0.4rem;--ifm-hover-overlay:rgba(0,0,0,0.05);--ifm-font-color-base:var(--ifm-color-content);--ifm-font-color-base-inverse:var(--ifm-color-content-inverse);--ifm-font-color-secondary:var(--ifm-color-content-secondary);--ifm-font-family-base:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";--ifm-font-family-monospace:SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;--ifm-font-size-base:100%;--ifm-font-weight-light:300;--ifm-font-weight-normal:400;--ifm-font-weight-semibold:500;--ifm-font-weight-bold:700;--ifm-font-weight-base:var(--ifm-font-weight-normal);--ifm-line-height-base:1.65;--ifm-global-spacing:1rem;--ifm-spacing-vertical:var(--ifm-global-spacing);--ifm-spacing-horizontal:var(--ifm-global-spacing);--ifm-transition-fast:200ms;--ifm-transition-slow:400ms;--ifm-transition-timing-default:cubic-bezier(0.08,0.52,0.52,1);--ifm-global-shadow-lw:0 1px 2px 0 rgba(0,0,0,0.1);--ifm-global-shadow-md:0 5px 40px rgba(0,0,0,0.2);--ifm-global-shadow-tl:0 12px 28px 0 rgba(0,0,0,0.2),0 2px 4px 0 rgba(0,0,0,0.1);--ifm-z-index-dropdown:2;--ifm-z-index-fixed:3;--ifm-z-index-overlay:4;--ifm-container-width:1140px;--ifm-container-width-xl:1320px;--ifm-code-background:#f6f7f8;--ifm-code-border-radius:var(--ifm-global-radius);--ifm-code-color:var(--ifm-color-emphasis-900);--ifm-code-font-size:90%;--ifm-code-padding-horizontal:0.3rem;--ifm-code-padding-vertical:0.1rem;--ifm-pre-background:var(--ifm-color-emphasis-100);--ifm-pre-border-radius:var(--ifm-code-border-radius);--ifm-pre-color:inherit;--ifm-pre-line-height:1.45;--ifm-pre-padding:1rem;--ifm-heading-color:inherit;--ifm-heading-margin-top:0;--ifm-heading-margin-bottom:var(--ifm-spacing-vertical);--ifm-heading-font-family:inherit;--ifm-heading-font-weight:var(--ifm-font-weight-bold);--ifm-heading-line-height:1.25;--ifm-h1-font-size:2rem;--ifm-h2-font-size:1.5rem;--ifm-h3-font-size:1.25rem;--ifm-h4-font-size:1rem;--ifm-h5-font-size:0.875rem;--ifm-h6-font-size:0.85rem;--ifm-image-alignment-padding:1.25rem;--ifm-leading-desktop:1.25;--ifm-leading:calc(var(--ifm-leading-desktop)*1rem);--ifm-list-left-padding:2rem;--ifm-list-margin:1rem;--ifm-list-item-margin:0.25rem;--ifm-list-paragraph-margin:1rem;--ifm-table-cell-padding:0.75rem;--ifm-table-background:transparent;--ifm-table-stripe-background:var(--ifm-color-emphasis-100);--ifm-table-border-width:1px;--ifm-table-border-color:var(--ifm-color-emphasis-300);--ifm-table-head-background:inherit;--ifm-table-head-color:inherit;--ifm-table-head-font-weight:var(--ifm-font-weight-bold);--ifm-table-cell-color:inherit;--ifm-link-color:var(--ifm-color-primary);--ifm-link-decoration:none;--ifm-link-hover-color:var(--ifm-link-color);--ifm-link-hover-decoration:underline;--ifm-paragraph-margin-bottom:var(--ifm-leading);--ifm-blockquote-color:#6a737d;--ifm-blockquote-font-size:var(--ifm-font-size-base);--ifm-blockquote-padding-horizontal:1rem;--ifm-blockquote-padding-vertical:1rem;--ifm-hr-border-color:var(--ifm-color-emphasis-500);--ifm-hr-border-width:1px;--ifm-hr-margin-vertical:1.5rem;--ifm-alert-background-color:inherit;--ifm-alert-border-color:inherit;--ifm-alert-border-radius:var(--ifm-global-radius);--ifm-alert-border-width:var(--ifm-global-border-width);--ifm-alert-color:var(--ifm-font-color-base-inverse);--ifm-alert-padding-horizontal:var(--ifm-spacing-horizontal);--ifm-alert-padding-vertical:var(--ifm-spacing-vertical);--ifm-avatar-intro-margin:1rem;--ifm-avatar-intro-alignment:inherit;--ifm-avatar-photo-size-sm:2rem;--ifm-avatar-photo-size-md:3rem;--ifm-avatar-photo-size-lg:4rem;--ifm-avatar-photo-size-xl:6rem;--ifm-badge-background-color:inherit;--ifm-badge-border-color:inherit;--ifm-badge-border-radius:var(--ifm-global-radius);--ifm-badge-border-width:var(--ifm-global-border-width);--ifm-badge-color:var(--ifm-color-white);--ifm-badge-padding-horizontal:calc(var(--ifm-spacing-horizontal)*0.5);--ifm-badge-padding-vertical:calc(var(--ifm-spacing-vertical)*0.25);--ifm-breadcrumb-border-radius:1.5rem;--ifm-breadcrumb-spacing:0.0625rem;--ifm-breadcrumb-color-active:var(--ifm-color-primary);--ifm-breadcrumb-item-background-active:var(--ifm-hover-overlay);--ifm-breadcrumb-padding-horizontal:1rem;--ifm-breadcrumb-padding-vertical:0.5rem;--ifm-breadcrumb-size-multiplier:1;--ifm-breadcrumb-separator:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 256 256"><g><g><polygon points="79.093,0 48.907,30.187 146.72,128 48.907,225.813 79.093,256 207.093,128"/></g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>');--ifm-breadcrumb-separator-filter:none;--ifm-breadcrumb-separator-size:0.5rem;--ifm-breadcrumb-separator-size-multiplier:1.25;--ifm-button-background-color:inherit;--ifm-button-border-color:var(--ifm-button-background-color);--ifm-button-border-width:var(--ifm-global-border-width);--ifm-button-font-weight:var(--ifm-font-weight-bold);--ifm-button-padding-horizontal:1.5rem;--ifm-button-padding-vertical:0.375rem;--ifm-button-size-multiplier:1;--ifm-button-transition-duration:var(--ifm-transition-fast);--ifm-button-border-radius:calc(var(--ifm-global-radius)*var(--ifm-button-size-multiplier));--ifm-button-group-margin:2px;--ifm-card-background-color:var(--ifm-background-surface-color);--ifm-card-border-radius:calc(var(--ifm-global-radius)*2);--ifm-card-horizontal-spacing:var(--ifm-global-spacing);--ifm-card-vertical-spacing:var(--ifm-global-spacing);--ifm-toc-border-color:var(--ifm-color-emphasis-300);--ifm-toc-link-color:var(--ifm-color-content-secondary);--ifm-toc-padding-vertical:0.5rem;--ifm-toc-padding-horizontal:0.5rem;--ifm-dropdown-background-color:var(--ifm-background-surface-color);--ifm-dropdown-font-weight:var(--ifm-font-weight-semibold);--ifm-dropdown-link-color:var(--ifm-font-color-base);--ifm-dropdown-hover-background-color:var(--ifm-hover-overlay);--ifm-footer-background-color:var(--ifm-color-emphasis-100);--ifm-footer-color:inherit;--ifm-footer-link-color:var(--ifm-color-emphasis-700);--ifm-footer-link-hover-color:var(--ifm-color-primary);--ifm-footer-link-horizontal-spacing:0.5rem;--ifm-footer-padding-horizontal:calc(var(--ifm-spacing-horizontal)*2);--ifm-footer-padding-vertical:calc(var(--ifm-spacing-vertical)*2);--ifm-footer-title-color:inherit;--ifm-hero-background-color:var(--ifm-background-surface-color);--ifm-hero-text-color:var(--ifm-color-emphasis-800);--ifm-menu-color:var(--ifm-color-emphasis-700);--ifm-menu-color-active:var(--ifm-color-primary);--ifm-menu-color-background-active:var(--ifm-hover-overlay);--ifm-menu-color-background-hover:var(--ifm-hover-overlay);--ifm-menu-link-padding-horizontal:1rem;--ifm-menu-link-padding-vertical:0.375rem;--ifm-menu-link-sublist-icon:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="rgba(0,0,0,0.5)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');--ifm-menu-link-sublist-icon-filter:none;--ifm-navbar-background-color:var(--ifm-background-surface-color);--ifm-navbar-height:3.75rem;--ifm-navbar-item-padding-horizontal:1rem;--ifm-navbar-item-padding-vertical:0.25rem;--ifm-navbar-link-color:var(--ifm-font-color-base);--ifm-navbar-link-active-color:var(--ifm-link-color);--ifm-navbar-padding-horizontal:var(--ifm-spacing-horizontal);--ifm-navbar-padding-vertical:calc(var(--ifm-spacing-vertical)*0.5);--ifm-navbar-shadow:var(--ifm-global-shadow-lw);--ifm-navbar-search-input-background-color:var(--ifm-color-emphasis-200);--ifm-navbar-search-input-color:var(--ifm-color-emphasis-800);--ifm-navbar-search-input-placeholder-color:var(--ifm-color-emphasis-500);--ifm-navbar-search-input-icon:url('data:image/svg+xml;utf8,<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" height="16px" width="16px"><path d="M6.02945,10.20327a4.17382,4.17382,0,1,1,4.17382-4.17382A4.15609,4.15609,0,0,1,6.02945,10.20327Zm9.69195,4.2199L10.8989,9.59979A5.88021,5.88021,0,0,0,12.058,6.02856,6.00467,6.00467,0,1,0,9.59979,10.8989l4.82338,4.82338a.89729.89729,0,0,0,1.29912,0,.89749.89749,0,0,0-.00087-1.29909Z" /></svg>');--ifm-navbar-sidebar-width:80vw;--ifm-pagination-border-radius:calc(var(--ifm-global-radius)*var(--ifm-pagination-size-multiplier));--ifm-pagination-color-active:var(--ifm-color-primary);--ifm-pagination-font-size:1rem;--ifm-pagination-item-active-background:var(--ifm-hover-overlay);--ifm-pagination-page-spacing:0.0625rem;--ifm-pagination-padding-horizontal:calc(var(--ifm-spacing-horizontal)*1);--ifm-pagination-padding-vertical:calc(var(--ifm-spacing-vertical)*0.25);--ifm-pagination-size-multiplier:1;--ifm-pagination-nav-border-radius:var(--ifm-global-radius);--ifm-pagination-nav-color-hover:var(--ifm-color-primary);--ifm-pills-color-active:var(--ifm-color-primary);--ifm-pills-color-background-active:var(--ifm-hover-overlay);--ifm-pills-spacing:0.0625rem;--ifm-tabs-color:var(--ifm-font-color-secondary);--ifm-tabs-color-active:var(--ifm-color-primary);--ifm-tabs-padding-horizontal:1rem;--ifm-tabs-padding-vertical:1rem;--ifm-tabs-spacing:0.0625rem;--ifm-scrollbar-size:7px;--ifm-scrollbar-track-background-color:#f1f1f1;--ifm-scrollbar-thumb-background-color:#888;--ifm-scrollbar-thumb-hover-background-color:#555;--ifm-color-primary:#25c2a0;--ifm-color-primary-dark:#21af90;--ifm-color-primary-darker:#1fa588;--ifm-color-primary-darkest:#1a8870;--ifm-color-primary-light:#46cbae;--ifm-color-primary-lighter:#66d4bd;--ifm-color-primary-lightest:#92e0d0;--ifm-code-font-size:95%;--docusaurus-announcement-bar-height:auto;--collapse-button-bg-color-dark:#2e333a;--doc-sidebar-width:300px
+}@media (max-width: 768px){.post-print{display:none}}.post-print a{color:#22313F}.post-print{float:left;color:var(--theme-main-color);margin-top:10px}summary::-webkit-details-marker{display:none}summary:after{border-radius:5px;content:url("/assets/img/svg/chevron-down.svg");font-size:16px;padding:2px;width:20px;align-items:center;justify-content:center}details[open] summary:after{content:url("/assets/img/svg/chevron-up.svg")}aside,details,footer,nav,section,summary{display:block}a{background-color:transparent}a:active,a:hover{outline:0}strong{font-weight:700}h1{font-size:2em;margin:0.67em 0}img{border:0}svg:not(:root){overflow:hidden}hr{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;height:0}code,pre{font-family:monospace, monospace;font-size:1em}button{color:inherit;font:inherit;margin:0}button{overflow:visible}button{text-transform:none}button{-webkit-appearance:button;appearance:button;cursor:pointer}button::-moz-focus-inner{border:0;padding:0}table{border-collapse:collapse;border-spacing:0}td,th{padding:0}@media print{*,*:before,*:after{color:#000 !important;text-shadow:none !important;background:transparent !important;-webkit-box-shadow:none !important;box-shadow:none !important}a,a:visited{text-decoration:underline}a[href]:after{content:" (" attr(href) ")"}a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}p,h2,h3{orphans:3;widows:3}h2,h3{page-break-after:avoid}.navbar{display:none}.table{border-collapse:collapse !important}.table td,.table th{background-color:#fff !important}}*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-size:16px;-webkit-tap-highlight-color:rgba(0, 0, 0, 0);height:100%}body{font-family:"Helvetica Neue", Lato, Arial, sans-serif;font-size:16px;line-height:1.45;color:#333333;background-color:#fff;min-height:100%}button{font-family:inherit;font-size:inherit;line-height:inherit}a{color:#337ab7;text-decoration:none}a:hover,a:focus{color:#23527c;text-decoration:underline}a:focus{outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}img{vertical-align:middle}hr{margin-top:5px;margin-bottom:5px;border:0;border-top:1px solid #eeeeee}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);border:0}h1,h2,h3,h4{font-family:inherit;font-weight:500;line-height:1.1;color:inherit}h1,h2,h3{margin-top:20px;margin-bottom:10px}h4{margin-top:10px;margin-bottom:10px}h1{font-size:36px}h2{font-size:30px}h3{font-size:24px}h4{font-size:18px}.lead{margin-bottom:20px;font-size:16px!important;line-height:1.4}@media (min-width: 768px){.lead{font-size:21px}}ul,ol{margin-top:0;margin-bottom:10px}ul ul,ol ul{margin-bottom:0}blockquote{padding:10px 20px;margin:0 0 20px;font-size:17.5px;border-left:5px solid #eeeeee}blockquote p:last-child{margin-bottom:0}code,pre{font-family:'Fira Mono', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace !important}code{padding:2.720px 5.440px;font-size:90%;word-wrap:break-word;background-color:rgba(175,184,193,0.2);border-radius:4px}pre{font-size:85%;display:block;position:relative;padding:16px;word-break:break-all;word-wrap:break-word;background-color:#f6f8fa;line-height:1.45;border-radius:6px;overflow:auto!important;overflow-x:auto!important;margin-top:0}pre code{padding:0;font-size:85%;color:inherit;white-space:pre-wrap;background-color:transparent;border-radius:0}.container{padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}@media (min-width: 768px){.container{display:flex;flex-direction:row;justify-content:space-between;align-items:center}}@media (min-width: 992px){.container{width:970px}}@media (min-width: 1200px){.container{width:1170px}}.col-xs-4-5{position:relative;min-height:1px;padding-right:15px;padding-left:15px}.col-xs-4-5{float:left}table{background-color:transparent}th{text-align:left}.table{width:100%;max-width:100%;margin-bottom:20px}.table > thead > tr > th,.table > tbody > tr > td{padding:8px;line-height:1.42857143;vertical-align:top;border-top:1px solid #ddd}.table > thead > tr > th{vertical-align:bottom;border-bottom:2px solid #ddd}.table > thead:first-child > tr:first-child > th{border-top:0}.btn:focus,.btn:active:focus{outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}.btn:hover,.btn:focus{color:#333;text-decoration:none}.btn:active{background-image:none;outline:0;-webkit-box-shadow:inset 0 3px 5px rgba(0, 0, 0, 0.125);box-shadow:inset 0 3px 5px rgba(0, 0, 0, 0.125)}.collapse{display:none}.nav{margin-bottom:0;list-style:none}.nav > li{position:relative;display:block}.nav > li > a{position:relative;display:block;padding:3px 4px 3px 8px}.nav > li > a:hover,.nav > li > a:focus{text-decoration:none;background-color:#eeeeee}.navbar{position:relative;min-height:50px;margin-bottom:20px;border:1px solid transparent}@media (min-width: 768px){.navbar{border-radius:4px}}.navbar-collapse{padding-right:15px;padding-left:15px;overflow-x:visible;border-top:1px solid transparent;-webkit-box-shadow:inset 0 1px 0 rgba(255, 255, 255, 0.1);box-shadow:inset 0 1px 0 rgba(255, 255, 255, 0.1);-webkit-overflow-scrolling:touch}@media (min-width: 768px){.navbar-collapse{width:auto;border-top:0;-webkit-box-shadow:none;box-shadow:none}.navbar-collapse.collapse{display:block !important;height:auto !important;padding-bottom:0;overflow:visible !important}.navbar-fixed-top .navbar-collapse{padding-right:0;padding-left:0}}.navbar-fixed-top{right:0;left:0;z-index:1030}.navbar-fixed-top .navbar-collapse{max-height:340px}@media (max-device-width: 480px) and (orientation: landscape){.navbar-fixed-top .navbar-collapse{max-height:200px}}@media (min-width: 768px){.navbar-fixed-top{border-radius:0}}.navbar-fixed-top{top:0;border-width:0 0 1px}.container > .navbar-header,.container > .navbar-collapse{margin-right:-15px;margin-left:-15px}@media (min-width: 768px){.container > .navbar-header,.container > .navbar-collapse{margin-right:0;margin-left:0}}.navbar-toggle{position:relative;padding:14px 16px;margin-right:3px;margin-top:8px;margin-bottom:8px;background-color:transparent;background-image:none;border:1px solid transparent;border-radius:12px}.navbar-toggle:focus{outline:0}.navbar-toggle .icon-bar{display:block;width:22px;height:2px;border-radius:1px}.navbar-toggle .icon-bar + .icon-bar{margin-top:4px}@media (min-width: 768px){.navbar-toggle{display:none}}.navbar-nav{margin:7.5px -15px}.navbar-nav > li > a{padding-top:10px;padding-bottom:10px;line-height:20px}@media (max-width: 767px){.navbar-nav{display:grid;justify-self:end;grid-template-columns:1fr}}@media (min-width: 768px){.navbar-nav{float:left;margin:0}.navbar-nav > li{float:left}.navbar-nav > li > a{padding-top:15px;padding-bottom:15px}}@media (min-width: 768px){.navbar-right{float:right !important;margin-right:-15px}}.navbar-default{background-color:#f8f8f8;border-color:#e7e7e7}.navbar-default .navbar-nav > li > a{color:#777}.navbar-default .navbar-nav > li > a:hover,.navbar-default .navbar-nav > li > a:focus{color:#333;background-color:transparent}.navbar-default .navbar-nav > .active > a,.navbar-default .navbar-nav > .active > a:hover,.navbar-default .navbar-nav > .active > a:focus{color:#555;background-color:#e7e7e7}.navbar-default .navbar-toggle{border-color:#ddd}.navbar-default .navbar-toggle:hover,.navbar-default .navbar-toggle:focus{background-color:#ddd}.navbar-default .navbar-toggle .icon-bar{background-color:#888}.navbar-default .navbar-collapse{border-color:#e7e7e7;margin-top:8px!important}@-webkit-keyframes progress-bar-stripes{from{background-position:40px 0}to{background-position:0 0}}.clearfix:before,.clearfix:after,.container:before,.container:after,.nav:before,.nav:after,.navbar:before,.navbar:after,.navbar-header:before,.navbar-header:after,.navbar-collapse:before,.navbar-collapse:after{display:table;content:" "}.clearfix:after,.container:after,.nav:after,.navbar:after,.navbar-header:after,.navbar-collapse:after{clear:both}.pull-right{float:right !important}@-ms-viewport{width:device-width}.text-bold{font-weight:600!important}.mb-8{margin-bottom:40px!important}.px-md-6{padding-right:15px!important;padding-left:15px!important}.no-underline{text-decoration:none !important}*,:after,:before{--tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000}.top-0{top:0 !important}.container-xl{max-width:1280px}.fa{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:inline-block;font-style:normal;font-variant:normal;text-rendering:auto;line-height:1}.fa-link:before{content:"\f0c1"}.fa-search:before{content:"\f002"}.fa-user:before{content:"\f007"}.sr-only{border:0;clip:rect(0,0,0,0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.fa{font-family:"Font Awesome 5 Free"}.fa{font-weight:900}.fa.fa-thumbs-o-up{font-family:"Font Awesome 5 Free";font-weight:400}.fa.fa-thumbs-o-up:before{content:"\f164"}.fa.fa-thumbs-o-down{font-family:"Font Awesome 5 Free";font-weight:400}.fa.fa-thumbs-o-down:before{content:"\f165"}.fa.fa-dashboard:before{content:"\f3fd"}@mixin dark{@content}@media only screen and (max-width: 768px){}a:hover{text-decoration:var(--ifm-link-hover-decoration)}ol,ul{margin:0 0 var(--ifm-list-margin);padding-left:var(--ifm-list-left-padding);word-wrap:break-word}ol ul,ul ul{margin:0}body{margin:0;transition:var(--ifm-transition-fast) ease color}@-webkit-keyframes gt-kf-rotate{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.clearfix{overflow:hidden;zoom:1}.clearfix:after{content:"";display:block;clear:both;width:100%;height:0}.mr-1{margin-right:4px!important}.mb-2{margin-bottom:8px!important}.position-sticky{position:-webkit-sticky!important;position:sticky!important}.border-top{border-top:1px solid #d0d7de!important}.position-fixed{position:fixed!important}.mb-4{margin-bottom:24px!important}.bottom-0{bottom:0!important}.right-5{right:5px!important}.mr-4{margin-right:24px!important}.z-1{z-index:1}.transition-200{-webkit-transition:.2s;transition:.2s}.opacity-0{opacity:0}.color-bg-accent-emphasis{background-color:var(--theme-main-color)!important}.color-fg-on-emphasis{color:#f0f6fc!important}.circle{border-radius:50%!important}.border-0{border:0!important}.octicon{display:inline-block;overflow:visible!important;vertical-align:text-bottom;fill:currentColor}.mb-2{margin-bottom:0.5rem !important}.circle{border-radius:50%}.no-underline{text-decoration:none}.mb-2{margin-bottom:0.5rem}.octicon{display:inline-block;vertical-align:text-bottom;fill:currentColor}.col-sm-bb{position:relative;min-height:1px}#help-content{width:100%;min-width:0;padding:0 16px;box-sizing:border-box;word-wrap:break-word;overflow-wrap:break-word}#help-content *{max-width:100%;box-sizing:border-box}#help-content pre{max-width:100%;overflow-x:auto;display:block}#help-content h1,#help-content h2,#help-content h3,#help-content h4{word-wrap:break-word;overflow-wrap:break-word}#sidebar1{transition:width 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1), padding 0.2s ease, border 0.2s ease;overflow-x:hidden;overflow-y:auto}#sidebar1::-webkit-scrollbar{width:4px}@media (max-width: 480px){#help-content{padding:0 10px;width:100%;max-width:100%}#help-content *{max-width:100%}#help-content pre{max-width:100%;overflow-x:auto}#help-content .px-md-6{padding-left:0;padding-right:0}}@media (max-width: 768px){#help-content{padding:0 12px}}.gh-banner{--banner-bg:#eef5ff;--banner-border:rgba(84, 174, 255, 0.3);--banner-icon-color:#1f7bdf;--banner-text:#1f2328;--banner-link:#0969da;--banner-link-hover:#0550ae;background-color:var(--banner-bg);border:1px solid var(--banner-border);border-radius:12px;box-shadow:0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);display:flex;align-items:flex-start;gap:0.75rem;padding:1rem 1rem 1rem 1.25rem;transition:all 0.2s ease;position:relative;margin:25px}.gh-banner.error{--banner-bg:#ffebe9;--banner-border:rgba(255, 129, 130, 0.4);--banner-icon-color:#cf222e}@media (prefers-color-scheme: dark){.gh-banner{--banner-bg:#1c2a3e;--banner-border:#2d4a6e;--banner-icon-color:#6cb4ff;--banner-text:#e6edf3;--banner-link:#6cb4ff;--banner-link-hover:#9acbff;background-color:var(--banner-bg);border-color:#2d4a6e}.gh-banner.error{--banner-bg:#3b1e1e;--banner-border:#da3633;--banner-icon-color:#f85149}}.banner-icon{flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px}.banner-icon svg{width:20px;height:20px;color:var(--banner-icon-color);fill:currentColor;display:block}.banner-content{flex:1;font-size:0.9375rem;font-weight:400;color:var(--banner-text);line-height:1.5;word-break:break-word}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0}.banner-text{display:inline}@media (max-width: 640px){.gh-banner{padding:0.875rem 1rem;gap:0.5rem}.banner-content{font-size:0.875rem}.banner-icon svg{width:18px;height:18px}}.banner-content span{display:inline}.gh-banner{--banner-bg:#eef5ff;--banner-border:rgba(84, 174, 255, 0.3);--banner-icon-color:#1f7bdf;--banner-text:#1f2328;--banner-link:#0969da;--banner-link-hover:#0550ae;background-color:var(--banner-bg);border:1px solid var(--banner-border);border-radius:12px;box-shadow:0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);display:flex;align-items:flex-start;gap:0.75rem;padding:1rem 1rem 1rem 1.25rem;transition:all 0.2s ease;position:relative;margin:25px}.gh-banner.error{--banner-bg:#ffebe9;--banner-border:rgba(255, 129, 130, 0.4);--banner-icon-color:#cf222e}@media (prefers-color-scheme: dark){.gh-banner{--banner-bg:#1c2a3e;--banner-border:#2d4a6e;--banner-icon-color:#6cb4ff;--banner-text:#e6edf3;--banner-link:#6cb4ff;--banner-link-hover:#9acbff;background-color:var(--banner-bg);border-color:#2d4a6e}.gh-banner.error{--banner-bg:#3b1e1e;--banner-border:#da3633;--banner-icon-color:#f85149}}.banner-icon{flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px}.banner-icon svg{width:20px;height:20px;color:var(--banner-icon-color);fill:currentColor;display:block}.banner-content{flex:1;font-size:0.9375rem;font-weight:400;color:var(--banner-text);line-height:1.5;word-break:break-word}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0}.banner-text{display:inline}@media (max-width: 640px){.gh-banner{padding:0.875rem 1rem;gap:0.5rem}.banner-content{font-size:0.875rem}.banner-icon svg{width:18px;height:18px}}.banner-content span{display:inline}.border-top{border-top:1.5px solid #d0d7de!important}</style>
+
+<head>
+<meta charset="utf-8">
+<!--dev siwtch-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="full-screen" content="true">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--dev switch end-->
+<meta name="description" content="本站由哨兵安全实验室支持创办">
+
+    <meta name="baidu-site-verification" content="codeva-Bt0LqEvH6L">
+    <!-- Google tag (gtag.js) -->
+<!--<script defer src="https://www.googletagmanager.com/gtag/js?id=G-TJ5SFQ4KCM"></script>-->
+<!--<script defer src="/assets/js/gta.js"></script>-->
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="© 哨兵">
+
+
+
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Introduction To Devsecops Security Toolchain Solutions | © 哨兵">
+<meta property="og:description" content="DevSecOps | CI&CI | SCA | IaC | © 哨兵安全实验室 SENTINEL SECURITY, LAB">
+<meta property="og:image" content="https://bin4xin.github.io/assets/img/logo-share.png"> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="https://bin4xin.github.io/about/DevSecOps/Introduction-to-DevSecOps-Security-Toolchain-Solutions/">
+<title> DevSecOps 安全工具链与解决方案 | © 哨兵 | SENTINEL SECURITY, LAB</title>
+
+<link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css" media="print" onload="this.media='all'"></noscript>
+<link rel="stylesheet" type="text/css" href="/assets/css/footer.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" type="text/css" href="/assets/css/footer.css" media="print" onload="this.media='all'"></noscript>
+<!-- Bootstrap core CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="/assets/css/bootstrap.css" rel="stylesheet" media="print" onload="this.media='all'"></noscript>
+<link href="/assets/css/bilibili_icon.css" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="/assets/css/bilibili_icon.css" rel="stylesheet" media="print" onload="this.media='all'"></noscript>
+
+    <!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="/assets/css/font-awesome.min.css" rel="stylesheet" media="print" onload="this.media='all'"></noscript>
+<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet" media="print" onload="this.media='all'"></noscript>
+<link rel="stylesheet" type="text/css" href="/assets/css/card.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" type="text/css" href="/assets/css/card.css" media="print" onload="this.media='all'"></noscript>
+
+<script src="/assets/js/jquery.min.js"></script>
+<!-- #### defer load ####################################################################################-->
+<script src="/assets/js/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+<script defer src="/assets/js/pace.min.js"></script>
+<!-- #### defer load end ################################################################################-->
+
+<script defer src="/assets/js/jquery.sticky/1.0.4/jquery.sticky.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+
+</head>
+
+    <body>
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            
+            <!-- 菜单按钮 -->
+            <button type="button" class="navbar-toggle" id="navbar-toggle-btn" data-toggle="collapse" data-target=".navbar-collapse" aria-label="切换导航菜单" aria-expanded="false" aria-controls="main-nav" style="outline:2px solid transparent; margin-left: 8px;">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse navbar-right">
+            <ul class="nav navbar-nav">
+                
+                <li><a href="/"><div class="fa fa-dashboard"></div></a></li>
+                <li><a href="/search"><div class="fa fa-search"></div></a></li>
+                <li><a href="/blog/">BLOG</a></li>
+                <li><a href="/categories/">CATEGORIES</a></li>
+                <li><a href="/daily/">DAILY</a></li>
+                <li><a href="/newest">NEWEST</a></li>
+                <li class="active"><a href="/about/">RESEARCH</a></li>
+                <li><a href="/feed.xml">RSS</a></li>
+                
+                
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+        <startprint2pdfs>
+            <div id="research-content" class="col-sm-bb">
+                <link href="/assets/css/research.css" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="/assets/css/research.css" rel="stylesheet" media="print" onload="this.media='all'"></noscript>
+
+
+<div id="help-page">
+	<div class="about-layout">
+		<aside id="sidebar1">
+			<div class="sidebar-alert">
+				
+
+
+
+
+
+
+
+
+
+<section class="gh-banner error" aria-labelledby="banner-title-注意-br-任何形式的未授权访问都是禁止的" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575L6.457 1.047ZM8 4.75a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4.75Zm.75 6.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"/>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text">注意: <br>任何形式的未授权访问都是禁止的</span>
+    </div>
+
+    <!-- <button class="banner-close" aria-label="关闭通知横幅" title="Dismiss banner" type="button">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
+        </svg>
+    </button> -->
+</section>
+			</div>
+			<nav id="help-nav" aria-label="sidebar navigation">
+				
+	<details class="nav-group" open>
+		<summary class="nav-group-title">
+			DEVSECOPS
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item active">
+				<a class="nav-link" href="/about/DevSecOps/Introduction-to-DevSecOps-Security-Toolchain-Solutions/">
+					I. DEVSECOPS 安全工具链与解决方案
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			POSEIDON3
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/poseidon3-username-enumeration/">
+					I. 「POSEIDON3」：用户名枚举漏洞
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/poseidon3-user-registration-unauthorized-access/">
+					II. 「POSEIDON3」：用户注册接口未授权访问
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/poseidon3-system-config-information-disclosure/">
+					III. 「POSEIDON3」：系统配置信息泄露
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/poseidon3-sub-account-management-unauthorized-access/">
+					IV. 「POSEIDON3」：子账号管理接口未授权访问
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/poseidon3-file-upload-unauthorized-access/">
+					V. 「POSEIDON3」：文件上传接口未授权访问
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/poseidon3-anti-burp-token-leakage/">
+					VI. 「POSEIDON3」：防护TOKEN泄露（全微服务）
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			AI-CLI
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/ai-cli/CVE-2025-59828-and-CVE-2025-65099/">
+					I. CVE-2025-59828/CVE-2025-65099
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/ai-cli/">
+					II. AI-CLI-ZH
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			移动攻防
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/wechat-miniapp-reverse-intermediate-frida-hook/">
+					I. 微信小程序逆向II
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/wechat-miniapp-reverse-expert-vm-bypass/">
+					II. 微信小程序逆向IV
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/wechat-miniapp-reverse-beginner/">
+					III. 微信小程序逆向I
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/wechat-miniapp-reverse-advanced-toolchain/">
+					IV. 微信小程序逆向III
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/protect-wechat-miniapp-from-reverse-engineering/">
+					V. 小程序安全加固指南
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			JMREPORT
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/JimuReport-Vuln-WalkThrough-backup/">
+					I. JIMUREPORT VULN WALKTHROUGH BACKUP
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			OPENLITESPEED
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/2022-11-23-openlitespeed-cve-vuln-walkthrough/">
+					I. OPENLITESPEED CVE-2022-0072 VULNS
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			APEREO CAS
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/Apereo-CAS-Less-than-4-2-x-RCE/">
+					I. APEREO CAS < 4.2.X 反序列化远程代码执行
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			鱼叉攻击策略
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/Harpoon-strategy-attack-from-0-to-1/">
+					I. 鱼叉攻击策略落地：从零到一
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/2022-05-17-Harpoon-strategy-attack-EmailGateway-usage/">
+					II. 鱼叉攻击策略落地：邮件网关应用
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			GITLAB
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/GitLab-CVE-2020-10977/">
+					I. GITLAB CVE-2020-10977 任意文件读取漏洞
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/GitLab-CVE-2020-10977-RCE/">
+					II. GITLAB CVE-2020-10977 任意文件读取漏洞导致的RCE
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/Gitlab-RCE-with-snippet-function/">
+					III. GITLAB CVE-2021-22205 SNIPPET RCE
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			COBALT STRIKE
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/Cobalt-Strike-Server-build-walkthrough/">
+					I. COBALT STRIKE服务器搭建历程
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/Cobalt-Stike-hidden-true-ip/">
+					II. COBALT STRIKE服务器隐藏真实IP
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/Cobalt-Strike-C2-domain-front-hidden/">
+					III. 域名前置隐藏C2服务器
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/Cobalt-Strike-beacon-bypass-walkthrough/">
+					IV. CS上线木马免杀入门
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			APACHE LOG4J2
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/Apache-Log4j2-RCE-WalkThrough/">
+					I. APACHE LOG4J2 RCE复现历程
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/Apache-log4j2-affect-By-JDK-version-walkthrough/">
+					II. APACHE LOG4J2 RCE JDK限制实验
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			OCR IN BP
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/CAPTCHA-BYPASS-WALKTHROUGH/">
+					I. BURPSUITE验证码插件实验
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			GET-STARTED
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/en/">
+					I. EN
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/">
+					II. ZH
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			CTF
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/CTF-Code-Audit-WalkThrough/">
+					I. CTF - 代码审计向
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/CTF-Misc-WalkThrough/">
+					II. CTF - 杂项
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/CTF-Crypto-and-Misc-etc-WalkThrough/">
+					III. CTF - 密码学与杂项
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/WANGDINGCTF2022-Walkthrough/">
+					IV. 2022年网鼎杯玄武组-解题记录
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/WANGDINGCTF2022-WEB-FindIT-Walkthrough/">
+					V. 2022年网鼎杯玄武组赛题复盘-[WEB-FINDIT]
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/WANGDINGCTF2022-WEB-ezJava-Walkthrough/">
+					VI. 2022年网鼎杯玄武组赛题复盘-[WEB-EZJAVA]
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/WANGDINGCTF2024-Walkthrough/">
+					VII. 2024年网鼎杯玄武组赛题历程
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/Get-Pattern-password-in-Marshmallow-and-below/">
+					VIII. 在棉花糖及以下版本中获取图案密码
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			二进制研究/BIN
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/Hikvision-ConfigurationFiles-decrypter/">
+					I. HIKVISION-CONFIGURATIONFILES-DECRYPTER
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/Router-BinFile-Analysis/">
+					II. ROUTER-BINFILE-ANALYSIS
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			POLKIT
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/polkit-CVE-2021-3560/">
+					I. POLKIT-CVE-2021-3560
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/polkit-CVE-2021-4034/">
+					II. POLKIT-CVE-2021-4034复现
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			代理池：BASED ON SCYLLA
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/Thousand-people-Thousand-faces-Red-team-penetration-agent-pool-based-on-scylla/">
+					I. SCYLLA 搭建步骤
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			WAF
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/Mod-Waf-Bypass-Walkthrough/">
+					I. MOD-WAF-BYPASS-WALKTHROUGH
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/WAF-developed-by-Grayscale-forwarding/">
+					II. MODSEC & CLOUDFLARE WAF INITIAL RESEARCH
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			代码审计
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/Dynamic-analysis-of-java-framework-code/">
+					I. JAVA框架代码动态调试分析
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/ALL-mvn-build-errors/">
+					II. 安全与开发之：MAVEN构建排错
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/inspur-Cluster-Engine-V4.0-code-aduit-walkthrough/">
+					III. 浪潮CLUSTERENGINEV4.0代码审计历程
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/CVE-2022-40664-Research-Walkthrough/">
+					IV. CVE-2022-40664 SHIRO BYPASS研究历程
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			SPRING
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/SpringBoot-Memory-files-heapdump-Analysis/">
+					I. SPRINGBOOT-MEMORY-FILES-HEAPDUMP-ANALYSIS
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/CVE-2022-22947-Spring-Cloud-Gateway-RCE/">
+					II. CVE-2022-22947 SPRING-CLOUD-GATEWAY-RCE
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			其他研究
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/ALL-SQL-INJECTION-ANALYSIS/">
+					I. SQL注入原理分析
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/Struts2Deser/">
+					II. STRUTS2DESER
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/Research-on-Webshell-Attack-of-Shiro-Framework-Based-on-Memory/">
+					III. 基于内存的SHIRO框架WEBSHELL攻击研究
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/ToDa-OA-VulnPoc-by-java-analysis/">
+					IV. 通达OA利用代码分析
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/JRMP-Gadget/">
+					V. JRMP-GADGET
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+	<details class="nav-group">
+		<summary class="nav-group-title">
+			反序列化
+		</summary>
+		<ul class="nav-list">
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/ShiroDeser/">
+					I. SHIRODESER
+				</a>
+			</li>
+			
+			<li class="nav-item ">
+				<a class="nav-link" href="/about/javaDeser/">
+					II. JAVADESER
+				</a>
+			</li>
+			
+		</ul>
+	</details>
+
+
+			</nav>
+		</aside><!-- side menu end. 左边菜单栏结束-->
+
+		<div class="about-main">
+			
+
+<div class="about-top-banner">
+    <nav class="breadcrumb-nav" aria-label="breadcrumb">
+        <a class="breadcrumb-link" href="/">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <a class="breadcrumb-link" href="#">
+研究
+</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">
+            DevSecOps
+        </span>
+        <!--article author end-->
+
+
+
+
+
+
+
+
+<span class="ymh-author-badge">
+    <a class="ymh-author-link" href="https://github.com/Bin4xin" target="_blank">
+        <span class="ymh-author-avatar">B</span>
+        Bin4xin
+    </a>
+
+    
+
+    
+    
+    
+    
+    
+
+    <span class="ymh-time-badge">
+        
+            
+                
+                    1d
+                
+                post
+            
+        
+    </span>
+</span>
+
+    </nav>
+</div>
+
+			<div id="help-content"><!--page main content-->
+				<div class="px-md-6">
+					<h1>
+						<span class="post-print pull-right"><a onclick="printpage()">
+						<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Print document</title><path d="M400,96V56a8,8,0,0,0-8-8H120a8,8,0,0,0-8,8V96"/><rect x="152" y="264" width="208" height="160" rx="4" ry="4" style="fill:none;stroke:none;"/><path d="M408,112H104a56,56,0,0,0-56,56V376a8,8,0,0,0,8,8h56v72a8,8,0,0,0,8,8H392a8,8,0,0,0,8-8V384h56a8,8,0,0,0,8-8V168A56,56,0,0,0,408,112ZM360,420a4,4,0,0,1-4,4H156a4,4,0,0,1-4-4V268a4,4,0,0,1,4-4H356a4,4,0,0,1,4,4ZM394,207.92a24,24,0,1,1,22-22A24,24,0,0,1,394,207.92Z"/></svg>
+						</ion-icon></a></span>
+						<span class="post-print pull-right"><a href="https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/DevSecOps/2026-07-30-Introduction-to-DevSecOps-Security-Toolchain-Solutions.md" target="_blank">
+						<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Edit on github</title><path d="M459.94,53.25a16.06,16.06,0,0,0-23.22-.56L424.35,65a8,8,0,0,0,0,11.31l11.34,11.32a8,8,0,0,0,11.34,0l12.06-12C465.19,69.54,465.76,59.62,459.94,53.25Z"/><path d="M399.34,90,218.82,270.2a9,9,0,0,0-2.31,3.93L208.16,299a3.91,3.91,0,0,0,4.86,4.86l24.85-8.35a9,9,0,0,0,3.93-2.31L422,112.66A9,9,0,0,0,422,100L412.05,90A9,9,0,0,0,399.34,90Z"/><path d="M386.34,193.66,264.45,315.79A41.08,41.08,0,0,1,247.58,326l-25.9,8.67a35.92,35.92,0,0,1-44.33-44.33l8.67-25.9a41.08,41.08,0,0,1,10.19-16.87L318.34,125.66A8,8,0,0,0,312.69,112H104a56,56,0,0,0-56,56V408a56,56,0,0,0,56,56H344a56,56,0,0,0,56-56V199.31A8,8,0,0,0,386.34,193.66Z"/></svg>
+						</ion-icon>
+						</a></span>
+					</h1>
+					
+					<br><br><br>
+					
+
+
+
+
+
+
+
+
+
+<section class="gh-banner info" aria-labelledby="banner-title-" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text">
+    由于传播、利用此库/文所提供的信息而造成的任何直接或者间接的后果及损失，均由使用者本人负责，本文作者不为此承担任何责任。<br>
+    ANY DIRECT OR INDIRECT CONSEQUENCES OR LOSSES CAUSED BY DISSEMINATING OR USING THE INFORMATION PROVIDED IN THIS REPOSITORY/DOCUMENT
+    SHALL BE BORNE SOLELY BY THE USER. THE AUTHOR OF THIS ARTICLE ASSUMES NO RESPONSIBILITY FOR SUCH CONSEQUENCES OR LOSSES.
+    </span>
+    </div>
+
+    <!-- <button class="banner-close" aria-label="关闭通知横幅" title="Dismiss banner" type="button">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
+        </svg>
+    </button> -->
+</section>
+					
+					<h1 id="devsecops-安全工具链解决方案介绍">DevSecOps 安全工具链解决方案介绍</h1>
+
+<hr>
+
+<h2 id="一概述">一、概述</h2>
+
+<p>本文档围绕 CI/CD 安全集成、容器镜像扫描与软件成分分析（SCA）、基础设施即代码（IaC）与配置合规三大核心模块，系统性梳理各环节所涉及工具的开源状态、功能定位及国产化替代方案，为企业 DevSecOps 体系建设提供完整参考。</p>
+
+<hr>
+
+<h2 id="二工具开源情况总览">二、工具开源情况总览</h2>
+
+<h3 id="21-开源工具清单">2.1 开源工具清单</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>工具名称</th>
+      <th>类型</th>
+      <th>开源协议</th>
+      <th>开源状态</th>
+      <th>维护方</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>OWASP ZAP</strong></td>
+      <td>DAST（动态应用安全测试）</td>
+      <td>Apache 2.0</td>
+      <td>✅ 完全开源</td>
+      <td>原 OWASP 维护，2023 年起由 Checkmarx 接管维护，仍保持完全开源免费</td>
+    </tr>
+    <tr>
+      <td><strong>Trivy</strong></td>
+      <td>容器镜像/文件系统/SBOM 扫描</td>
+      <td>Apache 2.0</td>
+      <td>✅ 完全开源</td>
+      <td>Aqua Security</td>
+    </tr>
+    <tr>
+      <td><strong>Clair</strong></td>
+      <td>容器镜像漏洞扫描</td>
+      <td>Apache 2.0</td>
+      <td>✅ 完全开源</td>
+      <td>Red Hat / Quay 项目</td>
+    </tr>
+    <tr>
+      <td><strong>SonarQube Community Build</strong></td>
+      <td>SAST + 代码质量</td>
+      <td>LGPLv3（核心）+ SSALv1（分析器）</td>
+      <td>⚠️ 核心开源，社区版免费</td>
+      <td>SonarSource</td>
+    </tr>
+    <tr>
+      <td><strong>Checkov</strong></td>
+      <td>IaC 静态安全扫描</td>
+      <td>Apache 2.0</td>
+      <td>✅ 完全开源</td>
+      <td>Prisma Cloud（原 Bridgecrew）</td>
+    </tr>
+    <tr>
+      <td><strong>Semgrep OSS</strong></td>
+      <td>SAST（轻量规则引擎）</td>
+      <td>LGPL 2.1</td>
+      <td>✅ 完全开源</td>
+      <td>Semgrep Inc.</td>
+    </tr>
+    <tr>
+      <td><strong>Syft</strong></td>
+      <td>SBOM 生成</td>
+      <td>Apache 2.0</td>
+      <td>✅ 完全开源</td>
+      <td>Anchore</td>
+    </tr>
+    <tr>
+      <td><strong>Grype</strong></td>
+      <td>漏洞扫描（基于 SBOM）</td>
+      <td>Apache 2.0</td>
+      <td>✅ 完全开源</td>
+      <td>Anchore</td>
+    </tr>
+    <tr>
+      <td><strong>kube-bench</strong></td>
+      <td>Kubernetes CIS 基准检测</td>
+      <td>Apache 2.0</td>
+      <td>✅ 完全开源</td>
+      <td>Aqua Security</td>
+    </tr>
+    <tr>
+      <td><strong>Wazuh</strong></td>
+      <td>安全配置评估 + SIEM</td>
+      <td>GPLv2</td>
+      <td>✅ 完全开源</td>
+      <td>Wazuh Inc.</td>
+    </tr>
+    <tr>
+      <td><strong>OpenSCA</strong></td>
+      <td>SCA（软件成分分析）</td>
+      <td>Apache 2.0</td>
+      <td>✅ 完全开源</td>
+      <td>悬镜安全（国内）</td>
+    </tr>
+    <tr>
+      <td><strong>murphysec</strong></td>
+      <td>SCA + 漏洞检测</td>
+      <td>Apache 2.0</td>
+      <td>✅ CLI 开源</td>
+      <td>墨菲安全（国内）</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="22-商业闭源工具清单">2.2 商业/闭源工具清单</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>工具名称</th>
+      <th>类型</th>
+      <th>授权模式</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Checkmarx</strong></td>
+      <td>SAST + SCA + IaC + DAST</td>
+      <td>商业闭源</td>
+      <td>企业级 AppSec 平台，功能全面但价格较高，规则定制门槛高</td>
+    </tr>
+    <tr>
+      <td><strong>SonarQube Developer/Enterprise</strong></td>
+      <td>SAST + 代码质量</td>
+      <td>商业授权</td>
+      <td>社区版之上增加分支分析、污点分析、更多语言支持等</td>
+    </tr>
+    <tr>
+      <td><strong>CIS-CAT Pro</strong></td>
+      <td>CIS 基准合规评估</td>
+      <td>商业授权</td>
+      <td>CIS 官方出品的专业评估工具</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p><strong>关键结论</strong>：ZAP、Trivy、Clair、Checkov、Syft、Grype、kube-bench、OpenSCA、murphysec 等核心工具均为完全开源，可免费商用；SonarQube 社区版可免费使用但部分高级功能需付费；Checkmarx 为纯商业闭源产品。</p>
+</blockquote>
+
+<hr>
+
+<h2 id="三cicd-安全集成方案">三、CI/CD 安全集成方案</h2>
+
+<h3 id="31-整体架构">3.1 整体架构</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>代码提交 → 静态安全扫描(SAST/SCA) → 镜像构建 → 镜像扫描 → IaC扫描 → 动态扫描(DAST) → 安全门禁 → 部署
+</code></pre></div></div>
+
+<h3 id="32-cicd-安全集成配置">3.2 CI/CD 安全集成配置</h3>
+
+<h4 id="321-jenkins-pipeline-集成示例">3.2.1 Jenkins Pipeline 集成示例</h4>
+
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pipeline</span> <span class="o">{</span>
+    <span class="n">agent</span> <span class="n">any</span>
+    <span class="n">stages</span> <span class="o">{</span>
+        <span class="n">stage</span><span class="o">(</span><span class="s1">'SAST - SonarQube'</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">steps</span> <span class="o">{</span>
+                <span class="n">withSonarQubeEnv</span><span class="o">(</span><span class="s1">'SonarQube'</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">sh</span> <span class="s1">'sonar-scanner'</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="n">stage</span><span class="o">(</span><span class="s1">'SCA - Trivy FS Scan'</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">steps</span> <span class="o">{</span>
+                <span class="n">sh</span> <span class="s1">'trivy fs --format json --output trivy-fs-report.json ./src'</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="n">stage</span><span class="o">(</span><span class="s1">'Build Image'</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">steps</span> <span class="o">{</span>
+                <span class="n">sh</span> <span class="s1">'docker build -t myapp:${BUILD_NUMBER} .'</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="n">stage</span><span class="o">(</span><span class="s1">'Image Scan - Trivy'</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">steps</span> <span class="o">{</span>
+                <span class="n">sh</span> <span class="s1">'trivy image --format json --output trivy-image-report.json myapp:${BUILD_NUMBER}'</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="n">stage</span><span class="o">(</span><span class="s1">'IaC Scan - Checkov'</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">steps</span> <span class="o">{</span>
+                <span class="n">sh</span> <span class="s1">'checkov -d ./terraform --output json &gt; checkov-report.json'</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="n">stage</span><span class="o">(</span><span class="s1">'DAST - ZAP Baseline'</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">steps</span> <span class="o">{</span>
+                <span class="n">sh</span> <span class="s1">'zap-baseline.py -t http://staging.myapp.com -r zap-report.html'</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="n">stage</span><span class="o">(</span><span class="s1">'Security Gate'</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">steps</span> <span class="o">{</span>
+                <span class="n">script</span> <span class="o">{</span>
+                    <span class="c1">// 安全门禁判定逻辑</span>
+                    <span class="kt">def</span> <span class="n">highCount</span> <span class="o">=</span> <span class="n">sh</span><span class="o">(</span><span class="nl">script:</span> <span class="s2">"jq '[.Results[].Vulnerabilities[]? | select(.Severity==\"HIGH\")] | length' trivy-image-report.json"</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">()</span> <span class="k">as</span> <span class="kt">int</span>
+                    <span class="kt">def</span> <span class="n">criticalCount</span> <span class="o">=</span> <span class="n">sh</span><span class="o">(</span><span class="nl">script:</span> <span class="s2">"jq '[.Results[].Vulnerabilities[]? | select(.Severity==\"CRITICAL\")] | length' trivy-image-report.json"</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">()</span> <span class="k">as</span> <span class="kt">int</span>
+                    
+                    <span class="k">if</span> <span class="o">(</span><span class="n">criticalCount</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">highCount</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">error</span><span class="o">(</span><span class="s2">"安全门禁未通过：严重漏洞 ${criticalCount} 个，高危漏洞 ${highCount} 个"</span><span class="o">)</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="322-gitlab-ci-集成示例">3.2.2 GitLab CI 集成示例</h4>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">stages</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">sast</span>
+  <span class="pi">-</span> <span class="s">sca</span>
+  <span class="pi">-</span> <span class="s">build</span>
+  <span class="pi">-</span> <span class="s">image-scan</span>
+  <span class="pi">-</span> <span class="s">iac-scan</span>
+  <span class="pi">-</span> <span class="s">dast</span>
+  <span class="pi">-</span> <span class="s">security-gate</span>
+
+<span class="na">sonarqube</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">sast</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">sonar-scanner -Dsonar.projectKey=$CI_PROJECT_NAME</span>
+  <span class="na">allow_failure</span><span class="pi">:</span> <span class="no">false</span>
+
+<span class="na">trivy-fs</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">sca</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">trivy fs --exit-code 0 --severity HIGH,CRITICAL --format json -o trivy-fs.json .</span>
+  <span class="na">artifacts</span><span class="pi">:</span>
+    <span class="na">paths</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">trivy-fs.json</span><span class="pi">]</span>
+
+<span class="na">build-image</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">build</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .</span>
+
+<span class="na">trivy-image</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">image-scan</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">trivy image --exit-code 0 --severity HIGH,CRITICAL --format json -o trivy-image.json $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA</span>
+  <span class="na">artifacts</span><span class="pi">:</span>
+    <span class="na">paths</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">trivy-image.json</span><span class="pi">]</span>
+
+<span class="na">checkov</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">iac-scan</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">checkov -d ./terraform --soft-fail-on LOW --hard-fail-on HIGH,CRITICAL --output junitxml &gt; checkov-report.xml</span>
+  <span class="na">artifacts</span><span class="pi">:</span>
+    <span class="na">reports</span><span class="pi">:</span>
+      <span class="na">junit</span><span class="pi">:</span> <span class="s">checkov-report.xml</span>
+
+<span class="na">zap-baseline</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">dast</span>
+  <span class="na">image</span><span class="pi">:</span> <span class="s">owasp/zap2docker-stable</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">zap-baseline.py -t $STAGING_URL -r zap-report.html -I</span>
+  <span class="na">artifacts</span><span class="pi">:</span>
+    <span class="na">paths</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">zap-report.html</span><span class="pi">]</span>
+
+<span class="na">security-gate</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">security-gate</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="pi">|</span>
+      <span class="s">CRITICAL=$(jq '[.Results[].Vulnerabilities[]? | select(.Severity=="CRITICAL")] | length' trivy-image.json)</span>
+      <span class="s">HIGH=$(jq '[.Results[].Vulnerabilities[]? | select(.Severity=="HIGH")] | length' trivy-image.json)</span>
+      <span class="s">echo "严重漏洞: $CRITICAL, 高危漏洞: $HIGH"</span>
+      <span class="s">if [ "$CRITICAL" -gt 0 ] || [ "$HIGH" -gt 5 ]; then</span>
+        <span class="s">echo "安全门禁未通过！"</span>
+        <span class="s">exit 1</span>
+      <span class="s">fi</span>
+</code></pre></div></div>
+
+<h3 id="33-自动化安全门禁规则">3.3 自动化安全门禁规则</h3>
+
+<h4 id="331-阈值判定标准">3.3.1 阈值判定标准</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>检测维度</th>
+      <th>严重级别</th>
+      <th>阻断阈值</th>
+      <th>警告阈值</th>
+      <th>处理方式</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>SAST 漏洞</strong></td>
+      <td>Critical</td>
+      <td>&gt; 0</td>
+      <td>-</td>
+      <td>强制阻断，必须修复</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>High</td>
+      <td>&gt; 5</td>
+      <td>1-5</td>
+      <td>超过阈值阻断，阈值内警告</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>Medium</td>
+      <td>&gt; 20</td>
+      <td>1-20</td>
+      <td>超过阈值阻断，阈值内记录跟踪</td>
+    </tr>
+    <tr>
+      <td><strong>SCA 依赖漏洞</strong></td>
+      <td>Critical</td>
+      <td>&gt; 0</td>
+      <td>-</td>
+      <td>强制阻断，必须升级或修复</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>High</td>
+      <td>&gt; 3</td>
+      <td>1-3</td>
+      <td>超过阈值阻断，评估升级方案</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>Medium</td>
+      <td>&gt; 15</td>
+      <td>1-15</td>
+      <td>记录跟踪，排期修复</td>
+    </tr>
+    <tr>
+      <td><strong>容器镜像漏洞</strong></td>
+      <td>Critical</td>
+      <td>&gt; 0</td>
+      <td>-</td>
+      <td>强制阻断，禁止部署</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>High</td>
+      <td>&gt; 5</td>
+      <td>1-5</td>
+      <td>超过阈值阻断</td>
+    </tr>
+    <tr>
+      <td><strong>IaC 配置风险</strong></td>
+      <td>High</td>
+      <td>&gt; 0</td>
+      <td>-</td>
+      <td>强制阻断，必须修复</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>Medium</td>
+      <td>&gt; 10</td>
+      <td>1-10</td>
+      <td>超过阈值阻断</td>
+    </tr>
+    <tr>
+      <td><strong>DAST 漏洞</strong></td>
+      <td>Critical</td>
+      <td>&gt; 0</td>
+      <td>-</td>
+      <td>强制阻断</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>High</td>
+      <td>&gt; 3</td>
+      <td>1-3</td>
+      <td>超过阈值阻断</td>
+    </tr>
+    <tr>
+      <td><strong>许可证合规</strong></td>
+      <td>GPL/AGPL 等强 Copyleft</td>
+      <td>&gt; 0</td>
+      <td>-</td>
+      <td>强制阻断，法务审核</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>未知许可证</td>
+      <td>&gt; 5</td>
+      <td>1-5</td>
+      <td>超过阈值阻断</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="332-门禁分级策略">3.3.2 门禁分级策略</h4>
+
+<ul>
+  <li><strong>P0 阻断级</strong>：Critical 级漏洞、强 Copyleft 许可证 → 立即阻断流水线</li>
+  <li><strong>P1 严控级</strong>：High 级漏洞超阈值 → 阻断并通知安全团队</li>
+  <li><strong>P2 跟踪级</strong>：Medium 级漏洞超阈值 → 阻断但可申请豁免审批</li>
+  <li><strong>P3 观察级</strong>：Low/Info 级问题 → 不阻断，纳入持续跟踪</li>
+</ul>
+
+<h3 id="34-流水线集成文档与运维操作手册">3.4 流水线集成文档与运维操作手册</h3>
+
+<h4 id="341-集成文档要点">3.4.1 集成文档要点</h4>
+
+<ol>
+  <li><strong>工具部署文档</strong>
+    <ul>
+      <li>SonarQube 集群部署架构与配置</li>
+      <li>Trivy 离线漏洞库同步机制</li>
+      <li>ZAP 主动扫描配置与认证方案</li>
+      <li>Checkov 自定义规则编写规范</li>
+    </ul>
+  </li>
+  <li><strong>CI/CD 接入指南</strong>
+    <ul>
+      <li>Jenkins/GitLab CI 插件安装</li>
+      <li>凭据管理与密钥安全存储</li>
+      <li>流水线模板与复用机制</li>
+      <li>报告归档与可视化展示</li>
+    </ul>
+  </li>
+  <li><strong>安全门禁配置手册</strong>
+    <ul>
+      <li>阈值参数配置说明</li>
+      <li>豁免审批流程</li>
+      <li>误报标记与白名单管理</li>
+      <li>告警通知与升级机制</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="342-运维操作手册要点">3.4.2 运维操作手册要点</h4>
+
+<ol>
+  <li><strong>日常运维</strong>
+    <ul>
+      <li>漏洞库/规则库定期更新（每日自动同步）</li>
+      <li>扫描任务监控与失败重试</li>
+      <li>报告数据备份与归档</li>
+      <li>系统资源监控与扩容</li>
+    </ul>
+  </li>
+  <li><strong>故障处理</strong>
+    <ul>
+      <li>扫描超时/失败排查流程</li>
+      <li>工具版本升级与回滚</li>
+      <li>数据库备份与恢复</li>
+      <li>性能瓶颈定位与优化</li>
+    </ul>
+  </li>
+  <li><strong>安全管理</strong>
+    <ul>
+      <li>用户权限与角色管理</li>
+      <li>审计日志与操作追溯</li>
+      <li>数据脱敏与隐私保护</li>
+      <li>等保合规与安全审计</li>
+    </ul>
+  </li>
+</ol>
+
+<hr>
+
+<h2 id="四容器镜像扫描与-sca-方案">四、容器镜像扫描与 SCA 方案</h2>
+
+<h3 id="41-容器镜像扫描">4.1 容器镜像扫描</h3>
+
+<h4 id="411-trivy-方案推荐">4.1.1 Trivy 方案（推荐）</h4>
+
+<p><strong>工具定位</strong>：Aqua Security 开源的全能型安全扫描器，支持容器镜像、文件系统、Git 仓库、SBOM 等多种扫描场景。</p>
+
+<p><strong>核心功能</strong>：</p>
+<ul>
+  <li>操作系统包漏洞检测（Alpine、Debian、Ubuntu、CentOS 等）</li>
+  <li>语言特定包漏洞检测（npm、Maven、PyPI、Go modules 等）</li>
+  <li>IaC 配置错误检测</li>
+  <li>敏感信息泄露检测（Secret Scanning）</li>
+  <li>SBOM 生成（CycloneDX / SPDX 格式）</li>
+</ul>
+
+<p><strong>输出报告示例结构</strong>：</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"ArtifactName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"myapp:latest"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"ArtifactType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"container_image"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Results"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"Target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"myapp:latest (debian 12.5)"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"Class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"os-pkgs"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"Vulnerabilities"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"VulnerabilityID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CVE-2024-1234"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"PkgName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"openssl"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"InstalledVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.0.11-1~deb12u2"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"FixedVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.0.13-1~deb12u1"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"Severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIGH"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"Title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OpenSSL 证书验证绕过漏洞"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"References"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"https://nvd.nist.gov/vuln/detail/CVE-2024-1234"</span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="412-clair-方案">4.1.2 Clair 方案</h4>
+
+<p><strong>工具定位</strong>：Red Hat 维护的容器镜像漏洞扫描器，与 Quay 容器 registry 深度集成。</p>
+
+<p><strong>特点</strong>：</p>
+<ul>
+  <li>基于分层镜像分析</li>
+  <li>支持 REST API 集成</li>
+  <li>漏洞数据源可配置</li>
+  <li>适合大规模镜像仓库持续扫描</li>
+</ul>
+
+<h3 id="42-依赖漏洞报告及版本升级建议">4.2 依赖漏洞报告及版本升级建议</h3>
+
+<h4 id="421-报告内容结构">4.2.1 报告内容结构</h4>
+
+<ol>
+  <li><strong>漏洞总览</strong>
+    <ul>
+      <li>各严重级别漏洞数量统计</li>
+      <li>受影响组件数量统计</li>
+      <li>漏洞趋势变化对比</li>
+    </ul>
+  </li>
+  <li><strong>漏洞详情</strong>
+    <ul>
+      <li>CVE 编号与描述</li>
+      <li>受影响包名与版本</li>
+      <li>修复版本信息</li>
+      <li>漏洞利用难度与攻击向量</li>
+      <li>参考链接</li>
+    </ul>
+  </li>
+  <li><strong>升级建议</strong>
+    <ul>
+      <li>直接升级：存在兼容修复版本的组件</li>
+      <li>替代方案：无修复版本时的替代组件推荐</li>
+      <li>缓解措施：无法升级时的临时防护方案</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="422-版本升级策略">4.2.2 版本升级策略</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>漏洞级别</th>
+      <th>修复时限</th>
+      <th>升级策略</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Critical</td>
+      <td>24 小时内</td>
+      <td>立即升级到最新安全版本</td>
+    </tr>
+    <tr>
+      <td>High</td>
+      <td>7 天内</td>
+      <td>升级到修复版本，评估兼容性影响</td>
+    </tr>
+    <tr>
+      <td>Medium</td>
+      <td>30 天内</td>
+      <td>纳入迭代计划，跟随版本发布升级</td>
+    </tr>
+    <tr>
+      <td>Low</td>
+      <td>季度内</td>
+      <td>批量处理，结合常规维护升级</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="43-开源软件分析与许可证合规报告">4.3 开源软件分析与许可证合规报告</h3>
+
+<h4 id="431-sca-工具对比">4.3.1 SCA 工具对比</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>工具</th>
+      <th>开源状态</th>
+      <th>语言支持</th>
+      <th>二进制扫描</th>
+      <th>SBOM 输出</th>
+      <th>国内适配</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Trivy</strong></td>
+      <td>✅ 开源 (Apache 2.0)</td>
+      <td>30+</td>
+      <td>部分支持</td>
+      <td>CycloneDX/SPDX</td>
+      <td>一般</td>
+    </tr>
+    <tr>
+      <td><strong>OpenSCA</strong></td>
+      <td>✅ 开源 (Apache 2.0)</td>
+      <td>20+</td>
+      <td>支持</td>
+      <td>CycloneDX/SPDX</td>
+      <td>✅ 国产，信创适配</td>
+    </tr>
+    <tr>
+      <td><strong>murphysec</strong></td>
+      <td>✅ CLI 开源</td>
+      <td>18+</td>
+      <td>支持</td>
+      <td>支持</td>
+      <td>✅ 国产，中文漏洞库</td>
+    </tr>
+    <tr>
+      <td><strong>Syft + Grype</strong></td>
+      <td>✅ 开源 (Apache 2.0)</td>
+      <td>30+</td>
+      <td>支持</td>
+      <td>CycloneDX/SPDX</td>
+      <td>一般</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="432-许可证合规检测">4.3.2 许可证合规检测</h4>
+
+<p><strong>检测范围</strong>：</p>
+<ul>
+  <li>许可证类型识别（Permissive / Weak Copyleft / Strong Copyleft / Network Copyleft）</li>
+  <li>许可证兼容性分析</li>
+  <li>许可证义务条款提取</li>
+  <li>多许可证组合风险评估</li>
+</ul>
+
+<p><strong>常见许可证风险等级</strong>：</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>风险等级</th>
+      <th>许可证类型</th>
+      <th>代表许可证</th>
+      <th>处理建议</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>高风险</td>
+      <td>强 Copyleft</td>
+      <td>GPL v2/v3、AGPL</td>
+      <td>禁止使用或法务专项审核</td>
+    </tr>
+    <tr>
+      <td>中风险</td>
+      <td>弱 Copyleft</td>
+      <td>LGPL、MPL、EPL</td>
+      <td>评估使用方式，动态链接可接受</td>
+    </tr>
+    <tr>
+      <td>低风险</td>
+      <td>宽松型</td>
+      <td>MIT、Apache 2.0、BSD</td>
+      <td>可自由使用，保留版权声明</td>
+    </tr>
+    <tr>
+      <td>未知</td>
+      <td>无许可证/自定义</td>
+      <td>-</td>
+      <td>需人工确认授权状态</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="44-软件物料清单sbom编制与持续更新">4.4 软件物料清单（SBOM）编制与持续更新</h3>
+
+<h4 id="441-sbom-标准格式">4.4.1 SBOM 标准格式</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>标准</th>
+      <th>发起方</th>
+      <th>设计目标</th>
+      <th>适用场景</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>CycloneDX</strong></td>
+      <td>OWASP</td>
+      <td>安全与供应链风险管理</td>
+      <td>DevSecOps、漏洞管理、安全审计</td>
+    </tr>
+    <tr>
+      <td><strong>SPDX</strong></td>
+      <td>Linux 基金会</td>
+      <td>许可证合规与组件信息交换</td>
+      <td>许可证管理、开源合规、软件供应链</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p><strong>推荐选择</strong>：安全场景优先选用 CycloneDX（原生支持 CVE 关联、漏洞信息嵌入）；许可证合规场景优先选用 SPDX（ISO 国际标准，法律合规认可度高）。</p>
+</blockquote>
+
+<h4 id="442-sbom-生成工具">4.4.2 SBOM 生成工具</h4>
+
+<ul>
+  <li><strong>Syft</strong>：Anchore 出品，专注 SBOM 生成，支持镜像/目录/多种语言</li>
+  <li><strong>Trivy</strong>：扫描同时生成 SBOM，一站式解决方案</li>
+  <li><strong>OpenSCA</strong>：国产开源，支持中文漏洞库与国内组件生态</li>
+</ul>
+
+<h4 id="443-持续更新维护机制">4.4.3 持续更新维护机制</h4>
+
+<ol>
+  <li><strong>自动生成</strong>：每次 CI 构建自动生成最新 SBOM</li>
+  <li><strong>版本关联</strong>：SBOM 与软件版本一一对应，归档存储</li>
+  <li><strong>增量更新</strong>：依赖变更时自动更新 SBOM 并记录变更历史</li>
+  <li><strong>漏洞订阅</strong>：基于 SBOM 订阅新漏洞预警，实现持续监控</li>
+  <li><strong>供应链追溯</strong>：支持上下游 SBOM 合并与传递</li>
+</ol>
+
+<hr>
+
+<h2 id="五配置合规与-iac-扫描方案">五、配置合规与 IaC 扫描方案</h2>
+
+<h3 id="51-cis-基准合规评估报告">5.1 CIS 基准合规评估报告</h3>
+
+<h4 id="511-cis-基准概述">5.1.1 CIS 基准概述</h4>
+
+<p>CIS（Center for Internet Security）基准是全球公认的系统安全配置标准，覆盖操作系统、数据库、中间件、云平台、容器等各类环境。</p>
+
+<h4 id="512-评估工具选型">5.1.2 评估工具选型</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>工具</th>
+      <th>开源状态</th>
+      <th>覆盖范围</th>
+      <th>输出格式</th>
+      <th>特点</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>kube-bench</strong></td>
+      <td>✅ 开源</td>
+      <td>Kubernetes</td>
+      <td>JSON/CSV</td>
+      <td>专门针对 K8s CIS 基准，轻量快速</td>
+    </tr>
+    <tr>
+      <td><strong>Wazuh</strong></td>
+      <td>✅ 开源 (GPLv2)</td>
+      <td>Linux/Windows/容器</td>
+      <td>JSON/HTML</td>
+      <td>全功能安全平台，含 CIS 扫描能力</td>
+    </tr>
+    <tr>
+      <td><strong>CIS-CAT Pro</strong></td>
+      <td>商业</td>
+      <td>全平台</td>
+      <td>多种格式</td>
+      <td>CIS 官方工具，最权威最全面</td>
+    </tr>
+    <tr>
+      <td><strong>OpenSCAP</strong></td>
+      <td>✅ 开源</td>
+      <td>Linux/Windows</td>
+      <td>XCCDF/ARF</td>
+      <td>标准化程度高，支持 SCAP 协议</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="513-报告内容结构">5.1.3 报告内容结构</h4>
+
+<ol>
+  <li><strong>合规总览</strong>
+    <ul>
+      <li>整体合规率</li>
+      <li>各级别检查项通过情况</li>
+      <li>与上次评估对比趋势</li>
+    </ul>
+  </li>
+  <li><strong>检查详情</strong>
+    <ul>
+      <li>检查项编号与描述</li>
+      <li>检查结果（PASS/FAIL/INFO）</li>
+      <li>违规配置详情</li>
+      <li>修复建议与参考标准</li>
+    </ul>
+  </li>
+  <li><strong>整改建议</strong>
+    <ul>
+      <li>高优先级整改项（直接影响安全）</li>
+      <li>中优先级整改项（最佳实践）</li>
+      <li>低优先级优化项（增强防护）</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="52-iac-代码扫描报告">5.2 IaC 代码扫描报告</h3>
+
+<h4 id="521-checkov-方案推荐">5.2.1 Checkov 方案（推荐）</h4>
+
+<p><strong>工具定位</strong>：Prisma Cloud（原 Bridgecrew）开源的 IaC 静态分析工具，支持 Terraform、CloudFormation、Kubernetes、Helm、Dockerfile、ARM 模板、Bicep 等多种 IaC 格式。</p>
+
+<p><strong>核心能力</strong>：</p>
+<ul>
+  <li>1000+ 内置安全策略（覆盖 CIS、NIST、SOC2、PCI DSS 等）</li>
+  <li>基于图的扫描（Graph-based scanning），支持跨资源关系分析</li>
+  <li>自定义策略（Python 代码或 YAML 声明式）</li>
+  <li>CI/CD 集成（Jenkins、GitLab CI、GitHub Actions 等）</li>
+  <li>SARIF 格式输出，兼容 GitHub Code Scanning</li>
+</ul>
+
+<p><strong>支持的 IaC 类型</strong>：</p>
+<ul>
+  <li>Terraform / Terraform plan</li>
+  <li>AWS CloudFormation</li>
+  <li>Kubernetes manifests</li>
+  <li>Helm charts</li>
+  <li>Dockerfiles</li>
+  <li>Serverless Framework</li>
+  <li>ARM templates (Azure)</li>
+  <li>Bicep (Azure)</li>
+  <li>GitHub Actions workflows</li>
+</ul>
+
+<h4 id="522-扫描报告结构">5.2.2 扫描报告结构</h4>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"check_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"terraform"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"summary"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"passed"</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"failed"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"skipped"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"parsing_errors"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"failed_checks"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"check_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CKV_AWS_19"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"check_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ensure S3 bucket has server-side encryption enabled"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aws_s3_bucket.my_bucket"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"file_path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/terraform/s3.tf"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"start_line"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"end_line"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIGH"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"guideline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://docs.prismacloud.io/en/..."</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="53-配置漂移检测汇总报告">5.3 配置漂移检测汇总报告</h3>
+
+<h4 id="531-配置漂移概念">5.3.1 配置漂移概念</h4>
+
+<p>配置漂移（Configuration Drift）是指实际运行环境的配置与预期基线配置之间的偏差，通常由手动变更、临时修复、环境差异等原因导致。</p>
+
+<h4 id="532-检测方法">5.3.2 检测方法</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>检测方式</th>
+      <th>工具</th>
+      <th>原理</th>
+      <th>适用场景</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>基线对比法</strong></td>
+      <td>Wazuh / OpenSCAP</td>
+      <td>定期扫描与基线配置对比</td>
+      <td>系统级配置漂移</td>
+    </tr>
+    <tr>
+      <td><strong>IaC 状态对比</strong></td>
+      <td>Terraform plan / driftctl</td>
+      <td>对比 IaC 定义与实际云资源状态</td>
+      <td>云基础设施漂移</td>
+    </tr>
+    <tr>
+      <td><strong>GitOps 对比</strong></td>
+      <td>ArgoCD / Flux</td>
+      <td>对比 Git 仓库声明与集群实际状态</td>
+      <td>Kubernetes 集群漂移</td>
+    </tr>
+    <tr>
+      <td><strong>文件完整性监控</strong></td>
+      <td>OSSEC / Wazuh</td>
+      <td>监控关键配置文件变更</td>
+      <td>配置文件篡改检测</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="533-漂移检测报告内容">5.3.3 漂移检测报告内容</h4>
+
+<ol>
+  <li><strong>漂移总览</strong>
+    <ul>
+      <li>检测到的漂移项数量</li>
+      <li>各资源类型漂移分布</li>
+      <li>漂移严重程度统计</li>
+    </ul>
+  </li>
+  <li><strong>漂移详情</strong>
+    <ul>
+      <li>资源标识与位置</li>
+      <li>期望配置与实际配置差异</li>
+      <li>漂移发现时间</li>
+      <li>可能的变更来源</li>
+    </ul>
+  </li>
+  <li><strong>影响评估</strong>
+    <ul>
+      <li>安全风险评估</li>
+      <li>业务影响分析</li>
+      <li>合规影响判断</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="54-错误配置整改跟踪报告">5.4 错误配置整改跟踪报告</h3>
+
+<h4 id="541-整改跟踪流程">5.4.1 整改跟踪流程</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>发现配置问题 → 风险定级 → 分配责任人 → 制定整改方案 → 实施整改 → 验证修复 → 关闭工单
+</code></pre></div></div>
+
+<h4 id="542-报告指标">5.4.2 报告指标</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>指标</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>总问题数</td>
+      <td>本期发现的配置问题总数</td>
+    </tr>
+    <tr>
+      <td>已修复数</td>
+      <td>已完成整改并验证通过的数量</td>
+    </tr>
+    <tr>
+      <td>修复率</td>
+      <td>已修复数 / 总问题数</td>
+    </tr>
+    <tr>
+      <td>平均修复时长</td>
+      <td>从发现到关闭的平均时间（MTTR）</td>
+    </tr>
+    <tr>
+      <td>逾期未修复数</td>
+      <td>超过 SLA 时限仍未修复的数量</td>
+    </tr>
+    <tr>
+      <td>重复出现率</td>
+      <td>已修复问题再次出现的比例</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="543-整改优先级矩阵">5.4.3 整改优先级矩阵</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th> </th>
+      <th>影响范围大</th>
+      <th>影响范围小</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>风险高</strong></td>
+      <td>P0 - 立即整改</td>
+      <td>P1 - 限期整改</td>
+    </tr>
+    <tr>
+      <td><strong>风险中</strong></td>
+      <td>P1 - 限期整改</td>
+      <td>P2 - 计划整改</td>
+    </tr>
+    <tr>
+      <td><strong>风险低</strong></td>
+      <td>P2 - 计划整改</td>
+      <td>P3 - 择机优化</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2 id="六sonarqube--checkmarx-国内替代方案">六、SonarQube / Checkmarx 国内替代方案</h2>
+
+<h3 id="61-国产-sastsca-工具总览">6.1 国产 SAST/SCA 工具总览</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>工具/产品</th>
+      <th>厂商</th>
+      <th>类型</th>
+      <th>开源情况</th>
+      <th>核心优势</th>
+      <th>适用场景</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>OpenSCA</strong></td>
+      <td>悬镜安全</td>
+      <td>SCA</td>
+      <td>✅ 开源 (Apache 2.0)</td>
+      <td>国内用户量最大的开源 SCA，中文漏洞库，信创适配</td>
+      <td>SCA 检测、SBOM 生成、开源治理</td>
+    </tr>
+    <tr>
+      <td><strong>源鉴 SCA</strong></td>
+      <td>悬镜安全</td>
+      <td>SCA</td>
+      <td>商业</td>
+      <td>五大引擎（源码/二进制/同源/运行时/容器），AI 智能分析</td>
+      <td>企业级供应链安全治理</td>
+    </tr>
+    <tr>
+      <td><strong>墨菲安全 SCA</strong></td>
+      <td>墨菲安全</td>
+      <td>SCA</td>
+      <td>✅ CLI 开源</td>
+      <td>漏洞可达性分析，AI 原生，许可证合规</td>
+      <td>依赖漏洞检测、合规治理</td>
+    </tr>
+    <tr>
+      <td><strong>Gitee CodePecker</strong></td>
+      <td>酷德啄木鸟</td>
+      <td>SAST + SCA</td>
+      <td>商业</td>
+      <td>SCA「析微」+ SAST「补阙」双引擎，AI 图智引擎，Gitee 深度集成</td>
+      <td>代码安全审计、DevSecOps 落地</td>
+    </tr>
+    <tr>
+      <td><strong>PinPoint</strong></td>
+      <td>源伞科技</td>
+      <td>SAST</td>
+      <td>商业</td>
+      <td>自动程序分析，307 个 C/C++ 缺陷检测器</td>
+      <td>C/C++ 代码质量与安全检测</td>
+    </tr>
+    <tr>
+      <td><strong>轩宇 SpecChecker</strong></td>
+      <td>轩宇信息（航天旗下）</td>
+      <td>SAST</td>
+      <td>商业</td>
+      <td>安全编码标准符合性检查，代码质量度量</td>
+      <td>航天/军工等高可信领域</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="62-sonarqube-国内替代方案">6.2 SonarQube 国内替代方案</h3>
+
+<h4 id="621-sonarqube-现状回顾">6.2.1 SonarQube 现状回顾</h4>
+
+<ul>
+  <li><strong>社区版（Community Build）</strong>：LGPLv3 开源，免费使用，支持 20+ 语言，提供基础代码质量与安全检测</li>
+  <li><strong>限制</strong>：不支持分支分析、污点分析、安全热点深度检测等高级功能</li>
+  <li><strong>2024 年许可变更</strong>：分析器部分改为 SSALv1（Source-Available License），核心框架仍为 LGPLv3</li>
+</ul>
+
+<h4 id="622-替代方案推荐">6.2.2 替代方案推荐</h4>
+
+<p><strong>方案一：Gitee CodePecker（SAST + SCA 一体化）</strong></p>
+
+<ul>
+  <li><strong>定位</strong>：国产企业级代码安全审计平台</li>
+  <li><strong>SAST 能力（补阙）</strong>：确定性图分析 + 安全智能体，支持多语言静态分析</li>
+  <li><strong>SCA 能力（析微）</strong>：开源组件供应链安全检测</li>
+  <li><strong>AI 能力（图智 GraphAgent）</strong>：混合智能体引擎，AI 辅助审计与修复建议</li>
+  <li><strong>优势</strong>：
+    <ul>
+      <li>完全自主知识产权，信创适配（鲲鹏、飞腾、麒麟、UOS）</li>
+      <li>与 Gitee 平台深度集成</li>
+      <li>中文界面与中文漏洞库</li>
+      <li>适合国内企业合规要求</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>方案二：Semgrep OSS + 自定义规则（开源路线）</strong></p>
+
+<ul>
+  <li><strong>定位</strong>：轻量、高速、可定制的开源 SAST 引擎</li>
+  <li><strong>优势</strong>：
+    <ul>
+      <li>完全开源（LGPL 2.1）</li>
+      <li>规则编写简单，学习成本低</li>
+      <li>30+ 语言支持，2000+ 社区规则</li>
+      <li>扫描速度快，适合 CI 高频集成</li>
+    </ul>
+  </li>
+  <li><strong>局限</strong>：
+    <ul>
+      <li>社区版缺乏跨函数数据流分析</li>
+      <li>无内置 SCA 能力（需配合其他工具）</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>方案三：SonarQube 社区版 + 国内插件生态（兼容路线）</strong></p>
+
+<ul>
+  <li>继续使用 SonarQube 社区版作为基础</li>
+  <li>配合国内 SCA 工具（OpenSCA / 墨菲安全）补充 SCA 能力</li>
+  <li>通过插件扩展中文报告、国产化适配等功能</li>
+</ul>
+
+<h3 id="63-checkmarx-国内替代方案">6.3 Checkmarx 国内替代方案</h3>
+
+<h4 id="631-checkmarx-现状回顾">6.3.1 Checkmarx 现状回顾</h4>
+
+<ul>
+  <li><strong>定位</strong>：企业级商业 AppSec 平台，SAST 领域传统领导者</li>
+  <li><strong>特点</strong>：功能全面（SAST/SCA/IaC/DAST/API）、治理能力强、企业级支持</li>
+  <li><strong>不足</strong>：
+    <ul>
+      <li>纯商业闭源，授权费用高</li>
+      <li>规则定制门槛高（需使用专有 C# 库编写）</li>
+      <li>部署与运维复杂</li>
+      <li>国内技术支持响应有限</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="632-替代方案推荐">6.3.2 替代方案推荐</h4>
+
+<p><strong>方案一：Gitee CodePecker + 悬镜源鉴 SCA（全栈国产替代）</strong></p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>能力维度</th>
+      <th>Checkmarx</th>
+      <th>国产替代组合</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SAST 静态分析</td>
+      <td>CxSAST</td>
+      <td>Gitee CodePecker「补阙」</td>
+    </tr>
+    <tr>
+      <td>SCA 成分分析</td>
+      <td>CxSCA</td>
+      <td>悬镜源鉴 SCA / OpenSCA</td>
+    </tr>
+    <tr>
+      <td>IaC 扫描</td>
+      <td>Checkmarx IaC</td>
+      <td>Checkov（开源）+ 定制规则</td>
+    </tr>
+    <tr>
+      <td>DAST 动态扫描</td>
+      <td>CxDAST</td>
+      <td>OWASP ZAP（开源）</td>
+    </tr>
+    <tr>
+      <td>容器扫描</td>
+      <td>-</td>
+      <td>Trivy（开源）</td>
+    </tr>
+    <tr>
+      <td>平台治理</td>
+      <td>Checkmarx One</td>
+      <td>自建 DevSecOps 平台 + 工具链集成</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>优势</strong>：</p>
+<ul>
+  <li>完全自主可控，无断供风险</li>
+  <li>信创环境全面适配</li>
+  <li>中文漏洞库与合规支持</li>
+  <li>总体拥有成本（TCO）更低</li>
+</ul>
+
+<p><strong>方案二：Semgrep + Trivy + Checkov + ZAP（全开源替代）</strong></p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>能力维度</th>
+      <th>开源工具</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SAST</td>
+      <td>Semgrep OSS</td>
+      <td>规则即代码，快速迭代</td>
+    </tr>
+    <tr>
+      <td>SCA</td>
+      <td>Trivy / OpenSCA</td>
+      <td>依赖漏洞 + 许可证</td>
+    </tr>
+    <tr>
+      <td>IaC</td>
+      <td>Checkov</td>
+      <td>基础设施即代码扫描</td>
+    </tr>
+    <tr>
+      <td>DAST</td>
+      <td>OWASP ZAP</td>
+      <td>动态应用安全测试</td>
+    </tr>
+    <tr>
+      <td>镜像扫描</td>
+      <td>Trivy</td>
+      <td>容器镜像安全</td>
+    </tr>
+    <tr>
+      <td>SBOM</td>
+      <td>Syft / Trivy</td>
+      <td>软件物料清单</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>优势</strong>：</p>
+<ul>
+  <li>零 license 成本</li>
+  <li>高度灵活可定制</li>
+  <li>社区活跃，生态丰富</li>
+  <li>适合技术能力强的团队</li>
+</ul>
+
+<p><strong>方案三：墨菲安全 SCA 4.0（AI 原生路线）</strong></p>
+
+<ul>
+  <li><strong>定位</strong>：AI 原生的软件供应链安全平台</li>
+  <li><strong>核心能力</strong>：
+    <ul>
+      <li>源码到二进制全场景检测</li>
+      <li>漏洞可达性分析（精准定位可利用漏洞）</li>
+      <li>非升级修复（无需升级版本的漏洞缓解）</li>
+      <li>AI 智能修复建议</li>
+    </ul>
+  </li>
+  <li><strong>优势</strong>：
+    <ul>
+      <li>AI 原生架构，检测准确率高</li>
+      <li>中文漏洞库，国内组件生态覆盖好</li>
+      <li>适合重视 AI 赋能安全的团队</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="64-选型建议">6.4 选型建议</h3>
+
+<h4 id="641-按企业类型推荐">6.4.1 按企业类型推荐</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>企业类型</th>
+      <th>推荐方案</th>
+      <th>理由</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>党政/央企/国企</strong></td>
+      <td>Gitee CodePecker + 悬镜源鉴 SCA</td>
+      <td>信创合规要求高，需自主可控</td>
+    </tr>
+    <tr>
+      <td><strong>金融/运营商</strong></td>
+      <td>悬镜源鉴 SCA + 墨菲安全 + 开源 SAST</td>
+      <td>供应链安全要求高，预算充足</td>
+    </tr>
+    <tr>
+      <td><strong>互联网/科技公司</strong></td>
+      <td>Semgrep + Trivy + Checkov + ZAP</td>
+      <td>技术能力强，追求灵活高效</td>
+    </tr>
+    <tr>
+      <td><strong>中小企业/创业团队</strong></td>
+      <td>SonarQube 社区版 + OpenSCA + Trivy</td>
+      <td>成本敏感，快速落地</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="642-迁移路线建议">6.4.2 迁移路线建议</h4>
+
+<ol>
+  <li><strong>评估阶段</strong>：使用开源工具并行扫描，对比结果差异，评估替代可行性</li>
+  <li><strong>试点阶段</strong>：选择 1-2 个项目试点国产/开源替代方案</li>
+  <li><strong>推广阶段</strong>：总结试点经验，完善规则库与流程，逐步扩大覆盖范围</li>
+  <li><strong>全面替换</strong>：成熟后逐步下线原有商业工具，完成工具链国产化/开源化</li>
+</ol>
+
+<hr>
+
+<h2 id="七总结">七、总结</h2>
+
+<h3 id="71-核心结论">7.1 核心结论</h3>
+
+<ol>
+  <li><strong>开源工具已能覆盖 DevSecOps 全链路</strong>：从 SAST、SCA、IaC 扫描、镜像扫描到 DAST，均有成熟的开源方案可用</li>
+  <li><strong>ZAP、Trivy、Checkov 等核心工具完全开源</strong>：可免费商用，社区活跃，功能持续增强</li>
+  <li><strong>国产替代方案日趋成熟</strong>：悬镜安全（OpenSCA/源鉴 SCA）、墨菲安全、Gitee CodePecker 等国产工具在 SCA 领域已具备国际竞争力</li>
+  <li><strong>SonarQube 社区版可满足基础需求</strong>：但高级功能需付费；Checkmarx 为纯商业产品，可通过 Semgrep + 开源工具链组合替代</li>
+  <li><strong>安全左移 + 自动化门禁是关键</strong>：将安全检测嵌入 CI/CD 流水线，通过阈值判定实现自动化安全门禁</li>
+</ol>
+
+<h3 id="72-实施建议">7.2 实施建议</h3>
+
+<ol>
+  <li><strong>分阶段落地</strong>：先从 SCA 和镜像扫描入手（见效快、门槛低），再逐步推进 SAST 和 IaC 扫描</li>
+  <li><strong>工具链整合</strong>：统一报告格式（SARIF/JSON），建立集中化安全管理平台</li>
+  <li><strong>规则定制化</strong>：基于业务实际调整规则集，降低误报率，提升工具实用性</li>
+  <li><strong>度量驱动改进</strong>：建立安全度量体系，持续跟踪漏洞修复率、MTTR 等指标</li>
+  <li><strong>人才与流程配套</strong>：工具只是手段，需配套安全培训、漏洞管理流程、责任机制等</li>
+</ol>
+
+<hr>
+
+<p><em>文档版本：v1.0</em>
+<em>生成日期：2026年7月30日</em></p>
+
+				</div>
+				<div class="spacing"></div>
+				<!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
+<footer>
+	
+	<div class="border-top"></div>
+		<section class="container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto">
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix ">
+				<h2 class="lead">申明</h2>
+				<div>
+					<div class="mb-2"><a href="/about/DevSecOps/Introduction-to-DevSecOps-Security-Toolchain-Solutions/" target="_blank" class=" text-bold">
+						<div class="fa fa-link"></div>
+						转载请申明本文档链接</a></div>
+					<div><a href="https://github.com/Bin4xin" target="_blank" class="text-bold">
+						<div class="fa fa-user"></div>
+						Post by Bin4xin.</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">贡献开源文档</h2>
+				<div>
+					<a href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/about/DevSecOps/2026-07-30-Introduction-to-DevSecOps-Security-Toolchain-Solutions.md" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
+						<svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"/></svg>
+						贡献当前开源文档
+					</a>
+					<p class="f1-l mt-2 text-bold">此之前，学习开源贡献<a target="_blank" href="https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码">CN&nbsp;|</a>
+						<a target="_blank" href="https://github.com/github/docs">EN</a></p>
+				</div>
+			</div>
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+				<h2 class="lead">此文档对您有帮助吗</h2>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/" target="_blank" class="no-underline">
+				<span class="btn mr-1 color-border-accent-emphasis" title="给文档仓库点个赞!">
+					<div class="fa fa-thumbs-o-up"></div>
+				</span>
+				</a>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_posts/about/DevSecOps/2026-07-30-Introduction-to-DevSecOps-Security-Toolchain-Solutions.md&nbsp;DevSecOps 安全工具链与解决方案 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
+				<span class="btn mr-1 color-border-accent-emphasis" title="本文档有问题?">
+				<div class="fa fa-thumbs-o-down"></div>
+				</span>
+				</a>
+			</div>
+		</section>
+</footer>
+			</div><!--page main content end-->
+			
+<div class="toc-sidebar position-sticky top-0" style="max-height: 100vh; overflow-y: auto;">
+    <div class="toc-sidebar-inner">
+
+        
+        
+        
+
+        <!-- Article actions toolbar - Primer ButtonGroup style -->
+        <div class="toc-article-actions mb-3 ml-3">
+            <div class="prc-ButtonGroup-ButtonGroup-vFUrY">
+                <div>
+                    <button class="toc-copy-btn" onclick="copyAsMarkdown()" title="复制为 Markdown 格式">
+                        <span class="toc-btn-leading-visual">
+                            <svg data-component="Octicon" aria-hidden="true" focusable="false" class="octicon octicon-copy" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                                <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"/>
+                                <path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"/>
+                            </svg>
+                        </span>
+                        <span class="toc-btn-text">复制为 Markdown 格式</span>
+                    </button>
+                </div>
+                <div>
+                    <div class="toc-dropdown-wrap">
+                        <button type="button" class="toc-dropdown-trigger" aria-label="更多 Markdown 选项" aria-haspopup="true" aria-expanded="false" tabindex="0" onclick="toggleTocDropdown(event)">
+                            <svg data-component="Octicon" aria-hidden="true" focusable="false" class="octicon octicon-triangle-down" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                                <path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"/>
+                            </svg>
+                        </button>
+                        <div class="toc-dropdown-menu" id="tocDropdownMenu">
+                            <a class="toc-dropdown-item" href="https://github.com/copilot?prompt=I%20need%20help%20with%20this%20GitHub%20Docs%20page%3A%20https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/about/DevSecOps/2026-07-30-Introduction-to-DevSecOps-Security-Toolchain-Solutions.md" target="_blank">
+                                <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                                    <path d="M7.998 15.035c-4.562 0-7.873-2.914-7.998-3.749V9.338c.085-.628.677-1.686 1.588-2.065.013-.07.024-.143.036-.218.029-.183.06-.384.126-.612-.201-.508-.254-1.084-.254-1.656 0-.87.128-1.769.693-2.484.579-.733 1.494-1.124 2.724-1.261 1.206-.134 2.262.034 2.944.765.05.053.096.108.139.165.044-.057.094-.112.143-.165.682-.731 1.738-.899 2.944-.765 1.23.137 2.145.528 2.724 1.261.566.715.693 1.614.693 2.484 0 .572-.053 1.148-.254 1.656.066.228.098.429.126.612.012.076.024.148.037.218.924.385 1.522 1.471 1.591 2.095v1.872c0 .766-3.351 3.795-8.002 3.795Zm0-1.485c2.28 0 4.584-1.11 5.002-1.433V7.862l-.023-.116c-.49.21-1.075.291-1.727.291-1.146 0-2.059-.327-2.71-.991A3.222 3.222 0 0 1 8 6.303a3.24 3.24 0 0 1-.544.743c-.65.664-1.563.991-2.71.991-.652 0-1.236-.081-1.727-.291l-.023.116v4.255c.419.323 2.722 1.433 5.002 1.433ZM6.762 2.83c-.193-.206-.637-.413-1.682-.297-1.019.113-1.479.404-1.713.7-.247.312-.369.789-.369 1.554 0 .793.129 1.171.308 1.371.162.181.519.379 1.442.379.853 0 1.339-.235 1.638-.54.315-.322.527-.827.617-1.553.117-.935-.037-1.395-.241-1.614Zm4.155-.297c-1.044-.116-1.488.091-1.681.297-.204.219-.359.679-.242 1.614.091.726.303 1.231.618 1.553.299.305.784.54 1.638.54.922 0 1.28-.198 1.442-.379.179-.2.308-.578.308-1.371 0-.765-.123-1.242-.37-1.554-.233-.296-.693-.587-1.713-.7Z"/><path d="M6.25 9.037a.75.75 0 0 1 .75.75v1.501a.75.75 0 0 1-1.5 0V9.787a.75.75 0 0 1 .75-.75Zm4.25.75v1.501a.75.75 0 0 1-1.5 0V9.787a.75.75 0 0 1 1.5 0Z"/>
+                                    </svg>
+                                <span>询问 Copilot</span>
+                            </a>
+                            <a class="toc-dropdown-item" href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/about/DevSecOps/2026-07-30-Introduction-to-DevSecOps-Security-Toolchain-Solutions.md" target="_blank">
+                                <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>
+                                <span>获取原始 Markdown</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Same-category article navigation -->
+        
+            
+            
+            
+            
+            
+            
+            
+        
+
+        <!-- Table of Contents -->
+        <h2 class="toc-heading" id="in-this-article">在本文中</h2>
+        <nav class="toc-nav" aria-labelledby="in-this-article">
+            <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#devsecops-安全工具链解决方案介绍">DevSecOps 安全工具链解决方案介绍</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#一概述">一、概述</a></li>
+<li class="toc-entry toc-h2"><a href="#二工具开源情况总览">二、工具开源情况总览</a></li>
+<li class="toc-entry toc-h2"><a href="#三cicd-安全集成方案">三、CI/CD 安全集成方案</a></li>
+<li class="toc-entry toc-h2"><a href="#四容器镜像扫描与-sca-方案">四、容器镜像扫描与 SCA 方案</a></li>
+<li class="toc-entry toc-h2"><a href="#五配置合规与-iac-扫描方案">五、配置合规与 IaC 扫描方案</a></li>
+<li class="toc-entry toc-h2"><a href="#六sonarqube--checkmarx-国内替代方案">六、SonarQube / Checkmarx 国内替代方案</a></li>
+<li class="toc-entry toc-h2"><a href="#七总结">七、总结</a></li>
+</ul>
+</li>
+</ul>
+        </nav>
+    </div>
+</div>
+
+
+<script>
+function copyAsMarkdown() {
+    var rawPath = "https://github.com/Bin4xin/main/_posts/about/DevSecOps/2026-07-30-Introduction-to-DevSecOps-Security-Toolchain-Solutions.md";
+    fetch(rawPath)
+        .then(function(res) {
+            if (!res.ok) throw new Error('Network response was not ok');
+            return res.text();
+        })
+        .then(function(text) {
+            return navigator.clipboard.writeText(text);
+        })
+        .then(function() {
+            var btn = document.querySelector('.toc-copy-btn');
+            var textEl = btn.querySelector('.toc-btn-text');
+            var origText = textEl.textContent;
+            var origSvg = btn.querySelector('.toc-btn-leading-visual').innerHTML;
+            textEl.textContent = '已复制！';
+            btn.querySelector('.toc-btn-leading-visual').innerHTML = '<svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>';
+            btn.classList.add('toc-copy-success');
+            setTimeout(function() {
+                textEl.textContent = origText;
+                btn.querySelector('.toc-btn-leading-visual').innerHTML = origSvg;
+                btn.classList.remove('toc-copy-success');
+            }, 2000);
+        })
+        .catch(function(err) {
+            console.error('Failed to copy markdown:', err);
+        });
+}
+
+function toggleTocDropdown(e) {
+    e.stopPropagation();
+    var menu = document.getElementById('tocDropdownMenu');
+    var trigger = e.currentTarget;
+    var isOpen = menu.classList.contains('toc-dropdown-open');
+    menu.classList.toggle('toc-dropdown-open');
+    trigger.setAttribute('aria-expanded', !isOpen);
+}
+
+document.addEventListener('click', function(e) {
+    var menu = document.getElementById('tocDropdownMenu');
+    if (menu && !menu.contains(e.target) && !e.target.closest('.toc-dropdown-trigger')) {
+        menu.classList.remove('toc-dropdown-open');
+        var trigger = document.querySelector('.toc-dropdown-trigger');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    }
+});
+</script><!--右边目录结束-->
+		</div>
+	</div><!--content display end-->
+</div>
+<!-- 侧边栏切换按钮 -->
+<button id="sidebar-toggle-btn" class="sidebar-toggle" aria-label="Toggle sidebar">
+	<img class="toggle-logo-img" src="/assets/img/logo-small.jpg" srcset="/assets/img/logo-small.png 1x, /assets/img/logo-small@2x.png 2x, /assets/img/logo-small@3x.png 3x, /assets/img/logo-small@4x.png 4x" alt="Toggle sidebar">
+</button>
+<!--/pages -->
+<script src="/assets/js/about.js"></script>
+            </div>
+        </startprint2pdfs>
+    </body>
+<script src="/assets/js/copy.js"></script>
+<!--TODONE.
+**FireFox display BUG**
+position-fixed in FireFox display position -> none
+- Reference:
+    - { @link https://developer.mozilla.org/zh-CN/docs/Web/CSS/position#browser_compatibility }
+    - { @link https://blog.csdn.net/DDD4V/article/details/123354124 }
+    - { @link https://juejin.cn/post/6844904100576886797 }
+        - { @link Demo https://codepen.io/li377242494/pen/VwLGGaR }
+Fiex In `[assets/css/style.scss](https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/css/style.scss)`
+    - tooltipped css postion.
+-->
+
+<!--<link rel="preload" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" as="style"/>-->
+<!--<link rel="stylesheet" href="https://bobbyhadz.com/_next/static/css/b9669d7c5a48325f.css" data-n-g=""/>-->
+
+<divs role="tooltip" class="position-fixed bottom-0 mb-4 right-5 mr-4 z-1 transition-200 opacity-0" onclick="$(&quot;html,body&quot;).animate({scrollTop:0}, 1000);">
+    <button class="tooltipped tooltipped-n tooltipped-no-delay color-bg-accent-emphasis color-fg-on-emphasis circle border-0" style="width:45px;height:45px" aria-label="滚动到顶部">
+        <svg aria-hidden="true" role="img" class="octicon octicon-chevron-up" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display:inline-block;user-select:none;vertical-align:text-bottom;overflow:visible">
+            <path fill-rule="evenodd" d="M3.22 9.78a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 0l4.25 4.25a.75.75 0 01-1.06 1.06L8 6.06 4.28 9.78a.75.75 0 01-1.06 0z">
+            </path>
+        </svg>
+    </button>
+</divs>
+
+</html>
+<script>
+/**
+ * ADD class display for External Link
+ * **/
+// jQuery(function($) {
+//     $(document.links)
+//         .filter(function() {return this.hostname;})
+//         .each(function() {
+//             if (this.hostname !== location.hostname || this.hostname !== 'github.com' || this.hostname !== 'githubusercontent.com'){
+//                 $(this).addClass('fa fa-external-link-alt');
+//             } else if (this.hostname === 'github.io'){
+//                 $(this).addClass('fa fa-github');
+//             }
+//         });
+// });
+jQuery(function($) {
+    // 配置规则
+    var rules = {
+        // 白名单：这些域名不加外链标识
+        whitelist: [
+            location.hostname,
+            'github.com',
+            'githubusercontent.com'
+        ],
+        // 特殊域名：这些域名加特定图标
+        specialIcons: {
+            'github.io': 'fa-github'
+        }
+    };
+    
+    // 合并白名单和特殊域名（特殊域名不加外链标识）
+    var noExternalList = rules.whitelist.concat(Object.keys(rules.specialIcons));
+    
+    $(document.links)
+        .filter(function() {
+            return this.hostname && !this.href.startsWith('javascript:');
+        })
+        .each(function() {
+            var host = this.hostname;
+            
+            if (noExternalList.indexOf(host) !== -1) {
+                // 在白名单或特殊列表中，检查是否有特殊图标
+                if (rules.specialIcons[host]) {
+                    $(this).addClass('fa ' + rules.specialIcons[host]);
+                }
+            } else {
+                // 不在任何列表中，加外链标识
+                $(this).addClass('fa fa-external-link-alt');
+            }
+        });
+});
+</script>
