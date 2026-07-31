@@ -4,71 +4,84 @@ permalink: /categories/
 title: 文章分类
 ---
 
-<link rel="stylesheet" type="text/css" href="/assets/css/card.css">
-
-{% assign posts_about_desc = site.categories["about"] | sort: 'date' | group_by_exp:"post", "post.desc" |reverse %}
-{% assign posts_about = site.categories["about"] | sort: 'date' %}
-{% assign group_posts_size = posts_about | size %}
-
-<div class="container mtb"><!--nav box padding set-->
-
-    <!-- - {% comment %} maybe could gro up by Year/Month. and < Blog/About... > {% endcomment %}
-        - reference:
-            - { https://github.com/Huxpro/huxpro.github.io/blob/master/archive.html }
-                - {https://huangxuan.me/archive/}
-            - { https://github.com/ColdFusionX/ColdFusionX.github.io/blob/master/_layouts/category.html }
-                - { https://coldfusionx.github.io/tabs/categories/ }
-            - @link { Jekyll文章使用过滤器进行按日期分组展示 https://ackpomelo.cn/2020/01/30/jekyll-posts-use-filters-to-group-by-date.html }
-                - @link { liquid-filters https://jekyllrb.com/docs/liquid/filters/ }
-            - @link { Liquid基本语法 https://aptx1231.github.io/2020/12/04/Liquid/ }
-    -->
-    <div class="row blog-bar-display" style="margin-bottom: 20px;"><div class="Box-header">
-        <a class="col-7 color-fg-default text-bold mb-1 lh-condensed" style="max-width: 100%; font-size: 20px;">
-            <center>{{ page.title }}</center></a>
-    </div>
-        <div class="Box-row">{% include top-banner.html %}</div>
-        {% for category in site.categories %}
-        {% capture category_name %}{{ category | first }}{% endcapture %}
-        {% capture category_upper %}{{ category_name | upcase }}{% endcapture %}
-        {% assign all_posts_size = site.categories[category_name] | size %}
-            <details class="Box-row">
-                <summary class="edSFyN justify-between"><a class="f2 fw4"><i class="far fa-folder fa-fw "></i>
-                    {% if category_upper == "BLOG" %}
-                    博客
-                    {% elsif category_upper == "DAILY" %}
-                    "老（jiǎng）"的日记
-                    {% elsif category_upper == "TOP" %}
-                    置顶文章
-                    {% elsif category_upper == "ABOUT" %}
-                    研究相关
-                    {% else %}
-                    {{ category_upper }}
-                    {% endif %}
-                    <span data-view-component="true" class="badge badge-theme">{{ all_posts_size }}</span></a></summary>
-                {%  assign page_groupBy_date =  site.categories[category_name] | group_by_exp:"post","post.date | date: '%Y'" %}
-                {% for post in page_groupBy_date %}
-                <h4 style="padding-left: 32px"><span class="label label-success"><i class="fa fa-calendar fa-fw"></i> {{ post.name }}</span>
-                    <span class="label label-success">{{post.items.size }} Post{% if post.items.size > 1%}s{%else%}{%endif%}</span></h4>
-                    {% for item in post.items %}
-                    <ul class="nav nav-pills nav-stacked">
-
-                        <li class="Box-row">
-                        <a href="{{ site.baseurl }}{{ item.url }}">
-                            <i class="far fa fa-file-text-o"></i> {% if item.Researchname %}{{ item.Researchname }}
-                            {% else %}{{ item.title }}{% endif %}
-                            {% for index in (1..5)%}<span class="badge badge-theme">{{item.tags[index]}}</span>{%endfor%}
-                        </a></li>
-                    </ul>
-                    {% endfor %}
-                {% endfor %}
-            </details>
-        {% endfor %}
-        <div class="Box-row discussion-spotlight-details position-relative py-2 pr-5 css-truncate width-fit d-flex flex-column flex-items-start">
-            <div style="font-size:12px; text-align: center">
-                <a class="oBa0Fe" href="{{site.githubAccess}}/{{site.githubRepos}}/edit/{{site.githubRepos-Branch}}/{{page.path}}" target="_blank" data-async-trigger="duf3-46" role="button">
-                    帮助我们完善&nbsp;|&nbsp;help us make these great!</a>
+<div class="container categories-layout">
+    <!-- Main content column -->
+    <div class="categories-main">
+        <div class="categories-timeline">
+            {% assign category_index = 0 %}
+            <!-- Featured article -->
+            <div class="tl-item">
+                {% include card-banner.html %}
             </div>
+            {% for category in site.categories %}
+                {% assign category_index = category_index | plus: 1 %}
+                {% capture category_name %}{{ category | first }}{% endcapture %}
+                {% capture category_upper %}{{ category_name | upcase }}{% endcapture %}
+                {% assign all_posts_size = site.categories[category_name] | size %}
+
+                {% if category_upper == "BLOG" %}
+                    {% assign display_name = "博客" %}
+                    {% assign display_desc = "安全工具实战、CTF 靶场演练、Android 逆向与技术探索笔记" %}
+                {% elsif category_upper == "DAILY" %}
+                    {% assign display_name = "「老（jiǎng）」的日记" %}
+                    {% assign display_desc = "日常生活随笔、旅行记录与个人感悟" %}
+                {% elsif category_upper == "TOP" %}
+                    {% assign display_name = "置顶文章" %}
+                    {% assign display_desc = "精选教程、开发经验与实用工具指南" %}
+                {% elsif category_upper == "ABOUT" %}
+                    {% assign display_name = "研究相关" %}
+                    {% assign display_desc = "漏洞研究、渗透测试、代码审计与红队攻防技术" %}
+                {% elsif category_upper == "笔记" %} 
+                    {% assign display_name = "笔记" %}
+                    {% assign display_desc = "学习随记" %} 
+                {% else %}
+                    {% assign display_name = category_upper %}
+                    {% assign display_desc = "一些和" | append: category_upper | append: "相关的文章" %}
+                {% endif %}
+
+                <div class="tl-item">
+                    <div class="tl-badge">{{ category_index }}</div>
+                    <div class="tl-body">
+                        <details class="tl-card">
+                            <summary class="tl-summary">
+                                <div class="tl-header">
+                                    <h2 class="tl-title">{{ display_name }}</h2>
+                                    <span class="tl-token">{{ all_posts_size }} 篇文章</span>
+                                </div>
+                                {% if display_desc != "" %}
+                                    <div class="tl-desc">{{ display_desc }}</div>
+                                {% endif %}
+                            </summary>
+                            <ol class="tl-articles">
+                                {% for item in site.categories[category_name] limit:20 %}
+                                    <li>
+                                        <a class="tl-article-link" href="{{ site.baseurl }}{{ item.url }}">
+                                            <span class="tl-article-title">{% if item.Researchname %}{{ item.Researchname }}{% else %}{{ item.title }}{% endif %}</span>
+                                            <span class="tl-article-date">{{ item.date | date: "%Y/%m/%-d" }}</span>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ol>
+                        </details>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 
+    <!-- Sticky help sidebar -->
+    <div class="categories-sidebar">
+        <div class="categories-help-card">
+            <h3 class="categories-help-title">帮助我们完善</h3>
+            <p class="categories-help-desc">内容由社区维护，欢迎提交反馈与贡献</p>
+            <a class="categories-help-link" href="{{ site.githubAccess }}/{{ site.githubRepos }}/edit/{{ site.githubRepos-Branch }}/{{ page.path }}" target="_blank">
+                编辑此页
+                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8.22 2.97a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l2.97-2.97H3.75a.75.75 0 0 1 0-1.5h7.44L8.22 4.03a.75.75 0 0 1 0-1.06Z"/></svg>
+            </a>
+            <a class="categories-help-link" href="{{ site.githubAccess }}/{{ site.githubRepos }}/issues" target="_blank">
+                提交 Issue
+                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"/></svg>
+            </a>
+        </div>
+    </div>
 </div>

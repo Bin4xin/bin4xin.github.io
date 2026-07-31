@@ -1,0 +1,68 @@
+{% assign text = display | default: "@Bin4xin" %}
+{% assign bgColor = color | default: "#f0141e" %}
+{% assign linkUrl = url | default: "https://github.com/Bin4xin/" %}
+{% assign animType = animation | default: "payload" %}
+
+<a 
+  class="color-item" 
+  href="{{ linkUrl }}" 
+  style="--bg-color: {{ bgColor }};" 
+  data-type="{{ animType }}"
+  aria-label="{{ text }}"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <div class="color-item__content">
+    <!-- 2-3s 微动画舞台 -->
+    <div class="anim-stage">
+      {% case animType %}
+        {% when 'simulator' %}
+          <!-- 模拟器 / 仿真系统初始化动画 -->
+          <div class="anim-hud anim-simulator-hud">
+            <span class="sim-badge">SIM</span>
+            <div class="sim-screen">
+              <span class="sim-waveform"></span>
+              <span class="sim-scanline"></span>
+            </div>
+            <span class="sim-status">BOOT</span>
+          </div>
+
+        {% when 'payload' %}
+          <!-- Payload / 载荷装填与发射 -->
+          <div class="anim-payload-hud">
+            <div class="energy-core"></div>
+            <div class="warp-lines">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+
+        {% when 'radar' %}
+          <!-- 漏洞库 / 目标雷达锁定 -->
+          <div class="anim-radar-hud">
+            <div class="radar-ring"></div>
+            <div class="radar-sweep"></div>
+            <div class="target-brackets">
+              <span class="tl"></span><span class="tr"></span>
+              <span class="bl"></span><span class="br"></span>
+            </div>
+            <div class="center-dot"></div>
+          </div>
+
+        {% when 'terminal' %}
+          <!-- 黑客终端 / 命令行光标 -->
+          <div class="anim-terminal-hud">
+            <span class="console-prompt">&gt;</span>
+            <div class="matrix-stream">
+              <span class="b-1">10</span><span class="b-2">01</span><span class="b-3">11</span>
+            </div>
+            <span class="cursor-block"></span>
+          </div>
+      {% endcase %}
+    </div>
+
+    <!-- 文案 Tooltip -->
+    <span class="color-item__tooltip" role="tooltip">
+      <span class="color-item__text">{{ text }}</span>
+    </span>
+  </div>
+</a>

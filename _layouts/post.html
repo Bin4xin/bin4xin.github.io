@@ -6,11 +6,11 @@ layout: default
         <!-- SINGLE POST -->
         <div class="markdown-body-img flex-column">
             <!-- Blog Post  -->
-            <a href="{{ page.url | prepend: site.baseurl }}"><h1 class="ctitle">{{ page.title }}</h1></a>
-            <csmall><div class="d-flex items-center">
+            <h1 class="ctitle">{{ page.title }}</h1>
+            <div class="post-meta-row">
                 {% include article-YMH-note.html %}
-            </div></csmall>
-            <div class="post-content"> 
+            </div>
+            <div class="post-content">
             {{ content }}
                 {% include suggestion.html %}
             </div>

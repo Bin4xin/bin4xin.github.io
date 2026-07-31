@@ -1,8 +1,10 @@
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
+            {% comment %}
             <!-- logo+popover整体包裹，便于布局和交互 -->
             <div class="navbar-logo-hover-wrap">
+                
                 <a class="gb_A flex-justify-center-l navbar-logo" href="/" title="返回首页" tabindex="0" aria-label="返回首页">
                     {% include pic.html name="github" %}
                 </a>
@@ -26,6 +28,7 @@
                     </ul>
                 </div>
             </div>
+            {% endcomment %}
             <!-- 菜单按钮 -->
             <button type="button" class="navbar-toggle" id="navbar-toggle-btn" data-toggle="collapse" data-target=".navbar-collapse" aria-label="切换导航菜单" aria-expanded="false" aria-controls="main-nav" style="outline:2px solid transparent; margin-left: 8px;">
                 <span class="sr-only">Toggle navigation</span>
@@ -44,7 +47,8 @@
                 <li><a target="blank" href="http://www.19371213.com.cn">:: DATA RESEARCH</a ></li>
                 <li><a target="blank" href="{{"/2016-11/29/c_135866990.htm" | prepend: site.harmonyURL }}">:: CONTACT US</a></li>
                 {% else %}
-                <li {% if page.permalink == "/" %}class="active"{% endif %}><a href="{{"/" | prepend: site.baseurl }}"><div class="fa fa-search"></div></a></li>
+                <li {% if page.permalink == "/" %}class="active"{% endif %}><a href="{{"/" | prepend: site.baseurl }}"><div class="fa fa-dashboard"></div></a></li>
+                <li {% if page.permalink == "/search" %}class="active"{% endif %}><a href="{{"/search" | prepend: site.baseurl }}"><div class="fa fa-search"></div></a></li>
                 <li {% if page.permalink contains "/blog/" or page.categories contains "blog" %}class="active"{% endif %}><a href="{{"/blog/" | prepend: site.baseurl }}">BLOG</a></li>
                 <li {% if page.permalink == "/categories/" or page.categories contains "categories" %}class="active"{% endif %}><a href="{{"/categories/" | prepend: site.baseurl }}">CATEGORIES</a></li>
                 <li {% if page.permalink == "/daily/" or page.categories contains "daily" %}class="active"{% endif %}><a href="{{"/daily/" | prepend: site.baseurl }}">DAILY</a></li>
@@ -52,7 +56,9 @@
                 <li {% if page.permalink == "/about/" or page.categories contains "about" %}class="active"{% endif %}><a href="{{"/about/" | prepend: site.baseurl }}">RESEARCH</a></li>
                 <li {% if page.permalink == "/feed.xml" or page.categories contains "feed" %}class="active"{% endif %}><a href="{{"/feed.xml" | prepend: site.baseurl }}">RSS</a></li>
                 {% endif %}
+                {% comment %}
                 <li><a>{% include common-index/prefers-color-scheme.html %}</a></li>
+                {% endcomment %}
             </ul>
         </div><!--/.nav-collapse -->
     </div>

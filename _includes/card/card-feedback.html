@@ -1,25 +1,43 @@
 {% assign author = site.data.writer[page.author] %}
 {% assign edited = site.data.writer['Bin4xin'] %}
 {% assign org = site.data.writer['sentryCyberSec'] %}
-<div style="display: flex">
-    <!--<span class="_rs-text-2_1owszn1_1 _rs-typography_theme_dark_1owszn1_1 _rs-text_hardness_hard_1owszn1_1 main-header-coding-agents__tag">Attention</span>-->
-    <div class="border-grid-container" style="line-height: 1.5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;">
-    <!-- 两列布局：Sponsor 区块 | Contributors 区块 从左到右排列 --><br>
+<div class="card-feedback-wrapper">
+    <div class="border-grid-container card-feedback-glass">
         <div class="border-grid-row">
-            <div class="border-grid-cell">
-                <h3 class="h4 tmp-mb-3" style="color: #FFFFFF">侵权？</h3>
+            <div class="border-grid-cell card-feedback-left">
+                <!-- 转载声明 -->
+                {% if page.relink %}
+                <div class="card-feedback-repost-banner">
+                    <div class="fa fa-question-circle"></div>
+                    <div class="card-feedback-repost-info">
+                        <span class="card-feedback-repost-label">本文为转载整理文章</span>
+                        <span class="card-feedback-repost-orig">
+                            原始来源：
+                            <a href="{{ page.relink }}" target="_blank" rel="noopener noreferrer" class="card-feedback-link">
+                                {{ page.relink | replace: "https://", "" | replace: "http://", "" | truncate: 42 }}
+                                <div class="fa fa-external-link"></div>
+                            </a>
+                        </span>
+                        <span class="card-feedback-repost-disclaimer">内容版权归原作者所有，若有侵权请<a href="{{site.githubAccess}}/{{site.githubRepos}}/issues/new?labels=acticle+rights+feedback&template=2-bug_report.yaml&title={{page.path}}侵权反馈/feedback" target="_blank" rel="noopener noreferrer" class="card-feedback-link">联系我们</a></span>
+                    </div>
+                </div>
+                {% endif %}
+
+                <h3 class="h4 tmp-mb-3 card-feedback-title">
+                    <svg class="card-feedback-icon" viewBox="0 0 16 16" width="18" height="18" fill="currentColor"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 110-2 1 1 0 010 2z"/></svg>
+                    侵权反馈
+                </h3>
                 <ul class="list-style-none">
                     <li class="mb-2 d-flex">
                         <a data-hovercard-type="user" href="https://github.com/{{ author.display_name }}" target="_blank" rel="noopener noreferrer" class="mr-2">
-                            <img class="avatar d-block mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/{{ author.gh_avatars }}?s=64&v=4" width="32" height="32" alt="@{{ author.display_name }}">
+                            <img class="avatar d-block mr-2 avatar-user card-feedback-avatar" src="https://avatars.githubusercontent.com/u/{{ author.gh_avatars }}?s=64&v=4" width="32" height="32" alt="@{{ author.display_name }}">
                         </a>
                         <span class="mr-2 flex-self-center flex-auto min-width-0 css-truncate css-truncate-target width-fit">
-                            <a class="Link--primary no-underline" href="https://github.com/{{ author.display_name }}" target="_blank" rel="noopener">
+                            <a class="Link--primary no-underline card-feedback-link" href="https://github.com/{{ author.display_name }}" target="_blank" rel="noopener">
                                 <strong>{{ author.display_name }}</strong>
-                                <span class="color-fg-muted">{{ author.display_name }}</span>
                             </a>
                         </span>
-                        <a href="{{site.githubAccess}}/{{site.githubRepos}}/issues/new?labels=acticle+rights+feedback&template=2-bug_report.yaml&title={{page.path}}侵权反馈/feedback" target="_blank" rel="noopener noreferrer" class="Button--secondary Button--small Button d-flex flex-items-center">
+                        <a href="{{site.githubAccess}}/{{site.githubRepos}}/issues/new?labels=acticle+rights+feedback&template=2-bug_report.yaml&title={{page.path}}侵权反馈/feedback" target="_blank" rel="noopener noreferrer" class="Button--secondary Button--small Button card-feedback-btn d-flex flex-items-center">
                             <span class="Button-content">
                                 <span class="Button-label">反馈侵权
                                     <svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
@@ -30,22 +48,22 @@
                 </ul>
 
                 <ul class="list-style-none">
-                    <li class="mb-2 d-flex">
+                    <li class="mb-2 d-flex card-feedback-contributor">
                         <span class="mr-2 d-flex flex-items-center flex-justify-center platform-icon">
-                            <img width="32" height="32" class="avatar d-block mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/{{ org.gh_avatars }}?s=64&v=4" alt="{{ org.gh_avatars }}">
+                            <img width="32" height="32" class="avatar d-block mr-2 avatar-user card-feedback-avatar" src="https://avatars.githubusercontent.com/u/{{ org.gh_avatars }}?s=64&v=4" alt="{{ org.display_name }}">
                         </span>
                         <span class="flex-self-center flex-auto min-width-0 css-truncate-feedback css-truncate-feedback-target width-fit">
-                            <a target="_blank" rel="noopener noreferrer" href="https://opencollective.com/tabby">
+                            <a target="_blank" rel="noopener noreferrer" href="https://github.com/{{ org.display_name }}" class="card-feedback-link">
                                 <span><strong>{{ org.display_name }}</strong></span>
                             </a>
                         </span>
                     </li>
-                    <li class="mb-2 d-flex">
+                    <li class="mb-2 d-flex card-feedback-contributor">
                         <span class="mr-2 d-flex flex-items-center flex-justify-center platform-icon">
-                            <img width="32" height="32" class="avatar d-block mr-2 avatar-user" alt="ko_fi" src="https://avatars.githubusercontent.com/u/{{ edited.gh_avatars }}?s=64&v=4">
+                            <img width="32" height="32" class="avatar d-block mr-2 avatar-user card-feedback-avatar" alt="{{ edited.display_name }}" src="https://avatars.githubusercontent.com/u/{{ edited.gh_avatars }}?s=64&v=4">
                         </span>
                         <span class="flex-self-center flex-auto min-width-0 css-truncate-feedback css-truncate-feedback-target width-fit">
-                            <a target="_blank" rel="noopener noreferrer" href="https://github.com/{{ edited.display_name }}">
+                            <a target="_blank" rel="noopener noreferrer" href="https://github.com/{{ edited.display_name }}" class="card-feedback-link">
                                 <span>github.com/<strong>{{ edited.display_name }}</strong></span>
                             </a>
                         </span>
@@ -53,9 +71,26 @@
                 </ul>
             </div>
 
-            <div class="border-grid-cell">
-                <h2 class="h4 tmp-mb-3">
-                    <a href="{{site.githubAccess}}/{{site.githubRepos}}/tree/{{site.githubRepos-Branch}}/{{page.path}}" target="_blank" rel="noopener noreferrer" class="Link--primary no-underline Link d-flex flex-items-center">
+            <div class="border-grid-cell card-feedback-right">
+                <div class="card-feedback-meta">
+                    <div class="card-feedback-meta-item">
+                        <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M2 1.75C2 .784 2.784 0 3.75 0h8.5C13.216 0 14 .784 14 1.75v12.5A1.75 1.75 0 0112.25 16h-8.5A1.75 1.75 0 012 14.25V1.75zm1.75-.25a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V1.75a.25.25 0 00-.25-.25h-8.5zM5 3.75A.75.75 0 015.75 3h4.5a.75.75 0 010 1.5h-4.5A.75.75 0 015 3.75zM5.75 6a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-4.5zM5.75 8.25a.75.75 0 010 1.5h2.5a.75.75 0 010-1.5h-2.5z"/></svg>
+                        <span>{{ page.date | date: "%Y/%m/%d" }}</span>
+                    </div>
+                    <div class="card-feedback-meta-item">
+                        <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8 0a8 8 0 110 16A8 8 0 018 0zM1.5 8a6.5 6.5 0 1013 0 6.5 6.5 0 00-13 0zm7-3.25v2.992l2.028.812a.75.75 0 01-.557 1.392l-2.5-1A.751.751 0 017 8.25v-3.5a.75.75 0 011.5 0z"/></svg>
+                        <span>约 {{ page.content | number_of_words | divided_by: 250 }} 分钟阅读</span>
+                    </div>
+                    {% if page.relink %}
+                    <div class="card-feedback-meta-item card-feedback-meta-tag">
+                        <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.752 1.752 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"/></svg>
+                        <span>转载</span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <h2 class="h4 tmp-mb-3 card-feedback-title">
+                    <a href="{{site.githubAccess}}/{{site.githubRepos}}/tree/{{site.githubRepos-Branch}}/{{page.path}}" target="_blank" rel="noopener noreferrer" class="Link--primary no-underline Link d-flex flex-items-center card-feedback-link">
                         Contributors
                         {% for tag in page.tags %}
                         <span class="Counter ml-1">{{ tag }}</span>
@@ -64,86 +99,43 @@
                 </h2>
 
                 <div class="contributors-avatar-list">
-                    <a href="https://github.com/{{ author.gh_avatars }}" target="_blank" rel="noopener">
+                    <a href="https://github.com/{{ author.display_name }}" target="_blank" rel="noopener" class="card-feedback-contributor-avatar">
                         <img src="https://avatars.githubusercontent.com/u/{{ author.gh_avatars }}?s=64&v=4" alt="{{ author.display_name }}">
                     </a>
-                    <a href="https://github.com/{{ edited.display_name }}" target="_blank" rel="noopener">
+                    <a href="https://github.com/{{ edited.display_name }}" target="_blank" rel="noopener" class="card-feedback-contributor-avatar">
                         <img src="https://avatars.githubusercontent.com/u/{{ edited.gh_avatars }}?s=64&v=4" alt="{{ edited.display_name }}">
                     </a>
                 </div>
+
+                {% comment %} 同类推荐：同分类下 2 篇其他文章 {% endcomment %}
+                {% assign current_category = page.categories | last %}
+                {% assign related_count = 0 %}
+                {% if current_category %}
+                <div class="card-feedback-related">
+                    <h4 class="card-feedback-related-title">
+                        <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+                            <path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/>
+                          </svg>
+                        同类推荐
+                    </h4>
+                    <ul class="card-feedback-related-list">
+                        {% for item in site.categories[current_category] %}
+                            {% unless item.url == page.url %}
+                                {% if related_count < 2 %}
+                                    {% assign related_count = related_count | plus: 1 %}
+                                    <li class="card-feedback-related-item">
+                                        <a href="{{ site.baseurl }}{{ item.url }}" class="card-feedback-link">
+                                            <span class="card-feedback-related-title-text">{{ item.title }}</span>
+                                            <span class="card-feedback-related-date">{{ item.date | date: "%m/%d" }}</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            {% endunless %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
-<!-- 预留位置-->
-<!--    <div class="border-grid-container" style="line-height: 1.5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;">-->
-<!--        &lt;!&ndash; 两列布局：Sponsor 区块 | Contributors 区块 从左到右排列 &ndash;&gt;<br>-->
-<!--        <div class="border-grid-row">-->
-<!--            <div class="border-grid-cell">-->
-<!--                <h3 class="h4 tmp-mb-3" style="color: #FFFFFF">侵权？</h3>-->
-<!--                <ul class="list-style-none">-->
-<!--                    <li class="mb-2 d-flex">-->
-<!--                        <a data-hovercard-type="user" href="https://github.com/{{ author.display_name }}" target="_blank" rel="noopener noreferrer" class="mr-2">-->
-<!--                            <img class="avatar d-block mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/{{ author.gh_avatars }}?s=64&v=4" width="32" height="32" alt="@{{ author.display_name }}">-->
-<!--                        </a>-->
-<!--                        <span class="mr-2 flex-self-center flex-auto min-width-0 css-truncate css-truncate-target width-fit">-->
-<!--                            <a class="Link&#45;&#45;primary no-underline" href="https://github.com/{{ author.display_name }}" target="_blank" rel="noopener">-->
-<!--                                <strong>{{ author.display_name }}</strong>-->
-<!--                                <span class="color-fg-muted">{{ author.display_name }}</span>-->
-<!--                            </a>-->
-<!--                        </span>-->
-<!--                        <a href="{{site.githubAccess}}/{{site.githubRepos}}/issues/new?labels=acticle+rights+feedback&template=2-bug_report.yaml&title={{page.path}}侵权反馈/feedback" target="_blank" rel="noopener noreferrer" class="Button&#45;&#45;secondary Button&#45;&#45;small Button d-flex flex-items-center">-->
-<!--                            <span class="Button-content">-->
-<!--                                <span class="Button-label">反馈侵权-->
-<!--                                    <svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>-->
-<!--                                </span>-->
-<!--                            </span>-->
-<!--                        </a>-->
-<!--                    </li>-->
-<!--                </ul>-->
-
-<!--                <ul class="list-style-none">-->
-<!--                    <li class="mb-2 d-flex">-->
-<!--                        <span class="mr-2 d-flex flex-items-center flex-justify-center platform-icon">-->
-<!--                            <img width="32" height="32" class="avatar d-block mr-2 avatar-user" src="https://avatars.githubusercontent.com/u/{{ org.gh_avatars }}?s=64&v=4">-->
-<!--                        </span>-->
-<!--                        <span class="flex-self-center flex-auto min-width-0 css-truncate css-truncate-target width-fit">-->
-<!--                            <a target="_blank" rel="noopener noreferrer" href="https://opencollective.com/tabby">-->
-<!--                                <span><strong>{{ org.display_name }}</strong></span>-->
-<!--                            </a>-->
-<!--                        </span>-->
-<!--                    </li>-->
-<!--                    <li class="mb-2 d-flex">-->
-<!--                        <span class="mr-2 d-flex flex-items-center flex-justify-center platform-icon">-->
-<!--                            <img width="32" height="32" class="avatar d-block mr-2 avatar-user" alt="ko_fi" src="https://avatars.githubusercontent.com/u/{{ edited.gh_avatars }}?s=64&v=4">-->
-<!--                        </span>-->
-<!--                        <span class="flex-self-center flex-auto min-width-0 css-truncate css-truncate-target width-fit">-->
-<!--                            <a target="_blank" rel="noopener noreferrer" href="https://github.com/{{ edited.display_name }}">-->
-<!--                                <span>github.com/<strong>{{ edited.display_name }}</strong></span>-->
-<!--                            </a>-->
-<!--                        </span>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </div>-->
-
-<!--            <div class="border-grid-cell">-->
-<!--                <h2 class="h4 tmp-mb-3">-->
-<!--                    <a href="{{site.githubAccess}}/{{site.githubRepos}}/tree/{{site.githubRepos-Branch}}/{{page.path}}" target="_blank" rel="noopener noreferrer" class="Link&#45;&#45;primary no-underline Link d-flex flex-items-center">-->
-<!--                        Contributors-->
-<!--                        {% for tag in page.tags %}-->
-<!--                        <span class="Counter ml-1">{{ tag }}</span>-->
-<!--                        {% endfor %}-->
-<!--                    </a>-->
-<!--                </h2>-->
-
-<!--                <div class="contributors-avatar-list">-->
-<!--                    <a href="https://github.com/{{ author.gh_avatars }}" target="_blank" rel="noopener">-->
-<!--                        <img src="https://avatars.githubusercontent.com/u/{{ author.gh_avatars }}?s=64&v=4" alt="{{ author.display_name }}">-->
-<!--                    </a>-->
-<!--                    <a href="https://github.com/{{ edited.display_name }}" target="_blank" rel="noopener">-->
-<!--                        <img src="https://avatars.githubusercontent.com/u/{{ edited.gh_avatars }}?s=64&v=4" alt="{{ edited.display_name }}">-->
-<!--                    </a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
 </div>
