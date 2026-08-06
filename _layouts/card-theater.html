@@ -1,0 +1,292 @@
+---
+layout: index
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+  :root {
+    --ct-bg: #000;
+    --ct-surface: #111;
+    --ct-border: #222;
+    --ct-blue: #0A84FF;
+    --ct-green: #30D158;
+    --ct-text: #f5f5f7;
+    --ct-muted: #86868b;
+    --ct-panel-bg: rgba(17,17,17,0.92);
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  .ct-wrapper {
+    position:relative;width:100%;min-height:100vh;background:var(--ct-bg);
+    display:flex;overflow:hidden;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--ct-text);
+  }
+
+  /* ---- Sidebar ---- */
+  .ct-sidebar {
+    position:fixed;left:0;top:0;width:340px;height:100vh;
+    background:var(--ct-panel-bg);
+    backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);
+    border-right:1px solid var(--ct-border);
+    display:flex;flex-direction:column;padding:48px 32px 32px;z-index:100;
+  }
+  .ct-tag {
+    font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;
+    color:var(--ct-blue);background:rgba(10,132,255,.12);border:1px solid rgba(10,132,255,.25);
+    padding:4px 12px;border-radius:20px;display:inline-block;width:fit-content;margin-bottom:20px;
+  }
+  .ct-title{font-size:2.4rem;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:4px}
+  .ct-subtitle{font-size:1rem;color:var(--ct-muted);font-weight:300;margin-bottom:40px}
+
+  /* Info Panel */
+  .ct-info{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
+  .ct-info.is-visible{opacity:1;transform:translateY(0)}
+  .ct-info-title{font-size:1.15rem;font-weight:700;margin-bottom:10px;line-height:1.3}
+  .ct-info-desc{font-size:.85rem;line-height:1.7;color:var(--ct-muted);margin-bottom:16px}
+  .ct-info-note{
+    font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.04em;
+    color:var(--ct-green);background:rgba(48,209,88,.08);border-left:2px solid var(--ct-green);
+    padding:8px 12px;border-radius:0 6px 6px 0;
+  }
+
+  /* Dots */
+  .ct-dots{display:flex;gap:6px;margin-bottom:28px}
+  .ct-dot{width:8px;height:8px;border-radius:50%;background:var(--ct-border);transition:all .3s ease;cursor:pointer}
+  .ct-dot.is-active{background:var(--ct-blue);box-shadow:0 0 8px rgba(10,132,255,.5);transform:scale(1.3)}
+
+  /* Mode Toggle */
+  .ct-mode-btn{
+    display:flex;align-items:center;gap:10px;background:transparent;border:1px solid var(--ct-border);
+    color:var(--ct-muted);font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.1em;
+    text-transform:uppercase;padding:10px 16px;border-radius:8px;cursor:pointer;transition:all .3s ease;
+    margin-top:auto;width:100%;justify-content:center;
+  }
+  .ct-mode-btn:hover{border-color:var(--ct-blue);color:var(--ct-text)}
+  .ct-mode-dot{width:8px;height:8px;border-radius:50%;background:var(--ct-border);transition:all .3s ease}
+  .ct-mode-btn.is-active .ct-mode-dot{background:var(--ct-green);box-shadow:0 0 8px rgba(48,209,88,.6)}
+  .ct-mode-btn.is-active{border-color:var(--ct-green);color:var(--ct-green)}
+
+  /* ---- Stage ---- */
+  .ct-stage{
+    flex:1;margin-left:340px;height:100vh;display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+  }
+  .ct-stage::before{
+    content:'';position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);
+    background-size:60px 60px;pointer-events:none;
+  }
+
+  /* Swiper */
+  .ct-swiper{width:100%;padding:40px 0}
+  .ct-swiper .swiper-slide{width:320px;height:420px;display:flex;align-items:center;justify-content:center}
+
+  /* Slide Card */
+  .ct-card__body{
+    position:relative;width:100%;height:100%;background:var(--ct-surface);border:1px solid var(--ct-border);
+    border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:48px 32px 56px;text-align:center;overflow:hidden;transition:border-color .4s ease,box-shadow .4s ease;
+  }
+  .ct-card__body::before{
+    content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:60%;height:1px;background:linear-gradient(90deg,transparent,var(--ct-blue),transparent);opacity:.3;
+  }
+  .swiper-slide-active .ct-card__body{border-color:var(--ct-blue);box-shadow:0 0 40px rgba(10,132,255,.08)}
+  .ct-card__icon{font-size:2.8rem;margin-bottom:24px;filter:drop-shadow(0 0 12px var(--icon-glow,var(--ct-blue)));transition:transform .4s ease}
+  .swiper-slide-active .ct-card__icon{transform:scale(1.12)}
+  .ct-card__title{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
+  .ct-card__subtitle{font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ct-muted);margin-bottom:28px}
+  .ct-card__highlight{
+    font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:600;letter-spacing:.1em;
+    padding:6px 16px;border-radius:6px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);
+    transition:all .3s ease;color:var(--hl-color,var(--ct-blue));
+  }
+  .swiper-slide-active .ct-card__highlight{border-color:var(--hl-color,var(--ct-blue));background:color-mix(in srgb,var(--hl-color,var(--ct-blue)) 10%,transparent)}
+  .ct-card__bg-num{position:absolute;top:20px;right:24px;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--ct-muted);opacity:.3;z-index:2}
+
+  /* ---- Theater Nav Override ---- */
+  .ct-stage .navbar{
+    position:absolute;top:0;left:0;right:0;z-index:50;
+    background:transparent;border:none;margin:0;padding:0;
+    min-height:0;
+  }
+  .ct-stage .navbar .container{
+    width:100%;max-width:100%;margin:-25px;
+    display:flex;align-items:center;min-height:0;
+  }
+  .ct-stage .navbar-header{
+    display:none;
+  }
+  .ct-stage .navbar-collapse{
+    display:flex !important;visibility:visible;
+    float:none;padding:0;margin:0;
+    max-height:none;border-top:none;
+    box-shadow:none;
+  }
+  .ct-stage .navbar-nav{
+    display:flex;flex-direction:row;gap:4px;
+    margin:0;padding:12px 0;
+    float:none;
+  }
+  .ct-stage .navbar-nav > li{
+    list-style:none;float:none;
+  }
+  .ct-stage .navbar-nav > li > a{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ct-muted);
+    padding:6px 14px;border-radius:6px;
+    border:1px solid transparent;
+    transition:all .3s ease;
+    line-height:1.6;text-decoration:none;
+    white-space:nowrap;
+  }
+  .ct-stage .navbar-nav > li > a:hover,
+  .ct-stage .navbar-nav > li > a:focus{
+    color:var(--ct-text);
+    border-color:var(--ct-border);
+    background:rgba(255,255,255,.04);
+  }
+  .ct-stage .navbar-nav > li.active > a{
+    color:var(--ct-blue);
+    border-color:rgba(10,132,255,.25);
+    background:rgba(10,132,255,.08);
+  }
+  .ct-stage .navbar-nav > li > a .fa{
+    font-size:.85rem;
+  }
+
+  /* Responsive: theater nav */
+  @media(max-width:900px){
+    .ct-stage .navbar .container{
+      padding:0 16px;flex-wrap:wrap;
+    }
+    .ct-stage .navbar-header{
+      display:flex;width:100%;
+    }
+    .ct-stage .navbar-toggle{
+      display:block !important;
+      padding:8px 10px;margin:8px 0;
+      background:transparent;border:1px solid var(--ct-border);
+      border-radius:6px;cursor:pointer;
+    }
+    .ct-stage .navbar-toggle .icon-bar{
+      display:block;width:18px;height:2px;
+      background:var(--ct-muted);margin:4px 0;
+      border-radius:1px;transition:all .3s ease;
+    }
+    .ct-stage .navbar-toggle:hover .icon-bar{
+      background:var(--ct-text);
+    }
+    .ct-stage .navbar-collapse{
+      width:100%;flex-basis:100%;
+      background:var(--ct-panel-bg);
+      backdrop-filter:blur(20px);
+      border-radius:0 0 12px 12px;
+      border-bottom:1px solid var(--ct-border);
+      overflow:hidden;max-height:0;
+      transition:max-height .35s ease;
+    }
+    .ct-stage .navbar-collapse.in{
+      max-height:500px;
+    }
+    .ct-stage .navbar-nav{
+      flex-direction:column;padding:8px 0;
+      gap:0;
+    }
+    .ct-stage .navbar-nav > li > a{
+      padding:10px 20px;border-radius:0;
+      font-size:.7rem;
+    }
+  }
+
+  /* Extra slides */
+  .ct-extra-slide{display:none !important}
+  .ct-extra-slide.ct-visible{display:flex !important}
+
+  /* Responsive */
+  @media(max-width:900px){
+    .ct-sidebar{position:relative;width:100%;height:auto;padding:24px 20px;border-right:none;border-bottom:1px solid var(--ct-border)}
+    .ct-stage{margin-left:0;height:70vh}
+    .ct-wrapper{flex-direction:column}
+    .ct-swiper .swiper-slide{width:260px;height:360px}
+  }
+</style>
+
+<main class="ct-wrapper">
+  <aside class="ct-sidebar">
+    <span class="ct-tag">{{ page.theater_tag | default: "Interactive" }}</span>
+    <div class="ct-title">{{ page.theater_title | default: "Card Theater" }}</div>
+    <p class="ct-subtitle">{{ page.theater_subtitle | default: "Interactive Flow" }}</p>
+    <div class="ct-dots" id="ct-dots"></div>
+    <div class="ct-info" id="ct-info">
+      <div class="ct-info-title" id="ct-info-title"></div>
+      <p class="ct-info-desc" id="ct-info-desc"></p>
+      <div class="ct-info-note" id="ct-info-note"></div>
+    </div>
+    <button class="ct-mode-btn is-active" id="ct-mode-toggle">
+      <span class="ct-mode-dot"></span>
+      <span id="ct-mode-text">{{ page.mode_a_label | default: "Enable Mode B" }}</span>
+    </button>
+  </aside>
+  <div class="ct-stage">
+    <div class="swiper ct-swiper">
+    {% include nav.html %}
+      <div class="swiper-wrapper">{{ content }}</div>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+(function(){
+  var slideData=[
+    {% for slide in page.slide_data %}
+    {title:{{ slide.title | jsonify }},desc:{{ slide.desc | jsonify }},note:{{ slide.note | jsonify }}}{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+  var dotsBox=document.getElementById('ct-dots'),
+      infoEl=document.getElementById('ct-info'),
+      titleEl=document.getElementById('ct-info-title'),
+      descEl=document.getElementById('ct-info-desc'),
+      noteEl=document.getElementById('ct-info-note'),
+      toggleBtn=document.getElementById('ct-mode-toggle'),
+      toggleTxt=document.getElementById('ct-mode-text');
+
+  slideData.forEach(function(_,i){
+    var d=document.createElement('span');
+    d.className='ct-dot'+(i===0?' is-active':'');d.dataset.idx=i;
+    d.addEventListener('click',function(){if(window.ctSwiper)window.ctSwiper.slideTo(+this.dataset.idx)});
+    dotsBox.appendChild(d);
+  });
+
+  function updateInfo(idx){
+    if(!slideData[idx])return;var d=slideData[idx];
+    infoEl.classList.remove('is-visible');
+    setTimeout(function(){titleEl.textContent=d.title;descEl.textContent=d.desc;noteEl.textContent=d.note;infoEl.classList.add('is-visible')},120);
+  }
+  function updateDots(idx){
+    dotsBox.querySelectorAll('.ct-dot').forEach(function(d,i){d.classList.toggle('is-active',i===idx)});
+  }
+
+  window.ctSwiper=new Swiper('.ct-swiper',{
+    effect:'coverflow',grabCursor:true,centeredSlides:true,slidesPerView:'auto',
+    coverflowEffect:{rotate:0,stretch:0,depth:120,modifier:1.5,slideShadows:false},
+    keyboard:{enabled:true},mousewheel:{thresholdDelta:30},speed:600,
+    on:{slideChange:function(){updateInfo(this.activeIndex);updateDots(this.activeIndex)}}
+  });
+  updateInfo(0);infoEl.classList.add('is-visible');
+
+  var tunnelOn=false,extraSlides=document.querySelectorAll('.ct-extra-slide');
+  toggleBtn.addEventListener('click',function(){
+    tunnelOn=!tunnelOn;toggleBtn.classList.toggle('is-active',tunnelOn);
+    toggleTxt.textContent=tunnelOn?'{{ page.mode_b_label | default: "Switch to Default" }}':'{{ page.mode_a_label | default: "Enable Mode B" }}';
+    extraSlides.forEach(function(el){el.classList.toggle('ct-visible',tunnelOn)});
+    if(window.ctSwiper)window.ctSwiper.update();
+  });
+})();
+</script>

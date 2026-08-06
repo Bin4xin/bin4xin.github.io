@@ -1,0 +1,18 @@
+{% assign slide_icon = include.icon | default: "fa-solid fa-cube" %}
+{% assign slide_icon_color = include.icon_color | default: "#0A84FF" %}
+{% assign slide_title = include.title | default: "Card" %}
+{% assign slide_subtitle = include.subtitle | default: "Subtitle" %}
+{% assign slide_highlight = include.highlight | default: "HIGHLIGHT" %}
+{% assign slide_hl_color = include.highlight_color | default: "#FFD60A" %}
+{% assign slide_bg_num = include.number | default: "01" %}
+{% assign slide_is_extra = include.extra | default: false %}
+
+<div class="swiper-slide {% if slide_is_extra %}ct-extra-slide{% endif %}" {% if slide_is_extra %}style="display:none"{% endif %}>
+  <span class="ct-card__bg-num">{{ slide_bg_num }}</span>
+  <div class="ct-card__body">
+    <i class="{{ slide_icon }} ct-card__icon" style="color: {{ slide_icon_color }}; --icon-glow: {{ slide_icon_color }}80;"></i>
+    <div class="ct-card__title">{{ slide_title }}</div>
+    <p class="ct-card__subtitle">{{ slide_subtitle }}</p>
+    <div class="ct-card__highlight" style="--hl-color: {{ slide_hl_color }};">{{ slide_highlight }}</div>
+  </div>
+</div>
