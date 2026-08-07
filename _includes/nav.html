@@ -1,34 +1,6 @@
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            {% comment %}
-            <!-- logo+popover整体包裹，便于布局和交互 -->
-            <div class="navbar-logo-hover-wrap">
-                
-                <a class="gb_A flex-justify-center-l navbar-logo" href="/" title="返回首页" tabindex="0" aria-label="返回首页">
-                    {% include pic.html name="github" %}
-                </a>
-                <!-- Apple/GitHub 风格美化的 popover -->
-                <div class="navbar-logo-popover" tabindex="-1">
-                    <div class="popover-arrow"></div>
-                    <ul>
-                    {% assign shequ = site.data.nerd_urls %}
-                    {% for node in shequ %}
-                        {% if node.name == "社区" %}
-                            {% for data in node.data %}
-                            <li>
-                                <a class="popover-link" href="{{data.link}}" target="_blank">
-                                    <span class="fa fa-code-fork"></span>
-                                    <span class="popover-link-text">{{ data.name |upcase }}</span>
-                                </a>
-                            </li>
-                            {% endfor %}
-                        {% endif %}
-                    {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            {% endcomment %}
             <!-- 菜单按钮 -->
             <button type="button" class="navbar-toggle" id="navbar-toggle-btn" data-toggle="collapse" data-target=".navbar-collapse" aria-label="切换导航菜单" aria-expanded="false" aria-controls="main-nav" style="outline:2px solid transparent; margin-left: 8px;">
                 <span class="sr-only">Toggle navigation</span>
