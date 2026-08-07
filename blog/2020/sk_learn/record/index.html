@@ -648,17 +648,146 @@ document.addEventListener('click', function(e) {
     </div><!--/row -->
 </div><!--/container -->
 
-                <!-- 代码引用申明/code reference declaration:
-#############################################################################
-## code from cloudflare. visit footer in https://www.cloudflare.com/zh-cn/ ##
-#############################################################################
--->
-
-<div id="footerwrap" class="hidden-print">
-    <div class="footer-container">
-        <div class="pt3 pt3-ns pt3-m pt7-l pb0 pb0-ns pb0-m pb5-l">
-            <div class="footer-row">
-                
+                <!-- footer style & markup start -->
+<style>
+    :root {
+      --ftr-bg: rgba(255, 255, 255, 0.75);
+      --ftr-border: rgba(0, 0, 0, 0.08);
+      --ftr-text: #656d76;
+      --ftr-text-hover: #0969da;
+      --ftr-tertiary-bg: rgba(0, 0, 0, 0.02);
+      --ftr-tertiary-text: #8b949e;
+    }
+  
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ftr-bg: rgba(22, 27, 34, 0.75);
+        --ftr-border: rgba(255, 255, 255, 0.08);
+        --ftr-text: #8b949e;
+        --ftr-text-hover: #58a6ff;
+        --ftr-tertiary-bg: rgba(0, 0, 0, 0.2);
+        --ftr-tertiary-text: #6e7681;
+      }
+    }
+  
+    [data-theme="dark"] {
+      --ftr-bg: rgba(22, 27, 34, 0.75);
+      --ftr-border: rgba(255, 255, 255, 0.08);
+      --ftr-text: #8b949e;
+      --ftr-text-hover: #58a6ff;
+      --ftr-tertiary-bg: rgba(0, 0, 0, 0.2);
+      --ftr-tertiary-text: #6e7681;
+    }
+  
+    #footerwrap {
+      margin-top: 3rem;
+      border-top: 1px solid var(--ftr-border);
+      background: var(--ftr-bg);
+      backdrop-filter: blur(12px) saturate(1.2);
+      -webkit-backdrop-filter: blur(12px) saturate(1.2);
+      color: var(--ftr-text);
+      font-size: 0.875rem;
+      transition: all 0.25s ease;
+    }
+  
+    .ftr-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 1.5rem;
+    }
+  
+    .ftr-main-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+  
+    .ftr-counter-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 1.25rem;
+      border-top: 1px dashed var(--ftr-border);
+    }
+  
+    /* 底部版权与 Brand 栏 */
+    .ftr-tertiary {
+      background: var(--ftr-tertiary-bg);
+      border-top: 1px solid var(--ftr-border);
+      padding: 0.85rem 1.5rem;
+    }
+  
+    .ftr-tertiary-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .ftr-nav-list {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+  
+    .ftr-nav-list li {
+      display: inline-flex;
+      align-items: center;
+    }
+  
+    .ftr-nav-list li:not(:last-child)::after {
+      content: "•";
+      margin-left: 1.25rem;
+      color: var(--ftr-tertiary-text);
+      opacity: 0.5;
+    }
+  
+    .ftr-nav-list a, 
+    .ftr-nav-list span {
+      color: var(--ftr-tertiary-text);
+      font-weight: 500;
+      font-size: 0.825rem;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+  
+    .ftr-nav-list a:hover {
+      color: var(--ftr-text-hover);
+    }
+  
+    @media (max-width: 640px) {
+      .ftr-container {
+        padding: 1.5rem 1rem 1rem;
+      }
+  
+      .ftr-nav-list {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+  
+      .ftr-nav-list li:not(:last-child)::after {
+        display: none;
+      }
+    }
+  
+    @media print {
+      #footerwrap { display: none !important; }
+    }
+  </style>
+  
+  <div id="footerwrap" class="hidden-print">
+    <div class="ftr-container">
+      <!-- 主链接与内容展示区 -->
+      <div class="ftr-main-row">
+        
 <div class="footer-col-lg-2">
     <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
         <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
@@ -732,6 +861,12 @@ document.addEventListener('click', function(e) {
             
             <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/bin4xin.github.io/wiki" target="_blank">WIKI</a></li>
             
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/usage/" target="_blank">帮助</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/privacy/" target="_blank">隐私</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/privacy/#cookie" target="_blank">Cookie偏好</a></li>
+            
             
         </ul>
     </details>
@@ -755,28 +890,11 @@ document.addEventListener('click', function(e) {
     </details>
 </div>
 
-<div class="footer-col-lg-2">
-    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
-        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
-            <span class="footer-abstract point"><strong>其他</strong></span>
-        </summary>
-        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
-            
-            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/usage/" target="_blank">帮助</a></li>
-            
-            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/privacy/" target="_blank">隐私</a></li>
-            
-            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/privacy/#cookie" target="_blank">Cookie偏好</a></li>
-            
-            
-        </ul>
-    </details>
-</div>
-
-            </div><!-- "/row"-->
-            <div class="pv2-ns">
-                <div class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l flex footer-bottom-row-margin">
-                    <!--
+      </div>
+  
+      <!-- 计数器/统计组件区 -->
+      <div class="ftr-counter-row">
+        <!--
    - FlipClock design
    -    @link { https://github.com/objectivehtml/FlipClock }
 -->
@@ -808,22 +926,26 @@ document.addEventListener('click', function(e) {
     <div id="Bilibili"><a class="lh-1 dib mr2" title="Bilibili" target="_blank" rel="noopener" href="https://space.bilibili.com/67373868"></a></div>
     
 </div>
-                </div>
-            </div><!-- "/pv5" -->
-        </div>
+      </div>
     </div>
-    <div class="tertiary d-flex">
-        <div class="wrapper">
-            <div class="col justify-center flex-wrap-l d-flex justify-content-center">
-                <ul class="pa1 table-of-contents flex-xl-justify-between flex-xl-column">
-                    <li class="outstanding"><a>© 2019-2026 </a></li>
-                    <li class="outstanding"><a>SENTINEL SECURITY, LAB</a></li>
-                    </li>
-                </ul>
-            </div>
-        </div>
+  
+    <!-- 底部版权/品牌栏 -->
+    <div class="ftr-tertiary">
+      <div class="ftr-tertiary-inner">
+        <ul class="ftr-nav-list">
+          <li>
+            <span>© 2019-2026 </span>
+          </li>
+          
+          <li>
+            <span>SENTINEL SECURITY, LAB</span>
+          </li>
+          
+        </ul>
+      </div>
     </div>
-</div><!--/footerwrap -->
+  </div>
+  <!-- footer style & markup end -->
 
     </body>
 

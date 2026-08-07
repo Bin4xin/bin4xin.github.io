@@ -112,8 +112,8 @@
         &lt;div class=&quot;blog-card-meta&quot;&gt;
             &lt;span class=&quot;blog-card-status-dot&quot;&gt;&lt;/span&gt;
             
-            &lt;a class=&quot;blog-card-hash&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/4af12705&quot; target=&quot;_blank&quot;&gt;
-                4af1270
+            &lt;a class=&quot;blog-card-hash&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/869b3494&quot; target=&quot;_blank&quot;&gt;
+                869b349
             &lt;/a&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -196,8 +196,8 @@
         &lt;div class=&quot;blog-card-meta&quot;&gt;
             &lt;span class=&quot;blog-card-status-dot&quot;&gt;&lt;/span&gt;
             
-            &lt;a class=&quot;blog-card-hash&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/4af12705&quot; target=&quot;_blank&quot;&gt;
-                4af1270
+            &lt;a class=&quot;blog-card-hash&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/869b3494&quot; target=&quot;_blank&quot;&gt;
+                869b349
             &lt;/a&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -280,8 +280,8 @@ Error Connection reset
         &lt;div class=&quot;blog-card-meta&quot;&gt;
             &lt;span class=&quot;blog-card-status-dot&quot;&gt;&lt;/span&gt;
             
-            &lt;a class=&quot;blog-card-hash&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/4af12705&quot; target=&quot;_blank&quot;&gt;
-                4af1270
+            &lt;a class=&quot;blog-card-hash&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/869b3494&quot; target=&quot;_blank&quot;&gt;
+                869b349
             &lt;/a&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -298,326 +298,626 @@ Error Connection reset
                 &lt;/nav&gt;
             
         &lt;/div&gt;&lt;!--/col-lg-9 --&gt;
-        &lt;div class=&quot;sticky limit-sticky flex flex-column&quot;&gt;&lt;!--notice start--&gt;
+        &lt;div class=&quot;sticky limit-sticky flex flex-column&quot;&gt;&lt;!-- notice style &amp; markup start --&gt;
+&lt;style&gt;
+  :root {
+    /* 降低卡片背景色的浓度，让底图透出来 */
+    --ntc-bg: rgba(255, 255, 255, 0.65);
+    --ntc-border: rgba(0, 0, 0, 0.08);
+    --ntc-text: #1f2328;
+    --ntc-text-muted: #656d76;
+    --ntc-text-dim: #8b949e;
+    --ntc-accent: #0969da;
+    --ntc-close-bg: rgba(255, 255, 255, 0.6);
+    --ntc-close-hover: rgba(255, 255, 255, 0.9);
+    --ntc-btn-bg: #0969da;
+    --ntc-btn-text: #ffffff;
+    --ntc-btn-hover: #0550ae;
+    --ntc-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.04);
+    --ntc-shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04);
+    --ntc-radius: 14px;
+    --ntc-meta-bg: rgba(255, 255, 255, 0.5);
+    --ntc-badge-bg: rgba(0, 0, 0, 0.06);
+    --ntc-badge-text: #57606a;
+  }
 
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme=&quot;light&quot;]) {
+      --ntc-bg: rgba(22, 27, 34, 0.65);
+      --ntc-border: rgba(255, 255, 255, 0.12);
+      --ntc-text: #f0f6fc;
+      --ntc-text-muted: #8b949e;
+      --ntc-text-dim: #6e7681;
+      --ntc-accent: #58a6ff;
+      --ntc-close-bg: rgba(22, 27, 34, 0.6);
+      --ntc-close-hover: rgba(22, 27, 34, 0.9);
+      --ntc-btn-bg: #238636;
+      --ntc-btn-text: #ffffff;
+      --ntc-btn-hover: #2ea043;
+      --ntc-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      --ntc-shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.4);
+      --ntc-meta-bg: rgba(22, 27, 34, 0.5);
+      --ntc-badge-bg: rgba(255, 255, 255, 0.12);
+      --ntc-badge-text: #a5d6ff;
+    }
+  }
 
+  [data-theme=&quot;dark&quot;] {
+    --ntc-bg: rgba(22, 27, 34, 0.65);
+    --ntc-border: rgba(255, 255, 255, 0.12);
+    --ntc-text: #f0f6fc;
+    --ntc-text-muted: #8b949e;
+    --ntc-text-dim: #6e7681;
+    --ntc-accent: #58a6ff;
+    --ntc-close-bg: rgba(22, 27, 34, 0.6);
+    --ntc-close-hover: rgba(22, 27, 34, 0.9);
+    --ntc-btn-bg: #238636;
+    --ntc-btn-text: #ffffff;
+    --ntc-btn-hover: #2ea043;
+    --ntc-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    --ntc-shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.4);
+    --ntc-meta-bg: rgba(22, 27, 34, 0.5);
+    --ntc-badge-bg: rgba(255, 255, 255, 0.12);
+    --ntc-badge-text: #a5d6ff;
+  }
 
+  .ntc-card {
+    position: relative;
+    border-radius: var(--ntc-radius);
+    margin-bottom: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    overflow: hidden;
+    background: var(--ntc-bg);
+    border: 1px solid var(--ntc-border);
+    box-shadow: var(--ntc-shadow);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    transition: transform 0.25s cubic-bezier(0.33, 1, 0.68, 1), box-shadow 0.25s cubic-bezier(0.33, 1, 0.68, 1);
+    z-index: 1;
+    animation: ntc-fade-in 0.4s cubic-bezier(0.33, 1, 0.68, 1) both;
+  }
 
+  .ntc-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--ntc-shadow-hover);
+  }
 
+  /* 调整背景图片属性：提升透明度、设为正常显示模式 */
+  .ntc-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    opacity: 0.3; /* 从 0.08 提高到 0.3，如果觉得太亮或太暗，可在 0.2 ~ 0.5 之间微调 */
+    mix-blend-mode: normal; /* 改为 normal，避免 overlay 把图滤掉 */
+    z-index: -1;
+  }
 
-&lt;diva-互联网的记忆&gt;
-&lt;div class=&quot;js-notice&quot;&gt;
-    &lt;form class=&quot;Box-aricle position-relative rounded-2 mb-4 p-3 js-notice-dismiss overflow-hidden&quot; style=&quot;z-index: 1&quot; data-turbo=&quot;false&quot;&gt;
-        &lt;picture&gt;
-            &lt;img src=&quot;https://image.isisy.com/images/2022/09/21/1500x500.jpg&quot; alt=&quot;&quot; class=&quot;position-absolute top-0 left-0 width-full select-forbidden&quot; style=&quot;pointer-events: none; z-index: -1; height: 100%; height: 100%; object-fit: cover;&quot;&gt;
-        &lt;/picture&gt;
-        &lt;!--TO&lt;DONE&gt;:
-            Here issues is done.
-            !--- Done. issue 1. While click to close the &lt;X button/div&gt;, whole h5 page will refresh. I don&#39;t know why.
-            -- use &lt;span&gt; labels instead of &lt;button&gt; :-D
-            !--- Done. issue 2. By &lt;Js function&gt; custom_close change/add div&#39;s class to hide buttons/divs, so while have 2 or more, all will close
-            -- see `/assets/js/oh-sentry.js`
-            ~~;*(~~ :-D
-        --&gt;
-        &lt;div class=&quot;position-absolute p-2&quot; style=&quot;top: 4px; right: 6px;&quot;&gt;
-            &lt;span id=&quot;hidden-2-click-互联网的记忆&quot; aria-label=&quot;Close&quot; type=&quot;submit&quot; data-view-component=&quot;true&quot; class=&quot;close-button color-fg-on-emphasis pointer&quot;&gt;
-            &lt;svg aria-hidden=&quot;true&quot;  data-view-component=&quot;true&quot; class=&quot;octicon octicon-x&quot; height=&quot;16&quot; viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot;&gt;
-            &lt;path fill-rule=&quot;evenodd&quot; d=&quot;M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z&quot;&gt;&lt;/path&gt;
-            &lt;/svg&gt;&lt;/span&gt;
-        &lt;/div&gt;
+  .ntc-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background: var(--ntc-close-bg);
+    color: var(--ntc-text-muted);
+    cursor: pointer;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+    transition: all 0.2s ease;
+  }
 
-        &lt;img src=&quot;https://image.isisy.com/images/2022/09/21/16dbdb3a19ceccd723a6d61f6c167c2a_400x400.jpg&quot; alt=&quot;互联网的记忆&quot; width=&quot;32&quot; height=&quot;32&quot; class=&quot;d-block select-forbidden&quot;&gt;
-        &lt;p class=&quot;my-3 col-7 color-fg-on-emphasis text-bold&quot;&gt;
-            自定义了一些「经典语录」进行ZSH的显示优化配置
-        &lt;/p&gt;
+  .ntc-close:hover {
+    background: var(--ntc-close-hover);
+    color: var(--ntc-text);
+    transform: scale(1.08);
+  }
 
-        &lt;div class=&quot;content&quot;&gt;
-            &lt;p&gt;
-                &lt;a href=&quot;/daily/2022/Memroy-Of-Internet-FromCHN-Bybin4xin/&quot; class=&quot;btn-primary btn btn-block&quot; target=&quot;blank&quot;&gt;
-                    More about 互联网的记忆
-                    &lt;span class=&quot;DocsMarkdown--link-external-icon&quot;&gt;
-                    &lt;svg fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; viewBox=&quot;0 0 16 16&quot; role=&quot;img&quot; aria-labelledby=&quot;title-9637423397128071&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;&lt;title id=&quot;title-9637423397128071&quot;&gt;External link icon&lt;/title&gt;&lt;path d=&quot;M6.75,1.75h-5v12.5h12.5v-5m0,-4v-3.5h-3.5M8,8l5.5-5.5&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
-                    &lt;/span&gt;
-                &lt;/a&gt;
-            &lt;/p&gt;
-        &lt;/div&gt;
-    &lt;/form&gt;
-&lt;/div&gt;
-&lt;/diva-互联网的记忆&gt;
+  .ntc-close:active { 
+    transform: scale(0.92); 
+  }
 
+  .ntc-icon {
+    display: block;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    object-fit: contain;
+    user-select: none;
+  }
 
+  .ntc-text {
+    margin: 0.75rem 0 1rem;
+    max-width: 85%;
+    color: var(--ntc-text);
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.4); /* 增加微微阴影，保证背景复杂时文字依然清晰 */
+  }
 
+  [data-theme=&quot;dark&quot;] .ntc-text {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  }
 
+  .ntc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.45rem 1rem;
+    background: var(--ntc-btn-bg);
+    color: var(--ntc-btn-text) !important;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none !important;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  }
 
+  .ntc-btn:hover {
+    background: var(--ntc-btn-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
 
-&lt;diva-Feed-xml&gt;
-&lt;div class=&quot;js-notice&quot;&gt;
-    &lt;form class=&quot;Box-aricle position-relative rounded-2 mb-4 p-3 js-notice-dismiss overflow-hidden&quot; style=&quot;z-index: 1&quot; data-turbo=&quot;false&quot;&gt;
-        &lt;picture&gt;
-            &lt;img src=&quot;https://image.isisy.com/images/2022/06/27/arnold-francisca-f77Bh3inUpE-unsplash.jpg&quot; alt=&quot;&quot; class=&quot;position-absolute top-0 left-0 width-full select-forbidden&quot; style=&quot;pointer-events: none; z-index: -1; height: 100%; height: 100%; object-fit: cover;&quot;&gt;
-        &lt;/picture&gt;
-        &lt;!--TO&lt;DONE&gt;:
-            Here issues is done.
-            !--- Done. issue 1. While click to close the &lt;X button/div&gt;, whole h5 page will refresh. I don&#39;t know why.
-            -- use &lt;span&gt; labels instead of &lt;button&gt; :-D
-            !--- Done. issue 2. By &lt;Js function&gt; custom_close change/add div&#39;s class to hide buttons/divs, so while have 2 or more, all will close
-            -- see `/assets/js/oh-sentry.js`
-            ~~;*(~~ :-D
-        --&gt;
-        &lt;div class=&quot;position-absolute p-2&quot; style=&quot;top: 4px; right: 6px;&quot;&gt;
-            &lt;span id=&quot;hidden-2-click-Feed-xml&quot; aria-label=&quot;Close&quot; type=&quot;submit&quot; data-view-component=&quot;true&quot; class=&quot;close-button color-fg-on-emphasis pointer&quot;&gt;
-            &lt;svg aria-hidden=&quot;true&quot;  data-view-component=&quot;true&quot; class=&quot;octicon octicon-x&quot; height=&quot;16&quot; viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot;&gt;
-            &lt;path fill-rule=&quot;evenodd&quot; d=&quot;M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z&quot;&gt;&lt;/path&gt;
-            &lt;/svg&gt;&lt;/span&gt;
-        &lt;/div&gt;
+  .ntc-btn:active { 
+    transform: translateY(0); 
+  }
 
-        &lt;img src=&quot;/assets/img/svg/actions-documentation.svg&quot; alt=&quot;Feed-xml&quot; width=&quot;32&quot; height=&quot;32&quot; class=&quot;d-block select-forbidden&quot;&gt;
-        &lt;p class=&quot;my-3 col-7 color-fg-on-emphasis text-bold&quot;&gt;
-            将feed汇流于一处称为聚合（aggregation）
-        &lt;/p&gt;
+  .ntc-btn .ntc-ext {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s ease;
+  }
 
-        &lt;div class=&quot;content&quot;&gt;
-            &lt;p&gt;
-                &lt;a href=&quot;/feed.xml&quot; class=&quot;btn-primary btn btn-block&quot; target=&quot;blank&quot;&gt;
-                    More about Feed.xml
-                    &lt;span class=&quot;DocsMarkdown--link-external-icon&quot;&gt;
-                    &lt;svg fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; viewBox=&quot;0 0 16 16&quot; role=&quot;img&quot; aria-labelledby=&quot;title-9637423397128071&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;&lt;title id=&quot;title-9637423397128071&quot;&gt;External link icon&lt;/title&gt;&lt;path d=&quot;M6.75,1.75h-5v12.5h12.5v-5m0,-4v-3.5h-3.5M8,8l5.5-5.5&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
-                    &lt;/span&gt;
-                &lt;/a&gt;
-            &lt;/p&gt;
-        &lt;/div&gt;
-    &lt;/form&gt;
-&lt;/div&gt;
-&lt;/diva-Feed-xml&gt;
+  .ntc-btn:hover .ntc-ext {
+    transform: translate(2px, -2px);
+  }
 
+  /* Meta Section */
+  .ntc-meta {
+    font-size: 0.875rem;
+    margin-top: 1rem;
+  }
 
+  .ntc-meta details {
+    border: 1px solid var(--ntc-border);
+    border-radius: 10px;
+    padding: 0.6rem 0.9rem;
+    margin-bottom: 0.75rem;
+    background: var(--ntc-meta-bg);
+    backdrop-filter: blur(8px);
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
 
+  .ntc-meta summary {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--ntc-text);
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
+  .ntc-meta summary::-webkit-details-marker { display: none; }
 
+  .ntc-meta .summary-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
-&lt;diva-Github-Action&gt;
-&lt;div class=&quot;js-notice&quot;&gt;
-    &lt;form class=&quot;Box-aricle position-relative rounded-2 mb-4 p-3 js-notice-dismiss overflow-hidden&quot; style=&quot;z-index: 1&quot; data-turbo=&quot;false&quot;&gt;
-        &lt;picture&gt;
-            &lt;img src=&quot;https://image.isisy.com/images/2022/06/27/bg.jpg&quot; alt=&quot;&quot; class=&quot;position-absolute top-0 left-0 width-full select-forbidden&quot; style=&quot;pointer-events: none; z-index: -1; height: 100%; height: 100%; object-fit: cover;&quot;&gt;
-        &lt;/picture&gt;
-        &lt;!--TO&lt;DONE&gt;:
-            Here issues is done.
-            !--- Done. issue 1. While click to close the &lt;X button/div&gt;, whole h5 page will refresh. I don&#39;t know why.
-            -- use &lt;span&gt; labels instead of &lt;button&gt; :-D
-            !--- Done. issue 2. By &lt;Js function&gt; custom_close change/add div&#39;s class to hide buttons/divs, so while have 2 or more, all will close
-            -- see `/assets/js/oh-sentry.js`
-            ~~;*(~~ :-D
-        --&gt;
-        &lt;div class=&quot;position-absolute p-2&quot; style=&quot;top: 4px; right: 6px;&quot;&gt;
-            &lt;span id=&quot;hidden-2-click-Github-Action&quot; aria-label=&quot;Close&quot; type=&quot;submit&quot; data-view-component=&quot;true&quot; class=&quot;close-button color-fg-on-emphasis pointer&quot;&gt;
-            &lt;svg aria-hidden=&quot;true&quot;  data-view-component=&quot;true&quot; class=&quot;octicon octicon-x&quot; height=&quot;16&quot; viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot;&gt;
-            &lt;path fill-rule=&quot;evenodd&quot; d=&quot;M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z&quot;&gt;&lt;/path&gt;
-            &lt;/svg&gt;&lt;/span&gt;
-        &lt;/div&gt;
+  .ntc-meta .summary-title::before {
+    content: &quot;&quot;;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid var(--ntc-text-dim);
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    transition: transform 0.2s ease;
+  }
 
-        &lt;img src=&quot;/assets/img/svg/actions-icon-actions.svg&quot; alt=&quot;Github-Action&quot; width=&quot;32&quot; height=&quot;32&quot; class=&quot;d-block select-forbidden&quot;&gt;
-        &lt;p class=&quot;my-3 col-7 color-fg-on-emphasis text-bold&quot;&gt;
-            Automate your workflow from idea to production
-        &lt;/p&gt;
+  .ntc-meta details[open] .summary-title::before {
+    transform: rotate(90deg);
+  }
 
-        &lt;div class=&quot;content&quot;&gt;
-            &lt;p&gt;
-                &lt;a href=&quot;https://docs.github.com/cn/actions&quot; class=&quot;btn-primary btn btn-block&quot; target=&quot;blank&quot;&gt;
-                    More about Github Action
-                    &lt;span class=&quot;DocsMarkdown--link-external-icon&quot;&gt;
-                    &lt;svg fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; viewBox=&quot;0 0 16 16&quot; role=&quot;img&quot; aria-labelledby=&quot;title-9637423397128071&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;&lt;title id=&quot;title-9637423397128071&quot;&gt;External link icon&lt;/title&gt;&lt;path d=&quot;M6.75,1.75h-5v12.5h12.5v-5m0,-4v-3.5h-3.5M8,8l5.5-5.5&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
-                    &lt;/span&gt;
-                &lt;/a&gt;
-            &lt;/p&gt;
-        &lt;/div&gt;
-    &lt;/form&gt;
-&lt;/div&gt;
-&lt;/diva-Github-Action&gt;
+  .ntc-meta-content {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--ntc-border);
+  }
 
+  .ntc-meta-item {
+    margin: 0.4rem 0;
+    color: var(--ntc-text-muted);
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-&lt;!--notice end--&gt;
-&lt;!-- mark, i wanna to display a search form here maybe? Start--&gt;
-&lt;!-- anyway, I&#39;ll compress this. STOP--&gt;
-&lt;!-- search data will generate from here: bin4xin.github.io/search.json--&gt;
-&lt;div class=&quot;hidden-print&quot;&gt;
-    
-    &lt;div class=&quot;post-meta mb-3&quot;&gt;
-        &lt;details open&gt;
-            &lt;summary class=&quot;point flex justify-between&quot;&gt;本文分类&lt;/summary&gt;
-            
-            &lt;p&gt;
-                &lt;i class=&quot;far fa-folder fa-fw mr-1&quot;&gt;&lt;/i&gt; &lt;a href=&#39;/blog/&#39;&gt;blog&lt;/a&gt;&lt;/p&gt;
-            
-        &lt;/details&gt;
+  .ntc-meta-item a {
+    color: var(--ntc-accent);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .ntc-meta-item a:hover { text-decoration: underline; }
+
+  .ntc-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.15em 0.6em;
+    border-radius: 20px;
+    background: var(--ntc-badge-bg);
+    color: var(--ntc-badge-text);
+  }
+
+  /* Animations */
+  @keyframes ntc-fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .ntc-dismissing {
+    animation: ntc-slide-out 0.3s cubic-bezier(0.5, 0, 0.75, 0) forwards;
+  }
+
+  @keyframes ntc-slide-out {
+    to {
+      opacity: 0;
+      transform: translateY(-8px) scale(0.98);
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border-width: 0;
+    }
+  }
+
+  @media print {
+    .ntc-card, .ntc-meta { break-inside: avoid; }
+  }
+&lt;/style&gt;
+
+&lt;!-- 关闭按钮淡出交互 JS --&gt;
+&lt;script&gt;
+  function dismissNotice(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.add(&#39;ntc-dismissing&#39;);
+    el.addEventListener(&#39;animationend&#39;, () =&gt; el.remove(), { once: true });
+  }
+&lt;/script&gt;
+
+&lt;!-- Notice Cards 循环列表 --&gt;
+
+  
+  
+  
+  
+  
+  
+
+  &lt;div id=&quot;note-card-互联网的记忆&quot; class=&quot;js-notice&quot;&gt;
+    &lt;div class=&quot;ntc-card&quot;&gt;
+      
+        &lt;img src=&quot;https://image.isisy.com/images/2022/09/21/1500x500.jpg&quot; alt=&quot;&quot; class=&quot;ntc-bg-img&quot; aria-hidden=&quot;true&quot; /&gt;
+      
+
+      &lt;button type=&quot;button&quot; class=&quot;ntc-close&quot; aria-label=&quot;关闭通知&quot; onclick=&quot;dismissNotice(&#39;note-card-互联网的记忆&#39;)&quot;&gt;
+        &lt;svg width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;path fill-rule=&quot;evenodd&quot; d=&quot;M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z&quot;&gt;&lt;/path&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+
+      
+        &lt;img src=&quot;https://image.isisy.com/images/2022/09/21/16dbdb3a19ceccd723a6d61f6c167c2a_400x400.jpg&quot; alt=&quot;&quot; class=&quot;ntc-icon&quot; /&gt;
+      
+
+      &lt;p class=&quot;ntc-text&quot;&gt;
+        自定义了一些「经典语录」进行ZSH的显示优化配置
+      &lt;/p&gt;
+
+      &lt;div class=&quot;ntc-actions&quot;&gt;
+        &lt;a href=&quot;/daily/2022/Memroy-Of-Internet-FromCHN-Bybin4xin/&quot; class=&quot;ntc-btn&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;
+          查看详情
+          &lt;svg class=&quot;ntc-ext&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;&gt;
+            &lt;path d=&quot;M6.75 1.75h-5v12.5h12.5v-5m0-4v-3.5h-3.5M8 8l5.5-5.5&quot;&gt;&lt;/path&gt;
+          &lt;/svg&gt;
+        &lt;/a&gt;
+      &lt;/div&gt;
     &lt;/div&gt;
-    
-    &lt;p&gt;
-    &lt;details&gt;
-        &lt;summary class=&quot;point flex justify-between&quot;&gt;所有标签/数量&lt;/summary&gt;
+  &lt;/div&gt;
+
+  
+  
+  
+  
+  
+  
+
+  &lt;div id=&quot;note-card-Feed-xml&quot; class=&quot;js-notice&quot;&gt;
+    &lt;div class=&quot;ntc-card&quot;&gt;
+      
+        &lt;img src=&quot;https://image.isisy.com/images/2022/06/27/arnold-francisca-f77Bh3inUpE-unsplash.jpg&quot; alt=&quot;&quot; class=&quot;ntc-bg-img&quot; aria-hidden=&quot;true&quot; /&gt;
+      
+
+      &lt;button type=&quot;button&quot; class=&quot;ntc-close&quot; aria-label=&quot;关闭通知&quot; onclick=&quot;dismissNotice(&#39;note-card-Feed-xml&#39;)&quot;&gt;
+        &lt;svg width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;path fill-rule=&quot;evenodd&quot; d=&quot;M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z&quot;&gt;&lt;/path&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+
+      
+        &lt;img src=&quot;/assets/img/svg/actions-documentation.svg&quot; alt=&quot;&quot; class=&quot;ntc-icon&quot; /&gt;
+      
+
+      &lt;p class=&quot;ntc-text&quot;&gt;
+        将feed汇流于一处称为聚合（aggregation）
+      &lt;/p&gt;
+
+      &lt;div class=&quot;ntc-actions&quot;&gt;
+        &lt;a href=&quot;/feed.xml&quot; class=&quot;ntc-btn&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;
+          查看详情
+          &lt;svg class=&quot;ntc-ext&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;&gt;
+            &lt;path d=&quot;M6.75 1.75h-5v12.5h12.5v-5m0-4v-3.5h-3.5M8 8l5.5-5.5&quot;&gt;&lt;/path&gt;
+          &lt;/svg&gt;
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  
+  
+  
+  
+  
+  
+
+  &lt;div id=&quot;note-card-Github-Action&quot; class=&quot;js-notice&quot;&gt;
+    &lt;div class=&quot;ntc-card&quot;&gt;
+      
+        &lt;img src=&quot;https://image.isisy.com/images/2022/06/27/bg.jpg&quot; alt=&quot;&quot; class=&quot;ntc-bg-img&quot; aria-hidden=&quot;true&quot; /&gt;
+      
+
+      &lt;button type=&quot;button&quot; class=&quot;ntc-close&quot; aria-label=&quot;关闭通知&quot; onclick=&quot;dismissNotice(&#39;note-card-Github-Action&#39;)&quot;&gt;
+        &lt;svg width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
+          &lt;path fill-rule=&quot;evenodd&quot; d=&quot;M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z&quot;&gt;&lt;/path&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+
+      
+        &lt;img src=&quot;/assets/img/svg/actions-icon-actions.svg&quot; alt=&quot;&quot; class=&quot;ntc-icon&quot; /&gt;
+      
+
+      &lt;p class=&quot;ntc-text&quot;&gt;
+        实现从创意到生产的工作流程自动化
+      &lt;/p&gt;
+
+      &lt;div class=&quot;ntc-actions&quot;&gt;
+        &lt;a href=&quot;https://docs.github.com/cn/actions&quot; class=&quot;ntc-btn&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;
+          查看详情
+          &lt;svg class=&quot;ntc-ext&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;&gt;
+            &lt;path d=&quot;M6.75 1.75h-5v12.5h12.5v-5m0-4v-3.5h-3.5M8 8l5.5-5.5&quot;&gt;&lt;/path&gt;
+          &lt;/svg&gt;
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+
+&lt;!-- 分类与标签折叠面板 --&gt;
+&lt;div class=&quot;hidden-print ntc-meta&quot;&gt;
+  
+  &lt;div class=&quot;post-meta&quot;&gt;
+    &lt;details open&gt;
+      &lt;summary&gt;
+        &lt;span class=&quot;summary-title&quot;&gt;本文分类&lt;/span&gt;
+      &lt;/summary&gt;
+      &lt;div class=&quot;ntc-meta-content&quot;&gt;
         
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; BLOG
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;78&lt;/span&gt;
-        &lt;/p&gt;
+          
+          &lt;div class=&quot;ntc-meta-item&quot;&gt;
+            &lt;span&gt;&lt;i class=&quot;far fa-folder fa-fw mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; &lt;a href=&quot;/blog/&quot;&gt;blog&lt;/a&gt;&lt;/span&gt;
+          &lt;/div&gt;
+          
         
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; TOP
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;5&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; 笔记
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;14&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; 渗透
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;3&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; ANDROID REVERSE
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;2&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; HOOK
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; FRIDA
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; 漏洞复现
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;6&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; VULNHUB
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; MAVEN
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; 代码审计
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; WEB
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; PYTHON
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; 运维
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;2&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; ABOUT
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;59&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; CVE
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;6&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; JAVA
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;4&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; SHIRO
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; SQL-INJECT
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; MSSQL
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; 安全工具
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; COBALT STRIKE
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; 内网渗透
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; SRC
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;2&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; 信息搜集
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; JACKSON
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; DAILY
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;4&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; PHP
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; VULNHUB
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; CTF
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; PYTHON
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
-        &lt;p&gt;
-            &lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;/i&gt; 密码学
-            &lt;span class=&quot;badge badge-theme pull-right&quot;&gt;1&lt;/span&gt;
-        &lt;/p&gt;
-        
+      &lt;/div&gt;
     &lt;/details&gt;
-&lt;/div&gt;&lt;!--class=&quot;hidden-print&quot; stop--&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  
+
+  &lt;div class=&quot;post-meta&quot;&gt;
+    &lt;details&gt;
+      &lt;summary&gt;
+        &lt;span class=&quot;summary-title&quot;&gt;所有分类与数量&lt;/span&gt;
+      &lt;/summary&gt;
+      &lt;div class=&quot;ntc-meta-content&quot;&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; BLOG&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;78&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; TOP&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;5&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; 笔记&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;14&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; 渗透&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;3&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; ANDROID REVERSE&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;2&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; HOOK&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; FRIDA&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; 漏洞复现&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;6&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; VULNHUB&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; MAVEN&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; 代码审计&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; WEB&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; PYTHON&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; 运维&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;2&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; ABOUT&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;59&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; CVE&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;6&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; JAVA&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;4&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; SHIRO&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; SQL-INJECT&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; MSSQL&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; 安全工具&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; COBALT STRIKE&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; 内网渗透&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; SRC&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;2&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; 信息搜集&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; JACKSON&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; DAILY&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;4&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; PHP&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; VULNHUB&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; CTF&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; PYTHON&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;div class=&quot;ntc-meta-item&quot;&gt;
+          &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; 密码学&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;1&lt;/span&gt;
+        &lt;/div&gt;
+        
+      &lt;/div&gt;
+    &lt;/details&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- notice style &amp; markup end --&gt;&lt;/div&gt;
     &lt;/div&gt;&lt;!--/row --&gt;
 &lt;/div&gt;&lt;!--/container --&gt;
 &lt;!-- 代码引用申明/code reference declaration:
@@ -774,8 +1074,8 @@ Error Connection reset
         <div class="blog-card-meta">
             <span class="blog-card-status-dot"></span>
             
-            <a class="blog-card-hash" href="https://github.com/Bin4xin/bin4xin.github.io/commit/4af12705" target="_blank">
-                4af1270
+            <a class="blog-card-hash" href="https://github.com/Bin4xin/bin4xin.github.io/commit/869b3494" target="_blank">
+                869b349
             </a>
         </div>
     </div>
@@ -858,8 +1158,8 @@ Error Connection reset
         <div class="blog-card-meta">
             <span class="blog-card-status-dot"></span>
             
-            <a class="blog-card-hash" href="https://github.com/Bin4xin/bin4xin.github.io/commit/4af12705" target="_blank">
-                4af1270
+            <a class="blog-card-hash" href="https://github.com/Bin4xin/bin4xin.github.io/commit/869b3494" target="_blank">
+                869b349
             </a>
         </div>
     </div>
@@ -942,8 +1242,8 @@ Error Connection reset
         <div class="blog-card-meta">
             <span class="blog-card-status-dot"></span>
             
-            <a class="blog-card-hash" href="https://github.com/Bin4xin/bin4xin.github.io/commit/4af12705" target="_blank">
-                4af1270
+            <a class="blog-card-hash" href="https://github.com/Bin4xin/bin4xin.github.io/commit/869b3494" target="_blank">
+                869b349
             </a>
         </div>
     </div>
@@ -960,326 +1260,626 @@ Error Connection reset
                 </nav>
             
         </div><!--/col-lg-9 -->
-        <div class="sticky limit-sticky flex flex-column"><!--notice start-->
+        <div class="sticky limit-sticky flex flex-column"><!-- notice style & markup start -->
+<style>
+  :root {
+    /* 降低卡片背景色的浓度，让底图透出来 */
+    --ntc-bg: rgba(255, 255, 255, 0.65);
+    --ntc-border: rgba(0, 0, 0, 0.08);
+    --ntc-text: #1f2328;
+    --ntc-text-muted: #656d76;
+    --ntc-text-dim: #8b949e;
+    --ntc-accent: #0969da;
+    --ntc-close-bg: rgba(255, 255, 255, 0.6);
+    --ntc-close-hover: rgba(255, 255, 255, 0.9);
+    --ntc-btn-bg: #0969da;
+    --ntc-btn-text: #ffffff;
+    --ntc-btn-hover: #0550ae;
+    --ntc-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.04);
+    --ntc-shadow-hover: 0 12px 28px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04);
+    --ntc-radius: 14px;
+    --ntc-meta-bg: rgba(255, 255, 255, 0.5);
+    --ntc-badge-bg: rgba(0, 0, 0, 0.06);
+    --ntc-badge-text: #57606a;
+  }
 
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ntc-bg: rgba(22, 27, 34, 0.65);
+      --ntc-border: rgba(255, 255, 255, 0.12);
+      --ntc-text: #f0f6fc;
+      --ntc-text-muted: #8b949e;
+      --ntc-text-dim: #6e7681;
+      --ntc-accent: #58a6ff;
+      --ntc-close-bg: rgba(22, 27, 34, 0.6);
+      --ntc-close-hover: rgba(22, 27, 34, 0.9);
+      --ntc-btn-bg: #238636;
+      --ntc-btn-text: #ffffff;
+      --ntc-btn-hover: #2ea043;
+      --ntc-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+      --ntc-shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.4);
+      --ntc-meta-bg: rgba(22, 27, 34, 0.5);
+      --ntc-badge-bg: rgba(255, 255, 255, 0.12);
+      --ntc-badge-text: #a5d6ff;
+    }
+  }
 
+  [data-theme="dark"] {
+    --ntc-bg: rgba(22, 27, 34, 0.65);
+    --ntc-border: rgba(255, 255, 255, 0.12);
+    --ntc-text: #f0f6fc;
+    --ntc-text-muted: #8b949e;
+    --ntc-text-dim: #6e7681;
+    --ntc-accent: #58a6ff;
+    --ntc-close-bg: rgba(22, 27, 34, 0.6);
+    --ntc-close-hover: rgba(22, 27, 34, 0.9);
+    --ntc-btn-bg: #238636;
+    --ntc-btn-text: #ffffff;
+    --ntc-btn-hover: #2ea043;
+    --ntc-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    --ntc-shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.4);
+    --ntc-meta-bg: rgba(22, 27, 34, 0.5);
+    --ntc-badge-bg: rgba(255, 255, 255, 0.12);
+    --ntc-badge-text: #a5d6ff;
+  }
 
+  .ntc-card {
+    position: relative;
+    border-radius: var(--ntc-radius);
+    margin-bottom: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    overflow: hidden;
+    background: var(--ntc-bg);
+    border: 1px solid var(--ntc-border);
+    box-shadow: var(--ntc-shadow);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    transition: transform 0.25s cubic-bezier(0.33, 1, 0.68, 1), box-shadow 0.25s cubic-bezier(0.33, 1, 0.68, 1);
+    z-index: 1;
+    animation: ntc-fade-in 0.4s cubic-bezier(0.33, 1, 0.68, 1) both;
+  }
 
+  .ntc-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--ntc-shadow-hover);
+  }
 
+  /* 调整背景图片属性：提升透明度、设为正常显示模式 */
+  .ntc-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    opacity: 0.3; /* 从 0.08 提高到 0.3，如果觉得太亮或太暗，可在 0.2 ~ 0.5 之间微调 */
+    mix-blend-mode: normal; /* 改为 normal，避免 overlay 把图滤掉 */
+    z-index: -1;
+  }
 
-<diva-互联网的记忆>
-<div class="js-notice">
-    <form class="Box-aricle position-relative rounded-2 mb-4 p-3 js-notice-dismiss overflow-hidden" style="z-index: 1" data-turbo="false">
-        <picture>
-            <img src="https://image.isisy.com/images/2022/09/21/1500x500.jpg" alt="" class="position-absolute top-0 left-0 width-full select-forbidden" style="pointer-events: none; z-index: -1; height: 100%; height: 100%; object-fit: cover;">
-        </picture>
-        <!--TO<DONE>:
-            Here issues is done.
-            !--- Done. issue 1. While click to close the <X button/div>, whole h5 page will refresh. I don't know why.
-            -- use <span> labels instead of <button> :-D
-            !--- Done. issue 2. By <Js function> custom_close change/add div's class to hide buttons/divs, so while have 2 or more, all will close
-            -- see `/assets/js/oh-sentry.js`
-            ~~;*(~~ :-D
-        -->
-        <div class="position-absolute p-2" style="top: 4px; right: 6px;">
-            <span id="hidden-2-click-互联网的记忆" aria-label="Close" type="submit" data-view-component="true" class="close-button color-fg-on-emphasis pointer">
-            <svg aria-hidden="true"  data-view-component="true" class="octicon octicon-x" height="16" viewBox="0 0 16 16" version="1.1" width="16">
-            <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
-            </svg></span>
-        </div>
+  .ntc-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background: var(--ntc-close-bg);
+    color: var(--ntc-text-muted);
+    cursor: pointer;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+    transition: all 0.2s ease;
+  }
 
-        <img src="https://image.isisy.com/images/2022/09/21/16dbdb3a19ceccd723a6d61f6c167c2a_400x400.jpg" alt="互联网的记忆" width="32" height="32" class="d-block select-forbidden">
-        <p class="my-3 col-7 color-fg-on-emphasis text-bold">
-            自定义了一些「经典语录」进行ZSH的显示优化配置
-        </p>
+  .ntc-close:hover {
+    background: var(--ntc-close-hover);
+    color: var(--ntc-text);
+    transform: scale(1.08);
+  }
 
-        <div class="content">
-            <p>
-                <a href="/daily/2022/Memroy-Of-Internet-FromCHN-Bybin4xin/" class="btn-primary btn btn-block" target="blank">
-                    More about 互联网的记忆
-                    <span class="DocsMarkdown--link-external-icon">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" role="img" aria-labelledby="title-9637423397128071" xmlns="http://www.w3.org/2000/svg"><title id="title-9637423397128071">External link icon</title><path d="M6.75,1.75h-5v12.5h12.5v-5m0,-4v-3.5h-3.5M8,8l5.5-5.5"></path></svg>
-                    </span>
-                </a>
-            </p>
-        </div>
-    </form>
-</div>
-</diva-互联网的记忆>
+  .ntc-close:active { 
+    transform: scale(0.92); 
+  }
 
+  .ntc-icon {
+    display: block;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    object-fit: contain;
+    user-select: none;
+  }
 
+  .ntc-text {
+    margin: 0.75rem 0 1rem;
+    max-width: 85%;
+    color: var(--ntc-text);
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.4); /* 增加微微阴影，保证背景复杂时文字依然清晰 */
+  }
 
+  [data-theme="dark"] .ntc-text {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  }
 
+  .ntc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.45rem 1rem;
+    background: var(--ntc-btn-bg);
+    color: var(--ntc-btn-text) !important;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none !important;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  }
 
+  .ntc-btn:hover {
+    background: var(--ntc-btn-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
 
-<diva-Feed-xml>
-<div class="js-notice">
-    <form class="Box-aricle position-relative rounded-2 mb-4 p-3 js-notice-dismiss overflow-hidden" style="z-index: 1" data-turbo="false">
-        <picture>
-            <img src="https://image.isisy.com/images/2022/06/27/arnold-francisca-f77Bh3inUpE-unsplash.jpg" alt="" class="position-absolute top-0 left-0 width-full select-forbidden" style="pointer-events: none; z-index: -1; height: 100%; height: 100%; object-fit: cover;">
-        </picture>
-        <!--TO<DONE>:
-            Here issues is done.
-            !--- Done. issue 1. While click to close the <X button/div>, whole h5 page will refresh. I don't know why.
-            -- use <span> labels instead of <button> :-D
-            !--- Done. issue 2. By <Js function> custom_close change/add div's class to hide buttons/divs, so while have 2 or more, all will close
-            -- see `/assets/js/oh-sentry.js`
-            ~~;*(~~ :-D
-        -->
-        <div class="position-absolute p-2" style="top: 4px; right: 6px;">
-            <span id="hidden-2-click-Feed-xml" aria-label="Close" type="submit" data-view-component="true" class="close-button color-fg-on-emphasis pointer">
-            <svg aria-hidden="true"  data-view-component="true" class="octicon octicon-x" height="16" viewBox="0 0 16 16" version="1.1" width="16">
-            <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
-            </svg></span>
-        </div>
+  .ntc-btn:active { 
+    transform: translateY(0); 
+  }
 
-        <img src="/assets/img/svg/actions-documentation.svg" alt="Feed-xml" width="32" height="32" class="d-block select-forbidden">
-        <p class="my-3 col-7 color-fg-on-emphasis text-bold">
-            将feed汇流于一处称为聚合（aggregation）
-        </p>
+  .ntc-btn .ntc-ext {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s ease;
+  }
 
-        <div class="content">
-            <p>
-                <a href="/feed.xml" class="btn-primary btn btn-block" target="blank">
-                    More about Feed.xml
-                    <span class="DocsMarkdown--link-external-icon">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" role="img" aria-labelledby="title-9637423397128071" xmlns="http://www.w3.org/2000/svg"><title id="title-9637423397128071">External link icon</title><path d="M6.75,1.75h-5v12.5h12.5v-5m0,-4v-3.5h-3.5M8,8l5.5-5.5"></path></svg>
-                    </span>
-                </a>
-            </p>
-        </div>
-    </form>
-</div>
-</diva-Feed-xml>
+  .ntc-btn:hover .ntc-ext {
+    transform: translate(2px, -2px);
+  }
 
+  /* Meta Section */
+  .ntc-meta {
+    font-size: 0.875rem;
+    margin-top: 1rem;
+  }
 
+  .ntc-meta details {
+    border: 1px solid var(--ntc-border);
+    border-radius: 10px;
+    padding: 0.6rem 0.9rem;
+    margin-bottom: 0.75rem;
+    background: var(--ntc-meta-bg);
+    backdrop-filter: blur(8px);
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
 
+  .ntc-meta summary {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--ntc-text);
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
+  .ntc-meta summary::-webkit-details-marker { display: none; }
 
+  .ntc-meta .summary-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
-<diva-Github-Action>
-<div class="js-notice">
-    <form class="Box-aricle position-relative rounded-2 mb-4 p-3 js-notice-dismiss overflow-hidden" style="z-index: 1" data-turbo="false">
-        <picture>
-            <img src="https://image.isisy.com/images/2022/06/27/bg.jpg" alt="" class="position-absolute top-0 left-0 width-full select-forbidden" style="pointer-events: none; z-index: -1; height: 100%; height: 100%; object-fit: cover;">
-        </picture>
-        <!--TO<DONE>:
-            Here issues is done.
-            !--- Done. issue 1. While click to close the <X button/div>, whole h5 page will refresh. I don't know why.
-            -- use <span> labels instead of <button> :-D
-            !--- Done. issue 2. By <Js function> custom_close change/add div's class to hide buttons/divs, so while have 2 or more, all will close
-            -- see `/assets/js/oh-sentry.js`
-            ~~;*(~~ :-D
-        -->
-        <div class="position-absolute p-2" style="top: 4px; right: 6px;">
-            <span id="hidden-2-click-Github-Action" aria-label="Close" type="submit" data-view-component="true" class="close-button color-fg-on-emphasis pointer">
-            <svg aria-hidden="true"  data-view-component="true" class="octicon octicon-x" height="16" viewBox="0 0 16 16" version="1.1" width="16">
-            <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
-            </svg></span>
-        </div>
+  .ntc-meta .summary-title::before {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid var(--ntc-text-dim);
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    transition: transform 0.2s ease;
+  }
 
-        <img src="/assets/img/svg/actions-icon-actions.svg" alt="Github-Action" width="32" height="32" class="d-block select-forbidden">
-        <p class="my-3 col-7 color-fg-on-emphasis text-bold">
-            Automate your workflow from idea to production
-        </p>
+  .ntc-meta details[open] .summary-title::before {
+    transform: rotate(90deg);
+  }
 
-        <div class="content">
-            <p>
-                <a href="https://docs.github.com/cn/actions" class="btn-primary btn btn-block" target="blank">
-                    More about Github Action
-                    <span class="DocsMarkdown--link-external-icon">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" role="img" aria-labelledby="title-9637423397128071" xmlns="http://www.w3.org/2000/svg"><title id="title-9637423397128071">External link icon</title><path d="M6.75,1.75h-5v12.5h12.5v-5m0,-4v-3.5h-3.5M8,8l5.5-5.5"></path></svg>
-                    </span>
-                </a>
-            </p>
-        </div>
-    </form>
-</div>
-</diva-Github-Action>
+  .ntc-meta-content {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--ntc-border);
+  }
 
+  .ntc-meta-item {
+    margin: 0.4rem 0;
+    color: var(--ntc-text-muted);
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-<!--notice end-->
-<!-- mark, i wanna to display a search form here maybe? Start-->
-<!-- anyway, I'll compress this. STOP-->
-<!-- search data will generate from here: bin4xin.github.io/search.json-->
-<div class="hidden-print">
-    
-    <div class="post-meta mb-3">
-        <details open>
-            <summary class="point flex justify-between">本文分类</summary>
-            
-            <p>
-                <i class="far fa-folder fa-fw mr-1"></i> <a href='/blog/'>blog</a></p>
-            
-        </details>
+  .ntc-meta-item a {
+    color: var(--ntc-accent);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .ntc-meta-item a:hover { text-decoration: underline; }
+
+  .ntc-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.15em 0.6em;
+    border-radius: 20px;
+    background: var(--ntc-badge-bg);
+    color: var(--ntc-badge-text);
+  }
+
+  /* Animations */
+  @keyframes ntc-fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .ntc-dismissing {
+    animation: ntc-slide-out 0.3s cubic-bezier(0.5, 0, 0.75, 0) forwards;
+  }
+
+  @keyframes ntc-slide-out {
+    to {
+      opacity: 0;
+      transform: translateY(-8px) scale(0.98);
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border-width: 0;
+    }
+  }
+
+  @media print {
+    .ntc-card, .ntc-meta { break-inside: avoid; }
+  }
+</style>
+
+<!-- 关闭按钮淡出交互 JS -->
+<script>
+  function dismissNotice(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.add('ntc-dismissing');
+    el.addEventListener('animationend', () => el.remove(), { once: true });
+  }
+</script>
+
+<!-- Notice Cards 循环列表 -->
+
+  
+  
+  
+  
+  
+  
+
+  <div id="note-card-互联网的记忆" class="js-notice">
+    <div class="ntc-card">
+      
+        <img src="https://image.isisy.com/images/2022/09/21/1500x500.jpg" alt="" class="ntc-bg-img" aria-hidden="true" />
+      
+
+      <button type="button" class="ntc-close" aria-label="关闭通知" onclick="dismissNotice('note-card-互联网的记忆')">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
+        </svg>
+      </button>
+
+      
+        <img src="https://image.isisy.com/images/2022/09/21/16dbdb3a19ceccd723a6d61f6c167c2a_400x400.jpg" alt="" class="ntc-icon" />
+      
+
+      <p class="ntc-text">
+        自定义了一些「经典语录」进行ZSH的显示优化配置
+      </p>
+
+      <div class="ntc-actions">
+        <a href="/daily/2022/Memroy-Of-Internet-FromCHN-Bybin4xin/" class="ntc-btn" target="_blank" rel="noopener noreferrer">
+          查看详情
+          <svg class="ntc-ext" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M6.75 1.75h-5v12.5h12.5v-5m0-4v-3.5h-3.5M8 8l5.5-5.5"></path>
+          </svg>
+        </a>
+      </div>
     </div>
-    
-    <p>
-    <details>
-        <summary class="point flex justify-between">所有标签/数量</summary>
+  </div>
+
+  
+  
+  
+  
+  
+  
+
+  <div id="note-card-Feed-xml" class="js-notice">
+    <div class="ntc-card">
+      
+        <img src="https://image.isisy.com/images/2022/06/27/arnold-francisca-f77Bh3inUpE-unsplash.jpg" alt="" class="ntc-bg-img" aria-hidden="true" />
+      
+
+      <button type="button" class="ntc-close" aria-label="关闭通知" onclick="dismissNotice('note-card-Feed-xml')">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
+        </svg>
+      </button>
+
+      
+        <img src="/assets/img/svg/actions-documentation.svg" alt="" class="ntc-icon" />
+      
+
+      <p class="ntc-text">
+        将feed汇流于一处称为聚合（aggregation）
+      </p>
+
+      <div class="ntc-actions">
+        <a href="/feed.xml" class="ntc-btn" target="_blank" rel="noopener noreferrer">
+          查看详情
+          <svg class="ntc-ext" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M6.75 1.75h-5v12.5h12.5v-5m0-4v-3.5h-3.5M8 8l5.5-5.5"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  
+  
+  
+  
+  
+  
+
+  <div id="note-card-Github-Action" class="js-notice">
+    <div class="ntc-card">
+      
+        <img src="https://image.isisy.com/images/2022/06/27/bg.jpg" alt="" class="ntc-bg-img" aria-hidden="true" />
+      
+
+      <button type="button" class="ntc-close" aria-label="关闭通知" onclick="dismissNotice('note-card-Github-Action')">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
+        </svg>
+      </button>
+
+      
+        <img src="/assets/img/svg/actions-icon-actions.svg" alt="" class="ntc-icon" />
+      
+
+      <p class="ntc-text">
+        实现从创意到生产的工作流程自动化
+      </p>
+
+      <div class="ntc-actions">
+        <a href="https://docs.github.com/cn/actions" class="ntc-btn" target="_blank" rel="noopener noreferrer">
+          查看详情
+          <svg class="ntc-ext" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M6.75 1.75h-5v12.5h12.5v-5m0-4v-3.5h-3.5M8 8l5.5-5.5"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+
+<!-- 分类与标签折叠面板 -->
+<div class="hidden-print ntc-meta">
+  
+  <div class="post-meta">
+    <details open>
+      <summary>
+        <span class="summary-title">本文分类</span>
+      </summary>
+      <div class="ntc-meta-content">
         
-        <p>
-            <i class="fa fa-angle-right"></i> BLOG
-            <span class="badge badge-theme pull-right">78</span>
-        </p>
+          
+          <div class="ntc-meta-item">
+            <span><i class="far fa-folder fa-fw mr-1" aria-hidden="true"></i> <a href="/blog/">blog</a></span>
+          </div>
+          
         
-        <p>
-            <i class="fa fa-angle-right"></i> TOP
-            <span class="badge badge-theme pull-right">5</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> 笔记
-            <span class="badge badge-theme pull-right">14</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> 渗透
-            <span class="badge badge-theme pull-right">3</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> ANDROID REVERSE
-            <span class="badge badge-theme pull-right">2</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> HOOK
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> FRIDA
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> 漏洞复现
-            <span class="badge badge-theme pull-right">6</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> VULNHUB
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> MAVEN
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> 代码审计
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> WEB
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> PYTHON
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> 运维
-            <span class="badge badge-theme pull-right">2</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> ABOUT
-            <span class="badge badge-theme pull-right">59</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> CVE
-            <span class="badge badge-theme pull-right">6</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> JAVA
-            <span class="badge badge-theme pull-right">4</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> SHIRO
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> SQL-INJECT
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> MSSQL
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> 安全工具
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> COBALT STRIKE
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> 内网渗透
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> SRC
-            <span class="badge badge-theme pull-right">2</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> 信息搜集
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> JACKSON
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> DAILY
-            <span class="badge badge-theme pull-right">4</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> PHP
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> VULNHUB
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> CTF
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> PYTHON
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
-        <p>
-            <i class="fa fa-angle-right"></i> 密码学
-            <span class="badge badge-theme pull-right">1</span>
-        </p>
-        
+      </div>
     </details>
-</div><!--class="hidden-print" stop--></div>
+  </div>
+  
+
+  <div class="post-meta">
+    <details>
+      <summary>
+        <span class="summary-title">所有分类与数量</span>
+      </summary>
+      <div class="ntc-meta-content">
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> BLOG</span>
+          <span class="ntc-badge">78</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> TOP</span>
+          <span class="ntc-badge">5</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> 笔记</span>
+          <span class="ntc-badge">14</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> 渗透</span>
+          <span class="ntc-badge">3</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> ANDROID REVERSE</span>
+          <span class="ntc-badge">2</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> HOOK</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> FRIDA</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> 漏洞复现</span>
+          <span class="ntc-badge">6</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> VULNHUB</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> MAVEN</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> 代码审计</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> WEB</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> PYTHON</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> 运维</span>
+          <span class="ntc-badge">2</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> ABOUT</span>
+          <span class="ntc-badge">59</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> CVE</span>
+          <span class="ntc-badge">6</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> JAVA</span>
+          <span class="ntc-badge">4</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> SHIRO</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> SQL-INJECT</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> MSSQL</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> 安全工具</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> COBALT STRIKE</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> 内网渗透</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> SRC</span>
+          <span class="ntc-badge">2</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> 信息搜集</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> JACKSON</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> DAILY</span>
+          <span class="ntc-badge">4</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> PHP</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> VULNHUB</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> CTF</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> PYTHON</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+        <div class="ntc-meta-item">
+          <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> 密码学</span>
+          <span class="ntc-badge">1</span>
+        </div>
+        
+      </div>
+    </details>
+  </div>
+</div>
+<!-- notice style & markup end --></div>
     </div><!--/row -->
 </div><!--/container -->
 <!-- 代码引用申明/code reference declaration:
@@ -1288,17 +1888,146 @@ Error Connection reset
     - {@link https://github.com/orgs/github-community/discussions/categories/github-education}
     - {@link https://github.githubassets.com/assets/github-4b5f4883df19.css}
 -->
-                <!-- 代码引用申明/code reference declaration:
-#############################################################################
-## code from cloudflare. visit footer in https://www.cloudflare.com/zh-cn/ ##
-#############################################################################
--->
-
-<div id="footerwrap" class="hidden-print">
-    <div class="footer-container">
-        <div class="pt3 pt3-ns pt3-m pt7-l pb0 pb0-ns pb0-m pb5-l">
-            <div class="footer-row">
-                
+                <!-- footer style & markup start -->
+<style>
+    :root {
+      --ftr-bg: rgba(255, 255, 255, 0.75);
+      --ftr-border: rgba(0, 0, 0, 0.08);
+      --ftr-text: #656d76;
+      --ftr-text-hover: #0969da;
+      --ftr-tertiary-bg: rgba(0, 0, 0, 0.02);
+      --ftr-tertiary-text: #8b949e;
+    }
+  
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ftr-bg: rgba(22, 27, 34, 0.75);
+        --ftr-border: rgba(255, 255, 255, 0.08);
+        --ftr-text: #8b949e;
+        --ftr-text-hover: #58a6ff;
+        --ftr-tertiary-bg: rgba(0, 0, 0, 0.2);
+        --ftr-tertiary-text: #6e7681;
+      }
+    }
+  
+    [data-theme="dark"] {
+      --ftr-bg: rgba(22, 27, 34, 0.75);
+      --ftr-border: rgba(255, 255, 255, 0.08);
+      --ftr-text: #8b949e;
+      --ftr-text-hover: #58a6ff;
+      --ftr-tertiary-bg: rgba(0, 0, 0, 0.2);
+      --ftr-tertiary-text: #6e7681;
+    }
+  
+    #footerwrap {
+      margin-top: 3rem;
+      border-top: 1px solid var(--ftr-border);
+      background: var(--ftr-bg);
+      backdrop-filter: blur(12px) saturate(1.2);
+      -webkit-backdrop-filter: blur(12px) saturate(1.2);
+      color: var(--ftr-text);
+      font-size: 0.875rem;
+      transition: all 0.25s ease;
+    }
+  
+    .ftr-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 1.5rem;
+    }
+  
+    .ftr-main-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+  
+    .ftr-counter-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 1.25rem;
+      border-top: 1px dashed var(--ftr-border);
+    }
+  
+    /* 底部版权与 Brand 栏 */
+    .ftr-tertiary {
+      background: var(--ftr-tertiary-bg);
+      border-top: 1px solid var(--ftr-border);
+      padding: 0.85rem 1.5rem;
+    }
+  
+    .ftr-tertiary-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .ftr-nav-list {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+  
+    .ftr-nav-list li {
+      display: inline-flex;
+      align-items: center;
+    }
+  
+    .ftr-nav-list li:not(:last-child)::after {
+      content: "•";
+      margin-left: 1.25rem;
+      color: var(--ftr-tertiary-text);
+      opacity: 0.5;
+    }
+  
+    .ftr-nav-list a, 
+    .ftr-nav-list span {
+      color: var(--ftr-tertiary-text);
+      font-weight: 500;
+      font-size: 0.825rem;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+  
+    .ftr-nav-list a:hover {
+      color: var(--ftr-text-hover);
+    }
+  
+    @media (max-width: 640px) {
+      .ftr-container {
+        padding: 1.5rem 1rem 1rem;
+      }
+  
+      .ftr-nav-list {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+  
+      .ftr-nav-list li:not(:last-child)::after {
+        display: none;
+      }
+    }
+  
+    @media print {
+      #footerwrap { display: none !important; }
+    }
+  </style>
+  
+  <div id="footerwrap" class="hidden-print">
+    <div class="ftr-container">
+      <!-- 主链接与内容展示区 -->
+      <div class="ftr-main-row">
+        
 <div class="footer-col-lg-2">
     <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
         <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
@@ -1372,6 +2101,12 @@ Error Connection reset
             
             <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="https://github.com/Bin4xin/bin4xin.github.io/wiki" target="_blank">WIKI</a></li>
             
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/usage/" target="_blank">帮助</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/privacy/" target="_blank">隐私</a></li>
+            
+            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/privacy/#cookie" target="_blank">Cookie偏好</a></li>
+            
             
         </ul>
     </details>
@@ -1395,28 +2130,11 @@ Error Connection reset
     </details>
 </div>
 
-<div class="footer-col-lg-2">
-    <details class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l" open>
-        <summary class="fw6 mt0 flex justify-between mb0 mb0-ns mb0-m mb1-l lh-copy f2 f2-ns f2-m f3-l ">
-            <span class="footer-abstract point"><strong>其他</strong></span>
-        </summary>
-        <ul class="db db-ns db-m db-l ma0 pa0 mt2 mt2-ns mt2-m mt0-l list">
-            
-            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/usage/" target="_blank">帮助</a></li>
-            
-            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/privacy/" target="_blank">隐私</a></li>
-            
-            <li class="mt1 lh-6 "><a class="dotted-underline no-underline f2 fw4 footer-abstract" href="/privacy/#cookie" target="_blank">Cookie偏好</a></li>
-            
-            
-        </ul>
-    </details>
-</div>
-
-            </div><!-- "/row"-->
-            <div class="pv2-ns">
-                <div class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l flex footer-bottom-row-margin">
-                    <!--
+      </div>
+  
+      <!-- 计数器/统计组件区 -->
+      <div class="ftr-counter-row">
+        <!--
    - FlipClock design
    -    @link { https://github.com/objectivehtml/FlipClock }
 -->
@@ -1448,22 +2166,26 @@ Error Connection reset
     <div id="Bilibili"><a class="lh-1 dib mr2" title="Bilibili" target="_blank" rel="noopener" href="https://space.bilibili.com/67373868"></a></div>
     
 </div>
-                </div>
-            </div><!-- "/pv5" -->
-        </div>
+      </div>
     </div>
-    <div class="tertiary d-flex">
-        <div class="wrapper">
-            <div class="col justify-center flex-wrap-l d-flex justify-content-center">
-                <ul class="pa1 table-of-contents flex-xl-justify-between flex-xl-column">
-                    <li class="outstanding"><a>© 2019-2026 </a></li>
-                    <li class="outstanding"><a>SENTINEL SECURITY, LAB</a></li>
-                    </li>
-                </ul>
-            </div>
-        </div>
+  
+    <!-- 底部版权/品牌栏 -->
+    <div class="ftr-tertiary">
+      <div class="ftr-tertiary-inner">
+        <ul class="ftr-nav-list">
+          <li>
+            <span>© 2019-2026 </span>
+          </li>
+          
+          <li>
+            <span>SENTINEL SECURITY, LAB</span>
+          </li>
+          
+        </ul>
+      </div>
     </div>
-</div><!--/footerwrap -->
+  </div>
+  <!-- footer style & markup end -->
 
     </body>
 
