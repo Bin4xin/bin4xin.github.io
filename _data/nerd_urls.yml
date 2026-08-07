@@ -43,8 +43,12 @@
       link: /blog/
     - name: WIKI
       link: https://github.com/Bin4xin/bin4xin.github.io/wiki
-    #- name: 国内镜像
-    #  link: https://bin4xin.gitee.io/
+    - name: 帮助
+      link: /usage/
+    - name: 隐私
+      link: /privacy/
+    - name: Cookie偏好
+      link: /privacy/#cookie
 
 - name: 贡献者
   meta: false
@@ -57,12 +61,3 @@
       link: https://github.com/Yang2635
 # source:: visit::
 # http://mib.cc/blog/2014/2014-06-29-using-jekyll-data-files.html
-- name: 其他
-  meta: false
-  data:
-    - name: 帮助
-      link: /usage/
-    - name: 隐私
-      link: /privacy/
-    - name: Cookie偏好
-      link: /privacy/#cookie

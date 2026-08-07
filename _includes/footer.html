@@ -1,31 +1,165 @@
-<!-- 代码引用申明/code reference declaration:
-#############################################################################
-## code from cloudflare. visit footer in https://www.cloudflare.com/zh-cn/ ##
-#############################################################################
--->
-
-<div id="footerwrap" class="hidden-print">
-    <div class="footer-container">
-        <div class="pt3 pt3-ns pt3-m pt7-l pb0 pb0-ns pb0-m pb5-l">
-            <div class="footer-row">
-                {% include data_links.html nodes=site.data.nerd_urls %}
-            </div><!-- "/row"-->
-            <div class="pv2-ns">
-                <div class="bb bb-ns bb-m bn-l b--white pv2 pv2-ns pv2-m pv0-l flex footer-bottom-row-margin">
-                    {% include extensions/counter.html %}
-                </div>
-            </div><!-- "/pv5" -->
-        </div>
+<!-- footer style & markup start -->
+<style>
+    :root {
+      --ftr-bg: rgba(255, 255, 255, 0.75);
+      --ftr-border: rgba(0, 0, 0, 0.08);
+      --ftr-text: #656d76;
+      --ftr-text-hover: #0969da;
+      --ftr-tertiary-bg: rgba(0, 0, 0, 0.02);
+      --ftr-tertiary-text: #8b949e;
+    }
+  
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ftr-bg: rgba(22, 27, 34, 0.75);
+        --ftr-border: rgba(255, 255, 255, 0.08);
+        --ftr-text: #8b949e;
+        --ftr-text-hover: #58a6ff;
+        --ftr-tertiary-bg: rgba(0, 0, 0, 0.2);
+        --ftr-tertiary-text: #6e7681;
+      }
+    }
+  
+    [data-theme="dark"] {
+      --ftr-bg: rgba(22, 27, 34, 0.75);
+      --ftr-border: rgba(255, 255, 255, 0.08);
+      --ftr-text: #8b949e;
+      --ftr-text-hover: #58a6ff;
+      --ftr-tertiary-bg: rgba(0, 0, 0, 0.2);
+      --ftr-tertiary-text: #6e7681;
+    }
+  
+    #footerwrap {
+      margin-top: 3rem;
+      border-top: 1px solid var(--ftr-border);
+      background: var(--ftr-bg);
+      backdrop-filter: blur(12px) saturate(1.2);
+      -webkit-backdrop-filter: blur(12px) saturate(1.2);
+      color: var(--ftr-text);
+      font-size: 0.875rem;
+      transition: all 0.25s ease;
+    }
+  
+    .ftr-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 1.5rem;
+    }
+  
+    .ftr-main-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+  
+    .ftr-counter-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-top: 1.25rem;
+      border-top: 1px dashed var(--ftr-border);
+    }
+  
+    /* 底部版权与 Brand 栏 */
+    .ftr-tertiary {
+      background: var(--ftr-tertiary-bg);
+      border-top: 1px solid var(--ftr-border);
+      padding: 0.85rem 1.5rem;
+    }
+  
+    .ftr-tertiary-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .ftr-nav-list {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+  
+    .ftr-nav-list li {
+      display: inline-flex;
+      align-items: center;
+    }
+  
+    .ftr-nav-list li:not(:last-child)::after {
+      content: "•";
+      margin-left: 1.25rem;
+      color: var(--ftr-tertiary-text);
+      opacity: 0.5;
+    }
+  
+    .ftr-nav-list a, 
+    .ftr-nav-list span {
+      color: var(--ftr-tertiary-text);
+      font-weight: 500;
+      font-size: 0.825rem;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+  
+    .ftr-nav-list a:hover {
+      color: var(--ftr-text-hover);
+    }
+  
+    @media (max-width: 640px) {
+      .ftr-container {
+        padding: 1.5rem 1rem 1rem;
+      }
+  
+      .ftr-nav-list {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+  
+      .ftr-nav-list li:not(:last-child)::after {
+        display: none;
+      }
+    }
+  
+    @media print {
+      #footerwrap { display: none !important; }
+    }
+  </style>
+  
+  <div id="footerwrap" class="hidden-print">
+    <div class="ftr-container">
+      <!-- 主链接与内容展示区 -->
+      <div class="ftr-main-row">
+        {% include data_links.html nodes=site.data.nerd_urls %}
+      </div>
+  
+      <!-- 计数器/统计组件区 -->
+      <div class="ftr-counter-row">
+        {% include extensions/counter.html %}
+      </div>
     </div>
-    <div class="tertiary d-flex">
-        <div class="wrapper">
-            <div class="col justify-center flex-wrap-l d-flex justify-content-center">
-                <ul class="pa1 table-of-contents flex-xl-justify-between flex-xl-column">
-                    <li class="outstanding"><a>© 2019-{{ site.time | date: '%Y' }} {{site.root | upcase}}</a></li>
-                    <li class="outstanding"><a>{{ site.brand }}</a></li>
-                    </li>
-                </ul>
-            </div>
-        </div>
+  
+    <!-- 底部版权/品牌栏 -->
+    <div class="ftr-tertiary">
+      <div class="ftr-tertiary-inner">
+        <ul class="ftr-nav-list">
+          <li>
+            <span>© 2019-{{ site.time | date: '%Y' }} {{ site.root | upcase }}</span>
+          </li>
+          {% if site.brand %}
+          <li>
+            <span>{{ site.brand }}</span>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
     </div>
-</div><!--/footerwrap -->
+  </div>
+  <!-- footer style & markup end -->

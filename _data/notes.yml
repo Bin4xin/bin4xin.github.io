@@ -9,7 +9,7 @@
   svg_link: "/assets/img/svg/actions-documentation.svg"
   display_bg_link: "https://image.isisy.com/images/2022/06/27/arnold-francisca-f77Bh3inUpE-unsplash.jpg"
 - note_node: "Github Action"
-  display_note: "Automate your workflow from idea to production"
+  display_note: "实现从创意到生产的工作流程自动化"
   display_link: "https://docs.github.com/cn/actions"
   svg_link: "/assets/img/svg/actions-icon-actions.svg"
   display_bg_link: "https://image.isisy.com/images/2022/06/27/bg.jpg"
