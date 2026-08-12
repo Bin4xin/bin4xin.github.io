@@ -7,14 +7,33 @@
     <link>https://bin4xin.github.io</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
     <pubDate>
-         2026/08/11
+         2026/08/12
         
     </pubDate>
     <lastBuildDate>
-         2026/08/11
+         2026/08/12
         
     </lastBuildDate>
     <generator>Jekyll Ver 3.9.5.</generator>
+    
+      <item>
+        <title>blog: Burp Suite 2026.7.3 for macOS 10.15.7/Catalina</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2026/08/8
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/blog/2026/Burp-Suite-macOS-Catalina-install-setup-walkthrough/</link>
+        <guid isPermaLink="true">/blog/2026/Burp-Suite-macOS-Catalina-install-setup-walkthrough/</guid>
+        
+        <category>JAVA</category>
+        
+        <category>steghide</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
     
       <item>
         <title>about: Introduction To Devsecops Security Toolchain Solutions</title>

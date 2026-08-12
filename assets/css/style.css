@@ -4130,21 +4130,28 @@ devsite-header .devsite-collapsible-section, devsite-header[no-lower-row][fixed]
   width: 32px;
   height: 32px; }
 
-/* 优化代码块显示效果 */
-.highlight, pre {
-  color: #24292e !important;
-  border-radius: 8px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
-  padding: 1.2em 1em;
-  font-size: 15px;
-  overflow-x: auto;
+/* 统一代码字体设置 */
+.highlight,
+pre,
+code {
+  font-family: 'Fira Mono', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace !important; }
+
+/* 代码块基础排版与过渡动画 */
+.highlight,
+pre {
   position: relative;
+  padding: 1.2em 1em;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #24292e !important;
+  overflow-x: auto;
   transition: background 0.3s, color 0.3s; }
 
+/* 深色模式适配 */
 @media (prefers-color-scheme: dark) {
-  .highlight, pre {
-    color: #e6e6e6 !important;
-    box-shadow: 0 6px 32px rgba(0, 0, 0, 0.28); } }
+  .highlight,
+  pre {
+    color: #e6e6e6 !important; } }
 /* 分页美化 */
 nav.pagination {
   display: flex;
@@ -4206,6 +4213,3 @@ nav.pagination span {
 
 body, .post-content, .article-content {
   font-family: 'Lato', 'Hiragino Sans GB', 'Source Han Sans SC', 'Source Han Sans CN', 'Noto Sans CJK SC', 'WenQuanYi Zen Hei', 'WenQuanYi Micro Hei', '微软雅黑', sans-serif; }
-
-.highlight, pre, code {
-  font-family: 'Fira Mono', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace !important; }

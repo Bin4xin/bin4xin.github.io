@@ -32,6 +32,94 @@
                     
                     &lt;div class=&quot;blog-card&quot;&gt;
     &lt;div class=&quot;blog-card-header&quot;&gt;
+        &lt;a class=&quot;blog-card-title&quot; href=&quot;/blog/2022/Industrial-Internet-CTF-2022/&quot;&gt;
+            Industrial Internet CTF 2022 walkthrough
+        &lt;/a&gt;
+        &lt;div class=&quot;blog-card-actions&quot;&gt;
+            &lt;a class=&quot;blog-card-action-btn&quot; href=&quot;/blog/2022/Industrial-Internet-CTF-2022/&quot; title=&quot;阅读全文&quot;&gt;
+                &lt;svg viewBox=&quot;0 0 16 16&quot; width=&quot;14&quot; height=&quot;14&quot; fill=&quot;currentColor&quot;&gt;&lt;path d=&quot;M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z&quot;/&gt;&lt;/svg&gt;
+            &lt;/a&gt;
+            
+            &lt;a class=&quot;blog-card-action-btn&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/blog/2022-09-25-Industrial-Internet-CTF-2022.md&quot; target=&quot;_blank&quot; title=&quot;编辑此页&quot;&gt;
+                &lt;svg viewBox=&quot;0 0 16 16&quot; width=&quot;14&quot; height=&quot;14&quot; fill=&quot;currentColor&quot;&gt;&lt;path d=&quot;M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Z&quot;/&gt;&lt;/svg&gt;
+            &lt;/a&gt;
+            
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    
+    &lt;div class=&quot;blog-card-body&quot;&gt;
+        &lt;p class=&quot;blog-card-excerpt&quot;&gt;
+            
+  2022 工业互联网 CTF 一道WEB；
+
+
+# 0x01、考点
+
+
+  file_get_content fuzzing内容文件读取；
+  $_GET型include_once本地文件包含。
+
+
+# 1x01、绕过
+
+给出的url主页面有一个链接指向到read.php?Book=ZGRsLnR4dA==，是ddl.txtBase64编码，尝试了一些Linux下的绝对路径文件Base64 payload
+
+页面提示回显book/Base64 payload不存在...
+        &lt;/p&gt;
+    &lt;/div&gt;
+    
+
+    &lt;div class=&quot;blog-card-footer&quot;&gt;
+        &lt;div class=&quot;blog-card-meta&quot;&gt;
+            &lt;span class=&quot;blog-card-author&quot;&gt;
+                
+&lt;img alt=&quot;Bin4xin&quot; src=&quot;https://avatars.githubusercontent.com/u/57884471?v=4&quot;/&gt;
+            &lt;/span&gt;
+            &lt;!--article author end--&gt;
+
+
+
+
+
+
+
+
+&lt;span class=&quot;ymh-author-badge&quot;&gt;
+    &lt;a class=&quot;ymh-author-link&quot; href=&quot;https://github.com/Bin4xin&quot; target=&quot;_blank&quot;&gt;
+        &lt;span class=&quot;ymh-author-avatar&quot;&gt;B&lt;/span&gt;
+        Bin4xin
+    &lt;/a&gt;
+
+    
+
+    
+    
+    
+    
+    
+
+    &lt;span class=&quot;ymh-time-badge&quot;&gt;
+        
+            Mar 7, 54701
+        
+    &lt;/span&gt;
+&lt;/span&gt;
+
+        &lt;/div&gt;
+        &lt;div class=&quot;blog-card-meta&quot;&gt;
+            &lt;span class=&quot;blog-card-status-dot&quot;&gt;&lt;/span&gt;
+            
+            &lt;a class=&quot;blog-card-hash&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/c7bab4ba&quot; target=&quot;_blank&quot;&gt;
+                c7bab4b
+            &lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                
+                    
+                    &lt;div class=&quot;blog-card&quot;&gt;
+    &lt;div class=&quot;blog-card-header&quot;&gt;
         &lt;a class=&quot;blog-card-title&quot; href=&quot;/blog/2022/mongoDB-unauth-pentest-walkthrough/&quot;&gt;
             未授权MongoDB：鸿门宴？
         &lt;/a&gt;
@@ -108,8 +196,8 @@ fake mysqlD
         &lt;div class=&quot;blog-card-meta&quot;&gt;
             &lt;span class=&quot;blog-card-status-dot&quot;&gt;&lt;/span&gt;
             
-            &lt;a class=&quot;blog-card-hash&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/869b3494&quot; target=&quot;_blank&quot;&gt;
-                869b349
+            &lt;a class=&quot;blog-card-hash&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/c7bab4ba&quot; target=&quot;_blank&quot;&gt;
+                c7bab4b
             &lt;/a&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -217,92 +305,8 @@ on:
         &lt;div class=&quot;blog-card-meta&quot;&gt;
             &lt;span class=&quot;blog-card-status-dot&quot;&gt;&lt;/span&gt;
             
-            &lt;a class=&quot;blog-card-hash&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/869b3494&quot; target=&quot;_blank&quot;&gt;
-                869b349
-            &lt;/a&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-                
-                    
-                    &lt;div class=&quot;blog-card&quot;&gt;
-    &lt;div class=&quot;blog-card-header&quot;&gt;
-        &lt;a class=&quot;blog-card-title&quot; href=&quot;/blog/2021/memorandum-todo/&quot;&gt;
-            备忘录
-        &lt;/a&gt;
-        &lt;div class=&quot;blog-card-actions&quot;&gt;
-            &lt;a class=&quot;blog-card-action-btn&quot; href=&quot;/blog/2021/memorandum-todo/&quot; title=&quot;阅读全文&quot;&gt;
-                &lt;svg viewBox=&quot;0 0 16 16&quot; width=&quot;14&quot; height=&quot;14&quot; fill=&quot;currentColor&quot;&gt;&lt;path d=&quot;M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z&quot;/&gt;&lt;/svg&gt;
-            &lt;/a&gt;
-            
-            &lt;a class=&quot;blog-card-action-btn&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/blog/2021-10-26-memorandum-todo.md&quot; target=&quot;_blank&quot; title=&quot;编辑此页&quot;&gt;
-                &lt;svg viewBox=&quot;0 0 16 16&quot; width=&quot;14&quot; height=&quot;14&quot; fill=&quot;currentColor&quot;&gt;&lt;path d=&quot;M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Z&quot;/&gt;&lt;/svg&gt;
-            &lt;/a&gt;
-            
-        &lt;/div&gt;
-    &lt;/div&gt;
-
-    
-    &lt;div class=&quot;blog-card-body&quot;&gt;
-        &lt;p class=&quot;blog-card-excerpt&quot;&gt;
-            博客的自动化同步问题
-
-当前重中之重在与对于博客的自动化同步问题的解决，那么自然需要对当下博客同步进行分析；
-
-当下同步流程问题
-
-
-  B4xinSynchronize同步对应仓库
-    
-      bin4xin.github.io  =&amp;gt;git push&amp;gt; www.domain.com
-      bin4xin.gitee.io   =&amp;gt;git push&amp;gt; about.domain.com
-      domain-www-cn   ...
-        &lt;/p&gt;
-    &lt;/div&gt;
-    
-
-    &lt;div class=&quot;blog-card-footer&quot;&gt;
-        &lt;div class=&quot;blog-card-meta&quot;&gt;
-            &lt;span class=&quot;blog-card-author&quot;&gt;
-                
-&lt;img alt=&quot;Bin4xin&quot; src=&quot;https://avatars.githubusercontent.com/u/57884471?v=4&quot;/&gt;
-            &lt;/span&gt;
-            &lt;!--article author end--&gt;
-
-
-
-
-
-
-
-
-&lt;span class=&quot;ymh-author-badge&quot;&gt;
-    &lt;a class=&quot;ymh-author-link&quot; href=&quot;https://github.com/Bin4xin&quot; target=&quot;_blank&quot;&gt;
-        &lt;span class=&quot;ymh-author-avatar&quot;&gt;B&lt;/span&gt;
-        Bin4xin
-    &lt;/a&gt;
-
-    
-
-    
-    
-    
-    
-    
-
-    &lt;span class=&quot;ymh-time-badge&quot;&gt;
-        
-            Sep 19, 53786
-        
-    &lt;/span&gt;
-&lt;/span&gt;
-
-        &lt;/div&gt;
-        &lt;div class=&quot;blog-card-meta&quot;&gt;
-            &lt;span class=&quot;blog-card-status-dot&quot;&gt;&lt;/span&gt;
-            
-            &lt;a class=&quot;blog-card-hash&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/869b3494&quot; target=&quot;_blank&quot;&gt;
-                869b349
+            &lt;a class=&quot;blog-card-hash&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/c7bab4ba&quot; target=&quot;_blank&quot;&gt;
+                c7bab4b
             &lt;/a&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -312,7 +316,7 @@ on:
                     
                         &lt;a href=&quot;/blog/page/7/&quot; class=&quot;btn btn-primary&quot;&gt;上一页&lt;/a&gt;
                     
-                    &lt;span&gt;第 8 页 / 共 26 页&lt;/span&gt;
+                    &lt;span&gt;第 8 页 / 共 27 页&lt;/span&gt;
                     
                         &lt;a href=&quot;/blog/page/9/&quot; class=&quot;btn btn-primary&quot;&gt;下一页&lt;/a&gt;
                     
@@ -776,7 +780,7 @@ on:
         
         &lt;div class=&quot;ntc-meta-item&quot;&gt;
           &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; BLOG&lt;/span&gt;
-          &lt;span class=&quot;ntc-badge&quot;&gt;78&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;79&lt;/span&gt;
         &lt;/div&gt;
         
         &lt;div class=&quot;ntc-meta-item&quot;&gt;
@@ -1015,6 +1019,94 @@ on:
                     
                     <div class="blog-card">
     <div class="blog-card-header">
+        <a class="blog-card-title" href="/blog/2022/Industrial-Internet-CTF-2022/">
+            Industrial Internet CTF 2022 walkthrough
+        </a>
+        <div class="blog-card-actions">
+            <a class="blog-card-action-btn" href="/blog/2022/Industrial-Internet-CTF-2022/" title="阅读全文">
+                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/></svg>
+            </a>
+            
+            <a class="blog-card-action-btn" href="https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/blog/2022-09-25-Industrial-Internet-CTF-2022.md" target="_blank" title="编辑此页">
+                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Z"/></svg>
+            </a>
+            
+        </div>
+    </div>
+
+    
+    <div class="blog-card-body">
+        <p class="blog-card-excerpt">
+            
+  2022 工业互联网 CTF 一道WEB；
+
+
+# 0x01、考点
+
+
+  file_get_content fuzzing内容文件读取；
+  $_GET型include_once本地文件包含。
+
+
+# 1x01、绕过
+
+给出的url主页面有一个链接指向到read.php?Book=ZGRsLnR4dA==，是ddl.txtBase64编码，尝试了一些Linux下的绝对路径文件Base64 payload
+
+页面提示回显book/Base64 payload不存在...
+        </p>
+    </div>
+    
+
+    <div class="blog-card-footer">
+        <div class="blog-card-meta">
+            <span class="blog-card-author">
+                
+<img alt="Bin4xin" src="https://avatars.githubusercontent.com/u/57884471?v=4"/>
+            </span>
+            <!--article author end-->
+
+
+
+
+
+
+
+
+<span class="ymh-author-badge">
+    <a class="ymh-author-link" href="https://github.com/Bin4xin" target="_blank">
+        <span class="ymh-author-avatar">B</span>
+        Bin4xin
+    </a>
+
+    
+
+    
+    
+    
+    
+    
+
+    <span class="ymh-time-badge">
+        
+            Mar 7, 54701
+        
+    </span>
+</span>
+
+        </div>
+        <div class="blog-card-meta">
+            <span class="blog-card-status-dot"></span>
+            
+            <a class="blog-card-hash" href="https://github.com/Bin4xin/bin4xin.github.io/commit/c7bab4ba" target="_blank">
+                c7bab4b
+            </a>
+        </div>
+    </div>
+</div>
+                
+                    
+                    <div class="blog-card">
+    <div class="blog-card-header">
         <a class="blog-card-title" href="/blog/2022/mongoDB-unauth-pentest-walkthrough/">
             未授权MongoDB：鸿门宴？
         </a>
@@ -1091,8 +1183,8 @@ fake mysqlD
         <div class="blog-card-meta">
             <span class="blog-card-status-dot"></span>
             
-            <a class="blog-card-hash" href="https://github.com/Bin4xin/bin4xin.github.io/commit/869b3494" target="_blank">
-                869b349
+            <a class="blog-card-hash" href="https://github.com/Bin4xin/bin4xin.github.io/commit/c7bab4ba" target="_blank">
+                c7bab4b
             </a>
         </div>
     </div>
@@ -1200,92 +1292,8 @@ on:
         <div class="blog-card-meta">
             <span class="blog-card-status-dot"></span>
             
-            <a class="blog-card-hash" href="https://github.com/Bin4xin/bin4xin.github.io/commit/869b3494" target="_blank">
-                869b349
-            </a>
-        </div>
-    </div>
-</div>
-                
-                    
-                    <div class="blog-card">
-    <div class="blog-card-header">
-        <a class="blog-card-title" href="/blog/2021/memorandum-todo/">
-            备忘录
-        </a>
-        <div class="blog-card-actions">
-            <a class="blog-card-action-btn" href="/blog/2021/memorandum-todo/" title="阅读全文">
-                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/></svg>
-            </a>
-            
-            <a class="blog-card-action-btn" href="https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/blog/2021-10-26-memorandum-todo.md" target="_blank" title="编辑此页">
-                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Z"/></svg>
-            </a>
-            
-        </div>
-    </div>
-
-    
-    <div class="blog-card-body">
-        <p class="blog-card-excerpt">
-            博客的自动化同步问题
-
-当前重中之重在与对于博客的自动化同步问题的解决，那么自然需要对当下博客同步进行分析；
-
-当下同步流程问题
-
-
-  B4xinSynchronize同步对应仓库
-    
-      bin4xin.github.io  =&gt;git push&gt; www.domain.com
-      bin4xin.gitee.io   =&gt;git push&gt; about.domain.com
-      domain-www-cn   ...
-        </p>
-    </div>
-    
-
-    <div class="blog-card-footer">
-        <div class="blog-card-meta">
-            <span class="blog-card-author">
-                
-<img alt="Bin4xin" src="https://avatars.githubusercontent.com/u/57884471?v=4"/>
-            </span>
-            <!--article author end-->
-
-
-
-
-
-
-
-
-<span class="ymh-author-badge">
-    <a class="ymh-author-link" href="https://github.com/Bin4xin" target="_blank">
-        <span class="ymh-author-avatar">B</span>
-        Bin4xin
-    </a>
-
-    
-
-    
-    
-    
-    
-    
-
-    <span class="ymh-time-badge">
-        
-            Sep 19, 53786
-        
-    </span>
-</span>
-
-        </div>
-        <div class="blog-card-meta">
-            <span class="blog-card-status-dot"></span>
-            
-            <a class="blog-card-hash" href="https://github.com/Bin4xin/bin4xin.github.io/commit/869b3494" target="_blank">
-                869b349
+            <a class="blog-card-hash" href="https://github.com/Bin4xin/bin4xin.github.io/commit/c7bab4ba" target="_blank">
+                c7bab4b
             </a>
         </div>
     </div>
@@ -1295,7 +1303,7 @@ on:
                     
                         <a href="/blog/page/7/" class="btn btn-primary">上一页</a>
                     
-                    <span>第 8 页 / 共 26 页</span>
+                    <span>第 8 页 / 共 27 页</span>
                     
                         <a href="/blog/page/9/" class="btn btn-primary">下一页</a>
                     
@@ -1759,7 +1767,7 @@ on:
         
         <div class="ntc-meta-item">
           <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> BLOG</span>
-          <span class="ntc-badge">78</span>
+          <span class="ntc-badge">79</span>
         </div>
         
         <div class="ntc-meta-item">

@@ -1311,10 +1311,10 @@ Content-Type: application/json
 
 &lt;script&gt;
 function copyAsMarkdown() {
-    var rawPath = &quot;//_posts/blog/2020-09-25-spring-boot-vuln-summary.markdown&quot;;
+    var rawPath = &quot;////_posts/blog/2020-09-25-spring-boot-vuln-summary.markdown&quot;;
     fetch(rawPath)
         .then(function(res) {
-            if (!res.ok) throw new Error(&#39;Network response was not ok&#39;);
+            if (!res.ok) throw new Error(&#39;HTTP error &#39; + res.status);
             return res.text();
         })
         .then(function(text) {
@@ -1324,13 +1324,12 @@ function copyAsMarkdown() {
             var btn = document.querySelector(&#39;.toc-copy-btn&#39;);
             var textEl = btn.querySelector(&#39;.toc-btn-text&#39;);
             var origText = textEl.textContent;
-            var origSvg = btn.querySelector(&#39;.toc-btn-leading-visual&#39;).innerHTML;
+            
             textEl.textContent = &#39;已复制！&#39;;
-            btn.querySelector(&#39;.toc-btn-leading-visual&#39;).innerHTML = &#39;&lt;svg viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;currentColor&quot;&gt;&lt;path d=&quot;M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z&quot;/&gt;&lt;/svg&gt;&#39;;
             btn.classList.add(&#39;toc-copy-success&#39;);
+            
             setTimeout(function() {
                 textEl.textContent = origText;
-                btn.querySelector(&#39;.toc-btn-leading-visual&#39;).innerHTML = origSvg;
                 btn.classList.remove(&#39;toc-copy-success&#39;);
             }, 2000);
         })
@@ -1585,9 +1584,9 @@ document.addEventListener(&#39;click&#39;, function(e) {
                                 
                                     
                                     <li class="card-feedback-related-item">
-                                        <a href="/blog/2026/compile-steghide-for-macOS-10.15.7-Catalina/" class="card-feedback-link">
-                                            <span class="card-feedback-related-title-text">Compiled 「steghide」 for macOS 10.15.7/Catalina</span>
-                                            <span class="card-feedback-related-date">02/05</span>
+                                        <a href="/blog/2026/Burp-Suite-macOS-Catalina-install-setup-walkthrough/" class="card-feedback-link">
+                                            <span class="card-feedback-related-title-text">Burp Suite 2026.7.3 for macOS 10.15.7/Catalina</span>
+                                            <span class="card-feedback-related-date">08/08</span>
                                         </a>
                                     </li>
                                 
@@ -1597,11 +1596,15 @@ document.addEventListener(&#39;click&#39;, function(e) {
                                 
                                     
                                     <li class="card-feedback-related-item">
-                                        <a href="/blog/2025/YAML-Configuration-Driven-POC-Framework/" class="card-feedback-link">
-                                            <span class="card-feedback-related-title-text">「Android安全」:YAML 配置驱动的 Android POC 框架设计</span>
-                                            <span class="card-feedback-related-date">09/11</span>
+                                        <a href="/blog/2026/compile-steghide-for-macOS-10.15.7-Catalina/" class="card-feedback-link">
+                                            <span class="card-feedback-related-title-text">Compiled 「steghide」 for macOS 10.15.7/Catalina</span>
+                                            <span class="card-feedback-related-date">02/05</span>
                                         </a>
                                     </li>
+                                
+                            
+                        
+                            
                                 
                             
                         
@@ -3213,10 +3216,10 @@ Content-Type: application/json
 
 <script>
 function copyAsMarkdown() {
-    var rawPath = "//_posts/blog/2020-09-25-spring-boot-vuln-summary.markdown";
+    var rawPath = "////_posts/blog/2020-09-25-spring-boot-vuln-summary.markdown";
     fetch(rawPath)
         .then(function(res) {
-            if (!res.ok) throw new Error('Network response was not ok');
+            if (!res.ok) throw new Error('HTTP error ' + res.status);
             return res.text();
         })
         .then(function(text) {
@@ -3226,13 +3229,12 @@ function copyAsMarkdown() {
             var btn = document.querySelector('.toc-copy-btn');
             var textEl = btn.querySelector('.toc-btn-text');
             var origText = textEl.textContent;
-            var origSvg = btn.querySelector('.toc-btn-leading-visual').innerHTML;
+            
             textEl.textContent = '已复制！';
-            btn.querySelector('.toc-btn-leading-visual').innerHTML = '<svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>';
             btn.classList.add('toc-copy-success');
+            
             setTimeout(function() {
                 textEl.textContent = origText;
-                btn.querySelector('.toc-btn-leading-visual').innerHTML = origSvg;
                 btn.classList.remove('toc-copy-success');
             }, 2000);
         })

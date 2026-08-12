@@ -32,6 +32,92 @@
                     
                     &lt;div class=&quot;blog-card&quot;&gt;
     &lt;div class=&quot;blog-card-header&quot;&gt;
+        &lt;a class=&quot;blog-card-title&quot; href=&quot;/blog/2020/SQL/SHELL/&quot;&gt;
+            「SQL注入」:MSSQL-SHELL后利用笔记
+        &lt;/a&gt;
+        &lt;div class=&quot;blog-card-actions&quot;&gt;
+            &lt;a class=&quot;blog-card-action-btn&quot; href=&quot;/blog/2020/SQL/SHELL/&quot; title=&quot;阅读全文&quot;&gt;
+                &lt;svg viewBox=&quot;0 0 16 16&quot; width=&quot;14&quot; height=&quot;14&quot; fill=&quot;currentColor&quot;&gt;&lt;path d=&quot;M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z&quot;/&gt;&lt;/svg&gt;
+            &lt;/a&gt;
+            
+            &lt;a class=&quot;blog-card-action-btn&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/blog/2020-05-20-do-something-when-get-sql-shell-in-sqlserver.markdown&quot; target=&quot;_blank&quot; title=&quot;编辑此页&quot;&gt;
+                &lt;svg viewBox=&quot;0 0 16 16&quot; width=&quot;14&quot; height=&quot;14&quot; fill=&quot;currentColor&quot;&gt;&lt;path d=&quot;M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Z&quot;/&gt;&lt;/svg&gt;
+            &lt;/a&gt;
+            
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    
+    &lt;div class=&quot;blog-card-body&quot;&gt;
+        &lt;p class=&quot;blog-card-excerpt&quot;&gt;
+            
+  拿到SQL注入点后如何进一步利用？本文记录在MSSQL环境下通过sqlmap获取sql-shell后的常见操作，包括信息收集、权限判断、xp_cmdshell执行命令、以及os-shell的使用。
+
+
+0x00 sqlmap基础注入
+
+# 获取当前用户
+sqlmap -r request.txt --current-user
+
+# 列出数据库
+sqlmap -r request.txt --dbs
+
+# 列出指定数据库的表
+sqlmap -r request.tx...
+        &lt;/p&gt;
+    &lt;/div&gt;
+    
+
+    &lt;div class=&quot;blog-card-footer&quot;&gt;
+        &lt;div class=&quot;blog-card-meta&quot;&gt;
+            &lt;span class=&quot;blog-card-author&quot;&gt;
+                
+&lt;img alt=&quot;Bin4xin&quot; src=&quot;https://avatars.githubusercontent.com/u/57884471?v=4&quot;/&gt;
+            &lt;/span&gt;
+            &lt;!--article author end--&gt;
+
+
+
+
+
+
+
+
+&lt;span class=&quot;ymh-author-badge&quot;&gt;
+    &lt;a class=&quot;ymh-author-link&quot; href=&quot;https://github.com/Bin4xin&quot; target=&quot;_blank&quot;&gt;
+        &lt;span class=&quot;ymh-author-avatar&quot;&gt;B&lt;/span&gt;
+        Bin4xin
+    &lt;/a&gt;
+
+    
+
+    
+    
+    
+    
+    
+
+    &lt;span class=&quot;ymh-time-badge&quot;&gt;
+        
+            Jan 21, 52352
+        
+    &lt;/span&gt;
+&lt;/span&gt;
+
+        &lt;/div&gt;
+        &lt;div class=&quot;blog-card-meta&quot;&gt;
+            &lt;span class=&quot;blog-card-status-dot&quot;&gt;&lt;/span&gt;
+            
+            &lt;a class=&quot;blog-card-hash&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/c7bab4ba&quot; target=&quot;_blank&quot;&gt;
+                c7bab4b
+            &lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                
+                    
+                    &lt;div class=&quot;blog-card&quot;&gt;
+    &lt;div class=&quot;blog-card-header&quot;&gt;
         &lt;a class=&quot;blog-card-title&quot; href=&quot;/blog/2020/fastjson-Deserialization-poc/&quot;&gt;
             「fastjson」:浅谈json的反序列化
         &lt;/a&gt;
@@ -102,8 +188,8 @@ User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
         &lt;div class=&quot;blog-card-meta&quot;&gt;
             &lt;span class=&quot;blog-card-status-dot&quot;&gt;&lt;/span&gt;
             
-            &lt;a class=&quot;blog-card-hash&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/869b3494&quot; target=&quot;_blank&quot;&gt;
-                869b349
+            &lt;a class=&quot;blog-card-hash&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/c7bab4ba&quot; target=&quot;_blank&quot;&gt;
+                c7bab4b
             &lt;/a&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -185,85 +271,8 @@ User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
         &lt;div class=&quot;blog-card-meta&quot;&gt;
             &lt;span class=&quot;blog-card-status-dot&quot;&gt;&lt;/span&gt;
             
-            &lt;a class=&quot;blog-card-hash&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/869b3494&quot; target=&quot;_blank&quot;&gt;
-                869b349
-            &lt;/a&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-                
-                    
-                    &lt;div class=&quot;blog-card&quot;&gt;
-    &lt;div class=&quot;blog-card-header&quot;&gt;
-        &lt;a class=&quot;blog-card-title&quot; href=&quot;/blog/2020/escape-docker-from-google-cloud_shell/&quot;&gt;
-            「DOCKER」:谈谈docker逃逸那点事
-        &lt;/a&gt;
-        &lt;div class=&quot;blog-card-actions&quot;&gt;
-            &lt;a class=&quot;blog-card-action-btn&quot; href=&quot;/blog/2020/escape-docker-from-google-cloud_shell/&quot; title=&quot;阅读全文&quot;&gt;
-                &lt;svg viewBox=&quot;0 0 16 16&quot; width=&quot;14&quot; height=&quot;14&quot; fill=&quot;currentColor&quot;&gt;&lt;path d=&quot;M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z&quot;/&gt;&lt;/svg&gt;
-            &lt;/a&gt;
-            
-            &lt;a class=&quot;blog-card-action-btn&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/blog/2020-05-17-escape-docker-from-google-cloud_shell.markdown&quot; target=&quot;_blank&quot; title=&quot;编辑此页&quot;&gt;
-                &lt;svg viewBox=&quot;0 0 16 16&quot; width=&quot;14&quot; height=&quot;14&quot; fill=&quot;currentColor&quot;&gt;&lt;path d=&quot;M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Z&quot;/&gt;&lt;/svg&gt;
-            &lt;/a&gt;
-            
-        &lt;/div&gt;
-    &lt;/div&gt;
-
-    
-    &lt;div class=&quot;blog-card-body&quot;&gt;
-        &lt;p class=&quot;blog-card-excerpt&quot;&gt;
-            Google Cloud Shell Docker逃逸
-sudo docker -H unix:///google/host/var/run/docker.sock pull alpine:latest
-Welcome to Cloud Shell! Type &quot;help&quot; to get started.
-Your Cloud Platform project in this session is set to avid-rope-267508.
-Use “gcloud...
-        &lt;/p&gt;
-    &lt;/div&gt;
-    
-
-    &lt;div class=&quot;blog-card-footer&quot;&gt;
-        &lt;div class=&quot;blog-card-meta&quot;&gt;
-            &lt;span class=&quot;blog-card-author&quot;&gt;
-                
-&lt;img alt=&quot;Bin4xin&quot; src=&quot;https://avatars.githubusercontent.com/u/57884471?v=4&quot;/&gt;
-            &lt;/span&gt;
-            &lt;!--article author end--&gt;
-
-
-
-
-
-
-
-
-&lt;span class=&quot;ymh-author-badge&quot;&gt;
-    &lt;a class=&quot;ymh-author-link&quot; href=&quot;https://github.com/Bin4xin&quot; target=&quot;_blank&quot;&gt;
-        &lt;span class=&quot;ymh-author-avatar&quot;&gt;B&lt;/span&gt;
-        Bin4xin
-    &lt;/a&gt;
-
-    
-
-    
-    
-    
-    
-    
-
-    &lt;span class=&quot;ymh-time-badge&quot;&gt;
-        
-            Nov 4, 52343
-        
-    &lt;/span&gt;
-&lt;/span&gt;
-
-        &lt;/div&gt;
-        &lt;div class=&quot;blog-card-meta&quot;&gt;
-            &lt;span class=&quot;blog-card-status-dot&quot;&gt;&lt;/span&gt;
-            
-            &lt;a class=&quot;blog-card-hash&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/869b3494&quot; target=&quot;_blank&quot;&gt;
-                869b349
+            &lt;a class=&quot;blog-card-hash&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/commit/c7bab4ba&quot; target=&quot;_blank&quot;&gt;
+                c7bab4b
             &lt;/a&gt;
         &lt;/div&gt;
     &lt;/div&gt;
@@ -273,7 +282,7 @@ Use “gcloud...
                     
                         &lt;a href=&quot;/blog/page/16/&quot; class=&quot;btn btn-primary&quot;&gt;上一页&lt;/a&gt;
                     
-                    &lt;span&gt;第 17 页 / 共 26 页&lt;/span&gt;
+                    &lt;span&gt;第 17 页 / 共 27 页&lt;/span&gt;
                     
                         &lt;a href=&quot;/blog/page/18/&quot; class=&quot;btn btn-primary&quot;&gt;下一页&lt;/a&gt;
                     
@@ -723,6 +732,36 @@ Use “gcloud...
           &lt;/div&gt;
           
         
+          
+          &lt;div class=&quot;ntc-meta-item&quot;&gt;
+            &lt;span&gt;&lt;i class=&quot;far fa-folder fa-fw mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; &lt;a href=&quot;/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/&quot;&gt;漏洞复现&lt;/a&gt;&lt;/span&gt;
+          &lt;/div&gt;
+          
+        
+          
+          &lt;div class=&quot;ntc-meta-item&quot;&gt;
+            &lt;span&gt;&lt;i class=&quot;far fa-folder fa-fw mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; &lt;a href=&quot;/%E7%AC%94%E8%AE%B0/&quot;&gt;笔记&lt;/a&gt;&lt;/span&gt;
+          &lt;/div&gt;
+          
+        
+          
+          &lt;div class=&quot;ntc-meta-item&quot;&gt;
+            &lt;span&gt;&lt;i class=&quot;far fa-folder fa-fw mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; &lt;a href=&quot;/CVE/&quot;&gt;CVE&lt;/a&gt;&lt;/span&gt;
+          &lt;/div&gt;
+          
+        
+          
+          &lt;div class=&quot;ntc-meta-item&quot;&gt;
+            &lt;span&gt;&lt;i class=&quot;far fa-folder fa-fw mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; &lt;a href=&quot;/Java/&quot;&gt;Java&lt;/a&gt;&lt;/span&gt;
+          &lt;/div&gt;
+          
+        
+          
+          &lt;div class=&quot;ntc-meta-item&quot;&gt;
+            &lt;span&gt;&lt;i class=&quot;far fa-folder fa-fw mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; &lt;a href=&quot;/Shiro/&quot;&gt;Shiro&lt;/a&gt;&lt;/span&gt;
+          &lt;/div&gt;
+          
+        
       &lt;/div&gt;
     &lt;/details&gt;
   &lt;/div&gt;
@@ -737,7 +776,7 @@ Use “gcloud...
         
         &lt;div class=&quot;ntc-meta-item&quot;&gt;
           &lt;span&gt;&lt;i class=&quot;fa fa-angle-right mr-1&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt; BLOG&lt;/span&gt;
-          &lt;span class=&quot;ntc-badge&quot;&gt;78&lt;/span&gt;
+          &lt;span class=&quot;ntc-badge&quot;&gt;79&lt;/span&gt;
         &lt;/div&gt;
         
         &lt;div class=&quot;ntc-meta-item&quot;&gt;
@@ -976,6 +1015,92 @@ Use “gcloud...
                     
                     <div class="blog-card">
     <div class="blog-card-header">
+        <a class="blog-card-title" href="/blog/2020/SQL/SHELL/">
+            「SQL注入」:MSSQL-SHELL后利用笔记
+        </a>
+        <div class="blog-card-actions">
+            <a class="blog-card-action-btn" href="/blog/2020/SQL/SHELL/" title="阅读全文">
+                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/></svg>
+            </a>
+            
+            <a class="blog-card-action-btn" href="https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/blog/2020-05-20-do-something-when-get-sql-shell-in-sqlserver.markdown" target="_blank" title="编辑此页">
+                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Z"/></svg>
+            </a>
+            
+        </div>
+    </div>
+
+    
+    <div class="blog-card-body">
+        <p class="blog-card-excerpt">
+            
+  拿到SQL注入点后如何进一步利用？本文记录在MSSQL环境下通过sqlmap获取sql-shell后的常见操作，包括信息收集、权限判断、xp_cmdshell执行命令、以及os-shell的使用。
+
+
+0x00 sqlmap基础注入
+
+# 获取当前用户
+sqlmap -r request.txt --current-user
+
+# 列出数据库
+sqlmap -r request.txt --dbs
+
+# 列出指定数据库的表
+sqlmap -r request.tx...
+        </p>
+    </div>
+    
+
+    <div class="blog-card-footer">
+        <div class="blog-card-meta">
+            <span class="blog-card-author">
+                
+<img alt="Bin4xin" src="https://avatars.githubusercontent.com/u/57884471?v=4"/>
+            </span>
+            <!--article author end-->
+
+
+
+
+
+
+
+
+<span class="ymh-author-badge">
+    <a class="ymh-author-link" href="https://github.com/Bin4xin" target="_blank">
+        <span class="ymh-author-avatar">B</span>
+        Bin4xin
+    </a>
+
+    
+
+    
+    
+    
+    
+    
+
+    <span class="ymh-time-badge">
+        
+            Jan 21, 52352
+        
+    </span>
+</span>
+
+        </div>
+        <div class="blog-card-meta">
+            <span class="blog-card-status-dot"></span>
+            
+            <a class="blog-card-hash" href="https://github.com/Bin4xin/bin4xin.github.io/commit/c7bab4ba" target="_blank">
+                c7bab4b
+            </a>
+        </div>
+    </div>
+</div>
+                
+                    
+                    <div class="blog-card">
+    <div class="blog-card-header">
         <a class="blog-card-title" href="/blog/2020/fastjson-Deserialization-poc/">
             「fastjson」:浅谈json的反序列化
         </a>
@@ -1046,8 +1171,8 @@ User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
         <div class="blog-card-meta">
             <span class="blog-card-status-dot"></span>
             
-            <a class="blog-card-hash" href="https://github.com/Bin4xin/bin4xin.github.io/commit/869b3494" target="_blank">
-                869b349
+            <a class="blog-card-hash" href="https://github.com/Bin4xin/bin4xin.github.io/commit/c7bab4ba" target="_blank">
+                c7bab4b
             </a>
         </div>
     </div>
@@ -1129,85 +1254,8 @@ User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
         <div class="blog-card-meta">
             <span class="blog-card-status-dot"></span>
             
-            <a class="blog-card-hash" href="https://github.com/Bin4xin/bin4xin.github.io/commit/869b3494" target="_blank">
-                869b349
-            </a>
-        </div>
-    </div>
-</div>
-                
-                    
-                    <div class="blog-card">
-    <div class="blog-card-header">
-        <a class="blog-card-title" href="/blog/2020/escape-docker-from-google-cloud_shell/">
-            「DOCKER」:谈谈docker逃逸那点事
-        </a>
-        <div class="blog-card-actions">
-            <a class="blog-card-action-btn" href="/blog/2020/escape-docker-from-google-cloud_shell/" title="阅读全文">
-                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"/></svg>
-            </a>
-            
-            <a class="blog-card-action-btn" href="https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/blog/2020-05-17-escape-docker-from-google-cloud_shell.markdown" target="_blank" title="编辑此页">
-                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Z"/></svg>
-            </a>
-            
-        </div>
-    </div>
-
-    
-    <div class="blog-card-body">
-        <p class="blog-card-excerpt">
-            Google Cloud Shell Docker逃逸
-sudo docker -H unix:///google/host/var/run/docker.sock pull alpine:latest
-Welcome to Cloud Shell! Type "help" to get started.
-Your Cloud Platform project in this session is set to avid-rope-267508.
-Use “gcloud...
-        </p>
-    </div>
-    
-
-    <div class="blog-card-footer">
-        <div class="blog-card-meta">
-            <span class="blog-card-author">
-                
-<img alt="Bin4xin" src="https://avatars.githubusercontent.com/u/57884471?v=4"/>
-            </span>
-            <!--article author end-->
-
-
-
-
-
-
-
-
-<span class="ymh-author-badge">
-    <a class="ymh-author-link" href="https://github.com/Bin4xin" target="_blank">
-        <span class="ymh-author-avatar">B</span>
-        Bin4xin
-    </a>
-
-    
-
-    
-    
-    
-    
-    
-
-    <span class="ymh-time-badge">
-        
-            Nov 4, 52343
-        
-    </span>
-</span>
-
-        </div>
-        <div class="blog-card-meta">
-            <span class="blog-card-status-dot"></span>
-            
-            <a class="blog-card-hash" href="https://github.com/Bin4xin/bin4xin.github.io/commit/869b3494" target="_blank">
-                869b349
+            <a class="blog-card-hash" href="https://github.com/Bin4xin/bin4xin.github.io/commit/c7bab4ba" target="_blank">
+                c7bab4b
             </a>
         </div>
     </div>
@@ -1217,7 +1265,7 @@ Use “gcloud...
                     
                         <a href="/blog/page/16/" class="btn btn-primary">上一页</a>
                     
-                    <span>第 17 页 / 共 26 页</span>
+                    <span>第 17 页 / 共 27 页</span>
                     
                         <a href="/blog/page/18/" class="btn btn-primary">下一页</a>
                     
@@ -1667,6 +1715,36 @@ Use “gcloud...
           </div>
           
         
+          
+          <div class="ntc-meta-item">
+            <span><i class="far fa-folder fa-fw mr-1" aria-hidden="true"></i> <a href="/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">漏洞复现</a></span>
+          </div>
+          
+        
+          
+          <div class="ntc-meta-item">
+            <span><i class="far fa-folder fa-fw mr-1" aria-hidden="true"></i> <a href="/%E7%AC%94%E8%AE%B0/">笔记</a></span>
+          </div>
+          
+        
+          
+          <div class="ntc-meta-item">
+            <span><i class="far fa-folder fa-fw mr-1" aria-hidden="true"></i> <a href="/CVE/">CVE</a></span>
+          </div>
+          
+        
+          
+          <div class="ntc-meta-item">
+            <span><i class="far fa-folder fa-fw mr-1" aria-hidden="true"></i> <a href="/Java/">Java</a></span>
+          </div>
+          
+        
+          
+          <div class="ntc-meta-item">
+            <span><i class="far fa-folder fa-fw mr-1" aria-hidden="true"></i> <a href="/Shiro/">Shiro</a></span>
+          </div>
+          
+        
       </div>
     </details>
   </div>
@@ -1681,7 +1759,7 @@ Use “gcloud...
         
         <div class="ntc-meta-item">
           <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> BLOG</span>
-          <span class="ntc-badge">78</span>
+          <span class="ntc-badge">79</span>
         </div>
         
         <div class="ntc-meta-item">
