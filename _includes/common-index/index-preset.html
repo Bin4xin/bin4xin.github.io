@@ -28,7 +28,7 @@ msg   : 要显示的消息文本，必填
     {% endcapture %}
 {% endif %}
 
-{% assign message = include.msg | default: default_msg | upcase %}
+{% assign message = include.msg | default: default_msg %}
 {% if level == "error" %}
 {% assign banner_class = "error" %}
 {% assign icon_type = "alert" %}
