@@ -269,7 +269,7 @@ curl -sk "https://example-poseidon3.*****.com/po-server/portal/member/login/getU
 - [OWASP Top 10 2021: A05 - Security Misconfiguration](https://owasp.org/Top10/A05_2021-Security_Misconfiguration/){:target="_blank"}
 - [CWE-306: Missing Authentication for Critical Function](https://cwe.mitre.org/data/definitions/306.html){:target="_blank"}
 - [CWE-656: Relies on Security Through Obscurity](https://cwe.mitre.org/data/definitions/656.html){:target="_blank"}
-- GB/T 22239-2019 信息安全技术 网络安全等级保护基本要求
+- [[GB/T 22239-2019 信息安全技术 网络安全等级保护基本要求](https://openstd.samr.gov.cn/bzgk/std/showGb?type=online&){:target="_blank"}
 
 ---
 

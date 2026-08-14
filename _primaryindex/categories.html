@@ -68,7 +68,6 @@ title: 文章分类
             {% endfor %}
         </div>
     </div>
-
     <!-- Sticky help sidebar -->
     <div class="categories-sidebar">
         <div class="categories-help-card">
@@ -78,10 +77,13 @@ title: 文章分类
                 编辑此页
                 <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8.22 2.97a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l2.97-2.97H3.75a.75.75 0 0 1 0-1.5h7.44L8.22 4.03a.75.75 0 0 1 0-1.06Z"/></svg>
             </a>
-            <a class="categories-help-link" href="{{ site.githubAccess }}/{{ site.githubRepos }}/issues" target="_blank">
-                提交 Issue
+            <a class="categories-help-link" href="{{site.githubAccess}}/{{site.githubRepos}}/issues/new?labels=Service+Issue,categories&template=2-bug_report.yaml&title={{page.path}}&nbsp;{% if page.Researchname %}{{ page.Researchname }} |{% elsif page.title %} {{ page.title }} |{% endif %}{% if include.cattitle %} {{ include.cattitle }} |{% endif %}{% if page.title or include.cattitle %}{{" "}}{% endif %}{{ site.title }}{% if site.brand %} | {{ site.brand }}{% endif %}" target="_blank" rel="noopener noreferrer">
+                提交反馈
                 <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"/></svg>
             </a>
         </div>
+        <br/>
+        <!-- 引入建议组件 -->
+        {% include suggestion.html %}
     </div>
 </div>

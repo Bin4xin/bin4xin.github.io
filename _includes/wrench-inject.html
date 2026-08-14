@@ -1,11 +1,38 @@
----
+{% assign _ms_day = 86400000 %}
+{% assign _now    = site.time | date: "%s" | times: 1000 %}
+{% if page.wrench %}
+    {% assign _mod    = page.wrench | date: "%s" | times: 1000 %}
+{% else %}
+    {% assign _mod    = page.date | date: "%s" | times: 1000 %}
+{% endif %}
+{% assign _diff   = _now | minus: _mod %}
+{% assign _days   = _diff | divided_by: _ms_day %}
 
-<div style="text-align: center;">
-    <div class="fa fa-skyatlas"></div>
-    <div class="fa fa-simplybuilt"></div>
-    {% if page.wrench %}于{{page.wrench}}修改{% else %}{% include article-YMH-note.html %}{% endif %}
-    <div class="fa fa-simplybuilt"></div>
-    <div class="fa fa-skyatlas"></div>
-</div>
+{% if _days > 365 %}
+    {% assign _years = _days | divided_by: 365 %}
+    {% assign _ago   = _years | append: " 年前" %}
+{% elsif _days > 30 %}
+    {% assign _months = _days | divided_by: 30 %}
+    {% assign _ago    = _months | append: " 个月前" %}
+{% elsif _days > 0 %}
+    {% assign _ago = _days | append: " 天前" %}
+{% else %}
+    {% assign _ago = "今天" %}
+{% endif %}
 
----
+{% capture _success_msg %}写于 <strong>{{ _ago }}</strong>，墨迹未干{% endcapture %}
+{% capture _info_msg %}更新于 <strong>{{ _ago }}</strong>，时效尚可{% endcapture %}
+{% capture _warn_msg %}上次动笔在 <strong>{{ _ago }}</strong>，放了一阵了{% endcapture %}
+{% capture _err_msg %}上次修改距今已 <strong>{{ _days }}</strong> 天{% endcapture %}
+{% capture _all %}{{ _err_msg }}，建议确认内容是否仍然成立{% endcapture %}
+
+{% if _days > 180 %}
+    {% if page.wrench %}
+        {% include common-index/index-preset.html level="error" msg=_all %}
+    {% endif %}
+    {% include common-index/index-preset.html level="warn" msg=_warn_msg %}
+{% elsif _days > 10 %}
+    {% include common-index/index-preset.html level="info" msg=_info_msg %}
+{% else %}
+    {% include common-index/index-preset.html level="success" msg=_success_msg %}
+{% endif %}

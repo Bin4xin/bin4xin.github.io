@@ -73,7 +73,7 @@ ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}>%{$fg[yellow]%}%{$fg_bold[yellow]%}]"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%}>"
 ```
 
-{% include wrench-inject.html %}
+
 
 当下效果代码：[bigger-than-bigger:: robbyrussell.zsh-theme](https://github.com/Bin4xin/bigger-than-bigger#6x01robbyrussellzsh-theme){:target="_blank"}
 

@@ -12,7 +12,7 @@ tags:
 - Github Actions
 ---
 
-{% include wrench-inject.html %}
+
 
 # 自律的代码
 
@@ -36,7 +36,7 @@ on:
 ##
 ```
 
-{% include wrench-inject.html %}
+
 
 ### Github Actions的简介
 

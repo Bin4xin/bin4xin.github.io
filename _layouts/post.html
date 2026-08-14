@@ -11,8 +11,9 @@ layout: default
                 {% include article-YMH-note.html %}
             </div>
             <div class="post-content">
-            {{ content }}
-                {% include suggestion.html %}
+            {% include wrench-inject.html %}
+                {{ content }}
+            {% include suggestion.html %}
             </div>
             <div class="spacing"></div>
         </div><!--/post-content -->

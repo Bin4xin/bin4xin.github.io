@@ -236,7 +236,7 @@ curl -sk -X POST \
 - [OWASP Top 10 2021: A01 - Broken Access Control](https://owasp.org/Top10/A01_2021-Broken_Access_Control/){:target="_blank"}
 - [CWE-434: Unrestricted Upload of File with Dangerous Type](https://cwe.mitre.org/data/definitions/434.html){:target="_blank"}
 - [CWE-306: Missing Authentication for Critical Function](https://cwe.mitre.org/data/definitions/306.html){:target="_blank"}
-- GB/T 22239-2019 信息安全技术 网络安全等级保护基本要求
+- [GB/T 22239-2019 信息安全技术 网络安全等级保护基本要求](https://openstd.samr.gov.cn/bzgk/std/showGb?type=online&hcno=BAFB47E8874764186BDB7865E8344DAF){:target="_blank"}
 
 ---
 

@@ -3,6 +3,7 @@ layout: about
 category: about
 Researchname: JimuReport Vuln WalkThrough backup
 toc: true
+wrench: 2026-08-14
 author: Bin4xin
 permalink: /about/JimuReport-Vuln-WalkThrough-backup/
 desc: 「JMReport」
@@ -10,9 +11,12 @@ desc: 「JMReport」
 
 # REF
 
+
 - [xz community:: JimuReport ＜= v1.6.0 漏洞分析](https://xz.aliyun.com/t/13558){:target="_blank"}
-- [Github:wy876: https://github.com/wy876/POC/blob/main/JeecgBoot%E6%BC%8F%E6%B4%9E.md](){:target="_blank"}
-- [Github:wy876: JeecgBoot反射型XSS漏洞](https://github.com/wy876/POC/blob/main/JeecgBoot%E5%8F%8D%E5%B0%84%E5%9E%8BXSS%E6%BC%8F%E6%B4%9E.md){:target="_blank"}
+- ~~[Github:wy876](https://github.com/wy876/POC/blob/main/JeecgBoot%E6%BC%8F%E6%B4%9E.md){:target="_blank"}~~
+- ~~[Github:wy876: JeecgBoot反射型XSS漏洞](https://github.com/wy876/POC/blob/main/JeecgBoot%E5%8F%8D%E5%B0%84%E5%9E%8BXSS%E6%BC%8F%E6%B4%9E.md){:target="_blank"}~~
+
+
 
 ## JeecgBoot sql注入漏洞
 ```

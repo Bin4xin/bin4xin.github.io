@@ -235,7 +235,7 @@ for user in common_users:
 - [CWE-203: Observable Discrepancy](https://cwe.mitre.org/data/definitions/203.html){:target="_blank"}
 - [CWE-204: Observable Response Discrepancy](https://cwe.mitre.org/data/definitions/204.html){:target="_blank"}
 - [CWE-307: Improper Restriction of Excessive Authentication Attempts](https://cwe.mitre.org/data/definitions/307.html){:target="_blank"}
-- GB/T 22239-2019 信息安全技术 网络安全等级保护基本要求
+- [GB/T 22239-2019 信息安全技术 网络安全等级保护基本要求](https://openstd.samr.gov.cn/bzgk/std/showGb?type=online&hcno=BAFB47E8874764186BDB7865E8344DAF){:target="_blank"}
 
 ---
 
