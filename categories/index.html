@@ -1709,7 +1709,6 @@
             
         &lt;/div&gt;
     &lt;/div&gt;
-
     &lt;!-- Sticky help sidebar --&gt;
     &lt;div class=&quot;categories-sidebar&quot;&gt;
         &lt;div class=&quot;categories-help-card&quot;&gt;
@@ -1719,11 +1718,59 @@
                 编辑此页
                 &lt;svg viewBox=&quot;0 0 16 16&quot; width=&quot;14&quot; height=&quot;14&quot; fill=&quot;currentColor&quot;&gt;&lt;path d=&quot;M8.22 2.97a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l2.97-2.97H3.75a.75.75 0 0 1 0-1.5h7.44L8.22 4.03a.75.75 0 0 1 0-1.06Z&quot;/&gt;&lt;/svg&gt;
             &lt;/a&gt;
-            &lt;a class=&quot;categories-help-link&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/issues&quot; target=&quot;_blank&quot;&gt;
-                提交 Issue
+            &lt;a class=&quot;categories-help-link&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,categories&amp;template=2-bug_report.yaml&amp;title=_primaryindex/categories.html&amp;nbsp; 文章分类 | © 哨兵 | SENTINEL SECURITY, LAB&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;
+                提交反馈
                 &lt;svg viewBox=&quot;0 0 16 16&quot; width=&quot;14&quot; height=&quot;14&quot; fill=&quot;currentColor&quot;&gt;&lt;path d=&quot;M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z&quot;/&gt;&lt;path d=&quot;M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z&quot;/&gt;&lt;/svg&gt;
             &lt;/a&gt;
         &lt;/div&gt;
+        &lt;br/&gt;
+        &lt;!-- 引入建议组件 --&gt;
+        &lt;!-- [x] 2022/10/20/10:49:36 fixed: while width &lt; some inch. would be flex column not display like a row.--&gt;
+&lt;footer&gt;
+	&lt;style&gt;
+		.border-top {
+			border-top: 1.5px solid #d0d7de!important;
+		}
+		
+		/* 仅在 /categories/ 页面生效的竖向排列样式 */
+		.suggestion-column-wrapper.is-categories-page {
+			display: flex;
+			flex-direction: column;
+			gap: 1.25rem;
+		}
+		.suggestion-column-wrapper.is-categories-page .col-xs-4-5 {
+			width: 100% !important;
+			padding-right: 0 !important;
+			padding-left: 0 !important;
+			margin-bottom: 0 !important;
+			padding-top: 0 !important;
+			padding-bottom: 0 !important;
+		}
+	&lt;/style&gt;
+	&lt;div class=&quot;border-top&quot;&gt;&lt;/div&gt;
+	
+	&lt;!-- 只有在 /categories/ 页面时添加 is-categories-page 类名 --&gt;
+	&lt;section class=&quot;container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto suggestion-column-wrapper is-categories-page&quot;&gt;
+		
+		&lt;!-- 1. 申明模块：/categories/ 页面隐藏 --&gt;
+		
+
+		&lt;!-- 3. 此文档对您有帮助吗 --&gt;
+		&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
+			&lt;h2 class=&quot;lead&quot;&gt;此文档对您有帮助吗&lt;/h2&gt;
+			&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/&quot; target=&quot;_blank&quot; class=&quot;no-underline&quot;&gt;
+				&lt;span class=&quot;btn mr-1 color-border-accent-emphasis&quot; title=&quot;给文档仓库点个赞!&quot;&gt;
+					&lt;div class=&quot;fa fa-thumbs-o-up&quot;&gt;&lt;/div&gt;
+				&lt;/span&gt;
+			&lt;/a&gt;
+			&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&amp;template=2-bug_report.yaml&amp;title=_primaryindex/categories.html&amp;nbsp; 文章分类 | © 哨兵 | SENTINEL SECURITY, LAB&quot; target=&quot;_blank&quot;&gt;
+				&lt;span class=&quot;btn mr-1 color-border-accent-emphasis&quot; title=&quot;本文档有问题?&quot;&gt;
+					&lt;div class=&quot;fa fa-thumbs-o-down&quot;&gt;&lt;/div&gt;
+				&lt;/span&gt;
+			&lt;/a&gt;
+		&lt;/div&gt;
+	&lt;/section&gt;
+&lt;/footer&gt;
     &lt;/div&gt;
 &lt;/div&gt;
 哨兵安全实验室 SENTINEL SECURITY, LAB" />
@@ -1771,15 +1818,30 @@
         <div class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
                 
-                <li ><a href="/"><div class="fa fa-dashboard"></div></a></li>
-                <li ><a href="/search"><div class="fa fa-search"></div></a></li>
-                <li ><a href="/blog/">BLOG</a></li>
-                <li class="active"><a href="/categories/">CATEGORIES</a></li>
-                <li ><a href="/daily/">DAILY</a></li>
-                <li ><a href="/newest">NEWEST</a></li>
-                <li ><a href="/about/">RESEARCH</a></li>
-                <li ><a href="/feed.xml">RSS</a></li>
-                
+                <li >
+                    <a href="/"><i class="fas fa-home"></i> Home &middot;</a>
+                </li>
+                <li >
+                    <a href="/search"><i class="fas fa-search"></i> Search &middot;</a>
+                </li>
+                <li >
+                    <a href="/blog/"><i class="fas fa-pen-nib"></i> BLOG &middot;</a>
+                </li>
+                <li class="active">
+                    <a href="/categories/"><i class="fas fa-folder-open"></i> CATEGORIES &middot;</a>
+                </li>
+                <li >
+                    <a href="/daily/"><i class="fas fa-calendar"></i> DAILY &middot;</a>
+                </li>
+                <li >
+                    <a href="/newest"><i class="fas fa-bolt"></i> NEWEST &middot;</a>
+                </li>
+                <li >
+                    <a href="/about/"><i class="fas fa-flask"></i> RESEARCH &middot;</a>
+                </li>
+                <li >
+                    <a href="/feed.xml"><i class="fas fa-rss"></i> RSS</a>
+                </li>
                 
             </ul>
         </div><!--/.nav-collapse -->
@@ -3472,7 +3534,6 @@
             
         </div>
     </div>
-
     <!-- Sticky help sidebar -->
     <div class="categories-sidebar">
         <div class="categories-help-card">
@@ -3482,11 +3543,59 @@
                 编辑此页
                 <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8.22 2.97a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l2.97-2.97H3.75a.75.75 0 0 1 0-1.5h7.44L8.22 4.03a.75.75 0 0 1 0-1.06Z"/></svg>
             </a>
-            <a class="categories-help-link" href="https://github.com/Bin4xin/bin4xin.github.io/issues" target="_blank">
-                提交 Issue
+            <a class="categories-help-link" href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,categories&template=2-bug_report.yaml&title=_primaryindex/categories.html&nbsp; 文章分类 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank" rel="noopener noreferrer">
+                提交反馈
                 <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"/></svg>
             </a>
         </div>
+        <br/>
+        <!-- 引入建议组件 -->
+        <!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
+<footer>
+	<style>
+		.border-top {
+			border-top: 1.5px solid #d0d7de!important;
+		}
+		
+		/* 仅在 /categories/ 页面生效的竖向排列样式 */
+		.suggestion-column-wrapper.is-categories-page {
+			display: flex;
+			flex-direction: column;
+			gap: 1.25rem;
+		}
+		.suggestion-column-wrapper.is-categories-page .col-xs-4-5 {
+			width: 100% !important;
+			padding-right: 0 !important;
+			padding-left: 0 !important;
+			margin-bottom: 0 !important;
+			padding-top: 0 !important;
+			padding-bottom: 0 !important;
+		}
+	</style>
+	<div class="border-top"></div>
+	
+	<!-- 只有在 /categories/ 页面时添加 is-categories-page 类名 -->
+	<section class="container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto suggestion-column-wrapper is-categories-page">
+		
+		<!-- 1. 申明模块：/categories/ 页面隐藏 -->
+		
+
+		<!-- 3. 此文档对您有帮助吗 -->
+		<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+			<h2 class="lead">此文档对您有帮助吗</h2>
+			<a href="https://github.com/Bin4xin/bin4xin.github.io/" target="_blank" class="no-underline">
+				<span class="btn mr-1 color-border-accent-emphasis" title="给文档仓库点个赞!">
+					<div class="fa fa-thumbs-o-up"></div>
+				</span>
+			</a>
+			<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_primaryindex/categories.html&nbsp; 文章分类 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
+				<span class="btn mr-1 color-border-accent-emphasis" title="本文档有问题?">
+					<div class="fa fa-thumbs-o-down"></div>
+				</span>
+			</a>
+		</div>
+	</section>
+</footer>
     </div>
 </div>
 

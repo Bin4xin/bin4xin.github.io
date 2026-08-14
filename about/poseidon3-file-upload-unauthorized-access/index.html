@@ -42,7 +42,6 @@
 
 
 &lt;style&gt;
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -62,19 +61,22 @@
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -95,6 +97,11 @@
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -143,7 +150,6 @@
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;Noto Sans&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -181,12 +187,6 @@
     &lt;div class=&quot;banner-content&quot;&gt;
         &lt;span class=&quot;banner-text&quot;&gt;注意: &lt;br&gt;任何形式的未授权访问都是禁止的&lt;/span&gt;
     &lt;/div&gt;
-
-    &lt;!-- &lt;button class=&quot;banner-close&quot; aria-label=&quot;关闭通知横幅&quot; title=&quot;Dismiss banner&quot; type=&quot;button&quot;&gt;
-        &lt;svg viewBox=&quot;0 0 16 16&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
-            &lt;path d=&quot;M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z&quot;&gt;&lt;/path&gt;
-        &lt;/svg&gt;
-    &lt;/button&gt; --&gt;
 &lt;/section&gt;
 			&lt;/div&gt;
 			&lt;nav id=&quot;help-nav&quot; aria-label=&quot;sidebar navigation&quot;&gt;
@@ -788,7 +788,7 @@
         
             
                 
-                    28d
+                    29d
                 
                 post
             
@@ -799,20 +799,24 @@
     &lt;/nav&gt;
 &lt;/div&gt;
 
+			
 			&lt;div id=&quot;help-content&quot;&gt;&lt;!--page main content--&gt;
-				&lt;div class=&quot;px-md-6&quot;&gt;
-					&lt;h1&gt;
-						&lt;span class=&quot;post-print pull-right&quot;&gt;&lt;a onclick=&quot;printpage()&quot;&gt;
-						&lt;ion-icon&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;49&quot; height=&quot;49&quot; viewBox=&quot;0 0 512 512&quot; style=&quot;fill:currentColor;stroke:none;&quot;&gt;&lt;title&gt;Print document&lt;/title&gt;&lt;path d=&quot;M400,96V56a8,8,0,0,0-8-8H120a8,8,0,0,0-8,8V96&quot;/&gt;&lt;rect x=&quot;152&quot; y=&quot;264&quot; width=&quot;208&quot; height=&quot;160&quot; rx=&quot;4&quot; ry=&quot;4&quot; style=&quot;fill:none;stroke:none;&quot;/&gt;&lt;path d=&quot;M408,112H104a56,56,0,0,0-56,56V376a8,8,0,0,0,8,8h56v72a8,8,0,0,0,8,8H392a8,8,0,0,0,8-8V384h56a8,8,0,0,0,8-8V168A56,56,0,0,0,408,112ZM360,420a4,4,0,0,1-4,4H156a4,4,0,0,1-4-4V268a4,4,0,0,1,4-4H356a4,4,0,0,1,4,4ZM394,207.92a24,24,0,1,1,22-22A24,24,0,0,1,394,207.92Z&quot;/&gt;&lt;/svg&gt;
-						&lt;/ion-icon&gt;&lt;/a&gt;&lt;/span&gt;
-						&lt;span class=&quot;post-print pull-right&quot;&gt;&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/Poseidon3/2026-07-16-file-upload-unauthorized-access.md&quot; target=&quot;_blank&quot;&gt;
-						&lt;ion-icon&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;49&quot; height=&quot;49&quot; viewBox=&quot;0 0 512 512&quot; style=&quot;fill:currentColor;stroke:none;&quot;&gt;&lt;title&gt;Edit on github&lt;/title&gt;&lt;path d=&quot;M459.94,53.25a16.06,16.06,0,0,0-23.22-.56L424.35,65a8,8,0,0,0,0,11.31l11.34,11.32a8,8,0,0,0,11.34,0l12.06-12C465.19,69.54,465.76,59.62,459.94,53.25Z&quot;/&gt;&lt;path d=&quot;M399.34,90,218.82,270.2a9,9,0,0,0-2.31,3.93L208.16,299a3.91,3.91,0,0,0,4.86,4.86l24.85-8.35a9,9,0,0,0,3.93-2.31L422,112.66A9,9,0,0,0,422,100L412.05,90A9,9,0,0,0,399.34,90Z&quot;/&gt;&lt;path d=&quot;M386.34,193.66,264.45,315.79A41.08,41.08,0,0,1,247.58,326l-25.9,8.67a35.92,35.92,0,0,1-44.33-44.33l8.67-25.9a41.08,41.08,0,0,1,10.19-16.87L318.34,125.66A8,8,0,0,0,312.69,112H104a56,56,0,0,0-56,56V408a56,56,0,0,0,56,56H344a56,56,0,0,0,56-56V199.31A8,8,0,0,0,386.34,193.66Z&quot;/&gt;&lt;/svg&gt;
-						&lt;/ion-icon&gt;
-						&lt;/a&gt;&lt;/span&gt;
-					&lt;/h1&gt;
-					
-					&lt;br&gt;&lt;br&gt;&lt;br&gt;
-					
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 
 
@@ -821,7 +825,6 @@
 
 
 &lt;style&gt;
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -841,19 +844,22 @@
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -874,6 +880,11 @@
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -922,7 +933,6 @@
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;Noto Sans&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -948,7 +958,7 @@
     }
 &lt;/style&gt;
 
-&lt;section class=&quot;gh-banner info&quot; aria-labelledby=&quot;banner-title-&quot; role=&quot;region&quot; data-dismissible=&quot;true&quot;&gt;
+&lt;section class=&quot;gh-banner info&quot; aria-labelledby=&quot;banner-title-更新于-strong-29-天前-strong-时效尚可&quot; role=&quot;region&quot; data-dismissible=&quot;true&quot;&gt;
     &lt;div class=&quot;banner-icon&quot; aria-hidden=&quot;true&quot;&gt;
         
         &lt;svg viewBox=&quot;0 0 16 16&quot; fill=&quot;currentColor&quot;&gt;
@@ -958,23 +968,22 @@
     &lt;/div&gt;
 
     &lt;div class=&quot;banner-content&quot;&gt;
-        &lt;span class=&quot;banner-text&quot;&gt;
-    由于传播、利用此库/文所提供的信息而造成的任何直接或者间接的后果及损失，均由使用者本人负责，本文作者不为此承担任何责任。&lt;br&gt;
-    Any direct or indirect consequences or losses caused by disseminating or using the information provided in this repository/document
-    shall be borne solely by the user. The author of this article assumes no responsibility for such consequences or losses.
-    &lt;/span&gt;
+        &lt;span class=&quot;banner-text&quot;&gt;更新于 &lt;strong&gt;29 天前&lt;/strong&gt;，时效尚可&lt;/span&gt;
     &lt;/div&gt;
-
-    &lt;!-- &lt;button class=&quot;banner-close&quot; aria-label=&quot;关闭通知横幅&quot; title=&quot;Dismiss banner&quot; type=&quot;button&quot;&gt;
-        &lt;svg viewBox=&quot;0 0 16 16&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
-            &lt;path d=&quot;M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z&quot;&gt;&lt;/path&gt;
-        &lt;/svg&gt;
-    &lt;/button&gt; --&gt;
 &lt;/section&gt;
-					
+
+				&lt;div class=&quot;px-md-6&quot;&gt;
+					&lt;h1&gt;
+						&lt;span class=&quot;post-print pull-right&quot;&gt;&lt;a onclick=&quot;printpage()&quot;&gt;
+						&lt;ion-icon&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;49&quot; height=&quot;49&quot; viewBox=&quot;0 0 512 512&quot; style=&quot;fill:currentColor;stroke:none;&quot;&gt;&lt;title&gt;Print document&lt;/title&gt;&lt;path d=&quot;M400,96V56a8,8,0,0,0-8-8H120a8,8,0,0,0-8,8V96&quot;/&gt;&lt;rect x=&quot;152&quot; y=&quot;264&quot; width=&quot;208&quot; height=&quot;160&quot; rx=&quot;4&quot; ry=&quot;4&quot; style=&quot;fill:none;stroke:none;&quot;/&gt;&lt;path d=&quot;M408,112H104a56,56,0,0,0-56,56V376a8,8,0,0,0,8,8h56v72a8,8,0,0,0,8,8H392a8,8,0,0,0,8-8V384h56a8,8,0,0,0,8-8V168A56,56,0,0,0,408,112ZM360,420a4,4,0,0,1-4,4H156a4,4,0,0,1-4-4V268a4,4,0,0,1,4-4H356a4,4,0,0,1,4,4ZM394,207.92a24,24,0,1,1,22-22A24,24,0,0,1,394,207.92Z&quot;/&gt;&lt;/svg&gt;
+						&lt;/ion-icon&gt;&lt;/a&gt;&lt;/span&gt;
+						&lt;span class=&quot;post-print pull-right&quot;&gt;&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/Poseidon3/2026-07-16-file-upload-unauthorized-access.md&quot; target=&quot;_blank&quot;&gt;
+						&lt;ion-icon&gt;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;49&quot; height=&quot;49&quot; viewBox=&quot;0 0 512 512&quot; style=&quot;fill:currentColor;stroke:none;&quot;&gt;&lt;title&gt;Edit on github&lt;/title&gt;&lt;path d=&quot;M459.94,53.25a16.06,16.06,0,0,0-23.22-.56L424.35,65a8,8,0,0,0,0,11.31l11.34,11.32a8,8,0,0,0,11.34,0l12.06-12C465.19,69.54,465.76,59.62,459.94,53.25Z&quot;/&gt;&lt;path d=&quot;M399.34,90,218.82,270.2a9,9,0,0,0-2.31,3.93L208.16,299a3.91,3.91,0,0,0,4.86,4.86l24.85-8.35a9,9,0,0,0,3.93-2.31L422,112.66A9,9,0,0,0,422,100L412.05,90A9,9,0,0,0,399.34,90Z&quot;/&gt;&lt;path d=&quot;M386.34,193.66,264.45,315.79A41.08,41.08,0,0,1,247.58,326l-25.9,8.67a35.92,35.92,0,0,1-44.33-44.33l8.67-25.9a41.08,41.08,0,0,1,10.19-16.87L318.34,125.66A8,8,0,0,0,312.69,112H104a56,56,0,0,0-56,56V408a56,56,0,0,0,56,56H344a56,56,0,0,0,56-56V199.31A8,8,0,0,0,386.34,193.66Z&quot;/&gt;&lt;/svg&gt;
+						&lt;/ion-icon&gt;
+						&lt;/a&gt;&lt;/span&gt;
+					&lt;/h1&gt;
 					
 &lt;style&gt;
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -994,19 +1003,22 @@
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -1027,6 +1039,11 @@
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -1075,7 +1092,6 @@
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;Noto Sans&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -1113,12 +1129,6 @@
     &lt;div class=&quot;banner-content&quot;&gt;
         &lt;span class=&quot;banner-text&quot;&gt;本文所述漏洞仅用于安全研究与合规审计目的，任何未授权的渗透测试或恶意利用行为均违反相关法律法规，后果由使用者自行承担。&lt;br /&gt;本文所涉及漏洞信息仅供授权安全研究与合规审计使用，任何未经授权的测试或恶意利用均属违法行为。&lt;/span&gt;
     &lt;/div&gt;
-
-    &lt;!-- &lt;button class=&quot;banner-close&quot; aria-label=&quot;关闭通知横幅&quot; title=&quot;Dismiss banner&quot; type=&quot;button&quot;&gt;
-        &lt;svg viewBox=&quot;0 0 16 16&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
-            &lt;path d=&quot;M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z&quot;&gt;&lt;/path&gt;
-        &lt;/svg&gt;
-    &lt;/button&gt; --&gt;
 &lt;/section&gt;
 
 &lt;h1 id=&quot;文件上传接口未授权访问&quot;&gt;文件上传接口未授权访问&lt;/h1&gt;
@@ -1165,7 +1175,6 @@
 &lt;p&gt;Poseidon3企业应用平台存在两个未授权文件上传接口，分别位于门户服务（po-server）和报审服务（pr-server）。攻击者无需任何身份认证即可向服务器上传任意文件，若服务端未对文件类型、内容和存储路径进行严格校验，可能导致Webshell上传，进而获取服务器控制权限。该漏洞属于OWASP Top 10中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A04:2021 - Insecure Design&lt;/code&gt; 及 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A01:2021 - Broken Access Control&lt;/code&gt; 类别。&lt;/p&gt;
 
 &lt;style&gt;
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -1185,19 +1194,22 @@
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -1218,6 +1230,11 @@
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -1266,7 +1283,6 @@
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;Noto Sans&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -1304,12 +1320,6 @@
     &lt;div class=&quot;banner-content&quot;&gt;
         &lt;span class=&quot;banner-text&quot;&gt;两个文件上传接口均可未授权访问，若服务端未严格校验文件类型和内容，攻击者可直接上传Webshell获取服务器控制权限（RCE）。&lt;/span&gt;
     &lt;/div&gt;
-
-    &lt;!-- &lt;button class=&quot;banner-close&quot; aria-label=&quot;关闭通知横幅&quot; title=&quot;Dismiss banner&quot; type=&quot;button&quot;&gt;
-        &lt;svg viewBox=&quot;0 0 16 16&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
-            &lt;path d=&quot;M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z&quot;&gt;&lt;/path&gt;
-        &lt;/svg&gt;
-    &lt;/button&gt; --&gt;
 &lt;/section&gt;
 
 &lt;hr /&gt;
@@ -1371,7 +1381,6 @@
 &lt;p&gt;两个服务均未被CAS SSO保护，且接口层面无独立认证机制。&lt;/p&gt;
 
 &lt;style&gt;
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -1391,19 +1400,22 @@
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -1424,6 +1436,11 @@
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -1472,7 +1489,6 @@
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;Noto Sans&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -1510,12 +1526,6 @@
     &lt;div class=&quot;banner-content&quot;&gt;
         &lt;span class=&quot;banner-text&quot;&gt;警告：po-server 和 pr-server 两个服务的文件上传接口均无任何认证保护，攻击者可直接上传任意文件。&lt;/span&gt;
     &lt;/div&gt;
-
-    &lt;!-- &lt;button class=&quot;banner-close&quot; aria-label=&quot;关闭通知横幅&quot; title=&quot;Dismiss banner&quot; type=&quot;button&quot;&gt;
-        &lt;svg viewBox=&quot;0 0 16 16&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
-            &lt;path d=&quot;M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z&quot;&gt;&lt;/path&gt;
-        &lt;/svg&gt;
-    &lt;/button&gt; --&gt;
 &lt;/section&gt;
 
 &lt;hr /&gt;
@@ -1551,7 +1561,6 @@
 &lt;/ul&gt;
 
 &lt;style&gt;
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -1571,19 +1580,22 @@
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -1604,6 +1616,11 @@
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -1652,7 +1669,6 @@
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;Noto Sans&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -1690,12 +1706,6 @@
     &lt;div class=&quot;banner-content&quot;&gt;
         &lt;span class=&quot;banner-text&quot;&gt;注意：验证过程应在授权范围内进行，请勿上传恶意文件（如Webshell），测试完成后应及时清理上传的测试文件。&lt;/span&gt;
     &lt;/div&gt;
-
-    &lt;!-- &lt;button class=&quot;banner-close&quot; aria-label=&quot;关闭通知横幅&quot; title=&quot;Dismiss banner&quot; type=&quot;button&quot;&gt;
-        &lt;svg viewBox=&quot;0 0 16 16&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
-            &lt;path d=&quot;M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z&quot;&gt;&lt;/path&gt;
-        &lt;/svg&gt;
-    &lt;/button&gt; --&gt;
 &lt;/section&gt;
 
 &lt;hr /&gt;
@@ -1744,7 +1754,6 @@
 &lt;/blockquote&gt;
 
 &lt;style&gt;
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -1764,19 +1773,22 @@
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -1797,6 +1809,11 @@
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -1845,7 +1862,6 @@
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;Noto Sans&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -1883,12 +1899,6 @@
     &lt;div class=&quot;banner-content&quot;&gt;
         &lt;span class=&quot;banner-text&quot;&gt;攻击链说明：文件上传漏洞可直接导致远程命令执行（RCE），CVSS 3.1 基础分高达 9.8（Critical），建议结合同系列漏洞报告一并修复。&lt;/span&gt;
     &lt;/div&gt;
-
-    &lt;!-- &lt;button class=&quot;banner-close&quot; aria-label=&quot;关闭通知横幅&quot; title=&quot;Dismiss banner&quot; type=&quot;button&quot;&gt;
-        &lt;svg viewBox=&quot;0 0 16 16&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
-            &lt;path d=&quot;M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z&quot;&gt;&lt;/path&gt;
-        &lt;/svg&gt;
-    &lt;/button&gt; --&gt;
 &lt;/section&gt;
 
 &lt;hr /&gt;
@@ -1923,7 +1933,6 @@
 &lt;/table&gt;
 
 &lt;style&gt;
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -1943,19 +1952,22 @@
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -1976,6 +1988,11 @@
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -2024,7 +2041,6 @@
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;Noto Sans&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -2062,12 +2078,6 @@
     &lt;div class=&quot;banner-content&quot;&gt;
         &lt;span class=&quot;banner-text&quot;&gt;提示：根因在于文件上传功能缺少「认证 + 文件校验 + 存储隔离」的三重防护。仅添加认证而忽略文件内容校验，仍可能存在已登录用户上传恶意文件的风险。&lt;/span&gt;
     &lt;/div&gt;
-
-    &lt;!-- &lt;button class=&quot;banner-close&quot; aria-label=&quot;关闭通知横幅&quot; title=&quot;Dismiss banner&quot; type=&quot;button&quot;&gt;
-        &lt;svg viewBox=&quot;0 0 16 16&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
-            &lt;path d=&quot;M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z&quot;&gt;&lt;/path&gt;
-        &lt;/svg&gt;
-    &lt;/button&gt; --&gt;
 &lt;/section&gt;
 
 &lt;hr /&gt;
@@ -2152,7 +2162,6 @@
 &lt;h3 id=&quot;71-紧急修复p0&quot;&gt;7.1 紧急修复（P0）&lt;/h3&gt;
 
 &lt;style&gt;
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -2172,19 +2181,22 @@
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -2205,6 +2217,11 @@
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -2253,7 +2270,6 @@
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;Noto Sans&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -2291,12 +2307,6 @@
     &lt;div class=&quot;banner-content&quot;&gt;
         &lt;span class=&quot;banner-text&quot;&gt;紧急：文件上传漏洞 CVSS 评分 9.8（Critical），可直接导致远程命令执行，建议在发现漏洞后 24 小时内完成 P0 级修复。&lt;/span&gt;
     &lt;/div&gt;
-
-    &lt;!-- &lt;button class=&quot;banner-close&quot; aria-label=&quot;关闭通知横幅&quot; title=&quot;Dismiss banner&quot; type=&quot;button&quot;&gt;
-        &lt;svg viewBox=&quot;0 0 16 16&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
-            &lt;path d=&quot;M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z&quot;&gt;&lt;/path&gt;
-        &lt;/svg&gt;
-    &lt;/button&gt; --&gt;
 &lt;/section&gt;
 
 &lt;ol&gt;
@@ -2316,7 +2326,6 @@
 &lt;/ol&gt;
 
 &lt;style&gt;
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -2336,19 +2345,22 @@
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -2369,6 +2381,11 @@
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -2417,7 +2434,6 @@
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, &quot;Noto Sans&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;;*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -2455,12 +2471,6 @@
     &lt;div class=&quot;banner-content&quot;&gt;
         &lt;span class=&quot;banner-text&quot;&gt;提示：P1 级修复建议在漏洞发现后 7 个工作日内完成，并在修复完成后进行回归测试，确认文件上传功能正常且无法上传恶意文件。&lt;/span&gt;
     &lt;/div&gt;
-
-    &lt;!-- &lt;button class=&quot;banner-close&quot; aria-label=&quot;关闭通知横幅&quot; title=&quot;Dismiss banner&quot; type=&quot;button&quot;&gt;
-        &lt;svg viewBox=&quot;0 0 16 16&quot; fill=&quot;currentColor&quot; aria-hidden=&quot;true&quot;&gt;
-            &lt;path d=&quot;M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z&quot;&gt;&lt;/path&gt;
-        &lt;/svg&gt;
-    &lt;/button&gt; --&gt;
 &lt;/section&gt;
 
 &lt;h3 id=&quot;73-长期加固p2&quot;&gt;7.3 长期加固（P2）&lt;/h3&gt;
@@ -2480,7 +2490,7 @@
   &lt;li&gt;&lt;a href=&quot;https://owasp.org/Top10/A01_2021-Broken_Access_Control/&quot; target=&quot;_blank&quot;&gt;OWASP Top 10 2021: A01 - Broken Access Control&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://cwe.mitre.org/data/definitions/434.html&quot; target=&quot;_blank&quot;&gt;CWE-434: Unrestricted Upload of File with Dangerous Type&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://cwe.mitre.org/data/definitions/306.html&quot; target=&quot;_blank&quot;&gt;CWE-306: Missing Authentication for Critical Function&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;GB/T 22239-2019 信息安全技术 网络安全等级保护基本要求&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://openstd.samr.gov.cn/bzgk/std/showGb?type=online&amp;amp;hcno=BAFB47E8874764186BDB7865E8344DAF&quot; target=&quot;_blank&quot;&gt;GB/T 22239-2019 信息安全技术 网络安全等级保护基本要求&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;hr /&gt;
@@ -2491,48 +2501,81 @@
 				&lt;div class=&quot;spacing&quot;&gt;&lt;/div&gt;
 				&lt;!-- [x] 2022/10/20/10:49:36 fixed: while width &lt; some inch. would be flex column not display like a row.--&gt;
 &lt;footer&gt;
-	&lt;style&gt;.border-top {
-		border-top: 1.5px solid #d0d7de!important;
-	}&lt;/style&gt;
+	&lt;style&gt;
+		.border-top {
+			border-top: 1.5px solid #d0d7de!important;
+		}
+		
+		/* 仅在 /categories/ 页面生效的竖向排列样式 */
+		.suggestion-column-wrapper.is-categories-page {
+			display: flex;
+			flex-direction: column;
+			gap: 1.25rem;
+		}
+		.suggestion-column-wrapper.is-categories-page .col-xs-4-5 {
+			width: 100% !important;
+			padding-right: 0 !important;
+			padding-left: 0 !important;
+			margin-bottom: 0 !important;
+			padding-top: 0 !important;
+			padding-bottom: 0 !important;
+		}
+	&lt;/style&gt;
 	&lt;div class=&quot;border-top&quot;&gt;&lt;/div&gt;
-		&lt;section class=&quot;container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto&quot;&gt;
-			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix &quot;&gt;
+	
+	&lt;!-- 只有在 /categories/ 页面时添加 is-categories-page 类名 --&gt;
+	&lt;section class=&quot;container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto suggestion-column-wrapper &quot;&gt;
+		
+		&lt;!-- 1. 申明模块：/categories/ 页面隐藏 --&gt;
+		
+			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
 				&lt;h2 class=&quot;lead&quot;&gt;申明&lt;/h2&gt;
 				&lt;div&gt;
-					&lt;div class=&quot;mb-2&quot;&gt;&lt;a href=&quot;/about/poseidon3-file-upload-unauthorized-access/&quot; target=&quot;_blank&quot; class=&quot; text-bold&quot;&gt;
-						&lt;div class=&quot;fa fa-link&quot;&gt;&lt;/div&gt;
-						转载请申明本文档链接&lt;/a&gt;&lt;/div&gt;
-					&lt;div&gt;&lt;a href=&quot;https://github.com/Bin4xin&quot; target=&quot;_blank&quot;  class=&quot;text-bold&quot;&gt;
-						&lt;div class=&quot;fa fa-user&quot;&gt;&lt;/div&gt;
-						Post by Bin4xin.&lt;/a&gt;
+					&lt;div class=&quot;mb-2&quot;&gt;
+						&lt;a href=&quot;/about/poseidon3-file-upload-unauthorized-access/&quot; target=&quot;_blank&quot; class=&quot;text-bold&quot;&gt;
+							&lt;div class=&quot;fa fa-link&quot;&gt;&lt;/div&gt;
+							转载请申明本文档链接
+						&lt;/a&gt;
+					&lt;/div&gt;
+					&lt;div&gt;
+						&lt;a href=&quot;https://github.com/Bin4xin&quot; target=&quot;_blank&quot; class=&quot;text-bold&quot;&gt;
+							&lt;div class=&quot;fa fa-user&quot;&gt;&lt;/div&gt;
+							Post by Bin4xin.
+						&lt;/a&gt;
 					&lt;/div&gt;
 				&lt;/div&gt;
 			&lt;/div&gt;
-			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
-				&lt;h2 class=&quot;lead&quot;&gt;贡献开源文档&lt;/h2&gt;
-				&lt;div&gt;
-					&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/about/Poseidon3/2026-07-16-file-upload-unauthorized-access.md&quot; target=&quot;_blank&quot; class=&quot;no-underline btn mr-1 color-border-accent-emphasis&quot;&gt;
-						&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; role=&quot;img&quot; class=&quot;octicon mr-1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;currentColor&quot; style=&quot;display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
-						贡献当前开源文档
-					&lt;/a&gt;
-					&lt;p class=&quot;f1-l mt-2 text-bold&quot;&gt;此之前，学习开源贡献&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码&quot;&gt;CN&amp;nbsp;|&lt;/a&gt;
-						&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/github/docs&quot;&gt;EN&lt;/a&gt;&lt;/p&gt;
+
+		&lt;!-- 2. 贡献开源文档 --&gt;
+		&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
+			&lt;h2 class=&quot;lead&quot;&gt;贡献开源文档&lt;/h2&gt;
+			&lt;div&gt;
+				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/about/Poseidon3/2026-07-16-file-upload-unauthorized-access.md&quot; target=&quot;_blank&quot; class=&quot;no-underline btn mr-1 color-border-accent-emphasis&quot;&gt;
+					&lt;svg aria-hidden=&quot;true&quot; focusable=&quot;false&quot; role=&quot;img&quot; class=&quot;octicon mr-1&quot; viewBox=&quot;0 0 16 16&quot; width=&quot;16&quot; height=&quot;16&quot; fill=&quot;currentColor&quot; style=&quot;display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+					贡献当前开源文档
+				&lt;/a&gt;
+				&lt;div class=&quot;f1-l mt-2 text-bold&quot;&gt;此之前，学习开源贡献&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码&quot;&gt;CN&amp;nbsp;|&lt;/a&gt;
+					&lt;a target=&quot;_blank&quot; href=&quot;https://github.com/github/docs&quot;&gt;EN&lt;/a&gt;
 				&lt;/div&gt;
 			&lt;/div&gt;
-			&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
-				&lt;h2 class=&quot;lead&quot;&gt;此文档对您有帮助吗&lt;/h2&gt;
-				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/&quot; target=&quot;_blank&quot; class=&quot;no-underline&quot;&gt;
+		&lt;/div&gt;
+		
+
+		&lt;!-- 3. 此文档对您有帮助吗 --&gt;
+		&lt;div class=&quot;col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix&quot;&gt;
+			&lt;h2 class=&quot;lead&quot;&gt;此文档对您有帮助吗&lt;/h2&gt;
+			&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/&quot; target=&quot;_blank&quot; class=&quot;no-underline&quot;&gt;
 				&lt;span class=&quot;btn mr-1 color-border-accent-emphasis&quot; title=&quot;给文档仓库点个赞!&quot;&gt;
 					&lt;div class=&quot;fa fa-thumbs-o-up&quot;&gt;&lt;/div&gt;
 				&lt;/span&gt;
-				&lt;/a&gt;
-				&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&amp;template=2-bug_report.yaml&amp;title=_posts/about/Poseidon3/2026-07-16-file-upload-unauthorized-access.md&amp;nbsp;「poseidon3」：文件上传接口未授权访问 | © 哨兵 | SENTINEL SECURITY, LAB&quot; target=&quot;_blank&quot;&gt;
+			&lt;/a&gt;
+			&lt;a href=&quot;https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&amp;template=2-bug_report.yaml&amp;title=_posts/about/Poseidon3/2026-07-16-file-upload-unauthorized-access.md&amp;nbsp;「poseidon3」：文件上传接口未授权访问 | © 哨兵 | SENTINEL SECURITY, LAB&quot; target=&quot;_blank&quot;&gt;
 				&lt;span class=&quot;btn mr-1 color-border-accent-emphasis&quot; title=&quot;本文档有问题?&quot;&gt;
-				&lt;div class=&quot;fa fa-thumbs-o-down&quot;&gt;&lt;/div&gt;
+					&lt;div class=&quot;fa fa-thumbs-o-down&quot;&gt;&lt;/div&gt;
 				&lt;/span&gt;
-				&lt;/a&gt;
-			&lt;/div&gt;
-		&lt;/section&gt;
+			&lt;/a&gt;
+		&lt;/div&gt;
+	&lt;/section&gt;
 &lt;/footer&gt;
 			&lt;/div&gt;&lt;!--page main content end--&gt;
 			
@@ -2782,15 +2825,30 @@ document.addEventListener(&#39;click&#39;, function(e) {
         <div class="navbar-collapse collapse navbar-right">
             <ul class="nav navbar-nav">
                 
-                <li ><a href="/"><div class="fa fa-dashboard"></div></a></li>
-                <li ><a href="/search"><div class="fa fa-search"></div></a></li>
-                <li ><a href="/blog/">BLOG</a></li>
-                <li ><a href="/categories/">CATEGORIES</a></li>
-                <li ><a href="/daily/">DAILY</a></li>
-                <li ><a href="/newest">NEWEST</a></li>
-                <li class="active"><a href="/about/">RESEARCH</a></li>
-                <li ><a href="/feed.xml">RSS</a></li>
-                
+                <li >
+                    <a href="/"><i class="fas fa-home"></i> Home &middot;</a>
+                </li>
+                <li >
+                    <a href="/search"><i class="fas fa-search"></i> Search &middot;</a>
+                </li>
+                <li >
+                    <a href="/blog/"><i class="fas fa-pen-nib"></i> BLOG &middot;</a>
+                </li>
+                <li >
+                    <a href="/categories/"><i class="fas fa-folder-open"></i> CATEGORIES &middot;</a>
+                </li>
+                <li >
+                    <a href="/daily/"><i class="fas fa-calendar"></i> DAILY &middot;</a>
+                </li>
+                <li >
+                    <a href="/newest"><i class="fas fa-bolt"></i> NEWEST &middot;</a>
+                </li>
+                <li class="active">
+                    <a href="/about/"><i class="fas fa-flask"></i> RESEARCH &middot;</a>
+                </li>
+                <li >
+                    <a href="/feed.xml"><i class="fas fa-rss"></i> RSS</a>
+                </li>
                 
             </ul>
         </div><!--/.nav-collapse -->
@@ -2815,7 +2873,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
 
 
 <style>
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -2835,19 +2892,22 @@ document.addEventListener(&#39;click&#39;, function(e) {
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -2868,6 +2928,11 @@ document.addEventListener(&#39;click&#39;, function(e) {
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -2916,7 +2981,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -2954,12 +3018,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     <div class="banner-content">
         <span class="banner-text">注意: <br>任何形式的未授权访问都是禁止的</span>
     </div>
-
-    <!-- <button class="banner-close" aria-label="关闭通知横幅" title="Dismiss banner" type="button">
-        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-            <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
-        </svg>
-    </button> -->
 </section>
 			</div>
 			<nav id="help-nav" aria-label="sidebar navigation">
@@ -3561,7 +3619,7 @@ document.addEventListener(&#39;click&#39;, function(e) {
         
             
                 
-                    28d
+                    29d
                 
                 post
             
@@ -3572,20 +3630,24 @@ document.addEventListener(&#39;click&#39;, function(e) {
     </nav>
 </div>
 
+			
 			<div id="help-content"><!--page main content-->
-				<div class="px-md-6">
-					<h1>
-						<span class="post-print pull-right"><a onclick="printpage()">
-						<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Print document</title><path d="M400,96V56a8,8,0,0,0-8-8H120a8,8,0,0,0-8,8V96"/><rect x="152" y="264" width="208" height="160" rx="4" ry="4" style="fill:none;stroke:none;"/><path d="M408,112H104a56,56,0,0,0-56,56V376a8,8,0,0,0,8,8h56v72a8,8,0,0,0,8,8H392a8,8,0,0,0,8-8V384h56a8,8,0,0,0,8-8V168A56,56,0,0,0,408,112ZM360,420a4,4,0,0,1-4,4H156a4,4,0,0,1-4-4V268a4,4,0,0,1,4-4H356a4,4,0,0,1,4,4ZM394,207.92a24,24,0,1,1,22-22A24,24,0,0,1,394,207.92Z"/></svg>
-						</ion-icon></a></span>
-						<span class="post-print pull-right"><a href="https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/Poseidon3/2026-07-16-file-upload-unauthorized-access.md" target="_blank">
-						<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Edit on github</title><path d="M459.94,53.25a16.06,16.06,0,0,0-23.22-.56L424.35,65a8,8,0,0,0,0,11.31l11.34,11.32a8,8,0,0,0,11.34,0l12.06-12C465.19,69.54,465.76,59.62,459.94,53.25Z"/><path d="M399.34,90,218.82,270.2a9,9,0,0,0-2.31,3.93L208.16,299a3.91,3.91,0,0,0,4.86,4.86l24.85-8.35a9,9,0,0,0,3.93-2.31L422,112.66A9,9,0,0,0,422,100L412.05,90A9,9,0,0,0,399.34,90Z"/><path d="M386.34,193.66,264.45,315.79A41.08,41.08,0,0,1,247.58,326l-25.9,8.67a35.92,35.92,0,0,1-44.33-44.33l8.67-25.9a41.08,41.08,0,0,1,10.19-16.87L318.34,125.66A8,8,0,0,0,312.69,112H104a56,56,0,0,0-56,56V408a56,56,0,0,0,56,56H344a56,56,0,0,0,56-56V199.31A8,8,0,0,0,386.34,193.66Z"/></svg>
-						</ion-icon>
-						</a></span>
-					</h1>
-					
-					<br><br><br>
-					
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 
 
@@ -3594,7 +3656,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
 
 
 <style>
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -3614,19 +3675,22 @@ document.addEventListener(&#39;click&#39;, function(e) {
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -3647,6 +3711,11 @@ document.addEventListener(&#39;click&#39;, function(e) {
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -3695,7 +3764,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -3721,7 +3789,7 @@ document.addEventListener(&#39;click&#39;, function(e) {
     }
 </style>
 
-<section class="gh-banner info" aria-labelledby="banner-title-" role="region" data-dismissible="true">
+<section class="gh-banner info" aria-labelledby="banner-title-更新于-strong-29-天前-strong-时效尚可" role="region" data-dismissible="true">
     <div class="banner-icon" aria-hidden="true">
         
         <svg viewBox="0 0 16 16" fill="currentColor">
@@ -3731,23 +3799,22 @@ document.addEventListener(&#39;click&#39;, function(e) {
     </div>
 
     <div class="banner-content">
-        <span class="banner-text">
-    由于传播、利用此库/文所提供的信息而造成的任何直接或者间接的后果及损失，均由使用者本人负责，本文作者不为此承担任何责任。<br>
-    Any direct or indirect consequences or losses caused by disseminating or using the information provided in this repository/document
-    shall be borne solely by the user. The author of this article assumes no responsibility for such consequences or losses.
-    </span>
+        <span class="banner-text">更新于 <strong>29 天前</strong>，时效尚可</span>
     </div>
-
-    <!-- <button class="banner-close" aria-label="关闭通知横幅" title="Dismiss banner" type="button">
-        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-            <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
-        </svg>
-    </button> -->
 </section>
-					
+
+				<div class="px-md-6">
+					<h1>
+						<span class="post-print pull-right"><a onclick="printpage()">
+						<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Print document</title><path d="M400,96V56a8,8,0,0,0-8-8H120a8,8,0,0,0-8,8V96"/><rect x="152" y="264" width="208" height="160" rx="4" ry="4" style="fill:none;stroke:none;"/><path d="M408,112H104a56,56,0,0,0-56,56V376a8,8,0,0,0,8,8h56v72a8,8,0,0,0,8,8H392a8,8,0,0,0,8-8V384h56a8,8,0,0,0,8-8V168A56,56,0,0,0,408,112ZM360,420a4,4,0,0,1-4,4H156a4,4,0,0,1-4-4V268a4,4,0,0,1,4-4H356a4,4,0,0,1,4,4ZM394,207.92a24,24,0,1,1,22-22A24,24,0,0,1,394,207.92Z"/></svg>
+						</ion-icon></a></span>
+						<span class="post-print pull-right"><a href="https://github.com/Bin4xin/bin4xin.github.io/edit/main/_posts/about/Poseidon3/2026-07-16-file-upload-unauthorized-access.md" target="_blank">
+						<ion-icon><svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 512 512" style="fill:currentColor;stroke:none;"><title>Edit on github</title><path d="M459.94,53.25a16.06,16.06,0,0,0-23.22-.56L424.35,65a8,8,0,0,0,0,11.31l11.34,11.32a8,8,0,0,0,11.34,0l12.06-12C465.19,69.54,465.76,59.62,459.94,53.25Z"/><path d="M399.34,90,218.82,270.2a9,9,0,0,0-2.31,3.93L208.16,299a3.91,3.91,0,0,0,4.86,4.86l24.85-8.35a9,9,0,0,0,3.93-2.31L422,112.66A9,9,0,0,0,422,100L412.05,90A9,9,0,0,0,399.34,90Z"/><path d="M386.34,193.66,264.45,315.79A41.08,41.08,0,0,1,247.58,326l-25.9,8.67a35.92,35.92,0,0,1-44.33-44.33l8.67-25.9a41.08,41.08,0,0,1,10.19-16.87L318.34,125.66A8,8,0,0,0,312.69,112H104a56,56,0,0,0-56,56V408a56,56,0,0,0,56,56H344a56,56,0,0,0,56-56V199.31A8,8,0,0,0,386.34,193.66Z"/></svg>
+						</ion-icon>
+						</a></span>
+					</h1>
 					
 <style>
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -3767,19 +3834,22 @@ document.addEventListener(&#39;click&#39;, function(e) {
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -3800,6 +3870,11 @@ document.addEventListener(&#39;click&#39;, function(e) {
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -3848,7 +3923,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -3886,12 +3960,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     <div class="banner-content">
         <span class="banner-text">本文所述漏洞仅用于安全研究与合规审计目的，任何未授权的渗透测试或恶意利用行为均违反相关法律法规，后果由使用者自行承担。<br />本文所涉及漏洞信息仅供授权安全研究与合规审计使用，任何未经授权的测试或恶意利用均属违法行为。</span>
     </div>
-
-    <!-- <button class="banner-close" aria-label="关闭通知横幅" title="Dismiss banner" type="button">
-        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-            <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
-        </svg>
-    </button> -->
 </section>
 
 <h1 id="文件上传接口未授权访问">文件上传接口未授权访问</h1>
@@ -3938,7 +4006,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
 <p>Poseidon3企业应用平台存在两个未授权文件上传接口，分别位于门户服务（po-server）和报审服务（pr-server）。攻击者无需任何身份认证即可向服务器上传任意文件，若服务端未对文件类型、内容和存储路径进行严格校验，可能导致Webshell上传，进而获取服务器控制权限。该漏洞属于OWASP Top 10中 <code class="language-plaintext highlighter-rouge">A04:2021 - Insecure Design</code> 及 <code class="language-plaintext highlighter-rouge">A01:2021 - Broken Access Control</code> 类别。</p>
 
 <style>
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -3958,19 +4025,22 @@ document.addEventListener(&#39;click&#39;, function(e) {
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -3991,6 +4061,11 @@ document.addEventListener(&#39;click&#39;, function(e) {
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -4039,7 +4114,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -4077,12 +4151,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     <div class="banner-content">
         <span class="banner-text">两个文件上传接口均可未授权访问，若服务端未严格校验文件类型和内容，攻击者可直接上传Webshell获取服务器控制权限（RCE）。</span>
     </div>
-
-    <!-- <button class="banner-close" aria-label="关闭通知横幅" title="Dismiss banner" type="button">
-        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-            <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
-        </svg>
-    </button> -->
 </section>
 
 <hr />
@@ -4144,7 +4212,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
 <p>两个服务均未被CAS SSO保护，且接口层面无独立认证机制。</p>
 
 <style>
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -4164,19 +4231,22 @@ document.addEventListener(&#39;click&#39;, function(e) {
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -4197,6 +4267,11 @@ document.addEventListener(&#39;click&#39;, function(e) {
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -4245,7 +4320,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -4283,12 +4357,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     <div class="banner-content">
         <span class="banner-text">警告：po-server 和 pr-server 两个服务的文件上传接口均无任何认证保护，攻击者可直接上传任意文件。</span>
     </div>
-
-    <!-- <button class="banner-close" aria-label="关闭通知横幅" title="Dismiss banner" type="button">
-        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-            <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
-        </svg>
-    </button> -->
 </section>
 
 <hr />
@@ -4324,7 +4392,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
 </ul>
 
 <style>
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -4344,19 +4411,22 @@ document.addEventListener(&#39;click&#39;, function(e) {
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -4377,6 +4447,11 @@ document.addEventListener(&#39;click&#39;, function(e) {
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -4425,7 +4500,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -4463,12 +4537,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     <div class="banner-content">
         <span class="banner-text">注意：验证过程应在授权范围内进行，请勿上传恶意文件（如Webshell），测试完成后应及时清理上传的测试文件。</span>
     </div>
-
-    <!-- <button class="banner-close" aria-label="关闭通知横幅" title="Dismiss banner" type="button">
-        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-            <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
-        </svg>
-    </button> -->
 </section>
 
 <hr />
@@ -4517,7 +4585,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
 </blockquote>
 
 <style>
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -4537,19 +4604,22 @@ document.addEventListener(&#39;click&#39;, function(e) {
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -4570,6 +4640,11 @@ document.addEventListener(&#39;click&#39;, function(e) {
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -4618,7 +4693,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -4656,12 +4730,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     <div class="banner-content">
         <span class="banner-text">攻击链说明：文件上传漏洞可直接导致远程命令执行（RCE），CVSS 3.1 基础分高达 9.8（Critical），建议结合同系列漏洞报告一并修复。</span>
     </div>
-
-    <!-- <button class="banner-close" aria-label="关闭通知横幅" title="Dismiss banner" type="button">
-        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-            <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
-        </svg>
-    </button> -->
 </section>
 
 <hr />
@@ -4696,7 +4764,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
 </table>
 
 <style>
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -4716,19 +4783,22 @@ document.addEventListener(&#39;click&#39;, function(e) {
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -4749,6 +4819,11 @@ document.addEventListener(&#39;click&#39;, function(e) {
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -4797,7 +4872,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -4835,12 +4909,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     <div class="banner-content">
         <span class="banner-text">提示：根因在于文件上传功能缺少「认证 + 文件校验 + 存储隔离」的三重防护。仅添加认证而忽略文件内容校验，仍可能存在已登录用户上传恶意文件的风险。</span>
     </div>
-
-    <!-- <button class="banner-close" aria-label="关闭通知横幅" title="Dismiss banner" type="button">
-        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-            <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
-        </svg>
-    </button> -->
 </section>
 
 <hr />
@@ -4925,7 +4993,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
 <h3 id="71-紧急修复p0">7.1 紧急修复（P0）</h3>
 
 <style>
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -4945,19 +5012,22 @@ document.addEventListener(&#39;click&#39;, function(e) {
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -4978,6 +5048,11 @@ document.addEventListener(&#39;click&#39;, function(e) {
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -5026,7 +5101,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -5064,12 +5138,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     <div class="banner-content">
         <span class="banner-text">紧急：文件上传漏洞 CVSS 评分 9.8（Critical），可直接导致远程命令执行，建议在发现漏洞后 24 小时内完成 P0 级修复。</span>
     </div>
-
-    <!-- <button class="banner-close" aria-label="关闭通知横幅" title="Dismiss banner" type="button">
-        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-            <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
-        </svg>
-    </button> -->
 </section>
 
 <ol>
@@ -5089,7 +5157,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
 </ol>
 
 <style>
-    /* GitHub 风格横幅样式 - 支持错误/警告/信息主题 */
     .gh-banner {
         --banner-bg: #eef5ff;
         --banner-border: rgba(84, 174, 255, 0.3);
@@ -5109,19 +5176,22 @@ document.addEventListener(&#39;click&#39;, function(e) {
         position: relative;
         margin: 25px;
     }
-    /* 错误主题 */
     .gh-banner.error {
         --banner-bg: #ffebe9;
         --banner-border: rgba(255, 129, 130, 0.4);
         --banner-icon-color: #cf222e;
     }
-    /* 警告主题 */
     .gh-banner.warn {
         --banner-bg: #fff8e7;
         --banner-border: rgba(215, 173, 62, 0.4);
         --banner-icon-color: #bc6f00;
     }
-    /* 深色模式适配 */
+    /* 成功主题 */
+    .gh-banner.success {
+        --banner-bg: #dafbe1;
+        --banner-border: rgba(74, 194, 107, 0.4);
+        --banner-icon-color: #08882b;
+    }
     @media (prefers-color-scheme: dark) {
         .gh-banner {
             --banner-bg: #1c2a3e;
@@ -5142,6 +5212,11 @@ document.addEventListener(&#39;click&#39;, function(e) {
             --banner-bg: #382d1a;
             --banner-border: #d29922;
             --banner-icon-color: #e3b341;
+        }
+        .gh-banner.success {
+            --banner-bg: #1b3424;
+            --banner-border: #238636;
+            --banner-icon-color: #3fb950;
         }
     }
     .banner-icon {
@@ -5190,7 +5265,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     }
     .banner-text {
         display: inline;
-        /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";*/
     }
     .gh-banner.hide-banner {
         display: none;
@@ -5228,12 +5302,6 @@ document.addEventListener(&#39;click&#39;, function(e) {
     <div class="banner-content">
         <span class="banner-text">提示：P1 级修复建议在漏洞发现后 7 个工作日内完成，并在修复完成后进行回归测试，确认文件上传功能正常且无法上传恶意文件。</span>
     </div>
-
-    <!-- <button class="banner-close" aria-label="关闭通知横幅" title="Dismiss banner" type="button">
-        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
-            <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
-        </svg>
-    </button> -->
 </section>
 
 <h3 id="73-长期加固p2">7.3 长期加固（P2）</h3>
@@ -5253,7 +5321,7 @@ document.addEventListener(&#39;click&#39;, function(e) {
   <li><a href="https://owasp.org/Top10/A01_2021-Broken_Access_Control/" target="_blank">OWASP Top 10 2021: A01 - Broken Access Control</a></li>
   <li><a href="https://cwe.mitre.org/data/definitions/434.html" target="_blank">CWE-434: Unrestricted Upload of File with Dangerous Type</a></li>
   <li><a href="https://cwe.mitre.org/data/definitions/306.html" target="_blank">CWE-306: Missing Authentication for Critical Function</a></li>
-  <li>GB/T 22239-2019 信息安全技术 网络安全等级保护基本要求</li>
+  <li><a href="https://openstd.samr.gov.cn/bzgk/std/showGb?type=online&amp;hcno=BAFB47E8874764186BDB7865E8344DAF" target="_blank">GB/T 22239-2019 信息安全技术 网络安全等级保护基本要求</a></li>
 </ul>
 
 <hr />
@@ -5264,48 +5332,81 @@ document.addEventListener(&#39;click&#39;, function(e) {
 				<div class="spacing"></div>
 				<!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
 <footer>
-	<style>.border-top {
-		border-top: 1.5px solid #d0d7de!important;
-	}</style>
+	<style>
+		.border-top {
+			border-top: 1.5px solid #d0d7de!important;
+		}
+		
+		/* 仅在 /categories/ 页面生效的竖向排列样式 */
+		.suggestion-column-wrapper.is-categories-page {
+			display: flex;
+			flex-direction: column;
+			gap: 1.25rem;
+		}
+		.suggestion-column-wrapper.is-categories-page .col-xs-4-5 {
+			width: 100% !important;
+			padding-right: 0 !important;
+			padding-left: 0 !important;
+			margin-bottom: 0 !important;
+			padding-top: 0 !important;
+			padding-bottom: 0 !important;
+		}
+	</style>
 	<div class="border-top"></div>
-		<section class="container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto">
-			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix ">
+	
+	<!-- 只有在 /categories/ 页面时添加 is-categories-page 类名 -->
+	<section class="container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto suggestion-column-wrapper ">
+		
+		<!-- 1. 申明模块：/categories/ 页面隐藏 -->
+		
+			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
 				<h2 class="lead">申明</h2>
 				<div>
-					<div class="mb-2"><a href="/about/poseidon3-file-upload-unauthorized-access/" target="_blank" class=" text-bold">
-						<div class="fa fa-link"></div>
-						转载请申明本文档链接</a></div>
-					<div><a href="https://github.com/Bin4xin" target="_blank"  class="text-bold">
-						<div class="fa fa-user"></div>
-						Post by Bin4xin.</a>
+					<div class="mb-2">
+						<a href="/about/poseidon3-file-upload-unauthorized-access/" target="_blank" class="text-bold">
+							<div class="fa fa-link"></div>
+							转载请申明本文档链接
+						</a>
+					</div>
+					<div>
+						<a href="https://github.com/Bin4xin" target="_blank" class="text-bold">
+							<div class="fa fa-user"></div>
+							Post by Bin4xin.
+						</a>
 					</div>
 				</div>
 			</div>
-			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
-				<h2 class="lead">贡献开源文档</h2>
-				<div>
-					<a href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/about/Poseidon3/2026-07-16-file-upload-unauthorized-access.md" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
-						<svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
-						贡献当前开源文档
-					</a>
-					<p class="f1-l mt-2 text-bold">此之前，学习开源贡献<a target="_blank" href="https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码">CN&nbsp;|</a>
-						<a target="_blank" href="https://github.com/github/docs">EN</a></p>
+
+		<!-- 2. 贡献开源文档 -->
+		<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+			<h2 class="lead">贡献开源文档</h2>
+			<div>
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/about/Poseidon3/2026-07-16-file-upload-unauthorized-access.md" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
+					<svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
+					贡献当前开源文档
+				</a>
+				<div class="f1-l mt-2 text-bold">此之前，学习开源贡献<a target="_blank" href="https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码">CN&nbsp;|</a>
+					<a target="_blank" href="https://github.com/github/docs">EN</a>
 				</div>
 			</div>
-			<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
-				<h2 class="lead">此文档对您有帮助吗</h2>
-				<a href="https://github.com/Bin4xin/bin4xin.github.io/" target="_blank" class="no-underline">
+		</div>
+		
+
+		<!-- 3. 此文档对您有帮助吗 -->
+		<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
+			<h2 class="lead">此文档对您有帮助吗</h2>
+			<a href="https://github.com/Bin4xin/bin4xin.github.io/" target="_blank" class="no-underline">
 				<span class="btn mr-1 color-border-accent-emphasis" title="给文档仓库点个赞!">
 					<div class="fa fa-thumbs-o-up"></div>
 				</span>
-				</a>
-				<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_posts/about/Poseidon3/2026-07-16-file-upload-unauthorized-access.md&nbsp;「poseidon3」：文件上传接口未授权访问 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
+			</a>
+			<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_posts/about/Poseidon3/2026-07-16-file-upload-unauthorized-access.md&nbsp;「poseidon3」：文件上传接口未授权访问 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
 				<span class="btn mr-1 color-border-accent-emphasis" title="本文档有问题?">
-				<div class="fa fa-thumbs-o-down"></div>
+					<div class="fa fa-thumbs-o-down"></div>
 				</span>
-				</a>
-			</div>
-		</section>
+			</a>
+		</div>
+	</section>
 </footer>
 			</div><!--page main content end-->
 			
@@ -5542,55 +5643,51 @@ Fiex In `[assets/css/style.scss](https://github.com/Bin4xin/bin4xin.github.io/bl
 </divs>
 
 </html>
+
 <script>
-/**
- * ADD class display for External Link
- * **/
-// jQuery(function($) {
-//     $(document.links)
-//         .filter(function() {return this.hostname;})
-//         .each(function() {
-//             if (this.hostname !== location.hostname || this.hostname !== 'github.com' || this.hostname !== 'githubusercontent.com'){
-//                 $(this).addClass('fa fa-external-link-alt');
-//             } else if (this.hostname === 'github.io'){
-//                 $(this).addClass('fa fa-github');
-//             }
-//         });
-// });
 jQuery(function($) {
-    // 配置规则
     var rules = {
-        // 白名单：这些域名不加外链标识
         whitelist: [
             location.hostname,
-            'github.com',
             'githubusercontent.com'
         ],
-        // 特殊域名：这些域名加特定图标
         specialIcons: {
-            'github.io': 'fa-github'
+            'github.io': 'fa-github',
+            'github.com': 'fa-github'
         }
     };
-    
-    // 合并白名单和特殊域名（特殊域名不加外链标识）
-    var noExternalList = rules.whitelist.concat(Object.keys(rules.specialIcons));
-    
-    $(document.links)
-        .filter(function() {
-            return this.hostname && !this.href.startsWith('javascript:');
-        })
-        .each(function() {
-            var host = this.hostname;
-            
-            if (noExternalList.indexOf(host) !== -1) {
-                // 在白名单或特殊列表中，检查是否有特殊图标
-                if (rules.specialIcons[host]) {
-                    $(this).addClass('fa ' + rules.specialIcons[host]);
-                }
-            } else {
-                // 不在任何列表中，加外链标识
-                $(this).addClass('fa fa-external-link-alt');
+
+    function isDomainMatch(host, targetDomain) {
+        return host === targetDomain || host.endsWith('.' + targetDomain);
+    }
+
+    $('p a, ul li a, ol li p a')
+    .filter(function() {
+        return this.hostname && !this.href.startsWith('javascript:');
+    })
+    .each(function() {
+        var host = this.hostname;
+
+        var specialIconClass = null;
+        for (var domain in rules.specialIcons) {
+            if (isDomainMatch(host, domain)) {
+                specialIconClass = rules.specialIcons[domain];
+                break;
             }
+        }
+
+        if (specialIconClass) {
+            $(this).append(' <i class="fa ' + specialIconClass + '"></i>');
+            return;
+        }
+
+        var isWhitelisted = rules.whitelist.some(function(domain) {
+            return isDomainMatch(host, domain);
         });
+
+        if (!isWhitelisted) {
+            $(this).append(' <i class="fa fa-external-link-alt"></i>');
+        }
+    });
 });
 </script>
