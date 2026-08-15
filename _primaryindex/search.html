@@ -4,102 +4,29 @@ title: 搜索
 permalink: /search
 ---
 
-<div class="under-attack-modal__split-form__modal d-flex flex-column">
-    <div class="o3j99 LLD4me yr19Zb LS8OJ"><!--form up (logo) start.--><style data-iml="1666164875050">.LS8OJ{display:flex;flex-direction:column;align-items:center}.k1zIA{height:100%;margin-top:auto}</style>
-        <div class="k1zIA rSk4se"><style data-iml="1666164875050">.rSk4se{max-height:92px;position:relative}.lnXdpd{max-height:100%;max-width:100%;object-fit:contain;object-position:center bottom;width:auto}</style>
+<div class="search-page">
+    <div class="sp-logo">
         {% include pic.html name="logo-small" %}
+    </div>
+    <div class="sp-search">
+        {% include search.html %}
+    </div>
+    <div class="sp-footer">
+        <div class="sp-lang">
+            提供：<a href="#">中文CN</a><span class="sp-sep">|</span><a href="#">英文EN</a>
         </div>
-    </div><!--form up (logo) end.-->
-        <div class="o3j99">
-            {% include search.html %}
-            <div class="spacing"></div>
-        </div>
-    <!--form down.-->
-    <div class="o3j99 qarstb"><style data-iml="1666164875063">.vcVZ7d{text-align:center}</style>
-        <div class="vcVZ7d" id="gws-output-pages-elements-homepage_additional_languages__als"><style data-iml="1666164875063">#gws-output-pages-elements-homepage_additional_languages__als{font-size:small;margin-bottom:24px}#SIvCob{color:#4d5156;display:inline-block;line-height:28px;}#SIvCob a{padding:0 3px;}.H6sW5{display:inline-block;margin:0 2px;white-space:nowrap}.z4hgWe{display:inline-block;margin:0 2px}</style>
-            <div id="SIvCob">提供：<a href="#">中文CN</a>|<a href="#">英文EN</a></div>
-            <div><a class="oBa0Fe aciXEb" href="{{site.githubAccess}}/{{site.githubRepos}}/issues/new?labels=Search+feedback&template=2-bug_report.yaml&title={{page.path}}反馈搜索结果/feedback" target="_blank" id="sbfblt" data-async-trigger="duf3-46" role="button">
-            无关搜索结果反馈&nbsp;|&nbsp;Irrelevant search associations? Feedback on GitHub!</a>
-            </div>
-            <div><a class="oBa0Fe aciXEb" href="{{site.githubAccess}}/{{site.githubRepos}}/edit/{{site.githubRepos-Branch}}/{{page.path}}" target="_blank" data-async-trigger="duf3-46" role="button">
-            或者帮助我们完善&nbsp;|&nbsp;Or help us make these great!</a>
-            </div>
+        <div class="sp-links">
+            <a class="sp-link" href="{{site.githubAccess}}/{{site.githubRepos}}/issues/new?labels=Search+feedback&template=2-bug_report.yaml&title={{page.path}}反馈搜索结果/feedback" target="_blank">
+                无关搜索结果反馈
+                <svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.751.751 0 01-1.042-.018.751.751 0 01-.018-1.042l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"/></svg>
+            </a>
+            <a class="sp-link" href="{{site.githubAccess}}/{{site.githubRepos}}/edit/{{site.githubRepos-Branch}}/{{page.path}}" target="_blank">
+                帮助我们完善此页
+                <svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.751.751 0 01-1.042-.018.751.751 0 01-.018-1.042l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"/></svg>
+            </a>
         </div>
     </div>
+
 </div>
-{% comment %}MARK TODO<div> {% include CHANGELOG.md %} </div>{% endcomment %}
+
 <script src="/assets/js/sjs/simple-jekyll-search.min.js"></script>
-<script>
-    /**
-     * SimpleJekyllSearch FUNC
-     * - @SimpleJekyllSearch/getQueryVariable func() 代码引用申明/code reference declaration:
-     * - {@link - https://github.com/christian-fei/Simple-Jekyll-Search }
-     * - {@link - https://github.com/Mabbs/mabbs.github.io/blob/master/search.html#L14 }
-     * @param variable
-     **/
-    function getQueryVariable(variable) {
-        const query = window.location.search.substring(1);
-        const vars = query.split("&");
-        for (let i = 0; i < vars.length; i++) {
-            const pair = vars[i].split("=");
-            if (pair[0] === variable) return pair[1];
-        }
-        return "";
-    }
-
-    const mykeyword = decodeURI(getQueryVariable("keyword"));
-    const sbox = document.getElementById("search-input");
-    if (mykeyword && mykeyword.toString().length > 1) {
-        sbox.value = mykeyword;
-    }
-    function base64Decode(str) {
-        if (!str) return str;
-        try {
-            const decoded = atob(str);
-            return decodeURIComponent(escape(decoded));
-        } catch (e) {
-            console.warn(
-                "Base64解码失败，返回原字符串:",
-                str.substring(0, 50) + "...",
-                e,
-            );
-            return str;
-        }
-    }
-
-    $.getJSON("search.json", function (json) {
-        console.log("加载 search.json 成功，条目数:", json.length);
-
-        const sjs = SimpleJekyllSearch({
-            searchInput: sbox,
-            resultsContainer: document.getElementById("results-container"),
-            json: json,
-            searchResultTemplate:
-                '{% include search-provider/results-container.html mode="searchResultTemplate" %}',
-            noResultsText:
-                '{% include search-provider/results-container.html mode="noResultsText" %}',
-            limit: 8,
-            templateMiddleware: function (prop, value, template) {
-                if (prop === "content" && value && typeof value === "string") {
-                    console.log(
-                        value.substring(0, 50),
-                    );
-                    const decoded = base64Decode(value);
-                    if (decoded !== value) {
-                        return decoded; // 返回解码后的值覆盖默认值
-                    } else {
-                    }
-                }
-                return undefined;
-            },
-        });
-
-        if (mykeyword) {
-            sjs.search(mykeyword);
-        } else {
-            console.error("Search is something wrong else.")
-        }
-    }).fail(function (jqXHR, textStatus, errorThrown) {
-        console.error("Load search.json failed:", textStatus, errorThrown);
-    });
-</script>

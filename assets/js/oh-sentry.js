@@ -8,94 +8,192 @@
         });
     });
 {% endfor %}
-/*
- *[x] step 1. type esc or
-     *  // Char Code: 13  Enter,
-     *  // 37  👈,
-     *  // 38  ⬆️,
-     *  // 39  👉,
-     *  // 40  ⬇
-     * lose foucus.️
- * [x] step 2. press enter to click.
- * [x] step 3. prepare more json data FOR [simple jekyll search].
- * step 4. while in dark mode, @para obj.cssValue unwell. Any good way prefer to
- * `prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches`?
- * that's all.
- */
-function keyThing(obj) {
-    var index = 0;
-    $("#ul-results-container>li").on("click", function() {
-        $(this).siblings().find("a").css(obj.cssKey, "transparent");
-        $(this).find("a").css(obj.cssKey, obj.cssValue);
-        index = $(this).index();
-    })
-    $(document).on("keyup", function(event) {
-        var e = event || window.event || arguments.callee.caller.arguments[0];
-        if (index != undefined) {
-            var searchInput = document.getElementById('search-input');
-                /*** [/] input focus ***/
-                if (e.keyCode == 191) {
-                    searchInput.focus();
-                } else if (e.keyCode == 40) {
-                    if (index > $("#ul-results-container>li").length - 1) {
-                        return false;
-                    } else {
-                        clear();
-                        index = index + 1;
-                    }
-                    $("#ul-results-container>li").eq(index - 1).find("a").css(obj.cssKey, obj.cssValue);
-                } else if (e.keyCode == 38) {
-                    if (index < 2) {
-                        return false;
-                    } else {
-                        clear();
-                        index = index - 1;
-                    }
-                    $("#ul-results-container>li").eq(index - 1).find("a").css(obj.cssKey, obj.cssValue);
-                } else if (e.keyCode == 13) {
-                    var b = document.getElementById("results-container");
-                    var a = b.getElementsByTagName("li");
-                    var x = a[index-1].getElementsByTagName("a");
-                    for(var i = 0; i<x.length; i++)
-                    {location.href = x[i].href;}
-                }
-            } else {
-            if (e.keyCode) {
-                index = 1;
-                $("#ul-results-container>li").eq(0).find("a").css(obj.cssKey, obj.cssValue);
-            }
-        }
-    })
-    function clear() {
-        for (var i = 0; i < $("#ul-results-container>li").length; i++) {
-            $("#ul-results-container>li").eq(i).find("a").css(obj.cssKey, "");
-        }
+
+
+ function getQueryVariable(variable) {
+    const query = window.location.search.substring(1);
+    const vars = query.split("&");
+    for (let i = 0; i < vars.length; i++) {
+        const pair = vars[i].split("=");
+        if (pair[0] === variable) return pair[1];
+    }
+    return "";
+}
+
+const mykeyword = decodeURI(getQueryVariable("keyword"));
+const sbox = document.getElementById("search-input");
+if (mykeyword && mykeyword.toString().length > 1) {
+    sbox.value = mykeyword;
+}
+function base64Decode(str) {
+    if (!str) return str;
+    try {
+        const decoded = atob(str);
+        return decodeURIComponent(escape(decoded));
+    } catch (e) {
+        console.warn("Base64解码失败，返回原字符串:", str.substring(0, 50) + "...", e);
+        return str;
     }
 }
-var prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-var obj = {};
-obj.row = 10;
-obj.cssKey = "backgroundColor";
-if (prefersDarkMode){
-    obj.cssValue = "#111";
-} else {
-    obj.cssValue = "#eeeeee";
+
+$.getJSON("search.json", function (json) {
+    console.log("加载 search.json 成功，条目数:", json.length);
+    const sjs = SimpleJekyllSearch({
+        searchInput: sbox,
+        resultsContainer: document.getElementById("results-container"),
+        json: json,
+        searchResultTemplate:
+            '{% include search-provider/results-container.html mode="searchResultTemplate" %}',
+        noResultsText:
+            '{% include search-provider/results-container.html mode="noResultsText" %}',
+        limit: 8,
+        templateMiddleware: function (prop, value, template) {
+            if (prop === "content" && value && typeof value === "string") {
+                console.log(value.substring(0, 50));
+                const decoded = base64Decode(value);
+                if (decoded !== value) return decoded;
+            }
+            return undefined;
+        },
+    });
+    if (mykeyword) sjs.search(mykeyword);
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+    console.error("Load search.json failed:", textStatus, errorThrown);
+});
+
+ function keyThing(obj) {
+    var index = -1;
+    var input = document.getElementById('search-input');
+    var dd = document.getElementById('s-dropdown');
+    if (!dd || !input) return;
+
+    var rc = document.getElementById('results-container');
+
+    function getItems() {
+        return rc ? rc.querySelectorAll('.s-result-item') : [];
+    }
+
+    function clear() {
+        var items = getItems();
+        for (var i = 0; i < items.length; i++)
+            items[i].classList.remove('s-result-active');
+    }
+
+    function setActive(i) {
+        var items = getItems();
+        if (items.length === 0) return;
+        clear();
+        index = i;
+        items[index].classList.add('s-result-active');
+        items[index].scrollIntoView({ block: 'nearest' });
+    }
+
+    /* ── 点击结果 ── */
+    $(dd).on('click', '.s-result-item', function() {
+        var items = getItems();
+        clear();
+        index = Array.prototype.indexOf.call(items, this);
+        this.classList.add('s-result-active');
+    });
+
+    /* ── 聚焦展开 ── */
+    $(input).on('focus', function() {
+        if (rc && rc.children.length > 0)
+            dd.classList.add('open');
+    });
+
+    /* ── 外部点击收起 ── */
+    $(document).on('click', function(e) {
+        if (!dd.contains(e.target) && e.target !== input) {
+            dd.classList.remove('open');
+            index = -1;
+            clear();
+        }
+    });
+
+    /* ── 清除按钮 ── */
+    $(dd).closest('.search-scope').find('.s-clear').on('click', function() {
+        input.value = '';
+        dd.classList.remove('open');
+        index = -1;
+        clear();
+        input.focus();
+    });
+
+    /* ── 键盘 ── */
+    $(document).on('keydown', function(e) {
+        var items = getItems();
+        var len = items.length;
+
+        /* [/] 聚焦搜索框（不在搜索框内时） */
+        if (e.keyCode === 191 && document.activeElement !== input) {
+            console.log("聚焦搜索框（不在搜索框内时）")
+            e.preventDefault();
+            input.focus();
+            return;
+        }
+
+        /* 以下仅在搜索框聚焦时响应 */
+        if (document.activeElement !== input) return;
+
+        /* ↓ */
+        if (e.keyCode === 40) {
+            console.log("下");
+            e.preventDefault();
+            if (len === 0) return;
+            if (!dd.classList.contains('open')) dd.classList.add('open');
+            setActive(index + 1 >= len ? 0 : index + 1);
+            return;
+        }
+
+        /* ↑ */
+        if (e.keyCode === 38) {
+            console.log("上");
+            e.preventDefault();
+            if (len === 0) return;
+            setActive(index - 1 < 0 ? len - 1 : index - 1);
+            return;
+        }
+
+        /* Enter */
+        if (e.keyCode === 13 && index >= 0 && index < len) {
+            e.preventDefault();
+            var link = items[index].querySelector('.s-result-link');
+            if (link && link.href) window.location.href = link.href;
+            return;
+        }
+
+        /* ESC */
+        if (e.keyCode === 27) {
+            dd.classList.remove('open');
+            index = -1;
+            clear();
+            return;
+        }
+    });
+
+    /* ── 输入重置 ── */
+    $(input).on('input', function() {
+        index = -1;
+        clear();
+    });
+
+    /* ── 结果变化 ── */
+    if (rc) {
+        new MutationObserver(function() {
+            index = -1;
+            clear();
+            if (rc.children.length > 0 && input === document.activeElement)
+                dd.classList.add('open');
+            else if (rc.children.length === 0)
+                dd.classList.remove('open');
+        }).observe(rc, { childList: true });
+    }
 }
-keyThing(obj);
-// ==========================
-// ======= search button
-// ======= css zoom design.
-// ==========================
-// const input = document.querySelector(".finder__input");
-// const finder = document.querySelector(".finder");
-// const form = document.querySelector("form");
-//
-// input.addEventListener("focus", () => {
-//     finder.classList.add("active");
-// });
-//
-// input.addEventListener("blur", () => {
-//     if (input.value.length === 0) {
-//         finder.classList.remove("active");
-//     }
-// });
+
+/* ── 初始化 ── */
+var prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+keyThing({
+    cssKey: 'backgroundColor',
+    cssValue: prefersDarkMode ? '#161b22' : '#f6f8fa'
+});

@@ -1,6 +1,6 @@
 {%- assign mode = include.mode -%}
 {% if mode == 'searchResultTemplate' %}\
-<ul class="nav nav-pills nav-stacked" id="ul-results-container"><li class="nav nav-pills nav-stacked no-underline table-of-contents"><a href="{url}"><div class="fa fa-search px-md-6"></div>{title}</a></li></ul>\
+<li class="s-result-item" role="option"><a href="{url}" class="s-result-link"><span class="s-result-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><path fill="currentColor" d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"/></svg></span><span class="s-result-body"><span class="s-result-title">{title}</span><span class="s-result-url">{url}</span></span><span class="s-result-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><path fill="currentColor" fill-rule="evenodd" d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.751.751 0 01-1.042-.018.751.751 0 01-.018-1.042l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"/></svg></span></a></li>\
 {% elsif mode == 'noResultsText' %}\
-{% include not-found.html %}\
+<li class="s-result-empty" role="presentation"><div class="s-empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="32" height="32"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div><span class="s-empty-text">未找到相关结果</span><span class="s-empty-hint">换个关键词试试？</span></li>\
 {% endif %}
