@@ -1,0 +1,179 @@
+years:
+  # ── 2020 ──
+  - year: "2020"
+    color: "#009DDC"
+    icon: "fa-solid fa-rocket"
+    highlight: "GENESIS"
+    highlight_zh: "起源"
+    entries:
+      - { date: "11/12", text: "哨兵安全博客 v0.1 首页上线" }
+      - { date: "11/11", text: "Initial commit · 项目初始化" }
+
+  # ── 2021 ──
+  - year: "2021"
+    color: "#FDB827"
+    icon: "fa-solid fa-seedling"
+    highlight: "GROWTH"
+    highlight_zh: "成长"
+    entries:
+      - { date: "12/30", text: "新增仓库 Wiki 及快速跳转" }
+      - { date: "12/28", text: "新增 Apache Log4j 2.14+ Walkthrough" }
+      - { date: "12/27", text: "新增 Apache Log4j PoC 调试代码" }
+      - { date: "12/16", text: "更新 Apache Log4j 文章；新增 QuickStart 导航" }
+      - { date: "12/14", text: "添加国家公祭日页面构建灰色流程", link_label: "harmony.yml", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/.github/workflows/harmony.yml#L42" }
+      - { date: "12/12", text: "修改 Action 至 Gitee 同步；优化 ACTION 许可", link_label: "deploy.yml", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/.github/workflows/deploy.yml#L74" }
+      - { date: "12/11", text: "更新 BUILD 流程" }
+      - { date: "12/04", text: "更新 FOOTER（多轮迭代）" }
+      - { date: "12/03", text: "新增 CAPTCHA-BYPASS-WALKTHROUGH 文章", link_label: "文章", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/about/2021-11-23-CAPTCHA-BYPASS-WALKTHROUGH.md" }
+      - { date: "12/01", text: "托管镜像域名跳转（CNAME 多镜像解析）", link_label: "映射教程", link: "https://daijiangtao.gitee.io/2018/06/29/domain-to-github/" }
+      - { date: "11/22", text: "添加 window.print() 打印功能" }
+      - { date: "11/19", text: "修复 about 表格/导航/post 布局问题" }
+      - { date: "11/18", text: "修复图片 URL 404（图床 sm.ms）；更新评论模块（多轮 DEBUG）" }
+      - { date: "11/16", text: "修复订阅页面 code 标签导致 XML 标签提前闭合" }
+      - { date: "11/15", text: "使用 GitHub Action 构建；解决 GitHub ↔ Gitee 同步问题", link_label: "Action 踩坑", link: "https://bin4xin.github.io/event/2021/Jekyll-site-routers-and-config/" }
+      - { date: "11/12", text: "更新 About 分类；新增仓库同步 Action" }
+      - { date: "11/10", text: "修改页头页尾；_config.yml 添加 profile 变量" }
+      - { date: "11/08", text: "初始 Action 修复（多次迭代）" }
+      - { date: "08/26", text: "B4xinSync 同步提交" }
+      - { date: "05/10", text: "_includes/footer.html 新增访客统计" }
+      - { date: "04/15", text: "紧急响应记录文章更新" }
+      - { date: "03/13", text: "日常更新" }
+      - { date: "02/18", text: "sentrylab 首次提交至 GitHub" }
+
+  # ── 2022 ──
+  - year: "2022"
+    color: "#FF375F"
+    icon: "fa-solid fa-fire"
+    highlight: "EXPANSION"
+    highlight_zh: "扩展"
+    entries:
+      - { date: "12/13", text: "新增 OBS 录音文章；编辑 harmony.yml", link_label: "文章", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/blog/2022-11-28-Record-Sounds-in-macOS13-by-OBS.md" }
+      - { date: "12/12", text: "新增 bilibili 图标；编辑图片域名 _config.yml" }
+      - { date: "11/18", text: "新增 Jekyll 访客统计系列文章（Part I & II）；GA 数据本地备份", link_label: "Part I", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/blog/2022-11-18-Jekyll-devOps-how-to-add-vistor-and-times-I.md" }
+      - { date: "11/15", text: "新增 Google Analytics gtag & 数据统计" }
+      - { date: "11/08", text: "重构 About 分类路由/展示；新增最新文章按日期排序" }
+      - { date: "11/03", text: "新增全省通信和互联网行业职业技能竞赛 WriteUp", link_label: "文章", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/blog/2022-11-03-Provincial-Communication-and-Internet-Industry-Vocational-Skills-Competition.md" }
+      - { date: "10/31", text: "完善分类页展示；准备分页功能" }
+      - { date: "10/26", text: "新增 newest.html；新增 CVE-2022-40664 研究；修复搜索 keydown/keyup" }
+      - { date: "10/21", text: "完善搜索功能；新增 search.json 数据源" }
+      - { date: "10/19", text: "新增博客 banner；新增 Issue 模板；修复 404 默认图展示" }
+      - { date: "10/12", text: "新增代码块 pre/code hover 效果" }
+      - { date: "10/08", text: "新增若依漏洞总结文章；修复 404 页面/作者链接/搜索功能", link_label: "文章", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/blog/2022-10-08-ruoyi-vuln-summary.md" }
+      - { date: "09/25", text: "About/Daily 布局重构" }
+      - { date: "09/22", text: "新增网鼎杯 Web FindIT；更新 copy.js" }
+      - { date: "09/17", text: "新增 btnloadmore.js 加载更多按钮" }
+      - { date: "09/14", text: "更改书签显示为 flex-column；修改 Blog 展示页面", link_label: "blog.html", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_includes/_primaryindex/blog.html" }
+      - { date: "09/10", text: "新增《互联网记忆》日志文章" }
+      - { date: "09/07", text: "新增网鼎杯 2022 白虎 WriteUp；编辑 Action 文章" }
+      - { date: "07/17", text: "修复 .tooltipped:after 暗黑模式显示" }
+      - { date: "07/09", text: "修复 Firefox display 定位问题" }
+      - { date: "07/08", text: "新增单窗口按钮关闭对应窗口", link_label: "oh-sentry.js", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/js/oh-sentry.js" }
+      - { date: "07/04", text: "远程图片迁移；优化 Index/Post 展示" }
+      - { date: "07/03", text: "删除 navbar sticky；优化 blog 展示" }
+      - { date: "06/28", text: "copy.js 新增 custom_close 功能" }
+      - { date: "06/27", text: "优化 sentrybar/footer 数据展示；图片远程 URL 迁移" }
+      - { date: "06/23", text: "新增文章搜索功能" }
+      - { date: "06/22", text: "新增响应式移动端置顶按钮；修复 pre/code 展示" }
+      - { date: "06/12", text: "删除 Gitee Pages" }
+      - { date: "06/11", text: "新增 Apereo CAS RCE 文章", link_label: "文章", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/about/Apereo-CAS/" }
+      - { date: "06/06", text: "修复 layout h5 & CSS 代码展示" }
+      - { date: "05/27", text: "更新 _layouts & JavaScript" }
+      - { date: "05/18", text: "新增 GitLab CVE-2020-10977 / CVE-2021-22205 文章" }
+      - { date: "05/16", text: "新增鱼叉攻击策略文章" }
+      - { date: "05/13", text: "修复打印模块 (@media print)" }
+      - { date: "05/05", text: "新增 GitLab CVE-2020-10977 RCE 文章" }
+      - { date: "04/29", text: "新增 GitLab LFR CVE-2020-10977 文章" }
+      - { date: "04/07", text: "修复移动端 code/pre 不换行；完善代码引用声明" }
+      - { date: "04/05", text: "新增 MongoDB 未授权渗透复现文章", link_label: "文章", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/blog/2022-04-05-mongoDB-unauth-pentest-walkthrough.md" }
+      - { date: "04/03", text: "优化复制板 UX" }
+      - { date: "03/16", text: "导航栏毛玻璃样式" }
+      - { date: "03/15", text: "新增 CVE-2022-22947 文章" }
+      - { date: "03/06", text: "发布 v2.1.5；修复订阅功能；修复分类模块" }
+      - { date: "03/03", text: "修复标签栏；删除外部 Icon-JS 引用，加快加载速度" }
+      - { date: "02/27", text: "添加 _include 引用（页尾/评价）" }
+      - { date: "02/26", text: "新增目录选中效果" }
+      - { date: "02/24", text: "新增 jekyll-roman 插件" }
+      - { date: "02/19", text: "新增 Cobalt Strike 分类" }
+      - { date: "02/10", text: "修复 _config.yml；由配置文件调取作者头像" }
+      - { date: "02/09", text: "完善文章分类展示（v3 → v4）" }
+      - { date: "02/04", text: "新增 Card CWS Banner Shadow & 暗黑模式" }
+      - { date: "01/24", text: "修复标题/内容大小显示；新增 Google 站点验证" }
+      - { date: "01/22", text: "新增 BLOG 区内容展示；修复 avatar 404" }
+      - { date: "01/21", text: "增加 About 博文 banner 展示；增加代码块拷贝按钮" }
+      - { date: "01/05", text: "修复 navbar；新增 navbar logo/title 置顶功能" }
+
+  # ── 2023 ──
+  - year: "2023"
+    color: "#F5821F"
+    icon: "fa-solid fa-gear"
+    highlight: "STABLE"
+    highlight_zh: "稳定期"
+    entries:
+      - { date: "12/06", text: "新增 snippets.sh 站点版本检查脚本" }
+      - { date: "12/04", text: "修复代码 bug" }
+      - { date: "11/15", text: "Common/Search 页面 TODO 提交" }
+      - { date: "03/09", text: "修改 GAE Version" }
+      - { date: "02/24", text: "修复路由 bug；新增 OpenliteSpeed 标签文章" }
+
+  # ── 2024 ──
+  - year: "2024"
+    color: "#BF5AF2"
+    icon: "fa-solid fa-arrows-spin"
+    highlight: "EVOLVE"
+    highlight_zh: "进化"
+    entries:
+      - { date: "12/07", text: "Research 侧边栏新增展开图标" }
+      - { date: "09/08", text: "Daily 分类文章 poster 功能调试" }
+      - { date: "08/05", text: "新增百度站点验证 baidu-site-verification" }
+      - { date: "08/01", text: "新增 JimuReport 漏洞复现文章" }
+      - { date: "07/18", text: "新增《升级你的 XZ 版本》文章", link_label: "文章", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/blog/2024-07-18-Upgrade-Your-XZ-Version.md" }
+      - { date: "04/16", text: "新增时间线页面 time.html" }
+      - { date: "03/30", text: "更新 _config.yml 图片域名；新增 extract_topic_from_filename 脚本" }
+      - { date: "01/30", text: "完善 deploy.yml 自动提交工作流 v1.1" }
+      - { date: "01/29", text: "发布 snippets.sh v1.0.2；Web 版本升级至 v3.0.1" }
+      - { date: "01/17", text: "新增部分博客 og:description meta 标签" }
+      - { date: "01/05", text: "新增 Ubuntu Mono 代码字体；修复展示 bug" }
+
+  # ── 2025 ──
+  - year: "2025"
+    color: "#0A84FF"
+    icon: "fa-solid fa-wand-magic-sparkles"
+    highlight: "REFINE"
+    highlight_zh: "精炼"
+    entries:
+      - { date: "10/17", text: "更新 Job 配置 JSON payload URL" }
+      - { date: "09/11", text: "新增 4 篇 Android 逆向技术博客文章" }
+      - { date: "09/11", text: "新增 5 篇 Android 安全测试自动化博客文章" }
+      - { date: "07/19", text: "重构站点导航 & 更新分页功能" }
+      - { date: "03/30", text: "新增文章（季度考核相关）" }
+      - { date: "02/19", text: "Workflow 文件更新至 cache@v4" }
+      - { date: "02/18", text: "新增 get-start 英文版本 & 中文翻译", link_label: "get-start.md", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/about/2025-02-01-get-start.md" }
+      - { date: "02/17", text: "更新 About 布局代码" }
+      - { date: "01/31", text: "修复 deploy.yml / harmony.yml rubygems 缓存 & bundle config set" }
+      - { date: "01/20", text: "修复 deploy.yml / harmony.yml rubygems 加载 & 依赖安装" }
+
+  # ── 2026 ──
+  - year: "2026"
+    color: "#30D158"
+    icon: "fa-solid fa-bolt"
+    highlight: "ACTIVE"
+    highlight_zh: "活跃开发"
+    entries:
+      - { date: "07/29", text: "TOC 侧边栏 GitHub MiniToc 样式重设计；新增「复制为 Markdown」/「在另一个选项卡中打开」按钮组" }
+      - { date: "07/29", text: "新增同研究分类文章导航（「X 篇中的第 Y 篇」）" }
+      - { date: "07/29", text: "侧边栏折叠按钮跟随 border-right 贴合；保留折叠后 1px 分割线" }
+      - { date: "07/29", text: "博客列表 paginator-blog.html 重构为 .blog-card 卡片布局" }
+      - { date: "07/29", text: "修复 blog-card-footer 中 ymh-* 样式在白色背景下的兼容性" }
+      - { date: "07/29", text: "About 页面侧边栏滚动条修复；折叠按钮始终保持可点击" }
+      - { date: "07/16", text: "新增 Poseidon3 漏洞报告（未授权访问/信息泄露/用户名枚举）" }
+      - { date: "07/16", text: "删除多个草稿文件，清理项目文档" }
+      - { date: "04/04", text: "优化 About 分类展示 & 默认提示信息" }
+      - { date: "04/03", text: "新增 scripts/css-optimize.js 及 Action 自动化 CSS 优化", link_label: "参考", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_includes/jekyll-optimization.md" }
+      - { date: "03/28", text: "重构 Research 分类导航；新增 aside 折叠按钮；新增 base64 编解码搜索功能" }
+      - { date: "03/28", text: "新增反馈卡片组件 card-feedback.html" }
+      - { date: "03/26", text: "新增通用 warning banner（CVE/漏洞提醒）；新增 info/warn/error 通用提示组件" }
+      - { date: "03/26", text: "新增 Claude Code 漏洞/CVE 绕过文章分类" }
+      - { date: "03/06", text: "域名硬编码改为 $domain 变量引用" }
+      - { date: "02/05", text: "更新 README 格式；移除 CN 镜像链接；移除 CNAME" }
+      - { date: "01/26", text: "新增微信小程序逆向系列文章（入门/进阶/专家篇）" }
+      - { date: "01/25", text: "更新 CNAME 指向 blog.memolist.me" }

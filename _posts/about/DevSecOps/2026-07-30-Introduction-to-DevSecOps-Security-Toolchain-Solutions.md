@@ -15,7 +15,7 @@ description: DevSecOps | CI&CI | SCA | IaC
 
 ## 一、概述
 
-本文档围绕 CI/CD 安全集成、容器镜像扫描与软件成分分析（SCA）、基础设施即代码（IaC）与配置合规三大核心模块，系统性梳理各环节所涉及工具的[...]
+本文档围绕 CI/CD 安全集成、容器镜像扫描与软件成分分析（SCA）、基础设施即代码（IaC）与配置合规三大核心模块，系统性梳理各环节所涉及工具的开源状态、功能定位及国产化替代方案，为企业 DevSecOps 体系建设提供完整参考。
 
 ---
 
@@ -48,7 +48,7 @@ description: DevSecOps | CI&CI | SCA | IaC
 | **SonarQube Developer/Enterprise** | SAST + 代码质量 | 商业授权 | 社区版之上增加分支分析、污点分析、更多语言支持等 |
 | **CIS-CAT Pro** | CIS 基准合规评估 | 商业授权 | CIS 官方出品的专业评估工具 |
 
-> **关键结论**：ZAP、Trivy、Clair、Checkov、Syft、Grype、kube-bench、OpenSCA、murphysec 等核心工具均为完全开源，可免费商用；SonarQube 社区版可免费使用但部�[...]
+> **关键结论**：ZAP、Trivy、Clair、Checkov、Syft、Grype、kube-bench、OpenSCA、murphysec 等核心工具均为完全开源，可免费商用；SonarQube 社区版可免费使用但部分高级功能需付费；Checkmarx 为纯商业闭源产品。
 
 ---
 
@@ -377,7 +377,7 @@ security-gate:
 | **CycloneDX** | OWASP | 安全与供应链风险管理 | DevSecOps、漏洞管理、安全审计 |
 | **SPDX** | Linux 基金会 | 许可证合规与组件信息交换 | 许可证管理、开源合规、软件供应链 |
 
-> **推荐选择**：安全场景优先选用 CycloneDX（原生支持 CVE 关联、漏洞信息嵌入）；许可证合规场景优先选用 SPDX（ISO 国际标准，法律合规认可度高）[...]
+> **推荐选择**：安全场景优先选用 CycloneDX（原生支持 CVE 关联、漏洞信息嵌入）；许可证合规场景优先选用 SPDX（ISO 国际标准，法律合规认可度高）。
 
 #### 4.4.2 SBOM 生成工具
 
@@ -435,7 +435,7 @@ CIS（Center for Internet Security）基准是全球公认的系统安全配置�
 
 #### 5.2.1 Checkov 方案（推荐）
 
-**工具定位**：Prisma Cloud（原 Bridgecrew）开源的 IaC 静态分析工具，支持 Terraform、CloudFormation、Kubernetes、Helm、Dockerfile、ARM 模板、Bicep 等多种 IaC 格式�[...]
+**工具定位**：Prisma Cloud（原 Bridgecrew）开源的 IaC 静态分析工具，支持 Terraform、CloudFormation、Kubernetes、Helm、Dockerfile、ARM 模板、Bicep 等多种 IaC 格式。
 
 **核心能力**：
 - 1000+ 内置安全策略（覆盖 CIS、NIST、SOC2、PCI DSS 等）
@@ -502,20 +502,20 @@ CIS（Center for Internet Security）基准是全球公认的系统安全配置�
 #### 5.3.3 漂移检测报告内容
 
 1. **漂移总览**
-    - 检测到的漂移项数量
-    - 各资源类型漂移分布
-    - 漂移严重程度统计
+   - 检测到的漂移项数量
+   - 各资源类型漂移分布
+   - 漂移严重程度统计
 
 2. **漂移详情**
-    - 资源标识与位置
-    - 期望配置与实际配置差异
-    - 漂移发现时间
-    - 可能的变更来源
+   - 资源标识与位置
+   - 期望配置与实际配置差异
+   - 漂移发现时间
+   - 可能的变更来源
 
 3. **影响评估**
-    - 安全风险评估
-    - 业务影响分析
-    - 合规影响判断
+   - 安全风险评估
+   - 业务影响分析
+   - 合规影响判断
 
 ### 5.4 错误配置整改跟踪报告
 
@@ -655,35 +655,80 @@ CIS（Center for Internet Security）基准是全球公认的系统安全配置�
 **方案三：墨菲安全 SCA 4.0（AI 原生路线）**
 
 - **定位**：AI 原生的软件供应链安全平台
+- **核心能力**：
+  - 源码到二进制全场景检测
+  - 漏洞可达性分析（精准定位可利用漏洞）
+  - 非升级修复（无需升级版本的漏洞缓解）
+  - AI 智能修复建议
+- **优势**：
+  - AI 原生架构，检测准确率高
+  - 中文漏洞库，国内组件生态覆盖好
+  - 适合重视 AI 赋能安全的团队
 
-... (file truncated for brevity in commit) ...
+### 6.4 选型建议
 
-*文档版本：v1.0*
-*生成日期：2026年7月30日*
+#### 6.4.1 按企业类型推荐
+
+{: .table}
+| 企业类型 | 推荐方案 | 理由 |
+|---------|---------|------|
+| **党政/央企/国企** | Gitee CodePecker + 悬镜源鉴 SCA | 信创合规要求高，需自主可控 |
+| **金融/运营商** | 悬镜源鉴 SCA + 墨菲安全 + 开源 SAST | 供应链安全要求高，预算充足 |
+| **互联网/科技公司** | Semgrep + Trivy + Checkov + ZAP | 技术能力强，追求灵活高效 |
+| **中小企业/创业团队** | SonarQube 社区版 + OpenSCA + Trivy | 成本敏感，快速落地 |
+
+#### 6.4.2 迁移路线建议
+
+1. **评估阶段**：使用开源工具并行扫描，对比结果差异，评估替代可行性
+2. **试点阶段**：选择 1-2 个项目试点国产/开源替代方案
+3. **推广阶段**：总结试点经验，完善规则库与流程，逐步扩大覆盖范围
+4. **全面替换**：成熟后逐步下线原有商业工具，完成工具链国产化/开源化
+
+---
+
+## 七、总结
+
+### 7.1 核心结论
+
+1. **开源工具已能覆盖 DevSecOps 全链路**：从 SAST、SCA、IaC 扫描、镜像扫描到 DAST，均有成熟的开源方案可用
+2. **ZAP、Trivy、Checkov 等核心工具完全开源**：可免费商用，社区活跃，功能持续增强
+3. **国产替代方案日趋成熟**：悬镜安全（OpenSCA/源鉴 SCA）、墨菲安全、Gitee CodePecker 等国产工具在 SCA 领域已具备国际竞争力
+4. **SonarQube 社区版可满足基础需求**：但高级功能需付费；Checkmarx 为纯商业产品，可通过 Semgrep + 开源工具链组合替代
+5. **安全左移 + 自动化门禁是关键**：将安全检测嵌入 CI/CD 流水线，通过阈值判定实现自动化安全门禁
+
+### 7.2 实施建议
+
+1. **分阶段落地**：先从 SCA 和镜像扫描入手（见效快、门槛低），再逐步推进 SAST 和 IaC 扫描
+2. **工具链整合**：统一报告格式（SARIF/JSON），建立集中化安全管理平台
+3. **规则定制化**：基于业务实际调整规则集，降低误报率，提升工具实用性
+4. **度量驱动改进**：建立安全度量体系，持续跟踪漏洞修复率、MTTR 等指标
+5. **人才与流程配套**：工具只是手段，需配套安全培训、漏洞管理流程、责任机制等
+
+---
 
 ## 参考资料
 
-1. [OWASP DevSecOps Project](https://owasp.org/www-project-devsecops/)
-2. [Trivy (Aqua) — GitHub 仓库](https://github.com/aquasecurity/trivy)
-3. [Syft — GitHub 仓库](https://github.com/anchore/syft)
-4. [Grype — GitHub 仓库](https://github.com/anchore/grype)
-5. [Checkov — 官方站点](https://www.checkov.io/)
-6. [Semgrep — 官方站点](https://semgrep.dev/)
-7. [OWASP ZAP — 官方站点](https://www.zaproxy.org/)
-8. [Clair — GitHub 仓库](https://github.com/quay/clair)
-9. [kube-bench — GitHub 仓库](https://github.com/aquasecurity/kube-bench)
-10. [OpenSCAP — 官方站点](https://www.open-scap.org/)
-11. [CycloneDX — 官方站点](https://cyclonedx.org/)
-12. [SPDX — 官方站点](https://spdx.dev/)
-13. [NTIA SBOM guidance](https://www.ntia.doc.gov/our-work/software-security)
-14. [SARIF — 规范 / 资源](https://sarifweb.azurewebsites.net/)
-15. [GitHub Code Scanning docs](https://docs.github.com/en/code-security/secure-coding)
-16. [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/)
-17. [driftctl — GitHub 仓库](https://github.com/snyk/driftctl)
-18. [Argo CD — 文档](https://argo-cd.readthedocs.io/)
-19. [Flux — 官方站点](https://fluxcd.io/)
-20. [NVD (National Vulnerability Database)](https://nvd.nist.gov/)
-21. [Checkmarx — 官方站点](https://www.checkmarx.com/)
-22. [SonarQube — SonarSource 产品页](https://www.sonarsource.com/products/sonarqube/)
-23. [MurphySec — 官方站点](https://www.murphysec.com/)
-24. [OpenSCA — GitHub 仓库](https://github.com/opensca/opensca)
+- [OWASP DevSecOps Project](https://owasp.org/www-project-devsecops/)
+- [Trivy (Aqua) — GitHub 仓库](https://github.com/aquasecurity/trivy)
+- [Syft — GitHub 仓库](https://github.com/anchore/syft)
+- [Grype — GitHub 仓库](https://github.com/anchore/grype)
+- [Checkov — 官方站点](https://www.checkov.io/)
+- [Semgrep — 官方站点](https://semgrep.dev/)
+- [OWASP ZAP — 官方站点](https://www.zaproxy.org/)
+- [Clair — GitHub 仓库](https://github.com/quay/clair)
+- [kube-bench — GitHub 仓库](https://github.com/aquasecurity/kube-bench)
+- [OpenSCAP — 官方站点](https://www.open-scap.org/)
+- [CycloneDX — 官方站点](https://cyclonedx.org/)
+- [SPDX — 官方站点](https://spdx.dev/)
+- [NTIA SBOM guidance](https://www.ntia.doc.gov/our-work/software-security)
+- [SARIF — 规范 / 资源](https://sarifweb.azurewebsites.net/)
+- [GitHub Code Scanning docs](https://docs.github.com/en/code-security/secure-coding)
+- [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/)
+- [driftctl — GitHub 仓库](https://github.com/snyk/driftctl)
+- [Argo CD — 文档](https://argo-cd.readthedocs.io/)
+- [Flux — 官方站点](https://fluxcd.io/)
+- [NVD (National Vulnerability Database)](https://nvd.nist.gov/)
+- [Checkmarx — 官方站点](https://www.checkmarx.com/)
+- [SonarQube — SonarSource 产品页](https://www.sonarsource.com/products/sonarqube/)
+- [MurphySec — 官方站点](https://www.murphysec.com/)
+- [OpenSCA — GitHub 仓库](https://github.com/opensca/opensca)

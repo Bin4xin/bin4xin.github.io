@@ -1,0 +1,239 @@
+---
+layout: index
+---
+
+<link rel="stylesheet" href="/assets/css/swiper-bundle.min.css">
+<link rel="stylesheet" href="/assets/css/all.min.css">
+<link rel="stylesheet" href="/assets/css/card-theater.css">
+
+
+<div class="cl-wrapper">
+
+  <!-- Hero -->
+  <header class="cl-hero">
+    <div class="cl-hero-badge">BUILD LOG</div>
+    <!-- <h1 class="cl-hero-title">构建历程 · Changelog</h1> -->
+    <div class="cl-hero-title">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        构建历程 · Changelog
+    </div>
+    <p class="cl-hero-sub">哨兵博客 (bin4xin.github.io) 完整构建与维护记录 · 2020 – 2026</p>
+    <div class="cl-hero-stats">
+      <div class="cl-stat">
+        <span class="cl-stat-num">{{ site.data.changelog.years.size }}</span>
+        <span class="cl-stat-label">Years</span>
+      </div>
+      <div class="cl-stat">
+        <span class="cl-stat-num">500+</span>
+        <span class="cl-stat-label">Commits</span>
+      </div>
+      <div class="cl-stat">
+        {% assign total = 0 %}
+        {% for y in site.data.changelog.years %}
+          {% assign total = total | plus: y.entries.size %}
+        {% endfor %}
+        <span class="cl-stat-num">{{ total }}+</span>
+        <span class="cl-stat-label">Changes</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Card Theater -->
+  <section class="cl-theater">
+    <div class="cl-theater-inner">
+      <div class="swiper cl-swiper">
+        <div class="swiper-wrapper">
+          {% for year in site.data.changelog.years %}
+            {% include common-index/changelog-card-slide.html year=year %}
+          {% endfor %}
+        </div>
+      </div>
+      <!-- info panel 保留在 theater 内 -->
+      <div class="cl-info" id="cl-info">
+        <div class="cl-info-title" id="cl-info-title"></div>
+        <p class="cl-info-desc" id="cl-info-desc"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dots 提出来，作为独立 sticky 区域 -->
+  <div class="cl-dots" id="cl-dots"></div>
+
+  <!-- Timeline -->
+  <section class="cl-timeline-wrap">
+    <div class="cl-timeline" id="cl-timeline"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="cl-footer">
+    <p>&copy; 哨兵博客 · 500+ commits · 2020/11 – 2026/07</p>
+  </footer>
+</div>
+
+<script src="/assets/js/swiper-bundle.min.js"></script>
+<script>
+(function(){
+
+  /* ── Data from Jekyll ── */
+  var yearsData = [
+    {% for y in site.data.changelog.years %}
+    {
+      year:     {{ y.year | jsonify }},
+      color:    {{ y.color | jsonify }},
+      icon:     {{ y.icon | jsonify }},
+      highlight:{{ y.highlight_zh | jsonify }},
+      entries:  [
+        {% for e in y.entries %}
+        { date:{{ e.date | jsonify }}, text:{{ e.text | jsonify }}{% if e.link %}, link:{{ e.link | jsonify }}, linkLabel:{{ e.link_label | jsonify }}{% endif %} }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+
+  var monthNames = ['','1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+
+  var dotsBox  = document.getElementById('cl-dots');
+  var infoEl   = document.getElementById('cl-info');
+  var infoTitle= document.getElementById('cl-info-title');
+  var infoDesc = document.getElementById('cl-info-desc');
+  var timeline = document.getElementById('cl-timeline');
+
+  /* ── Build dots ── */
+  yearsData.forEach(function(_, i){
+    var d = document.createElement('span');
+    d.className = 'cl-dot' + (i === yearsData.length - 1 ? ' is-active' : '');
+    d.dataset.idx = i;
+    d.style.setProperty('--cl-year-color', yearsData[i].color);
+    d.addEventListener('click', function(){
+      if(window.clSwiper) window.clSwiper.slideTo(+this.dataset.idx);
+    });
+    dotsBox.appendChild(d);
+  });
+
+  /* ── Update dots ── */
+  function updateDots(idx){
+    dotsBox.querySelectorAll('.cl-dot').forEach(function(d, i){
+      d.classList.toggle('is-active', i === idx);
+    });
+  }
+
+  /* ── Update info panel ── */
+  function updateInfo(idx){
+    var y = yearsData[idx];
+    if(!y) return;
+    infoEl.classList.remove('is-visible');
+    setTimeout(function(){
+      infoTitle.textContent = y.year + ' · ' + y.highlight;
+      infoDesc.textContent  = '共 ' + y.entries.length + ' 条变更记录';
+      infoEl.classList.add('is-visible');
+    }, 100);
+  }
+
+  /* ── Update CSS custom property for active year color ── */
+  function updateYearColor(color){
+    document.documentElement.style.setProperty('--cl-year-color', color);
+    document.documentElement.style.setProperty('--cl-line', color + '30');
+    /* Update dot colors */
+    dotsBox.querySelectorAll('.cl-dot.is-active').forEach(function(d){
+      d.style.background = color;
+      d.style.boxShadow = '0 0 8px ' + color + '80';
+    });
+  }
+
+  /* ── Render Timeline ── */
+  function renderTimeline(idx){
+    var y = yearsData[idx];
+    if(!y) return;
+
+    updateYearColor(y.color);
+
+    /* Group by month */
+    var months = {};
+    y.entries.forEach(function(e){
+      var m = e.date.split('/')[0];
+      if(!months[m]) months[m] = [];
+      months[m].push(e);
+    });
+
+    /* Sort months descending */
+    var sorted = Object.keys(months).sort(function(a,b){ return b - a; });
+
+    var html = '';
+    var delay = 0;
+
+    sorted.forEach(function(m){
+      var entries = months[m];
+      html += '<div class="cl-month">';
+      html += '<div class="cl-month-head">';
+      html += '<span class="cl-month-dot" style="background:' + y.color + ';box-shadow:0 0 10px ' + y.color + '60"></span>';
+      html += '<span class="cl-month-label" style="color:' + y.color + '">' + monthNames[parseInt(m)] + '</span>';
+      html += '<span class="cl-month-count">' + entries.length + ' 条</span>';
+      html += '</div>';
+
+      entries.forEach(function(e){
+        var day = e.date.split('/')[1];
+        html += '<div class="cl-entry" style="animation-delay:' + delay + 's">';
+        html += '<span class="cl-entry-dot"></span>';
+        html += '<span class="cl-entry-date">' + m + '/' + day + '</span>';
+        html += '<span class="cl-entry-text">' + escHtml(e.text) + '</span>';
+        if(e.link){
+          html += '<a class="cl-entry-link" href="' + escHtml(e.link) + '" target="_blank" rel="noopener">' + escHtml(e.linkLabel || 'Link') + '</a>';
+        }
+        html += '</div>';
+        delay += 0.04;
+      });
+
+      html += '</div>';
+    });
+
+    /* Animate transition */
+    timeline.classList.add('is-switching');
+    setTimeout(function(){
+      timeline.innerHTML = html;
+      timeline.classList.remove('is-switching');
+    }, 300);
+  }
+
+  function escHtml(s){
+    if(!s) return '';
+    var d = document.createElement('div');
+    d.appendChild(document.createTextNode(s));
+    return d.innerHTML;
+  }
+
+  /* ── Init Swiper ── */
+  var initialIdx = yearsData.length - 1;
+  window.clSwiper = new Swiper('.cl-swiper',{
+    effect: 'coverflow',
+    grabCursor: true,
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    coverflowEffect: {
+      rotate: 0,
+      stretch: 0,
+      depth: 80,
+      modifier: 1.2,
+      slideShadows: false
+    },
+    keyboard: { enabled: true },
+    mousewheel: { thresholdDelta: 30 },
+    speed: 600,
+    initialSlide: initialIdx,
+    on: {
+      slideChange: function(){
+        updateDots(this.activeIndex);
+        updateInfo(this.activeIndex);
+        renderTimeline(this.activeIndex);
+      }
+    }
+  });
+
+  /* Initial render */
+  updateDots(initialIdx);
+  updateInfo(initialIdx);
+  infoEl.classList.add('is-visible');
+  renderTimeline(initialIdx);
+
+})();
+</script>

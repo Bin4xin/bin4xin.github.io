@@ -9,58 +9,6 @@
     });
 {% endfor %}
 
-
- function getQueryVariable(variable) {
-    const query = window.location.search.substring(1);
-    const vars = query.split("&");
-    for (let i = 0; i < vars.length; i++) {
-        const pair = vars[i].split("=");
-        if (pair[0] === variable) return pair[1];
-    }
-    return "";
-}
-
-const mykeyword = decodeURI(getQueryVariable("keyword"));
-const sbox = document.getElementById("search-input");
-if (mykeyword && mykeyword.toString().length > 1) {
-    sbox.value = mykeyword;
-}
-function base64Decode(str) {
-    if (!str) return str;
-    try {
-        const decoded = atob(str);
-        return decodeURIComponent(escape(decoded));
-    } catch (e) {
-        console.warn("Base64解码失败，返回原字符串:", str.substring(0, 50) + "...", e);
-        return str;
-    }
-}
-
-$.getJSON("search.json", function (json) {
-    console.log("加载 search.json 成功，条目数:", json.length);
-    const sjs = SimpleJekyllSearch({
-        searchInput: sbox,
-        resultsContainer: document.getElementById("results-container"),
-        json: json,
-        searchResultTemplate:
-            '{% include search-provider/results-container.html mode="searchResultTemplate" %}',
-        noResultsText:
-            '{% include search-provider/results-container.html mode="noResultsText" %}',
-        limit: 8,
-        templateMiddleware: function (prop, value, template) {
-            if (prop === "content" && value && typeof value === "string") {
-                console.log(value.substring(0, 50));
-                const decoded = base64Decode(value);
-                if (decoded !== value) return decoded;
-            }
-            return undefined;
-        },
-    });
-    if (mykeyword) sjs.search(mykeyword);
-    }).fail(function (jqXHR, textStatus, errorThrown) {
-    console.error("Load search.json failed:", textStatus, errorThrown);
-});
-
  function keyThing(obj) {
     var index = -1;
     var input = document.getElementById('search-input');

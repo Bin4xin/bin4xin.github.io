@@ -1,0 +1,10 @@
+{% assign y = include.year %}
+<div class="swiper-slide cl-year-slide" style="--year-color: {{ y.color }};">
+  <span class="cl-slide-index">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</span>
+  <div class="cl-year-card">
+    <i class="{{ y.icon }} cl-year-icon" style="color: {{ y.color }}; --icon-glow: {{ y.color }}80;"></i>
+    <div class="cl-year-num">{{ y.year }}</div>
+    <p class="cl-year-count">{{ y.entries.size }} 条变更</p>
+    <div class="cl-year-highlight" style="color: {{ y.color }}; border-color: {{ y.color }}40; background: {{ y.color }}10;">{{ y.highlight_zh }}</div>
+  </div>
+</div>
