@@ -78,9 +78,13 @@
     &lt;/div&gt;
     &lt;div class=&quot;sp-footer&quot;&gt;
         &lt;div class=&quot;sp-lang&quot;&gt;
-            提供：&lt;a href=&quot;#&quot;&gt;中文CN&lt;/a&gt;&lt;span class=&quot;sp-sep&quot;&gt;|&lt;/span&gt;&lt;a href=&quot;#&quot;&gt;英文EN&lt;/a&gt;
+            提供：&lt;strong&gt;中文CN&lt;/strong&gt;&lt;span class=&quot;sp-sep&quot;&gt;|&lt;/span&gt;&lt;a href=&quot;#&quot;&gt;英文EN&lt;/a&gt;
         &lt;/div&gt;
         &lt;div class=&quot;sp-links&quot;&gt;
+            &lt;a class=&quot;sp-link&quot; href=&quot;/changelog/&quot; target=&quot;_blank&quot;&gt;
+                查看更新日志
+                &lt;svg viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.751.751 0 01-1.042-.018.751.751 0 01-.018-1.042l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z&quot;/&gt;&lt;/svg&gt;
+            &lt;/a&gt;
             &lt;a class=&quot;sp-link&quot; href=&quot;https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Search+feedback&amp;template=2-bug_report.yaml&amp;title=_primaryindex/search.html反馈搜索结果/feedback&quot; target=&quot;_blank&quot;&gt;
                 无关搜索结果反馈
                 &lt;svg viewBox=&quot;0 0 16 16&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.751.751 0 01-1.042-.018.751.751 0 01-.018-1.042l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z&quot;/&gt;&lt;/svg&gt;
@@ -94,7 +98,62 @@
 
 &lt;/div&gt;
 
-&lt;script src=&quot;/assets/js/sjs/simple-jekyll-search.min.js&quot;&gt;&lt;/script&gt;哨兵安全实验室 SENTINEL SECURITY, LAB" />
+&lt;script src=&quot;/assets/js/sjs/simple-jekyll-search.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+function getQueryVariable(variable) {
+    const query = window.location.search.substring(1);
+    const vars = query.split(&quot;&amp;&quot;);
+    for (let i = 0; i &lt; vars.length; i++) {
+        const pair = vars[i].split(&quot;=&quot;);
+        if (pair[0] === variable) return pair[1];
+    }
+    return &quot;&quot;;
+}
+const mykeyword = decodeURI(getQueryVariable(&quot;keyword&quot;));
+const sbox = document.getElementById(&quot;search-input&quot;);
+if (mykeyword &amp;&amp; mykeyword.toString().length &gt; 1) {
+    sbox.value = mykeyword;
+}
+function base64Decode(str) {
+    if (!str) return str;
+    try {
+        const decoded = atob(str);
+        return decodeURIComponent(escape(decoded));
+    } catch (e) {
+        console.warn(&quot;Base64解码失败，返回原字符串:&quot;, str.substring(0, 50) + &quot;...&quot;, e);
+        return str;
+    }
+}
+
+$.getJSON(&quot;search.json&quot;, function (json) {
+    console.log(&quot;加载 search.json 成功，条目数:&quot;, json.length);
+    const sjs = SimpleJekyllSearch({
+        searchInput: sbox,
+        resultsContainer: document.getElementById(&quot;results-container&quot;),
+        json: json,
+        searchResultTemplate:
+            &#39;\
+&lt;li class=&quot;s-result-item&quot; role=&quot;option&quot;&gt;&lt;a href=&quot;{url}&quot; class=&quot;s-result-link&quot;&gt;&lt;span class=&quot;s-result-icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; width=&quot;14&quot; height=&quot;14&quot;&gt;&lt;path fill=&quot;currentColor&quot; d=&quot;M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;&lt;span class=&quot;s-result-body&quot;&gt;&lt;span class=&quot;s-result-title&quot;&gt;{title}&lt;/span&gt;&lt;span class=&quot;s-result-url&quot;&gt;{url}&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;s-result-arrow&quot; aria-hidden=&quot;true&quot;&gt;&lt;svg viewBox=&quot;0 0 16 16&quot; width=&quot;14&quot; height=&quot;14&quot;&gt;&lt;path fill=&quot;currentColor&quot; fill-rule=&quot;evenodd&quot; d=&quot;M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.751.751 0 01-1.042-.018.751.751 0 01-.018-1.042l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;\
+&#39;,
+        noResultsText:
+            &#39;\
+&lt;li class=&quot;s-result-empty&quot; role=&quot;presentation&quot;&gt;&lt;div class=&quot;s-empty-icon&quot; aria-hidden=&quot;true&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; width=&quot;32&quot; height=&quot;32&quot;&gt;&lt;path fill=&quot;currentColor&quot; d=&quot;M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z&quot;/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;span class=&quot;s-empty-text&quot;&gt;未找到相关结果&lt;/span&gt;&lt;span class=&quot;s-empty-hint&quot;&gt;换个关键词试试？&lt;/span&gt;&lt;/li&gt;\
+&#39;,
+        limit: 8,
+        templateMiddleware: function (prop, value, template) {
+            if (prop === &quot;content&quot; &amp;&amp; value &amp;&amp; typeof value === &quot;string&quot;) {
+                console.log(value.substring(0, 50));
+                const decoded = base64Decode(value);
+                if (decoded !== value) return decoded;
+            }
+            return undefined;
+        },
+    });
+    if (mykeyword) sjs.search(mykeyword);
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+    console.error(&quot;Load search.json failed:&quot;, textStatus, errorThrown);
+});
+&lt;/script&gt;哨兵安全实验室 SENTINEL SECURITY, LAB" />
 <meta property="og:image" content="https://bin4xin.github.io/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
 <meta property="og:url" content="https://bin4xin.github.io/search" />
 <title> 搜索 | © 哨兵 | SENTINEL SECURITY, LAB</title>
@@ -224,9 +283,13 @@
     </div>
     <div class="sp-footer">
         <div class="sp-lang">
-            提供：<a href="#">中文CN</a><span class="sp-sep">|</span><a href="#">英文EN</a>
+            提供：<strong>中文CN</strong><span class="sp-sep">|</span><a href="#">英文EN</a>
         </div>
         <div class="sp-links">
+            <a class="sp-link" href="/changelog/" target="_blank">
+                查看更新日志
+                <svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.751.751 0 01-1.042-.018.751.751 0 01-.018-1.042l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"/></svg>
+            </a>
             <a class="sp-link" href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Search+feedback&template=2-bug_report.yaml&title=_primaryindex/search.html反馈搜索结果/feedback" target="_blank">
                 无关搜索结果反馈
                 <svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.751.751 0 01-1.042-.018.751.751 0 01-.018-1.042l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"/></svg>
@@ -241,6 +304,61 @@
 </div>
 
 <script src="/assets/js/sjs/simple-jekyll-search.min.js"></script>
+<script>
+function getQueryVariable(variable) {
+    const query = window.location.search.substring(1);
+    const vars = query.split("&");
+    for (let i = 0; i < vars.length; i++) {
+        const pair = vars[i].split("=");
+        if (pair[0] === variable) return pair[1];
+    }
+    return "";
+}
+const mykeyword = decodeURI(getQueryVariable("keyword"));
+const sbox = document.getElementById("search-input");
+if (mykeyword && mykeyword.toString().length > 1) {
+    sbox.value = mykeyword;
+}
+function base64Decode(str) {
+    if (!str) return str;
+    try {
+        const decoded = atob(str);
+        return decodeURIComponent(escape(decoded));
+    } catch (e) {
+        console.warn("Base64解码失败，返回原字符串:", str.substring(0, 50) + "...", e);
+        return str;
+    }
+}
+
+$.getJSON("search.json", function (json) {
+    console.log("加载 search.json 成功，条目数:", json.length);
+    const sjs = SimpleJekyllSearch({
+        searchInput: sbox,
+        resultsContainer: document.getElementById("results-container"),
+        json: json,
+        searchResultTemplate:
+            '\
+<li class="s-result-item" role="option"><a href="{url}" class="s-result-link"><span class="s-result-icon" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><path fill="currentColor" d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"/></svg></span><span class="s-result-body"><span class="s-result-title">{title}</span><span class="s-result-url">{url}</span></span><span class="s-result-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14"><path fill="currentColor" fill-rule="evenodd" d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.751.751 0 01-1.042-.018.751.751 0 01-.018-1.042l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"/></svg></span></a></li>\
+',
+        noResultsText:
+            '\
+<li class="s-result-empty" role="presentation"><div class="s-empty-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="32" height="32"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></div><span class="s-empty-text">未找到相关结果</span><span class="s-empty-hint">换个关键词试试？</span></li>\
+',
+        limit: 8,
+        templateMiddleware: function (prop, value, template) {
+            if (prop === "content" && value && typeof value === "string") {
+                console.log(value.substring(0, 50));
+                const decoded = base64Decode(value);
+                if (decoded !== value) return decoded;
+            }
+            return undefined;
+        },
+    });
+    if (mykeyword) sjs.search(mykeyword);
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+    console.error("Load search.json failed:", textStatus, errorThrown);
+});
+</script>
 
 <script src="/assets/js/oh-sentry.js"></script>
 </body>

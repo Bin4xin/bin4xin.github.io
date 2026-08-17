@@ -864,7 +864,7 @@
         
             
                 
-                    17d
+                    18d
                 
                 post
             
@@ -1034,7 +1034,7 @@
     }
 </style>
 
-<section class="gh-banner info" aria-labelledby="banner-title-更新于-strong-17-天前-strong-时效尚可" role="region" data-dismissible="true">
+<section class="gh-banner info" aria-labelledby="banner-title-更新于-strong-18-天前-strong-时效尚可" role="region" data-dismissible="true">
     <div class="banner-icon" aria-hidden="true">
         
         <svg viewBox="0 0 16 16" fill="currentColor">
@@ -1044,7 +1044,7 @@
     </div>
 
     <div class="banner-content">
-        <span class="banner-text">更新于 <strong>17 天前</strong>，时效尚可</span>
+        <span class="banner-text">更新于 <strong>18 天前</strong>，时效尚可</span>
     </div>
 </section>
 
@@ -1064,7 +1064,7 @@
 
 <h2 id="一概述">一、概述</h2>
 
-<p>本文档围绕 CI/CD 安全集成、容器镜像扫描与软件成分分析（SCA）、基础设施即代码（IaC）与配置合规三大核心模块，系统性梳理各环节所涉及工具的[…]</p>
+<p>本文档围绕 CI/CD 安全集成、容器镜像扫描与软件成分分析（SCA）、基础设施即代码（IaC）与配置合规三大核心模块，系统性梳理各环节所涉及工具的开源状态、功能定位及国产化替代方案，为企业 DevSecOps 体系建设提供完整参考。</p>
 
 <hr />
 
@@ -1204,7 +1204,7 @@
 </table>
 
 <blockquote>
-  <p><strong>关键结论</strong>：ZAP、Trivy、Clair、Checkov、Syft、Grype、kube-bench、OpenSCA、murphysec 等核心工具均为完全开源，可免费商用；SonarQube 社区版可免费使用但部�[…]</p>
+  <p><strong>关键结论</strong>：ZAP、Trivy、Clair、Checkov、Syft、Grype、kube-bench、OpenSCA、murphysec 等核心工具均为完全开源，可免费商用；SonarQube 社区版可免费使用但部分高级功能需付费；Checkmarx 为纯商业闭源产品。</p>
 </blockquote>
 
 <hr />
@@ -1771,7 +1771,7 @@
 </table>
 
 <blockquote>
-  <p><strong>推荐选择</strong>：安全场景优先选用 CycloneDX（原生支持 CVE 关联、漏洞信息嵌入）；许可证合规场景优先选用 SPDX（ISO 国际标准，法律合规认可度高）[…]</p>
+  <p><strong>推荐选择</strong>：安全场景优先选用 CycloneDX（原生支持 CVE 关联、漏洞信息嵌入）；许可证合规场景优先选用 SPDX（ISO 国际标准，法律合规认可度高）。</p>
 </blockquote>
 
 <h4 id="442-sbom-生成工具">4.4.2 SBOM 生成工具</h4>
@@ -1877,7 +1877,7 @@
 
 <h4 id="521-checkov-方案推荐">5.2.1 Checkov 方案（推荐）</h4>
 
-<p><strong>工具定位</strong>：Prisma Cloud（原 Bridgecrew）开源的 IaC 静态分析工具，支持 Terraform、CloudFormation、Kubernetes、Helm、Dockerfile、ARM 模板、Bicep 等多种 IaC 格式�[…]</p>
+<p><strong>工具定位</strong>：Prisma Cloud（原 Bridgecrew）开源的 IaC 静态分析工具，支持 Terraform、CloudFormation、Kubernetes、Helm、Dockerfile、ARM 模板、Bicep 等多种 IaC 格式。</p>
 
 <p><strong>核心能力</strong>：</p>
 <ul>
@@ -2326,16 +2326,97 @@
 
 <ul>
   <li><strong>定位</strong>：AI 原生的软件供应链安全平台</li>
+  <li><strong>核心能力</strong>：
+    <ul>
+      <li>源码到二进制全场景检测</li>
+      <li>漏洞可达性分析（精准定位可利用漏洞）</li>
+      <li>非升级修复（无需升级版本的漏洞缓解）</li>
+      <li>AI 智能修复建议</li>
+    </ul>
+  </li>
+  <li><strong>优势</strong>：
+    <ul>
+      <li>AI 原生架构，检测准确率高</li>
+      <li>中文漏洞库，国内组件生态覆盖好</li>
+      <li>适合重视 AI 赋能安全的团队</li>
+    </ul>
+  </li>
 </ul>
 
-<p>… (file truncated for brevity in commit) …</p>
+<h3 id="64-选型建议">6.4 选型建议</h3>
 
-<p><em>文档版本：v1.0</em>
-<em>生成日期：2026年7月30日</em></p>
+<h4 id="641-按企业类型推荐">6.4.1 按企业类型推荐</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>企业类型</th>
+      <th>推荐方案</th>
+      <th>理由</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>党政/央企/国企</strong></td>
+      <td>Gitee CodePecker + 悬镜源鉴 SCA</td>
+      <td>信创合规要求高，需自主可控</td>
+    </tr>
+    <tr>
+      <td><strong>金融/运营商</strong></td>
+      <td>悬镜源鉴 SCA + 墨菲安全 + 开源 SAST</td>
+      <td>供应链安全要求高，预算充足</td>
+    </tr>
+    <tr>
+      <td><strong>互联网/科技公司</strong></td>
+      <td>Semgrep + Trivy + Checkov + ZAP</td>
+      <td>技术能力强，追求灵活高效</td>
+    </tr>
+    <tr>
+      <td><strong>中小企业/创业团队</strong></td>
+      <td>SonarQube 社区版 + OpenSCA + Trivy</td>
+      <td>成本敏感，快速落地</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="642-迁移路线建议">6.4.2 迁移路线建议</h4>
+
+<ol>
+  <li><strong>评估阶段</strong>：使用开源工具并行扫描，对比结果差异，评估替代可行性</li>
+  <li><strong>试点阶段</strong>：选择 1-2 个项目试点国产/开源替代方案</li>
+  <li><strong>推广阶段</strong>：总结试点经验，完善规则库与流程，逐步扩大覆盖范围</li>
+  <li><strong>全面替换</strong>：成熟后逐步下线原有商业工具，完成工具链国产化/开源化</li>
+</ol>
+
+<hr />
+
+<h2 id="七总结">七、总结</h2>
+
+<h3 id="71-核心结论">7.1 核心结论</h3>
+
+<ol>
+  <li><strong>开源工具已能覆盖 DevSecOps 全链路</strong>：从 SAST、SCA、IaC 扫描、镜像扫描到 DAST，均有成熟的开源方案可用</li>
+  <li><strong>ZAP、Trivy、Checkov 等核心工具完全开源</strong>：可免费商用，社区活跃，功能持续增强</li>
+  <li><strong>国产替代方案日趋成熟</strong>：悬镜安全（OpenSCA/源鉴 SCA）、墨菲安全、Gitee CodePecker 等国产工具在 SCA 领域已具备国际竞争力</li>
+  <li><strong>SonarQube 社区版可满足基础需求</strong>：但高级功能需付费；Checkmarx 为纯商业产品，可通过 Semgrep + 开源工具链组合替代</li>
+  <li><strong>安全左移 + 自动化门禁是关键</strong>：将安全检测嵌入 CI/CD 流水线，通过阈值判定实现自动化安全门禁</li>
+</ol>
+
+<h3 id="72-实施建议">7.2 实施建议</h3>
+
+<ol>
+  <li><strong>分阶段落地</strong>：先从 SCA 和镜像扫描入手（见效快、门槛低），再逐步推进 SAST 和 IaC 扫描</li>
+  <li><strong>工具链整合</strong>：统一报告格式（SARIF/JSON），建立集中化安全管理平台</li>
+  <li><strong>规则定制化</strong>：基于业务实际调整规则集，降低误报率，提升工具实用性</li>
+  <li><strong>度量驱动改进</strong>：建立安全度量体系，持续跟踪漏洞修复率、MTTR 等指标</li>
+  <li><strong>人才与流程配套</strong>：工具只是手段，需配套安全培训、漏洞管理流程、责任机制等</li>
+</ol>
+
+<hr />
 
 <h2 id="参考资料">参考资料</h2>
 
-<ol>
+<ul>
   <li><a href="https://owasp.org/www-project-devsecops/">OWASP DevSecOps Project</a></li>
   <li><a href="https://github.com/aquasecurity/trivy">Trivy (Aqua) — GitHub 仓库</a></li>
   <li><a href="https://github.com/anchore/syft">Syft — GitHub 仓库</a></li>
@@ -2360,7 +2441,7 @@
   <li><a href="https://www.sonarsource.com/products/sonarqube/">SonarQube — SonarSource 产品页</a></li>
   <li><a href="https://www.murphysec.com/">MurphySec — 官方站点</a></li>
   <li><a href="https://github.com/opensca/opensca">OpenSCA — GitHub 仓库</a></li>
-</ol>
+</ul>
 
 				</div>
 				<div class="spacing"></div>
@@ -2538,6 +2619,7 @@
 <li class="toc-entry toc-h2"><a href="#四容器镜像扫描与-sca-方案">四、容器镜像扫描与 SCA 方案</a></li>
 <li class="toc-entry toc-h2"><a href="#五配置合规与-iac-扫描方案">五、配置合规与 IaC 扫描方案</a></li>
 <li class="toc-entry toc-h2"><a href="#六sonarqube--checkmarx-国内替代方案">六、SonarQube / Checkmarx 国内替代方案</a></li>
+<li class="toc-entry toc-h2"><a href="#七总结">七、总结</a></li>
 <li class="toc-entry toc-h2"><a href="#参考资料">参考资料</a></li>
 </ul>
 </li>

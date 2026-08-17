@@ -25,301 +25,13 @@
 <meta property="og:title" content="Projects | © 哨兵" />
 <meta property="og:description" content=" &lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/swiper-bundle.min.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/all.min.css&quot;&gt;
-
-&lt;style&gt;
-  :root {
-    --ct-bg: #000;
-    --ct-surface: #111;
-    --ct-border: #222;
-    --ct-blue: #0A84FF;
-    --ct-green: #30D158;
-    --ct-text: #f5f5f7;
-    --ct-muted: #86868b;
-    --ct-panel-bg: rgba(17,17,17,0.92);
-  }
-  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-  /* jetbrains-mono-300 - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: &#39;JetBrains Mono&#39;;
-    font-style: normal;
-    font-weight: 300;
-    src: url(&#39;../assets/fonts/jetbrains-mono-v24-latin-300.woff2&#39;) format(&#39;woff2&#39;); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* jetbrains-mono-regular - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: &#39;JetBrains Mono&#39;;
-    font-style: normal;
-    font-weight: 400;
-    src: url(&#39;../assets/fonts/jetbrains-mono-v24-latin-regular.woff2&#39;) format(&#39;woff2&#39;); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* jetbrains-mono-600 - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: &#39;JetBrains Mono&#39;;
-    font-style: normal;
-    font-weight: 600;
-    src: url(&#39;../assets/fonts/jetbrains-mono-v24-latin-600.woff2&#39;) format(&#39;woff2&#39;); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* jetbrains-mono-700 - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: &#39;JetBrains Mono&#39;;
-    font-style: normal;
-    font-weight: 700;
-    src: url(&#39;../assets/fonts/jetbrains-mono-v24-latin-700.woff2&#39;) format(&#39;woff2&#39;); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* jetbrains-mono-800 - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: &#39;JetBrains Mono&#39;;
-    font-style: normal;
-    font-weight: 800;
-    src: url(&#39;../assets/fonts/jetbrains-mono-v24-latin-800.woff2&#39;) format(&#39;woff2&#39;); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* inter-300 - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: &#39;Inter&#39;;
-    font-style: normal;
-    font-weight: 300;
-    src: url(&#39;../assets/fonts/inter-v20-latin-300.woff2&#39;) format(&#39;woff2&#39;); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* inter-regular - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: &#39;Inter&#39;;
-    font-style: normal;
-    font-weight: 400;
-    src: url(&#39;../assets/fonts/inter-v20-latin-regular.woff2&#39;) format(&#39;woff2&#39;); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* inter-600 - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: &#39;Inter&#39;;
-    font-style: normal;
-    font-weight: 600;
-    src: url(&#39;../assets/fonts/inter-v20-latin-600.woff2&#39;) format(&#39;woff2&#39;); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* inter-700 - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: &#39;Inter&#39;;
-    font-style: normal;
-    font-weight: 700;
-    src: url(&#39;../assets/fonts/inter-v20-latin-700.woff2&#39;) format(&#39;woff2&#39;); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* inter-800 - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: &#39;Inter&#39;;
-    font-style: normal;
-    font-weight: 800;
-    src: url(&#39;../assets/fonts/inter-v20-latin-800.woff2&#39;) format(&#39;woff2&#39;); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  .ct-wrapper {
-    position:relative;width:100%;min-height:100vh;background:var(--ct-bg);
-    display:flex;overflow:hidden;
-    font-family:&#39;Inter&#39;,-apple-system,BlinkMacSystemFont,sans-serif;color:var(--ct-text);
-  }
-
-  /* ---- Sidebar ---- */
-  .ct-sidebar {
-    position:fixed;left:0;top:0;width:340px;height:100vh;
-    background:var(--ct-panel-bg);
-    backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);
-    border-right:1px solid var(--ct-border);
-    display:flex;flex-direction:column;padding:48px 32px 32px;z-index:100;
-  }
-  .ct-tag {
-    font-family:&#39;JetBrains Mono&#39;,monospace;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;
-    color:var(--ct-blue);background:rgba(10,132,255,.12);border:1px solid rgba(10,132,255,.25);
-    padding:4px 12px;border-radius:20px;display:inline-block;width:fit-content;margin-bottom:20px;
-  }
-  .ct-title{font-size:2.4rem;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:4px}
-  .ct-subtitle{font-size:1rem;color:var(--ct-muted);font-weight:300;margin-bottom:40px}
-
-  /* Info Panel */
-  .ct-info{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
-  .ct-info.is-visible{opacity:1;transform:translateY(0)}
-  .ct-info-title{font-size:1.15rem;font-weight:700;margin-bottom:10px;line-height:1.3}
-  .ct-info-desc{font-size:.85rem;line-height:1.7;color:var(--ct-muted);margin-bottom:16px}
-  .ct-info-note{
-    font-family:&#39;JetBrains Mono&#39;,monospace;font-size:.72rem;letter-spacing:.04em;
-    color:var(--ct-green);background:rgba(48,209,88,.08);border-left:2px solid var(--ct-green);
-    padding:8px 12px;border-radius:0 6px 6px 0;
-  }
-
-  /* Dots */
-  .ct-dots{display:flex;gap:6px;margin-bottom:28px}
-  .ct-dot{width:8px;height:8px;border-radius:50%;background:var(--ct-border);transition:all .3s ease;cursor:pointer}
-  .ct-dot.is-active{background:var(--ct-blue);box-shadow:0 0 8px rgba(10,132,255,.5);transform:scale(1.3)}
-
-  /* Mode Toggle */
-  .ct-mode-btn{
-    display:flex;align-items:center;gap:10px;background:transparent;border:1px solid var(--ct-border);
-    color:var(--ct-muted);font-family:&#39;JetBrains Mono&#39;,monospace;font-size:.7rem;letter-spacing:.1em;
-    text-transform:uppercase;padding:10px 16px;border-radius:8px;cursor:pointer;transition:all .3s ease;
-    margin-top:auto;width:100%;justify-content:center;
-  }
-  .ct-mode-btn:hover{border-color:var(--ct-blue);color:var(--ct-text)}
-  .ct-mode-dot{width:8px;height:8px;border-radius:50%;background:var(--ct-border);transition:all .3s ease}
-  .ct-mode-btn.is-active .ct-mode-dot{background:var(--ct-green);box-shadow:0 0 8px rgba(48,209,88,.6)}
-  .ct-mode-btn.is-active{border-color:var(--ct-green);color:var(--ct-green)}
-
-  /* ---- Stage ---- */
-  .ct-stage{
-    flex:1;margin-left:340px;height:100vh;display:flex;align-items:center;justify-content:center;
-    position:relative;overflow:hidden;
-  }
-  .ct-stage::before{
-    content:&#39;&#39;;position:absolute;inset:0;
-    background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);
-    background-size:60px 60px;pointer-events:none;
-  }
-
-  /* Swiper */
-  .ct-swiper{width:100%;padding:40px 0}
-  .ct-swiper .swiper-slide{width:320px;height:420px;display:flex;align-items:center;justify-content:center}
-
-  /* Slide Card */
-  .ct-card__body{
-    position:relative;width:100%;height:100%;background:var(--ct-surface);border:1px solid var(--ct-border);
-    border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    padding:48px 32px 56px;text-align:center;overflow:hidden;transition:border-color .4s ease,box-shadow .4s ease;
-  }
-  .ct-card__body::before{
-    content:&#39;&#39;;position:absolute;top:0;left:50%;transform:translateX(-50%);
-    width:60%;height:1px;background:linear-gradient(90deg,transparent,var(--ct-blue),transparent);opacity:.3;
-  }
-  .swiper-slide-active .ct-card__body{border-color:var(--ct-blue);box-shadow:0 0 40px rgba(10,132,255,.08)}
-  .ct-card__icon{font-size:2.8rem;margin-bottom:24px;filter:drop-shadow(0 0 12px var(--icon-glow,var(--ct-blue)));transition:transform .4s ease}
-  .swiper-slide-active .ct-card__icon{transform:scale(1.12)}
-  .ct-card__title{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
-  .ct-card__subtitle{font-family:&#39;JetBrains Mono&#39;,monospace;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ct-muted);margin-bottom:28px}
-  .ct-card__highlight{
-    font-family:&#39;JetBrains Mono&#39;,monospace;font-size:.8rem;font-weight:600;letter-spacing:.1em;
-    padding:6px 16px;border-radius:6px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);
-    transition:all .3s ease;color:var(--hl-color,var(--ct-blue));
-  }
-  .swiper-slide-active .ct-card__highlight{border-color:var(--hl-color,var(--ct-blue));background:color-mix(in srgb,var(--hl-color,var(--ct-blue)) 10%,transparent)}
-  .ct-card__bg-num{position:absolute;top:20px;right:24px;font-family:&#39;JetBrains Mono&#39;,monospace;font-size:.65rem;color:var(--ct-muted);opacity:.3;z-index:2}
-
-  /* ---- Theater Nav Override ---- */
-  .ct-stage .navbar{
-    position:absolute;top:0;left:0;right:0;z-index:50;
-    background:transparent;border:none;margin:0;padding:0;
-    min-height:0;
-  }
-  .ct-stage .navbar .container{
-    width:100%;max-width:100%;margin:-25px;
-    display:flex;align-items:center;min-height:0;
-  }
-  .ct-stage .navbar-header{
-    display:none;
-  }
-  .ct-stage .navbar-collapse{
-    display:flex !important;visibility:visible;
-    float:none;padding:0;margin:0;
-    max-height:none;border-top:none;
-    box-shadow:none;
-  }
-  .ct-stage .navbar-nav{
-    display:flex;flex-direction:row;gap:4px;
-    margin:0;padding:25px 0;
-    float:none;
-  }
-  .ct-stage .navbar-nav &gt; li{
-    list-style:none;float:none;
-  }
-  .ct-stage .navbar-nav &gt; li &gt; a{
-    font-family:&#39;JetBrains Mono&#39;,monospace;
-    font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--ct-muted);
-    padding:6px 14px;border-radius:6px;
-    border:1px solid transparent;
-    transition:all .3s ease;
-    line-height:1.6;text-decoration:none;
-    white-space:nowrap;
-  }
-  .ct-stage .navbar-nav &gt; li &gt; a:hover,
-  .ct-stage .navbar-nav &gt; li &gt; a:focus{
-    color:var(--ct-text);
-    border-color:var(--ct-border);
-    background:rgba(255,255,255,.04);
-  }
-  .ct-stage .navbar-nav &gt; li.active &gt; a{
-    color:var(--ct-blue);
-    border-color:rgba(10,132,255,.25);
-    background:rgba(10,132,255,.08);
-  }
-  .ct-stage .navbar-nav &gt; li &gt; a .fa{
-    font-size:.85rem;
-  }
-
-  /* Responsive: theater nav */
-  @media(max-width:900px){
-    .ct-stage .navbar .container{
-      padding:0 16px;flex-wrap:wrap;
-    }
-    .ct-stage .navbar-header{
-      display:flex;width:100%;
-    }
-    .ct-stage .navbar-toggle{
-      display:block !important;
-      padding:8px 10px;margin:8px 0;
-      background:transparent;border:1px solid var(--ct-border);
-      border-radius:6px;cursor:pointer;
-    }
-    .ct-stage .navbar-toggle .icon-bar{
-      display:block;width:18px;height:2px;
-      background:var(--ct-muted);margin:4px 0;
-      border-radius:1px;transition:all .3s ease;
-    }
-    .ct-stage .navbar-toggle:hover .icon-bar{
-      background:var(--ct-text);
-    }
-    .ct-stage .navbar-collapse{
-      width:100%;flex-basis:100%;
-      background:var(--ct-panel-bg);
-      backdrop-filter:blur(20px);
-      border-radius:0 0 12px 12px;
-      border-bottom:1px solid var(--ct-border);
-      overflow:hidden;max-height:0;
-      transition:max-height .35s ease;
-    }
-    .ct-stage .navbar-collapse.in{
-      max-height:500px;
-    }
-    .ct-stage .navbar-nav{
-      flex-direction:column;padding:8px 0;
-      gap:0;
-    }
-    .ct-stage .navbar-nav &gt; li &gt; a{
-      padding:10px 20px;border-radius:0;
-      font-size:.7rem;
-    }
-  }
-
-  /* Extra slides */
-  .ct-extra-slide{display:none !important}
-  .ct-extra-slide.ct-visible{display:flex !important}
-
-  /* Responsive */
-  @media(max-width:900px){
-    .ct-sidebar{position:relative;width:100%;height:auto;padding:24px 20px;border-right:none;border-bottom:1px solid var(--ct-border)}
-    .ct-stage{margin-left:0;height:70vh}
-    .ct-wrapper{flex-direction:column}
-    .ct-swiper .swiper-slide{width:260px;height:360px}
-  }
-&lt;/style&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/card-theater.css&quot;&gt;
 
 &lt;main class=&quot;ct-wrapper&quot;&gt;
   &lt;aside class=&quot;ct-sidebar&quot;&gt;
-    &lt;span class=&quot;ct-tag&quot;&gt;Project Showcase&lt;/span&gt;
+    &lt;span class=&quot;ct-tag&quot; data-zh=&quot;项目展示&quot; data-en=&quot;Project Showcase&quot;&gt;项目展示&lt;/span&gt;
     &lt;div class=&quot;ct-title&quot;&gt;Bin4xin&lt;/div&gt;
-    &lt;p class=&quot;ct-subtitle&quot;&gt;Active Repos&lt;/p&gt;
+    &lt;p class=&quot;ct-subtitle&quot; data-zh=&quot;活跃仓库&quot; data-en=&quot;Active Repos&quot;&gt;活跃仓库&lt;/p&gt;
     &lt;div class=&quot;ct-dots&quot; id=&quot;ct-dots&quot;&gt;&lt;/div&gt;
     &lt;div class=&quot;ct-info&quot; id=&quot;ct-info&quot;&gt;
       &lt;div class=&quot;ct-info-title&quot; id=&quot;ct-info-title&quot;&gt;&lt;/div&gt;
@@ -328,7 +40,7 @@
     &lt;/div&gt;
     &lt;button class=&quot;ct-mode-btn is-active&quot; id=&quot;ct-mode-toggle&quot;&gt;
       &lt;span class=&quot;ct-mode-dot&quot;&gt;&lt;/span&gt;
-      &lt;span id=&quot;ct-mode-text&quot;&gt;ENABLE TUNNEL MODE&lt;/span&gt;
+      &lt;span id=&quot;ct-mode-text&quot;&gt;SWITCH TO ENGLISH&lt;/span&gt;
     &lt;/button&gt;
   &lt;/aside&gt;
   &lt;div class=&quot;ct-stage&quot;&gt;
@@ -386,13 +98,17 @@
 
 
 
-&lt;div class=&quot;swiper-slide &quot; &gt;
+
+&lt;div class=&quot;swiper-slide &quot;  data-hl-en=&quot;ORG PROFILE&quot; data-hl-zh=&quot;组织主页&quot; data-url=&quot;github.com/sentryCyberSec&quot;&gt;
   &lt;span class=&quot;ct-card__bg-num&quot;&gt;01&lt;/span&gt;
+  &lt;button class=&quot;ct-card__copy&quot; data-url=&quot;github.com/sentryCyberSec&quot; title=&quot;Copy link&quot;&gt;
+    &lt;i class=&quot;fa-solid fa-link&quot;&gt;&lt;/i&gt;
+  &lt;/button&gt;
   &lt;div class=&quot;ct-card__body&quot;&gt;
     &lt;i class=&quot;fa-solid fa-building-shield ct-card__icon&quot; style=&quot;color: #61BB46; --icon-glow: #61BB4680;&quot;&gt;&lt;/i&gt;
     &lt;div class=&quot;ct-card__title&quot;&gt;#SENTRYCYBERSEC&lt;/div&gt;
     &lt;p class=&quot;ct-card__subtitle&quot;&gt;github.com/sentryCyberSec&lt;/p&gt;
-    &lt;div class=&quot;ct-card__highlight&quot; style=&quot;--hl-color: #61BB46;&quot;&gt;ORG PROFILE&lt;/div&gt;
+    &lt;div class=&quot;ct-card__highlight&quot; style=&quot;--hl-color: #61BB46;&quot;&gt;组织主页&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
@@ -405,13 +121,17 @@
 
 
 
-&lt;div class=&quot;swiper-slide &quot; &gt;
+
+&lt;div class=&quot;swiper-slide &quot;  data-hl-en=&quot;MAIN PROFILE&quot; data-hl-zh=&quot;核心主页&quot; data-url=&quot;github.com/Bin4xin/Bin4xin&quot;&gt;
   &lt;span class=&quot;ct-card__bg-num&quot;&gt;02&lt;/span&gt;
+  &lt;button class=&quot;ct-card__copy&quot; data-url=&quot;github.com/Bin4xin/Bin4xin&quot; title=&quot;Copy link&quot;&gt;
+    &lt;i class=&quot;fa-solid fa-link&quot;&gt;&lt;/i&gt;
+  &lt;/button&gt;
   &lt;div class=&quot;ct-card__body&quot;&gt;
     &lt;i class=&quot;fa-solid fa-terminal ct-card__icon&quot; style=&quot;color: #FDB827; --icon-glow: #FDB82780;&quot;&gt;&lt;/i&gt;
     &lt;div class=&quot;ct-card__title&quot;&gt;@Bin4xin&lt;/div&gt;
     &lt;p class=&quot;ct-card__subtitle&quot;&gt;github.com/Bin4xin/Bin4xin&lt;/p&gt;
-    &lt;div class=&quot;ct-card__highlight&quot; style=&quot;--hl-color: #FDB827;&quot;&gt;MAIN PROFILE&lt;/div&gt;
+    &lt;div class=&quot;ct-card__highlight&quot; style=&quot;--hl-color: #FDB827;&quot;&gt;核心主页&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
@@ -424,13 +144,17 @@
 
 
 
-&lt;div class=&quot;swiper-slide &quot; &gt;
+
+&lt;div class=&quot;swiper-slide &quot;  data-hl-en=&quot;EXPLOIT TOOLKIT&quot; data-hl-zh=&quot;漏洞利用工具包&quot; data-url=&quot;github.com/Bin4xin/sweet-ysoserial&quot;&gt;
   &lt;span class=&quot;ct-card__bg-num&quot;&gt;03&lt;/span&gt;
+  &lt;button class=&quot;ct-card__copy&quot; data-url=&quot;github.com/Bin4xin/sweet-ysoserial&quot; title=&quot;Copy link&quot;&gt;
+    &lt;i class=&quot;fa-solid fa-link&quot;&gt;&lt;/i&gt;
+  &lt;/button&gt;
   &lt;div class=&quot;ct-card__body&quot;&gt;
     &lt;i class=&quot;fa-solid fa-bomb ct-card__icon&quot; style=&quot;color: #F5821F; --icon-glow: #F5821F80;&quot;&gt;&lt;/i&gt;
     &lt;div class=&quot;ct-card__title&quot;&gt;sweet-ysoserial&lt;/div&gt;
     &lt;p class=&quot;ct-card__subtitle&quot;&gt;github.com/Bin4xin/sweet-ysoserial&lt;/p&gt;
-    &lt;div class=&quot;ct-card__highlight&quot; style=&quot;--hl-color: #F5821F;&quot;&gt;EXPLOIT TOOLKIT&lt;/div&gt;
+    &lt;div class=&quot;ct-card__highlight&quot; style=&quot;--hl-color: #F5821F;&quot;&gt;漏洞利用工具包&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
@@ -443,13 +167,17 @@
 
 
 
-&lt;div class=&quot;swiper-slide &quot; &gt;
+
+&lt;div class=&quot;swiper-slide &quot;  data-hl-en=&quot;SEC SIMULATOR&quot; data-hl-zh=&quot;安全模拟器&quot; data-url=&quot;Bin4xin.github.io/sentinel-sec-lab&quot;&gt;
   &lt;span class=&quot;ct-card__bg-num&quot;&gt;04&lt;/span&gt;
+  &lt;button class=&quot;ct-card__copy&quot; data-url=&quot;Bin4xin.github.io/sentinel-sec-lab&quot; title=&quot;Copy link&quot;&gt;
+    &lt;i class=&quot;fa-solid fa-link&quot;&gt;&lt;/i&gt;
+  &lt;/button&gt;
   &lt;div class=&quot;ct-card__body&quot;&gt;
     &lt;i class=&quot;fa-solid fa-flask-vial ct-card__icon&quot; style=&quot;color: #E03A3E; --icon-glow: #E03A3E80;&quot;&gt;&lt;/i&gt;
     &lt;div class=&quot;ct-card__title&quot;&gt;sentinel-sec-lab&lt;/div&gt;
     &lt;p class=&quot;ct-card__subtitle&quot;&gt;Bin4xin.github.io/sentinel-sec-lab&lt;/p&gt;
-    &lt;div class=&quot;ct-card__highlight&quot; style=&quot;--hl-color: #E03A3E;&quot;&gt;SEC SIMULATOR&lt;/div&gt;
+    &lt;div class=&quot;ct-card__highlight&quot; style=&quot;--hl-color: #E03A3E;&quot;&gt;安全模拟器&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
@@ -462,13 +190,17 @@
 
 
 
-&lt;div class=&quot;swiper-slide &quot; &gt;
+
+&lt;div class=&quot;swiper-slide &quot;  data-hl-en=&quot;SEC RESEARCH&quot; data-hl-zh=&quot;安全研究&quot; data-url=&quot;github.com/Bin4xin/bigger-than-bigger&quot;&gt;
   &lt;span class=&quot;ct-card__bg-num&quot;&gt;05&lt;/span&gt;
+  &lt;button class=&quot;ct-card__copy&quot; data-url=&quot;github.com/Bin4xin/bigger-than-bigger&quot; title=&quot;Copy link&quot;&gt;
+    &lt;i class=&quot;fa-solid fa-link&quot;&gt;&lt;/i&gt;
+  &lt;/button&gt;
   &lt;div class=&quot;ct-card__body&quot;&gt;
     &lt;i class=&quot;fa-solid fa-expand ct-card__icon&quot; style=&quot;color: #963D97; --icon-glow: #963D9780;&quot;&gt;&lt;/i&gt;
     &lt;div class=&quot;ct-card__title&quot;&gt;bigger-than-bigger&lt;/div&gt;
     &lt;p class=&quot;ct-card__subtitle&quot;&gt;github.com/Bin4xin/bigger-than-bigger&lt;/p&gt;
-    &lt;div class=&quot;ct-card__highlight&quot; style=&quot;--hl-color: #963D97;&quot;&gt;SEC RESEARCH&lt;/div&gt;
+    &lt;div class=&quot;ct-card__highlight&quot; style=&quot;--hl-color: #963D97;&quot;&gt;安全研究&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 
@@ -481,13 +213,17 @@
 
 
 
-&lt;div class=&quot;swiper-slide &quot; &gt;
+
+&lt;div class=&quot;swiper-slide &quot;  data-hl-en=&quot;TARGETED TOOL&quot; data-hl-zh=&quot;定向工具&quot; data-url=&quot;github.com/Bin4xin/bigger-than-bigger/blob/master/CoVV&quot;&gt;
   &lt;span class=&quot;ct-card__bg-num&quot;&gt;06&lt;/span&gt;
+  &lt;button class=&quot;ct-card__copy&quot; data-url=&quot;github.com/Bin4xin/bigger-than-bigger/blob/master/CoVV&quot; title=&quot;Copy link&quot;&gt;
+    &lt;i class=&quot;fa-solid fa-link&quot;&gt;&lt;/i&gt;
+  &lt;/button&gt;
   &lt;div class=&quot;ct-card__body&quot;&gt;
     &lt;i class=&quot;fa-solid fa-crosshairs ct-card__icon&quot; style=&quot;color: #009DDC; --icon-glow: #009DDC80;&quot;&gt;&lt;/i&gt;
     &lt;div class=&quot;ct-card__title&quot;&gt;COVV&lt;/div&gt;
     &lt;p class=&quot;ct-card__subtitle&quot;&gt;github.com/Bin4xin/bigger-than-bigger/blob/master/CoVV&lt;/p&gt;
-    &lt;div class=&quot;ct-card__highlight&quot; style=&quot;--hl-color: #009DDC;&quot;&gt;TARGETED TOOL&lt;/div&gt;
+    &lt;div class=&quot;ct-card__highlight&quot; style=&quot;--hl-color: #009DDC;&quot;&gt;定向工具&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;&lt;/div&gt;
     &lt;/div&gt;
@@ -497,59 +233,171 @@
 &lt;script src=&quot;/assets/js/swiper-bundle.min.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
 (function(){
-  var slideData=[
+  /* ---- Bilingual slide data from front matter ---- */
+  var slideData = [
     
-    {title:&quot;#SENTRYCYBERSEC&quot;,desc:&quot;GitHub organization for cybersecurity research and tool development. Home to collaborative security projects and vulnerability analysis resources.&quot;,note:&quot;Radar-mode scanning for threat intelligence.&quot;},
+    {
+      title:   &quot;#SENTRYCYBERSEC&quot;,
+      desc:    &quot;GitHub organization for cybersecurity research and tool development. Home to collaborative security projects and vulnerability analysis resources.&quot;,
+      desc_zh: &quot;GitHub网络安全研究与工具开发组织。协作安全项目与漏洞分析资源的聚集地。&quot;,
+      note:    &quot;Radar-mode scanning for threat intelligence.&quot;,
+      note_zh: &quot;雷达模式：威胁情报扫描。&quot;
+    },
     
-    {title:&quot;@Bin4xin&quot;,desc:&quot;Personal GitHub profile and primary development hub. Central repository for all security tools, exploits, and research projects.&quot;,note:&quot;Terminal-mode direct access to the core.&quot;},
+    {
+      title:   &quot;@Bin4xin&quot;,
+      desc:    &quot;Personal GitHub profile and primary development hub. Central repository for all security tools, exploits, and research projects.&quot;,
+      desc_zh: &quot;个人GitHub主页及核心开发中心。汇集所有安全工具、漏洞利用与研究项目的核心仓库。&quot;,
+      note:    &quot;Terminal-mode direct access to the core.&quot;,
+      note_zh: &quot;终端模式：核心直达。&quot;
+    },
     
-    {title:&quot;sweet-ysoserial&quot;,desc:&quot;Enhanced Java deserialization exploit toolkit. Extends ysoserial with additional gadget chains and improved payload generation capabilities.&quot;,note:&quot;Payload-mode: delivering the goods.&quot;},
+    {
+      title:   &quot;sweet-ysoserial&quot;,
+      desc:    &quot;Enhanced Java deserialization exploit toolkit. Extends ysoserial with additional gadget chains and improved payload generation capabilities.&quot;,
+      desc_zh: &quot;增强版Java反序列化漏洞利用工具包。扩展ysoserial，新增额外gadget链与改进的payload生成能力。&quot;,
+      note:    &quot;Payload-mode: delivering the goods.&quot;,
+      note_zh: &quot;载荷模式：精准投递。&quot;
+    },
     
-    {title:&quot;sentinel-sec-lab&quot;,desc:&quot;Interactive security laboratory environment hosted on GitHub Pages. Hands-on practice for vulnerability analysis and penetration testing techniques.&quot;,note:&quot;Simulator-mode: safe playground for offensive security.&quot;},
+    {
+      title:   &quot;sentinel-sec-lab&quot;,
+      desc:    &quot;Interactive security laboratory environment hosted on GitHub Pages. Hands-on practice for vulnerability analysis and penetration testing techniques.&quot;,
+      desc_zh: &quot;基于GitHub Pages的交互式安全实验室环境。提供漏洞分析与渗透测试技术的实操练习。&quot;,
+      note:    &quot;Simulator-mode: safe playground for offensive security.&quot;,
+      note_zh: &quot;模拟器模式：攻防安全演练场。&quot;
+    },
     
-    {title:&quot;bigger-than-bigger&quot;,desc:&quot;Collection of advanced security research tools and proof-of-concept exploits. Pushing boundaries in offensive security methodology.&quot;,note:&quot;Radar-mode: expanding the attack surface.&quot;},
+    {
+      title:   &quot;bigger-than-bigger&quot;,
+      desc:    &quot;Collection of advanced security research tools and proof-of-concept exploits. Pushing boundaries in offensive security methodology.&quot;,
+      desc_zh: &quot;高级安全研究工具与概念验证漏洞利用集合。推动攻防安全方法论的边界。&quot;,
+      note:    &quot;Radar-mode: expanding the attack surface.&quot;,
+      note_zh: &quot;雷达模式：扩展攻击面。&quot;
+    },
     
-    {title:&quot;COVV&quot;,desc:&quot;Sub-project within bigger-than-bigger. Specialized security tool for targeted vulnerability analysis and exploitation research.&quot;,note:&quot;Payload-mode: precision strike capability.&quot;}
+    {
+      title:   &quot;COVV&quot;,
+      desc:    &quot;Sub-project within bigger-than-bigger. Specialized security tool for targeted vulnerability analysis and exploitation research.&quot;,
+      desc_zh: &quot;bigger-than-bigger子项目。面向定向漏洞分析与漏洞利用研究的专用安全工具。&quot;,
+      note:    &quot;Payload-mode: precision strike capability.&quot;,
+      note_zh: &quot;载荷模式：精准打击。&quot;
+    }
     
   ];
-  var dotsBox=document.getElementById(&#39;ct-dots&#39;),
-      infoEl=document.getElementById(&#39;ct-info&#39;),
-      titleEl=document.getElementById(&#39;ct-info-title&#39;),
-      descEl=document.getElementById(&#39;ct-info-desc&#39;),
-      noteEl=document.getElementById(&#39;ct-info-note&#39;),
-      toggleBtn=document.getElementById(&#39;ct-mode-toggle&#39;),
-      toggleTxt=document.getElementById(&#39;ct-mode-text&#39;);
 
-  slideData.forEach(function(_,i){
-    var d=document.createElement(&#39;span&#39;);
-    d.className=&#39;ct-dot&#39;+(i===0?&#39; is-active&#39;:&#39;&#39;);d.dataset.idx=i;
-    d.addEventListener(&#39;click&#39;,function(){if(window.ctSwiper)window.ctSwiper.slideTo(+this.dataset.idx)});
+  var modeA = &quot;SWITCH TO ENGLISH&quot;;
+  var modeB = &quot;返回中文&quot;;
+
+  var currentLang = &#39;zh&#39;;
+
+  var dotsBox   = document.getElementById(&#39;ct-dots&#39;);
+  var infoEl    = document.getElementById(&#39;ct-info&#39;);
+  var titleEl   = document.getElementById(&#39;ct-info-title&#39;);
+  var descEl    = document.getElementById(&#39;ct-info-desc&#39;);
+  var noteEl    = document.getElementById(&#39;ct-info-note&#39;);
+  var toggleBtn = document.getElementById(&#39;ct-mode-toggle&#39;);
+  var toggleTxt = document.getElementById(&#39;ct-mode-text&#39;);
+
+  /* ---- Build navigation dots ---- */
+  slideData.forEach(function(_, i){
+    var d = document.createElement(&#39;span&#39;);
+    d.className = &#39;ct-dot&#39; + (i === 0 ? &#39; is-active&#39; : &#39;&#39;);
+    d.dataset.idx = i;
+    d.addEventListener(&#39;click&#39;, function(){ if(window.ctSwiper) window.ctSwiper.slideTo(+this.dataset.idx); });
     dotsBox.appendChild(d);
   });
 
+  /* ---- Update sidebar info panel (respects current language) ---- */
   function updateInfo(idx){
-    if(!slideData[idx])return;var d=slideData[idx];
+    if(!slideData[idx]) return;
+    var d = slideData[idx];
+    var isZh = currentLang === &#39;zh&#39;;
     infoEl.classList.remove(&#39;is-visible&#39;);
-    setTimeout(function(){titleEl.textContent=d.title;descEl.textContent=d.desc;noteEl.textContent=d.note;infoEl.classList.add(&#39;is-visible&#39;)},120);
-  }
-  function updateDots(idx){
-    dotsBox.querySelectorAll(&#39;.ct-dot&#39;).forEach(function(d,i){d.classList.toggle(&#39;is-active&#39;,i===idx)});
+    setTimeout(function(){
+      titleEl.textContent = d.title;
+      descEl.textContent  = isZh ? d.desc_zh  : d.desc;
+      noteEl.textContent  = isZh ? d.note_zh  : d.note;
+      infoEl.classList.add(&#39;is-visible&#39;);
+    }, 120);
   }
 
-  window.ctSwiper=new Swiper(&#39;.ct-swiper&#39;,{
+  function updateDots(idx){
+    dotsBox.querySelectorAll(&#39;.ct-dot&#39;).forEach(function(d, i){
+      d.classList.toggle(&#39;is-active&#39;, i === idx);
+    });
+  }
+    /* ---- Copy link handler ---- */
+  function copyToClipboard(text){
+    if(navigator.clipboard &amp;&amp; navigator.clipboard.writeText){
+      return navigator.clipboard.writeText(text);
+    }
+    /* fallback */
+    var ta = document.createElement(&#39;textarea&#39;);
+    ta.value = text;
+    ta.style.cssText = &#39;position:fixed;left:-9999px;top:-9999px;opacity:0&#39;;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand(&#39;copy&#39;);
+    document.body.removeChild(ta);
+    return Promise.resolve();
+  }
+
+  document.addEventListener(&#39;click&#39;, function(e){
+    var btn = e.target.closest(&#39;.ct-card__copy&#39;);
+    if(!btn) return;
+    var url = btn.dataset.url;
+    if(!url) return;
+    copyToClipboard(url).then(function(){
+      btn.classList.add(&#39;is-copied&#39;);
+      setTimeout(function(){ btn.classList.remove(&#39;is-copied&#39;); }, 1500);
+    });
+  });
+  
+  /* ---- Apply language switch ---- */
+  function applyLang(lang){
+    currentLang = lang;
+    var isZh = (lang === &#39;zh&#39;);
+
+    /* Sidebar static text: elements carrying data-zh / data-en */
+    document.querySelectorAll(&#39;[data-zh][data-en]&#39;).forEach(function(el){
+      el.textContent = el.getAttribute(&#39;data-&#39; + lang);
+    });
+
+    /* Card highlight labels: elements carrying data-hl-en / data-hl-zh */
+    document.querySelectorAll(&#39;.swiper-slide&#39;).forEach(function(slide){
+      var hl = slide.querySelector(&#39;.ct-card__highlight&#39;);
+      var text = slide.getAttribute(&#39;data-hl-&#39; + lang);
+      if(hl &amp;&amp; text) hl.textContent = text;
+    });
+
+    /* Refresh the info panel for the currently active slide */
+    if(window.ctSwiper) updateInfo(window.ctSwiper.activeIndex);
+
+    /* Toggle button state */
+    toggleBtn.classList.toggle(&#39;is-active&#39;, isZh);
+    toggleTxt.textContent = isZh ? modeA : modeB;
+  }
+
+  /* ---- Initialize Swiper ---- */
+  window.ctSwiper = new Swiper(&#39;.ct-swiper&#39;,{
     effect:&#39;coverflow&#39;,grabCursor:true,centeredSlides:true,slidesPerView:&#39;auto&#39;,
     coverflowEffect:{rotate:0,stretch:0,depth:120,modifier:1.5,slideShadows:false},
     keyboard:{enabled:true},mousewheel:{thresholdDelta:30},speed:600,
-    on:{slideChange:function(){updateInfo(this.activeIndex);updateDots(this.activeIndex)}}
+    on:{
+      slideChange:function(){
+        updateInfo(this.activeIndex);
+        updateDots(this.activeIndex);
+      }
+    }
   });
-  updateInfo(0);infoEl.classList.add(&#39;is-visible&#39;);
 
-  var tunnelOn=false,extraSlides=document.querySelectorAll(&#39;.ct-extra-slide&#39;);
-  toggleBtn.addEventListener(&#39;click&#39;,function(){
-    tunnelOn=!tunnelOn;toggleBtn.classList.toggle(&#39;is-active&#39;,tunnelOn);
-    toggleTxt.textContent=tunnelOn?&#39;SWITCH TO TRANSPORT&#39;:&#39;ENABLE TUNNEL MODE&#39;;
-    extraSlides.forEach(function(el){el.classList.toggle(&#39;ct-visible&#39;,tunnelOn)});
-    if(window.ctSwiper)window.ctSwiper.update();
+  updateInfo(0);
+  infoEl.classList.add(&#39;is-visible&#39;);
+
+  /* ---- Language toggle handler ---- */
+  toggleBtn.addEventListener(&#39;click&#39;, function(){
+    applyLang(currentLang === &#39;zh&#39; ? &#39;en&#39; : &#39;zh&#39;);
   });
 })();
 &lt;/script&gt;哨兵安全实验室 SENTINEL SECURITY, LAB" />
@@ -584,301 +432,13 @@
     <body>
       <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css">
 <link rel="stylesheet" href="/assets/css/all.min.css">
-
-<style>
-  :root {
-    --ct-bg: #000;
-    --ct-surface: #111;
-    --ct-border: #222;
-    --ct-blue: #0A84FF;
-    --ct-green: #30D158;
-    --ct-text: #f5f5f7;
-    --ct-muted: #86868b;
-    --ct-panel-bg: rgba(17,17,17,0.92);
-  }
-  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-  /* jetbrains-mono-300 - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'JetBrains Mono';
-    font-style: normal;
-    font-weight: 300;
-    src: url('../assets/fonts/jetbrains-mono-v24-latin-300.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* jetbrains-mono-regular - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'JetBrains Mono';
-    font-style: normal;
-    font-weight: 400;
-    src: url('../assets/fonts/jetbrains-mono-v24-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* jetbrains-mono-600 - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'JetBrains Mono';
-    font-style: normal;
-    font-weight: 600;
-    src: url('../assets/fonts/jetbrains-mono-v24-latin-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* jetbrains-mono-700 - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'JetBrains Mono';
-    font-style: normal;
-    font-weight: 700;
-    src: url('../assets/fonts/jetbrains-mono-v24-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* jetbrains-mono-800 - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'JetBrains Mono';
-    font-style: normal;
-    font-weight: 800;
-    src: url('../assets/fonts/jetbrains-mono-v24-latin-800.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* inter-300 - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 300;
-    src: url('../assets/fonts/inter-v20-latin-300.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* inter-regular - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    src: url('../assets/fonts/inter-v20-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* inter-600 - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 600;
-    src: url('../assets/fonts/inter-v20-latin-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* inter-700 - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700;
-    src: url('../assets/fonts/inter-v20-latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  /* inter-800 - latin */
-  @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 800;
-    src: url('../assets/fonts/inter-v20-latin-800.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-  }
-  .ct-wrapper {
-    position:relative;width:100%;min-height:100vh;background:var(--ct-bg);
-    display:flex;overflow:hidden;
-    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--ct-text);
-  }
-
-  /* ---- Sidebar ---- */
-  .ct-sidebar {
-    position:fixed;left:0;top:0;width:340px;height:100vh;
-    background:var(--ct-panel-bg);
-    backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);
-    border-right:1px solid var(--ct-border);
-    display:flex;flex-direction:column;padding:48px 32px 32px;z-index:100;
-  }
-  .ct-tag {
-    font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;
-    color:var(--ct-blue);background:rgba(10,132,255,.12);border:1px solid rgba(10,132,255,.25);
-    padding:4px 12px;border-radius:20px;display:inline-block;width:fit-content;margin-bottom:20px;
-  }
-  .ct-title{font-size:2.4rem;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:4px}
-  .ct-subtitle{font-size:1rem;color:var(--ct-muted);font-weight:300;margin-bottom:40px}
-
-  /* Info Panel */
-  .ct-info{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
-  .ct-info.is-visible{opacity:1;transform:translateY(0)}
-  .ct-info-title{font-size:1.15rem;font-weight:700;margin-bottom:10px;line-height:1.3}
-  .ct-info-desc{font-size:.85rem;line-height:1.7;color:var(--ct-muted);margin-bottom:16px}
-  .ct-info-note{
-    font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.04em;
-    color:var(--ct-green);background:rgba(48,209,88,.08);border-left:2px solid var(--ct-green);
-    padding:8px 12px;border-radius:0 6px 6px 0;
-  }
-
-  /* Dots */
-  .ct-dots{display:flex;gap:6px;margin-bottom:28px}
-  .ct-dot{width:8px;height:8px;border-radius:50%;background:var(--ct-border);transition:all .3s ease;cursor:pointer}
-  .ct-dot.is-active{background:var(--ct-blue);box-shadow:0 0 8px rgba(10,132,255,.5);transform:scale(1.3)}
-
-  /* Mode Toggle */
-  .ct-mode-btn{
-    display:flex;align-items:center;gap:10px;background:transparent;border:1px solid var(--ct-border);
-    color:var(--ct-muted);font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.1em;
-    text-transform:uppercase;padding:10px 16px;border-radius:8px;cursor:pointer;transition:all .3s ease;
-    margin-top:auto;width:100%;justify-content:center;
-  }
-  .ct-mode-btn:hover{border-color:var(--ct-blue);color:var(--ct-text)}
-  .ct-mode-dot{width:8px;height:8px;border-radius:50%;background:var(--ct-border);transition:all .3s ease}
-  .ct-mode-btn.is-active .ct-mode-dot{background:var(--ct-green);box-shadow:0 0 8px rgba(48,209,88,.6)}
-  .ct-mode-btn.is-active{border-color:var(--ct-green);color:var(--ct-green)}
-
-  /* ---- Stage ---- */
-  .ct-stage{
-    flex:1;margin-left:340px;height:100vh;display:flex;align-items:center;justify-content:center;
-    position:relative;overflow:hidden;
-  }
-  .ct-stage::before{
-    content:'';position:absolute;inset:0;
-    background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);
-    background-size:60px 60px;pointer-events:none;
-  }
-
-  /* Swiper */
-  .ct-swiper{width:100%;padding:40px 0}
-  .ct-swiper .swiper-slide{width:320px;height:420px;display:flex;align-items:center;justify-content:center}
-
-  /* Slide Card */
-  .ct-card__body{
-    position:relative;width:100%;height:100%;background:var(--ct-surface);border:1px solid var(--ct-border);
-    border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    padding:48px 32px 56px;text-align:center;overflow:hidden;transition:border-color .4s ease,box-shadow .4s ease;
-  }
-  .ct-card__body::before{
-    content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
-    width:60%;height:1px;background:linear-gradient(90deg,transparent,var(--ct-blue),transparent);opacity:.3;
-  }
-  .swiper-slide-active .ct-card__body{border-color:var(--ct-blue);box-shadow:0 0 40px rgba(10,132,255,.08)}
-  .ct-card__icon{font-size:2.8rem;margin-bottom:24px;filter:drop-shadow(0 0 12px var(--icon-glow,var(--ct-blue)));transition:transform .4s ease}
-  .swiper-slide-active .ct-card__icon{transform:scale(1.12)}
-  .ct-card__title{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
-  .ct-card__subtitle{font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ct-muted);margin-bottom:28px}
-  .ct-card__highlight{
-    font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:600;letter-spacing:.1em;
-    padding:6px 16px;border-radius:6px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);
-    transition:all .3s ease;color:var(--hl-color,var(--ct-blue));
-  }
-  .swiper-slide-active .ct-card__highlight{border-color:var(--hl-color,var(--ct-blue));background:color-mix(in srgb,var(--hl-color,var(--ct-blue)) 10%,transparent)}
-  .ct-card__bg-num{position:absolute;top:20px;right:24px;font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--ct-muted);opacity:.3;z-index:2}
-
-  /* ---- Theater Nav Override ---- */
-  .ct-stage .navbar{
-    position:absolute;top:0;left:0;right:0;z-index:50;
-    background:transparent;border:none;margin:0;padding:0;
-    min-height:0;
-  }
-  .ct-stage .navbar .container{
-    width:100%;max-width:100%;margin:-25px;
-    display:flex;align-items:center;min-height:0;
-  }
-  .ct-stage .navbar-header{
-    display:none;
-  }
-  .ct-stage .navbar-collapse{
-    display:flex !important;visibility:visible;
-    float:none;padding:0;margin:0;
-    max-height:none;border-top:none;
-    box-shadow:none;
-  }
-  .ct-stage .navbar-nav{
-    display:flex;flex-direction:row;gap:4px;
-    margin:0;padding:25px 0;
-    float:none;
-  }
-  .ct-stage .navbar-nav > li{
-    list-style:none;float:none;
-  }
-  .ct-stage .navbar-nav > li > a{
-    font-family:'JetBrains Mono',monospace;
-    font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--ct-muted);
-    padding:6px 14px;border-radius:6px;
-    border:1px solid transparent;
-    transition:all .3s ease;
-    line-height:1.6;text-decoration:none;
-    white-space:nowrap;
-  }
-  .ct-stage .navbar-nav > li > a:hover,
-  .ct-stage .navbar-nav > li > a:focus{
-    color:var(--ct-text);
-    border-color:var(--ct-border);
-    background:rgba(255,255,255,.04);
-  }
-  .ct-stage .navbar-nav > li.active > a{
-    color:var(--ct-blue);
-    border-color:rgba(10,132,255,.25);
-    background:rgba(10,132,255,.08);
-  }
-  .ct-stage .navbar-nav > li > a .fa{
-    font-size:.85rem;
-  }
-
-  /* Responsive: theater nav */
-  @media(max-width:900px){
-    .ct-stage .navbar .container{
-      padding:0 16px;flex-wrap:wrap;
-    }
-    .ct-stage .navbar-header{
-      display:flex;width:100%;
-    }
-    .ct-stage .navbar-toggle{
-      display:block !important;
-      padding:8px 10px;margin:8px 0;
-      background:transparent;border:1px solid var(--ct-border);
-      border-radius:6px;cursor:pointer;
-    }
-    .ct-stage .navbar-toggle .icon-bar{
-      display:block;width:18px;height:2px;
-      background:var(--ct-muted);margin:4px 0;
-      border-radius:1px;transition:all .3s ease;
-    }
-    .ct-stage .navbar-toggle:hover .icon-bar{
-      background:var(--ct-text);
-    }
-    .ct-stage .navbar-collapse{
-      width:100%;flex-basis:100%;
-      background:var(--ct-panel-bg);
-      backdrop-filter:blur(20px);
-      border-radius:0 0 12px 12px;
-      border-bottom:1px solid var(--ct-border);
-      overflow:hidden;max-height:0;
-      transition:max-height .35s ease;
-    }
-    .ct-stage .navbar-collapse.in{
-      max-height:500px;
-    }
-    .ct-stage .navbar-nav{
-      flex-direction:column;padding:8px 0;
-      gap:0;
-    }
-    .ct-stage .navbar-nav > li > a{
-      padding:10px 20px;border-radius:0;
-      font-size:.7rem;
-    }
-  }
-
-  /* Extra slides */
-  .ct-extra-slide{display:none !important}
-  .ct-extra-slide.ct-visible{display:flex !important}
-
-  /* Responsive */
-  @media(max-width:900px){
-    .ct-sidebar{position:relative;width:100%;height:auto;padding:24px 20px;border-right:none;border-bottom:1px solid var(--ct-border)}
-    .ct-stage{margin-left:0;height:70vh}
-    .ct-wrapper{flex-direction:column}
-    .ct-swiper .swiper-slide{width:260px;height:360px}
-  }
-</style>
+<link rel="stylesheet" href="/assets/css/card-theater.css">
 
 <main class="ct-wrapper">
   <aside class="ct-sidebar">
-    <span class="ct-tag">Project Showcase</span>
+    <span class="ct-tag" data-zh="项目展示" data-en="Project Showcase">项目展示</span>
     <div class="ct-title">Bin4xin</div>
-    <p class="ct-subtitle">Active Repos</p>
+    <p class="ct-subtitle" data-zh="活跃仓库" data-en="Active Repos">活跃仓库</p>
     <div class="ct-dots" id="ct-dots"></div>
     <div class="ct-info" id="ct-info">
       <div class="ct-info-title" id="ct-info-title"></div>
@@ -887,7 +447,7 @@
     </div>
     <button class="ct-mode-btn is-active" id="ct-mode-toggle">
       <span class="ct-mode-dot"></span>
-      <span id="ct-mode-text">ENABLE TUNNEL MODE</span>
+      <span id="ct-mode-text">SWITCH TO ENGLISH</span>
     </button>
   </aside>
   <div class="ct-stage">
@@ -945,13 +505,17 @@
 
 
 
-<div class="swiper-slide " >
+
+<div class="swiper-slide "  data-hl-en="ORG PROFILE" data-hl-zh="组织主页" data-url="github.com/sentryCyberSec">
   <span class="ct-card__bg-num">01</span>
+  <button class="ct-card__copy" data-url="github.com/sentryCyberSec" title="Copy link">
+    <i class="fa-solid fa-link"></i>
+  </button>
   <div class="ct-card__body">
     <i class="fa-solid fa-building-shield ct-card__icon" style="color: #61BB46; --icon-glow: #61BB4680;"></i>
     <div class="ct-card__title">#SENTRYCYBERSEC</div>
     <p class="ct-card__subtitle">github.com/sentryCyberSec</p>
-    <div class="ct-card__highlight" style="--hl-color: #61BB46;">ORG PROFILE</div>
+    <div class="ct-card__highlight" style="--hl-color: #61BB46;">组织主页</div>
   </div>
 </div>
 
@@ -964,13 +528,17 @@
 
 
 
-<div class="swiper-slide " >
+
+<div class="swiper-slide "  data-hl-en="MAIN PROFILE" data-hl-zh="核心主页" data-url="github.com/Bin4xin/Bin4xin">
   <span class="ct-card__bg-num">02</span>
+  <button class="ct-card__copy" data-url="github.com/Bin4xin/Bin4xin" title="Copy link">
+    <i class="fa-solid fa-link"></i>
+  </button>
   <div class="ct-card__body">
     <i class="fa-solid fa-terminal ct-card__icon" style="color: #FDB827; --icon-glow: #FDB82780;"></i>
     <div class="ct-card__title">@Bin4xin</div>
     <p class="ct-card__subtitle">github.com/Bin4xin/Bin4xin</p>
-    <div class="ct-card__highlight" style="--hl-color: #FDB827;">MAIN PROFILE</div>
+    <div class="ct-card__highlight" style="--hl-color: #FDB827;">核心主页</div>
   </div>
 </div>
 
@@ -983,13 +551,17 @@
 
 
 
-<div class="swiper-slide " >
+
+<div class="swiper-slide "  data-hl-en="EXPLOIT TOOLKIT" data-hl-zh="漏洞利用工具包" data-url="github.com/Bin4xin/sweet-ysoserial">
   <span class="ct-card__bg-num">03</span>
+  <button class="ct-card__copy" data-url="github.com/Bin4xin/sweet-ysoserial" title="Copy link">
+    <i class="fa-solid fa-link"></i>
+  </button>
   <div class="ct-card__body">
     <i class="fa-solid fa-bomb ct-card__icon" style="color: #F5821F; --icon-glow: #F5821F80;"></i>
     <div class="ct-card__title">sweet-ysoserial</div>
     <p class="ct-card__subtitle">github.com/Bin4xin/sweet-ysoserial</p>
-    <div class="ct-card__highlight" style="--hl-color: #F5821F;">EXPLOIT TOOLKIT</div>
+    <div class="ct-card__highlight" style="--hl-color: #F5821F;">漏洞利用工具包</div>
   </div>
 </div>
 
@@ -1002,13 +574,17 @@
 
 
 
-<div class="swiper-slide " >
+
+<div class="swiper-slide "  data-hl-en="SEC SIMULATOR" data-hl-zh="安全模拟器" data-url="Bin4xin.github.io/sentinel-sec-lab">
   <span class="ct-card__bg-num">04</span>
+  <button class="ct-card__copy" data-url="Bin4xin.github.io/sentinel-sec-lab" title="Copy link">
+    <i class="fa-solid fa-link"></i>
+  </button>
   <div class="ct-card__body">
     <i class="fa-solid fa-flask-vial ct-card__icon" style="color: #E03A3E; --icon-glow: #E03A3E80;"></i>
     <div class="ct-card__title">sentinel-sec-lab</div>
     <p class="ct-card__subtitle">Bin4xin.github.io/sentinel-sec-lab</p>
-    <div class="ct-card__highlight" style="--hl-color: #E03A3E;">SEC SIMULATOR</div>
+    <div class="ct-card__highlight" style="--hl-color: #E03A3E;">安全模拟器</div>
   </div>
 </div>
 
@@ -1021,13 +597,17 @@
 
 
 
-<div class="swiper-slide " >
+
+<div class="swiper-slide "  data-hl-en="SEC RESEARCH" data-hl-zh="安全研究" data-url="github.com/Bin4xin/bigger-than-bigger">
   <span class="ct-card__bg-num">05</span>
+  <button class="ct-card__copy" data-url="github.com/Bin4xin/bigger-than-bigger" title="Copy link">
+    <i class="fa-solid fa-link"></i>
+  </button>
   <div class="ct-card__body">
     <i class="fa-solid fa-expand ct-card__icon" style="color: #963D97; --icon-glow: #963D9780;"></i>
     <div class="ct-card__title">bigger-than-bigger</div>
     <p class="ct-card__subtitle">github.com/Bin4xin/bigger-than-bigger</p>
-    <div class="ct-card__highlight" style="--hl-color: #963D97;">SEC RESEARCH</div>
+    <div class="ct-card__highlight" style="--hl-color: #963D97;">安全研究</div>
   </div>
 </div>
 
@@ -1040,13 +620,17 @@
 
 
 
-<div class="swiper-slide " >
+
+<div class="swiper-slide "  data-hl-en="TARGETED TOOL" data-hl-zh="定向工具" data-url="github.com/Bin4xin/bigger-than-bigger/blob/master/CoVV">
   <span class="ct-card__bg-num">06</span>
+  <button class="ct-card__copy" data-url="github.com/Bin4xin/bigger-than-bigger/blob/master/CoVV" title="Copy link">
+    <i class="fa-solid fa-link"></i>
+  </button>
   <div class="ct-card__body">
     <i class="fa-solid fa-crosshairs ct-card__icon" style="color: #009DDC; --icon-glow: #009DDC80;"></i>
     <div class="ct-card__title">COVV</div>
     <p class="ct-card__subtitle">github.com/Bin4xin/bigger-than-bigger/blob/master/CoVV</p>
-    <div class="ct-card__highlight" style="--hl-color: #009DDC;">TARGETED TOOL</div>
+    <div class="ct-card__highlight" style="--hl-color: #009DDC;">定向工具</div>
   </div>
 </div></div>
     </div>
@@ -1056,59 +640,171 @@
 <script src="/assets/js/swiper-bundle.min.js"></script>
 <script>
 (function(){
-  var slideData=[
+  /* ---- Bilingual slide data from front matter ---- */
+  var slideData = [
     
-    {title:"#SENTRYCYBERSEC",desc:"GitHub organization for cybersecurity research and tool development. Home to collaborative security projects and vulnerability analysis resources.",note:"Radar-mode scanning for threat intelligence."},
+    {
+      title:   "#SENTRYCYBERSEC",
+      desc:    "GitHub organization for cybersecurity research and tool development. Home to collaborative security projects and vulnerability analysis resources.",
+      desc_zh: "GitHub网络安全研究与工具开发组织。协作安全项目与漏洞分析资源的聚集地。",
+      note:    "Radar-mode scanning for threat intelligence.",
+      note_zh: "雷达模式：威胁情报扫描。"
+    },
     
-    {title:"@Bin4xin",desc:"Personal GitHub profile and primary development hub. Central repository for all security tools, exploits, and research projects.",note:"Terminal-mode direct access to the core."},
+    {
+      title:   "@Bin4xin",
+      desc:    "Personal GitHub profile and primary development hub. Central repository for all security tools, exploits, and research projects.",
+      desc_zh: "个人GitHub主页及核心开发中心。汇集所有安全工具、漏洞利用与研究项目的核心仓库。",
+      note:    "Terminal-mode direct access to the core.",
+      note_zh: "终端模式：核心直达。"
+    },
     
-    {title:"sweet-ysoserial",desc:"Enhanced Java deserialization exploit toolkit. Extends ysoserial with additional gadget chains and improved payload generation capabilities.",note:"Payload-mode: delivering the goods."},
+    {
+      title:   "sweet-ysoserial",
+      desc:    "Enhanced Java deserialization exploit toolkit. Extends ysoserial with additional gadget chains and improved payload generation capabilities.",
+      desc_zh: "增强版Java反序列化漏洞利用工具包。扩展ysoserial，新增额外gadget链与改进的payload生成能力。",
+      note:    "Payload-mode: delivering the goods.",
+      note_zh: "载荷模式：精准投递。"
+    },
     
-    {title:"sentinel-sec-lab",desc:"Interactive security laboratory environment hosted on GitHub Pages. Hands-on practice for vulnerability analysis and penetration testing techniques.",note:"Simulator-mode: safe playground for offensive security."},
+    {
+      title:   "sentinel-sec-lab",
+      desc:    "Interactive security laboratory environment hosted on GitHub Pages. Hands-on practice for vulnerability analysis and penetration testing techniques.",
+      desc_zh: "基于GitHub Pages的交互式安全实验室环境。提供漏洞分析与渗透测试技术的实操练习。",
+      note:    "Simulator-mode: safe playground for offensive security.",
+      note_zh: "模拟器模式：攻防安全演练场。"
+    },
     
-    {title:"bigger-than-bigger",desc:"Collection of advanced security research tools and proof-of-concept exploits. Pushing boundaries in offensive security methodology.",note:"Radar-mode: expanding the attack surface."},
+    {
+      title:   "bigger-than-bigger",
+      desc:    "Collection of advanced security research tools and proof-of-concept exploits. Pushing boundaries in offensive security methodology.",
+      desc_zh: "高级安全研究工具与概念验证漏洞利用集合。推动攻防安全方法论的边界。",
+      note:    "Radar-mode: expanding the attack surface.",
+      note_zh: "雷达模式：扩展攻击面。"
+    },
     
-    {title:"COVV",desc:"Sub-project within bigger-than-bigger. Specialized security tool for targeted vulnerability analysis and exploitation research.",note:"Payload-mode: precision strike capability."}
+    {
+      title:   "COVV",
+      desc:    "Sub-project within bigger-than-bigger. Specialized security tool for targeted vulnerability analysis and exploitation research.",
+      desc_zh: "bigger-than-bigger子项目。面向定向漏洞分析与漏洞利用研究的专用安全工具。",
+      note:    "Payload-mode: precision strike capability.",
+      note_zh: "载荷模式：精准打击。"
+    }
     
   ];
-  var dotsBox=document.getElementById('ct-dots'),
-      infoEl=document.getElementById('ct-info'),
-      titleEl=document.getElementById('ct-info-title'),
-      descEl=document.getElementById('ct-info-desc'),
-      noteEl=document.getElementById('ct-info-note'),
-      toggleBtn=document.getElementById('ct-mode-toggle'),
-      toggleTxt=document.getElementById('ct-mode-text');
 
-  slideData.forEach(function(_,i){
-    var d=document.createElement('span');
-    d.className='ct-dot'+(i===0?' is-active':'');d.dataset.idx=i;
-    d.addEventListener('click',function(){if(window.ctSwiper)window.ctSwiper.slideTo(+this.dataset.idx)});
+  var modeA = "SWITCH TO ENGLISH";
+  var modeB = "返回中文";
+
+  var currentLang = 'zh';
+
+  var dotsBox   = document.getElementById('ct-dots');
+  var infoEl    = document.getElementById('ct-info');
+  var titleEl   = document.getElementById('ct-info-title');
+  var descEl    = document.getElementById('ct-info-desc');
+  var noteEl    = document.getElementById('ct-info-note');
+  var toggleBtn = document.getElementById('ct-mode-toggle');
+  var toggleTxt = document.getElementById('ct-mode-text');
+
+  /* ---- Build navigation dots ---- */
+  slideData.forEach(function(_, i){
+    var d = document.createElement('span');
+    d.className = 'ct-dot' + (i === 0 ? ' is-active' : '');
+    d.dataset.idx = i;
+    d.addEventListener('click', function(){ if(window.ctSwiper) window.ctSwiper.slideTo(+this.dataset.idx); });
     dotsBox.appendChild(d);
   });
 
+  /* ---- Update sidebar info panel (respects current language) ---- */
   function updateInfo(idx){
-    if(!slideData[idx])return;var d=slideData[idx];
+    if(!slideData[idx]) return;
+    var d = slideData[idx];
+    var isZh = currentLang === 'zh';
     infoEl.classList.remove('is-visible');
-    setTimeout(function(){titleEl.textContent=d.title;descEl.textContent=d.desc;noteEl.textContent=d.note;infoEl.classList.add('is-visible')},120);
-  }
-  function updateDots(idx){
-    dotsBox.querySelectorAll('.ct-dot').forEach(function(d,i){d.classList.toggle('is-active',i===idx)});
+    setTimeout(function(){
+      titleEl.textContent = d.title;
+      descEl.textContent  = isZh ? d.desc_zh  : d.desc;
+      noteEl.textContent  = isZh ? d.note_zh  : d.note;
+      infoEl.classList.add('is-visible');
+    }, 120);
   }
 
-  window.ctSwiper=new Swiper('.ct-swiper',{
+  function updateDots(idx){
+    dotsBox.querySelectorAll('.ct-dot').forEach(function(d, i){
+      d.classList.toggle('is-active', i === idx);
+    });
+  }
+    /* ---- Copy link handler ---- */
+  function copyToClipboard(text){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      return navigator.clipboard.writeText(text);
+    }
+    /* fallback */
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    return Promise.resolve();
+  }
+
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('.ct-card__copy');
+    if(!btn) return;
+    var url = btn.dataset.url;
+    if(!url) return;
+    copyToClipboard(url).then(function(){
+      btn.classList.add('is-copied');
+      setTimeout(function(){ btn.classList.remove('is-copied'); }, 1500);
+    });
+  });
+  
+  /* ---- Apply language switch ---- */
+  function applyLang(lang){
+    currentLang = lang;
+    var isZh = (lang === 'zh');
+
+    /* Sidebar static text: elements carrying data-zh / data-en */
+    document.querySelectorAll('[data-zh][data-en]').forEach(function(el){
+      el.textContent = el.getAttribute('data-' + lang);
+    });
+
+    /* Card highlight labels: elements carrying data-hl-en / data-hl-zh */
+    document.querySelectorAll('.swiper-slide').forEach(function(slide){
+      var hl = slide.querySelector('.ct-card__highlight');
+      var text = slide.getAttribute('data-hl-' + lang);
+      if(hl && text) hl.textContent = text;
+    });
+
+    /* Refresh the info panel for the currently active slide */
+    if(window.ctSwiper) updateInfo(window.ctSwiper.activeIndex);
+
+    /* Toggle button state */
+    toggleBtn.classList.toggle('is-active', isZh);
+    toggleTxt.textContent = isZh ? modeA : modeB;
+  }
+
+  /* ---- Initialize Swiper ---- */
+  window.ctSwiper = new Swiper('.ct-swiper',{
     effect:'coverflow',grabCursor:true,centeredSlides:true,slidesPerView:'auto',
     coverflowEffect:{rotate:0,stretch:0,depth:120,modifier:1.5,slideShadows:false},
     keyboard:{enabled:true},mousewheel:{thresholdDelta:30},speed:600,
-    on:{slideChange:function(){updateInfo(this.activeIndex);updateDots(this.activeIndex)}}
+    on:{
+      slideChange:function(){
+        updateInfo(this.activeIndex);
+        updateDots(this.activeIndex);
+      }
+    }
   });
-  updateInfo(0);infoEl.classList.add('is-visible');
 
-  var tunnelOn=false,extraSlides=document.querySelectorAll('.ct-extra-slide');
-  toggleBtn.addEventListener('click',function(){
-    tunnelOn=!tunnelOn;toggleBtn.classList.toggle('is-active',tunnelOn);
-    toggleTxt.textContent=tunnelOn?'SWITCH TO TRANSPORT':'ENABLE TUNNEL MODE';
-    extraSlides.forEach(function(el){el.classList.toggle('ct-visible',tunnelOn)});
-    if(window.ctSwiper)window.ctSwiper.update();
+  updateInfo(0);
+  infoEl.classList.add('is-visible');
+
+  /* ---- Language toggle handler ---- */
+  toggleBtn.addEventListener('click', function(){
+    applyLang(currentLang === 'zh' ? 'en' : 'zh');
   });
 })();
 </script>
