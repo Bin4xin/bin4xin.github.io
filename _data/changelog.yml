@@ -20,22 +20,22 @@ years:
       - { date: "12/28", text: "新增 Apache Log4j 2.14+ Walkthrough" }
       - { date: "12/27", text: "新增 Apache Log4j PoC 调试代码" }
       - { date: "12/16", text: "更新 Apache Log4j 文章；新增 QuickStart 导航" }
-      - { date: "12/14", text: "添加国家公祭日页面构建灰色流程", link_label: "harmony.yml", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/.github/workflows/harmony.yml#L42" }
+      - { date: "12/14", text: "添加国家公祭日页面构建灰色流程；调试 harmony.yml 触发流程", link_label: "harmony.yml", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/.github/workflows/harmony.yml#L42" }
       - { date: "12/12", text: "修改 Action 至 Gitee 同步；优化 ACTION 许可", link_label: "deploy.yml", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/.github/workflows/deploy.yml#L74" }
-      - { date: "12/11", text: "更新 BUILD 流程" }
+      - { date: "12/11", text: "更新 BUILD 流程；测试 IDEA Git 推送" }
       - { date: "12/04", text: "更新 FOOTER（多轮迭代）" }
       - { date: "12/03", text: "新增 CAPTCHA-BYPASS-WALKTHROUGH 文章", link_label: "文章", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/about/2021-11-23-CAPTCHA-BYPASS-WALKTHROUGH.md" }
       - { date: "12/01", text: "托管镜像域名跳转（CNAME 多镜像解析）", link_label: "映射教程", link: "https://daijiangtao.gitee.io/2018/06/29/domain-to-github/" }
-      - { date: "11/22", text: "添加 window.print() 打印功能" }
-      - { date: "11/19", text: "修复 about 表格/导航/post 布局问题" }
+      - { date: "11/22", text: "添加 window.print() 打印功能（blog / about 多轮调试）" }
+      - { date: "11/19", text: "修复 about 表格/导航/post 布局问题（多轮 DEBUG）" }
       - { date: "11/18", text: "修复图片 URL 404（图床 sm.ms）；更新评论模块（多轮 DEBUG）" }
       - { date: "11/16", text: "修复订阅页面 code 标签导致 XML 标签提前闭合" }
-      - { date: "11/15", text: "使用 GitHub Action 构建；解决 GitHub ↔ Gitee 同步问题", link_label: "Action 踩坑", link: "https://bin4xin.github.io/event/2021/Jekyll-site-routers-and-config/" }
+      - { date: "11/15", text: "使用 GitHub Action 构建；解决 GitHub ↔ Gitee 同步问题", link_label: "Action 踩坑", link: "/usage/" }
       - { date: "11/12", text: "更新 About 分类；新增仓库同步 Action" }
       - { date: "11/10", text: "修改页头页尾；_config.yml 添加 profile 变量" }
       - { date: "11/08", text: "初始 Action 修复（多次迭代）" }
       - { date: "08/26", text: "B4xinSync 同步提交" }
-      - { date: "05/10", text: "_includes/footer.html 新增访客统计" }
+      - { date: "05/10", text: "_includes/footer.html 新增访客统计", link_label: "统计", link: "https://profile-counter.glitch.me/bin4xin.github.io" }
       - { date: "04/15", text: "紧急响应记录文章更新" }
       - { date: "03/13", text: "日常更新" }
       - { date: "02/18", text: "sentrylab 首次提交至 GitHub" }
@@ -66,7 +66,7 @@ years:
       - { date: "09/10", text: "新增《互联网记忆》日志文章" }
       - { date: "09/07", text: "新增网鼎杯 2022 白虎 WriteUp；编辑 Action 文章" }
       - { date: "07/17", text: "修复 .tooltipped:after 暗黑模式显示" }
-      - { date: "07/09", text: "修复 Firefox display 定位问题" }
+      - { date: "07/09", text: "修复 Firefox display 定位问题", link_label: "style.scss", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/css/style.scss" }
       - { date: "07/08", text: "新增单窗口按钮关闭对应窗口", link_label: "oh-sentry.js", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/js/oh-sentry.js" }
       - { date: "07/04", text: "远程图片迁移；优化 Index/Post 展示" }
       - { date: "07/03", text: "删除 navbar sticky；优化 blog 展示" }
@@ -99,7 +99,7 @@ years:
       - { date: "02/04", text: "新增 Card CWS Banner Shadow & 暗黑模式" }
       - { date: "01/24", text: "修复标题/内容大小显示；新增 Google 站点验证" }
       - { date: "01/22", text: "新增 BLOG 区内容展示；修复 avatar 404" }
-      - { date: "01/21", text: "增加 About 博文 banner 展示；增加代码块拷贝按钮" }
+      - { date: "01/21", text: "增加 About 博文 banner 展示；增加代码块拷贝按钮", link_label: "参考", link: "http://qclog.cn/1060" }
       - { date: "01/05", text: "修复 navbar；新增 navbar logo/title 置顶功能" }
 
   # ── 2023 ──
@@ -109,7 +109,7 @@ years:
     highlight: "STABLE"
     highlight_zh: "稳定期"
     entries:
-      - { date: "12/06", text: "新增 snippets.sh 站点版本检查脚本" }
+      - { date: "12/06", text: "新增 snippets.sh 站点版本检查脚本（多轮迭代）" }
       - { date: "12/04", text: "修复代码 bug" }
       - { date: "11/15", text: "Common/Search 页面 TODO 提交" }
       - { date: "03/09", text: "修改 GAE Version" }
@@ -159,21 +159,34 @@ years:
     highlight: "ACTIVE"
     highlight_zh: "活跃开发"
     entries:
+      - { date: "08/17", text: "新增更新日志页面和相关组件；优化搜索功能" }
+      - { date: "08/15", text: "添加 DevSecOps 文章参考文献列表；优化样式结构与搜索结果展示" }
+      - { date: "08/14", text: "更新多个页面；新增 wrench-inject 组件；优化反馈链接" }
+      - { date: "08/12", text: "更新配置文件版本；优化代码块样式；添加 Burp Suite 安装教程" }
+      - { date: "08/07", text: "更新页脚样式和内容；新增链接；更新 Font Awesome 资产" }
+      - { date: "08/06", text: "新增 card theater 布局用于项目展示；移除 sentinel bar" }
+      - { date: "07/31", text: "更新 permalink 结构；清理 HTML；新增首页布局" }
       - { date: "07/29", text: "TOC 侧边栏 GitHub MiniToc 样式重设计；新增「复制为 Markdown」/「在另一个选项卡中打开」按钮组" }
       - { date: "07/29", text: "新增同研究分类文章导航（「X 篇中的第 Y 篇」）" }
       - { date: "07/29", text: "侧边栏折叠按钮跟随 border-right 贴合；保留折叠后 1px 分割线" }
       - { date: "07/29", text: "博客列表 paginator-blog.html 重构为 .blog-card 卡片布局" }
       - { date: "07/29", text: "修复 blog-card-footer 中 ymh-* 样式在白色背景下的兼容性" }
       - { date: "07/29", text: "About 页面侧边栏滚动条修复；折叠按钮始终保持可点击" }
+      - { date: "07/29", text: "侧边栏、导航栏与博客布局重构及 Bug 修复" }
+      - { date: "07/24", text: "重构 Shiro 文档结构；新增通用 include 和 TOC" }
+      - { date: "07/22", text: "README 现代化设计重写；完善项目信息" }
       - { date: "07/16", text: "新增 Poseidon3 漏洞报告（未授权访问/信息泄露/用户名枚举）" }
       - { date: "07/16", text: "删除多个草稿文件，清理项目文档" }
       - { date: "04/04", text: "优化 About 分类展示 & 默认提示信息" }
       - { date: "04/03", text: "新增 scripts/css-optimize.js 及 Action 自动化 CSS 优化", link_label: "参考", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_includes/jekyll-optimization.md" }
+      - { date: "03/29", text: "修复部分文章空值显示问题；移动 CSS 样式至外部文件" }
       - { date: "03/28", text: "重构 Research 分类导航；新增 aside 折叠按钮；新增 base64 编解码搜索功能" }
       - { date: "03/28", text: "新增反馈卡片组件 card-feedback.html" }
       - { date: "03/26", text: "新增通用 warning banner（CVE/漏洞提醒）；新增 info/warn/error 通用提示组件" }
       - { date: "03/26", text: "新增 Claude Code 漏洞/CVE 绕过文章分类" }
+      - { date: "03/20", text: "删除 GA 计数器（API 已弃用）；修复计数器显示 Bug" }
       - { date: "03/06", text: "域名硬编码改为 $domain 变量引用" }
       - { date: "02/05", text: "更新 README 格式；移除 CN 镜像链接；移除 CNAME" }
+      - { date: "02/05", text: "更新配置文件 URL；修订 steghide 编译说明文章" }
       - { date: "01/26", text: "新增微信小程序逆向系列文章（入门/进阶/专家篇）" }
       - { date: "01/25", text: "更新 CNAME 指向 blog.memolist.me" }
