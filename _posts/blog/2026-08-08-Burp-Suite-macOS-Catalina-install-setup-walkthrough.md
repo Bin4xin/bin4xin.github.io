@@ -12,6 +12,8 @@ tags:
 
 ## 在 macOS Catalina 上安装与配置 Burp Suite 2026.7.3
 
+![2026-08-13-3.59.40.png](https://image.isisy.com/images/2026/08/20/2026-08-13-3.59.40.png)
+
 {% include common-index/index-preset.html level="info" msg="<strong>教程说明</strong><br>本教程基于在 macOS Catalina (10.15.x) 系统上安装 Burp Suite 2026.7.3 的真实经历编写。整个过程遇到了多个典型的兼容性问题（Java 版本冲突、图形库缺失、浏览器启动失败等），以下是经过验证的完整解决方案。" %}
 
 ---
