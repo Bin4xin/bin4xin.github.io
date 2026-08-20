@@ -24,53 +24,7 @@
 <!-- Open Graph metadata -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Time | © 哨兵" />
-<meta property="og:description" content=" &lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/flipclock/flipclock.css&quot;&gt;
-&lt;script src=&quot;/assets/flipclock/flipclock.js&quot;&gt;&lt;/script&gt;
-&lt;div class=&quot;clock&quot; style=&quot;margin-bottom:2em;margin-top:2em;display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;&quot;&gt;
-&lt;/div&gt;
-&lt;!--
-  - Ajax @para counts
-  - Jquery-return-value-undefined @link { https://stackoverflow.com/questions/13848123/jquery-return-value-undefined }
-  --&gt;
-&lt;script&gt;
-    function setInitialCount() {
-        var currentTime = new Date();
-        var hours = currentTime.getHours();
-        var minutes = currentTime.getMinutes();
-        var seconds = currentTime.getSeconds();
-
-        var totalSeconds = hours * 3600 + minutes * 60 + seconds;
-        return totalSeconds;
-    }
-
-    var clock;
-    let All_Counts = setInitialCount();
-
-    $(document).ready(function() {
-        // Instantiate a counter
-        clock = new FlipClock($(&#39;.clock&#39;), All_Counts , {
-            clockFace: &#39;HourlyCounter&#39;, // 使用 HourlyCounter 显示小时、分钟和秒数
-        });
-
-        // Attach a click event to a button an increment the clock
-        $(&#39;.increment&#39;).click(function() {
-            clock.increment();
-        });
-
-        // Attach a click event to a button a decrement the clock
-        $(&#39;.decrement&#39;).click(function() {
-            clock.decrement();
-        });
-
-        $(&#39;.reset&#39;).click(function() {
-            clock.reset();
-        });
-    });
-&lt;/script&gt;哨兵安全实验室 SENTINEL SECURITY, LAB" />
+<meta property="og:description" content="本站由哨兵安全实验室支持创办" />
 <meta property="og:image" content="https://bin4xin.github.io/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
 <meta property="og:url" content="https://bin4xin.github.io/time" />
 <title> Time | © 哨兵 | SENTINEL SECURITY, LAB</title>
