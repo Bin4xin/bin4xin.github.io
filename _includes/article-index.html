@@ -1,32 +1,10 @@
 {% if page.toc %}
 <div class="toc-sidebar position-sticky top-0" style="max-height: 100vh; overflow-y: auto;">
     <div class="toc-sidebar-inner">
-
         {% assign github_user = site.githubAccess | split: '/' | last | default: "Bin4xin" %}
         {% assign github_repo = site.githubRepos | default: "bin4xin.github.io" %}
         {% assign github_branch = site.githubRepos-Branch | default: "main" %}
         {% assign raw_base = "https://raw.githubusercontent.com" %}
-
-        <!-- 布局样式修正：固定按钮最小宽度与图标切换机制 -->
-        <style>
-            .toc-copy-btn {
-                min-width: 175px; /* 锁死最小宽度，确保文字变化时按钮大小完全一致 */
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                box-sizing: border-box;
-            }
-            .toc-copy-btn .icon-success {
-                display: none;
-            }
-            .toc-copy-btn.toc-copy-success .icon-copy {
-                display: none;
-            }
-            .toc-copy-btn.toc-copy-success .icon-success {
-                display: inline-block;
-            }
-        </style>
-
         <!-- Article actions toolbar - Primer ButtonGroup style -->
         <div class="toc-article-actions mb-3 ml-3">
             <div class="prc-ButtonGroup-ButtonGroup-vFUrY">
