@@ -1,0 +1,58 @@
+{% assign current_doc_url = page.url %}
+{% assign current_doc_author = page.author | default: "Bin4xin" %}
+{% assign doc_repo_path = page.path %}
+<div class="doc-suggestion">
+    <!-- 1. 申明模块 -->
+    <section class="doc-suggestion-section">
+      <div class="doc-suggestion-heading">申明</div>
+      <div class="doc-suggestion-links">
+        <a class="doc-suggestion-link" href="{{ site.url }}{{ page.url }}" target="_blank">
+          <i class="fas fa-fingerprint"></i>
+          转载请申明本文档链接
+        </a>
+        <a class="doc-suggestion-link" href="https://github.com/{{ current_doc_author }}" target="_blank">
+          <i class="fas fa-hat-wizard"></i>
+          Post by {{ current_doc_author }}
+        </a>
+      </div>
+    </section>
+  
+    <!-- 2. 贡献开源文档 -->
+    <section class="doc-suggestion-section">
+      <div class="doc-suggestion-heading">贡献开源文档</div>
+      <div class="doc-suggestion-links">
+        <a class="doc-suggestion-link" href="{{ site.githubAccess }}/{{ site.githubRepos }}/tree/{{ site.githubRepos-Branch }}/{{ doc_repo_path }}" target="_blank">
+          <i class="fas fa-code-branch"></i>
+          贡献当前文档
+        </a>
+        <a class="doc-suggestion-link" href="{{ site.githubAccess }}/{{ site.githubRepos }}/wiki/Git操作-Git如何贡献仓库代码" target="_blank">
+          <i class="fas fa-seedling"></i>
+          学习开源贡献 CN
+        </a>
+        <a class="doc-suggestion-link" href="https://github.com/github/docs" target="_blank">
+          <i class="fas fa-globe"></i>
+          学习开源贡献 EN
+        </a>
+      </div>
+    </section>
+  
+    <!-- 3. 此文档对您有帮助吗 -->
+    <section class="doc-suggestion-section">
+      <div class="doc-suggestion-heading">此文档对您有帮助吗</div>
+      <div class="doc-suggestion-feedback">
+        <a class="doc-suggestion-feedback-btn"
+           href="{{ site.githubAccess }}/{{ site.githubRepos }}/"
+           target="_blank"
+           title="给文档仓库点个赞!">
+          <i class="fas fa-heart"></i>
+        </a>
+        <a class="doc-suggestion-feedback-btn"
+           href="{{ site.githubAccess }}/{{ site.githubRepos }}/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title={{ page.path }}&nbsp;{% if page.Researchname %}{{ page.Researchname }} |{% elsif page.title %}{{ page.title }} |{% endif %}{% if page.title %}{{ " " }}{% endif %}{{ site.title }}{% if site.brand %} | {{ site.brand }}{% endif %}"
+           target="_blank"
+           title="本文档有问题?">
+          <i class="fas fa-bug"></i>
+        </a>
+        <p class="doc-suggestion-feedback-label">感谢您的反馈</p>
+      </div>
+    </section>
+</div>

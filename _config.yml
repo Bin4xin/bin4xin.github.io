@@ -50,6 +50,10 @@ future: true
 meow_404: true
 
 include: ['_pages','_primaryindex']
+collections:
+  document:
+    output: true
+    permalink: /:collection/:path/
 exclude: ['BUILD.md', 'README.md','vendor']
 
 # Short text about your company. Shown in footer on every page and also separately on Home and Contact page.

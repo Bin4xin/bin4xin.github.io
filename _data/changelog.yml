@@ -159,6 +159,7 @@ years:
     highlight: "ACTIVE"
     highlight_zh: "活跃开发"
     entries:
+      - { date: "08/21", text: "新增响应手册文档系统，含侧边栏导航、TOC目录、明暗主题切换、图片预览放大", link_label: "_document", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_document/" }
       - { date: "08/20", text: "图片预览功能bug修复", link_label: "function collectImages()", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_includes/components/lightbox.html#L37-L71"}
       - { date: "08/20", text: "新增图片预览放大功能，支持多图浏览、缩放、拖拽、键盘/触屏操作", link_label: "components/lightbox.html", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_includes/components/lightbox.html" }
       - { date: "08/17", text: "新增更新日志页面和相关组件；优化搜索功能", link_label: "changelog-timeline.html", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_layouts/changelog-timeline.html" }

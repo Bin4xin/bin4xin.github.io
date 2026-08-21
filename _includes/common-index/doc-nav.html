@@ -1,0 +1,96 @@
+{% assign current_url = page.url %}
+
+{% comment %}
+  Derive directory display names from front matter or path.
+  _document/01_ransomware/00_overview.md → group "01_ransomware"
+{% endcomment %}
+
+{% assign directions = "" | split: "" %}
+{% for doc in site.document %}
+  {% assign path_parts = doc.path | split: "/" %}
+  {% if path_parts.size >= 3 %}
+    {% assign dir = path_parts[1] %}
+  {% else %}
+    {% assign dir = "general" %}
+  {% endif %}
+  {% unless directions contains dir %}
+    {% assign directions = directions | push: dir %}
+  {% endunless %}
+{% endfor %}
+
+{% comment %} Sort directions by name (numbered prefix ensures order) {% endcomment %}
+{% assign sorted_directions = directions | sort %}
+
+<nav class="doc-nav">
+  <div class="doc-nav-header">
+    <i class="fas fa-book-open"></i>
+    <span>文档导航</span>
+  </div>
+
+  <div class="doc-nav-search">
+    <input type="text" id="doc-search" placeholder="搜索文档..." autocomplete="off" />
+    <i class="fas fa-search"></i>
+  </div>
+
+  {% for dir in sorted_directions %}
+    {% comment %} Human-readable label: strip leading number and underscore {% endcomment %}
+    {% assign label = dir | replace_first: "_", " " | split: "_" | last %}
+    {% assign label = dir | remove_first: dir | default: dir %}
+    {% assign label_raw = dir %}
+    {% assign label_parts = dir | split: "_" %}
+    {% assign label_display = "" %}
+    {% for lp in label_parts %}
+      {% unless forloop.first %}
+        {% if label_display != "" %}
+          {% assign label_display = label_display | append: " " %}
+        {% endif %}
+        {% assign label_display = label_display | append: lp %}
+      {% endunless %}
+    {% endfor %}
+    {% if label_display == "" %}
+      {% assign label_display = dir %}
+    {% endif %}
+
+    {% assign count = 0 %}
+    {% for doc in site.document %}
+      {% assign doc_dir = doc.path | split: "/" %}
+      {% if doc_dir.size >= 3 %}
+        {% if doc_dir[1] == dir %}
+          {% assign count = count | plus: 1 %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+  <div class="doc-nav-group" data-dir="{{ dir }}">
+    <button class="doc-nav-group-toggle" data-target="doc-group-{{ dir }}">
+      <i class="fas fa-folder-open"></i>
+      <span>{{ label_display }}</span>
+      <em class="doc-nav-count">{{ count }}</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-{{ dir }}">
+      {% assign group_docs = "" | split: "" %}
+      {% for doc in site.document %}
+        {% assign doc_dir = doc.path | split: "/" %}
+        {% if doc_dir.size >= 3 and doc_dir[1] == dir %}
+          {% assign group_docs = group_docs | push: doc %}
+        {% endif %}
+      {% endfor %}
+      {% assign sorted_group = group_docs | sort: "order" %}
+
+      {% for doc in sorted_group %}
+      <li class="doc-nav-item {% if doc.url == current_url %}is-active{% endif %}">
+        <a href="{{ doc.url | relative_url }}" title="{{ doc.title }}">
+          {% if doc.icon %}<i class="{{ doc.icon }}"></i>{% endif %}
+          <span class="doc-nav-label">{{ doc.short_title | default: doc.title }}</span>
+          {% if doc.status == "draft" %}<em class="doc-nav-badge doc-nav-badge--draft">DRAFT</em>{% endif %}
+          {% if doc.status == "new" %}<em class="doc-nav-badge doc-nav-badge--new">NEW</em>{% endif %}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% endfor %}
+</nav>

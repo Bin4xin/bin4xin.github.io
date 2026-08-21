@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} | {{ site.title }}</title>
+  <meta name="description" content="{{ page.description | default: page.title }}">
+
+  {% include head.html %}
+  <link rel="stylesheet" href="{{ '/assets/css/all.min.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/cate-document.css' | relative_url }}">
+</head>
+<body>
+
+  <!-- Theme toggle -->
+  <button class="doc-theme-toggle" id="doc-theme-toggle" title="切换明暗主题">
+    <i class="fas fa-moon"></i>
+    <i class="fas fa-sun"></i>
+  </button>
+
+  <!-- Mobile sidebar toggle -->
+  <button class="doc-mobile-toggle" id="doc-mobile-toggle">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Mobile TOC button -->
+  <button class="doc-toc-mobile-btn" id="doc-toc-mobile-btn" title="目录导航">
+    <i class="fas fa-list-ul"></i>
+  </button>
+
+  <!-- Mobile TOC overlay -->
+  <div class="doc-toc-mobile-overlay" id="doc-toc-mobile-overlay"></div>
+
+  <!-- Mobile TOC panel -->
+  <div class="doc-toc-mobile-panel" id="doc-toc-mobile-panel">
+    <div class="doc-toc-title">目录</div>
+    <ul class="doc-toc-list" id="doc-toc-mobile-list"></ul>
+  </div>
+
+  <div class="doc-wrapper">
+
+    <!-- Sidebar -->
+    <aside class="doc-sidebar" id="doc-sidebar">
+      <div class="doc-brand">
+        <span class="doc-brand-tag">DOCUMENTATION</span>
+        <div class="doc-brand-title">{{ site.title }}</div>
+        <p class="doc-brand-sub">技术文档与参考手册</p>
+      </div>
+
+      {% include common-index/doc-nav.html %}
+
+      <div class="doc-sidebar-footer">
+        <a href="{{ '/' | relative_url }}">
+          <i class="fas fa-arrow-left"></i>
+          返回首页
+        </a>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="doc-content-wrap">
+
+      <!-- Breadcrumb -->
+      <div class="doc-breadcrumb">
+        <a href="{{ '/' | relative_url }}">Home</a>
+        <span class="doc-breadcrumb-sep">/</span>
+        <a href="{{ '/document/' | relative_url }}">Document</a>
+        {% assign path_parts = page.path | split: "/" %}
+        {% for part in path_parts %}
+          {% unless part == "_document" or forloop.last %}
+            {% assign display = part | split: "_" | last %}
+            <span class="doc-breadcrumb-sep">/</span>
+            <span>{{ display }}</span>
+          {% endunless %}
+        {% endfor %}
+      </div>
+
+      <!-- Article Header -->
+      <header class="doc-article-head">
+        <h1 class="doc-article-title">{{ page.title }}</h1>
+        <div class="doc-article-meta">
+          {% if page.date %}
+          <span class="doc-article-meta-item">
+            <i class="fas fa-calendar-alt"></i>
+            {{ page.date | date: "%Y/%m/%d" }}
+          </span>
+          {% endif %}
+          {% if page.author %}
+          <span class="doc-article-meta-item">
+            <i class="fas fa-user"></i>
+            {{ page.author }}
+          </span>
+          {% endif %}
+          {% if page.version %}
+          <span class="doc-article-meta-item">
+            <i class="fas fa-code-branch"></i>
+            v{{ page.version }}
+          </span>
+          {% endif %}
+        </div>
+        {% if page.tags and page.tags.size > 0 %}
+        <div class="doc-tags">
+          {% for tag in page.tags %}
+            <span class="doc-tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </header>
+
+      <!-- Content + TOC side by side -->
+      <div class="doc-content-inner">
+
+        <!-- Article Body -->
+        <article class="doc-main doc-article-body">
+          {{ content }}
+        </article>
+
+        <!-- TOC (desktop right sidebar) -->
+        <aside class="doc-toc" id="doc-toc">
+          <div class="doc-toc-title">目录</div>
+          <ul class="doc-toc-list" id="doc-toc-list"></ul>
+        </aside>
+
+      </div>
+
+      <!-- Prev / Next Pager -->
+      {% assign current_dir = page.path | split: "/" %}
+      {% if current_dir.size >= 3 %}
+        {% assign current_group = current_dir[1] %}
+      {% else %}
+        {% assign current_group = "" %}
+      {% endif %}
+
+      {% assign siblings = "" | split: "" %}
+      {% for doc in site.document %}
+        {% assign doc_dir = doc.path | split: "/" %}
+        {% if doc_dir.size >= 3 and doc_dir[1] == current_group %}
+          {% assign siblings = siblings | push: doc %}
+        {% endif %}
+      {% endfor %}
+      {% assign sorted_siblings = siblings | sort: "order" %}
+
+      {% assign prev_doc = nil %}
+      {% assign next_doc = nil %}
+      {% assign found = false %}
+      {% for doc in sorted_siblings %}
+        {% if found and next_doc == nil %}
+          {% assign next_doc = doc %}
+        {% endif %}
+        {% if doc.url == page.url %}
+          {% assign found = true %}
+        {% endif %}
+        {% unless found %}
+          {% assign prev_doc = doc %}
+        {% endunless %}
+      {% endfor %}
+
+      {% if prev_doc or next_doc %}
+      <nav class="doc-pager">
+        {% if prev_doc %}
+        <a class="doc-pager-item" href="{{ prev_doc.url | relative_url }}">
+          <div class="doc-pager-label"><i class="fas fa-arrow-left"></i> 上一篇</div>
+          <div class="doc-pager-title">{{ prev_doc.title }}</div>
+        </a>
+        {% endif %}
+        {% if next_doc %}
+        <a class="doc-pager-item doc-pager-item--next" href="{{ next_doc.url | relative_url }}">
+          <div class="doc-pager-label">下一篇 <i class="fas fa-arrow-right"></i></div>
+          <div class="doc-pager-title">{{ next_doc.title }}</div>
+        </a>
+        {% endif %}
+      </nav>
+      {% endif %}
+      {% include components/document-suggestion.html %}
+    </main>
+  </div>
+
+  {% include components/lightbox.html %}
+
+  <script src="{{ '/assets/js/cate-document.js' | relative_url }}"></script>
+
+</body>
+</html>
