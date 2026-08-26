@@ -48,7 +48,7 @@
     - name: 隐私
       link: /privacy/
     - name: Cookie偏好
-      link: /privacy/#cookie
+      link: /privacy/#Cookie
 
 - name: 贡献者
   meta: false

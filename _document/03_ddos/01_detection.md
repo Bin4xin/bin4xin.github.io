@@ -6,8 +6,8 @@ order: 1
 icon: "fas fa-bolt"
 status: "new"
 tags: [DDoS, 流量清洗, 应急响应, 业务保底, CDN]
-author: "安全运营中心"
-version: "1.0"
+author: sentryCyberSec
+version: "2.0"
 description: "DDoS 攻击应急响应技战法，涵盖攻击发现、流量清洗、业务保底和恢复复盘四个阶段。"
 ---
 

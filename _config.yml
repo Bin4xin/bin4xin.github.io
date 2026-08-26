@@ -6,7 +6,7 @@ brand: SENTINEL SECURITY, LAB
 description: 哨兵安全实验室
 baseurl: "" #important: start with /
 url: "https://bin4xin.github.io"
-web_version: ver 3.1.1
+web_version: ver 3.2.0
 script_version: ver 1.0.2
 timezone: Asia/Shanghai #set timezone to display build time correctly
 highlighter: rouge

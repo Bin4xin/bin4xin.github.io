@@ -6,8 +6,8 @@ order: 1
 icon: "fas fa-user-shield"
 status: "new"
 tags: [UEBA, 内部威胁, 威胁狩猎, 行为分析, 基线]
-author: "安全运营中心"
-version: "1.0"
+author: sentryCyberSec
+version: "2.0"
 description: "UEBA 驱动的内部异常行为狩猎技战法，涵盖数据采集基线构建、异常行为检测狩猎和调查响应模型迭代三个阶段。"
 ---
 

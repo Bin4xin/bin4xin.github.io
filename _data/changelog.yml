@@ -159,6 +159,9 @@ years:
     highlight: "ACTIVE"
     highlight_zh: "活跃开发"
     entries:
+      - { date: "08/26", text: "🎉🎉 WEB大版本更新到3.2.0 🎉🎉", link_label: "_config.yml", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_config.yml#L9"}
+      - { date: "08/26", text: "修复了一些`_document`布局下在4k显示下的bug", link_label: "cate-document.js", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/js/cate-document.js"}
+      - { date: "08/23", text: "include里的prefers-color-scheme.html终于派上用场了，并且更新了文档作者和版本信息，统一为sentryCyberSec和2.0", link_label: "prefers-color-scheme.html", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_includes/common-index/prefers-color-scheme.html" }
       - { date: "08/21", text: "新增响应手册文档系统，含侧边栏导航、TOC目录、明暗主题切换、图片预览放大", link_label: "_document", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_document/" }
       - { date: "08/20", text: "图片预览功能bug修复", link_label: "function collectImages()", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_includes/components/lightbox.html#L37-L71"}
       - { date: "08/20", text: "新增图片预览放大功能，支持多图浏览、缩放、拖拽、键盘/触屏操作", link_label: "components/lightbox.html", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_includes/components/lightbox.html" }

@@ -13,10 +13,11 @@
 <body>
 
   <!-- Theme toggle -->
-  <button class="doc-theme-toggle" id="doc-theme-toggle" title="切换明暗主题">
+  <!-- <button class="doc-theme-toggle" id="doc-theme-toggle" title="切换明暗主题">
     <i class="fas fa-moon"></i>
     <i class="fas fa-sun"></i>
-  </button>
+  </button> -->
+  {% include common-index/prefers-color-scheme.html %}
 
   <!-- Mobile sidebar toggle -->
   <button class="doc-mobile-toggle" id="doc-mobile-toggle">
@@ -87,8 +88,19 @@
           {% endif %}
           {% if page.author %}
           <span class="doc-article-meta-item">
-            <i class="fas fa-user"></i>
-            {{ page.author }}
+            {% assign author_data = site.data.writer[page.author] %}
+            {% if author_data.gh_avatars %}
+            <img src="https://avatars.githubusercontent.com/u/{{ author_data.gh_avatars }}?s=24&v=4"
+                alt="{{ author_data.display_name | default: page.author }}"
+                class="doc-author-avatar" />
+            {% else %}
+            <i class="fas fa-hat-wizard"></i>
+            {% endif %}
+            {% if author_data.display_name %}
+              {{ author_data.display_name }}
+            {% else %}
+              {{ page.author }}
+            {% endif %}
           </span>
           {% endif %}
           {% if page.version %}

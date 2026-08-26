@@ -12,7 +12,12 @@
         </a>
         <a class="doc-suggestion-link" href="https://github.com/{{ current_doc_author }}" target="_blank">
           <i class="fas fa-hat-wizard"></i>
-          Post by {{ current_doc_author }}
+          {% assign author_data = site.data.writer[page.author] %}
+          {% if author_data.display_name %}
+            Post by {{ author_data.display_name }}.
+          {% else %}
+            Post by {{ page.author }}.
+          {% endif %}
         </a>
       </div>
     </section>

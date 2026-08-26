@@ -3,68 +3,52 @@
 
 (function(){
   'use strict';
-
-  /* ══════════════════════════════════
-     Theme: load / save / toggle
-     ══════════════════════════════════ */
-  var THEME_KEY = 'doc-theme';
-
-  function getSystemTheme(){
-    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-  }
-
-  function applyTheme(theme){
-    document.documentElement.setAttribute('data-theme', theme);
-  }
-
-  function getTheme(){
-    return localStorage.getItem(THEME_KEY) || getSystemTheme();
-  }
-
-  // Apply stored theme immediately (before paint)
-  applyTheme(getTheme());
-
-  var themeBtn = document.getElementById('doc-theme-toggle');
-  if(themeBtn){
-    themeBtn.addEventListener('click', function(){
-      var current = document.documentElement.getAttribute('data-theme') || getSystemTheme();
-      var next = current === 'dark' ? 'light' : 'dark';
-      applyTheme(next);
-      localStorage.setItem(THEME_KEY, next);
-    });
-  }
-
-  // Listen to system theme changes
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e){
-    if(!localStorage.getItem(THEME_KEY)){
-      applyTheme(e.matches ? 'dark' : 'light');
-    }
-  });
-
   /* ══════════════════════════════════
      Group collapse / expand
      ══════════════════════════════════ */
+
+  // 1. First: collapse ALL groups
+  document.querySelectorAll('.doc-nav-group').forEach(function(grp){
+    grp.classList.add('is-collapsed');
+    var list = grp.querySelector('.doc-nav-list');
+    if(list) list.style.display = 'none';
+  });
+
+  // 2. Then: expand only the active group
+  var active = document.querySelector('.doc-nav-item.is-active');
+  if(active){
+    var activeGroup = active.closest('.doc-nav-group');
+    if(activeGroup){
+      activeGroup.classList.remove('is-collapsed');
+      var activeList = activeGroup.querySelector('.doc-nav-list');
+      if(activeList) activeList.style.display = '';
+    }
+  }
+
+  // 3. Then: bind click handlers (after init state is set)
   document.querySelectorAll('.doc-nav-group-toggle').forEach(function(btn){
     btn.addEventListener('click', function(){
       var target = document.getElementById(this.dataset.target);
       var group  = this.closest('.doc-nav-group');
-      group.classList.toggle('is-collapsed');
-      if(target){
-        target.style.display = group.classList.contains('is-collapsed') ? 'none' : '';
+
+      // If clicking an already-open group, just close it
+      if(!group.classList.contains('is-collapsed')){
+        group.classList.add('is-collapsed');
+        if(target) target.style.display = 'none';
+        return;
       }
+
+      // Otherwise: close all, then open clicked one
+      document.querySelectorAll('.doc-nav-group').forEach(function(g){
+        g.classList.add('is-collapsed');
+        var l = g.querySelector('.doc-nav-list');
+        if(l) l.style.display = 'none';
+      });
+
+      group.classList.remove('is-collapsed');
+      if(target) target.style.display = '';
     });
   });
-
-  // Auto expand the group containing active item
-  var active = document.querySelector('.doc-nav-item.is-active');
-  if(active){
-    var group = active.closest('.doc-nav-group');
-    if(group){
-      group.classList.remove('is-collapsed');
-      var list = group.querySelector('.doc-nav-list');
-      if(list) list.style.display = '';
-    }
-  }
 
   /* ══════════════════════════════════
      Search filter
@@ -124,20 +108,18 @@
 
 })();
 /* ══════════════════════════════════
-Table of Contents
-══════════════════════════════════ */
+    Table of Contents
+    ══════════════════════════════════ */
 var tocContainer = document.getElementById('doc-toc');
 var tocList      = document.getElementById('doc-toc-list');
 var articleBody  = document.querySelector('.doc-article-body');
 
 if(tocContainer && tocList && articleBody){
-  // Collect headings
   var headings = articleBody.querySelectorAll('h2, h3, h4');
   var tocItems = [];
 
   if(headings.length > 1){
     headings.forEach(function(h, i){
-      // Ensure each heading has an id
       if(!h.id){
         h.id = 'heading-' + i + '-' + h.textContent.trim()
           .toLowerCase()
@@ -159,7 +141,6 @@ if(tocContainer && tocList && articleBody){
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
           history.replaceState(null, '', '#' + h.id);
         }
-        // Close mobile panel
         closeMobileToc();
       });
 
@@ -168,14 +149,10 @@ if(tocContainer && tocList && articleBody){
       tocItems.push({ el: h, link: a, li: li });
     });
 
-    // Intersection Observer for active state
-    var observerOpts = {
-      root: null,
-      rootMargin: '-80px 0px -70% 0px',
-      threshold: 0
-    };
-
+    /* ── Active state: scroll-locked ── */
     var activeIdx = -1;
+    var userScrolling = false;
+    var scrollTimer = null;
 
     function setActive(idx){
       if(idx === activeIdx) return;
@@ -185,34 +162,86 @@ if(tocContainer && tocList && articleBody){
       activeIdx = idx;
       if(idx >= 0 && tocItems[idx]){
         tocItems[idx].li.classList.add('is-active');
-        // Scroll TOC item into view if needed
-        var tocEl = tocItems[idx].li;
-        var tocRect = tocContainer.getBoundingClientRect();
-        var itemRect = tocEl.getBoundingClientRect();
-        if(itemRect.top < tocRect.top || itemRect.bottom > tocRect.bottom){
-          tocEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Only scroll the TOC panel, NEVER the page
+        if(!userScrolling){
+          var tocRect = tocContainer.getBoundingClientRect();
+          var itemRect = tocItems[idx].li.getBoundingClientRect();
+          if(itemRect.top < tocRect.top || itemRect.bottom > tocRect.bottom){
+            tocItems[idx].li.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
         }
       }
     }
 
+    // Detect user scrolling to suppress observer-triggered scroll
+    function onScrollStart(){
+      userScrolling = true;
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(function(){
+        userScrolling = false;
+      }, 200);
+    }
+    window.addEventListener('scroll', onScrollStart, { passive: true });
+
+    // Intersection Observer: only update highlight, never scroll the page
     var headingObserver = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){
-          var idx = tocItems.findIndex(function(t){ return t.el === entry.target; });
-          if(idx !== -1) setActive(idx);
+      // During user scroll, find the topmost visible heading
+      if(userScrolling){
+        var topmost = null;
+        var topmostIdx = -1;
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            var idx = tocItems.findIndex(function(t){ return t.el === entry.target; });
+            if(idx !== -1){
+              if(!topmost || entry.boundingClientRect.top < topmost.boundingClientRect.top){
+                topmost = entry;
+                topmostIdx = idx;
+              }
+            }
+          }
+        });
+        if(topmostIdx !== -1){
+          setActive(topmostIdx);
         }
-      });
-    }, observerOpts);
+        return;
+      }
+    }, {
+      root: null,
+      rootMargin: '-60px 0px -50% 0px',
+      threshold: 0
+    });
 
     headings.forEach(function(h){
       headingObserver.observe(h);
     });
 
-    // If no heading is intersecting on load, activate first
-    setActive(0);
+    // On load: find the heading closest to viewport top without scrolling
+    function findInitialActive(){
+      var best = 0;
+      var bestDist = Infinity;
+      tocItems.forEach(function(item, i){
+        var rect = item.el.getBoundingClientRect();
+        var dist = Math.abs(rect.top - 100);
+        if(rect.top <= 200 && dist < bestDist){
+          bestDist = dist;
+          best = i;
+        }
+      });
+      return best;
+    }
+    setActive(findInitialActive());
+
+    // On hash change: update active if URL has #anchor
+    if(window.location.hash){
+      var hashIdx = tocItems.findIndex(function(t){
+        return '#' + t.el.id === window.location.hash;
+      });
+      if(hashIdx !== -1){
+        setActive(hashIdx);
+      }
+    }
 
   } else {
-    // Only 0-1 headings, hide TOC
     tocContainer.style.display = 'none';
   }
 }

@@ -64,7 +64,7 @@
   <div class="doc-nav-group" data-dir="{{ dir }}">
     <button class="doc-nav-group-toggle" data-target="doc-group-{{ dir }}">
       <i class="fas fa-folder-open"></i>
-      <span>{{ label_display }}</span>
+      <span>{{ label_display | upcase }}</span>
       <em class="doc-nav-count">{{ count }}</em>
       <i class="fas fa-chevron-down doc-nav-arrow"></i>
     </button>

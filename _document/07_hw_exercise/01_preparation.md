@@ -6,8 +6,8 @@ order: 1
 icon: "fas fa-chess"
 status: "new"
 tags: [攻防演练, HW, 红蓝对抗, 协同作战, 复盘]
-author: "安全运营中心"
-version: "1.0"
+author: sentryCyberSec
+version: "2.0"
 description: "实战化攻防演练防守方协同作战技战法，涵盖演练前备战、演练中实战和演练后复盘三个阶段。"
 ---
 

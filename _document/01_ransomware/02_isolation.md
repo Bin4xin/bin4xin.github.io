@@ -6,8 +6,8 @@ order: 2
 icon: "fas fa-pump-soap"
 status: "new"
 tags: [勒索病毒, 应急响应, 数据恢复, 安全加固, 横向传播]
-author: "安全运营中心"
-version: "1.0"
+author: sentryCyberSec
+version: "2.0"
 description: "企业勒索病毒应急响应技战法，涵盖主机隔离、影响评估、数据恢复和安全加固四个阶段。"
 ---
 

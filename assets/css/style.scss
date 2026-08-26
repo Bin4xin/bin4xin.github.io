@@ -1221,6 +1221,101 @@ body {
 .toc-copy-btn.toc-copy-success .icon-success {
   display: inline-block;
 }
+  /* ══════════════════════════════════
+     common-index/prefers-color-scheme.html / Toggle
+     ══════════════════════════════════ */
+/* ── Color Scheme Toggle (floating pill) ── */
+.prefers-cs {
+  position: fixed;
+  bottom: 20px; right: 20px;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: var(--doc-surface, #111);
+  border: 1px solid var(--doc-border, #222);
+  border-radius: 50px;
+  padding: 4px;
+  box-shadow: 0 2px 16px var(--doc-shadow, rgba(0,0,0,.4));
+  transition: background .3s ease, border-color .3s ease, box-shadow .3s ease;
+  font-family: 'JetBrains Mono', monospace;
+}
+.prefers-cs-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: var(--doc-muted, #7a7a7a);
+  font-size: .85rem;
+  cursor: pointer;
+  transition: all .25s ease;
+  padding: 0;
+  margin: 0;
+}
+.prefers-cs-btn:hover {
+  color: var(--doc-text, #f0f0f0);
+  background: var(--doc-surface-hover, rgba(255,255,255,.06));
+}
+.prefers-cs-btn.is-active {
+  color: #ffffff;
+  background: var(--doc-accent, #BF5AF2);
+  box-shadow: 0 1px 6px rgba(0,0,0,.25);
+  transform: scale(1.05);
+}
+.prefers-cs-btn .prefers-cs-label {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: .55rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--doc-muted, #7a7a7a);
+  background: var(--doc-surface, #111);
+  border: 1px solid var(--doc-border, #222);
+  padding: 3px 8px;
+  border-radius: 6px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .2s ease;
+  pointer-events: none;
+}
+.prefers-cs-btn:hover .prefers-cs-label {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ── System indicator (dot on Auto) ── */
+.prefers-cs-btn[data-pref="auto"]::after {
+  content: '';
+  position: absolute;
+  top: 5px; right: 5px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--doc-muted, #7a7a7a);
+  transition: background .3s ease;
+}
+.prefers-cs-btn[data-pref="auto"].is-active::after {
+  background: #30D158;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .prefers-cs {
+  bottom: 20px; right: 16px;
+  }
+  .prefers-cs-btn {
+  width: 30px; height: 30px;
+  font-size: .75rem;
+  }
+}
 
 @import
 "Lato",

@@ -6,8 +6,8 @@ order: 2
 icon: "fas fa-link"
 status: "new"
 tags: [供应链攻击, 生产环境, 应急切换, 环境重建, SBOM]
-author: "安全运营中心"
-version: "1.0"
+author: sentryCyberSec
+version: "2.0"
 description: "供应链攻击生产环境被控应急切换与重建技战法，涵盖发现确认、紧急隔离、全面排查和环境重建四个阶段。"
 ---
 

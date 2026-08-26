@@ -6,8 +6,8 @@ order: 4
 icon: "fas fa-crosshairs"
 status: "new"
 tags: [ATT&CK, 告警降噪, SIEM, SOAR, 安全运营]
-author: "安全运营中心"
-version: "1.0"
+author: sentryCyberSec
+version: "2.0"
 description: "基于 ATT&CK 框架的告警降噪与自动化编排技战法，涵盖映射分类、降噪优化和优先级排序三个阶段。"
 ---
 

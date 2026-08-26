@@ -341,38 +341,6 @@
 }
 
 /* ══════════════════════════════════════════
-   Theme Toggle
-   ══════════════════════════════════════════ */
-.doc-theme-toggle {
-  position: fixed;
-  bottom: 20px; right: 20px;
-  width: 40px; height: 40px;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--doc-surface);
-  border: 1px solid var(--doc-border);
-  border-radius: 50%;
-  color: var(--doc-muted);
-  font-size: .9rem;
-  cursor: pointer;
-  z-index: 200;
-  box-shadow: 0 2px 12px var(--doc-shadow);
-  transition: all .3s ease;
-  margin: 0; padding: 0;
-}
-.doc-theme-toggle:hover {
-  color: var(--doc-accent);
-  border-color: var(--doc-accent-border);
-  background: var(--doc-accent-dim);
-  transform: scale(1.1);
-}
-.doc-theme-toggle .fa-moon { display: inline; }
-.doc-theme-toggle .fa-sun { display: none; }
-[data-theme="dark"] .doc-theme-toggle .fa-sun { display: inline; }
-[data-theme="dark"] .doc-theme-toggle .fa-moon { display: none; }
-[data-theme="light"] .doc-theme-toggle .fa-moon { display: inline; }
-[data-theme="light"] .doc-theme-toggle .fa-sun { display: none; }
-
-/* ══════════════════════════════════════════
    Sidebar Footer
    ══════════════════════════════════════════ */
 .doc-sidebar-footer {
@@ -460,7 +428,14 @@
   display: flex; align-items: center; gap: 5px;
 }
 .doc-article-meta-item i { font-size: .7rem; }
-
+.doc-author-avatar {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  object-fit: cover;
+  vertical-align: middle;
+  border: 1px solid var(--doc-border);
+}
 /* Tags */
 .doc-tags {
   display: flex; flex-wrap: wrap; gap: 6px;
@@ -765,11 +740,6 @@
     flex-direction: column;
   }
   .doc-pager-item--next { text-align: left; }
-  .doc-theme-toggle {
-    bottom: 20px; right: 16px;
-    width: 36px; height: 36px;
-    font-size: .8rem;
-  }
 }
 
 @media (max-width: 480px) {

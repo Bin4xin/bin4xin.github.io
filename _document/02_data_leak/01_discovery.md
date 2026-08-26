@@ -6,8 +6,8 @@ order: 1
 icon: "fas fa-user-secret"
 status: "new"
 tags: [数据泄露, 内部威胁, 应急溯源, 取证, DLP]
-author: "安全运营中心"
-version: "1.0"
+author: sentryCyberSec
+version: "2.0"
 description: "企业内部数据泄露应急溯源与取证技战法，涵盖泄露发现、流转溯源和影响评估三个阶段。"
 ---
 
