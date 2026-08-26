@@ -1068,3 +1068,94 @@
 .doc-suggestion-feedback-btn:hover i.fa-heart {
   color: #FF375F;
 }
+
+.doc-honors {
+  margin: 32px 0 0;
+  padding: 0;
+}
+.doc-honors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+  margin: 16px 0 0;
+  padding: 0;
+}
+/* ══════════════════════════════════════════
+    Document _primaryindex/document.md
+    ══════════════════════════════════════════ */
+.doc-honor-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 12px 16px;
+  background: var(--doc-surface);
+  border: 1px solid var(--doc-border);
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all .3s cubic-bezier(.25,.46,.45,.94);
+  position: relative;
+  overflow: hidden;
+}
+.doc-honor-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--doc-accent), transparent);
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.doc-honor-card:hover {
+  border-color: var(--doc-accent-border);
+  background: var(--doc-accent-dim);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px var(--doc-shadow);
+}
+.doc-honor-card:hover::before {
+  opacity: .6;
+}
+.doc-honor-badge {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,.15));
+  transition: transform .3s ease;
+}
+.doc-honor-card:hover .doc-honor-badge {
+  transform: scale(1.1) rotate(3deg);
+}
+.doc-honor-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .03em;
+  color: var(--doc-muted);
+  text-align: center;
+  line-height: 1.4;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color .3s ease;
+}
+.doc-honor-card:hover .doc-honor-label {
+  color: var(--doc-accent);
+}
+
+@media (max-width: 600px) {
+  .doc-honors-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+  }
+  .doc-honor-badge {
+    width: 64px;
+    height: 64px;
+  }
+  .doc-honor-card {
+    padding: 16px 10px 14px;
+  }
+}

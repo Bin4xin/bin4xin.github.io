@@ -1065,6 +1065,18 @@
         <div class="doc-article-meta">
           
           
+          <span class="doc-article-meta-item">
+            
+            
+            <img src="https://avatars.githubusercontent.com/u/57884471?s=24&v=4"
+                alt="Bin4xin"
+                class="doc-author-avatar" />
+            
+            
+              Bin4xin
+            
+          </span>
+          
           
         </div>
         
@@ -1075,11 +1087,106 @@
 
         <!-- Article Body -->
         <article class="doc-main doc-article-body">
-          <h2 id="工作文档中心">工作文档中心</h2>
+          <h2 id="welcome">WELCOME</h2>
 
-<p>欢迎来到工作文档中心，请从左侧导航选择文档分类开始阅读。</p>
+<p>欢迎来到哨兵安全实验室的应急响应手册。本手册覆盖 8 大安全事件分类、37 篇实操文档，适用于 SOC 分析师、应急响应工程师、红蓝队成员在实战中快速查阅与执行。</p>
 
 <p>所有文档按目录自动归类，新文章只需放在 <code class="language-plaintext highlighter-rouge">_document/</code> 对应子目录下即可自动出现在导航中。</p>
+
+<hr />
+
+<h2 id="每篇文档的标准结构">每篇文档的标准结构</h2>
+
+<p>每篇文档遵循统一的事件响应生命周期框架：</p>
+
+<ol>
+  <li><strong>概述</strong> — 场景定义、适用范围、前置条件</li>
+  <li><strong>检测与发现</strong> — 告警来源、IOC 提取、日志分析</li>
+  <li><strong>隔离与遏制</strong> — 网络隔离、账户锁定、进程终止</li>
+  <li><strong>评估与溯源</strong> — 影响范围、攻击路径、时间线还原</li>
+  <li><strong>清除与恢复</strong> — 恶意文件清理、系统恢复、业务验证</li>
+  <li><strong>加固与复盘</strong> — 策略加固、复盘报告、预防措施</li>
+</ol>
+
+<hr />
+
+<h2 id="文档规范">文档规范</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>规范项</th>
+      <th>要求</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>格式</td>
+      <td>Markdown（GFM 语法）</td>
+    </tr>
+    <tr>
+      <td>front matter</td>
+      <td>必须包含 <code class="language-plaintext highlighter-rouge">layout: document</code> 和 <code class="language-plaintext highlighter-rouge">categories</code></td>
+    </tr>
+    <tr>
+      <td>命名</td>
+      <td><code class="language-plaintext highlighter-rouge">编号_文件名.md</code>，如 <code class="language-plaintext highlighter-rouge">01_attack_model.md</code></td>
+    </tr>
+    <tr>
+      <td>order</td>
+      <td>目录编号 × 100 + 文件编号</td>
+    </tr>
+    <tr>
+      <td>代码块</td>
+      <td>使用 fenced code block，标注语言类型</td>
+    </tr>
+    <tr>
+      <td>截图</td>
+      <td>存放至 <code class="language-plaintext highlighter-rouge">/assets/img/</code> 对应目录，使用相对路径引用</td>
+    </tr>
+    <tr>
+      <td>外部链接</td>
+      <td>需注明来源，敏感链接标注 <code class="language-plaintext highlighter-rouge">[内部]</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="认证徽章">认证徽章</h2>
+
+<div class="doc-honors">
+  <div class="doc-honors-grid">
+    <a class="doc-honor-card" href="https://developers.google.com/profile/badges/activity/chrome-devtools/chrome-devtools-user" target="_blank" rel="noopener">
+      <img class="doc-honor-badge" src="/assets/img/svg/google/chrome-devtools-user/badge.svg" alt="Chrome DevTools User" />
+      <span class="doc-honor-label">Chrome DevTools</span>
+    </a>
+    <a class="doc-honor-card" href="https://developers.google.com/profile/badges/activity/android/sdk-platform-tools" target="_blank" rel="noopener">
+      <img class="doc-honor-badge" src="/assets/img/svg/google/sdk-platform-tools/badge.svg" alt="Android SDK Platform Tools" />
+      <span class="doc-honor-label">SDK Platform Tools</span>
+    </a>
+    <a class="doc-honor-card" href="https://developers.google.com/profile/badges/activity/android/install-android-studio" target="_blank" rel="noopener">
+      <img class="doc-honor-badge" src="/assets/img/svg/google/install-android-studio/badge.svg" alt="Android Studio User" />
+      <span class="doc-honor-label">Android Studio</span>
+    </a>
+    <a class="doc-honor-card" href="https://developers.google.com/profile/badges/activity/cloud/activate-cloud-shell" target="_blank" rel="noopener">
+      <img class="doc-honor-badge" src="/assets/img/svg/google/activate-cloud-shell/badge.svg" alt="Cloud Shell" />
+      <span class="doc-honor-label">Cloud Shell</span>
+    </a>
+    <a class="doc-honor-card" href="https://developers.google.com/profile/badges/profile/created-profile" target="_blank" rel="noopener">
+      <img class="doc-honor-badge" src="/assets/img/svg/google/created-profile/created_profile.svg" alt="Google Developer Program" />
+      <span class="doc-honor-label">Developer Program</span>
+    </a>
+  </div>
+</div>
+
+<hr />
+
+<h2 id="许可">许可</h2>
+
+<p>本手册由<a href="https://github.com/sentryCyberSec"><strong>sentinel Lab</strong></a> | <a href="https://github.com/Bin4xin"><strong>Bin4xin</strong></a>维护，源代码遵循 <a href="https://github.com/Bin4xin/bin4xin.github.io/tree/gh-pages?tab=License-1-ov-file"><strong>GPL V2 License</strong></a> 开源协议，欢迎自由使用、修改与分发，但请保留原作者署名并遵守协议条款。</p>
+
+<p>如有问题或改进建议，请通过下方的BUG按钮提交反馈。</p>
 
         </article>
 
@@ -1121,7 +1228,7 @@
           <i class="fas fa-hat-wizard"></i>
           
           
-            Post by .
+            Post by Bin4xin.
           
         </a>
       </div>
