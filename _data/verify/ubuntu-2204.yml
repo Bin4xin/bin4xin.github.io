@@ -1,0 +1,4 @@
+- prompt: "$"
+  cmd: "sha256sum ubuntu-22.04.5-live-server-amd64.iso"
+- prompt: ">"
+  cmd: "certutil -hashfile ubuntu-22.04.5-live-server-amd64.iso SHA256"

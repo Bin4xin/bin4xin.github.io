@@ -26,29 +26,50 @@
   }
 
   // 3. Then: bind click handlers (after init state is set)
-  document.querySelectorAll('.doc-nav-group-toggle').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var target = document.getElementById(this.dataset.target);
-      var group  = this.closest('.doc-nav-group');
-
-      // If clicking an already-open group, just close it
-      if(!group.classList.contains('is-collapsed')){
-        group.classList.add('is-collapsed');
-        if(target) target.style.display = 'none';
-        return;
-      }
-
-      // Otherwise: close all, then open clicked one
-      document.querySelectorAll('.doc-nav-group').forEach(function(g){
-        g.classList.add('is-collapsed');
-        var l = g.querySelector('.doc-nav-list');
-        if(l) l.style.display = 'none';
+    document.querySelectorAll('.doc-nav-group-toggle').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var target = document.getElementById(this.dataset.target);
+        var group  = this.closest('.doc-nav-group');
+        var icon   = this.querySelector('.doc-nav-group-icon');
+  
+        if(!group.classList.contains('is-collapsed')){
+          group.classList.add('is-collapsed');
+          if(target) target.style.display = 'none';
+          if(icon){
+            icon.classList.remove('fa-folder-open');
+            icon.classList.add('fa-folder');
+          }
+          return;
+        }
+  
+        document.querySelectorAll('.doc-nav-group').forEach(function(g){
+          g.classList.add('is-collapsed');
+          var l = g.querySelector('.doc-nav-list');
+          if(l) l.style.display = 'none';
+          var ic = g.querySelector('.doc-nav-group-icon');
+          if(ic){
+            ic.classList.remove('fa-folder-open');
+            ic.classList.add('fa-folder');
+          }
+        });
+  
+        group.classList.remove('is-collapsed');
+        if(target) target.style.display = '';
+        if(icon){
+          icon.classList.remove('fa-folder');
+          icon.classList.add('fa-folder-open');
+        }
       });
-
-      group.classList.remove('is-collapsed');
-      if(target) target.style.display = '';
     });
-  });
+  
+    // Update expanded group icon on load
+    document.querySelectorAll('.doc-nav-group:not(.is-collapsed)').forEach(function(g){
+      var ic = g.querySelector('.doc-nav-group-icon');
+      if(ic){
+        ic.classList.remove('fa-folder');
+        ic.classList.add('fa-folder-open');
+      }
+    });
 
   /* ══════════════════════════════════
      Search filter
@@ -105,7 +126,76 @@
       }
     });
   }
+  /* ══════════════════════════════════
+    Code Copy Button
+    ══════════════════════════════════ */
+    function initCodeCopy(){
+    document.querySelectorAll('.doc-wrapper .doc-article-body pre').forEach(function(pre){
+      // Skip if already has a button
+      if(pre.querySelector('.doc-copy-btn')) return;
 
+      // Build button
+      var btn = document.createElement('button');
+      btn.className = 'doc-copy-btn';
+      btn.innerHTML = '<i class="far fa-copy"></i> Copy';
+      btn.setAttribute('aria-label', 'Copy code');
+      btn.setAttribute('type', 'button');
+
+      btn.addEventListener('click', function(){
+        // Get text content (skip the button itself)
+        var codeEl = pre.querySelector('code');
+        var text = codeEl ? codeEl.textContent : pre.textContent;
+
+        copyToClipboard(text).then(function(){
+          btn.innerHTML = '<i class="fas fa-check"></i> Copied';
+          btn.classList.add('is-copied');
+          setTimeout(function(){
+            btn.innerHTML = '<i class="far fa-copy"></i> Copy';
+            btn.classList.remove('is-copied');
+          }, 2000);
+        });
+      });
+
+      pre.appendChild(btn);
+    });
+  }
+
+  function copyToClipboard(text){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      return navigator.clipboard.writeText(text);
+    }
+    // Fallback
+    return new Promise(function(resolve){
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      resolve();
+    });
+  }
+
+  // Init on load
+  initCodeCopy();
+
+  // Re-init after dynamic content changes (for SPA-like behavior)
+  if(typeof MutationObserver !== 'undefined'){
+    var codeObserver = new MutationObserver(function(mutations){
+      mutations.forEach(function(m){
+        m.addedNodes.forEach(function(node){
+          if(node.nodeType === 1 && (node.tagName === 'PRE' || node.querySelector('pre'))){
+            initCodeCopy();
+          }
+        });
+      });
+    });
+    var articleBody = document.querySelector('.doc-article-body');
+    if(articleBody){
+      codeObserver.observe(articleBody, { childList: true, subtree: true });
+    }
+  }
 })();
 /* ══════════════════════════════════
     Table of Contents

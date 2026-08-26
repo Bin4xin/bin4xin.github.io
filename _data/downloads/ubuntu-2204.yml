@@ -1,0 +1,59 @@
+- id: "official"
+  name: "官方源"
+  windows:
+    - arch: "x64"
+      filename: "ubuntu-22.04.5-live-server-amd64.iso"
+      cmd: "curl -LO https://releases.ubuntu.com/22.04/ubuntu-22.04.5-live-server-amd64.iso"
+  linux:
+    - arch: "x64"
+      filename: "ubuntu-22.04.5-live-server-amd64.iso"
+      cmd: "wget https://releases.ubuntu.com/22.04/ubuntu-22.04.5-live-server-amd64.iso"
+  mac:
+    - arch: "x64"
+      filename: "ubuntu-22.04.5-live-server-amd64.iso"
+      cmd: "curl -LO https://releases.ubuntu.com/22.04/ubuntu-22.04.5-live-server-amd64.iso"
+
+- id: "tuna"
+  name: "清华 TUNA"
+  windows:
+    - arch: "x64"
+      filename: "ubuntu-22.04.5-live-server-amd64.iso"
+      cmd: "curl -LO https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/22.04/ubuntu-22.04.5-live-server-amd64.iso"
+  linux:
+    - arch: "x64"
+      filename: "ubuntu-22.04.5-live-server-amd64.iso"
+      cmd: "wget https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/22.04/ubuntu-22.04.5-live-server-amd64.iso"
+  mac:
+    - arch: "x64"
+      filename: "ubuntu-22.04.5-live-server-amd64.iso"
+      cmd: "curl -LO https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/22.04/ubuntu-22.04.5-live-server-amd64.iso"
+
+- id: "aliyun"
+  name: "阿里云"
+  windows:
+    - arch: "x64"
+      filename: "ubuntu-22.04.5-live-server-amd64.iso"
+      cmd: "curl -LO https://mirrors.aliyun.com/ubuntu-releases/22.04/ubuntu-22.04.5-live-server-amd64.iso"
+  linux:
+    - arch: "x64"
+      filename: "ubuntu-22.04.5-live-server-amd64.iso"
+      cmd: "wget https://mirrors.aliyun.com/ubuntu-releases/22.04/ubuntu-22.04.5-live-server-amd64.iso"
+  mac:
+    - arch: "x64"
+      filename: "ubuntu-22.04.5-live-server-amd64.iso"
+      cmd: "curl -LO https://mirrors.aliyun.com/ubuntu-releases/22.04/ubuntu-22.04.5-live-server-amd64.iso"
+
+- id: "ustc"
+  name: "中科大 USTC"
+  windows:
+    - arch: "x64"
+      filename: "ubuntu-22.04.5-live-server-amd64.iso"
+      cmd: "curl -LO https://mirrors.ustc.edu.cn/ubuntu-releases/22.04/ubuntu-22.04.5-live-server-amd64.iso"
+  linux:
+    - arch: "x64"
+      filename: "ubuntu-22.04.5-live-server-amd64.iso"
+      cmd: "wget https://mirrors.ustc.edu.cn/ubuntu-releases/22.04/ubuntu-22.04.5-live-server-amd64.iso"
+  mac:
+    - arch: "x64"
+      filename: "ubuntu-22.04.5-live-server-amd64.iso"
+      cmd: "curl -LO https://mirrors.ustc.edu.cn/ubuntu-releases/22.04/ubuntu-22.04.5-live-server-amd64.iso"

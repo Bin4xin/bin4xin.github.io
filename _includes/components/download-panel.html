@@ -1,0 +1,159 @@
+{% comment %}
+  Usage:
+  {% include components/download-panel.html
+    title="下载 Ubuntu 22.04.5 LTS Server"
+    version="22.04.5"
+    mirrors=site.data.downloads.ubuntu-2204
+  %}
+{% endcomment %}
+
+{% assign dl_title = include.title | default: "文件下载" %}
+{% assign dl_version = include.version %}
+{% assign dl_id = include.id | default: "dl-panel" %}
+{% assign dl_note = include.note %}
+{% assign dl_verify = include.verify %}
+
+<div class="dl-panel" id="{{ dl_id }}">
+  <div class="dl-panel-head">
+    <h3 class="dl-panel-title">
+      {{ dl_title }}
+      {% if dl_version %}
+        <span class="dl-panel-version">{{ dl_version }}</span>
+      {% endif %}
+    </h3>
+    {% if dl_note %}
+      <p class="dl-panel-note"><i class="fas fa-info-circle"></i> {{ dl_note }}</p>
+    {% endif %}
+  </div>
+
+  {% comment %} OS Tabs {% endcomment %}
+  <div class="dl-os-bar">
+    <b class="dl-tab-btn active" data-dl-target="{{ dl_id }}-win" data-dl-group="{{ dl_id }}-os">
+      <i class="fab fa-windows"></i> Windows
+    </b>
+    <b class="dl-tab-btn" data-dl-target="{{ dl_id }}-linux" data-dl-group="{{ dl_id }}-os">
+      <i class="fab fa-linux"></i> Linux
+    </b>
+    <b class="dl-tab-btn" data-dl-target="{{ dl_id }}-mac" data-dl-group="{{ dl_id }}-os">
+      <i class="fab fa-apple"></i> macOS
+    </b>
+  </div>
+
+  {% comment %} Mirror selector {% endcomment %}
+  <div class="dl-mirror-bar" data-dl-group="{{ dl_id }}-mirror">
+    <span class="dl-mirror-label"><i class="fas fa-server"></i> 镜像源</span>
+    {% for mirror in include.mirrors %}
+      <b class="dl-mirror-btn {% if forloop.first %}active{% endif %}"
+         data-dl-mirror="{{ mirror.id }}"
+         data-dl-group="{{ dl_id }}-mirror">
+        {{ mirror.name }}
+      </b>
+    {% endfor %}
+  </div>
+
+  {% comment %} Windows content {% endcomment %}
+  <div class="dl-content" id="{{ dl_id }}-win" data-dl-group="{{ dl_id }}-os" style="display:block;">
+    {% for mirror in include.mirrors %}
+      <div class="dl-mirror-section {% if forloop.first %}is-visible{% else %}is-hidden{% endif %}" data-dl-mirror-content="{{ mirror.id }}" data-dl-group="{{ dl_id }}-mirror">
+        {% for item in mirror.windows %}
+        <div class="dl-item">
+          <div class="dl-item-label">
+            {% if item.arch %}<span class="dl-arch-tag">{{ item.arch }}</span>{% endif %}
+            {% if item.size %}<span class="dl-size-tag">{{ item.size }}</span>{% endif %}
+            <span class="dl-filename">{{ item.filename }}</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">&gt; </span>{{ item.cmd }}</code></pre>
+        </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+
+  {% comment %} Linux content {% endcomment %}
+  <div class="dl-content" id="{{ dl_id }}-linux" data-dl-group="{{ dl_id }}-os" style="display:none;">
+    {% for mirror in include.mirrors %}
+      <div class="dl-mirror-section {% if forloop.first %}is-visible{% else %}is-hidden{% endif %}" data-dl-mirror-content="{{ mirror.id }}" data-dl-group="{{ dl_id }}-mirror">
+        {% for item in mirror.linux %}
+        <div class="dl-item">
+          <div class="dl-item-label">
+            {% if item.arch %}<span class="dl-arch-tag">{{ item.arch }}</span>{% endif %}
+            {% if item.size %}<span class="dl-size-tag">{{ item.size }}</span>{% endif %}
+            <span class="dl-filename">{{ item.filename }}</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>{{ item.cmd }}</code></pre>
+        </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+
+  {% comment %} macOS content {% endcomment %}
+  <div class="dl-content" id="{{ dl_id }}-mac" data-dl-group="{{ dl_id }}-os" style="display:none;">
+    {% for mirror in include.mirrors %}
+      <div class="dl-mirror-section {% if forloop.first %}is-visible{% else %}is-hidden{% endif %}" data-dl-mirror-content="{{ mirror.id }}" data-dl-group="{{ dl_id }}-mirror">
+        {% for item in mirror.mac %}
+        <div class="dl-item">
+          <div class="dl-item-label">
+            {% if item.arch %}<span class="dl-arch-tag">{{ item.arch }}</span>{% endif %}
+            {% if item.size %}<span class="dl-size-tag">{{ item.size }}</span>{% endif %}
+            <span class="dl-filename">{{ item.filename }}</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>{{ item.cmd }}</code></pre>
+        </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+
+  {% comment %} Verify section {% endcomment %}
+  {% if dl_verify %}
+  <div class="dl-verify">
+    <div class="dl-verify-title"><i class="fas fa-shield-halved"></i> 校验文件完整性</div>
+    {% for v in dl_verify %}
+      <pre class="dl-code"><code><span class="token prompt">{% if v.prompt %}{{ v.prompt }}{% else %}${% endif %} </span>{{ v.cmd }}</code></pre>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+<script>
+(function(){
+  // OS tab switching
+  document.querySelectorAll('.dl-tab-btn[data-dl-target]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var group = this.getAttribute('data-dl-group');
+      var target = this.getAttribute('data-dl-target');
+      // Deactivate siblings
+      document.querySelectorAll('.dl-tab-btn[data-dl-group="' + group + '"]').forEach(function(b){
+        b.classList.remove('active');
+      });
+      this.classList.add('active');
+      // Show/hide content panels
+      document.querySelectorAll('.dl-content[data-dl-group="' + group + '"]').forEach(function(c){
+        c.style.display = 'none';
+      });
+      var el = document.getElementById(target);
+      if(el) el.style.display = 'block';
+    });
+  });
+
+  // Mirror switching
+  document.querySelectorAll('.dl-mirror-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var group = this.getAttribute('data-dl-group');
+      var mirror = this.getAttribute('data-dl-mirror');
+      // Deactivate siblings
+      document.querySelectorAll('.dl-mirror-btn[data-dl-group="' + group + '"]').forEach(function(b){
+        b.classList.remove('active');
+      });
+      this.classList.add('active');
+      // Show/hide mirror sections (across all OS panels)
+      var contentGroup = group.replace('-mirror', '-os');
+      document.querySelectorAll('.dl-mirror-section[data-dl-group="' + group + '"]').forEach(function(s){
+        s.classList.toggle('is-visible', s.getAttribute('data-dl-mirror-content') === mirror);
+        s.classList.toggle('is-hidden', s.getAttribute('data-dl-mirror-content') !== mirror);
+      });
+    });
+  });
+})();
+</script>

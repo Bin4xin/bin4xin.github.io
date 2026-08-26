@@ -160,6 +160,7 @@ years:
     highlight_zh: "活跃开发"
     entries:
       - { date: "08/26", text: "🎉🎉 WEB大版本更新到3.2.0 🎉🎉", link_label: "_config.yml", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_config.yml#L9"}
+      - { date: "08/26", text: "新增通用下载链接引用页面和验证配置，优化文档导航和样式", link_label: "_includes/components/download-panel.html", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_includes/components/download-panel.html"}
       - { date: "08/26", text: "修复了一些`_document`布局下在4k显示下的bug", link_label: "cate-document.js", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/assets/js/cate-document.js"}
       - { date: "08/23", text: "include里的prefers-color-scheme.html终于派上用场了，并且更新了文档作者和版本信息，统一为sentryCyberSec和2.0", link_label: "prefers-color-scheme.html", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_includes/common-index/prefers-color-scheme.html" }
       - { date: "08/21", text: "新增响应手册文档系统，含侧边栏导航、TOC目录、明暗主题切换、图片预览放大", link_label: "_document", link: "https://github.com/Bin4xin/bin4xin.github.io/blob/main/_document/" }
