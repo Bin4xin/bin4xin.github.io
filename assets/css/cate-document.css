@@ -1159,3 +1159,495 @@
     padding: 16px 10px 14px;
   }
 }
+/* ══════════════════════════════════════════
+   Code Copy Button
+   ══════════════════════════════════════════ */
+.doc-wrapper .doc-article-body pre {
+  position: relative;
+}
+.doc-copy-btn {
+  position: absolute;
+  top: 10px; right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background: var(--doc-surface-alt);
+  border: 1px solid var(--doc-border);
+  border-radius: 6px;
+  color: var(--doc-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0;
+  transition: all .25s ease;
+  z-index: 2;
+}
+.doc-wrapper .doc-article-body pre:hover .doc-copy-btn {
+  opacity: 1;
+}
+.doc-copy-btn:hover {
+  color: var(--doc-accent);
+  border-color: var(--doc-accent-border);
+  background: var(--doc-accent-dim);
+}
+.doc-copy-btn.is-copied {
+  color: var(--doc-accent);
+  border-color: var(--doc-accent-border);
+  background: var(--doc-accent-dim);
+  opacity: 1;
+}
+.doc-copy-btn i {
+  font-size: .7rem;
+}
+/* ══════════════════════════════════════════
+   Code Copy Button
+   ══════════════════════════════════════════ */
+   .doc-wrapper .doc-article-body pre {
+    position: relative;
+  }
+  .doc-copy-btn {
+    position: absolute;
+    top: 10px; right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    background: var(--doc-surface-alt);
+    border: 1px solid var(--doc-border);
+    border-radius: 6px;
+    color: var(--doc-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .6rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    opacity: 0;
+    transition: all .25s ease;
+    z-index: 2;
+  }
+  .doc-wrapper .doc-article-body pre:hover .doc-copy-btn {
+    opacity: 1;
+  }
+  .doc-copy-btn:hover {
+    color: var(--doc-accent);
+    border-color: var(--doc-accent-border);
+    background: var(--doc-accent-dim);
+  }
+  .doc-copy-btn.is-copied {
+    color: var(--doc-accent);
+    border-color: var(--doc-accent-border);
+    background: var(--doc-accent-dim);
+    opacity: 1;
+  }
+  .doc-copy-btn i {
+    font-size: .7rem;
+  }
+/* ══════════════════════════════════════════
+   Print Styles
+   ══════════════════════════════════════════ */
+@media print {
+  /* Hide non-content elements */
+  .doc-sidebar,
+  .doc-mobile-toggle,
+  .doc-theme-toggle,
+  .prefers-cs,
+  .doc-toc,
+  .doc-toc-mobile-btn,
+  .doc-toc-mobile-panel,
+  .doc-toc-mobile-overlay,
+  .doc-pager,
+  .doc-suggestion,
+  .doc-suggestion-section,
+  .doc-nav,
+  .lb-overlay ,
+  .doc-copy-btn {
+    display: none !important;
+  }
+
+  /* Reset wrapper */
+  .doc-wrapper {
+    display: block;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 11pt;
+    line-height: 1.6;
+  }
+
+  /* Content full width */
+  .doc-content-wrap {
+    margin: 0;
+    padding: 20mm 15mm;
+    max-width: 100%;
+    background: #fff;
+  }
+  .doc-content-inner {
+    display: block;
+  }
+  .doc-main {
+    max-width: 100%;
+  }
+
+  /* Override dark theme for print */
+  :root,
+  [data-theme="dark"] {
+    --doc-bg: #ffffff;
+    --doc-surface: #ffffff;
+    --doc-text: #1a1a1a;
+    --doc-text-strong: #000000;
+    --doc-muted: #555555;
+    --doc-accent: #248a3d;
+    --doc-border: #cccccc;
+  }
+
+  /* Article body */
+  .doc-wrapper .doc-article-body {
+    color: #1a1a1a;
+    font-size: 11pt;
+    line-height: 1.7;
+  }
+  .doc-wrapper .doc-article-body h1 {
+    font-size: 20pt;
+    color: #000;
+    margin: 24pt 0 12pt;
+    page-break-after: avoid;
+  }
+  .doc-wrapper .doc-article-body h2 {
+    font-size: 16pt;
+    color: #000;
+    margin: 20pt 0 10pt;
+    border-bottom: 1px solid #ccc;
+    page-break-after: avoid;
+  }
+  .doc-wrapper .doc-article-body h3 {
+    font-size: 13pt;
+    color: #000;
+    margin: 16pt 0 8pt;
+    page-break-after: avoid;
+  }
+  .doc-wrapper .doc-article-body h4 {
+    font-size: 11pt;
+    color: #000;
+    margin: 12pt 0 6pt;
+    page-break-after: avoid;
+  }
+  .doc-wrapper .doc-article-body p {
+    color: #1a1a1a;
+    margin: 0 0 8pt;
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Links: show URL after text */
+  .doc-wrapper .doc-article-body a {
+    color: #248a3d;
+    text-decoration: underline;
+  }
+  .doc-wrapper .doc-article-body a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 8pt;
+    color: #666;
+    word-break: break-all;
+  }
+  /* Don't show URL for anchors/relative links */
+  .doc-wrapper .doc-article-body a:not([href^="http"])::after {
+    content: "";
+  }
+
+  /* Code blocks */
+  .doc-wrapper .doc-article-body pre {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 10pt;
+    font-size: 8pt;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    page-break-inside: avoid;
+  }
+  .doc-wrapper .doc-article-body code {
+    font-size: 9pt;
+  }
+  .doc-wrapper .doc-article-body p code,
+  .doc-wrapper .doc-article-body li code,
+  .doc-wrapper .doc-article-body td code {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 0 3pt;
+  }
+
+  /* Tables */
+  .doc-wrapper .doc-article-body table {
+    font-size: 9pt;
+    page-break-inside: avoid;
+  }
+  .doc-wrapper .doc-article-body th,
+  .doc-wrapper .doc-article-body td {
+    border-color: #ccc;
+    padding: 6pt 8pt;
+  }
+  .doc-wrapper .doc-article-body th {
+    background: #f0f0f0;
+    color: #000;
+  }
+
+  /* Images */
+  .doc-wrapper .doc-article-body img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    page-break-inside: avoid;
+  }
+
+  /* Blockquote */
+  .doc-wrapper .doc-article-body blockquote {
+    border-left: 3pt solid #248a3d;
+    background: #f9f9f9;
+    color: #333;
+    padding: 8pt 12pt;
+    page-break-inside: avoid;
+  }
+
+  /* Lists */
+  .doc-wrapper .doc-article-body li {
+    color: #1a1a1a;
+    margin-bottom: 3pt;
+  }
+  .doc-wrapper .doc-article-body li::marker {
+    color: #333;
+  }
+
+  /* HR */
+  .doc-wrapper .doc-article-body hr {
+    border-top: 1px solid #ccc;
+    margin: 16pt 0;
+  }
+
+  /* Breadcrumb */
+  .doc-breadcrumb {
+    color: #888;
+    font-size: 8pt;
+    margin-bottom: 12pt;
+  }
+  .doc-breadcrumb a {
+    color: #888;
+  }
+
+  /* Article header */
+  .doc-article-head {
+    border-bottom-color: #ccc;
+    margin-bottom: 20pt;
+    padding-bottom: 12pt;
+  }
+  .doc-article-title {
+    color: #000;
+    font-size: 22pt;
+  }
+  .doc-article-meta {
+    color: #888;
+    font-size: 8pt;
+  }
+  .doc-tag {
+    color: #248a3d;
+    border-color: #ccc;
+    background: #f5f5f5;
+  }
+
+  /* Page setup */
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+  @page :first {
+    margin-top: 20mm;
+  }
+}
+/* ══════════════════════════════════════════
+   Download Panel
+   ══════════════════════════════════════════ */
+.download-wrap {
+  margin: 24px 0;
+  padding: 0;
+}
+.download-column {
+  padding: 0;
+}
+.cli-panel {
+  margin: 0;
+}
+.download-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .82rem;
+  line-height: 1.8;
+  color: var(--doc-text);
+  transition: color .3s ease;
+}
+.download-title hr {
+  border: none;
+  border-top: 1px solid var(--doc-border);
+  margin: 16px 0;
+}
+.download-title section {
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--doc-text-strong);
+  margin: 12px 0 4px;
+}
+.download-title pointer {
+  cursor: pointer;
+}
+details {
+  margin: 0;
+}
+summary {
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--doc-text-strong);
+  padding: 8px 0;
+  list-style: none;
+}
+summary::-webkit-details-marker {
+  display: none;
+}
+summary::before {
+  content: '\f0da';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  font-size: .7rem;
+  color: var(--doc-muted);
+  margin-right: 8px;
+  display: inline-block;
+  transition: transform .2s ease;
+}
+details[open] > summary::before {
+  content: '\f0d7';
+}
+
+/* Tab buttons */
+.dl-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 16px;
+  margin: 4px 6px 4px 0;
+  background: var(--doc-surface);
+  border: 1px solid var(--doc-border);
+  border-radius: 8px;
+  color: var(--doc-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  cursor: pointer;
+  transition: all .25s ease;
+  font-style: normal;
+}
+.dl-tab-btn:hover {
+  color: var(--doc-text);
+  border-color: var(--doc-border-hover);
+  background: var(--doc-surface-hover);
+}
+.dl-tab-btn.active {
+  color: #ffffff;
+  background: var(--doc-accent);
+  border-color: var(--doc-accent);
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
+}
+.dl-tab-btn i {
+  font-size: .8rem;
+}
+
+/* Cont sections */
+.cont {
+  margin: 0;
+  padding: 0;
+}
+.cont .cli-panel {
+  padding: 0;
+}
+
+/* Mirror note */
+.dl-mirror-note {
+  font-size: .75rem;
+  color: var(--doc-muted);
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  background: var(--doc-surface-alt);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dl-mirror-note i {
+  color: var(--doc-blue);
+}
+
+/* Counter badge */
+.dl-counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .55rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--doc-accent);
+  background: var(--doc-accent-dim);
+  border: 1px solid var(--doc-accent-border);
+  padding: 1px 8px;
+  border-radius: 10px;
+  margin-left: 8px;
+}
+
+/* Small note at bottom */
+csmall {
+  display: block;
+  font-size: .72rem;
+  color: var(--doc-muted);
+  margin: 16px 0 0;
+  padding: 10px 14px;
+  background: var(--doc-surface-alt);
+  border-left: 3px solid var(--doc-warn);
+  border-radius: 0 6px 6px 0;
+  line-height: 1.7;
+}
+csmall h5 {
+  font-size: .72rem;
+  font-weight: 600;
+  margin: 4px 0 0;
+  padding: 0;
+  color: var(--doc-text);
+}
+csmall a {
+  color: var(--doc-accent);
+}
+
+/* Code blocks inside download panel */
+.download-wrap pre {
+  background: var(--doc-code-bg);
+  border: 1px solid var(--doc-border);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 0 0 10px;
+  overflow-x: auto;
+  position: relative;
+  font-size: .78rem;
+  line-height: 1.7;
+  transition: background .3s ease, border-color .3s ease;
+}
+.download-wrap pre code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .78rem;
+  color: var(--doc-text);
+}
+.token.prompt {
+  color: var(--doc-accent);
+  font-weight: 600;
+  user-select: none;
+}
+
+@media print {
+  .download-wrap { display: none; }
+}

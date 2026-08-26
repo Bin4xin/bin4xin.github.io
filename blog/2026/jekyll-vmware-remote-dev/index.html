@@ -23,11 +23,11 @@
 
 <!-- Open Graph metadata -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Burp Suite 2026.7.3 for macOS 10.15.7/Catalina | © 哨兵" />
+<meta property="og:title" content="在 VMware Ubuntu 中结合 VS Code 与 Jekyll 进行远程开发 | © 哨兵" />
 <meta property="og:description" content="本站由哨兵安全实验室支持创办" />
 <meta property="og:image" content="https://bin4xin.github.io/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
-<meta property="og:url" content="https://bin4xin.github.io/blog/2026/Burp-Suite-macOS-Catalina-install-setup-walkthrough/" />
-<title> Burp Suite 2026.7.3 for macOS 10.15.7/Catalina | © 哨兵 | SENTINEL SECURITY, LAB</title>
+<meta property="og:url" content="https://bin4xin.github.io/blog/2026/jekyll-vmware-remote-dev/" />
+<title> 在 VMware Ubuntu 中结合 VS Code 与 Jekyll 进行远程开发 | © 哨兵 | SENTINEL SECURITY, LAB</title>
 <link rel="stylesheet" href="/assets/css/cate-document.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
@@ -104,7 +104,7 @@
         <!-- SINGLE POST -->
         <div class="markdown-body-img flex-column">
             <!-- Blog Post  -->
-            <h1 class="ctitle">Burp Suite 2026.7.3 for macOS 10.15.7/Catalina</h1>
+            <h1 class="ctitle">在 VMware Ubuntu 中结合 VS Code 与 Jekyll 进行远程开发</h1>
             <div class="post-meta-row">
                 <!--article author end-->
 
@@ -133,7 +133,7 @@
         
             
                 
-                    19d
+                    24h
                 
                 post
             
@@ -166,107 +166,320 @@
 
 
 
-<section class="gh-banner info" aria-labelledby="banner-title-更新于-strong-19-天前-strong-时效尚可" role="region" data-dismissible="true">
+<section class="gh-banner success" aria-labelledby="banner-title-写于-strong-1-天前-strong-墨迹未干" role="region" data-dismissible="true">
     <div class="banner-icon" aria-hidden="true">
         
         <svg viewBox="0 0 16 16" fill="currentColor">
-            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
+            <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
         </svg>
         
     </div>
 
     <div class="banner-content">
-        <span class="banner-text">更新于 <strong>19 天前</strong>，时效尚可</span>
+        <span class="banner-text">写于 <strong>1 天前</strong>，墨迹未干</span>
     </div>
 </section>
 
-                <h2 id="在-macos-catalina-上安装与配置-burp-suite-202673">在 macOS Catalina 上安装与配置 Burp Suite 2026.7.3</h2>
+                <h1 id="在-vmware-ubuntu-中结合-vs-code-与-jekyll-进行远程开发">在 VMware Ubuntu 中结合 VS Code 与 Jekyll 进行远程开发</h1>
 
-<p><img src="https://image.isisy.com/images/2026/08/20/2026-08-13-3.59.40.png" alt="2026-08-13-3.59.40.png" /></p>
+<h2 id="背景">背景</h2>
 
-<section class="gh-banner info" aria-labelledby="banner-title-strong-教程说明-strong-br-本教程基于在-macos-catalina-10-15-x-系统上安装-burp-suite-2026-7-3-的真实经历编写-整个过程遇到了多个典型的兼容性问题-java-版本冲突-图形库缺失-浏览器启动失败等-以下是经过验证的完整解决方案" role="region" data-dismissible="true">
-    <div class="banner-icon" aria-hidden="true">
+<p>在 Windows 环境下开发 Jekyll 博客时，经常会遇到 Ruby 原生扩展（如 <code class="language-plaintext highlighter-rouge">nokogiri</code>）的编译问题。即使通过 MSYS2 配置好编译工具链，仍然可能面临版本兼容性、权限管理和依赖冲突等挑战。</p>
+
+<p>为了解决这些痛点，我选择在 VMware 虚拟机中运行 Ubuntu Server，并利用 VS Code 的 Remote-SSH 功能进行远程编辑和调试，最终实现了流畅的 Jekyll 开发体验。</p>
+
+<p>本文将详细介绍整个搭建过程，包括环境准备、Ruby 安装、Jekyll 运行、VS Code 远程连接以及 Git 配置等关键步骤，并分享一些常见问题的解决方法。</p>
+
+<h2 id="环境准备">环境准备</h2>
+
+<h3 id="iso-下载">ISO 下载</h3>
+
+<div class="dl-panel" id="ubuntu-dl">
+  <div class="dl-panel-head">
+    <h3 class="dl-panel-title">
+      Ubuntu 22.04.5 LTS Server
+      
+        <span class="dl-panel-version">22.04.5</span>
+      
+    </h3>
+    
+      <p class="dl-panel-note"><i class="fas fa-info-circle"></i> 22.04.5 为当前最新小版本，后续可能有更新，但官方链接长期有效</p>
+    
+  </div>
+
+  
+  <div class="dl-os-bar">
+    <b class="dl-tab-btn active" data-dl-target="ubuntu-dl-win" data-dl-group="ubuntu-dl-os">
+      <i class="fab fa-windows"></i> Windows
+    </b>
+    <b class="dl-tab-btn" data-dl-target="ubuntu-dl-linux" data-dl-group="ubuntu-dl-os">
+      <i class="fab fa-linux"></i> Linux
+    </b>
+    <b class="dl-tab-btn" data-dl-target="ubuntu-dl-mac" data-dl-group="ubuntu-dl-os">
+      <i class="fab fa-apple"></i> macOS
+    </b>
+  </div>
+
+  
+  <div class="dl-mirror-bar" data-dl-group="ubuntu-dl-mirror">
+    <span class="dl-mirror-label"><i class="fas fa-server"></i> 镜像源</span>
+    
+      <b class="dl-mirror-btn active" data-dl-mirror="official" data-dl-group="ubuntu-dl-mirror">
+        官方源
+      </b>
+    
+      <b class="dl-mirror-btn " data-dl-mirror="tuna" data-dl-group="ubuntu-dl-mirror">
+        清华 TUNA
+      </b>
+    
+      <b class="dl-mirror-btn " data-dl-mirror="aliyun" data-dl-group="ubuntu-dl-mirror">
+        阿里云
+      </b>
+    
+      <b class="dl-mirror-btn " data-dl-mirror="ustc" data-dl-group="ubuntu-dl-mirror">
+        中科大 USTC
+      </b>
+    
+  </div>
+
+  
+  <div class="dl-content" id="ubuntu-dl-win" data-dl-group="ubuntu-dl-os" style="display:block;">
+    
+      <div class="dl-mirror-section is-visible" data-dl-mirror-content="official" data-dl-group="ubuntu-dl-mirror">
         
-        <svg viewBox="0 0 16 16" fill="currentColor">
-            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
-        </svg>
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">ubuntu-22.04.5-live-server-amd64.iso</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">&gt; </span>curl -LO https://releases.ubuntu.com/22.04/ubuntu-22.04.5-live-server-amd64.iso</code></pre>
+        </div>
         
-    </div>
+      </div>
+    
+      <div class="dl-mirror-section is-hidden" data-dl-mirror-content="tuna" data-dl-group="ubuntu-dl-mirror">
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">ubuntu-22.04.5-live-server-amd64.iso</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">&gt; </span>curl -LO https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/22.04/ubuntu-22.04.5-live-server-amd64.iso</code></pre>
+        </div>
+        
+      </div>
+    
+      <div class="dl-mirror-section is-hidden" data-dl-mirror-content="aliyun" data-dl-group="ubuntu-dl-mirror">
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">ubuntu-22.04.5-live-server-amd64.iso</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">&gt; </span>curl -LO https://mirrors.aliyun.com/ubuntu-releases/22.04/ubuntu-22.04.5-live-server-amd64.iso</code></pre>
+        </div>
+        
+      </div>
+    
+      <div class="dl-mirror-section is-hidden" data-dl-mirror-content="ustc" data-dl-group="ubuntu-dl-mirror">
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">ubuntu-22.04.5-live-server-amd64.iso</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">&gt; </span>curl -LO https://mirrors.ustc.edu.cn/ubuntu-releases/22.04/ubuntu-22.04.5-live-server-amd64.iso</code></pre>
+        </div>
+        
+      </div>
+    
+  </div>
 
-    <div class="banner-content">
-        <span class="banner-text"><strong>教程说明</strong><br />本教程基于在 macOS Catalina (10.15.x) 系统上安装 Burp Suite 2026.7.3 的真实经历编写。整个过程遇到了多个典型的兼容性问题（Java 版本冲突、图形库缺失、浏览器启动失败等），以下是经过验证的完整解决方案。</span>
-    </div>
-</section>
+  
+  <div class="dl-content" id="ubuntu-dl-linux" data-dl-group="ubuntu-dl-os" style="display:none;">
+    
+      <div class="dl-mirror-section is-visible" data-dl-mirror-content="official" data-dl-group="ubuntu-dl-mirror">
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">ubuntu-22.04.5-live-server-amd64.iso</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>wget https://releases.ubuntu.com/22.04/ubuntu-22.04.5-live-server-amd64.iso</code></pre>
+        </div>
+        
+      </div>
+    
+      <div class="dl-mirror-section is-hidden" data-dl-mirror-content="tuna" data-dl-group="ubuntu-dl-mirror">
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">ubuntu-22.04.5-live-server-amd64.iso</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>wget https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/22.04/ubuntu-22.04.5-live-server-amd64.iso</code></pre>
+        </div>
+        
+      </div>
+    
+      <div class="dl-mirror-section is-hidden" data-dl-mirror-content="aliyun" data-dl-group="ubuntu-dl-mirror">
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">ubuntu-22.04.5-live-server-amd64.iso</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>wget https://mirrors.aliyun.com/ubuntu-releases/22.04/ubuntu-22.04.5-live-server-amd64.iso</code></pre>
+        </div>
+        
+      </div>
+    
+      <div class="dl-mirror-section is-hidden" data-dl-mirror-content="ustc" data-dl-group="ubuntu-dl-mirror">
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">ubuntu-22.04.5-live-server-amd64.iso</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>wget https://mirrors.ustc.edu.cn/ubuntu-releases/22.04/ubuntu-22.04.5-live-server-amd64.iso</code></pre>
+        </div>
+        
+      </div>
+    
+  </div>
 
-<hr />
+  
+  <div class="dl-content" id="ubuntu-dl-mac" data-dl-group="ubuntu-dl-os" style="display:none;">
+    
+      <div class="dl-mirror-section is-visible" data-dl-mirror-content="official" data-dl-group="ubuntu-dl-mirror">
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">ubuntu-22.04.5-live-server-amd64.iso</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>curl -LO https://releases.ubuntu.com/22.04/ubuntu-22.04.5-live-server-amd64.iso</code></pre>
+        </div>
+        
+      </div>
+    
+      <div class="dl-mirror-section is-hidden" data-dl-mirror-content="tuna" data-dl-group="ubuntu-dl-mirror">
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">ubuntu-22.04.5-live-server-amd64.iso</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>curl -LO https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/22.04/ubuntu-22.04.5-live-server-amd64.iso</code></pre>
+        </div>
+        
+      </div>
+    
+      <div class="dl-mirror-section is-hidden" data-dl-mirror-content="aliyun" data-dl-group="ubuntu-dl-mirror">
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">ubuntu-22.04.5-live-server-amd64.iso</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>curl -LO https://mirrors.aliyun.com/ubuntu-releases/22.04/ubuntu-22.04.5-live-server-amd64.iso</code></pre>
+        </div>
+        
+      </div>
+    
+      <div class="dl-mirror-section is-hidden" data-dl-mirror-content="ustc" data-dl-group="ubuntu-dl-mirror">
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">ubuntu-22.04.5-live-server-amd64.iso</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>curl -LO https://mirrors.ustc.edu.cn/ubuntu-releases/22.04/ubuntu-22.04.5-live-server-amd64.iso</code></pre>
+        </div>
+        
+      </div>
+    
+  </div>
 
-<h2 id="一系统环境与前置要求">一、系统环境与前置要求</h2>
+  
+  
+  <div class="dl-verify">
+    <div class="dl-verify-title"><i class="fas fa-shield-halved"></i> 校验文件完整性</div>
+    
+      <pre class="dl-code"><code><span class="token prompt">$ </span>sha256sum ubuntu-22.04.5-live-server-amd64.iso</code></pre>
+    
+      <pre class="dl-code"><code><span class="token prompt">&gt; </span>certutil -hashfile ubuntu-22.04.5-live-server-amd64.iso SHA256</code></pre>
+    
+  </div>
+  
+</div>
 
-<h3 id="11-确认-macos-版本">1.1 确认 macOS 版本</h3>
+<script>
+(function(){
+  // OS tab switching
+  document.querySelectorAll('.dl-tab-btn[data-dl-target]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var group = this.getAttribute('data-dl-group');
+      var target = this.getAttribute('data-dl-target');
+      // Deactivate siblings
+      document.querySelectorAll('.dl-tab-btn[data-dl-group="' + group + '"]').forEach(function(b){
+        b.classList.remove('active');
+      });
+      this.classList.add('active');
+      // Show/hide content panels
+      document.querySelectorAll('.dl-content[data-dl-group="' + group + '"]').forEach(function(c){
+        c.style.display = 'none';
+      });
+      var el = document.getElementById(target);
+      if(el) el.style.display = 'block';
+    });
+  });
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sw_vers <span class="nt">-productVersion</span>
-10.15.7
-<span class="c"># 应显示 10.15.x</span>
-</code></pre></div></div>
+  // Mirror switching
+  document.querySelectorAll('.dl-mirror-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var group = this.getAttribute('data-dl-group');
+      var mirror = this.getAttribute('data-dl-mirror');
+      // Deactivate siblings
+      document.querySelectorAll('.dl-mirror-btn[data-dl-group="' + group + '"]').forEach(function(b){
+        b.classList.remove('active');
+      });
+      this.classList.add('active');
+      // Show/hide mirror sections (across all OS panels)
+      var contentGroup = group.replace('-mirror', '-os');
+      document.querySelectorAll('.dl-mirror-section[data-dl-group="' + group + '"]').forEach(function(s){
+        s.classList.toggle('is-visible', s.getAttribute('data-dl-mirror-content') === mirror);
+        s.classList.toggle('is-hidden', s.getAttribute('data-dl-mirror-content') !== mirror);
+      });
+    });
+  });
+})();
+</script>
 
-<h3 id="12-java-版本最关键">1.2 Java 版本（最关键）</h3>
+<h3 id="安装-vmware-虚拟机">安装 VMware 虚拟机</h3>
 
-<p>Burp Suite 2026.7.3 要求 <strong>Java 21 或更高版本</strong>。</p>
+<p>在 VMware 中创建一台 Ubuntu 22.04 LTS Server 虚拟机，建议分配至少 2 个 CPU、4GB 内存和 20GB 硬盘。</p>
 
-<p>检查当前 Java 版本：</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-version</span>
-</code></pre></div></div>
-
-<p>如果版本低于 21，必须升级。在 Catalina 上，推荐使用 <strong>JDK 21 LTS</strong>（不是 Java 25，因为 Java 25 在 Catalina 上存在图形库兼容问题）：</p>
-
-<p><strong>方法一：使用 Homebrew 安装（推荐）</strong></p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 安装 Homebrew（如果没有）</span>
-/bin/bash <span class="nt">-c</span> <span class="s2">"</span><span class="si">$(</span>curl <span class="nt">-fsSL</span> https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class="si">)</span><span class="s2">"</span>
-
-<span class="c"># 安装 OpenJDK 21</span>
-brew <span class="nb">install </span>openjdk@21
-
-<span class="c"># 创建软链接，让系统能找到</span>
-<span class="nb">sudo ln</span> <span class="nt">-sfn</span> /opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-21.jdk
-</code></pre></div></div>
-
-<p><strong>方法二：手动安装 DMG</strong></p>
+<p>安装时注意：</p>
 
 <ul>
-  <li>从 <a href="https://www.oracle.com/java/technologies/downloads/#java21">oracle</a> 下载适用于 Intel Mac 的 x64 版本的 JDK 21 DMG 安装包</li>
-  <li>文件名示例：<code class="language-plaintext highlighter-rouge">OpenJDK21U-jdk_x64_mac_hotspot_21.0.12_8.tar.gz</code></li>
-  <li>解压后移动到 <code class="language-plaintext highlighter-rouge">/Library/Java/JavaVirtualMachines/</code></li>
+  <li>选择 <strong>Ubuntu Server</strong>（不要选择 minimized 版本）</li>
+  <li>勾选 <strong>Install OpenSSH server</strong>，方便后续远程连接</li>
 </ul>
 
-<p>验证安装：</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/libexec/java_home <span class="nt">-v</span> 21
-<span class="c"># 应输出 JDK 21 的路径</span>
-/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home
-</code></pre></div></div>
-
-<h3 id="13-关于-macos-catalina-的特殊说明">1.3 关于 macOS Catalina 的特殊说明</h3>
-
-<ul>
-  <li>Catalina 对未公证的应用有严格限制，需要手动处理</li>
-  <li><strong>不要使用 Java 25（Early Access）</strong>，它在 Catalina 上缺少 <code class="language-plaintext highlighter-rouge">JavaRuntimeSupport.framework</code> 依赖，会导致 AWT 图形界面无法启动</li>
-</ul>
-
-<hr />
-
-<h2 id="二下载-burp-suite">二、下载 Burp Suite</h2>
-
-<h3 id="21-推荐方式下载-jar-文件">2.1 推荐方式：下载 JAR 文件</h3>
-
-<ol>
-  <li>访问 <a href="https://portswigger.net/burp/releases#professional">PortSwigger 下载页面</a></li>
-  <li>找到 <strong>Burp Suite Professional / Community 2026.7.3</strong></li>
-  <li>下载 <strong>JAR 格式文件</strong>（如 <code class="language-plaintext highlighter-rouge">burpsuite_pro_v2026.7.3.jar</code>）</li>
-</ol>
-
-<section class="gh-banner info" aria-labelledby="banner-title-strong-tips-strong-br-最新版本2026-7-3不再区分professional-community-激活即可" role="region" data-dismissible="true">
+<section class="gh-banner info" aria-labelledby="banner-title-建议将虚拟机网络模式设为-nat-共享宿主机-ip-既能通过宿主机代理访问外网-又能避免桥接模式下-ip-频繁变动导致-ssh-连接中断" role="region" data-dismissible="true">
     <div class="banner-icon" aria-hidden="true">
         
         <svg viewBox="0 0 16 16" fill="currentColor">
@@ -276,242 +489,15 @@ brew <span class="nb">install </span>openjdk@21
     </div>
 
     <div class="banner-content">
-        <span class="banner-text"><strong>TIPS</strong><br />最新版本2026.7.3不再区分Professional / Community，激活即可。</span>
+        <span class="banner-text">建议将虚拟机网络模式设为 NAT（共享宿主机 IP），既能通过宿主机代理访问外网，又能避免桥接模式下 IP 频繁变动导致 SSH 连接中断。</span>
     </div>
 </section>
 
-<hr />
+<h3 id="更换国内软件源">更换国内软件源</h3>
 
-<h2 id="三配置与启动">三、配置与启动</h2>
+<p>为了加速 <code class="language-plaintext highlighter-rouge">apt</code> 下载，将软件源更换为阿里云镜像。</p>
 
-<h3 id="31-创建-jvm-参数配置文件">3.1 创建 JVM 参数配置文件</h3>
-
-<p>在<code class="language-plaintext highlighter-rouge">.app</code>目录下编辑 <code class="language-plaintext highlighter-rouge">burp.vmoptions</code> 文件：</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> /Applications/Burp<span class="se">\ </span>Suite.app/Contents/vmoptions.txt
-</code></pre></div></div>
-
-<p>粘贴以下内容：</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-XX:MaxRAMPercentage=50
--include-options user.vmoptions
-
---add-opens=java.base/java.lang=ALL-UNNAMED
---add-opens=java.base/java.lang=ALL-UNNAMED
---add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED
---add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED
---add-opens=java.base/jdk.internal.org.objectweb.asm.Opcodes=ALL-UNNAMED
--javaagent:BurpLoaderKeygen_v1.18.jar
--noverify
-</code></pre></div></div>
-
-<section class="gh-banner info" aria-labelledby="banner-title-strong-说明-strong-br-1-code-add-opens-code-参数是-java-9-模块化系统要求的-用于允许-burp-访问内部-api-br-2-a-href-https-github-com-h3110w0r1d-y-burploaderkeygen-h3110w0r1d-y-burploaderkeygen-a" role="region" data-dismissible="true">
-    <div class="banner-icon" aria-hidden="true">
-        
-        <svg viewBox="0 0 16 16" fill="currentColor">
-            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
-        </svg>
-        
-    </div>
-
-    <div class="banner-content">
-        <span class="banner-text"><strong>说明</strong><br />1、<code>--add-opens</code> 参数是 Java 9+ 模块化系统要求的，用于允许 Burp 访问内部 API<br />2、<a href="https://github.com/h3110w0r1d-y/burploaderkeygen">h3110w0r1d-y/burploaderkeygen</a></span>
-    </div>
-</section>
-
-<h3 id="32-处理-catalina-安全限制">3.2 处理 Catalina 安全限制</h3>
-
-<p>如果 JAR 文件被 macOS 标记为”来自未知开发者”，执行：</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>xattr <span class="nt">-d</span> com.apple.quarantine ~/BurpSuite/burpsuite_pro_v2026.7.3.jar
-</code></pre></div></div>
-
-<h3 id="33-启动-burp-suite">3.3 启动 Burp Suite</h3>
-
-<p>使用以下命令启动（注意使用 JDK 21）：</p>
-
-<p>默认的<code class="language-plaintext highlighter-rouge">Burp\ Suite.app</code>java 自带版本：</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Applications/Burp<span class="se">\ </span>Suite.app/Contents/Resources/jre.bundle/Contents/Home/bin/java <span class="nt">-version</span>
-openjdk version <span class="s2">"26.0.1"</span> 2026-04-21
-OpenJDK Runtime Environment <span class="o">(</span>build 26.0.1+8-34<span class="o">)</span>
-OpenJDK 64-Bit Server VM <span class="o">(</span>build 26.0.1+8-34, mixed mode<span class="o">)</span>
-</code></pre></div></div>
-<p>直接把<code class="language-plaintext highlighter-rouge">/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/</code>下的所有目录复制到<code class="language-plaintext highlighter-rouge">/Applications/Burp\ Suite.app/Contents/Resources/jre.bundle/Contents/</code>目录下，<code class="language-plaintext highlighter-rouge">open /Applications/Burp\ Suite.app</code>即可。</p>
-
-<p>目录结构都是一致的：</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/                   🚀 <span class="k">for </span>12ms
-Home		Info.plist	MacOS		_CodeSignature
-
-<span class="nb">ls</span> /Applications/Burp<span class="se">\ </span>Suite.app/Contents/Resources/jre.bundle/Contents/    🚀 <span class="k">for </span>13ms
-Home		Info.plist	MacOS		_CodeSignature
-</code></pre></div></div>
-<h3 id="其他">其他</h3>
-
-<p>其他参考，不一定准确。</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/Library/Java/JavaVirtualMachines/openjdk-21.jdk/Contents/Home/bin/java @burp.vmoptions <span class="nt">-jar</span> burpsuite_pro_v2026.7.3.jar
-</code></pre></div></div>
-
-<p>如果提示 <code class="language-plaintext highlighter-rouge">java</code> 命令找不到，使用完整路径：</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/libexec/java_home <span class="nt">-v</span> 21 <span class="nt">--exec</span> java @burp.vmoptions <span class="nt">-jar</span> burpsuite_pro_v2026.7.3.jar
-</code></pre></div></div>
-
-<h3 id="34-创建启动脚本方便日常使用">3.4 创建启动脚本（方便日常使用）</h3>
-
-<p>创建 <code class="language-plaintext highlighter-rouge">~/BurpSuite/start-burp.sh</code>：</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
-<span class="nb">cd</span> ~/BurpSuite
-<span class="nv">JAVA_CMD</span><span class="o">=</span><span class="s2">"/usr/libexec/java_home -v 21 --exec java"</span>
-<span class="nv">$JAVA_CMD</span> @burp.vmoptions <span class="nt">-jar</span> burpsuite_pro_v2026.7.3.jar
-</code></pre></div></div>
-
-<p>赋予执行权限：</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">chmod</span> +x ~/BurpSuite/start-burp.sh
-./start-burp.sh
-</code></pre></div></div>
-
-<hr />
-
-<h2 id="四常见问题与解决方案">四、常见问题与解决方案</h2>
-
-<h3 id="41-unsupportedclassversionerror">4.1 UnsupportedClassVersionError</h3>
-
-<p><strong>错误信息</strong>：<code class="language-plaintext highlighter-rouge">... has been compiled by a more recent version of the Java Runtime (class file version 65.0)</code></p>
-
-<p><strong>原因</strong>：使用的 Java 版本低于 21</p>
-
-<p><strong>解决</strong>：按照步骤 1.2 安装并切换到 JDK 21</p>
-
-<h3 id="42-javalangunsatisfiedlinkerror-libawtdylib">4.2 java.lang.UnsatisfiedLinkError: libawt.dylib</h3>
-
-<p><strong>错误信息</strong>：<code class="language-plaintext highlighter-rouge">Library not loaded: /System/Library/Frameworks/JavaRuntimeSupport.framework/Versions/A/JavaRuntimeSupport</code></p>
-
-<p><strong>原因</strong>：使用了 Java 25（Early Access）或 JDK 与 macOS 版本不兼容</p>
-
-<p><strong>解决</strong>：切换到 JDK 21 LTS，不要使用 Java 25</p>
-
-<h3 id="43-nosuchmethoderror-persistenceextensiondata">4.3 NoSuchMethodError: Persistence.extensionData()</h3>
-
-<p><strong>错误信息</strong>：<code class="language-plaintext highlighter-rouge">burp.api.montoya.persistence.Persistence.extensionData()</code></p>
-
-<p><strong>原因</strong>：加载的 MCP 扩展与 Burp 版本不兼容（通常是 Burp 版本太旧）</p>
-
-<p><strong>解决</strong>：</p>
-
-<ul>
-  <li>升级 Burp Suite 到最新版（2026.7.3）</li>
-  <li>或在加载扩展前，先确保 Burp 已更新到最新</li>
-</ul>
-
-<h3 id="44-burp-启动后立即崩溃">4.4 Burp 启动后立即崩溃</h3>
-
-<p><strong>现象</strong>：点击 Burp 图标后 1 秒内退出</p>
-
-<p><strong>诊断</strong>：用命令行启动查看详细错误</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/libexec/java_home <span class="nt">-v</span> 21 <span class="nt">--exec</span> java @burp.vmoptions <span class="nt">-jar</span> burpsuite_pro_v2026.7.3.jar
-</code></pre></div></div>
-
-<p><strong>常见原因</strong>：</p>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>原因</th>
-      <th>解决方案</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Java 版本不对</td>
-      <td>切换到 JDK 21</td>
-    </tr>
-    <tr>
-      <td>JVM 参数错误</td>
-      <td>检查 <code class="language-plaintext highlighter-rouge">burp.vmoptions</code> 内容</td>
-    </tr>
-    <tr>
-      <td>配置文件损坏</td>
-      <td>删除 <code class="language-plaintext highlighter-rouge">~/Library/Application Support/BurpSuite/Preference.json</code></td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="45-内置浏览器无法启动">4.5 内置浏览器无法启动</h3>
-
-<p><strong>现象</strong>：点击 “Open Browser” 报错 <code class="language-plaintext highlighter-rouge">posix_spawn failed</code></p>
-
-<p><strong>原因</strong>：Burp 自带的 Chromium 150 版本在 Catalina 上不兼容</p>
-
-<p><strong>解决方案（二选一）</strong>：</p>
-
-<p><strong>方案 A：手动启动浏览器（推荐）</strong></p>
-
-<p>创建启动脚本 <code class="language-plaintext highlighter-rouge">~/Desktop/burp-browser.command</code>：</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/zsh</span>
-/Applications/Burp<span class="se">\ </span>Suite<span class="se">\ </span>Professional.app/Contents/Resources/app/burpbrowser/108.0.5359.124/Chromium.app/Contents/MacOS/Chromium <span class="se">\</span>
-  <span class="nt">--proxy-server</span><span class="o">=</span><span class="s2">"http://127.0.0.1:8080"</span> <span class="se">\</span>
-  <span class="nt">--user-data-dir</span><span class="o">=</span><span class="s2">"/tmp/burp-chromium-profile"</span> <span class="se">\</span>
-  <span class="nt">--ignore-certificate-errors</span> <span class="se">\</span>
-  <span class="nt">--disable-web-security</span> <span class="se">\</span>
-  <span class="nt">--disable-features</span><span class="o">=</span>IsolateOrigins,site-per-process <span class="se">\</span>
-  <span class="nt">--no-first-run</span> <span class="se">\</span>
-  <span class="nt">--new-window</span> <span class="s2">"http://burp"</span>
-</code></pre></div></div>
-
-<p>双击 <code class="language-plaintext highlighter-rouge">.command</code> 文件即可启动带代理的浏览器。</p>
-
-<section class="gh-banner info" aria-labelledby="banner-title-strong-tips-strong-br-以上操作会打开一个终端窗口-不够优雅-br-亦可以新增一个自动操作-code-burp-browser-code-app-选择-code-运行-bin-zsh脚本-code-保存后默认app在icloud云盘-自动操作目录下-拖到dock栏即可" role="region" data-dismissible="true">
-    <div class="banner-icon" aria-hidden="true">
-        
-        <svg viewBox="0 0 16 16" fill="currentColor">
-            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
-        </svg>
-        
-    </div>
-
-    <div class="banner-content">
-        <span class="banner-text"><strong>TIPS:</strong><br />以上操作会打开一个终端窗口，不够优雅~<br />亦可以新增一个自动操作<code>Burp Browser</code>app，选择<code>运行/bin/zsh脚本</code>保存后默认app在iCloud云盘/自动操作目录下，拖到dock栏即可。</span>
-    </div>
-</section>
-
-<p><strong>方案 B：替换 Burp 内置浏览器（不推荐，容易出错）</strong></p>
-
-<p>需要修改 <code class="language-plaintext highlighter-rouge">manifest.properties</code> 文件，但 Burp 有严格的完整性校验，替换过程复杂且容易失败。</p>
-
-<hr />
-
-<h2 id="五加载-mcp-扩展如需连接-claude-code">五、加载 MCP 扩展（如需连接 Claude Code）</h2>
-
-<h3 id="51-构建扩展">5.1 构建扩展</h3>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/PortSwigger/mcp-server.git
-<span class="nb">cd </span>mcp-server
-./gradlew embedProxyJar
-<span class="c"># 生成 build/libs/burp-mcp-all.jar</span>
-</code></pre></div></div>
-
-<h3 id="52-在-burp-中加载">5.2 在 Burp 中加载</h3>
-
-<ol>
-  <li>Burp → <strong>Extensions</strong> 标签 → <strong>Add</strong></li>
-  <li>Extension Type: <strong>Java</strong></li>
-  <li>选择 <code class="language-plaintext highlighter-rouge">burp-mcp-all.jar</code></li>
-  <li>点击 <strong>Next</strong></li>
-</ol>
-
-<h3 id="53-配置-claude-code-连接">5.3 配置 Claude Code 连接</h3>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>claude mcp add <span class="nt">--transport</span> sse burp http://127.0.0.1:9876/sse
-</code></pre></div></div>
-
-<section class="gh-banner warn" aria-labelledby="banner-title-strong-注意-strong-br-burp-的-mcp-服务器默认运行在-code-http-127-0-0-1-9876-sse-code-需要确保-burp-中的-mcp-扩展已启用-mcp-标签页勾选-enabled" role="region" data-dismissible="true">
+<section class="gh-banner warn" aria-labelledby="banner-title-替换-sources-list-前请先执行-code-sudo-cp-etc-apt-sources-list-etc-apt-sources-list-bak-code-备份原文件-若镜像源不可用可随时回滚" role="region" data-dismissible="true">
     <div class="banner-icon" aria-hidden="true">
         
         <svg viewBox="0 0 16 16" fill="currentColor">
@@ -521,65 +507,336 @@ Home		Info.plist	MacOS		_CodeSignature
     </div>
 
     <div class="banner-content">
-        <span class="banner-text"><strong>注意</strong><br />Burp 的 MCP 服务器默认运行在 <code>http://127.0.0.1:9876/sse</code>，需要确保 Burp 中的 MCP 扩展已启用（MCP 标签页勾选 “Enabled”）。</span>
+        <span class="banner-text">替换 sources.list 前请先执行 <code>sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</code> 备份原文件，若镜像源不可用可随时回滚。</span>
     </div>
 </section>
 
-<hr />
+<p>编辑 <code class="language-plaintext highlighter-rouge">/etc/apt/sources.list</code>，替换为以下内容：</p>
 
-<h2 id="六总结与建议">六、总结与建议</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>deb http://mirrors.aliyun.com/ubuntu/ jammy main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ jammy-backports main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ jammy-security main restricted universe multiverse
+</code></pre></div></div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>问题</th>
-      <th>原因</th>
-      <th>解决方案</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>无法启动</td>
-      <td>Java 版本 &lt; 21</td>
-      <td>安装 JDK 21</td>
-    </tr>
-    <tr>
-      <td>图形界面报错</td>
-      <td>使用 Java 25</td>
-      <td>切换回 JDK 21</td>
-    </tr>
-    <tr>
-      <td>扩展加载失败</td>
-      <td>Burp 版本太旧</td>
-      <td>升级到 2026.7.3</td>
-    </tr>
-    <tr>
-      <td>内置浏览器崩溃</td>
-      <td>Chromium 150 不兼容 Catalina</td>
-      <td>手动启动浏览器并配置代理</td>
-    </tr>
-    <tr>
-      <td>安全提示</td>
-      <td>未公证的应用</td>
-      <td>使用 <code class="language-plaintext highlighter-rouge">xattr -d com.apple.quarantine</code></td>
-    </tr>
-  </tbody>
-</table>
+<p>更新软件源和系统：</p>
 
-<h3 id="最佳实践">最佳实践</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update
+<span class="nb">sudo </span>apt upgrade <span class="nt">-y</span>
+</code></pre></div></div>
+
+<h3 id="安装基础依赖">安装基础依赖</h3>
+
+<p>Jekyll 和常用的 Ruby gem 编译需要一些系统库，执行以下命令安装：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> build-essential git curl <span class="se">\</span>
+  zlib1g-dev libssl-dev libreadline-dev libyaml-dev <span class="se">\</span>
+  libxml2-dev libxslt1-dev
+</code></pre></div></div>
+
+<h2 id="安装-ruby">安装 Ruby</h2>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">rbenv</code> 来管理 Ruby 版本，便于安装和切换。首先克隆 <code class="language-plaintext highlighter-rouge">rbenv</code> 和 <code class="language-plaintext highlighter-rouge">ruby-build</code>：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+<span class="nb">echo</span> <span class="s1">'export PATH="$HOME/.rbenv/bin:$PATH"'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+<span class="nb">echo</span> <span class="s1">'eval "$(rbenv init -)"'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+<span class="nb">source</span> ~/.bashrc
+
+git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+</code></pre></div></div>
+
+<p>为了加速 Ruby 源码下载，设置国内镜像：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'export RUBY_BUILD_MIRROR_URL="https://cache.ruby-china.com/pub/ruby/"'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+<span class="nb">source</span> ~/.bashrc
+</code></pre></div></div>
+
+<p>安装 Ruby 3.1.4（与 GitHub Pages 兼容性较好）：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rbenv <span class="nb">install </span>3.1.4
+rbenv global 3.1.4
+&lt;code&gt;ruby <span class="nt">-v</span>&lt;/code&gt;
+</code></pre></div></div>
+
+<h2 id="安装-bundler-和-jekyll">安装 Bundler 和 Jekyll</h2>
+
+<p>安装 Bundler（建议使用 2.x 版本）：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem <span class="nb">install </span>bundler <span class="nt">-v</span> <span class="s1">'~&gt; 2.4'</span>
+</code></pre></div></div>
+
+<p>进入你的 Jekyll 项目目录，执行：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">install</span>
+</code></pre></div></div>
+
+<p>如果 <code class="language-plaintext highlighter-rouge">Gemfile</code> 中包含 <code class="language-plaintext highlighter-rouge">github-pages</code>，它会自动安装 Jekyll 3.9.5 及其依赖。因为我们已经安装了编译所需的系统库，<code class="language-plaintext highlighter-rouge">nokogiri</code> 等 gem 应该能顺利编译安装。</p>
+
+<h2 id="获取项目代码">获取项目代码</h2>
+
+<p>可以直接在虚拟机中克隆你的 GitHub 仓库：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/你的用户名/bin4xin.github.io.git
+<span class="nb">cd </span>bin4xin.github.io
+</code></pre></div></div>
+
+<p>如果 Git 访问 GitHub 较慢，可以设置代理（假设宿主机代理为 <code class="language-plaintext highlighter-rouge">192.168.3.98:7890</code>）：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> http.proxy http://192.168.3.98:7890
+git config <span class="nt">--global</span> https.proxy http://192.168.3.98:7890
+</code></pre></div></div>
+
+<h2 id="启动-jekyll-预览">启动 Jekyll 预览</h2>
+
+<p>在项目目录中运行：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">exec </span>jekyll serve <span class="nt">--host</span> 0.0.0.0 <span class="nt">-P</span> 4000
+</code></pre></div></div>
+
+<p>参数说明：</p>
 
 <ul>
-  <li>✅ 始终使用 <strong>JDK 21 LTS</strong>，不要追求最新版 Java</li>
-  <li>✅ 从 <strong>JAR 文件</strong>启动，不要使用 DMG 安装包</li>
-  <li>✅ 使用<strong>命令行启动</strong>，方便查看错误信息</li>
-  <li>✅ <strong>手动启动浏览器</strong>，放弃 Burp 的内置浏览器按钮</li>
+  <li><code class="language-plaintext highlighter-rouge">--host 0.0.0.0</code>：允许外部访问</li>
+  <li><code class="language-plaintext highlighter-rouge">-P 4000</code>：指定端口（默认 4000，不需要 root 权限）</li>
 </ul>
 
-<hr />
+<p>启动后，在 Windows 浏览器中访问 <code class="language-plaintext highlighter-rouge">http://$INNER-VM-HOST-IP:4000</code> 即可看到博客。</p>
 
-<blockquote>
-  <p>这份教程完全基于实际问题和解决方案编写，适用于在 macOS Catalina 上使用 Burp Suite 2026.7.3。如果遇到其他问题，可以在命令行启动查看详细错误日志，然后针对性解决。</p>
-</blockquote>
+<section class="gh-banner success" aria-labelledby="banner-title-jekyll-服务已成功启动-后续修改-markdown-文件后保存即可自动重新生成站点-刷新浏览器查看效果" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text">Jekyll 服务已成功启动，后续修改 Markdown 文件后保存即可自动重新生成站点，刷新浏览器查看效果。</span>
+    </div>
+</section>
+
+<h2 id="vs-code-远程编辑">VS Code 远程编辑</h2>
+
+<h3 id="安装-remote---ssh-扩展">安装 Remote - SSH 扩展</h3>
+
+<p>在 VS Code 中搜索并安装 <strong>Remote - SSH</strong> 扩展（Microsoft 出品）。</p>
+
+<h3 id="配置-ssh-密钥登录">配置 SSH 密钥登录</h3>
+
+<p>每次连接都输入密码既繁琐又不安全，推荐配置 SSH 密钥实现免密登录。</p>
+
+<h4 id="1-在-windows-端生成密钥对">1. 在 Windows 端生成密钥对</h4>
+
+<p>打开 PowerShell 或 Git Bash，执行：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-keygen <span class="nt">-t</span> ed25519 <span class="nt">-C</span> <span class="s2">"你的邮箱@example.com"</span>
+</code></pre></div></div>
+
+<p>按回车使用默认路径（<code class="language-plaintext highlighter-rouge">C:\Users\你的用户名\.ssh\id_ed25519</code>），建议设置一个 passphrase（也可留空）。</p>
+
+<p>生成后会得到两个文件：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">id_ed25519</code>：私钥，<strong>绝不能泄露</strong></li>
+  <li><code class="language-plaintext highlighter-rouge">id_ed25519.pub</code>：公钥，可以分发到服务器</li>
+</ul>
+
+<h4 id="2-将公钥上传到虚拟机">2. 将公钥上传到虚拟机</h4>
+
+<p><strong>方式一：使用 <code class="language-plaintext highlighter-rouge">ssh-copy-id</code>（Git Bash 或 WSL）</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-copy-id <span class="nt">-i</span> ~/.ssh/id_ed25519.pub 用户名@<span class="nv">$INNER</span><span class="nt">-VM-HOST-IP</span>
+</code></pre></div></div>
+
+<p><strong>方式二：手动复制（PowerShell）</strong></p>
+
+<p>先查看公钥内容：</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Get-Content</span><span class="w"> </span><span class="nv">$</span><span class="nn">env</span><span class="p">:</span><span class="nv">USERPROFILE</span><span class="nx">\.ssh\id_ed25519.pub</span><span class="w">
+</span></code></pre></div></div>
+
+<p>然后 SSH 登录到虚拟机，将公钥追加到 <code class="language-plaintext highlighter-rouge">authorized_keys</code>：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> <span class="nt">-p</span> ~/.ssh
+<span class="nb">chmod </span>700 ~/.ssh
+<span class="nb">echo</span> <span class="s2">"你的公钥内容"</span> <span class="o">&gt;&gt;</span> ~/.ssh/authorized_keys
+<span class="nb">chmod </span>600 ~/.ssh/authorized_keys
+</code></pre></div></div>
+
+<h4 id="3-配置-ssh-config可选但推荐">3. 配置 SSH Config（可选但推荐）</h4>
+
+<p>在 Windows 的 <code class="language-plaintext highlighter-rouge">C:\Users\你的用户名\.ssh\config</code> 文件中添加：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Host jekyll-vm
+    HostName $INNER-VM-HOST-IP
+    User bin4xin
+    IdentityFile ~/.ssh/id_ed25519
+    Port 22
+</code></pre></div></div>
+
+<p>这样后续连接只需输入别名 <code class="language-plaintext highlighter-rouge">jekyll-vm</code>，无需再记 IP 和用户名。</p>
+
+<h4 id="4-测试免密登录">4. 测试免密登录</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh jekyll-vm
+</code></pre></div></div>
+
+<p>如果直接登录成功且无需输入密码，说明配置完成。</p>
+
+<section class="gh-banner info" aria-labelledby="banner-title-配置好密钥后-vs-code-remote-ssh-连接时将自动使用密钥认证-无需每次输入密码-大幅提升开发体验" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text">配置好密钥后，VS Code Remote-SSH 连接时将自动使用密钥认证，无需每次输入密码，大幅提升开发体验。</span>
+    </div>
+</section>
+
+<h3 id="配置-ssh-连接">配置 SSH 连接</h3>
+
+<p>使用快捷键 <code class="language-plaintext highlighter-rouge">Ctrl+Shift+P</code> 打开命令面板，输入 <code class="language-plaintext highlighter-rouge">Remote-SSH: Connect to Host...</code>，然后输入连接信息：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>用户名@$INNER-VM-HOST-IP
+</code></pre></div></div>
+
+<p>例如 <code class="language-plaintext highlighter-rouge">bin4xin@$INNER-VM-HOST-IP</code>。第一次连接时需要确认主机指纹并输入密码。</p>
+
+<p>连接成功后，VS Code 会打开一个远程窗口，左下角显示 <code class="language-plaintext highlighter-rouge">SSH: $INNER-VM-HOST-IP</code>。</p>
+
+<h3 id="打开远程文件夹">打开远程文件夹</h3>
+
+<p>在远程窗口中点击”打开文件夹”，输入远程项目路径（如 <code class="language-plaintext highlighter-rouge">/home/bin4xin/github/bin4xin.github.io</code>），即可像编辑本地文件一样编辑博客内容。</p>
+
+<h3 id="实时预览">实时预览</h3>
+
+<p>保持虚拟机的 Jekyll 服务运行，在 VS Code 中修改文件后，Jekyll 会自动重新生成站点（如果未启用 <code class="language-plaintext highlighter-rouge">--livereload</code>，则手动刷新浏览器即可）。</p>
+
+<p>这种方式下，你可以在熟悉的 VS Code 环境中编辑，而所有的编译和运行都在 Linux 中完成，避免了 Windows 上的依赖问题。</p>
+
+<h2 id="git-配置与推送">Git 配置与推送</h2>
+
+<h3 id="配置用户信息">配置用户信息</h3>
+
+<p>首次提交前需要设置用户名和邮箱：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> user.name <span class="s2">"你的用户名"</span>
+git config <span class="nt">--global</span> user.email <span class="s2">"你的邮箱@example.com"</span>
+</code></pre></div></div>
+
+<h3 id="推送代码到-github">推送代码到 GitHub</h3>
+
+<h4 id="方式一https--personal-access-token">方式一：HTTPS + Personal Access Token</h4>
+
+<p>使用 HTTPS 方式推送时，需要 Personal Access Token (PAT)：</p>
+
+<ol>
+  <li>打开 GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)</li>
+  <li>生成新 token，勾选 <code class="language-plaintext highlighter-rouge">repo</code> 权限</li>
+  <li>配置 Git 凭据存储：</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> credential.helper store
+</code></pre></div></div>
+
+<ol>
+  <li>执行 <code class="language-plaintext highlighter-rouge">git push</code>，输入用户名和 token（不是密码）</li>
+</ol>
+
+<h4 id="方式二ssh推荐">方式二：SSH（推荐）</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 生成 SSH 密钥</span>
+ssh-keygen <span class="nt">-t</span> ed25519 <span class="nt">-C</span> <span class="s2">"你的邮箱@example.com"</span>
+
+<span class="c"># 查看公钥并添加到 GitHub</span>
+<span class="nb">cat</span> ~/.ssh/id_ed25519.pub
+
+<span class="c"># 修改远程仓库地址</span>
+git remote set-url origin git@github.com:你的用户名/bin4xin.github.io.git
+
+<span class="c"># 推送</span>
+git push
+</code></pre></div></div>
+
+<h2 id="常见问题与解决">常见问题与解决</h2>
+
+<section class="gh-banner error" aria-labelledby="banner-title-若遇到-code-bundle-install-code-或-code-jekyll-serve-code-报错-优先检查-ruby-版本-code-ruby-v-code-与-gemfile-中指定的版本是否一致-版本不匹配是最常见的根因" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575L6.457 1.047ZM8 4.75a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4.75Zm.75 6.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text">若遇到 <code>bundle install</code>或 <code>jekyll serve</code> 报错，优先检查 Ruby 版本（<code>ruby -v</code>）与 Gemfile 中指定的版本是否一致，版本不匹配是最常见的根因。</span>
+    </div>
+</section>
+
+<h3 id="1-sudo-bundle-command-not-found">1. <code class="language-plaintext highlighter-rouge">sudo: bundle: command not found</code></h3>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">sudo bundle</code> 时，<code class="language-plaintext highlighter-rouge">rbenv</code> 的环境变量不会传递给 root。解决方法是使用 <code class="language-plaintext highlighter-rouge">sudo -E</code> 保留环境，或者直接使用高端口（如 4000），避免使用 <code class="language-plaintext highlighter-rouge">sudo</code>。</p>
+
+<h3 id="2-bundler-command-not-found-jekyll">2. <code class="language-plaintext highlighter-rouge">bundler: command not found: jekyll</code></h3>
+
+<p>同样是因为 <code class="language-plaintext highlighter-rouge">sudo</code> 导致 <code class="language-plaintext highlighter-rouge">PATH</code> 丢失。可以使用 <code class="language-plaintext highlighter-rouge">sudo -E</code>，或安装 <code class="language-plaintext highlighter-rouge">rbenv-sudo</code> 插件，或者用完整路径执行。</p>
+
+<h3 id="3-git-代理问题">3. Git 代理问题</h3>
+
+<p>如果虚拟机无法直接访问 GitHub，可以配置代理。如果代理是 SOCKS5，需要改用 <code class="language-plaintext highlighter-rouge">socks5://</code> 前缀：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> http.proxy socks5://192.168.3.98:7890
+</code></pre></div></div>
+
+<h3 id="4-ruby-源码下载慢">4. Ruby 源码下载慢</h3>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">RUBY_BUILD_MIRROR_URL</code> 环境变量指向国内镜像，并确保 <code class="language-plaintext highlighter-rouge">ruby-build</code> 插件已更新到最新版。</p>
+
+<h3 id="5-remote-ssh-连接失败">5. Remote-SSH 连接失败</h3>
+
+<p>检查虚拟机 IP 是否可达，SSH 服务是否运行，防火墙是否放行 22 端口：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl status ssh
+<span class="nb">sudo </span>ufw allow 22
+</code></pre></div></div>
+
+<h3 id="6-nokogiri-编译失败">6. <code class="language-plaintext highlighter-rouge">nokogiri</code> 编译失败</h3>
+
+<p>确保已安装 <code class="language-plaintext highlighter-rouge">libxml2-dev</code> 和 <code class="language-plaintext highlighter-rouge">libxslt1-dev</code>，并在 Linux 环境下编译，通常可以避免 Windows 上的编译问题。</p>
+
+<h2 id="总结">总结</h2>
+
+<p>通过 <strong>VMware Ubuntu + VS Code Remote-SSH + Jekyll</strong> 的组合，我们获得了稳定高效的博客开发体验。Linux 环境下 Ruby 原生扩展的编译更加顺畅，而 VS Code 的远程开发功能让我们可以继续使用熟悉的编辑器，兼顾了开发效率和跨平台兼容性。</p>
+
+<p>这种方案特别适合以下场景：</p>
+
+<ul>
+  <li>Windows 下 Jekyll 环境配置困难</li>
+  <li>需要同时使用多个 Ruby 版本</li>
+  <li>希望保持本地 Windows 环境整洁</li>
+  <li>需要模拟 Linux 生产环境</li>
+</ul>
+
+<section class="gh-banner success" aria-labelledby="banner-title-以上-阐述完毕" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text">以上，阐述完毕。</span>
+    </div>
+</section>
 
             <!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
 <footer>
@@ -614,7 +871,7 @@ Home		Info.plist	MacOS		_CodeSignature
 				<h2 class="lead">申明</h2>
 				<div>
 					<div class="mb-2">
-						<a href="/blog/2026/Burp-Suite-macOS-Catalina-install-setup-walkthrough/" target="_blank" class="text-bold">
+						<a href="/blog/2026/jekyll-vmware-remote-dev/" target="_blank" class="text-bold">
 							<div class="fa fa-link"></div>
 							转载请申明本文档链接
 						</a>
@@ -632,7 +889,7 @@ Home		Info.plist	MacOS		_CodeSignature
 		<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
 			<h2 class="lead">贡献开源文档</h2>
 			<div>
-				<a href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2026-08-08-Burp-Suite-macOS-Catalina-install-setup-walkthrough.md" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2026-08-26-jekyll-vmware-remote-dev.md" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
 					<svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
 					贡献当前开源文档
 				</a>
@@ -651,7 +908,7 @@ Home		Info.plist	MacOS		_CodeSignature
 					<div class="fa fa-thumbs-o-up"></div>
 				</span>
 			</a>
-			<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_posts/blog/2026-08-08-Burp-Suite-macOS-Catalina-install-setup-walkthrough.md&nbsp; Burp Suite 2026.7.3 for macOS 10.15.7/Catalina | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
+			<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_posts/blog/2026-08-26-jekyll-vmware-remote-dev.md&nbsp; 在 VMware Ubuntu 中结合 VS Code 与 Jekyll 进行远程开发 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
 				<span class="btn mr-1 color-border-accent-emphasis" title="本文档有问题?">
 					<div class="fa fa-thumbs-o-down"></div>
 				</span>
@@ -696,13 +953,13 @@ Home		Info.plist	MacOS		_CodeSignature
                             </svg>
                         </button>
                         <div class="toc-dropdown-menu" id="tocDropdownMenu">
-                            <a class="toc-dropdown-item" href="https://github.com/copilot?prompt=I%20need%20help%20with%20this%20GitHub%20Docs%20page%3A%20https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/blog/2026-08-08-Burp-Suite-macOS-Catalina-install-setup-walkthrough.md" target="_blank">
+                            <a class="toc-dropdown-item" href="https://github.com/copilot?prompt=I%20need%20help%20with%20this%20GitHub%20Docs%20page%3A%20https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/blog/2026-08-26-jekyll-vmware-remote-dev.md" target="_blank">
                                 <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
                                     <path d="M7.998 15.035c-4.562 0-7.873-2.914-7.998-3.749V9.338c.085-.628.677-1.686 1.588-2.065.013-.07.024-.143.036-.218.029-.183.06-.384.126-.612-.201-.508-.254-1.084-.254-1.656 0-.87.128-1.769.693-2.484.579-.733 1.494-1.124 2.724-1.261 1.206-.134 2.262.034 2.944.765.05.053.096.108.139.165.044-.057.094-.112.143-.165.682-.731 1.738-.899 2.944-.765 1.23.137 2.145.528 2.724 1.261.566.715.693 1.614.693 2.484 0 .572-.053 1.148-.254 1.656.066.228.098.429.126.612.012.076.024.148.037.218.924.385 1.522 1.471 1.591 2.095v1.872c0 .766-3.351 3.795-8.002 3.795Zm0-1.485c2.28 0 4.584-1.11 5.002-1.433V7.862l-.023-.116c-.49.21-1.075.291-1.727.291-1.146 0-2.059-.327-2.71-.991A3.222 3.222 0 0 1 8 6.303a3.24 3.24 0 0 1-.544.743c-.65.664-1.563.991-2.71.991-.652 0-1.236-.081-1.727-.291l-.023.116v4.255c.419.323 2.722 1.433 5.002 1.433ZM6.762 2.83c-.193-.206-.637-.413-1.682-.297-1.019.113-1.479.404-1.713.7-.247.312-.369.789-.369 1.554 0 .793.129 1.171.308 1.371.162.181.519.379 1.442.379.853 0 1.339-.235 1.638-.54.315-.322.527-.827.617-1.553.117-.935-.037-1.395-.241-1.614Zm4.155-.297c-1.044-.116-1.488.091-1.681.297-.204.219-.359.679-.242 1.614.091.726.303 1.231.618 1.553.299.305.784.54 1.638.54.922 0 1.28-.198 1.442-.379.179-.2.308-.578.308-1.371 0-.765-.123-1.242-.37-1.554-.233-.296-.693-.587-1.713-.7Z"></path><path d="M6.25 9.037a.75.75 0 0 1 .75.75v1.501a.75.75 0 0 1-1.5 0V9.787a.75.75 0 0 1 .75-.75Zm4.25.75v1.501a.75.75 0 0 1-1.5 0V9.787a.75.75 0 0 1 1.5 0Z"></path>
                                 </svg>
                                 <span>询问 Copilot</span>
                             </a>
-                            <a class="toc-dropdown-item" href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/blog/2026-08-08-Burp-Suite-macOS-Catalina-install-setup-walkthrough.md" target="_blank">
+                            <a class="toc-dropdown-item" href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/blog/2026-08-26-jekyll-vmware-remote-dev.md" target="_blank">
                                 <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>
                                 <span>获取原始 Markdown</span>
                             </a>
@@ -719,13 +976,20 @@ Home		Info.plist	MacOS		_CodeSignature
         <h2 class="toc-heading" id="in-this-article">在本文中</h2>
         <nav class="toc-nav" aria-labelledby="in-this-article">
             <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h2"><a href="#在-macos-catalina-上安装与配置-burp-suite-202673">在 macOS Catalina 上安装与配置 Burp Suite 2026.7.3</a></li>
-<li class="toc-entry toc-h2"><a href="#一系统环境与前置要求">一、系统环境与前置要求</a></li>
-<li class="toc-entry toc-h2"><a href="#二下载-burp-suite">二、下载 Burp Suite</a></li>
-<li class="toc-entry toc-h2"><a href="#三配置与启动">三、配置与启动</a></li>
-<li class="toc-entry toc-h2"><a href="#四常见问题与解决方案">四、常见问题与解决方案</a></li>
-<li class="toc-entry toc-h2"><a href="#五加载-mcp-扩展如需连接-claude-code">五、加载 MCP 扩展（如需连接 Claude Code）</a></li>
-<li class="toc-entry toc-h2"><a href="#六总结与建议">六、总结与建议</a></li>
+<li class="toc-entry toc-h1"><a href="#在-vmware-ubuntu-中结合-vs-code-与-jekyll-进行远程开发">在 VMware Ubuntu 中结合 VS Code 与 Jekyll 进行远程开发</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#背景">背景</a></li>
+<li class="toc-entry toc-h2"><a href="#环境准备">环境准备</a></li>
+<li class="toc-entry toc-h2"><a href="#安装-ruby">安装 Ruby</a></li>
+<li class="toc-entry toc-h2"><a href="#安装-bundler-和-jekyll">安装 Bundler 和 Jekyll</a></li>
+<li class="toc-entry toc-h2"><a href="#获取项目代码">获取项目代码</a></li>
+<li class="toc-entry toc-h2"><a href="#启动-jekyll-预览">启动 Jekyll 预览</a></li>
+<li class="toc-entry toc-h2"><a href="#vs-code-远程编辑">VS Code 远程编辑</a></li>
+<li class="toc-entry toc-h2"><a href="#git-配置与推送">Git 配置与推送</a></li>
+<li class="toc-entry toc-h2"><a href="#常见问题与解决">常见问题与解决</a></li>
+<li class="toc-entry toc-h2"><a href="#总结">总结</a></li>
+</ul>
+</li>
 </ul>
         </nav>
     </div>
@@ -734,7 +998,7 @@ Home		Info.plist	MacOS		_CodeSignature
 
 <script>
 function copyAsMarkdown() {
-    var rawPath = "https://raw.githubusercontent.com/Bin4xin/bin4xin.github.io/main/_posts/blog/2026-08-08-Burp-Suite-macOS-Catalina-install-setup-walkthrough.md";
+    var rawPath = "https://raw.githubusercontent.com/Bin4xin/bin4xin.github.io/main/_posts/blog/2026-08-26-jekyll-vmware-remote-dev.md";
     fetch(rawPath)
         .then(function(res) {
             if (!res.ok) throw new Error('HTTP error ' + res.status);

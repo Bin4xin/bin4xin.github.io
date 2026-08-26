@@ -7,14 +7,39 @@
     <link>https://bin4xin.github.io</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
     <pubDate>
-         2026/08/26
+         2026/08/27
         
     </pubDate>
     <lastBuildDate>
-         2026/08/26
+         2026/08/27
         
     </lastBuildDate>
     <generator>Jekyll Ver 3.9.5.</generator>
+    
+      <item>
+        <title>blog: 在 VMware Ubuntu 中结合 VS Code 与 Jekyll 进行远程开发</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2026/08/26
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/blog/2026/jekyll-vmware-remote-dev/</link>
+        <guid isPermaLink="true">/blog/2026/jekyll-vmware-remote-dev/</guid>
+        
+        <category>Jekyll</category>
+        
+        <category>VMware</category>
+        
+        <category>VSCode</category>
+        
+        <category>Ubuntu</category>
+        
+        <category>Ruby</category>
+        
+        
+        <category>blog</category>
+        
+      </item>
     
       <item>
         <title>blog: Burp Suite 2026.7.3 for macOS 10.15.7/Catalina</title>
@@ -1089,6 +1114,27 @@
         
         
         <category>daily</category>
+        
+      </item>
+    
+      <item>
+        <title>blog: Frp Based On Golang</title>
+        <description>[MORE]</description>
+        <pubDate>
+         2021/11/23
+        
+        </pubDate>
+        <link>https://bin4xin.github.io/blog/2021/FRP-Based-On-Golang/</link>
+        <guid isPermaLink="true">/blog/2021/FRP-Based-On-Golang/</guid>
+        
+        <category>Golang</category>
+        
+        <category>FRP</category>
+        
+        <category>NAT</category>
+        
+        
+        <category>blog</category>
         
       </item>
     

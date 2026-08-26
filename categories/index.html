@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://bin4xin.github.io/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
 <meta property="og:url" content="https://bin4xin.github.io/categories/" />
 <title> 文章分类 | © 哨兵 | SENTINEL SECURITY, LAB</title>
-
+<link rel="stylesheet" href="/assets/css/cate-document.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
 <!-- Bootstrap core CSS -->
@@ -177,13 +177,20 @@
                             <summary class="tl-summary">
                                 <div class="tl-header">
                                     <h2 class="tl-title">博客</h2>
-                                    <span class="tl-token">79 篇文章</span>
+                                    <span class="tl-token">81 篇文章</span>
                                 </div>
                                 
                                     <div class="tl-desc">安全工具实战、CTF 靶场演练、Android 逆向与技术探索笔记</div>
                                 
                             </summary>
                             <ol class="tl-articles">
+                                
+                                    <li>
+                                        <a class="tl-article-link" href="/blog/2026/jekyll-vmware-remote-dev/">
+                                            <span class="tl-article-title">在 VMware Ubuntu 中结合 VS Code 与 Jekyll 进行远程开发</span>
+                                            <span class="tl-article-date">2026/08/26</span>
+                                        </a>
+                                    </li>
                                 
                                     <li>
                                         <a class="tl-article-link" href="/blog/2026/Burp-Suite-macOS-Catalina-install-setup-walkthrough/">
@@ -315,13 +322,6 @@
                                         <a class="tl-article-link" href="/blog/2022/Provincial-Communication-and-Internet-Industry-Vocational-Skills-Competition/">
                                             <span class="tl-article-title">2022年全省通信和互联网行业职业技能竞赛 WriteUp</span>
                                             <span class="tl-article-date">2022/11/4</span>
-                                        </a>
-                                    </li>
-                                
-                                    <li>
-                                        <a class="tl-article-link" href="/blog/2022/ruoyi-vuln-summary/">
-                                            <span class="tl-article-title">::若依:: vulnerability summary</span>
-                                            <span class="tl-article-date">2022/10/8</span>
                                         </a>
                                     </li>
                                 
@@ -1787,7 +1787,19 @@
     </div>
     <!-- Sticky help sidebar -->
     <div class="categories-sidebar">
-        <!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
+        <div class="categories-help-card">
+            <h3 class="categories-help-title">帮助我们完善</h3>
+            <p class="categories-help-desc">内容由社区维护，欢迎提交反馈与贡献</p>
+            <a class="categories-help-link" href="https://github.com/Bin4xin/bin4xin.github.io/edit/main/_primaryindex/categories.html" target="_blank">
+                编辑此页
+                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8.22 2.97a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l2.97-2.97H3.75a.75.75 0 0 1 0-1.5h7.44L8.22 4.03a.75.75 0 0 1 0-1.06Z"/></svg>
+            </a>
+            <a class="categories-help-link" href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,categories&template=2-bug_report.yaml&title=_primaryindex/categories.html&nbsp; 文章分类 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank" rel="noopener noreferrer">
+                提交反馈
+                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"/></svg>
+            </a>
+        </div>
+        <br/><!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
 <footer>
 	<style>
 		.border-top {
@@ -1832,19 +1844,7 @@
 			</a>
 		</div>
 	</section>
-</footer><br/>
-        <div class="categories-help-card">
-            <h3 class="categories-help-title">帮助我们完善</h3>
-            <p class="categories-help-desc">内容由社区维护，欢迎提交反馈与贡献</p>
-            <a class="categories-help-link" href="https://github.com/Bin4xin/bin4xin.github.io/edit/main/_primaryindex/categories.html" target="_blank">
-                编辑此页
-                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8.22 2.97a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042l2.97-2.97H3.75a.75.75 0 0 1 0-1.5h7.44L8.22 4.03a.75.75 0 0 1 0-1.06Z"/></svg>
-            </a>
-            <a class="categories-help-link" href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,categories&template=2-bug_report.yaml&title=_primaryindex/categories.html&nbsp; 文章分类 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank" rel="noopener noreferrer">
-                提交反馈
-                <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"/></svg>
-            </a>
-        </div>
+</footer>
         <div class="hidden-print ntc-meta">
             <div class="post-meta">
                 <details open>
@@ -1855,7 +1855,7 @@
                     
                     <div class="ntc-meta-item">
                     <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> BLOG</span>
-                    <span class="ntc-badge">79</span>
+                    <span class="ntc-badge">81</span>
                     </div>
                     
                     <div class="ntc-meta-item">
