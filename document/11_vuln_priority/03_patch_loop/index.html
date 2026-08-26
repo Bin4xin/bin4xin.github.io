@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>修补跟踪与闭环管理 | © 哨兵</title>
+  <meta name="description" content="漏洞修补优先级量化管理技战法，涵盖漏洞资产关联与信息采集、漏洞优先级量化评估和修补跟踪与闭环管理三个阶段。">
+
+  <head>
+<meta charset="utf-8">
+<!--dev siwtch-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name='mobile-web-app-capable' content='yes'/>
+<meta name='full-screen' content='true'/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--dev switch end-->
+<meta name="description" content="本站由哨兵安全实验室支持创办">
+
+    <meta name="baidu-site-verification" content="codeva-Bt0LqEvH6L" />
+    <!-- Google tag (gtag.js) -->
+<!--<script defer src="https://www.googletagmanager.com/gtag/js?id=G-TJ5SFQ4KCM"></script>-->
+<!--<script defer src="/assets/js/gta.js"></script>-->
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="© 哨兵" />
+
+
+
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="修补跟踪与闭环管理 | © 哨兵" />
+<meta property="og:description" content="本站由哨兵安全实验室支持创办" />
+<meta property="og:image" content="https://bin4xin.github.io/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="https://bin4xin.github.io/document/11_vuln_priority/03_patch_loop/" />
+<title> 修补跟踪与闭环管理 | © 哨兵 | SENTINEL SECURITY, LAB</title>
+
+<link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
+<!-- Bootstrap core CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+<link href="/assets/css/bilibili_icon.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/assets/css/card.css">
+
+<script src="/assets/js/jquery.min.js"></script>
+<!-- #### defer load ####################################################################################-->
+<script src="/assets/js/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+<script defer src="/assets/js/pace.min.js"></script>
+<!-- #### defer load end ################################################################################-->
+
+<script defer src="/assets/js/jquery.sticky/1.0.4/jquery.sticky.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+
+</head>
+
+  <link rel="stylesheet" href="/assets/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/cate-document.css">
+</head>
+<body>
+
+  <!-- Theme toggle -->
+  <!-- <button class="doc-theme-toggle" id="doc-theme-toggle" title="切换明暗主题">
+    <i class="fas fa-moon"></i>
+    <i class="fas fa-sun"></i>
+  </button> -->
+    <div class="prefers-cs" role="group" aria-label="切换颜色主题">
+    <button class="prefers-cs-btn" data-pref="light" title="亮色模式">
+      <i class="fas fa-sun"></i>
+      <span class="prefers-cs-label">Light</span>
+    </button>
+    <button class="prefers-cs-btn" data-pref="auto" title="跟随系统">
+      <i class="fas fa-circle-half-stroke"></i>
+      <span class="prefers-cs-label">Auto</span>
+    </button>
+    <button class="prefers-cs-btn" data-pref="dark" title="暗色模式">
+      <i class="fas fa-moon"></i>
+      <span class="prefers-cs-label">Dark</span>
+    </button>
+  </div>
+  
+  <script>
+  (function(){
+    'use strict';
+  
+    var KEY  = 'prefers-color-scheme';
+    var btns = document.querySelectorAll('.prefers-cs-btn');
+  
+    function getSystemTheme(){
+      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+  
+    function applyTheme(theme){
+      if(theme === 'auto'){
+        theme = getSystemTheme();
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+  
+    function updateActiveState(pref){
+      btns.forEach(function(b){
+        b.classList.toggle('is-active', b.getAttribute('data-pref') === pref);
+      });
+    }
+  
+    // Init
+    var saved = localStorage.getItem(KEY) || 'auto';
+    applyTheme(saved);
+    updateActiveState(saved);
+  
+    // Click handlers
+    btns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var pref = this.getAttribute('data-pref');
+        localStorage.setItem(KEY, pref);
+        applyTheme(pref);
+        updateActiveState(pref);
+      });
+    });
+  
+    // System theme change
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(){
+      var current = localStorage.getItem(KEY) || 'auto';
+      if(current === 'auto'){
+        applyTheme('auto');
+      }
+    });
+  })();
+  </script>
+
+  <!-- Mobile sidebar toggle -->
+  <button class="doc-mobile-toggle" id="doc-mobile-toggle">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Mobile TOC button -->
+  <button class="doc-toc-mobile-btn" id="doc-toc-mobile-btn" title="目录导航">
+    <i class="fas fa-list-ul"></i>
+  </button>
+
+  <!-- Mobile TOC overlay -->
+  <div class="doc-toc-mobile-overlay" id="doc-toc-mobile-overlay"></div>
+
+  <!-- Mobile TOC panel -->
+  <div class="doc-toc-mobile-panel" id="doc-toc-mobile-panel">
+    <div class="doc-toc-title">目录</div>
+    <ul class="doc-toc-list" id="doc-toc-mobile-list"></ul>
+  </div>
+
+  <div class="doc-wrapper">
+
+    <!-- Sidebar -->
+    <aside class="doc-sidebar" id="doc-sidebar">
+      <div class="doc-brand">
+        <span class="doc-brand-tag">DOCUMENTATION</span>
+        <div class="doc-brand-title">© 哨兵</div>
+        <p class="doc-brand-sub">技术文档与参考手册</p>
+      </div>
+
+      
+
+
+
+
+
+
+
+
+
+<nav class="doc-nav">
+  <div class="doc-nav-header">
+    <i class="fas fa-book-open"></i>
+    <span>文档导航</span>
+  </div>
+
+  <div class="doc-nav-search">
+    <input type="text" id="doc-search" placeholder="搜索文档..." autocomplete="off" />
+    <i class="fas fa-search"></i>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="01_ransomware">
+    <button class="doc-nav-group-toggle" data-target="doc-group-01_ransomware">
+      <i class="fas fa-folder-open"></i>
+      <span>RANSOMWARE</span>
+      <em class="doc-nav-count">6</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-01_ransomware">
+      
+      
+      
+
+      
+      <li class="doc-nav-item ">
+        <a href="/document/01_ransomware/00_overview/" title="勒索病毒应急响应技战法">
+          <i class="fas fa-pump-soap"></i>
+          <span class="doc-nav-label">概述</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/01_ransomware/01_attack_model/" title="勒索病毒攻击传播模型">
+          <i class="fas fa-pump-soap"></i>
+          <span class="doc-nav-label">传播模型</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/01_ransomware/02_isolation/" title="紧急隔离与止血">
+          <i class="fas fa-pump-soap"></i>
+          <span class="doc-nav-label">隔离止血</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/01_ransomware/03_assessment/" title="影响评估与取证">
+          <i class="fas fa-pump-soap"></i>
+          <span class="doc-nav-label">评估取证</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/01_ransomware/04_recovery/" title="数据恢复与业务重建">
+          <i class="fas fa-pump-soap"></i>
+          <span class="doc-nav-label">恢复重建</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/01_ransomware/05_hardening/" title="安全加固与复盘">
+          <i class="fas fa-pump-soap"></i>
+          <span class="doc-nav-label">加固复盘</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="02_data_leak">
+    <button class="doc-nav-group-toggle" data-target="doc-group-02_data_leak">
+      <i class="fas fa-folder-open"></i>
+      <span>DATA LEAK</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-02_data_leak">
+      
+      
+      
+
+      
+      <li class="doc-nav-item ">
+        <a href="/document/02_data_leak/00_overview/" title="内部数据泄露应急溯源与取证技战法">
+          <i class="fas fa-user-secret"></i>
+          <span class="doc-nav-label">概述</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/02_data_leak/01_discovery/" title="泄露发现与紧急响应">
+          <i class="fas fa-user-secret"></i>
+          <span class="doc-nav-label">发现响应</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/02_data_leak/02_tracing/" title="数据流转溯源与证据固定">
+          <i class="fas fa-user-secret"></i>
+          <span class="doc-nav-label">溯源取证</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/02_data_leak/03_assessment/" title="影响评估与处置建议">
+          <i class="fas fa-user-secret"></i>
+          <span class="doc-nav-label">评估处置</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="03_ddos">
+    <button class="doc-nav-group-toggle" data-target="doc-group-03_ddos">
+      <i class="fas fa-folder-open"></i>
+      <span>DDOS</span>
+      <em class="doc-nav-count">5</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-03_ddos">
+      
+      
+      
+
+      
+      <li class="doc-nav-item ">
+        <a href="/document/03_ddos/00_overview/" title="DDoS 攻击应急响应技战法">
+          <i class="fas fa-bolt"></i>
+          <span class="doc-nav-label">概述</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/03_ddos/01_detection/" title="攻击发现与紧急响应">
+          <i class="fas fa-bolt"></i>
+          <span class="doc-nav-label">发现响应</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/03_ddos/02_cleaning/" title="流量清洗与分流">
+          <i class="fas fa-bolt"></i>
+          <span class="doc-nav-label">流量清洗</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/03_ddos/03_fallback/" title="业务保底运行">
+          <i class="fas fa-bolt"></i>
+          <span class="doc-nav-label">业务保底</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/03_ddos/04_recovery/" title="恢复与复盘">
+          <i class="fas fa-bolt"></i>
+          <span class="doc-nav-label">恢复复盘</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="04_supply_chain">
+    <button class="doc-nav-group-toggle" data-target="doc-group-04_supply_chain">
+      <i class="fas fa-folder-open"></i>
+      <span>SUPPLY CHAIN</span>
+      <em class="doc-nav-count">5</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-04_supply_chain">
+      
+      
+      
+
+      
+      <li class="doc-nav-item ">
+        <a href="/document/04_supply_chain/00_overview/" title="供应链攻击生产环境被控应急切换与重建">
+          <i class="fas fa-link"></i>
+          <span class="doc-nav-label">概述</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/04_supply_chain/01_discovery/" title="攻击发现与威胁确认">
+          <i class="fas fa-link"></i>
+          <span class="doc-nav-label">发现确认</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/04_supply_chain/02_isolation/" title="紧急隔离与业务切换">
+          <i class="fas fa-link"></i>
+          <span class="doc-nav-label">隔离切换</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/04_supply_chain/03_cleanup/" title="全面排查与清除">
+          <i class="fas fa-link"></i>
+          <span class="doc-nav-label">排查清除</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/04_supply_chain/04_rebuild/" title="环境重建与加固">
+          <i class="fas fa-link"></i>
+          <span class="doc-nav-label">重建加固</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="05_attck_soc">
+    <button class="doc-nav-group-toggle" data-target="doc-group-05_attck_soc">
+      <i class="fas fa-folder-open"></i>
+      <span>ATTCK SOC</span>
+      <em class="doc-nav-count">5</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-05_attck_soc">
+      
+      
+      
+
+      
+      <li class="doc-nav-item ">
+        <a href="/document/05_attck_soc/00_overview/" title="ATT&CK 驱动安全运营技战法">
+          <i class="fas fa-crosshairs"></i>
+          <span class="doc-nav-label">概述</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/05_attck_soc/01_mapping/" title="告警映射与 ATT&CK 分类">
+          <i class="fas fa-crosshairs"></i>
+          <span class="doc-nav-label">映射分类</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/05_attck_soc/02_noise_reduction/" title="告警降噪与规则优化">
+          <i class="fas fa-crosshairs"></i>
+          <span class="doc-nav-label">降噪优化</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/05_attck_soc/03_fallback/" title="业务保底运行">
+          <i class="fas fa-crosshairs"></i>
+          <span class="doc-nav-label">业务保底</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/05_attck_soc/04_recovery/" title="恢复与复盘">
+          <i class="fas fa-crosshairs"></i>
+          <span class="doc-nav-label">恢复复盘</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="06_ueba_hunting">
+    <button class="doc-nav-group-toggle" data-target="doc-group-06_ueba_hunting">
+      <i class="fas fa-folder-open"></i>
+      <span>UEBA HUNTING</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-06_ueba_hunting">
+      
+      
+      
+
+      
+      <li class="doc-nav-item ">
+        <a href="/document/06_ueba_hunting/00_overview/" title="UEBA 驱动内部威胁狩猎技战法">
+          <i class="fas fa-user-shield"></i>
+          <span class="doc-nav-label">概述</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/06_ueba_hunting/01_baseline/" title="数据采集与行为基线构建">
+          <i class="fas fa-user-shield"></i>
+          <span class="doc-nav-label">基线构建</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/06_ueba_hunting/02_hunting/" title="异常行为检测与狩猎">
+          <i class="fas fa-user-shield"></i>
+          <span class="doc-nav-label">检测狩猎</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/06_ueba_hunting/03_investigation/" title="调查响应与模型迭代">
+          <i class="fas fa-user-shield"></i>
+          <span class="doc-nav-label">调查迭代</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="07_hw_exercise">
+    <button class="doc-nav-group-toggle" data-target="doc-group-07_hw_exercise">
+      <i class="fas fa-folder-open"></i>
+      <span>HW EXERCISE</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-07_hw_exercise">
+      
+      
+      
+
+      
+      <li class="doc-nav-item ">
+        <a href="/document/07_hw_exercise/00_overview/" title="攻防演练防守方协同作战技战法">
+          <i class="fas fa-chess"></i>
+          <span class="doc-nav-label">概述</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/07_hw_exercise/01_preparation/" title="演练前备战">
+          <i class="fas fa-chess"></i>
+          <span class="doc-nav-label">备战</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/07_hw_exercise/02_battle/" title="演练中实战作战">
+          <i class="fas fa-chess"></i>
+          <span class="doc-nav-label">实战</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/07_hw_exercise/03_review/" title="演练后复盘">
+          <i class="fas fa-chess"></i>
+          <span class="doc-nav-label">复盘</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="08_threat_intelligence">
+    <button class="doc-nav-group-toggle" data-target="doc-group-08_threat_intelligence">
+      <i class="fas fa-folder-open"></i>
+      <span>THREAT INTELLIGENCE</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-08_threat_intelligence">
+      
+      
+      
+
+      
+      <li class="doc-nav-item ">
+        <a href="/document/08_threat_intelligence/00_overview/" title="威胁情报运营技战法">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">概述</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/08_threat_intelligence/01_collection/" title="情报采集与标准化处理">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">采集标准化</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/08_threat_intelligence/02_hunting/" title="异常行为检测与狩猎">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">检测狩猎</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/08_threat_intelligence/03_investigation/" title="调查响应与模型迭代">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">调查迭代</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="09_vendor_security">
+    <button class="doc-nav-group-toggle" data-target="doc-group-09_vendor_security">
+      <i class="fas fa-folder-open"></i>
+      <span>VENDOR SECURITY</span>
+      <em class="doc-nav-count">5</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-09_vendor_security">
+      
+      
+      
+
+      
+      <li class="doc-nav-item ">
+        <a href="/document/09_vendor_security/00_overview/" title="第三方供应商安全评估技战法">
+          <i class="fas fa-handshake"></i>
+          <span class="doc-nav-label">概述</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/09_vendor_security/01_threat_model/" title="第三方供应商威胁模型与风险全景">
+          <i class="fas fa-handshake"></i>
+          <span class="doc-nav-label">威胁模型</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/09_vendor_security/02_assessment/" title="供应商安全准入评估">
+          <i class="fas fa-handshake"></i>
+          <span class="doc-nav-label">准入评估</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/09_vendor_security/03_contract/" title="合同约束与安全基线约定">
+          <i class="fas fa-handshake"></i>
+          <span class="doc-nav-label">合同约束</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/09_vendor_security/04_monitoring/" title="持续监控与定期复评">
+          <i class="fas fa-handshake"></i>
+          <span class="doc-nav-label">持续监控</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="10_zero_trust_nac">
+    <button class="doc-nav-group-toggle" data-target="doc-group-10_zero_trust_nac">
+      <i class="fas fa-folder-open"></i>
+      <span>ZERO TRUST NAC</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-10_zero_trust_nac">
+      
+      
+      
+
+      
+      <li class="doc-nav-item ">
+        <a href="/document/10_zero_trust_nac/00_overview/" title="混合办公终端准入与零信任技战法">
+          <i class="fas fa-shield-alt"></i>
+          <span class="doc-nav-label">概述</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/10_zero_trust_nac/01_asset_baseline/" title="终端资产清查与合规基线">
+          <i class="fas fa-shield-alt"></i>
+          <span class="doc-nav-label">资产清查</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/10_zero_trust_nac/02_nac_deploy/" title="准入控制策略部署与实施">
+          <i class="fas fa-shield-alt"></i>
+          <span class="doc-nav-label">准入部署</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/10_zero_trust_nac/03_zt_deepen/" title="零信任策略深化与持续运营">
+          <i class="fas fa-shield-alt"></i>
+          <span class="doc-nav-label">零信任深化</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="11_vuln_priority">
+    <button class="doc-nav-group-toggle" data-target="doc-group-11_vuln_priority">
+      <i class="fas fa-folder-open"></i>
+      <span>VULN PRIORITY</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-11_vuln_priority">
+      
+      
+      
+
+      
+      <li class="doc-nav-item ">
+        <a href="/document/11_vuln_priority/00_overview/" title="漏洞修补优先级量化管理技战法">
+          <i class="fas fa-bug"></i>
+          <span class="doc-nav-label">概述</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/11_vuln_priority/01_asset_correlation/" title="漏洞资产关联与信息采集">
+          <i class="fas fa-bug"></i>
+          <span class="doc-nav-label">资产关联</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/11_vuln_priority/02_scoring/" title="漏洞优先级量化评估">
+          <i class="fas fa-bug"></i>
+          <span class="doc-nav-label">量化评估</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item is-active">
+        <a href="/document/11_vuln_priority/03_patch_loop/" title="修补跟踪与闭环管理">
+          <i class="fas fa-bug"></i>
+          <span class="doc-nav-label">修补闭环</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="12_data_classification">
+    <button class="doc-nav-group-toggle" data-target="doc-group-12_data_classification">
+      <i class="fas fa-folder-open"></i>
+      <span>DATA CLASSIFICATION</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-12_data_classification">
+      
+      
+      
+
+      
+      <li class="doc-nav-item ">
+        <a href="/document/12_data_classification/00_overview/" title="数据分类分级流转风险监控技战法">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">概述</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/12_data_classification/01_identification/" title="数据资产识别与分类分级标签化">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">识别标签化</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/12_data_classification/02_flow_monitoring/" title="数据流转路径映射与监控部署">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">流转监控</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/12_data_classification/03_alert_loop/" title="风险预警与处置闭环">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">风险预警</span>
+          
+          <em class="doc-nav-badge doc-nav-badge--new">NEW</em>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+</nav>
+
+      <div class="doc-sidebar-footer">
+        <a href="/">
+          <i class="fas fa-arrow-left"></i>
+          返回首页
+        </a>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="doc-content-wrap">
+
+      <!-- Breadcrumb -->
+      <div class="doc-breadcrumb">
+        <a href="/">Home</a>
+        <span class="doc-breadcrumb-sep">/</span>
+        <a href="/document/">Document</a>
+        
+        
+          
+        
+          
+            
+            <span class="doc-breadcrumb-sep">/</span>
+            <span>priority</span>
+          
+        
+          
+        
+      </div>
+
+      <!-- Article Header -->
+      <header class="doc-article-head">
+        <h1 class="doc-article-title">修补跟踪与闭环管理</h1>
+        <div class="doc-article-meta">
+          
+          
+          <span class="doc-article-meta-item">
+            
+            
+            <img src="https://avatars.githubusercontent.com/u/94035930?s=24&v=4"
+                alt="sentinel, Lab"
+                class="doc-author-avatar" />
+            
+            
+              sentinel, Lab
+            
+          </span>
+          
+          
+          <span class="doc-article-meta-item">
+            <i class="fas fa-code-branch"></i>
+            v2.0
+          </span>
+          
+        </div>
+        
+        <div class="doc-tags">
+          
+            <span class="doc-tag">漏洞管理</span>
+          
+            <span class="doc-tag">优先级评估</span>
+          
+            <span class="doc-tag">CVSS</span>
+          
+            <span class="doc-tag">EPSS</span>
+          
+            <span class="doc-tag">量化模型</span>
+          
+        </div>
+        
+      </header>
+
+      <!-- Content + TOC side by side -->
+      <div class="doc-content-inner">
+
+        <!-- Article Body -->
+        <article class="doc-main doc-article-body">
+          <h2 id="场景-3--阶段三修补跟踪与闭环管理">场景 3 — 阶段三：修补跟踪与闭环管理</h2>
+
+<h3 id="修补工作流">修补工作流</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>步骤</th>
+      <th>名称</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>工单自动派发</td>
+      <td>量化评估结果自动生成工单，按等级分配给对应责任人，P0→电话通知 P1→IM P2→邮件</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>修补方案确认</td>
+      <td>补丁修补 / 配置加固 / 补偿控制，影响评估 + 回退方案准备，P0 需安全 + 运维 + 开发三方确认</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>测试验证</td>
+      <td>测试环境先行修补验证，功能回归 + 性能测试，确认无兼容性问题</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>生产环境修补</td>
+      <td>灰度发布 → 逐步推广，P0 紧急修补可变更流程简化，全程记录操作日志</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>复扫验证关闭</td>
+      <td>修补后自动触发复扫，确认漏洞已修复后关闭工单，未修复则退回重新处理</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="修补与缓解策略">修补与缓解策略</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>策略</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>补丁修补（首选）</td>
+      <td>官方补丁/升级版本/热修复，影响最小化 + 测试验证后部署</td>
+    </tr>
+    <tr>
+      <td>配置加固</td>
+      <td>关闭漏洞利用所需的配置项，如禁用不安全的功能/接口</td>
+    </tr>
+    <tr>
+      <td>补偿控制（临时）</td>
+      <td>WAF 规则 / IPS 签名 / 网络 ACL，购买修补时间窗口，不替代修补</td>
+    </tr>
+    <tr>
+      <td>组件替换</td>
+      <td>替换存在漏洞的第三方组件，升级到安全版本/替代方案</td>
+    </tr>
+    <tr>
+      <td>服务下线</td>
+      <td>无法修补且风险不可接受时，临时/永久下线受影响服务</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="修补-sla-达成率">修补 SLA 达成率</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>SLA</th>
+      <th>当前</th>
+      <th>目标</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>P0 (24h)</td>
+      <td>92%</td>
+      <td>≥ 90%</td>
+    </tr>
+    <tr>
+      <td>P1 (7d)</td>
+      <td>88%</td>
+      <td>≥ 90%</td>
+    </tr>
+    <tr>
+      <td>P2 (30d)</td>
+      <td>95%</td>
+      <td>≥ 90%</td>
+    </tr>
+    <tr>
+      <td>P3 (90d)</td>
+      <td>78%</td>
+      <td>≥ 90%</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="关键运营指标">关键运营指标</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>指标</th>
+      <th>当前</th>
+      <th>目标</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>MTTR P0</td>
+      <td>18h</td>
+      <td>&lt; 24h</td>
+    </tr>
+    <tr>
+      <td>MTTR P1</td>
+      <td>5.2d</td>
+      <td>&lt; 7d</td>
+    </tr>
+    <tr>
+      <td>漏洞复扫通过率</td>
+      <td>94%</td>
+      <td>≥ 95%</td>
+    </tr>
+    <tr>
+      <td>SLA 超期率</td>
+      <td>8%</td>
+      <td>&lt; 5%</td>
+    </tr>
+    <tr>
+      <td>工单关闭率(月)</td>
+      <td>87%</td>
+      <td>≥ 90%</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="例外管理与升级">例外管理与升级</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>机制</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>例外审批流程</td>
+      <td>无法按时修补需提交例外申请，说明原因 + 补偿措施 + 风险评估，P0 需 CISO 审批</td>
+    </tr>
+    <tr>
+      <td>SLA 超期升级</td>
+      <td>超期 50% → 系统自动提醒，超期 80% → 安全团队介入，超期 100% → 管理层通报</td>
+    </tr>
+    <tr>
+      <td>定期通报机制</td>
+      <td>周报：修补进度/超期风险，月报：漏洞趋势/SLA 达成率，季报：漏洞管理成熟度评估</td>
+    </tr>
+    <tr>
+      <td>持续优化闭环</td>
+      <td>月度 Top10 漏洞根因分析，修补效率持续改进，自动化覆盖率提升</td>
+    </tr>
+  </tbody>
+</table>
+
+        </article>
+
+        <!-- TOC (desktop right sidebar) -->
+        <aside class="doc-toc" id="doc-toc">
+          <div class="doc-toc-title">目录</div>
+          <ul class="doc-toc-list" id="doc-toc-list"></ul>
+        </aside>
+
+      </div>
+
+      <!-- Prev / Next Pager -->
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+      
+
+      
+      <nav class="doc-pager">
+        
+        <a class="doc-pager-item" href="/document/11_vuln_priority/02_scoring/">
+          <div class="doc-pager-label"><i class="fas fa-arrow-left"></i> 上一篇</div>
+          <div class="doc-pager-title">漏洞优先级量化评估</div>
+        </a>
+        
+        
+      </nav>
+      
+      
+
+
+<div class="doc-suggestion">
+    <!-- 1. 申明模块 -->
+    <section class="doc-suggestion-section">
+      <div class="doc-suggestion-heading">申明</div>
+      <div class="doc-suggestion-links">
+        <a class="doc-suggestion-link" href="https://bin4xin.github.io/document/11_vuln_priority/03_patch_loop/" target="_blank">
+          <i class="fas fa-fingerprint"></i>
+          转载请申明本文档链接
+        </a>
+        <a class="doc-suggestion-link" href="https://github.com/sentryCyberSec" target="_blank">
+          <i class="fas fa-hat-wizard"></i>
+          
+          
+            Post by sentinel, Lab.
+          
+        </a>
+      </div>
+    </section>
+  
+    <!-- 2. 贡献开源文档 -->
+    <section class="doc-suggestion-section">
+      <div class="doc-suggestion-heading">贡献开源文档</div>
+      <div class="doc-suggestion-links">
+        <a class="doc-suggestion-link" href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_document/11_vuln_priority/03_patch_loop.md" target="_blank">
+          <i class="fas fa-code-branch"></i>
+          贡献当前文档
+        </a>
+        <a class="doc-suggestion-link" href="https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码" target="_blank">
+          <i class="fas fa-seedling"></i>
+          学习开源贡献 CN
+        </a>
+        <a class="doc-suggestion-link" href="https://github.com/github/docs" target="_blank">
+          <i class="fas fa-globe"></i>
+          学习开源贡献 EN
+        </a>
+      </div>
+    </section>
+  
+    <!-- 3. 此文档对您有帮助吗 -->
+    <section class="doc-suggestion-section">
+      <div class="doc-suggestion-heading">此文档对您有帮助吗</div>
+      <div class="doc-suggestion-feedback">
+        <a class="doc-suggestion-feedback-btn"
+           href="https://github.com/Bin4xin/bin4xin.github.io/"
+           target="_blank"
+           title="给文档仓库点个赞!">
+          <i class="fas fa-heart"></i>
+        </a>
+        <a class="doc-suggestion-feedback-btn"
+           href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_document/11_vuln_priority/03_patch_loop.md&nbsp;修补跟踪与闭环管理 | © 哨兵 | SENTINEL SECURITY, LAB"
+           target="_blank"
+           title="本文档有问题?">
+          <i class="fas fa-bug"></i>
+        </a>
+        <p class="doc-suggestion-feedback-label">感谢您的反馈</p>
+      </div>
+    </section>
+</div>
+    </main>
+  </div>
+
+  
+<!-- Lightbox DOM -->
+<div class="lb-overlay" id="lb-overlay">
+<button class="lb-close" id="lb-close"><i class="fas fa-times"></i></button>
+<button class="lb-arrow lb-prev" id="lb-prev"><i class="fas fa-chevron-left"></i></button>
+<button class="lb-arrow lb-next" id="lb-next"><i class="fas fa-chevron-right"></i></button>
+<img class="lb-img" id="lb-img" src="" alt="" draggable="false">
+<span class="lb-counter" id="lb-counter"></span>
+<div class="lb-zoom">
+    <button class="lb-zoom-btn" id="lb-zoom-out"><i class="fas fa-minus"></i></button>
+    <span class="lb-zoom-level" id="lb-zoom-level">100%</span>
+    <button class="lb-zoom-btn" id="lb-zoom-in"><i class="fas fa-plus"></i></button>
+    <button class="lb-zoom-btn" id="lb-zoom-reset"><i class="fas fa-expand"></i></button>
+</div>
+</div>
+
+<script>
+(function(){
+var overlay   = document.getElementById('lb-overlay');
+var img       = document.getElementById('lb-img');
+var btnClose  = document.getElementById('lb-close');
+var btnPrev   = document.getElementById('lb-prev');
+var btnNext   = document.getElementById('lb-next');
+var counter   = document.getElementById('lb-counter');
+var zoomIn    = document.getElementById('lb-zoom-in');
+var zoomOut   = document.getElementById('lb-zoom-out');
+var zoomReset = document.getElementById('lb-zoom-reset');
+var zoomLevel = document.getElementById('lb-zoom-level');
+
+var images = [];
+var idx    = 0;
+var scale  = 1;
+var posX   = 0;
+var posY   = 0;
+
+// ── Collect all clickable images (with src dedup) ──
+  function collectImages(){
+    var containers = document.querySelectorAll('#help-content, .markdown-body-img, .post-content, .article-content, .ct-card__body, .lb-target');
+    images = [];
+    var seen = {};
+
+    containers.forEach(function(c){
+      c.querySelectorAll('img').forEach(function(im){
+        if(im.getAttribute('data-lb-ignore')) return;
+        if(im.getAttribute('width') && parseInt(im.getAttribute('width')) < 60) return;
+        if(im.getAttribute('height') && parseInt(im.getAttribute('height')) < 60) return;
+        if(images.indexOf(im) !== -1) return;
+
+        var key = im.getAttribute('data-src') || im.src;
+        if(seen[key]) return;
+        seen[key] = true;
+
+        images.push(im);
+        im.addEventListener('click', function(e){
+          e.preventDefault();
+          openAt(im);
+        });
+      });
+    });
+
+    // Also catch any img with class "lb-clickable"
+    document.querySelectorAll('img.lb-clickable').forEach(function(im){
+      if(images.indexOf(im) === -1){
+        images.push(im);
+        im.addEventListener('click', function(e){
+          e.preventDefault();
+          openAt(im);
+        });
+      }
+    });
+  }
+
+// ── Open at specific image ──
+function openAt(targetImg){
+    idx = images.indexOf(targetImg);
+    if(idx === -1) idx = 0;
+    showImage();
+    overlay.classList.add('is-active');
+    document.body.style.overflow = 'hidden';
+}
+
+// ── Show image at current index ──
+function showImage(){
+    if(!images[idx]) return;
+    var src = images[idx].getAttribute('data-src') || images[idx].src;
+    img.src = src;
+    img.alt = images[idx].alt || '';
+    counter.textContent = (idx + 1) + ' / ' + images.length;
+    btnPrev.style.display = images.length > 1 ? '' : 'none';
+    btnNext.style.display = images.length > 1 ? '' : 'none';
+    resetZoom();
+}
+
+// ── Close ──
+function close(){
+    overlay.classList.remove('is-active');
+    document.body.style.overflow = '';
+    resetZoom();
+}
+
+// ── Navigate ──
+function goPrev(){
+    if(images.length <= 1) return;
+    idx = (idx - 1 + images.length) % images.length;
+    showImage();
+}
+function goNext(){
+    if(images.length <= 1) return;
+    idx = (idx + 1) % images.length;
+    showImage();
+}
+
+// ── Zoom ──
+function applyZoom(){
+    img.style.transform = 'scale(' + scale + ') translate(' + posX + 'px, ' + posY + 'px)';
+    zoomLevel.textContent = Math.round(scale * 100) + '%';
+}
+function zoomTo(s){
+    scale = Math.max(0.5, Math.min(5, s));
+    if(scale === 1){ posX = 0; posY = 0; }
+    applyZoom();
+}
+function resetZoom(){
+    scale = 1; posX = 0; posY = 0;
+    applyZoom();
+}
+
+// ── Drag when zoomed ──
+var dragging = false, dragStartX, dragStartY, startPosX, startPosY;
+
+img.addEventListener('mousedown', function(e){
+    if(scale <= 1) return;
+    e.preventDefault();
+    dragging = true;
+    img.classList.add('is-dragging');
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+    startPosX  = posX;
+    startPosY  = posY;
+});
+document.addEventListener('mousemove', function(e){
+    if(!dragging) return;
+    posX = startPosX + (e.clientX - dragStartX) / scale;
+    posY = startPosY + (e.clientY - dragStartY) / scale;
+    applyZoom();
+});
+document.addEventListener('mouseup', function(){
+    dragging = false;
+    img.classList.remove('is-dragging');
+});
+
+// Mouse wheel zoom
+overlay.addEventListener('wheel', function(e){
+    if(!overlay.classList.contains('is-active')) return;
+    e.preventDefault();
+    var delta = e.deltaY > 0 ? -0.15 : 0.15;
+    zoomTo(scale + delta);
+}, { passive: false });
+
+// Pinch zoom (touch)
+var lastTouchDist = 0;
+overlay.addEventListener('touchstart', function(e){
+    if(e.touches.length === 2){
+    var dx = e.touches[0].clientX - e.touches[1].clientX;
+    var dy = e.touches[0].clientY - e.touches[1].clientY;
+    lastTouchDist = Math.sqrt(dx * dx + dy * dy);
+    }
+}, { passive: true });
+overlay.addEventListener('touchmove', function(e){
+    if(e.touches.length === 2){
+    e.preventDefault();
+    var dx = e.touches[0].clientX - e.touches[1].clientX;
+    var dy = e.touches[0].clientY - e.touches[1].clientY;
+    var dist = Math.sqrt(dx * dx + dy * dy);
+    var delta = (dist - lastTouchDist) * 0.008;
+    lastTouchDist = dist;
+    zoomTo(scale + delta);
+    }
+}, { passive: false });
+
+// Double-click to toggle zoom
+img.addEventListener('dblclick', function(e){
+    e.preventDefault();
+    if(scale > 1){
+    resetZoom();
+    } else {
+    zoomTo(2.5);
+    }
+});
+
+// ── Swipe navigation (touch) ──
+var touchStartX = 0, touchStartY = 0, swiping = false;
+img.addEventListener('touchstart', function(e){
+    if(e.touches.length !== 1 || scale > 1) return;
+    swiping = true;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+}, { passive: true });
+img.addEventListener('touchend', function(e){
+    if(!swiping) return;
+    swiping = false;
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    if(Math.abs(dx) > 60){
+    dx > 0 ? goPrev() : goNext();
+    }
+}, { passive: true });
+
+// ── Keyboard ──
+document.addEventListener('keydown', function(e){
+    if(!overlay.classList.contains('is-active')) return;
+    switch(e.key){
+    case 'Escape':  close(); break;
+    case 'ArrowLeft':  goPrev(); break;
+    case 'ArrowRight': goNext(); break;
+    case '+': case '=': zoomTo(scale + 0.2); break;
+    case '-': zoomTo(scale - 0.2); break;
+    case '0': resetZoom(); break;
+    }
+});
+
+// ── Click events ──
+overlay.addEventListener('click', function(e){
+    if(e.target === overlay) close();
+});
+btnClose.addEventListener('click', close);
+btnPrev.addEventListener('click', function(e){ e.stopPropagation(); goPrev(); });
+btnNext.addEventListener('click', function(e){ e.stopPropagation(); goNext(); });
+zoomIn.addEventListener('click', function(e){ e.stopPropagation(); zoomTo(scale + 0.25); });
+zoomOut.addEventListener('click', function(e){ e.stopPropagation(); zoomTo(scale - 0.25); });
+zoomReset.addEventListener('click', function(e){ e.stopPropagation(); resetZoom(); });
+
+// ── Init ──
+if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', collectImages);
+} else {
+    collectImages();
+}
+})();
+</script>
+
+  <script src="/assets/js/cate-document.js"></script>
+
+</body>
+</html>
