@@ -48,26 +48,3 @@
     </div>
   </div>
 {% endfor %}
-
-<!-- 分类与标签折叠面板 -->
-<div class="hidden-print ntc-meta">
-  {% if page.categories and page.categories != empty %}
-  <div class="post-meta">
-    <details open>
-      <summary>
-        <span class="summary-title">本文分类</span>
-      </summary>
-      <div class="ntc-meta-content">
-        {% for category in page.categories %}
-          {% unless category.first == "blog" or category.first == "event" %}
-          <div class="ntc-meta-item">
-            <span><i class="far fa-folder fa-fw mr-1" aria-hidden="true"></i> <a href="{{ site.baseurl }}/{{ category | strip | url_encode }}/">{{ category }}</a></span>
-          </div>
-          {% endunless %}
-        {% endfor %}
-      </div>
-    </details>
-  </div>
-  {% endif %}
-</div>
-<!-- notice style & markup end -->

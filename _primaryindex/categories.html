@@ -70,6 +70,7 @@ title: 文章分类
     </div>
     <!-- Sticky help sidebar -->
     <div class="categories-sidebar">
+        {% include search-provider/notice.html %}
         <div class="categories-help-card">
             <h3 class="categories-help-title">帮助我们完善</h3>
             <p class="categories-help-desc">内容由社区维护，欢迎提交反馈与贡献</p>
@@ -81,24 +82,6 @@ title: 文章分类
                 提交反馈
                 <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"/></svg>
             </a>
-        </div>
-        <br/>{% include suggestion.html %}
-        <div class="hidden-print ntc-meta">
-            <div class="post-meta">
-                <details open>
-                <summary>
-                    <span class="summary-title">所有分类与数量</span>
-                </summary>
-                <div class="ntc-meta-content">
-                    {% for category in site.categories %}
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> {{ category | first | upcase }}</span>
-                    <span class="ntc-badge">{{ category | last | size }}</span>
-                    </div>
-                    {% endfor %}
-                </div>
-                </details>
-            </div>
         </div>
     </div>
 </div>

@@ -40,70 +40,284 @@ slide_data:
     desc_zh: "bigger-than-bigger子项目。面向定向漏洞分析与漏洞利用研究的专用安全工具。"
     note: "Payload-mode: precision strike capability."
     note_zh: "载荷模式：精准打击。"
+  - title: "Home"
+    desc: "Back to the main landing page. Your starting point for all site navigation and content discovery."
+    desc_zh: "返回主页面。站点导航与内容发现的起点。"
+    note: "Navigation-mode: home base."
+    note_zh: "导航模式：回到基地。"
+  - title: "Blog"
+    desc: "Technical articles, security write-ups, and research notes. Deep dives into offensive security methodology."
+    desc_zh: "技术文章、安全分析与研究笔记。深入探索攻防安全方法论。"
+    note: "Terminal-mode: knowledge dump."
+    note_zh: "终端模式：知识输出。"
+  - title: "Document"
+    desc: "Reference documentation, tool guides, and technical specifications. Comprehensive project documentation hub."
+    desc_zh: "参考文档、工具指南与技术规范。综合性项目文档中心。"
+    note: "Archive-mode: structured intel."
+    note_zh: "档案模式：结构化情报。"
+  - title: "Categories"
+    desc: "Browse all content organized by topic and category. Filter and discover projects by subject area."
+    desc_zh: "按主题和分类浏览所有内容。按领域筛选和发现项目。"
+    note: "Radar-mode: topic scanning."
+    note_zh: "雷达模式：主题扫描。"
+  - title: "Daily"
+    desc: "Daily logs, short updates, and quick notes. Day-to-day development activity feed."
+    desc_zh: "每日日志、简短更新与快速笔记。日常开发活动记录。"
+    note: "Monitor-mode: daily pulse."
+    note_zh: "监控模式：每日脉搏。"
+  - title: "Newest"
+    desc: "Latest published content and recent updates. Stay current with the most recent additions."
+    desc_zh: "最新发布的内容与近期更新。随时掌握最新动态。"
+    note: "Radar-mode: fresh intel incoming."
+    note_zh: "雷达模式：最新情报。"
+  - title: "Research"
+    desc: "Ongoing research projects, experiments, and security analysis. Pushing the boundaries of cybersecurity knowledge."
+    desc_zh: "正在进行的研究项目、实验与安全分析。推动网络安全知识的边界。"
+    note: "Simulator-mode: lab in session."
+    note_zh: "模拟器模式：实验室运行中。"
+  - title: "RSS"
+    desc: "Subscribe to the RSS feed for automatic content updates. Never miss a new post or release."
+    desc_zh: "订阅RSS源获取自动内容更新。不错过任何新文章或发布。"
+    note: "Signal-mode: stay connected."
+    note_zh: "信号模式：保持连接。"
 ---
 
-{% include common-index/card-theater-slide.html
-  icon="fa-solid fa-building-shield"
-  icon_color="#61BB46"
-  title="#SENTRYCYBERSEC"
-  subtitle="github.com/sentryCyberSec"
-  highlight="ORG PROFILE"
-  highlight_zh="组织主页"
-  highlight_color="#61BB46"
-  number="01"
-%}
+{% if site.harmony %}
+  {% assign nav_harmony_news    = '/news/index.htm' | prepend: site.harmonyURL %}
+  {% assign nav_harmony_zxzx    = '/news/ej.htm?page=zxzx' | prepend: site.harmonyURL %}
+  {% assign nav_harmony_ztbd    = '/news/ej.htm?page=ztbd' | prepend: site.harmonyURL %}
+  {% assign nav_harmony_tbch    = '/news/ej.htm?page=tbch' | prepend: site.harmonyURL %}
+  {% assign nav_harmony_data    = 'http://www.19371213.com.cn' %}
+  {% assign nav_harmony_contact = '/2016-11/29/c_135866990.htm' | prepend: site.harmonyURL %}
 
-{% include common-index/card-theater-slide.html
-  icon="fa-solid fa-terminal"
-  icon_color="#FDB827"
-  title="@Bin4xin"
-  subtitle="github.com/Bin4xin/Bin4xin"
-  highlight="MAIN PROFILE"
-  highlight_zh="核心主页"
-  highlight_color="#FDB827"
-  number="02"
-%}
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-landmark"
+    icon_color="#FDB827"
+    title="CNGONGJI.CN"
+    subtitle=nav_harmony_news
+    highlight="HARMONY NEWS"
+    highlight_zh="CNGONGJI.CN"
+    highlight_color="#FDB827"
+    number="01"
+  %}
 
-{% include common-index/card-theater-slide.html
-  icon="fa-solid fa-bomb"
-  icon_color="#F5821F"
-  title="sweet-ysoserial"
-  subtitle="github.com/Bin4xin/sweet-ysoserial"
-  highlight="EXPLOIT TOOLKIT"
-  highlight_zh="漏洞利用工具包"
-  highlight_color="#F5821F"
-  number="03"
-%}
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-newspaper"
+    icon_color="#61BB46"
+    title="NEWS"
+    subtitle=nav_harmony_zxzx
+    highlight="LATEST NEWS"
+    highlight_zh="最新资讯"
+    highlight_color="#61BB46"
+    number="02"
+  %}
 
-{% include common-index/card-theater-slide.html
-  icon="fa-solid fa-flask-vial"
-  icon_color="#E03A3E"
-  title="sentinel-sec-lab"
-  subtitle="Bin4xin.github.io/sentinel-sec-lab"
-  highlight="SEC SIMULATOR"
-  highlight_zh="安全模拟器"
-  highlight_color="#E03A3E"
-  number="04"
-%}
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-tags"
+    icon_color="#F5821F"
+    title="TOPICS"
+    subtitle=nav_harmony_ztbd
+    highlight="HOT TOPICS"
+    highlight_zh="专题报道"
+    highlight_color="#F5821F"
+    number="03"
+  %}
 
-{% include common-index/card-theater-slide.html
-  icon="fa-solid fa-expand"
-  icon_color="#963D97"
-  title="bigger-than-bigger"
-  subtitle="github.com/Bin4xin/bigger-than-bigger"
-  highlight="SEC RESEARCH"
-  highlight_zh="安全研究"
-  highlight_color="#963D97"
-  number="05"
-%}
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-star"
+    icon_color="#E03A3E"
+    title="SPECIAL PLAN"
+    subtitle=nav_harmony_tbch
+    highlight="SPECIAL EDITION"
+    highlight_zh="特别策划"
+    highlight_color="#E03A3E"
+    number="04"
+  %}
 
-{% include common-index/card-theater-slide.html
-  icon="fa-solid fa-crosshairs"
-  icon_color="#009DDC"
-  title="COVV"
-  subtitle="github.com/Bin4xin/bigger-than-bigger/blob/master/CoVV"
-  highlight="TARGETED TOOL"
-  highlight_zh="定向工具"
-  highlight_color="#009DDC"
-  number="06"
-%}
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-database"
+    icon_color="#963D97"
+    title="DATA RESEARCH"
+    subtitle=nav_harmony_data
+    highlight="DATA CENTER"
+    highlight_zh="数据研究"
+    highlight_color="#963D97"
+    number="05"
+  %}
+
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-envelope"
+    icon_color="#009DDC"
+    title="CONTACT US"
+    subtitle=nav_harmony_contact
+    highlight="GET IN TOUCH"
+    highlight_zh="联系我们"
+    highlight_color="#009DDC"
+    number="06"
+  %}
+
+{% else %}
+  {% assign nav_home   = '/' | absolute_url %}
+  {% assign nav_blog   = '/blog/' | absolute_url %}
+  {% assign nav_doc    = '/document/' | absolute_url %}
+  {% assign nav_cat    = '/categories/' | absolute_url %}
+  {% assign nav_daily  = '/daily/' | absolute_url %}
+  {% assign nav_new    = '/newest/' | absolute_url %}
+  {% assign nav_about  = '/about/' | absolute_url %}
+  {% assign nav_rss    = '/feed.xml' | absolute_url %}
+
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-building-shield"
+    icon_color="#61BB46"
+    title="#SENTRYCYBERSEC"
+    subtitle="github.com/sentryCyberSec"
+    highlight="ORG PROFILE"
+    highlight_zh="组织主页"
+    highlight_color="#61BB46"
+    number="01"
+  %}
+
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-terminal"
+    icon_color="#FDB827"
+    title="@Bin4xin"
+    subtitle="github.com/Bin4xin/Bin4xin"
+    highlight="MAIN PROFILE"
+    highlight_zh="核心主页"
+    highlight_color="#FDB827"
+    number="02"
+  %}
+
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-bomb"
+    icon_color="#F5821F"
+    title="sweet-ysoserial"
+    subtitle="github.com/Bin4xin/sweet-ysoserial"
+    highlight="EXPLOIT TOOLKIT"
+    highlight_zh="漏洞利用工具包"
+    highlight_color="#F5821F"
+    number="03"
+  %}
+
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-flask-vial"
+    icon_color="#E03A3E"
+    title="sentinel-sec-lab"
+    subtitle="Bin4xin.github.io/sentinel-sec-lab"
+    highlight="SEC SIMULATOR"
+    highlight_zh="安全模拟器"
+    highlight_color="#E03A3E"
+    number="04"
+  %}
+
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-expand"
+    icon_color="#963D97"
+    title="bigger-than-bigger"
+    subtitle="github.com/Bin4xin/bigger-than-bigger"
+    highlight="SEC RESEARCH"
+    highlight_zh="安全研究"
+    highlight_color="#963D97"
+    number="05"
+  %}
+
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-crosshairs"
+    icon_color="#009DDC"
+    title="COVV"
+    subtitle="github.com/Bin4xin/bigger-than-bigger/blob/master/CoVV"
+    highlight="TARGETED TOOL"
+    highlight_zh="定向工具"
+    highlight_color="#009DDC"
+    number="06"
+  %}
+
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-home"
+    icon_color="#61BB46"
+    title="Home"
+    subtitle=nav_home
+    highlight="NAVIGATE"
+    highlight_zh="导航"
+    highlight_color="#61BB46"
+    number="07"
+  %}
+
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-pen-nib"
+    icon_color="#FDB827"
+    title="Blog"
+    subtitle=nav_blog
+    highlight="WRITING"
+    highlight_zh="文章"
+    highlight_color="#FDB827"
+    number="08"
+  %}
+
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-book-open"
+    icon_color="#F5821F"
+    title="Document"
+    subtitle=nav_doc
+    highlight="REFERENCE"
+    highlight_zh="文档"
+    highlight_color="#F5821F"
+    number="09"
+  %}
+
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-layer-group"
+    icon_color="#E03A3E"
+    title="Categories"
+    subtitle=nav_cat
+    highlight="TOPICS"
+    highlight_zh="分类"
+    highlight_color="#E03A3E"
+    number="10"
+  %}
+
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-calendar"
+    icon_color="#963D97"
+    title="Daily"
+    subtitle=nav_daily
+    highlight="DAILY LOG"
+    highlight_zh="每日记录"
+    highlight_color="#963D97"
+    number="11"
+  %}
+
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-bolt"
+    icon_color="#009DDC"
+    title="Newest"
+    subtitle=nav_new
+    highlight="LATEST"
+    highlight_zh="最新"
+    highlight_color="#009DDC"
+    number="12"
+  %}
+
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-flask"
+    icon_color="#FF6B6B"
+    title="Research"
+    subtitle=nav_about
+    highlight="LAB"
+    highlight_zh="研究"
+    highlight_color="#FF6B6B"
+    number="13"
+  %}
+
+  {% include common-index/card-theater-slide.html
+    icon="fa-solid fa-rss"
+    icon_color="#FF8C00"
+    title="RSS"
+    subtitle=nav_rss
+    highlight="SUBSCRIBE"
+    highlight_zh="订阅"
+    highlight_color="#FF8C00"
+    number="14"
+  %}
+
+{% endif %}

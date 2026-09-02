@@ -11,12 +11,6 @@
   <link rel="stylesheet" href="{{ '/assets/css/cate-document.css' | relative_url }}">
 </head>
 <body>
-
-  <!-- Theme toggle -->
-  <!-- <button class="doc-theme-toggle" id="doc-theme-toggle" title="切换明暗主题">
-    <i class="fas fa-moon"></i>
-    <i class="fas fa-sun"></i>
-  </button> -->
   {% include common-index/prefers-color-scheme.html %}
 
   <!-- Mobile sidebar toggle -->
@@ -60,12 +54,39 @@
 
     <!-- Content -->
     <main class="doc-content-wrap">
-
       <!-- Breadcrumb -->
       <div class="doc-breadcrumb">
         <a href="{{ '/' | relative_url }}">Home</a>
         <span class="doc-breadcrumb-sep">/</span>
-        <a href="{{ '/document/' | relative_url }}">Document</a>
+      
+        {% if site.harmony %}
+          <a href="{{ '/news/index.htm' | prepend: site.harmonyURL }}" target="blank" class="is-active">CNGONGJI.CN</a>
+          <span class="doc-breadcrumb-sep">|</span>
+          <a href="{{ '/news/ej.htm?page=zxzx' | prepend: site.harmonyURL }}" target="blank">News</a>
+          <span class="doc-breadcrumb-sep">|</span>
+          <a href="{{ '/news/ej.htm?page=ztbd' | prepend: site.harmonyURL }}" target="blank">Topics</a>
+          <span class="doc-breadcrumb-sep">|</span>
+          <a href="{{ '/news/ej.htm?page=tbch' | prepend: site.harmonyURL }}" target="blank">Special Plan</a>
+          <span class="doc-breadcrumb-sep">|</span>
+          <a href="http://www.19371213.com.cn" target="blank">Data Research</a>
+          <span class="doc-breadcrumb-sep">|</span>
+          <a href="{{ '/2016-11/29/c_135866990.htm' | prepend: site.harmonyURL }}" target="blank">Contact Us</a>
+        {% else %}
+          <a href="{{ '/document/' | relative_url }}" {% if page.url contains '/document/' %}class="is-active"{% endif %}>Document</a>
+          <span class="doc-breadcrumb-sep">|</span>
+          <a href="{{ '/blog/' | relative_url }}">Blog</a>
+          <span class="doc-breadcrumb-sep">|</span>
+          <a href="{{ '/categories/' | relative_url }}">Categories</a>
+          <span class="doc-breadcrumb-sep">|</span>
+          <a href="{{ '/daily/' | relative_url }}">Daily</a>
+          <span class="doc-breadcrumb-sep">|</span>
+          <a href="{{ '/newest/' | relative_url }}">Newest</a>
+          <span class="doc-breadcrumb-sep">|</span>
+          <a href="{{ '/about/' | relative_url }}">Research</a>
+          <span class="doc-breadcrumb-sep">|</span>
+          <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+        {% endif %}
+      
         {% assign path_parts = page.path | split: "/" %}
         {% for part in path_parts %}
           {% unless part == "_document" or forloop.last %}
@@ -75,7 +96,7 @@
           {% endunless %}
         {% endfor %}
       </div>
-
+      
       <!-- Article Header -->
       <header class="doc-article-head">
         <h1 class="doc-article-title">{{ page.title }}</h1>
