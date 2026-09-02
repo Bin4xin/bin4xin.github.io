@@ -62,12 +62,6 @@
   <link rel="stylesheet" href="/assets/css/cate-document.css">
 </head>
 <body>
-
-  <!-- Theme toggle -->
-  <!-- <button class="doc-theme-toggle" id="doc-theme-toggle" title="切换明暗主题">
-    <i class="fas fa-moon"></i>
-    <i class="fas fa-sun"></i>
-  </button> -->
     <div class="prefers-cs" role="group" aria-label="切换颜色主题">
     <button class="prefers-cs-btn" data-pref="light" title="亮色模式">
       <i class="fas fa-sun"></i>
@@ -1041,12 +1035,27 @@
 
     <!-- Content -->
     <main class="doc-content-wrap">
-
       <!-- Breadcrumb -->
       <div class="doc-breadcrumb">
         <a href="/">Home</a>
         <span class="doc-breadcrumb-sep">/</span>
-        <a href="/document/">Document</a>
+      
+        
+          <a href="/document/" class="is-active">Document</a>
+          <span class="doc-breadcrumb-sep">|</span>
+          <a href="/blog/">Blog</a>
+          <span class="doc-breadcrumb-sep">|</span>
+          <a href="/categories/">Categories</a>
+          <span class="doc-breadcrumb-sep">|</span>
+          <a href="/daily/">Daily</a>
+          <span class="doc-breadcrumb-sep">|</span>
+          <a href="/newest/">Newest</a>
+          <span class="doc-breadcrumb-sep">|</span>
+          <a href="/about/">Research</a>
+          <span class="doc-breadcrumb-sep">|</span>
+          <a href="/feed.xml">RSS</a>
+        
+      
         
         
           
@@ -1060,7 +1069,7 @@
           
         
       </div>
-
+      
       <!-- Article Header -->
       <header class="doc-article-head">
         <h1 class="doc-article-title">紧急隔离与业务切换</h1>

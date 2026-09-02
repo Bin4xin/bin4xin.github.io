@@ -1436,7 +1436,7 @@
   .doc-breadcrumb a {
     color: #888;
   }
-
+  
   /* Article header */
   .doc-article-head {
     border-bottom-color: #ccc;
@@ -1646,6 +1646,10 @@ csmall a {
   color: var(--doc-accent);
   font-weight: 600;
   user-select: none;
+}
+.doc-breadcrumb a.is-active {
+  color: var(--doc-accent);
+  font-weight: 600;
 }
 
 @media print {

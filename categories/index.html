@@ -55,50 +55,102 @@
 
 
 <body>
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <!-- 菜单按钮 -->
-            <button type="button" class="navbar-toggle" id="navbar-toggle-btn" data-toggle="collapse" data-target=".navbar-collapse" aria-label="切换导航菜单" aria-expanded="false" aria-controls="main-nav" style="outline:2px solid transparent; margin-left: 8px;">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse collapse navbar-right">
-            <ul class="nav navbar-nav">
-                
-                <li >
-                    <a href="/"><i class="fas fa-home"></i> Home &middot;</a>
-                </li>
-                <li >
-                    <a href="/search"><i class="fas fa-search"></i> Search &middot;</a>
-                </li>
-                <li >
-                    <a href="/blog/"><i class="fas fa-pen-nib"></i> BLOG &middot;</a>
-                </li>
-                <li class="active">
-                    <a href="/categories/"><i class="fas fa-folder-open"></i> CATEGORIES &middot;</a>
-                </li>
-                <li >
-                    <a href="/daily/"><i class="fas fa-calendar"></i> DAILY &middot;</a>
-                </li>
-                <li >
-                    <a href="/newest"><i class="fas fa-bolt"></i> NEWEST &middot;</a>
-                </li>
-                <li >
-                    <a href="/about/"><i class="fas fa-flask"></i> RESEARCH &middot;</a>
-                </li>
-                <li >
-                    <a href="/feed.xml"><i class="fas fa-rss"></i> RSS</a>
-                </li>
-                
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div>
-</div>
+<div role="navigation">
+    <nav class="sentinel-nav">
+        <div class="sentinel-nav-inner">
 
+          <!-- Brand -->
+          <a class="sentinel-nav-brand" href="/">
+            <i class="fas fa-hat-cowboy-side sentinel-nav-logo"></i>
+            <span class="sentinel-nav-name">SENTINEL SECURITY, LAB</span>
+          </a>
+
+          <!-- Mobile toggle -->
+          <button class="sentinel-nav-toggle" id="sentinel-nav-toggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <!-- Nav items -->
+          <div class="sentinel-nav-list-wrap" id="sentinel-nav-list-wrap">
+            <ul class="sentinel-nav-list">
+
+              
+
+                <li class="sentinel-nav-item ">
+                  <a href="/">
+                    <i class="fas fa-home"></i> Home
+                  </a>
+                </li>
+                <li class="sentinel-nav-item ">
+                  <a href="/blog/">
+                    <i class="fas fa-pen-nib"></i> Blog
+                  </a>
+                </li>
+                <li class="sentinel-nav-item ">
+                  <a href="/document/">
+                    <i class="fas fa-book-open"></i> Document
+                  </a>
+                </li>
+
+                <span class="sentinel-nav-sep"></span>
+
+                <li class="sentinel-nav-item active">
+                  <a href="/categories/">
+                    <i class="fas fa-layer-group"></i> Categories
+                  </a>
+                </li>
+                <li class="sentinel-nav-item ">
+                  <a href="/daily/">
+                    <i class="fas fa-calendar"></i> Daily
+                  </a>
+                </li>
+                <li class="sentinel-nav-item ">
+                  <a href="/newest">
+                    <i class="fas fa-bolt"></i> Newest
+                  </a>
+                </li>
+
+                <span class="sentinel-nav-sep"></span>
+
+                <li class="sentinel-nav-item ">
+                  <a href="/about/">
+                    <i class="fas fa-flask"></i> Research
+                  </a>
+                </li>
+                <li class="sentinel-nav-item">
+                  <a href="/feed.xml">
+                    <i class="fas fa-rss"></i> RSS
+                  </a>
+                </li>
+
+              
+
+            </ul>
+          </div>
+
+          <!-- Right side -->
+          <div class="sentinel-nav-right">
+            <a href="/search" title="搜索"><i class="fas fa-search"></i></a>
+            <a href="/document/" title="文档"><i class="fas fa-book"></i></a>
+          </div>
+
+        </div>
+    </nav>
+</div>
+<script>
+    (function(){
+      var toggle = document.getElementById('sentinel-nav-toggle');
+      var wrap   = document.getElementById('sentinel-nav-list-wrap');
+      if(toggle && wrap){
+        toggle.addEventListener('click', function(){
+          wrap.classList.toggle('is-open');
+          var icon = this.querySelector('i');
+          icon.classList.toggle('fa-bars');
+          icon.classList.toggle('fa-xmark');
+        });
+      }
+    })();
+</script>
 
 <div class="container categories-layout">
     <!-- Main content column -->
@@ -1787,6 +1839,132 @@
     </div>
     <!-- Sticky help sidebar -->
     <div class="categories-sidebar">
+        <!-- notice style & markup start -->
+<script>
+  function dismissNotice(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.add('ntc-dismissing');
+    el.addEventListener('animationend', () => el.remove(), { once: true });
+  }
+</script>
+
+<!-- Notice Cards 循环列表 -->
+
+  
+  
+  
+  
+  
+  
+
+  <div id="note-card-互联网的记忆" class="js-notice">
+    <div class="ntc-card">
+      
+        <img src="https://image.isisy.com/images/2022/09/21/1500x500.jpg" alt="" class="ntc-bg-img" aria-hidden="true" />
+      
+
+      <button type="button" class="ntc-close" aria-label="关闭通知" onclick="dismissNotice('note-card-互联网的记忆')">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
+        </svg>
+      </button>
+
+      
+        <img src="https://image.isisy.com/images/2022/09/21/16dbdb3a19ceccd723a6d61f6c167c2a_400x400.jpg" alt="" class="ntc-icon" />
+      
+
+      <p class="ntc-text">
+        自定义了一些「经典语录」进行ZSH的显示优化配置
+      </p>
+
+      <div class="ntc-actions">
+        <a href="/daily/2022/Memroy-Of-Internet-FromCHN-Bybin4xin/" class="ntc-btn" target="_blank" rel="noopener noreferrer">
+          查看详情
+          <svg class="ntc-ext" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M6.75 1.75h-5v12.5h12.5v-5m0-4v-3.5h-3.5M8 8l5.5-5.5"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  
+  
+  
+  
+  
+  
+
+  <div id="note-card-Feed-xml" class="js-notice">
+    <div class="ntc-card">
+      
+        <img src="https://image.isisy.com/images/2022/06/27/arnold-francisca-f77Bh3inUpE-unsplash.jpg" alt="" class="ntc-bg-img" aria-hidden="true" />
+      
+
+      <button type="button" class="ntc-close" aria-label="关闭通知" onclick="dismissNotice('note-card-Feed-xml')">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
+        </svg>
+      </button>
+
+      
+        <img src="/assets/img/svg/actions-documentation.svg" alt="" class="ntc-icon" />
+      
+
+      <p class="ntc-text">
+        将feed汇流于一处称为聚合（aggregation）
+      </p>
+
+      <div class="ntc-actions">
+        <a href="/feed.xml" class="ntc-btn" target="_blank" rel="noopener noreferrer">
+          查看详情
+          <svg class="ntc-ext" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M6.75 1.75h-5v12.5h12.5v-5m0-4v-3.5h-3.5M8 8l5.5-5.5"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  
+  
+  
+  
+  
+  
+
+  <div id="note-card-Github-Action" class="js-notice">
+    <div class="ntc-card">
+      
+        <img src="https://image.isisy.com/images/2022/06/27/bg.jpg" alt="" class="ntc-bg-img" aria-hidden="true" />
+      
+
+      <button type="button" class="ntc-close" aria-label="关闭通知" onclick="dismissNotice('note-card-Github-Action')">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path>
+        </svg>
+      </button>
+
+      
+        <img src="/assets/img/svg/actions-icon-actions.svg" alt="" class="ntc-icon" />
+      
+
+      <p class="ntc-text">
+        实现从创意到生产的工作流程自动化
+      </p>
+
+      <div class="ntc-actions">
+        <a href="https://docs.github.com/cn/actions" class="ntc-btn" target="_blank" rel="noopener noreferrer">
+          查看详情
+          <svg class="ntc-ext" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M6.75 1.75h-5v12.5h12.5v-5m0-4v-3.5h-3.5M8 8l5.5-5.5"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
         <div class="categories-help-card">
             <h3 class="categories-help-title">帮助我们完善</h3>
             <p class="categories-help-desc">内容由社区维护，欢迎提交反馈与贡献</p>
@@ -1798,224 +1976,6 @@
                 提交反馈
                 <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"/></svg>
             </a>
-        </div>
-        <br/><!-- [x] 2022/10/20/10:49:36 fixed: while width < some inch. would be flex column not display like a row.-->
-<footer>
-	<style>
-		.border-top {
-			border-top: 1.5px solid #d0d7de!important;
-		}
-		
-		/* 仅在 /categories/ 页面生效的竖向排列样式 */
-		.suggestion-column-wrapper.is-categories-page {
-			display: flex;
-			flex-direction: column;
-			gap: 1.25rem;
-		}
-		.suggestion-column-wrapper.is-categories-page .col-xs-4-5 {
-			width: 100% !important;
-			padding-right: 0 !important;
-			padding-left: 0 !important;
-			margin-bottom: 0 !important;
-			padding-top: 0 !important;
-			padding-bottom: 0 !important;
-		}
-	</style>
-	<div class="border-top"></div>
-	
-	<!-- 只有在 /categories/ 页面时添加 is-categories-page 类名 -->
-	<section class="container-xl mt-lg-8 mt-6 px-3 px-md-6 no-print mx-auto suggestion-column-wrapper is-categories-page">
-		
-		<!-- 1. 申明模块：/categories/ 页面隐藏 -->
-		
-
-		<!-- 3. 此文档对您有帮助吗 -->
-		<div class="col-xs-4-5 pr-4 mb-8 px-md-6 container-xl mx-auto py-6 py-lg-6 clearfix">
-			<h2 class="lead">此文档对您有帮助吗</h2>
-			<a href="https://github.com/Bin4xin/bin4xin.github.io/" target="_blank" class="no-underline">
-				<span class="btn mr-1 color-border-accent-emphasis" title="给文档仓库点个赞!">
-					<div class="fa fa-thumbs-o-up"></div>
-				</span>
-			</a>
-			<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_primaryindex/categories.html&nbsp; 文章分类 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
-				<span class="btn mr-1 color-border-accent-emphasis" title="本文档有问题?">
-					<div class="fa fa-thumbs-o-down"></div>
-				</span>
-			</a>
-		</div>
-	</section>
-</footer>
-        <div class="hidden-print ntc-meta">
-            <div class="post-meta">
-                <details open>
-                <summary>
-                    <span class="summary-title">所有分类与数量</span>
-                </summary>
-                <div class="ntc-meta-content">
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> BLOG</span>
-                    <span class="ntc-badge">81</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> TOP</span>
-                    <span class="ntc-badge">5</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> 笔记</span>
-                    <span class="ntc-badge">14</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> 渗透</span>
-                    <span class="ntc-badge">3</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> ANDROID REVERSE</span>
-                    <span class="ntc-badge">2</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> HOOK</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> FRIDA</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> 漏洞复现</span>
-                    <span class="ntc-badge">6</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> VULNHUB</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> MAVEN</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> 代码审计</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> WEB</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> PYTHON</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> 运维</span>
-                    <span class="ntc-badge">2</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> ABOUT</span>
-                    <span class="ntc-badge">59</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> CVE</span>
-                    <span class="ntc-badge">6</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> JAVA</span>
-                    <span class="ntc-badge">4</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> SHIRO</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> SQL-INJECT</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> MSSQL</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> 安全工具</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> COBALT STRIKE</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> 内网渗透</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> SRC</span>
-                    <span class="ntc-badge">2</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> 信息搜集</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> JACKSON</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> DAILY</span>
-                    <span class="ntc-badge">4</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> PHP</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> VULNHUB</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> CTF</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> PYTHON</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                    <div class="ntc-meta-item">
-                    <span><i class="fa fa-angle-right mr-1" aria-hidden="true"></i> 密码学</span>
-                    <span class="ntc-badge">1</span>
-                    </div>
-                    
-                </div>
-                </details>
-            </div>
         </div>
     </div>
 </div>

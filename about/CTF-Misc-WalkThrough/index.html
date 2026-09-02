@@ -56,50 +56,102 @@
 </head>
 
     <body>
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <!-- 菜单按钮 -->
-            <button type="button" class="navbar-toggle" id="navbar-toggle-btn" data-toggle="collapse" data-target=".navbar-collapse" aria-label="切换导航菜单" aria-expanded="false" aria-controls="main-nav" style="outline:2px solid transparent; margin-left: 8px;">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse collapse navbar-right">
-            <ul class="nav navbar-nav">
-                
-                <li >
-                    <a href="/"><i class="fas fa-home"></i> Home &middot;</a>
-                </li>
-                <li >
-                    <a href="/search"><i class="fas fa-search"></i> Search &middot;</a>
-                </li>
-                <li >
-                    <a href="/blog/"><i class="fas fa-pen-nib"></i> BLOG &middot;</a>
-                </li>
-                <li >
-                    <a href="/categories/"><i class="fas fa-folder-open"></i> CATEGORIES &middot;</a>
-                </li>
-                <li >
-                    <a href="/daily/"><i class="fas fa-calendar"></i> DAILY &middot;</a>
-                </li>
-                <li >
-                    <a href="/newest"><i class="fas fa-bolt"></i> NEWEST &middot;</a>
-                </li>
-                <li class="active">
-                    <a href="/about/"><i class="fas fa-flask"></i> RESEARCH &middot;</a>
-                </li>
-                <li >
-                    <a href="/feed.xml"><i class="fas fa-rss"></i> RSS</a>
-                </li>
-                
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div>
-</div>
+    <div role="navigation">
+    <nav class="sentinel-nav">
+        <div class="sentinel-nav-inner">
 
+          <!-- Brand -->
+          <a class="sentinel-nav-brand" href="/">
+            <i class="fas fa-hat-cowboy-side sentinel-nav-logo"></i>
+            <span class="sentinel-nav-name">SENTINEL SECURITY, LAB</span>
+          </a>
+
+          <!-- Mobile toggle -->
+          <button class="sentinel-nav-toggle" id="sentinel-nav-toggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <!-- Nav items -->
+          <div class="sentinel-nav-list-wrap" id="sentinel-nav-list-wrap">
+            <ul class="sentinel-nav-list">
+
+              
+
+                <li class="sentinel-nav-item ">
+                  <a href="/">
+                    <i class="fas fa-home"></i> Home
+                  </a>
+                </li>
+                <li class="sentinel-nav-item ">
+                  <a href="/blog/">
+                    <i class="fas fa-pen-nib"></i> Blog
+                  </a>
+                </li>
+                <li class="sentinel-nav-item ">
+                  <a href="/document/">
+                    <i class="fas fa-book-open"></i> Document
+                  </a>
+                </li>
+
+                <span class="sentinel-nav-sep"></span>
+
+                <li class="sentinel-nav-item ">
+                  <a href="/categories/">
+                    <i class="fas fa-layer-group"></i> Categories
+                  </a>
+                </li>
+                <li class="sentinel-nav-item ">
+                  <a href="/daily/">
+                    <i class="fas fa-calendar"></i> Daily
+                  </a>
+                </li>
+                <li class="sentinel-nav-item ">
+                  <a href="/newest">
+                    <i class="fas fa-bolt"></i> Newest
+                  </a>
+                </li>
+
+                <span class="sentinel-nav-sep"></span>
+
+                <li class="sentinel-nav-item active">
+                  <a href="/about/">
+                    <i class="fas fa-flask"></i> Research
+                  </a>
+                </li>
+                <li class="sentinel-nav-item">
+                  <a href="/feed.xml">
+                    <i class="fas fa-rss"></i> RSS
+                  </a>
+                </li>
+
+              
+
+            </ul>
+          </div>
+
+          <!-- Right side -->
+          <div class="sentinel-nav-right">
+            <a href="/search" title="搜索"><i class="fas fa-search"></i></a>
+            <a href="/document/" title="文档"><i class="fas fa-book"></i></a>
+          </div>
+
+        </div>
+    </nav>
+</div>
+<script>
+    (function(){
+      var toggle = document.getElementById('sentinel-nav-toggle');
+      var wrap   = document.getElementById('sentinel-nav-list-wrap');
+      if(toggle && wrap){
+        toggle.addEventListener('click', function(){
+          wrap.classList.toggle('is-open');
+          var icon = this.querySelector('i');
+          icon.classList.toggle('fa-bars');
+          icon.classList.toggle('fa-xmark');
+        });
+      }
+    })();
+</script>
         <startprint2pdfs>
             <div id="research-content" class="col-sm-bb">
                 <link href="/assets/css/research.css" rel="stylesheet">
@@ -762,7 +814,7 @@
 
 
 
-<section class="gh-banner error" aria-labelledby="banner-title-上次修改距今已-strong-1455-strong-天-建议确认内容是否仍然成立" role="region" data-dismissible="true">
+<section class="gh-banner error" aria-labelledby="banner-title-上次修改距今已-strong-1456-strong-天-建议确认内容是否仍然成立" role="region" data-dismissible="true">
     <div class="banner-icon" aria-hidden="true">
         
         <svg viewBox="0 0 16 16" fill="currentColor">
@@ -772,7 +824,7 @@
     </div>
 
     <div class="banner-content">
-        <span class="banner-text">上次修改距今已 <strong>1455</strong> 天，建议确认内容是否仍然成立</span>
+        <span class="banner-text">上次修改距今已 <strong>1456</strong> 天，建议确认内容是否仍然成立</span>
     </div>
 </section>
     
