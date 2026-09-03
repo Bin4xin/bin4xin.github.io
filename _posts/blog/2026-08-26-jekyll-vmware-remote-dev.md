@@ -13,8 +13,6 @@ tags:
     - Ruby
 ---
 
-# 在 VMware Ubuntu 中结合 VS Code 与 Jekyll 进行远程开发
-
 ## 背景
 
 在 Windows 环境下开发 Jekyll 博客时，经常会遇到 Ruby 原生扩展（如 `nokogiri`）的编译问题。即使通过 MSYS2 配置好编译工具链，仍然可能面临版本兼容性、权限管理和依赖冲突等挑战。
