@@ -23,11 +23,11 @@
 
 <!-- Open Graph metadata -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="快速开始 | © 哨兵" />
+<meta property="og:title" content="快速开始/Jekyll Sentinel Skill | © 哨兵" />
 <meta property="og:description" content="本站由哨兵安全实验室支持创办" />
 <meta property="og:image" content="https://bin4xin.github.io/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
 <meta property="og:url" content="https://bin4xin.github.io/usage/" />
-<title> 快速开始 | © 哨兵 | SENTINEL SECURITY, LAB</title>
+<title> 快速开始/Jekyll Sentinel Skill | © 哨兵 | SENTINEL SECURITY, LAB</title>
 <link rel="stylesheet" href="/assets/css/cate-document.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
@@ -131,7 +131,7 @@
           <!-- Right side -->
           <div class="sentinel-nav-right">
             <a href="/search" title="搜索"><i class="fas fa-search"></i></a>
-            <a href="/document/" title="文档"><i class="fas fa-book"></i></a>
+            <a href="/changelog/" title="更新日志"><i class="fas fa-book"></i></a>
           </div>
 
         </div>
@@ -156,7 +156,7 @@
         <!-- SINGLE POST -->
         <div class="markdown-body-img flex-column">
             <!-- Blog Post  -->
-            <h1 class="ctitle">快速开始</h1>
+            <h1 class="ctitle">快速开始/Jekyll Sentinel Skill</h1>
             <div class="post-meta-row">
                 <!--article author end-->
 
@@ -185,7 +185,7 @@
         
             
                 
-                    20d
+                    1d
                 
                 edited
             
@@ -218,21 +218,44 @@
 
 
 
-<section class="gh-banner info" aria-labelledby="banner-title-更新于-strong-20-天前-strong-时效尚可" role="region" data-dismissible="true">
+<section class="gh-banner success" aria-labelledby="banner-title-写于-strong-1-天前-strong-墨迹未干" role="region" data-dismissible="true">
     <div class="banner-icon" aria-hidden="true">
         
         <svg viewBox="0 0 16 16" fill="currentColor">
-            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
+            <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
         </svg>
         
     </div>
 
     <div class="banner-content">
-        <span class="banner-text">更新于 <strong>20 天前</strong>，时效尚可</span>
+        <span class="banner-text">写于 <strong>1 天前</strong>，墨迹未干</span>
     </div>
 </section>
 
-                <p>本文主要介绍 © 哨兵SENTINEL SECURITY, LAB 相关主题源码的路由规则与配置方法。</p>
+                <link rel="stylesheet" href="/assets/css/all.min.css" />
+
+<blockquote>
+  <p>Jekyll 博客维护与远程开发技能手册。覆盖文章编写规范、栏目路由、组件使用、远程开发环境、Git 工作流、GitHub Actions 部署与常见问题排查。</p>
+</blockquote>
+
+<h2 id="适用场景">适用场景</h2>
+
+<ul>
+  <li>在 Jekyll 站点中新建/编辑博客文章（<code class="language-plaintext highlighter-rouge">layout: post</code>）</li>
+  <li>在 Jekyll 站点中新建/编辑分类文档（<code class="language-plaintext highlighter-rouge">layout: document</code>）</li>
+  <li>使用 <code class="language-plaintext highlighter-rouge">common-index</code> 提示框组件嵌入文章</li>
+  <li>通过 VMware Ubuntu + VS Code Remote-SSH 进行远程开发</li>
+  <li>配置 SSH 密钥免密登录</li>
+  <li>排查 Ruby / Jekyll / Git 相关问题</li>
+</ul>
+
+<hr />
+
+<h2 id="零快速开始5-分钟上手">零、快速开始（5 分钟上手）</h2>
+
+<blockquote>
+  <p>从零到本地预览的最短路径。详细配置见后续章节。</p>
+</blockquote>
 
 <section class="gh-banner info" aria-labelledby="banner-title-在使用本教程前-强烈建议先阅读-a-href-https-github-com-bin4xin-bin4xin-github-io-wiki-e6-9e-84-e5-bb-ba-jekyll-quick-start-构建-jekyll-quick-start-a-在本地克隆仓库并通过-code-jekyll-server-code-启动服务-基本了解-jekyll-相关知识后再尝试本教程-您也可以跳过前置阅读-但请严格按照教程步骤操作-如有问题请提-a-href-https-github-com-bin4xin-bin4xin-github-io-issues-new-issues-a" role="region" data-dismissible="true">
     <div class="banner-icon" aria-hidden="true">
@@ -248,18 +271,118 @@
     </div>
 </section>
 
-<h2 id="一文章编写规范">一、文章编写规范</h2>
+<h3 id="01-克隆仓库">0.1 克隆仓库</h3>
 
-<h3 id="11-文件命名规范">1.1 文件命名规范</h3>
-
-<p>以《虚函数表》一文为例，文件名采用如下格式：</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>年-月-日-时-间-中英文-均可-空格-用横杠代替.md
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone git@github.com:Bin4xin/bin4xin.github.io.git
+<span class="nb">cd </span>bin4xin.github.io
 </code></pre></div></div>
 
-<p>示例：<code class="language-plaintext highlighter-rouge">2022-01-09-Learning-process-about-virtual-function-table.md</code></p>
+<h3 id="02-安装依赖">0.2 安装依赖</h3>
 
-<h3 id="12-栏目分类">1.2 栏目分类</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 确认 Ruby 版本</span>
+ruby <span class="nt">-v</span>
+
+<span class="c"># 安装 Gem 依赖</span>
+bundle <span class="nb">install</span>
+</code></pre></div></div>
+
+<section class="gh-banner info" aria-labelledby="banner-title-如果-code-bundle-install-code-报-nokogiri-编译错误-先执行-code-sudo-apt-install-y-libxml2-dev-libxslt1-dev-code-安装系统库后重试" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text">如果 <code>bundle install</code> 报 nokogiri 编译错误，先执行 <code>sudo apt install -y libxml2-dev libxslt1-dev</code> 安装系统库后重试。</span>
+    </div>
+</section>
+
+<h3 id="03-本地预览">0.3 本地预览</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">exec </span>jekyll serve <span class="nt">--host</span> 0.0.0.0 <span class="nt">-P</span> 4000
+</code></pre></div></div>
+
+<p>浏览器访问 <code class="language-plaintext highlighter-rouge">http://localhost:4000</code>，修改文章后自动增量构建、热刷新。</p>
+
+<h3 id="04-新建文章">0.4 新建文章</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 博客文章（按日期命名）</span>
+<span class="nb">touch </span>_posts/blog/2026-09-03-my-new-post.md
+
+<span class="c"># 分类文档</span>
+<span class="nb">touch </span>_docs/my-new-doc.md
+</code></pre></div></div>
+
+<p>编辑文件，填写 Front Matter 和正文，保存后浏览器自动刷新即可看到。</p>
+
+<h3 id="05-提交发布">0.5 提交发布</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add <span class="nb">.</span>
+git commit <span class="nt">-m</span> <span class="s2">"[</span><span class="sb">`</span><span class="nb">date</span> +%Y/%m/%d/%T<span class="sb">`</span><span class="s2">]&lt;添加::my-new-post.md&gt;: commit by </span><span class="si">$(</span>git config user.name<span class="si">)</span><span class="s2">"</span>
+git push origin main
+</code></pre></div></div>
+
+<p>GitHub Pages 会自动触发构建，通常 1-3 分钟后生效。</p>
+
+<section class="gh-banner warn" aria-labelledby="banner-title-code-git-push-code-前务必本地预览确认无误-github-pages-构建失败不会回滚-坏文章会持续影响站点直到修复" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575L6.457 1.047ZM8 4.75a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4.75Zm.75 6.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text"><code>git push</code> 前务必本地预览确认无误。GitHub Pages 构建失败不会回滚，坏文章会持续影响站点直到修复。</span>
+    </div>
+</section>
+
+<hr />
+
+<h2 id="一布局类型与适用场景">一、布局类型与适用场景</h2>
+
+<p>本站提供两种内容布局，根据内容性质选择：</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>布局</th>
+      <th>适用场景</th>
+      <th>典型内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">post</code></td>
+      <td>博客文章、技术随笔、教程</td>
+      <td>单篇独立的技术分享、踩坑记录、操作指南</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">document</code></td>
+      <td>分类文档、知识汇编、参考手册</td>
+      <td>多题型题库、知识点速查表、系统性参考文档</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="选择原则">选择原则</h3>
+
+<ul>
+  <li><strong>单篇叙述、有时间属性</strong>（如「Jekyll 部署踩坑记」）→ <code class="language-plaintext highlighter-rouge">post</code></li>
+  <li><strong>结构化参考、按主题/章节组织</strong>（如「数据安全知识点汇编」）→ <code class="language-plaintext highlighter-rouge">document</code></li>
+  <li><code class="language-plaintext highlighter-rouge">document</code> 会在文档导航栏中出现，适合长期维护的知识库内容</li>
+  <li><code class="language-plaintext highlighter-rouge">post</code> 会在博客列表中按时间倒序排列</li>
+</ul>
+
+<hr />
+
+<h2 id="二栏目分类与目录结构">二、栏目分类与目录结构</h2>
+
+<h3 id="21-栏目一览">2.1 栏目一览</h3>
 
 <p>仓库博文分为以下几个栏目，所有 Markdown 文件应放置在对应目录下：</p>
 
@@ -295,31 +418,374 @@
   </tbody>
 </table>
 
-<h3 id="13-front-matter-配置">1.3 Front Matter 配置</h3>
+<section class="gh-banner warn" aria-labelledby="banner-title-文件必须放在对应栏目的子目录下-不要直接放在-code-posts-code-根目录-放错目录会导致文章出现在错误的栏目列表中" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575L6.457 1.047ZM8 4.75a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4.75Zm.75 6.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"></path>
+        </svg>
+        
+    </div>
 
-<p>所有 Markdown 文件都必须按照仓库 Post 文件格式添加文件头：</p>
+    <div class="banner-content">
+        <span class="banner-text">文件必须放在对应栏目的子目录下，不要直接放在 <code>_posts/</code> 根目录。放错目录会导致文章出现在错误的栏目列表中。</span>
+    </div>
+</section>
+
+<h3 id="22-文件命名规范">2.2 文件命名规范</h3>
+
+<p>文件名采用如下格式：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>YYYY-MM-DD-英文标题用横杠连接.md
+</code></pre></div></div>
+
+<p>示例：<code class="language-plaintext highlighter-rouge">2022-01-09-Learning-process-about-virtual-function-table.md</code></p>
+
+<h4 id="命名规则">命名规则</h4>
+
+<ul>
+  <li>日期前缀必须是合法日期，Jekyll 按此解析发布时间</li>
+  <li>标题部分使用英文，单词之间用 <code class="language-plaintext highlighter-rouge">-</code> 连接</li>
+  <li>避免中文文件名（可能导致 URL 编码问题）</li>
+  <li>避免特殊字符：<code class="language-plaintext highlighter-rouge">|</code>、<code class="language-plaintext highlighter-rouge">/</code>、<code class="language-plaintext highlighter-rouge">&lt;</code>、<code class="language-plaintext highlighter-rouge">&gt;</code>、空格</li>
+</ul>
+
+<h3 id="23-路由与导航">2.3 路由与导航</h3>
+
+<p>源码的基本文件结构供参考：</p>
+
+<p><img src="https://i.loli.net/2021/07/13/o4gb1veWBlfyx8T.png" alt="文件结构截图" /></p>
+
+<p>路由关联说明：</p>
+
+<ul>
+  <li><strong>新闻-公告</strong>窗口相互绑定 <code class="language-plaintext highlighter-rouge">/news</code>，<code class="language-plaintext highlighter-rouge">readmore</code> 功能同样跳转</li>
+  <li><strong>帮助-个人</strong>栏目用于展示近期研究（如 <code class="language-plaintext highlighter-rouge">struts2</code>、<code class="language-plaintext highlighter-rouge">shiro</code>）</li>
+  <li><code class="language-plaintext highlighter-rouge">_data/options.yml</code> 可配置 <code class="language-plaintext highlighter-rouge">force_redirect_help</code>（强制路由跳转）和 <code class="language-plaintext highlighter-rouge">unlist</code>（隐藏栏目）、<code class="language-plaintext highlighter-rouge">new</code> 显示等选项</li>
+</ul>
+
+<section class="gh-banner info" aria-labelledby="banner-title-code-category-code-配置与-code-layout-code-布局绑定-例如-code-layout-help-code-的文章会出现在-近期研究-左侧导航栏中" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text"><code>category</code> 配置与 <code>layout</code> 布局绑定。例如 <code>layout: help</code> 的文章会出现在「近期研究」左侧导航栏中。</span>
+    </div>
+</section>
+
+<hr />
+
+<h2 id="三front-matter-规范">三、Front Matter 规范</h2>
+
+<h3 id="31-layout-post博客文章">3.1 <code class="language-plaintext highlighter-rouge">layout: post</code>（博客文章）</h3>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
 <span class="na">layout</span><span class="pi">:</span> <span class="s">post</span>
-<span class="c1"># 分类布局：blog 栏目文章=post，Tops 栏目文章=top，不确定可参考对应文件夹下文件值</span>
 <span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">关于虚函数表的学习过程"</span>
-<span class="c1"># 文章标题，简要概括文章内容</span>
 <span class="na">date</span><span class="pi">:</span> <span class="s">2022-01-09</span>
-<span class="c1"># 上传仓库时间</span>
 <span class="c1"># wrench: 2022-01-06</span>
 <span class="c1"># 如文章有修改则填写修改时间，也可直接删除该行，需要时再加回</span>
 <span class="na">author</span><span class="pi">:</span> <span class="s">codecat</span>
-<span class="c1"># 作者</span>
 <span class="na">toc</span><span class="pi">:</span> <span class="no">true</span>
-<span class="c1"># 文章目录，不为 true 则不显示目录</span>
 <span class="na">categories</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">blog</span><span class="pi">,</span> <span class="nv">笔记</span><span class="pi">]</span>
-<span class="c1"># 分类，可提取文章相关关键词</span>
 <span class="na">permalink</span><span class="pi">:</span> <span class="s">/blog/2022/Learning-process-about-virtual-function-table/</span>
-<span class="c1"># 访问链接，一般为 $root-url/$permalink</span>
 <span class="nn">---</span>
 </code></pre></div></div>
 
-<h3 id="14-标题层级建议">1.4 标题层级建议</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>字段</th>
+      <th>必填</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">layout</code></td>
+      <td>是</td>
+      <td>栏目文章=<code class="language-plaintext highlighter-rouge">post</code>，置顶文章=<code class="language-plaintext highlighter-rouge">top</code>，不确定可参考对应文件夹下文件值</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">title</code></td>
+      <td>是</td>
+      <td>文章标题，简要概括文章内容</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">date</code></td>
+      <td>是</td>
+      <td>上传仓库时间（发布日期）</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">wrench</code></td>
+      <td>否</td>
+      <td>最后修改时间，有修改时填写，否则删除该行</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">author</code></td>
+      <td>是</td>
+      <td>作者</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">toc</code></td>
+      <td>是</td>
+      <td>文章目录，不为 <code class="language-plaintext highlighter-rouge">true</code> 则不显示目录</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">categories</code></td>
+      <td>是</td>
+      <td>分类，可提取文章相关关键词</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">permalink</code></td>
+      <td>否</td>
+      <td>访问链接，一般为 <code class="language-plaintext highlighter-rouge">$root-url/$permalink</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<section class="gh-banner info" aria-labelledby="banner-title-strong-date-vs-wrench-strong-code-date-code-是首次发布时间-不变-code-wrench-code-是最后修改时间-每次修改时更新-两者共同决定了文章的时间展示" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text"><strong>date vs wrench</strong>：<code>date</code> 是首次发布时间，不变；<code>wrench</code> 是最后修改时间，每次修改时更新。两者共同决定了文章的时间展示。</span>
+    </div>
+</section>
+
+<h3 id="32-layout-document分类文档">3.2 <code class="language-plaintext highlighter-rouge">layout: document</code>（分类文档）</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">document</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">数据安全与AI安全理论赛知识点汇编"</span>
+<span class="na">short_title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">知识点汇编"</span>
+<span class="na">order</span><span class="pi">:</span> <span class="m">0</span>
+<span class="na">icon</span><span class="pi">:</span> <span class="s2">"</span><span class="s">fas</span><span class="nv"> </span><span class="s">fa-flag-checkered"</span>
+<span class="na">status</span><span class="pi">:</span> <span class="s2">"</span><span class="s">stable"</span>
+<span class="na">tags</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">数据安全</span><span class="pi">,</span> <span class="nv">AI安全</span><span class="pi">,</span> <span class="nv">网络安全</span><span class="pi">]</span>
+<span class="na">author</span><span class="pi">:</span> <span class="s">sentryCyberSec</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">3.0"</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">文档简介，用于列表页和</span><span class="nv"> </span><span class="s">SEO"</span>
+<span class="na">date</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2026-09-03"</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>字段</th>
+      <th>必填</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">layout</code></td>
+      <td>是</td>
+      <td>固定为 <code class="language-plaintext highlighter-rouge">document</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">title</code></td>
+      <td>是</td>
+      <td>文档完整标题，显示在页面顶部</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">short_title</code></td>
+      <td>是</td>
+      <td>简短标题，用于侧边栏导航和面包屑，建议 2-6 个字</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">order</code></td>
+      <td>是</td>
+      <td>排序权重，数字越小越靠前，同级文档按此字段排序</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">icon</code></td>
+      <td>否</td>
+      <td>Font Awesome 图标类名，显示在导航和标题旁。格式：<code class="language-plaintext highlighter-rouge">fas fa-图标名</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">status</code></td>
+      <td>否</td>
+      <td>文档状态标记，可选值见下方状态表</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">tags</code></td>
+      <td>否</td>
+      <td>标签数组，用于搜索和关联推荐</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">author</code></td>
+      <td>是</td>
+      <td>作者名</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">version</code></td>
+      <td>否</td>
+      <td>文档版本号，方便追踪迭代</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">description</code></td>
+      <td>是</td>
+      <td>文档简介，用于列表页展示和 SEO meta description</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">date</code></td>
+      <td>是</td>
+      <td>创建/最后更新日期</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="status-可选值"><code class="language-plaintext highlighter-rouge">status</code> 可选值</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>值</th>
+      <th>显示效果</th>
+      <th>适用场景</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">new</code></td>
+      <td>🆕 NEW 徽章</td>
+      <td>新发布的文档</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">updated</code></td>
+      <td>🔄 UPDATED 徽章</td>
+      <td>近期有重大更新</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">draft</code></td>
+      <td>不在导航中显示</td>
+      <td>草稿状态，仅作者可见</td>
+    </tr>
+    <tr>
+      <td>留空</td>
+      <td>无徽章</td>
+      <td>正常状态，无需标记</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="icon-常用图标参考"><code class="language-plaintext highlighter-rouge">icon</code> 常用图标参考</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>分类</th>
+      <th>推荐图标</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>安全/CTF</td>
+      <td><code class="language-plaintext highlighter-rouge">fas fa-flag-checkered</code></td>
+      <td>终点旗帜，适合竞赛/知识汇编</td>
+    </tr>
+    <tr>
+      <td>数据库</td>
+      <td><code class="language-plaintext highlighter-rouge">fas fa-database</code></td>
+      <td>数据相关文档</td>
+    </tr>
+    <tr>
+      <td>网络</td>
+      <td><code class="language-plaintext highlighter-rouge">fas fa-network-wired</code></td>
+      <td>网络安全/架构文档</td>
+    </tr>
+    <tr>
+      <td>编程</td>
+      <td><code class="language-plaintext highlighter-rouge">fas fa-code</code></td>
+      <td>编程语言/开发文档</td>
+    </tr>
+    <tr>
+      <td>工具</td>
+      <td><code class="language-plaintext highlighter-rouge">fas fa-tools</code></td>
+      <td>工具使用手册</td>
+    </tr>
+    <tr>
+      <td>书本/参考</td>
+      <td><code class="language-plaintext highlighter-rouge">fas fa-book</code></td>
+      <td>通用参考文档</td>
+    </tr>
+    <tr>
+      <td>齿轮/配置</td>
+      <td><code class="language-plaintext highlighter-rouge">fas fa-cog</code></td>
+      <td>配置指南</td>
+    </tr>
+    <tr>
+      <td>盾牌/安全</td>
+      <td><code class="language-plaintext highlighter-rouge">fas fa-shield-alt</code></td>
+      <td>安全防护文档</td>
+    </tr>
+    <tr>
+      <td>锁/加密</td>
+      <td><code class="language-plaintext highlighter-rouge">fas fa-lock</code></td>
+      <td>密码学/加密相关</td>
+    </tr>
+    <tr>
+      <td>机器人/AI</td>
+      <td><code class="language-plaintext highlighter-rouge">fas fa-robot</code></td>
+      <td>AI/机器学习文档</td>
+    </tr>
+  </tbody>
+</table>
+
+<section class="gh-banner info" aria-labelledby="banner-title-strong-post-和-document-的核心区别-strong-post-按时间排列-适合-写完就发布-的博客-document-按-code-order-code-排列-适合-持续维护-的知识库-选择错误布局会导致内容出现在错误的位置" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text"><strong>post 和 document 的核心区别</strong>：post 按时间排列，适合「写完就发布」的博客；document 按 <code>order</code> 排列，适合「持续维护」的知识库。选择错误布局会导致内容出现在错误的位置。</span>
+    </div>
+</section>
+
+<h3 id="33-标签命名约定">3.3 标签命名约定</h3>
+
+<ul>
+  <li>使用英文或技术术语，首字母大写</li>
+  <li>复合词用驼峰或连字符：<code class="language-plaintext highlighter-rouge">VSCode</code>、<code class="language-plaintext highlighter-rouge">Ruby</code>、<code class="language-plaintext highlighter-rouge">Jekyll</code>、<code class="language-plaintext highlighter-rouge">Ubuntu</code>、<code class="language-plaintext highlighter-rouge">VMware</code></li>
+  <li>避免中文标签</li>
+</ul>
+
+<section class="gh-banner warn" aria-labelledby="banner-title-document-布局的-code-tags-code-字段使用-strong-行内数组-strong-格式-code-tag1-tag2-code-而-post-布局使用-strong-多行列表-strong-格式-两种格式-yaml-都支持-但建议按各自惯例保持一致" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575L6.457 1.047ZM8 4.75a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4.75Zm.75 6.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text">document 布局的 <code>tags</code> 字段使用<strong>行内数组</strong>格式 <code>[Tag1, Tag2]</code>，而 post 布局使用<strong>多行列表</strong>格式。两种格式 YAML 都支持，但建议按各自惯例保持一致。</span>
+    </div>
+</section>
+
+<hr />
+
+<h2 id="四标题层级与排版">四、标题层级与排版</h2>
+
+<h3 id="41-标题层级说明">4.1 标题层级说明</h3>
 
 <section class="gh-banner warn" aria-labelledby="banner-title-本仓库内-title-为全局定义-ctitle-属性-默认为-html-h3-大小-建议-markdown-内容中所有标题前均加上两个-否则会出现布局混乱" role="region" data-dismissible="true">
     <div class="banner-icon" aria-hidden="true">
@@ -339,40 +805,215 @@
 
 <p><img src="https://s2.loli.net/2022/01/09/b1yYzColZqBPO7N.png" alt="标题层级对比" /></p>
 
-<h3 id="15-图片与图床">1.5 图片与图床</h3>
+<p><strong>层级对应关系：</strong></p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>语义层级</th>
+      <th>Markdown 写法</th>
+      <th>实际渲染</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>文章大标题</td>
+      <td>由 Front Matter <code class="language-plaintext highlighter-rouge">title</code> 生成</td>
+      <td>h3（ctitle 全局定义）</td>
+    </tr>
+    <tr>
+      <td>主要章节</td>
+      <td><code class="language-plaintext highlighter-rouge">### 章节名</code></td>
+      <td>h3</td>
+    </tr>
+    <tr>
+      <td>子章节</td>
+      <td><code class="language-plaintext highlighter-rouge">#### 子章节名</code></td>
+      <td>h4</td>
+    </tr>
+    <tr>
+      <td>细分步骤</td>
+      <td><code class="language-plaintext highlighter-rouge">##### 细分步骤</code></td>
+      <td>h5</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>层级不跳级，保持 TOC 结构清晰。</p>
+
+<h3 id="42-图片与图床">4.2 图片与图床</h3>
 
 <p>图片可使用 <a href="https://sm.ms/">sm.ms</a> 公共图床进行托管。图片上传完成后，页面会提供相关格式的链接供使用：</p>
 
 <p><img src="https://s2.loli.net/2022/01/09/O69qn1yIWGphVvE.png" alt="sm.ms 图床使用示例" /></p>
 
-<h3 id="16-commit-信息规范">1.6 Commit 信息规范</h3>
+<p><strong>Markdown 图片语法：</strong></p>
 
-<p>提交信息可参考以下格式：</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[2022/01/09/16:13:13]&lt;添加::Learning-process-about-virtual-function-table.md&gt;commit by sentryCyberSec.
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">![</span><span class="nv">替代文字</span><span class="p">](</span><span class="sx">https://图片URL</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>格式说明：<code class="language-plaintext highlighter-rouge">[时间]&lt;操作::相关文件&gt;commit by someone.</code></p>
-
-<p>更多可参考 <a href="https://github.com/Bin4xin/bin4xin.github.io/wiki/Git%E6%93%8D%E4%BD%9C-Git-push">Git 操作 - Git push</a>。</p>
-
-<h3 id="17-文章发布与访问">1.7 文章发布与访问</h3>
-
-<p>上传完成后即可通过以下方式访问文章：</p>
+<h3 id="43-行内元素">4.3 行内元素</h3>
 
 <ul>
-  <li><a href="https://github.com/sentryCyberSec/sentryCyberSec.github.io/blob/main/_posts/blog/2022-01-09-Learning-process-about-virtual-function-table.md">关于虚函数表的学习过程（源码）</a></li>
+  <li>命令、路径、变量、配置项用反引号：<code class="language-plaintext highlighter-rouge">`bundle exec jekyll serve`</code></li>
+  <li>文件名用反引号：<code class="language-plaintext highlighter-rouge">`Gemfile`</code>、<code class="language-plaintext highlighter-rouge">`sources.list`</code></li>
+  <li>快捷键用反引号：<code class="language-plaintext highlighter-rouge">`Ctrl+Shift+P`</code></li>
+  <li>IP 地址和端口用反引号：<code class="language-plaintext highlighter-rouge">`192.168.3.100:4000`</code></li>
+</ul>
+
+<h3 id="44-代码块">4.4 代码块</h3>
+
+<ul>
+  <li>使用 fenced code block，标注语言：<code class="language-plaintext highlighter-rouge">```bash</code>、<code class="language-plaintext highlighter-rouge">```yaml</code>、<code class="language-plaintext highlighter-rouge">```text</code></li>
+  <li>命令按行拆分，不要将多条命令挤在一行</li>
+  <li>长命令用 <code class="language-plaintext highlighter-rouge">\</code> 换行，缩进对齐：</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> build-essential git curl <span class="se">\</span>
+  zlib1g-dev libssl-dev libreadline-dev <span class="se">\</span>
+  libxml2-dev libxslt1-dev
+</code></pre></div></div>
+
+<h3 id="45-列表">4.5 列表</h3>
+
+<ul>
+  <li>有序列表用于步骤流程（1. 2. 3.）</li>
+  <li>无序列表用于并列说明、注意事项、参数解释</li>
+  <li>列表项保持平行结构，动词开头或名词开头统一</li>
 </ul>
 
 <hr />
 
-<h2 id="二路由配置说明">二、路由配置说明</h2>
+<h2 id="五common-index-提示框组件">五、common-index 提示框组件</h2>
 
-<p>源码下载后的基本文件结构供参考：</p>
+<h3 id="语法">语法</h3>
 
-<p><img src="https://i.loli.net/2021/07/13/o4gb1veWBlfyx8T.png" alt="文件结构截图" /></p>
+<div class="language-liquid highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{%</span><span class="w"> </span><span class="nt">include</span><span class="w"> </span>common-index/index-preset.html<span class="w"> </span><span class="na">level</span><span class="o">=</span><span class="s2">"级别"</span><span class="w"> </span><span class="na">msg</span><span class="o">=</span><span class="s2">"提示内容"</span><span class="w"> </span><span class="p">%}</span>
+</code></pre></div></div>
 
-<section class="gh-banner info" aria-labelledby="banner-title-文章内容往后更新-此处主要测试图床功能" role="region" data-dismissible="true">
+<h3 id="级别列表">级别列表</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>level</th>
+      <th>用途</th>
+      <th>典型场景</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">info</code></td>
+      <td>普通提示</td>
+      <td>补充说明、最佳实践、可选建议</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">warn</code></td>
+      <td>警告</td>
+      <td>操作前注意事项、备份提醒、风险提示</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">error</code></td>
+      <td>错误</td>
+      <td>报错排查方向、严重问题说明</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">success</code></td>
+      <td>成功</td>
+      <td>配置完成确认、服务启动成功</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="html-嵌入重要">HTML 嵌入（重要）</h3>
+
+<p><code class="language-plaintext highlighter-rouge">msg</code> 属性<strong>支持直接嵌入 HTML 代码</strong>，用于高亮命令、路径或变量：</p>
+
+<div class="language-liquid highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{%</span><span class="w"> </span><span class="nt">include</span><span class="w"> </span>common-index/index-preset.html<span class="w"> </span><span class="na">level</span><span class="o">=</span><span class="s2">"warn"</span><span class="w"> </span><span class="na">msg</span><span class="o">=</span><span class="s2">"替换前请先执行 &lt;code&gt;sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak&lt;/code&gt; 备份原文件。"</span><span class="w"> </span><span class="p">%}</span>
+</code></pre></div></div>
+
+<p>常用内嵌标签：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">&lt;code&gt;命令或路径&lt;/code&gt;</code> — 行内代码高亮</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;strong&gt;重要文字&lt;/strong&gt;</code> — 加粗强调</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;br&gt;</code> — 强制换行</li>
+</ul>
+
+<h3 id="capture-变量写法">capture 变量写法</h3>
+
+<p>当 <code class="language-plaintext highlighter-rouge">msg</code> 内容较长或包含 Liquid 语法时，可用 <code class="language-plaintext highlighter-rouge">capture</code> 预存变量：</p>
+
+<div class="language-liquid highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{%</span><span class="w"> </span><span class="nt">capture</span><span class="w"> </span><span class="nv">_msg</span><span class="w"> </span><span class="p">%}</span>在使用前请先阅读 &lt;a href="/wiki/quick-start"&gt;快速开始&lt;/a&gt;，如有问题请提 &lt;a href="/issues"&gt;Issues&lt;/a&gt;。<span class="p">{%</span><span class="w"> </span><span class="nt">endcapture</span><span class="w"> </span><span class="p">%}</span>
+<span class="p">{%</span><span class="w"> </span><span class="nt">include</span><span class="w"> </span>common-index/index-preset.html<span class="w"> </span><span class="na">level</span><span class="o">=</span><span class="s2">"info"</span><span class="w"> </span><span class="na">msg</span><span class="o">=</span><span class="nv">_msg</span><span class="w"> </span><span class="p">%}</span>
+</code></pre></div></div>
+
+<h3 id="放置原则">放置原则</h3>
+
+<ul>
+  <li><strong>warn</strong> 放在有风险的操作<strong>之前</strong>（如替换配置文件、执行系统级命令）</li>
+  <li><strong>info</strong> 放在步骤说明<strong>之后</strong>，作为补充建议</li>
+  <li><strong>success</strong> 放在某个阶段完成<strong>之后</strong>，确认结果</li>
+  <li><strong>error</strong> 放在故障排查章节<strong>开头</strong>，给出优先排查方向</li>
+  <li>同一章节不超过 2 个提示框，避免视觉噪音</li>
+</ul>
+
+<hr />
+
+<h2 id="六document-布局可用组件">六、document 布局可用组件</h2>
+
+<blockquote>
+  <p>以下内容组件在 <code class="language-plaintext highlighter-rouge">layout: document</code> 中常用。<code class="language-plaintext highlighter-rouge">layout: post</code> 同样支持 Markdown 基础语法，但 document 文档更依赖结构化组件。</p>
+</blockquote>
+
+<h3 id="61-common-index-提示框通用">6.1 common-index 提示框（通用）</h3>
+
+<p>两种布局都可使用，详见第五章。document 中适合在知识点旁标注「易错」「高频」「补充」等提示。</p>
+
+<h3 id="62-表格">6.2 表格</h3>
+
+<p>document 布局中大量使用 Markdown 表格展示结构化数据：</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{: .table}
+| 列1 | 列2 | 列3 |
+|-----|-----|-----|
+| 数据 | 数据 | 数据 |
+</code></pre></div></div>
+
+<h4 id="表格使用规范">表格使用规范</h4>
+
+<ul>
+  <li>表头简洁，不超过 8 个字</li>
+  <li>单元格内容精炼，长文本用 <code class="language-plaintext highlighter-rouge">&lt;br&gt;</code> 换行或拆分为多行</li>
+  <li>对齐方式：默认左对齐，数字列可用右对齐</li>
+  <li>同一章节表格数量不超过 3 个，避免页面过长</li>
+  <li>判断题/选择题用表格整理时，保留「题号 → 关键词 → 答案 → 解析」四列结构</li>
+</ul>
+
+<h3 id="63-思维导图文本块">6.3 思维导图文本块</h3>
+
+<p>用 fenced code block（```text）绘制树状知识结构：</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">```</span><span class="nl">text
+</span>考点体系
+├── 一级分类
+│   ├── 二级分类
+│   │   └── 具体知识点
+│   └── 二级分类
+└── 一级分类
+<span class="p">```</span>
+</code></pre></div></div>
+
+<h4 id="绘制规范">绘制规范</h4>
+
+<ul>
+  <li>使用 <code class="language-plaintext highlighter-rouge">├──</code> <code class="language-plaintext highlighter-rouge">└──</code> <code class="language-plaintext highlighter-rouge">│</code> 绘制树状结构</li>
+  <li>层级缩进统一用 4 个空格（或 <code class="language-plaintext highlighter-rouge">│   </code>）</li>
+  <li>叶子节点用一句话概括，不超过 20 个字</li>
+  <li>根节点不超过 5 个一级分支</li>
+</ul>
+
+<section class="gh-banner info" aria-labelledby="banner-title-思维导图文本块适合展示-strong-知识体系总览-strong-放在文档末尾作为全局索引-详细内容用表格展开-大纲用树状图概括" role="region" data-dismissible="true">
     <div class="banner-icon" aria-hidden="true">
         
         <svg viewBox="0 0 16 16" fill="currentColor">
@@ -382,18 +1023,48 @@
     </div>
 
     <div class="banner-content">
-        <span class="banner-text">文章内容往后更新，此处主要测试图床功能。</span>
+        <span class="banner-text">思维导图文本块适合展示<strong>知识体系总览</strong>，放在文档末尾作为全局索引。详细内容用表格展开，大纲用树状图概括。</span>
     </div>
 </section>
 
-<p>实操下来发现路由结构如下：</p>
+<h3 id="64-概念辨析对比表">6.4 概念辨析对比表</h3>
+
+<p>document 中常用对比表格区分易混淆概念，推荐格式：</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{: .table}
+| 概念 | 定义 | 关键区别 | 典型考法 |
+|------|------|----------|----------|
+| 概念A | ... | 与B的区别 | 出题方式 |
+| 概念B | ... | 与A的区别 | 出题方式 |
+</code></pre></div></div>
+
+<h4 id="对比表使用规范">对比表使用规范</h4>
 
 <ul>
-  <li><strong>新闻-公告</strong>窗口相互绑定 <code class="language-plaintext highlighter-rouge">/news</code>，<code class="language-plaintext highlighter-rouge">readmore</code> 功能同样跳转；</li>
-  <li><strong>帮助-个人</strong>栏目希望实现对近期研究（如 <code class="language-plaintext highlighter-rouge">struts2</code>、<code class="language-plaintext highlighter-rouge">shiro</code>）的展示。</li>
+  <li>每组对比不超过 6 个概念</li>
+  <li>必须包含「关键区别」列，一句话点明差异</li>
+  <li>可搭配 <code class="language-plaintext highlighter-rouge">common-index</code> 的 <code class="language-plaintext highlighter-rouge">info</code>/<code class="language-plaintext highlighter-rouge">warn</code> 提示框做总结</li>
 </ul>
 
-<section class="gh-banner warn" aria-labelledby="banner-title-部分功能路由和-json-文件对应的-site-url-help-路由暂时无法得知如何配置" role="region" data-dismissible="true">
+<h3 id="65-checklist-检查清单">6.5 checklist 检查清单</h3>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">-</span> [ ] 待完成项
+<span class="p">-</span> [x] 已完成项
+</code></pre></div></div>
+
+<p>document 布局中适合用于「复习进度」或「考前自查」。</p>
+
+<h3 id="66-锚点与内部跳转">6.6 锚点与内部跳转</h3>
+
+<p>document 文档通常较长，可在开头添加目录跳转：</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gu">## 目录</span>
+<span class="p">
+-</span> <span class="p">[</span><span class="nv">一、判断题</span><span class="p">](</span><span class="sx">#一判断题1分题</span><span class="p">)</span>
+<span class="p">-</span> <span class="p">[</span><span class="nv">二、单选题</span><span class="p">](</span><span class="sx">#二单选题1分题</span><span class="p">)</span>
+</code></pre></div></div>
+
+<section class="gh-banner warn" aria-labelledby="banner-title-document-布局的-code-toc-true-code-字段会自动生成右侧目录-如果同时手写目录-会导致-strong-重复目录-strong-建议-开了-code-toc-true-code-就不要手写目录-手写目录就关闭-code-toc-code" role="region" data-dismissible="true">
     <div class="banner-icon" aria-hidden="true">
         
         <svg viewBox="0 0 16 16" fill="currentColor">
@@ -403,78 +1074,1572 @@
     </div>
 
     <div class="banner-content">
-        <span class="banner-text">部分功能路由和 JSON 文件对应的 site.url/help 路由暂时无法得知如何配置。</span>
+        <span class="banner-text">document 布局的 <code>toc: true</code> 字段会自动生成右侧目录。如果同时手写目录，会导致<strong>重复目录</strong>。建议：开了 <code>toc: true</code> 就不要手写目录；手写目录就关闭 <code>toc</code>。</span>
     </div>
 </section>
 
-<h3 id="21-路由更新记录">2.1 路由更新记录</h3>
+<h3 id="67-引用块">6.7 引用块</h3>
 
-<p><strong>2020-11-08 更新：</strong></p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gt">&gt; 引用内容，用于补充说明或引用来源</span>
+</code></pre></div></div>
 
-<p>发现路由信息：</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">_data/options.yml</code> 配置文件可选择配置 <code class="language-plaintext highlighter-rouge">force_redirect_help</code> 功能，即强制路由跳转至 <code class="language-plaintext highlighter-rouge">help/*{redirect_url}</code>；</li>
-  <li>可选择配置 <code class="language-plaintext highlighter-rouge">unlist</code> 选项、<code class="language-plaintext highlighter-rouge">new</code> 显示等。</li>
-</ul>
-
-<p><strong>2021-02-01 更新：</strong></p>
-
-<p>发现头部样式关联：</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">category</code> 配置与 <code class="language-plaintext highlighter-rouge">layout</code> 配置；</li>
-  <li><code class="language-plaintext highlighter-rouge">layout</code> 布局选项配置，如选择配置 <code class="language-plaintext highlighter-rouge">help</code>，则可以在近期研究中左侧导航栏中发现。</li>
-</ul>
+<p>document 中适合用于：文档开头的简介说明、引用法规条文原文、补充背景信息。</p>
 
 <hr />
 
-<h2 id="三环境搭建与构建">三、环境搭建与构建</h2>
+<h2 id="七远程开发环境">七、远程开发环境</h2>
 
-<h3 id="31-依赖安装">3.1 依赖安装</h3>
+<h3 id="架构">架构</h3>
 
-<p>本站使用 <code class="language-plaintext highlighter-rouge">Jekyll</code> 编写，并使用 <code class="language-plaintext highlighter-rouge">babel</code> 编译，采用 ECMAScript 6，因此必须安装 <code class="language-plaintext highlighter-rouge">ruby &gt;= 2.0</code> 和 <code class="language-plaintext highlighter-rouge">nodejs</code>。</p>
-
-<p><strong>Step 1：安装 nodejs</strong></p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum <span class="nb">install </span>nodejs
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Windows (宿主机)
+  ├── VS Code + Remote-SSH 扩展
+  ├── 浏览器访问 http://虚拟机IP:4000
+  └── SSH 密钥 (~/.ssh/id_ed25519)
+        │ SSH隧道
+VMware Ubuntu 22.04 Server
+  ├── rbenv + Ruby 3.1.4
+  ├── Bundler + Jekyll
+  ├── Jekyll serve --host 0.0.0.0 -P 4000
+  └── Git 仓库
 </code></pre></div></div>
 
-<p><strong>Step 2：安装 ruby 2.2.4 和 rubygems</strong></p>
+<h3 id="虚拟机规格">虚拟机规格</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>资源</th>
+      <th>最低</th>
+      <th>推荐</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CPU</td>
+      <td>2 核</td>
+      <td>4 核</td>
+    </tr>
+    <tr>
+      <td>内存</td>
+      <td>4GB</td>
+      <td>8GB</td>
+    </tr>
+    <tr>
+      <td>硬盘</td>
+      <td>20GB</td>
+      <td>40GB</td>
+    </tr>
+    <tr>
+      <td>网络</td>
+      <td>NAT</td>
+      <td>NAT</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="软件镜像换源">软件镜像换源</h3>
+
+<div class="sp-panel" id="sp-panel">
+  <div class="sp-panel-head">
+    <h3 class="sp-panel-title">Linux 软件源切换</h3>
+    
+      <p class="sp-panel-config"><i class="fas fa-gear"></i> Ubuntu| Centos-7| Fedora| Redhat| suse| Linux</p>
+    
+    
+  </div>
+
+  
+  <div class="sp-distro-bar">
+    
+      <b class="sp-tab-btn active" data-sp-target="sp-panel-ubuntu-2204" data-sp-group="sp-panel-distro">
+        
+          <i class="fa-brands fa-ubuntu" style="color:#e95420;"></i>
+        
+        <span>Ubuntu 22.04</span>
+      </b>
+    
+      <b class="sp-tab-btn " data-sp-target="sp-panel-debian-12" data-sp-group="sp-panel-distro">
+        
+          <i class="fa-brands fa-linux" style="color:#a80030;"></i>
+        
+        <span>Debian 12</span>
+      </b>
+    
+      <b class="sp-tab-btn " data-sp-target="sp-panel-centos-7" data-sp-group="sp-panel-distro">
+        
+          <i class="fa-brands fa-redhat" style="color:#932279;"></i>
+        
+        <span>CentOS 7</span>
+      </b>
+    
+      <b class="sp-tab-btn " data-sp-target="sp-panel-fedora-40" data-sp-group="sp-panel-distro">
+        
+          <i class="fa-brands fa-fedora" style="color:#294172;"></i>
+        
+        <span>Fedora 40</span>
+      </b>
+    
+      <b class="sp-tab-btn " data-sp-target="sp-panel-arch" data-sp-group="sp-panel-distro">
+        
+          <i class="fa-brands fa-linux" style="color:#1793d1;"></i>
+        
+        <span>Arch Linux</span>
+      </b>
+    
+      <b class="sp-tab-btn " data-sp-target="sp-panel-opensuse-leap" data-sp-group="sp-panel-distro">
+        
+          <i class="fa-brands fa-suse" style="color:#73ba25;"></i>
+        
+        <span>openSUSE Leap</span>
+      </b>
+    
+      <b class="sp-tab-btn " data-sp-target="sp-panel-alpine" data-sp-group="sp-panel-distro">
+        
+          <i class="fa-brands fa-linux" style="color:#0d597f;"></i>
+        
+        <span>Alpine Linux</span>
+      </b>
+    
+  </div>
+
+  
+  
+  <div class="sp-mirror-bar" data-sp-group="sp-panel-mirror">
+    <span class="sp-mirror-label"><i class="fas fa-server"></i> 镜像源</span>
+    
+      <b class="sp-mirror-btn active" data-sp-mirror="official" data-sp-group="sp-panel-mirror">
+        官方
+      </b>
+    
+      <b class="sp-mirror-btn " data-sp-mirror="tuna" data-sp-group="sp-panel-mirror">
+        清华 TUNA
+      </b>
+    
+      <b class="sp-mirror-btn " data-sp-mirror="aliyun" data-sp-group="sp-panel-mirror">
+        阿里云
+      </b>
+    
+      <b class="sp-mirror-btn " data-sp-mirror="ustc" data-sp-group="sp-panel-mirror">
+        中科大 USTC
+      </b>
+    
+  </div>
+  
+
+  
+  
+  <div class="sp-content" id="sp-panel-ubuntu-2204" data-sp-group="sp-panel-distro" style="display:block;">
+    
+      <div class="sp-mirror-section is-visible" data-sp-mirror-content="official" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">官方</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--official">OFFICIAL</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有配置
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak"><code><span class="token prompt">$ </span>sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            还原为官方源
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|https://mirrors\.\S*ubuntu|http://archive.ubuntu.com/ubuntu|g' /etc/apt/sources.list"><code><span class="token prompt">$ </span>sudo sed -i 's|https://mirrors\.\S*ubuntu|http://archive.ubuntu.com/ubuntu|g' /etc/apt/sources.list</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            还原 security 源
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|https://mirrors\.\S*ubuntu|http://security.ubuntu.com/ubuntu|g' /etc/apt/sources.list"><code><span class="token prompt">$ </span>sudo sed -i 's|https://mirrors\.\S*ubuntu|http://security.ubuntu.com/ubuntu|g' /etc/apt/sources.list</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">4</span>
+            更新软件缓存
+          </div>
+          <pre class="sp-code" data-cmd="sudo apt update"><code><span class="token prompt">$ </span>sudo apt update</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+      <div class="sp-mirror-section is-hidden" data-sp-mirror-content="tuna" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">清华 TUNA</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有配置
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak"><code><span class="token prompt">$ </span>sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            替换 archive 源
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|http://archive.ubuntu.com/ubuntu|https://mirrors.tuna.tsinghua.edu.cn/ubuntu|g' /etc/apt/sources.list"><code><span class="token prompt">$ </span>sudo sed -i 's|http://archive.ubuntu.com/ubuntu|https://mirrors.tuna.tsinghua.edu.cn/ubuntu|g' /etc/apt/sources.list</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            替换 security 源
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|http://security.ubuntu.com/ubuntu|https://mirrors.tuna.tsinghua.edu.cn/ubuntu|g' /etc/apt/sources.list"><code><span class="token prompt">$ </span>sudo sed -i 's|http://security.ubuntu.com/ubuntu|https://mirrors.tuna.tsinghua.edu.cn/ubuntu|g' /etc/apt/sources.list</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">4</span>
+            更新软件缓存
+          </div>
+          <pre class="sp-code" data-cmd="sudo apt update"><code><span class="token prompt">$ </span>sudo apt update</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+      <div class="sp-mirror-section is-hidden" data-sp-mirror-content="aliyun" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">阿里云</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有配置
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak"><code><span class="token prompt">$ </span>sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            替换 archive 源
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|http://archive.ubuntu.com/ubuntu|https://mirrors.aliyun.com/ubuntu|g' /etc/apt/sources.list"><code><span class="token prompt">$ </span>sudo sed -i 's|http://archive.ubuntu.com/ubuntu|https://mirrors.aliyun.com/ubuntu|g' /etc/apt/sources.list</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            替换 security 源
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|http://security.ubuntu.com/ubuntu|https://mirrors.aliyun.com/ubuntu|g' /etc/apt/sources.list"><code><span class="token prompt">$ </span>sudo sed -i 's|http://security.ubuntu.com/ubuntu|https://mirrors.aliyun.com/ubuntu|g' /etc/apt/sources.list</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">4</span>
+            更新软件缓存
+          </div>
+          <pre class="sp-code" data-cmd="sudo apt update"><code><span class="token prompt">$ </span>sudo apt update</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+      <div class="sp-mirror-section is-hidden" data-sp-mirror-content="ustc" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">中科大 USTC</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有配置
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak"><code><span class="token prompt">$ </span>sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            替换 archive 源
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|http://archive.ubuntu.com/ubuntu|https://mirrors.ustc.edu.cn/ubuntu|g' /etc/apt/sources.list"><code><span class="token prompt">$ </span>sudo sed -i 's|http://archive.ubuntu.com/ubuntu|https://mirrors.ustc.edu.cn/ubuntu|g' /etc/apt/sources.list</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            替换 security 源
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|http://security.ubuntu.com/ubuntu|https://mirrors.ustc.edu.cn/ubuntu|g' /etc/apt/sources.list"><code><span class="token prompt">$ </span>sudo sed -i 's|http://security.ubuntu.com/ubuntu|https://mirrors.ustc.edu.cn/ubuntu|g' /etc/apt/sources.list</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">4</span>
+            更新软件缓存
+          </div>
+          <pre class="sp-code" data-cmd="sudo apt update"><code><span class="token prompt">$ </span>sudo apt update</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+  </div>
+  
+  <div class="sp-content" id="sp-panel-debian-12" data-sp-group="sp-panel-distro" style="display:none;">
+    
+      <div class="sp-mirror-section is-visible" data-sp-mirror-content="official" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">Debian 官方</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--official">OFFICIAL</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有配置
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak"><code><span class="token prompt">$ </span>sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            还原为官方源
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|https://mirrors\.\S*debian|http://deb.debian.org/debian|g' /etc/apt/sources.list"><code><span class="token prompt">$ </span>sudo sed -i 's|https://mirrors\.\S*debian|http://deb.debian.org/debian|g' /etc/apt/sources.list</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            还原 security 源
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|https://mirrors\.\S*debian-security|http://security.debian.org/debian-security|g' /etc/apt/sources.list"><code><span class="token prompt">$ </span>sudo sed -i 's|https://mirrors\.\S*debian-security|http://security.debian.org/debian-security|g' /etc/apt/sources.list</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">4</span>
+            更新软件缓存
+          </div>
+          <pre class="sp-code" data-cmd="sudo apt update"><code><span class="token prompt">$ </span>sudo apt update</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+      <div class="sp-mirror-section is-hidden" data-sp-mirror-content="tuna" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">清华 TUNA</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有配置
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak"><code><span class="token prompt">$ </span>sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            替换 debian 源
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|http://deb.debian.org/debian|https://mirrors.tuna.tsinghua.edu.cn/debian|g' /etc/apt/sources.list"><code><span class="token prompt">$ </span>sudo sed -i 's|http://deb.debian.org/debian|https://mirrors.tuna.tsinghua.edu.cn/debian|g' /etc/apt/sources.list</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            替换 security 源
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|http://security.debian.org/debian-security|https://mirrors.tuna.tsinghua.edu.cn/debian-security|g' /etc/apt/sources.list"><code><span class="token prompt">$ </span>sudo sed -i 's|http://security.debian.org/debian-security|https://mirrors.tuna.tsinghua.edu.cn/debian-security|g' /etc/apt/sources.list</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">4</span>
+            更新软件缓存
+          </div>
+          <pre class="sp-code" data-cmd="sudo apt update"><code><span class="token prompt">$ </span>sudo apt update</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+      <div class="sp-mirror-section is-hidden" data-sp-mirror-content="aliyun" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">阿里云</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有配置
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak"><code><span class="token prompt">$ </span>sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            替换 debian 源
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|http://deb.debian.org/debian|https://mirrors.aliyun.com/debian|g' /etc/apt/sources.list"><code><span class="token prompt">$ </span>sudo sed -i 's|http://deb.debian.org/debian|https://mirrors.aliyun.com/debian|g' /etc/apt/sources.list</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            替换 security 源
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|http://security.debian.org/debian-security|https://mirrors.aliyun.com/debian-security|g' /etc/apt/sources.list"><code><span class="token prompt">$ </span>sudo sed -i 's|http://security.debian.org/debian-security|https://mirrors.aliyun.com/debian-security|g' /etc/apt/sources.list</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">4</span>
+            更新软件缓存
+          </div>
+          <pre class="sp-code" data-cmd="sudo apt update"><code><span class="token prompt">$ </span>sudo apt update</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+      <div class="sp-mirror-section is-hidden" data-sp-mirror-content="ustc" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">中科大 USTC</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有配置
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak"><code><span class="token prompt">$ </span>sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            替换 debian 源
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|http://deb.debian.org/debian|https://mirrors.ustc.edu.cn/debian|g' /etc/apt/sources.list"><code><span class="token prompt">$ </span>sudo sed -i 's|http://deb.debian.org/debian|https://mirrors.ustc.edu.cn/debian|g' /etc/apt/sources.list</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            替换 security 源
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|http://security.debian.org/debian-security|https://mirrors.ustc.edu.cn/debian-security|g' /etc/apt/sources.list"><code><span class="token prompt">$ </span>sudo sed -i 's|http://security.debian.org/debian-security|https://mirrors.ustc.edu.cn/debian-security|g' /etc/apt/sources.list</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">4</span>
+            更新软件缓存
+          </div>
+          <pre class="sp-code" data-cmd="sudo apt update"><code><span class="token prompt">$ </span>sudo apt update</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+  </div>
+  
+  <div class="sp-content" id="sp-panel-centos-7" data-sp-group="sp-panel-distro" style="display:none;">
+    
+      <div class="sp-mirror-section is-visible" data-sp-mirror-content="tuna" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">清华 TUNA</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有配置
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak"><code><span class="token prompt">$ </span>sudo cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            替换软件源
+          </div>
+          <pre class="sp-code" data-cmd="sudo wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.tuna.tsinghua.edu.cn/repo/Centos-7.repo"><code><span class="token prompt">$ </span>sudo wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.tuna.tsinghua.edu.cn/repo/Centos-7.repo</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            清理并重建缓存
+          </div>
+          <pre class="sp-code" data-cmd="sudo yum clean all &amp;&amp; sudo yum makecache"><code><span class="token prompt">$ </span>sudo yum clean all &amp;&amp; sudo yum makecache</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+      <div class="sp-mirror-section is-hidden" data-sp-mirror-content="aliyun" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">阿里云</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有配置
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak"><code><span class="token prompt">$ </span>sudo cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            替换软件源
+          </div>
+          <pre class="sp-code" data-cmd="sudo wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo"><code><span class="token prompt">$ </span>sudo wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            清理并重建缓存
+          </div>
+          <pre class="sp-code" data-cmd="sudo yum clean all &amp;&amp; sudo yum makecache"><code><span class="token prompt">$ </span>sudo yum clean all &amp;&amp; sudo yum makecache</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+      <div class="sp-mirror-section is-hidden" data-sp-mirror-content="ustc" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">中科大 USTC</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有配置
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak"><code><span class="token prompt">$ </span>sudo cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            替换软件源
+          </div>
+          <pre class="sp-code" data-cmd="sudo wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.ustc.edu.cn/repo/Centos-7.repo"><code><span class="token prompt">$ </span>sudo wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.ustc.edu.cn/repo/Centos-7.repo</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            清理并重建缓存
+          </div>
+          <pre class="sp-code" data-cmd="sudo yum clean all &amp;&amp; sudo yum makecache"><code><span class="token prompt">$ </span>sudo yum clean all &amp;&amp; sudo yum makecache</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+  </div>
+  
+  <div class="sp-content" id="sp-panel-fedora-40" data-sp-group="sp-panel-distro" style="display:none;">
+    
+      <div class="sp-mirror-section is-visible" data-sp-mirror-content="official" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">Fedora 官方</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--official">OFFICIAL</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有配置
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/yum.repos.d/fedora.repo /etc/yum.repos.d/fedora.repo.bak &amp;&amp; sudo cp /etc/yum.repos.d/fedora-updates.repo /etc/yum.repos.d/fedora-updates.repo.bak"><code><span class="token prompt">$ </span>sudo cp /etc/yum.repos.d/fedora.repo /etc/yum.repos.d/fedora.repo.bak &amp;&amp; sudo cp /etc/yum.repos.d/fedora-updates.repo /etc/yum.repos.d/fedora-updates.repo.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            启用官方 baseurl
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i -e 's|^metalink=|#metalink=|g' -e 's|^#baseurl=https://download.example/pub/fedora/linux|baseurl=https://download.fedoraproject.org/pub/fedora/linux|g' /etc/yum.repos.d/fedora*.repo"><code><span class="token prompt">$ </span>sudo sed -i -e 's|^metalink=|#metalink=|g' -e 's|^#baseurl=https://download.example/pub/fedora/linux|baseurl=https://download.fedoraproject.org/pub/fedora/linux|g' /etc/yum.repos.d/fedora*.repo</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            重建缓存
+          </div>
+          <pre class="sp-code" data-cmd="sudo dnf makecache"><code><span class="token prompt">$ </span>sudo dnf makecache</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+      <div class="sp-mirror-section is-hidden" data-sp-mirror-content="tuna" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">清华 TUNA</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有配置
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/yum.repos.d/fedora.repo /etc/yum.repos.d/fedora.repo.bak &amp;&amp; sudo cp /etc/yum.repos.d/fedora-updates.repo /etc/yum.repos.d/fedora-updates.repo.bak"><code><span class="token prompt">$ </span>sudo cp /etc/yum.repos.d/fedora.repo /etc/yum.repos.d/fedora.repo.bak &amp;&amp; sudo cp /etc/yum.repos.d/fedora-updates.repo /etc/yum.repos.d/fedora-updates.repo.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            禁用 metalink，启用镜像 baseurl
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i -e 's|^metalink=|#metalink=|g' -e 's|^#baseurl=https://download.example/pub/fedora/linux|baseurl=https://mirrors.tuna.tsinghua.edu.cn/fedora|g' /etc/yum.repos.d/fedora*.repo"><code><span class="token prompt">$ </span>sudo sed -i -e 's|^metalink=|#metalink=|g' -e 's|^#baseurl=https://download.example/pub/fedora/linux|baseurl=https://mirrors.tuna.tsinghua.edu.cn/fedora|g' /etc/yum.repos.d/fedora*.repo</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            重建缓存
+          </div>
+          <pre class="sp-code" data-cmd="sudo dnf makecache"><code><span class="token prompt">$ </span>sudo dnf makecache</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+      <div class="sp-mirror-section is-hidden" data-sp-mirror-content="aliyun" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">阿里云</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有配置
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/yum.repos.d/fedora.repo /etc/yum.repos.d/fedora.repo.bak &amp;&amp; sudo cp /etc/yum.repos.d/fedora-updates.repo /etc/yum.repos.d/fedora-updates.repo.bak"><code><span class="token prompt">$ </span>sudo cp /etc/yum.repos.d/fedora.repo /etc/yum.repos.d/fedora.repo.bak &amp;&amp; sudo cp /etc/yum.repos.d/fedora-updates.repo /etc/yum.repos.d/fedora-updates.repo.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            禁用 metalink，启用镜像 baseurl
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i -e 's|^metalink=|#metalink=|g' -e 's|^#baseurl=https://download.example/pub/fedora/linux|baseurl=https://mirrors.aliyun.com/fedora|g' /etc/yum.repos.d/fedora*.repo"><code><span class="token prompt">$ </span>sudo sed -i -e 's|^metalink=|#metalink=|g' -e 's|^#baseurl=https://download.example/pub/fedora/linux|baseurl=https://mirrors.aliyun.com/fedora|g' /etc/yum.repos.d/fedora*.repo</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            重建缓存
+          </div>
+          <pre class="sp-code" data-cmd="sudo dnf makecache"><code><span class="token prompt">$ </span>sudo dnf makecache</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+      <div class="sp-mirror-section is-hidden" data-sp-mirror-content="ustc" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">中科大 USTC</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有配置
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/yum.repos.d/fedora.repo /etc/yum.repos.d/fedora.repo.bak &amp;&amp; sudo cp /etc/yum.repos.d/fedora-updates.repo /etc/yum.repos.d/fedora-updates.repo.bak"><code><span class="token prompt">$ </span>sudo cp /etc/yum.repos.d/fedora.repo /etc/yum.repos.d/fedora.repo.bak &amp;&amp; sudo cp /etc/yum.repos.d/fedora-updates.repo /etc/yum.repos.d/fedora-updates.repo.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            禁用 metalink，启用镜像 baseurl
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i -e 's|^metalink=|#metalink=|g' -e 's|^#baseurl=https://download.example/pub/fedora/linux|baseurl=https://mirrors.ustc.edu.cn/fedora|g' /etc/yum.repos.d/fedora*.repo"><code><span class="token prompt">$ </span>sudo sed -i -e 's|^metalink=|#metalink=|g' -e 's|^#baseurl=https://download.example/pub/fedora/linux|baseurl=https://mirrors.ustc.edu.cn/fedora|g' /etc/yum.repos.d/fedora*.repo</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            重建缓存
+          </div>
+          <pre class="sp-code" data-cmd="sudo dnf makecache"><code><span class="token prompt">$ </span>sudo dnf makecache</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+  </div>
+  
+  <div class="sp-content" id="sp-panel-arch" data-sp-group="sp-panel-distro" style="display:none;">
+    
+      <div class="sp-mirror-section is-visible" data-sp-mirror-content="tuna" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">清华 TUNA</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有镜像列表
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak"><code><span class="token prompt">$ </span>sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            写入 TUNA 镜像
+          </div>
+          <pre class="sp-code" data-cmd="echo 'Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' | sudo tee /etc/pacman.d/mirrorlist"><code><span class="token prompt">$ </span>echo 'Server = https://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' | sudo tee /etc/pacman.d/mirrorlist</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            同步软件包数据库
+          </div>
+          <pre class="sp-code" data-cmd="sudo pacman -Syyu"><code><span class="token prompt">$ </span>sudo pacman -Syyu</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+      <div class="sp-mirror-section is-hidden" data-sp-mirror-content="aliyun" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">阿里云</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有镜像列表
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak"><code><span class="token prompt">$ </span>sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            写入阿里云镜像
+          </div>
+          <pre class="sp-code" data-cmd="echo 'Server = https://mirrors.aliyun.com/archlinux/$repo/os/$arch' | sudo tee /etc/pacman.d/mirrorlist"><code><span class="token prompt">$ </span>echo 'Server = https://mirrors.aliyun.com/archlinux/$repo/os/$arch' | sudo tee /etc/pacman.d/mirrorlist</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            同步软件包数据库
+          </div>
+          <pre class="sp-code" data-cmd="sudo pacman -Syyu"><code><span class="token prompt">$ </span>sudo pacman -Syyu</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+      <div class="sp-mirror-section is-hidden" data-sp-mirror-content="ustc" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">中科大 USTC</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有镜像列表
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak"><code><span class="token prompt">$ </span>sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            写入 USTC 镜像
+          </div>
+          <pre class="sp-code" data-cmd="echo 'Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch' | sudo tee /etc/pacman.d/mirrorlist"><code><span class="token prompt">$ </span>echo 'Server = https://mirrors.ustc.edu.cn/archlinux/$repo/os/$arch' | sudo tee /etc/pacman.d/mirrorlist</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            同步软件包数据库
+          </div>
+          <pre class="sp-code" data-cmd="sudo pacman -Syyu"><code><span class="token prompt">$ </span>sudo pacman -Syyu</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+  </div>
+  
+  <div class="sp-content" id="sp-panel-opensuse-leap" data-sp-group="sp-panel-distro" style="display:none;">
+    
+      <div class="sp-mirror-section is-visible" data-sp-mirror-content="tuna" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">清华 TUNA</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份所有 repo 文件
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp -r /etc/zypp/repos.d /etc/zypp/repos.d.bak"><code><span class="token prompt">$ </span>sudo cp -r /etc/zypp/repos.d /etc/zypp/repos.d.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            替换为 TUNA 镜像
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|download.opensuse.org|mirrors.tuna.tsinghua.edu.cn/opensuse|g' /etc/zypp/repos.d/*.repo"><code><span class="token prompt">$ </span>sudo sed -i 's|download.opensuse.org|mirrors.tuna.tsinghua.edu.cn/opensuse|g' /etc/zypp/repos.d/*.repo</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            刷新仓库
+          </div>
+          <pre class="sp-code" data-cmd="sudo zypper refresh"><code><span class="token prompt">$ </span>sudo zypper refresh</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+      <div class="sp-mirror-section is-hidden" data-sp-mirror-content="aliyun" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">阿里云</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份所有 repo 文件
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp -r /etc/zypp/repos.d /etc/zypp/repos.d.bak"><code><span class="token prompt">$ </span>sudo cp -r /etc/zypp/repos.d /etc/zypp/repos.d.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            替换为阿里云镜像
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|download.opensuse.org|mirrors.aliyun.com/opensuse|g' /etc/zypp/repos.d/*.repo"><code><span class="token prompt">$ </span>sudo sed -i 's|download.opensuse.org|mirrors.aliyun.com/opensuse|g' /etc/zypp/repos.d/*.repo</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            刷新仓库
+          </div>
+          <pre class="sp-code" data-cmd="sudo zypper refresh"><code><span class="token prompt">$ </span>sudo zypper refresh</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+      <div class="sp-mirror-section is-hidden" data-sp-mirror-content="ustc" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">中科大 USTC</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份所有 repo 文件
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp -r /etc/zypp/repos.d /etc/zypp/repos.d.bak"><code><span class="token prompt">$ </span>sudo cp -r /etc/zypp/repos.d /etc/zypp/repos.d.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            替换为 USTC 镜像
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|download.opensuse.org|mirrors.ustc.edu.cn/opensuse|g' /etc/zypp/repos.d/*.repo"><code><span class="token prompt">$ </span>sudo sed -i 's|download.opensuse.org|mirrors.ustc.edu.cn/opensuse|g' /etc/zypp/repos.d/*.repo</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            刷新仓库
+          </div>
+          <pre class="sp-code" data-cmd="sudo zypper refresh"><code><span class="token prompt">$ </span>sudo zypper refresh</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+  </div>
+  
+  <div class="sp-content" id="sp-panel-alpine" data-sp-group="sp-panel-distro" style="display:none;">
+    
+      <div class="sp-mirror-section is-visible" data-sp-mirror-content="tuna" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">清华 TUNA</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有配置
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/apk/repositories /etc/apk/repositories.bak"><code><span class="token prompt">$ </span>sudo cp /etc/apk/repositories /etc/apk/repositories.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            替换为 TUNA 镜像
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|https://dl-cdn.alpinelinux.org/alpine|https://mirrors.tuna.tsinghua.edu.cn/alpine|g' /etc/apk/repositories"><code><span class="token prompt">$ </span>sudo sed -i 's|https://dl-cdn.alpinelinux.org/alpine|https://mirrors.tuna.tsinghua.edu.cn/alpine|g' /etc/apk/repositories</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            更新索引
+          </div>
+          <pre class="sp-code" data-cmd="sudo apk update"><code><span class="token prompt">$ </span>sudo apk update</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+      <div class="sp-mirror-section is-hidden" data-sp-mirror-content="aliyun" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">阿里云</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有配置
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/apk/repositories /etc/apk/repositories.bak"><code><span class="token prompt">$ </span>sudo cp /etc/apk/repositories /etc/apk/repositories.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            替换为阿里云镜像
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|https://dl-cdn.alpinelinux.org/alpine|https://mirrors.aliyun.com/alpine|g' /etc/apk/repositories"><code><span class="token prompt">$ </span>sudo sed -i 's|https://dl-cdn.alpinelinux.org/alpine|https://mirrors.aliyun.com/alpine|g' /etc/apk/repositories</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            更新索引
+          </div>
+          <pre class="sp-code" data-cmd="sudo apk update"><code><span class="token prompt">$ </span>sudo apk update</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+      <div class="sp-mirror-section is-hidden" data-sp-mirror-content="ustc" data-sp-group="sp-panel-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">中科大 USTC</span>
+          
+            <span class="sp-mirror-tag sp-mirror-tag--mirror">MIRROR</span>
+          
+        </div>
+
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">1</span>
+            备份原有配置
+          </div>
+          <pre class="sp-code" data-cmd="sudo cp /etc/apk/repositories /etc/apk/repositories.bak"><code><span class="token prompt">$ </span>sudo cp /etc/apk/repositories /etc/apk/repositories.bak</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">2</span>
+            替换为 USTC 镜像
+          </div>
+          <pre class="sp-code" data-cmd="sudo sed -i 's|https://dl-cdn.alpinelinux.org/alpine|https://mirrors.ustc.edu.cn/alpine|g' /etc/apk/repositories"><code><span class="token prompt">$ </span>sudo sed -i 's|https://dl-cdn.alpinelinux.org/alpine|https://mirrors.ustc.edu.cn/alpine|g' /etc/apk/repositories</code></pre>
+        </div>
+        
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">3</span>
+            更新索引
+          </div>
+          <pre class="sp-code" data-cmd="sudo apk update"><code><span class="token prompt">$ </span>sudo apk update</code></pre>
+        </div>
+        
+
+        
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    
+  </div>
+  
+
+  
+  
+</div>
+
+<script>
+(function(){
+  if(window.__spInit) return;
+  window.__spInit = true;
+
+  function copyText(text){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function(resolve){
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;left:-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try{ document.execCommand('copy'); }catch(e){}
+      document.body.removeChild(ta);
+      resolve();
+    });
+  }
+
+  function flash(el){
+    el.classList.add('sp-copy-done');
+    setTimeout(function(){ el.classList.remove('sp-copy-done'); }, 2000);
+  }
+
+  document.addEventListener('click', function(e){
+
+    /* ---- distro tab ---- */
+    var tab = e.target.closest('.sp-tab-btn[data-sp-target]');
+    if(tab){
+      var grp = tab.getAttribute('data-sp-group');
+      var tgt = tab.getAttribute('data-sp-target');
+      document.querySelectorAll('.sp-tab-btn[data-sp-group="'+grp+'"]').forEach(function(b){ b.classList.remove('active'); });
+      tab.classList.add('active');
+      document.querySelectorAll('.sp-content[data-sp-group="'+grp+'"]').forEach(function(c){ c.style.display = 'none'; });
+      var el = document.getElementById(tgt);
+      if(el) el.style.display = 'block';
+      return;
+    }
+
+    /* ---- mirror switch ---- */
+    var mb = e.target.closest('.sp-mirror-btn');
+    if(mb){
+      var mg = mb.getAttribute('data-sp-group');
+      var mi = mb.getAttribute('data-sp-mirror');
+      document.querySelectorAll('.sp-mirror-btn[data-sp-group="'+mg+'"]').forEach(function(b){ b.classList.remove('active'); });
+      mb.classList.add('active');
+      document.querySelectorAll('.sp-mirror-section[data-sp-group="'+mg+'"]').forEach(function(s){
+        var match = s.getAttribute('data-sp-mirror-content') === mi;
+        s.classList.toggle('is-visible', match);
+        s.classList.toggle('is-hidden', !match);
+      });
+      return;
+    }
+
+    /* ---- copy all ---- */
+    var cb = e.target.closest('.sp-copy-all');
+    if(cb){
+      var section = cb.closest('.sp-mirror-section');
+      if(!section) return;
+      var cmds = [];
+      section.querySelectorAll('.sp-code[data-cmd]').forEach(function(pre){
+        cmds.push(pre.getAttribute('data-cmd'));
+      });
+      if(cmds.length){
+        copyText(cmds.join('\n')).then(function(){
+          flash(cb);
+          var span = cb.querySelector('span');
+          if(span){
+            var orig = span.textContent;
+            span.textContent = '已复制';
+            setTimeout(function(){ span.textContent = orig; }, 2000);
+          }
+        });
+      }
+    }
+  });
+})();
+</script>
+
+<h3 id="基础依赖">基础依赖</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> build-essential git curl <span class="se">\</span>
+  zlib1g-dev libssl-dev libreadline-dev libyaml-dev <span class="se">\</span>
+  libxml2-dev libxslt1-dev
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="八ruby-环境配置">八、Ruby 环境配置</h2>
+
+<h3 id="rbenv-安装">rbenv 安装</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+<span class="nb">echo</span> <span class="s1">'export PATH="$HOME/.rbenv/bin:$PATH"'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+<span class="nb">echo</span> <span class="s1">'eval "$(rbenv init -)"'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+<span class="nb">source</span> ~/.bashrc
+
+git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+</code></pre></div></div>
+
+<h3 id="国内镜像加速">国内镜像加速</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'export RUBY_BUILD_MIRROR_URL="https://cache.ruby-china.com/pub/ruby/"'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+<span class="nb">source</span> ~/.bashrc
+</code></pre></div></div>
+
+<h3 id="安装-ruby">安装 Ruby</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rbenv <span class="nb">install </span>3.1.4
+rbenv global 3.1.4
+ruby <span class="nt">-v</span>
+</code></pre></div></div>
+
+<h3 id="bundler-与-jekyll">Bundler 与 Jekyll</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem <span class="nb">install </span>bundler <span class="nt">-v</span> <span class="s1">'~&gt; 2.4'</span>
+<span class="nb">cd </span>你的项目目录
+bundle <span class="nb">install
+</span>bundle <span class="nb">exec </span>jekyll serve <span class="nt">--host</span> 0.0.0.0 <span class="nt">-P</span> 4000
+</code></pre></div></div>
+
+<section class="gh-banner warn" aria-labelledby="banner-title-永远用-code-bundle-exec-jekyll-code-而不是直接-code-jekyll-code-code-bundle-exec-code-确保使用-gemfile-中锁定的版本-避免版本不一致导致构建差异" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575L6.457 1.047ZM8 4.75a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4.75Zm.75 6.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text">永远用 <code>bundle exec jekyll</code> 而不是直接 <code>jekyll</code>。<code>bundle exec</code> 确保使用 Gemfile 中锁定的版本，避免版本不一致导致构建差异。</span>
+    </div>
+</section>
+
+<h3 id="centos--rhel-环境yum">CentOS / RHEL 环境（yum）</h3>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 安装编译依赖</span>
 yum <span class="nb">install </span>gcc-c++ patch readline readline-devel zlib zlib-devel
 yum <span class="nb">install </span>libyaml-devel libffi-devel openssl-devel make
 yum <span class="nb">install </span>bzip2 autoconf automake libtool bison iconv-devel sqlite-devel
 
-<span class="c"># 下载并编译 ruby 2.2.4</span>
+<span class="c"># 安装 nodejs</span>
+yum <span class="nb">install </span>nodejs
+
+<span class="c"># 下载并编译 ruby</span>
 wget <span class="nt">-c</span> https://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.4.tar.gz
 
 <span class="c"># 下载并安装 rubygems</span>
 wget <span class="nt">-c</span> https://rubygems.org/rubygems/rubygems-2.4.8.tgz
 ruby setup.rb
-</code></pre></div></div>
 
-<p><strong>Step 3：安装 bundle 和 build</strong></p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem <span class="nb">install </span>bundle
+<span class="c"># 安装 bundle 和 build</span>
+gem <span class="nb">install </span>bundle
 gem <span class="nb">install </span>build
 </code></pre></div></div>
 
-<h3 id="32-本地构建与运行">3.2 本地构建与运行</h3>
+<hr />
 
-<p>Fork 并克隆源码后，在博客文件夹根目录下执行：</p>
+<h2 id="九_configyml-关键配置">九、<code class="language-plaintext highlighter-rouge">_config.yml</code> 关键配置</h2>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">install
-</span>jekyll build
+<blockquote>
+  <p>Jekyll 站点的核心配置文件，影响构建行为、URL 结构和部署。</p>
+</blockquote>
+
+<h3 id="必须关注的字段">必须关注的字段</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 站点基础信息</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">你的站点标题"</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">站点描述"</span>
+<span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://用户名.github.io"</span>
+<span class="na">baseurl</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/仓库名"</span>                  <span class="c1"># 项目站点必填；用户站点留空 ""</span>
+
+<span class="c1"># URL 结构</span>
+<span class="na">permalink</span><span class="pi">:</span> <span class="s">/:categories/:year/:month/:day/:title/</span>
+
+<span class="c1"># 构建</span>
+<span class="na">markdown</span><span class="pi">:</span> <span class="s">kramdown</span>
+<span class="na">highlighter</span><span class="pi">:</span> <span class="s">rouge</span>
+<span class="na">plugins</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">jekyll-feed</span>
+  <span class="pi">-</span> <span class="s">jekyll-sitemap</span>
 </code></pre></div></div>
 
-<p>启动本地服务：</p>
+<h3 id="baseurl-与-url-的关系"><code class="language-plaintext highlighter-rouge">baseurl</code> 与 <code class="language-plaintext highlighter-rouge">url</code> 的关系</h3>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll serve <span class="nt">-P</span> 80
-<span class="c"># 或</span>
-bundle <span class="nb">exec </span>jekyll server <span class="nt">-P</span> 80
+<table class="table">
+  <thead>
+    <tr>
+      <th>部署方式</th>
+      <th><code class="language-plaintext highlighter-rouge">url</code></th>
+      <th><code class="language-plaintext highlighter-rouge">baseurl</code></th>
+      <th>访问地址</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>用户站点（<code class="language-plaintext highlighter-rouge">用户名.github.io</code>）</td>
+      <td><code class="language-plaintext highlighter-rouge">https://用户名.github.io</code></td>
+      <td><code class="language-plaintext highlighter-rouge">""</code>（空）</td>
+      <td><code class="language-plaintext highlighter-rouge">https://用户名.github.io/post-title/</code></td>
+    </tr>
+    <tr>
+      <td>项目站点（<code class="language-plaintext highlighter-rouge">用户名.github.io/仓库名</code>）</td>
+      <td><code class="language-plaintext highlighter-rouge">https://用户名.github.io</code></td>
+      <td><code class="language-plaintext highlighter-rouge">/仓库名</code></td>
+      <td><code class="language-plaintext highlighter-rouge">https://用户名.github.io/仓库名/post-title/</code></td>
+    </tr>
+    <tr>
+      <td>自定义域名</td>
+      <td><code class="language-plaintext highlighter-rouge">https://你的域名.com</code></td>
+      <td><code class="language-plaintext highlighter-rouge">""</code>（空）</td>
+      <td><code class="language-plaintext highlighter-rouge">https://你的域名.com/post-title/</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<section class="gh-banner error" aria-labelledby="banner-title-本地预览时如果页面空白或样式丢失-90-是-code-baseurl-code-配置问题-本地调试可临时清空-code-bundle-exec-jekyll-serve-host-0-0-0-0-p-4000-baseurl-code" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575L6.457 1.047ZM8 4.75a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4.75Zm.75 6.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text">本地预览时如果页面空白或样式丢失，90% 是 <code>baseurl</code> 配置问题。本地调试可临时清空：<code>bundle exec jekyll serve --host 0.0.0.0 -P 4000 --baseurl ''</code></span>
+    </div>
+</section>
+
+<h3 id="主题与远程主题">主题与远程主题</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 方式一：本地主题</span>
+<span class="na">remote_theme</span><span class="pi">:</span> <span class="no">null</span>
+
+<span class="c1"># 方式二：GitHub 远程主题</span>
+<span class="na">remote_theme</span><span class="pi">:</span> <span class="s">pages-themes/cayman@v0.2.0</span>
+<span class="na">plugins</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">jekyll-remote-theme</span>
 </code></pre></div></div>
+
+<hr />
+
+<h2 id="十构建与部署">十、构建与部署</h2>
+
+<h3 id="本地构建生成静态文件">本地构建（生成静态文件）</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle <span class="nb">exec </span>jekyll build
+</code></pre></div></div>
+
+<p>构建产物在 <code class="language-plaintext highlighter-rouge">_site/</code> 目录，可直接部署到任何静态托管服务。</p>
+
+<h3 id="构建模式">构建模式</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>命令</th>
+      <th>用途</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">bundle exec jekyll serve</code></td>
+      <td>本地开发</td>
+      <td>带增量构建 + 热刷新 + 文件监听</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">bundle exec jekyll build</code></td>
+      <td>生产构建</td>
+      <td>一次性构建，输出到 <code class="language-plaintext highlighter-rouge">_site/</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">JEKYLL_ENV=production bundle exec jekyll build</code></td>
+      <td>生产环境构建</td>
+      <td>启用生产模式插件</td>
+    </tr>
+  </tbody>
+</table>
 
 <section class="gh-banner success" aria-labelledby="banner-title-在-macos-big-sur-v11-2-下测试无任何问题" role="region" data-dismissible="true">
     <div class="banner-icon" aria-hidden="true">
@@ -490,45 +2655,19 @@ bundle <span class="nb">exec </span>jekyll server <span class="nt">-P</span> 80
     </div>
 </section>
 
-<p>参考文章：</p>
+<h3 id="github-actions-自动部署">GitHub Actions 自动部署</h3>
 
-<ul>
-  <li><a href="/news/sentry-lab-markdown-usage/">Markdown 语法介绍与批注</a></li>
-  <li><a href="/blog/2019/jekyll/in/linux/">Jekyll for Linux 服务器部署历程</a></li>
-</ul>
+<p>自动部署工作流配置文件：<a href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/.github/workflows/deploy.yml">deploy.yml</a></p>
 
-<hr />
+<p>推送到 <code class="language-plaintext highlighter-rouge">main</code> 分支后，GitHub Actions 自动执行：</p>
 
-<h2 id="四git-操作指南">四、Git 操作指南</h2>
+<ol>
+  <li>拉取代码</li>
+  <li>运行 <code class="language-plaintext highlighter-rouge">jekyll build</code></li>
+  <li>部署 <code class="language-plaintext highlighter-rouge">_site/</code> 到 Pages 服务</li>
+</ol>
 
-<h3 id="41-常规-push-操作">4.1 常规 Push 操作</h3>
-
-<p><strong>命令行方式：</strong></p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add <span class="nb">.</span>
-git commit <span class="nt">-m</span> <span class="s2">"[</span><span class="sb">`</span><span class="nb">date</span> +%Y/%m/%d/%T<span class="sb">`</span><span class="s2">]&lt;移除::.DS_Store&gt;: commit by </span><span class="sb">`</span>git config <span class="nt">--global</span> <span class="nt">--list</span> | <span class="nb">grep </span>user.name | <span class="nb">awk</span> <span class="nt">-F</span><span class="s2">"="</span> <span class="s1">'{print $2}'</span><span class="sb">`</span><span class="s2">"</span>
-git push <span class="nt">-u</span> origin main
-</code></pre></div></div>
-
-<p>格式说明：</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">[</code>date +%Y/%m/%d/%T<code class="language-plaintext highlighter-rouge">]</code> — Linux 时间戳；</li>
-  <li><code class="language-plaintext highlighter-rouge">&lt;移除::.DS_Store&gt;</code> — 需要修改的内容，格式为 <code class="language-plaintext highlighter-rouge">&lt;[操作:移除/修复/更新/等]::本次上传修改的文件&gt;</code>；</li>
-  <li><code class="language-plaintext highlighter-rouge">commit by ...</code> — 取出操作人。</li>
-</ul>
-
-<p><strong>Windows（Git Bash）示例：</strong></p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">-m</span> <span class="s2">"[</span><span class="sb">`</span><span class="nb">date</span> +%Y/%m/%d/%T<span class="sb">`</span><span class="s2">]&lt;测试::GitBash on MSWin&gt;: commit by </span><span class="sb">`</span>git config <span class="nt">--global</span> <span class="nt">--list</span> | <span class="nb">grep </span>user.name | <span class="nb">awk</span> <span class="nt">-F</span><span class="s2">"="</span> <span class="s1">'{print $2}'</span><span class="sb">`</span><span class="s2">"</span>
-</code></pre></div></div>
-
-<p>输出示例：</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[SCS-1.0-dev bfc8df8] [2021/12/07/13:59:59]&lt;测试::GitBash on MSWin&gt;: commit by sentryCyberSec
-</code></pre></div></div>
-
-<section class="gh-banner info" aria-labelledby="banner-title-全新的仓库若希望修改默认的-master-分支-可执行-git-branch-m-main-将分支名称改为-main" role="region" data-dismissible="true">
+<section class="gh-banner info" aria-labelledby="banner-title-github-pages-使用-strong-固定版本-strong-的-jekyll-和插件-与本地版本可能不同-如果本地构建成功但-pages-构建失败-检查-code-github-pages-code-gem-兼容性" role="region" data-dismissible="true">
     <div class="banner-icon" aria-hidden="true">
         
         <svg viewBox="0 0 16 16" fill="currentColor">
@@ -538,19 +2677,139 @@ git push <span class="nt">-u</span> origin main
     </div>
 
     <div class="banner-content">
-        <span class="banner-text">全新的仓库若希望修改默认的 master 分支，可执行 git branch -M main 将分支名称改为 main。</span>
+        <span class="banner-text">GitHub Pages 使用<strong>固定版本</strong>的 Jekyll 和插件，与本地版本可能不同。如果本地构建成功但 Pages 构建失败，检查 <code>github-pages</code> gem 兼容性。</span>
     </div>
 </section>
 
-<h3 id="42-idea-中使用-git">4.2 IDEA 中使用 Git</h3>
+<h3 id="部署前检查清单">部署前检查清单</h3>
 
-<ul>
-  <li>Git 在 IDEA 中似乎不能包裹命令提交、推送；</li>
-  <li>可添加模版加上时间戳；</li>
-  <li>参考链接：<a href="https://blog.csdn.net/Q748893892/article/details/102460868">CSDN - IDEA 中 Git 的使用</a></li>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code class="language-plaintext highlighter-rouge">bundle exec jekyll build</code> 无报错</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code class="language-plaintext highlighter-rouge">_site/</code> 目录生成完整</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />本地 <code class="language-plaintext highlighter-rouge">serve</code> 预览无样式丢失</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code class="language-plaintext highlighter-rouge">baseurl</code> 配置与部署方式匹配</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Front Matter 字段完整（见第三章）</li>
 </ul>
 
-<h3 id="43-全局忽略文件配置">4.3 全局忽略文件配置</h3>
+<hr />
+
+<h2 id="十一git-工作流">十一、Git 工作流</h2>
+
+<h3 id="基础配置">基础配置</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> user.name <span class="s2">"你的用户名"</span>
+git config <span class="nt">--global</span> user.email <span class="s2">"你的邮箱@example.com"</span>
+</code></pre></div></div>
+
+<h3 id="代理配置如需">代理配置（如需）</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># HTTP 代理</span>
+git config <span class="nt">--global</span> http.proxy http://192.168.3.98:7890
+git config <span class="nt">--global</span> https.proxy http://192.168.3.98:7890
+
+<span class="c"># SOCKS5 代理</span>
+git config <span class="nt">--global</span> http.proxy socks5://192.168.3.98:7890
+</code></pre></div></div>
+
+<h3 id="推送方式">推送方式</h3>
+
+<p><strong>HTTPS + PAT：</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> credential.helper store
+git push   <span class="c"># 输入用户名 + Personal Access Token</span>
+</code></pre></div></div>
+
+<p><strong>SSH（推荐）：</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote set-url origin git@github.com:Bin4xin/bin4xin.github.io.git
+git push
+</code></pre></div></div>
+
+<h3 id="commit-信息规范">Commit 信息规范</h3>
+
+<p>本站采用以下格式：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[时间]&lt;操作::相关文件&gt;commit by 作者.
+</code></pre></div></div>
+
+<h4 id="命令行方式">命令行方式</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Linux / macOS</span>
+git commit <span class="nt">-m</span> <span class="s2">"[</span><span class="sb">`</span><span class="nb">date</span> +%Y/%m/%d/%T<span class="sb">`</span><span class="s2">]&lt;添加::my-new-post.md&gt;: commit by </span><span class="si">$(</span>git config user.name<span class="si">)</span><span class="s2">"</span>
+
+<span class="c"># Windows Git Bash</span>
+git commit <span class="nt">-m</span> <span class="s2">"[</span><span class="sb">`</span><span class="nb">date</span> +%Y/%m/%d/%T<span class="sb">`</span><span class="s2">]&lt;测试::GitBash on MSWin&gt;: commit by </span><span class="si">$(</span>git config user.name<span class="si">)</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>输出示例：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[SCS-1.0-dev bfc8df8] [2021/12/07/13:59:59]&lt;测试::GitBash on MSWin&gt;: commit by sentryCyberSec
+</code></pre></div></div>
+
+<h4 id="操作类型">操作类型</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>操作</th>
+      <th>含义</th>
+      <th>示例</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;添加::文件名&gt;</code></td>
+      <td>新增文件</td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;添加::2026-09-03-new-post.md&gt;</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;移除::文件名&gt;</code></td>
+      <td>删除文件</td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;移除::.DS_Store&gt;</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;修复::文件名&gt;</code></td>
+      <td>修复问题</td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;修复::front-matter-syntax.md&gt;</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;更新::文件名&gt;</code></td>
+      <td>内容更新</td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;更新::jekyll-sentinel-skill.md&gt;</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<section class="gh-banner info" aria-labelledby="banner-title-全新的仓库若希望修改默认的-master-分支-可执行-code-git-branch-m-main-code-将分支名称改为-main" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text">全新的仓库若希望修改默认的 master 分支，可执行 <code>git branch -M main</code> 将分支名称改为 main。</span>
+    </div>
+</section>
+
+<h3 id="分支策略">分支策略</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 日常写作：直接在 main 分支提交</span>
+git add _posts/blog/新文章.md
+git commit <span class="nt">-m</span> <span class="s2">"[</span><span class="sb">`</span><span class="nb">date</span> +%Y/%m/%d/%T<span class="sb">`</span><span class="s2">]&lt;添加::新文章.md&gt;: commit by </span><span class="si">$(</span>git config user.name<span class="si">)</span><span class="s2">"</span>
+git push origin main
+
+<span class="c"># 大改动：新建分支，合并前预览</span>
+git checkout <span class="nt">-b</span> feat/new-theme
+<span class="c"># ... 编辑 ...</span>
+git commit <span class="nt">-am</span> <span class="s2">"[</span><span class="sb">`</span><span class="nb">date</span> +%Y/%m/%d/%T<span class="sb">`</span><span class="s2">]&lt;更新::theme&gt;: commit by </span><span class="si">$(</span>git config user.name<span class="si">)</span><span class="s2">"</span>
+git push origin feat/new-theme
+<span class="c"># 在 GitHub 上创建 PR，检查 Pages 构建状态后合并</span>
+</code></pre></div></div>
+
+<h3 id="全局忽略文件配置">全局忽略文件配置</h3>
 
 <p>以 <code class="language-plaintext highlighter-rouge">.DS_Store</code> 为例，配置 Git 全局禁止某些文件上传到仓库：</p>
 
@@ -578,17 +2837,320 @@ git push <span class="nt">-u</span> origin main
     </div>
 </section>
 
-<hr />
-
-<h2 id="五github-actions-自动部署">五、GitHub Actions 自动部署</h2>
-
-<p>自动部署工作流配置文件：</p>
+<h3 id="idea-中使用-git">IDEA 中使用 Git</h3>
 
 <ul>
-  <li><a href="https://github.com/Bin4xin/bin4xin.github.io/blob/main/.github/workflows/deploy.yml">deploy.yml</a></li>
+  <li>Git 在 IDEA 中似乎不能包裹命令提交、推送</li>
+  <li>可添加模版加上时间戳</li>
+  <li>参考链接：<a href="https://blog.csdn.net/Q748893892/article/details/102460868">CSDN - IDEA 中 Git 的使用</a></li>
 </ul>
 
-<section class="gh-banner success" aria-labelledby="banner-title-写于-strong-2021-07-07-strong-最后更新于-strong-2026-08-14-strong" role="region" data-dismissible="true">
+<hr />
+
+<h2 id="十二ssh-密钥配置">十二、SSH 密钥配置</h2>
+
+<h3 id="windows-端生成密钥">Windows 端生成密钥</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-keygen <span class="nt">-t</span> ed25519 <span class="nt">-C</span> <span class="s2">"你的邮箱@example.com"</span>
+</code></pre></div></div>
+
+<h3 id="上传公钥到虚拟机">上传公钥到虚拟机</h3>
+
+<p><strong>方式一：ssh-copy-id（Git Bash / WSL）</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-copy-id <span class="nt">-i</span> ~/.ssh/id_ed25519.pub 用户名@虚拟机IP
+</code></pre></div></div>
+
+<p><strong>方式二：手动追加</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 虚拟机端</span>
+<span class="nb">mkdir</span> <span class="nt">-p</span> ~/.ssh
+<span class="nb">chmod </span>700 ~/.ssh
+<span class="nb">echo</span> <span class="s2">"公钥内容"</span> <span class="o">&gt;&gt;</span> ~/.ssh/authorized_keys
+<span class="nb">chmod </span>600 ~/.ssh/authorized_keys
+</code></pre></div></div>
+
+<h3 id="ssh-config-别名">SSH Config 别名</h3>
+
+<p>编辑 <code class="language-plaintext highlighter-rouge">~/.ssh/config</code>（Git Bash / WSL 下路径）：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Host jekyll-vm
+    HostName 192.168.3.100
+    User bin4xin
+    IdentityFile ~/.ssh/id_ed25519
+    Port 22
+</code></pre></div></div>
+
+<section class="gh-banner info" aria-labelledby="banner-title-windows-用户注意-git-bash-下-ssh-config-路径为-code-ssh-config-code-对应-code-c-users-你的用户名-ssh-config-code-建议用-git-bash-统一操作-避免路径混乱" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text">Windows 用户注意：Git Bash 下 SSH Config 路径为 <code>~/.ssh/config</code>（对应 <code>C:\\Users\\你的用户名\\.ssh\\config</code>）。建议用 Git Bash 统一操作，避免路径混乱。</span>
+    </div>
+</section>
+
+<h3 id="测试">测试</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh jekyll-vm
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="十三常见问题速查">十三、常见问题速查</h2>
+
+<section class="gh-banner error" aria-labelledby="banner-title-遇到问题时-strong-先看错误信息最后-3-行-strong-通常包含真正的错误原因-90-的问题可以用本节方法解决" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575L6.457 1.047ZM8 4.75a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4.75Zm.75 6.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text">遇到问题时<strong>先看错误信息最后 3 行</strong>，通常包含真正的错误原因。90% 的问题可以用本节方法解决。</span>
+    </div>
+</section>
+
+<h3 id="131-环境与权限问题">13.1 环境与权限问题</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>问题</th>
+      <th>原因</th>
+      <th>解决方案</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sudo: bundle: command not found</code></td>
+      <td>sudo 不继承 rbenv 环境变量</td>
+      <td>用 <code class="language-plaintext highlighter-rouge">sudo -E</code> 或避免 sudo（用高端口 ≥1024）</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">bundler: command not found: jekyll</code></td>
+      <td>sudo 导致 PATH 丢失</td>
+      <td><code class="language-plaintext highlighter-rouge">sudo -E</code> / 安装 rbenv-sudo / 使用完整路径</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ruby: command not found</code></td>
+      <td>rbenv 未正确初始化</td>
+      <td>检查 <code class="language-plaintext highlighter-rouge">~/.bashrc</code> 中是否有 <code class="language-plaintext highlighter-rouge">eval "$(rbenv init -)"</code>，执行 <code class="language-plaintext highlighter-rouge">source ~/.bashrc</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">rbenv: version 'x.x.x' not installed</code></td>
+      <td>项目要求的 Ruby 版本未安装</td>
+      <td><code class="language-plaintext highlighter-rouge">rbenv install x.x.x</code>，或检查 <code class="language-plaintext highlighter-rouge">.ruby-version</code> 文件</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="132-依赖与构建问题">13.2 依赖与构建问题</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>问题</th>
+      <th>原因</th>
+      <th>解决方案</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">nokogiri</code> 编译失败</td>
+      <td>缺少系统库</td>
+      <td><code class="language-plaintext highlighter-rouge">sudo apt install -y libxml2-dev libxslt1-dev</code>，在 Linux 下编译</td>
+    </tr>
+    <tr>
+      <td>Ruby 源码下载慢</td>
+      <td>官方源在国外</td>
+      <td>设置 <code class="language-plaintext highlighter-rouge">RUBY_BUILD_MIRROR_URL</code> 国内镜像</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">bundle install</code> 报错</td>
+      <td>Ruby 版本与 Gemfile 不匹配</td>
+      <td><code class="language-plaintext highlighter-rouge">ruby -v</code> 检查版本，用 rbenv 切换</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Could not find gem 'jekyll-x.x.x'</code></td>
+      <td>Gemfile.lock 锁定了不可用版本</td>
+      <td><code class="language-plaintext highlighter-rouge">bundle update jekyll</code> 或删除 <code class="language-plaintext highlighter-rouge">Gemfile.lock</code> 重新 <code class="language-plaintext highlighter-rouge">bundle install</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Liquid Warning: Liquid syntax error</code></td>
+      <td>Liquid 模板语法错误</td>
+      <td>检查 <code class="language-plaintext highlighter-rouge">{% %}</code> 和 <code class="language-plaintext highlighter-rouge">{{ }}</code> 是否配对，代码块内用 <code class="language-plaintext highlighter-rouge">raw</code>/<code class="language-plaintext highlighter-rouge">endraw</code> 标签包裹</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="133-预览与部署问题">13.3 预览与部署问题</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>问题</th>
+      <th>原因</th>
+      <th>解决方案</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jekyll serve</code> 启动后页面空白</td>
+      <td><code class="language-plaintext highlighter-rouge">baseurl</code> 配置与访问方式不匹配</td>
+      <td>本地调试：<code class="language-plaintext highlighter-rouge">bundle exec jekyll serve --baseurl ''</code></td>
+    </tr>
+    <tr>
+      <td>样式丢失（CSS 404）</td>
+      <td><code class="language-plaintext highlighter-rouge">baseurl</code> 路径错误</td>
+      <td>检查 <code class="language-plaintext highlighter-rouge">_config.yml</code> 的 <code class="language-plaintext highlighter-rouge">baseurl</code>，确保与部署路径一致</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jekyll serve</code> 后修改不刷新</td>
+      <td>文件监听失败</td>
+      <td>用 <code class="language-plaintext highlighter-rouge">--force_polling</code> 参数，或检查 inotify 限制</td>
+    </tr>
+    <tr>
+      <td>GitHub Pages 构建失败</td>
+      <td>本地与远程 Jekyll 版本不同</td>
+      <td>使用 <code class="language-plaintext highlighter-rouge">github-pages</code> gem：<code class="language-plaintext highlighter-rouge">gem install github-pages</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">404</code> 页面</td>
+      <td>文章文件名或 Front Matter 格式错误</td>
+      <td>检查文件名是否符合 <code class="language-plaintext highlighter-rouge">YYYY-MM-DD-title.md</code>，Front Matter 是否有语法错误</td>
+    </tr>
+    <tr>
+      <td>document 页面不出现在导航中</td>
+      <td><code class="language-plaintext highlighter-rouge">status: draft</code> 或 <code class="language-plaintext highlighter-rouge">order</code> 值过大</td>
+      <td>检查 <code class="language-plaintext highlighter-rouge">status</code> 字段是否为 <code class="language-plaintext highlighter-rouge">draft</code>，<code class="language-plaintext highlighter-rouge">order</code> 值是否合理</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="134-网络与连接问题">13.4 网络与连接问题</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>问题</th>
+      <th>原因</th>
+      <th>解决方案</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Remote-SSH 连接失败</td>
+      <td>网络/SSH 服务/防火墙</td>
+      <td><code class="language-plaintext highlighter-rouge">systemctl status ssh</code>、<code class="language-plaintext highlighter-rouge">ufw allow 22</code>、检查 IP</td>
+    </tr>
+    <tr>
+      <td>Git 无法访问 GitHub</td>
+      <td>网络限制</td>
+      <td>配置 HTTP/SOCKS5 代理</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">bundle install</code> 卡住</td>
+      <td>RubyGems 源在国外</td>
+      <td><code class="language-plaintext highlighter-rouge">bundle config mirror.https://rubygems.org https://gems.ruby-china.com</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="135-文章内容问题">13.5 文章内容问题</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>问题</th>
+      <th>原因</th>
+      <th>解决方案</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>文章不出现在首页</td>
+      <td>Front Matter 缺失或格式错误</td>
+      <td>确保 <code class="language-plaintext highlighter-rouge">---</code> 包裹的 YAML 块在文件最开头，无空行</td>
+    </tr>
+    <tr>
+      <td>文章日期显示错误</td>
+      <td>文件名日期格式错误</td>
+      <td>文件名必须是 <code class="language-plaintext highlighter-rouge">YYYY-MM-DD-title.md</code>，日期与实际不符会排序异常</td>
+    </tr>
+    <tr>
+      <td>代码块内 <code class="language-plaintext highlighter-rouge">{{ }}</code> 被 Liquid 解析</td>
+      <td>Liquid 引擎优先解析</td>
+      <td>用 <code class="language-plaintext highlighter-rouge">raw</code>/<code class="language-plaintext highlighter-rouge">endraw</code> 包裹代码块</td>
+    </tr>
+    <tr>
+      <td>中文文章 URL 过长</td>
+      <td>permalink 包含中文标题</td>
+      <td>在 Front Matter 中手动指定 <code class="language-plaintext highlighter-rouge">permalink: /short-url/</code></td>
+    </tr>
+    <tr>
+      <td>document 短标题显示异常</td>
+      <td><code class="language-plaintext highlighter-rouge">short_title</code> 过长或含特殊字符</td>
+      <td>控制在 2-6 个字，避免使用 <code class="language-plaintext highlighter-rouge">\|</code>、<code class="language-plaintext highlighter-rouge">/</code>、<code class="language-plaintext highlighter-rouge">&lt;</code>、<code class="language-plaintext highlighter-rouge">&gt;</code> 等字符</td>
+    </tr>
+    <tr>
+      <td>document <code class="language-plaintext highlighter-rouge">icon</code> 不显示</td>
+      <td>Font Awesome 类名拼写错误</td>
+      <td>检查格式必须为 <code class="language-plaintext highlighter-rouge">fas fa-图标名</code>，确认站点引入了 Font Awesome</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="十四文章质量检查清单">十四、文章质量检查清单</h2>
+
+<h3 id="通用检查post--document">通用检查（post + document）</h3>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Front Matter 字段完整，title 与正文标题一致</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />代码块均标注语言，命令按行拆分</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />行内命令/路径/变量均用反引号包裹</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />common-index 提示框级别与内容匹配，msg 中命令用 <code class="language-plaintext highlighter-rouge">&lt;code&gt;</code> 嵌入</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />标题层级不跳级（注意 h3 偏移规则），TOC 结构清晰</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />无 <code class="language-plaintext highlighter-rouge">Copy</code> / <code class="language-plaintext highlighter-rouge">Download</code> 等网页复制残留</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />占位符（如 <code class="language-plaintext highlighter-rouge">你的用户名</code>、<code class="language-plaintext highlighter-rouge">虚拟机IP</code>）标注明确，未遗漏</li>
+</ul>
+
+<h3 id="post-专属检查">post 专属检查</h3>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code class="language-plaintext highlighter-rouge">categories</code> 和 <code class="language-plaintext highlighter-rouge">tags</code> 已填写</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code class="language-plaintext highlighter-rouge">date</code> 为首次发布时间，<code class="language-plaintext highlighter-rouge">wrench</code> 为最后修改时间（有修改时更新）</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />文件名符合 <code class="language-plaintext highlighter-rouge">YYYY-MM-DD-英文标题.md</code> 规范</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />文件放在对应栏目子目录（<code class="language-plaintext highlighter-rouge">_posts/blog/</code>、<code class="language-plaintext highlighter-rouge">_posts/daily/</code> 等）</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />文章有总结段落，给出适用场景和下一步建议</li>
+</ul>
+
+<h3 id="document-专属检查">document 专属检查</h3>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code class="language-plaintext highlighter-rouge">short_title</code> 简洁（2-6 字），适合侧边栏显示</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code class="language-plaintext highlighter-rouge">order</code> 值合理，与同级文档排序一致</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code class="language-plaintext highlighter-rouge">icon</code> 类名正确，站点已引入 Font Awesome</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code class="language-plaintext highlighter-rouge">status</code> 按需设置（<code class="language-plaintext highlighter-rouge">new</code> / <code class="language-plaintext highlighter-rouge">updated</code> / 留空）</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code class="language-plaintext highlighter-rouge">version</code> 已填写，方便追踪迭代</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code class="language-plaintext highlighter-rouge">description</code> 精炼概括文档内容（用于列表页和 SEO）</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />如有易混淆概念，包含「概念辨析对比表」</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />如有知识体系，包含「思维导图文本块」</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code class="language-plaintext highlighter-rouge">bundle exec jekyll build</code> 无报错，本地预览正常</li>
+</ul>
+
+<hr />
+
+<section class="gh-banner success" aria-labelledby="banner-title-写于-strong-2021-07-07-strong-最后更新于-strong-2026-09-03-strong" role="region" data-dismissible="true">
     <div class="banner-icon" aria-hidden="true">
         
         <svg viewBox="0 0 16 16" fill="currentColor">
@@ -598,7 +3160,7 @@ git push <span class="nt">-u</span> origin main
     </div>
 
     <div class="banner-content">
-        <span class="banner-text">写于 <strong>2021-07-07</strong>，最后更新于 <strong>2026-08-14</strong></span>
+        <span class="banner-text">写于 <strong>2021-07-07</strong>，最后更新于 <strong>2026-09-03</strong></span>
     </div>
 </section>
 
@@ -672,7 +3234,7 @@ git push <span class="nt">-u</span> origin main
 					<div class="fa fa-thumbs-o-up"></div>
 				</span>
 			</a>
-			<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_primaryindex/usage.md&nbsp; 快速开始 | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
+			<a href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_primaryindex/usage.md&nbsp; 快速开始/Jekyll Sentinel Skill | © 哨兵 | SENTINEL SECURITY, LAB" target="_blank">
 				<span class="btn mr-1 color-border-accent-emphasis" title="本文档有问题?">
 					<div class="fa fa-thumbs-o-down"></div>
 				</span>
@@ -740,11 +3302,22 @@ git push <span class="nt">-u</span> origin main
         <h2 class="toc-heading" id="in-this-article">在本文中</h2>
         <nav class="toc-nav" aria-labelledby="in-this-article">
             <ul id="toc" class="section-nav">
-<li class="toc-entry toc-h2"><a href="#一文章编写规范">一、文章编写规范</a></li>
-<li class="toc-entry toc-h2"><a href="#二路由配置说明">二、路由配置说明</a></li>
-<li class="toc-entry toc-h2"><a href="#三环境搭建与构建">三、环境搭建与构建</a></li>
-<li class="toc-entry toc-h2"><a href="#四git-操作指南">四、Git 操作指南</a></li>
-<li class="toc-entry toc-h2"><a href="#五github-actions-自动部署">五、GitHub Actions 自动部署</a></li>
+<li class="toc-entry toc-h2"><a href="#适用场景">适用场景</a></li>
+<li class="toc-entry toc-h2"><a href="#零快速开始5-分钟上手">零、快速开始（5 分钟上手）</a></li>
+<li class="toc-entry toc-h2"><a href="#一布局类型与适用场景">一、布局类型与适用场景</a></li>
+<li class="toc-entry toc-h2"><a href="#二栏目分类与目录结构">二、栏目分类与目录结构</a></li>
+<li class="toc-entry toc-h2"><a href="#三front-matter-规范">三、Front Matter 规范</a></li>
+<li class="toc-entry toc-h2"><a href="#四标题层级与排版">四、标题层级与排版</a></li>
+<li class="toc-entry toc-h2"><a href="#五common-index-提示框组件">五、common-index 提示框组件</a></li>
+<li class="toc-entry toc-h2"><a href="#六document-布局可用组件">六、document 布局可用组件</a></li>
+<li class="toc-entry toc-h2"><a href="#七远程开发环境">七、远程开发环境</a></li>
+<li class="toc-entry toc-h2"><a href="#八ruby-环境配置">八、Ruby 环境配置</a></li>
+<li class="toc-entry toc-h2"><a href="#九_configyml-关键配置">九、_config.yml 关键配置</a></li>
+<li class="toc-entry toc-h2"><a href="#十构建与部署">十、构建与部署</a></li>
+<li class="toc-entry toc-h2"><a href="#十一git-工作流">十一、Git 工作流</a></li>
+<li class="toc-entry toc-h2"><a href="#十二ssh-密钥配置">十二、SSH 密钥配置</a></li>
+<li class="toc-entry toc-h2"><a href="#十三常见问题速查">十三、常见问题速查</a></li>
+<li class="toc-entry toc-h2"><a href="#十四文章质量检查清单">十四、文章质量检查清单</a></li>
 </ul>
         </nav>
     </div>
