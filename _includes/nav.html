@@ -1,13 +1,14 @@
 <div role="navigation">
     <nav class="sentinel-nav">
         <div class="sentinel-nav-inner">
-
+          {% if page.url contains '/document/' %}
+          {% else %}
           <!-- Brand -->
           <a class="sentinel-nav-brand" href="{{ '/' | relative_url }}">
             <i class="fas fa-hat-cowboy-side sentinel-nav-logo"></i>
             <span class="sentinel-nav-name">{{ site.brand | default: site.title }}</span>
           </a>
-
+          {% endif %}
           <!-- Mobile toggle -->
           <button class="sentinel-nav-toggle" id="sentinel-nav-toggle" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
@@ -68,12 +69,14 @@
                     <i class="fas fa-pen-nib"></i> Blog
                   </a>
                 </li>
+                {% if page.url contains '/document/' %}
+                {% else %}
                 <li class="sentinel-nav-item {% if page.permalink contains '/document/' %}active{% endif %}">
                   <a href="{{ '/document/' | relative_url }}">
                     <i class="fas fa-book-open"></i> Document
                   </a>
                 </li>
-
+                {% endif %}
                 <span class="sentinel-nav-sep"></span>
 
                 <li class="sentinel-nav-item {% if page.permalink == '/categories/' or page.categories contains 'categories' %}active{% endif %}">
@@ -127,8 +130,8 @@
         toggle.addEventListener('click', function(){
           wrap.classList.toggle('is-open');
           var icon = this.querySelector('i');
-          icon.classList.toggle('fa-bars');
-          icon.classList.toggle('fa-xmark');
+          icon.classList.toggle('fa-bars-progress');
+          icon.classList.toggle('fa-xmark-circle');
         });
       }
     })();

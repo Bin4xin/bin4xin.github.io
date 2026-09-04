@@ -428,22 +428,39 @@ aside#sidebar1 {
 
 #help-nav .nav-group-title,
 #sidebar1 details > summary {
-	display: flex;
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-	align-items: center;
-	padding: 6px 16px;
-	font-size: 0.8125rem;
-	font-weight: 600;
-	color: #1f2328;
-	cursor: pointer;
-	transition: background 0.15s ease;
-	border-radius: 6px;
-	margin: 1px 8px;
-	@include dark{
+    padding: 6px 0px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #1f2328;
+    cursor: pointer;
+    transition: background 0.15s ease;
+    border-radius: 6px;
+    margin: 1px 8px;
+    list-style: none;
+    @include dark{
 		color: #e6edf3;
 	}
 }
 
+#help-nav .nav-group-title::-webkit-details-marker,
+#sidebar1 details > summary::-webkit-details-marker {
+    display: none;
+}
+
+#help-nav .nav-group-title::after,
+#sidebar1 details > summary::after {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+.nav-group-title::after {
+    margin-left: auto;
+}
+details[open] > summary::after {
+    transform: rotate(90deg);
+}
 #help-nav .nav-group-title:hover,
 #sidebar1 details > summary:hover {
 	background: rgba(208, 215, 222, 0.32);
@@ -451,7 +468,6 @@ aside#sidebar1 {
 		background: rgba(136, 154, 175, 0.15);
 	}
 }
-
 #help-nav summary::-webkit-details-marker,
 #help-nav summary::marker,
 #sidebar1 details > summary::-webkit-details-marker,
@@ -478,7 +494,7 @@ aside#sidebar1 {
 #help-nav .nav-link,
 #help-nav .nav > li > a {
 	display: block;
-	padding: 5px 16px 5px 28px;
+	padding: 5px;
 	font-weight: 500;
 	font-size: 0.8125rem;
 	line-height: 1.5;
@@ -1964,11 +1980,16 @@ aside#sidebar1 {
 }
 
 .tl-summary {
-    display: block;
-    padding: 16px;
-    cursor: pointer;
-    list-style: none;
+    // padding-left: 16px;
+    // padding-bottom: 16px;
+    // padding-right: 16px;
+    // padding-top: 0px;
+    padding: 0 16px 16px 16px;
     position: relative;
+    display: block;
+    align-items: center;
+    list-style: none;
+    cursor: pointer;
 }
 
 .tl-summary::-webkit-details-marker { display: none; }
@@ -1976,9 +1997,8 @@ aside#sidebar1 {
 
 .tl-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
-    margin-bottom: 4px;
 }
 
 .tl-title {
@@ -2029,6 +2049,21 @@ aside#sidebar1 {
     right: 16px;
     top: 50%;
     transform: translateY(-50%) rotate(180deg);
+    width: 16px;
+    height: 16px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23656d76'%3E%3Cpath d='M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z'/%3E%3C/svg%3E") no-repeat center;
+    background-size: contain;
+    @include dark {
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%238b949e'%3E%3Cpath d='M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z'/%3E%3C/svg%3E") no-repeat center;
+        background-size: contain;
+    }
+}
+
+.tl-card > .tl-summary::after {
+    content: '';
+    position: absolute;
+    right: 16px;
+    top: 50%;
     width: 16px;
     height: 16px;
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23656d76'%3E%3Cpath d='M12.78 5.22a.749.749 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.06 0L3.22 6.28a.749.749 0 1 1 1.06-1.06L8 8.939l3.72-3.719a.749.749 0 0 1 1.06 0Z'/%3E%3C/svg%3E") no-repeat center;

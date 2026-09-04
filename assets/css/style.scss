@@ -2938,7 +2938,7 @@ body, .post-content, .article-content {
     display: none;
   }
   summary::before {
-    content: '\f0da';
+    content: '';
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
     font-size: .7rem;
@@ -2948,7 +2948,7 @@ body, .post-content, .article-content {
     transition: transform .2s ease;
   }
   details[open] > summary::before {
-    content: '\f0d7';
+    content: '';
   }
   
   /* Tab buttons */

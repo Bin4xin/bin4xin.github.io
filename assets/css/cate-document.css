@@ -1589,7 +1589,7 @@ summary::-webkit-details-marker {
   display: none;
 }
 summary::before {
-  content: '\f0da';
+  content: '';
   font-family: 'Font Awesome 6 Free';
   font-weight: 900;
   font-size: .7rem;
@@ -1597,9 +1597,6 @@ summary::before {
   margin-right: 8px;
   display: inline-block;
   transition: transform .2s ease;
-}
-details[open] > summary::before {
-  content: '\f0d7';
 }
 
 /* Tab buttons */
