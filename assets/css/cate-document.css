@@ -321,25 +321,97 @@
   white-space: nowrap;
 }
 
-/* Badge */
-.doc-nav-badge {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: .5rem; font-style: normal;
-  font-weight: 600; letter-spacing: .05em;
-  padding: 1px 6px; border-radius: 3px;
-  flex-shrink: 0;
-}
-.doc-nav-badge--draft {
-  color: var(--doc-warn);
-  background: var(--doc-warn-dim);
-  border: 1px solid var(--doc-warn-border);
-}
-.doc-nav-badge--new {
-  color: var(--doc-danger);
-  background: var(--doc-danger-dim);
-  border: 1px solid var(--doc-danger-border);
-}
+/* ══════════════════════════════════════════
+   Status Badges
+   ══════════════════════════════════════════ */
+   .doc-nav-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .48rem;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 1px 7px 1px 5px;
+    border-radius: 4px;
+    white-space: nowrap;
+    vertical-align: middle;
+    flex-shrink: 0;
+    line-height: 1.6;
+    margin-left: 6px;
+    transition: all .25s ease;
+  }
+  .doc-nav-badge i {
+    font-size: .5rem;
+  }
+  
+  /* ── Draft ── */
+  .doc-nav-badge--draft {
+    color: #F5A623;
+    background: rgba(245,166,35,.10);
+    border: 1px solid rgba(245,166,35,.25);
+  }
+  
+  /* ── New ── */
+  .doc-nav-badge--new {
+    color: #30D158;
+    background: rgba(48,209,88,.10);
+    border: 1px solid rgba(48,209,88,.25);
+  }
+  
+  /* ── Updated ── */
+  .doc-nav-badge--updated {
+    color: #0A84FF;
+    background: rgba(10,132,255,.10);
+    border: 1px solid rgba(10,132,255,.25);
+  }
+  
+  /* ── Deprecated / EOL ── */
+  .doc-nav-badge--deprecated {
+    color: #FF453A;
+    background: rgba(255,69,58,.10);
+    border: 1px solid rgba(255,69,58,.25);
+  }
+  
+  /* ── Work In Progress ── */
+  .doc-nav-badge--wip {
+    color: #BF5AF2;
+    background: rgba(191,90,242,.10);
+    border: 1px solid rgba(191,90,242,.25);
+  }
+  
+  /* ── Under Review ── */
+  .doc-nav-badge--review {
+    color: #64D2FF;
+    background: rgba(100,210,255,.10);
+    border: 1px solid rgba(100,210,255,.25);
+  }
+  
+  /* ── Hot ── */
+  .doc-nav-badge--hot {
+    color: #FF6B35;
+    background: rgba(255,107,53,.10);
+    border: 1px solid rgba(255,107,53,.25);
+  }
 
+  /* ── Stable ── */
+  .doc-nav-badge--stable {
+    color: #5E5CE6;
+    background: rgba(94,92,230,.10);
+    border: 1px solid rgba(94,92,230,.25);
+  }
+
+  /* ── Todo ── */
+  .doc-nav-badge--todo {
+    color: #AC8E68;
+    background: rgba(172,142,104,.10);
+    border: 1px solid rgba(172,142,104,.25);
+  }
+  .doc-nav-badge + .doc-nav-badge {
+    margin-left: 2px;
+  }
 /* ══════════════════════════════════════════
    Sidebar Footer
    ══════════════════════════════════════════ */

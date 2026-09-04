@@ -4,10 +4,10 @@ title: "情报采集与标准化处理"
 short_title: "采集标准化"
 order: 1
 icon: "fas fa-database"
-status: "new"
+status: "stable"
 tags: [威胁情报, IOC, STIX, 情报运营, 自动化]
 author: sentryCyberSec
-version: "2.0"
+version: "3.0"
 description: "威胁情报运营技战法，涵盖情报采集标准化、情报消费能力转化和内部情报生产闭环反馈三个阶段。"
 ---
 

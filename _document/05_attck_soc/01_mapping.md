@@ -4,10 +4,10 @@ title: "告警映射与 ATT&CK 分类"
 short_title: "映射分类"
 order: 1
 icon: "fas fa-crosshairs"
-status: "new"
+status: "stable"
 tags: [ATT&CK, 告警降噪, SIEM, SOAR, 安全运营]
 author: sentryCyberSec
-version: "2.0"
+version: "3.0"
 description: "基于 ATT&CK 框架的告警降噪与自动化编排技战法，涵盖映射分类、降噪优化和优先级排序三个阶段。"
 ---
 

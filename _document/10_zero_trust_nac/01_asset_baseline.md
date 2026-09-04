@@ -4,10 +4,10 @@ title: "终端资产清查与合规基线"
 short_title: "资产清查"
 order: 1
 icon: "fas fa-shield-alt"
-status: "new"
+status: "stable"
 tags: [零信任, 终端准入, 混合办公, NAC, ZTNA]
 author: sentryCyberSec
-version: "2.0"
+version: "3.0"
 description: "混合办公场景下的终端准入控制与零信任安全策略落地技战法，涵盖资产清查、准入部署和零信任深化三个阶段。"
 ---
 

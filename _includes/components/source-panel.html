@@ -1,0 +1,184 @@
+{% comment %}
+  Usage:
+  {% include components/source-panel.html
+    title="Linux 软件源切换"
+    config="/etc/apt/sources.list"
+    distros=site.data.repo-sources
+  %}
+{% endcomment %}
+
+{% assign sp_title = include.title | default: "软件源切换" %}
+{% assign sp_id = include.id | default: "sp-panel" %}
+{% assign sp_config = include.config %}
+{% assign sp_note = include.note %}
+{% assign sp_verify = include.verify %}
+{% assign first_distro = include.distros | first %}
+
+<div class="sp-panel" id="{{ sp_id }}">
+  <div class="sp-panel-head">
+    <h3 class="sp-panel-title">{{ sp_title }}</h3>
+    {% if sp_config %}
+      <p class="sp-panel-config"><i class="fas fa-gear"></i> {{ sp_config }}</p>
+    {% endif %}
+    {% if sp_note %}
+      <p class="sp-panel-note"><i class="fas fa-info-circle"></i> {{ sp_note }}</p>
+    {% endif %}
+  </div>
+
+  {% comment %} Distro Tabs {% endcomment %}
+  <div class="sp-distro-bar">
+    {% for distro in include.distros %}
+      <b class="sp-tab-btn {% if forloop.first %}active{% endif %}"
+         data-sp-target="{{ sp_id }}-{{ distro.id }}"
+         data-sp-group="{{ sp_id }}-distro">
+        {% if distro.icon %}
+          <i class="{{ distro.icon }}" style="color:{{ distro.color | default: 'inherit' }};"></i>
+        {% else %}
+          <span class="sp-tab-avatar" style="background:{{ distro.color | default: '#888' }};">{{ distro.name | slice: 0 }}</span>
+        {% endif %}
+        <span>{{ distro.name }}</span>
+      </b>
+    {% endfor %}
+  </div>
+
+  {% comment %} Mirror selector {% endcomment %}
+  {% if first_distro.mirrors %}
+  <div class="sp-mirror-bar" data-sp-group="{{ sp_id }}-mirror">
+    <span class="sp-mirror-label"><i class="fas fa-server"></i> 镜像源</span>
+    {% for mirror in first_distro.mirrors %}
+      <b class="sp-mirror-btn {% if forloop.first %}active{% endif %}"
+         data-sp-mirror="{{ mirror.id }}"
+         data-sp-group="{{ sp_id }}-mirror">
+        {{ mirror.name }}
+      </b>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% comment %} Per-distro content {% endcomment %}
+  {% for distro in include.distros %}
+  <div class="sp-content" id="{{ sp_id }}-{{ distro.id }}" data-sp-group="{{ sp_id }}-distro"{% if forloop.first %} style="display:block;"{% else %} style="display:none;"{% endif %}>
+    {% for mirror in distro.mirrors %}
+      <div class="sp-mirror-section {% if forloop.first %}is-visible{% else %}is-hidden{% endif %}" data-sp-mirror-content="{{ mirror.id }}" data-sp-group="{{ sp_id }}-mirror">
+
+        <div class="sp-mirror-head">
+          <span class="sp-mirror-name">{{ mirror.name }}</span>
+          {% if mirror.tag %}
+            <span class="sp-mirror-tag sp-mirror-tag--{{ mirror.tag | downcase }}">{{ mirror.tag }}</span>
+          {% endif %}
+        </div>
+
+        {% for step in mirror.steps %}
+        <div class="sp-step">
+          <div class="sp-step-label">
+            <span class="sp-step-num">{{ forloop.index }}</span>
+            {{ step.label }}
+          </div>
+          <pre class="sp-code" data-cmd="{{ step.cmd | xml_escape }}"><code><span class="token prompt">$ </span>{{ step.cmd }}</code></pre>
+        </div>
+        {% endfor %}
+
+        {% if mirror.note %}
+        <p class="sp-mirror-note"><i class="fas fa-triangle-exclamation"></i> {{ mirror.note }}</p>
+        {% endif %}
+
+        <button class="sp-copy-all" type="button" aria-label="复制全部命令" title="复制全部命令">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          <span>复制全部命令</span>
+        </button>
+      </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+
+  {% comment %} Verify {% endcomment %}
+  {% if sp_verify %}
+  <div class="sp-verify">
+    <div class="sp-verify-title"><i class="fas fa-shield-halved"></i> 通用验证</div>
+    {% for v in sp_verify %}
+      <pre class="sp-code" data-cmd="{{ v.cmd | xml_escape }}"><code><span class="token prompt">{% if v.prompt %}{{ v.prompt }}{% else %}${% endif %} </span>{{ v.cmd }}</code></pre>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+<script>
+(function(){
+  if(window.__spInit) return;
+  window.__spInit = true;
+
+  function copyText(text){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function(resolve){
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;left:-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try{ document.execCommand('copy'); }catch(e){}
+      document.body.removeChild(ta);
+      resolve();
+    });
+  }
+
+  function flash(el){
+    el.classList.add('sp-copy-done');
+    setTimeout(function(){ el.classList.remove('sp-copy-done'); }, 2000);
+  }
+
+  document.addEventListener('click', function(e){
+
+    /* ---- distro tab ---- */
+    var tab = e.target.closest('.sp-tab-btn[data-sp-target]');
+    if(tab){
+      var grp = tab.getAttribute('data-sp-group');
+      var tgt = tab.getAttribute('data-sp-target');
+      document.querySelectorAll('.sp-tab-btn[data-sp-group="'+grp+'"]').forEach(function(b){ b.classList.remove('active'); });
+      tab.classList.add('active');
+      document.querySelectorAll('.sp-content[data-sp-group="'+grp+'"]').forEach(function(c){ c.style.display = 'none'; });
+      var el = document.getElementById(tgt);
+      if(el) el.style.display = 'block';
+      return;
+    }
+
+    /* ---- mirror switch ---- */
+    var mb = e.target.closest('.sp-mirror-btn');
+    if(mb){
+      var mg = mb.getAttribute('data-sp-group');
+      var mi = mb.getAttribute('data-sp-mirror');
+      document.querySelectorAll('.sp-mirror-btn[data-sp-group="'+mg+'"]').forEach(function(b){ b.classList.remove('active'); });
+      mb.classList.add('active');
+      document.querySelectorAll('.sp-mirror-section[data-sp-group="'+mg+'"]').forEach(function(s){
+        var match = s.getAttribute('data-sp-mirror-content') === mi;
+        s.classList.toggle('is-visible', match);
+        s.classList.toggle('is-hidden', !match);
+      });
+      return;
+    }
+
+    /* ---- copy all ---- */
+    var cb = e.target.closest('.sp-copy-all');
+    if(cb){
+      var section = cb.closest('.sp-mirror-section');
+      if(!section) return;
+      var cmds = [];
+      section.querySelectorAll('.sp-code[data-cmd]').forEach(function(pre){
+        cmds.push(pre.getAttribute('data-cmd'));
+      });
+      if(cmds.length){
+        copyText(cmds.join('\n')).then(function(){
+          flash(cb);
+          var span = cb.querySelector('span');
+          if(span){
+            var orig = span.textContent;
+            span.textContent = '已复制';
+            setTimeout(function(){ span.textContent = orig; }, 2000);
+          }
+        });
+      }
+    }
+  });
+})();
+</script>

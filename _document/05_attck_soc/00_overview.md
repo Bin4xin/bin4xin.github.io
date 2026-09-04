@@ -4,10 +4,10 @@ title: "ATT&CK 驱动安全运营技战法"
 short_title: "概述"
 order: 0
 icon: "fas fa-crosshairs"
-status: "new"
+status: "stable"
 tags: [ATT&CK, 告警降噪, SIEM, SOAR, 安全运营]
 author: sentryCyberSec
-version: "2.0"
+version: "3.0"
 description: "基于 ATT&CK 框架的告警降噪与自动化编排技战法，涵盖映射分类、降噪优化和优先级排序三个阶段。"
 ---
 

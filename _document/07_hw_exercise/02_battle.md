@@ -4,10 +4,10 @@ title: "演练中实战作战"
 short_title: "实战"
 order: 2
 icon: "fas fa-chess"
-status: "new"
+status: "stable"
 tags: [攻防演练, HW, 红蓝对抗, 协同作战, 复盘]
 author: sentryCyberSec
-version: "2.0"
+version: "3.0"
 description: "实战化攻防演练防守方协同作战技战法，涵盖演练前备战、演练中实战和演练后复盘三个阶段。"
 ---
 

@@ -4,10 +4,10 @@ title: "数据流转路径映射与监控部署"
 short_title: "流转监控"
 order: 2
 icon: "fas fa-database"
-status: "new"
+status: "stable"
 tags: [数据分类分级, 敏感数据, 流转监控, DLP, 数据安全]
 author: sentryCyberSec
-version: "2.0"
+version: "3.0"
 description: "数据分类分级与敏感数据流转风险监控技战法，涵盖数据资产识别与标签化、流转路径映射与监控和风险预警与处置闭环三个阶段。"
 ---
 

@@ -78,14 +78,11 @@
         {% endif %}
       {% endfor %}
       {% assign sorted_group = group_docs | sort: "order" %}
-
       {% for doc in sorted_group %}
       <li class="doc-nav-item {% if doc.url == current_url %}is-active{% endif %}">
         <a href="{{ doc.url | relative_url }}" title="{{ doc.title }}">
           {% if doc.icon %}<i class="{{ doc.icon }}"></i>{% endif %}
           <span class="doc-nav-label">{{ doc.short_title | default: doc.title }}</span>
-          {% if doc.status == "draft" %}<em class="doc-nav-badge doc-nav-badge--draft">DRAFT</em>{% endif %}
-          {% if doc.status == "new" %}<em class="doc-nav-badge doc-nav-badge--new">NEW</em>{% endif %}
         </a>
       </li>
       {% endfor %}

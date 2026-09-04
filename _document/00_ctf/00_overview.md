@@ -4,10 +4,12 @@ title: "数据安全与AI安全理论赛知识点汇编"
 short_title: "知识点汇编"
 order: 0
 icon: "fas fa-flag-checkered"
-status: "new"
+status:
+  - hot
+  - stable
 tags: [数据安全, AI安全, 网络安全, 密码学, 隐私保护, 应急响应, CTF]
 author: sentryCyberSec
-version: "1.0"
+version: "3.0"
 description: "数据安全与AI安全理论赛知识点完整汇编，涵盖判断题、单选题、不定项选择题三大题型，包含数据生命周期、模型安全、访问控制、密码技术等核心考点。"
 date: "2026-09-03"
 ---

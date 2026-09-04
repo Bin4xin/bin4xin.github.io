@@ -4,10 +4,10 @@ title: "合同约束与安全基线约定"
 short_title: "合同约束"
 order: 3
 icon: "fas fa-handshake"
-status: "new"
+status: "stable"
 tags: [第三方供应商, 安全评估, 合同约束, 持续监控, 供应链]
 author: sentryCyberSec
-version: "2.0"
+version: "3.0"
 description: "第三方供应商安全评估技战法，涵盖供应商安全准入评估、合同约束与安全基线约定和持续监控与定期复评三个阶段。"
 ---
 

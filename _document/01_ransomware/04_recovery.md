@@ -4,10 +4,10 @@ title: "数据恢复与业务重建"
 short_title: "恢复重建"
 order: 4
 icon: "fas fa-pump-soap"
-status: "new"
+status: "stable"
 tags: [勒索病毒, 应急响应, 数据恢复, 安全加固, 横向传播]
 author: sentryCyberSec
-version: "2.0"
+version: "3.0"
 description: "企业勒索病毒应急响应技战法，涵盖主机隔离、影响评估、数据恢复和安全加固四个阶段。"
 ---
 

@@ -4,10 +4,10 @@ title: "紧急隔离与业务切换"
 short_title: "隔离切换"
 order: 2
 icon: "fas fa-link"
-status: "new"
+status: "stable"
 tags: [供应链攻击, 生产环境, 应急切换, 环境重建, SBOM]
 author: sentryCyberSec
-version: "2.0"
+version: "3.0"
 description: "供应链攻击生产环境被控应急切换与重建技战法，涵盖发现确认、紧急隔离、全面排查和环境重建四个阶段。"
 ---
 

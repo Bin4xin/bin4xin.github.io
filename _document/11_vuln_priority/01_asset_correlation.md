@@ -4,10 +4,10 @@ title: "漏洞资产关联与信息采集"
 short_title: "资产关联"
 order: 1
 icon: "fas fa-bug"
-status: "new"
+status: "stable"
 tags: [漏洞管理, 优先级评估, CVSS, EPSS, 量化模型]
 author: sentryCyberSec
-version: "2.0"
+version: "3.0"
 description: "漏洞修补优先级量化管理技战法，涵盖漏洞资产关联与信息采集、漏洞优先级量化评估和修补跟踪与闭环管理三个阶段。"
 ---
 

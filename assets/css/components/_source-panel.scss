@@ -1,0 +1,418 @@
+// ============================================================
+// Source Panel — 跟随系统 prefers-color-scheme 的换源面板
+// @import "components/source-panel"
+// ============================================================
+
+/* ===================== 变量：白天（默认） ===================== */
+
+.sp-panel {
+  --sp-surface:         #ffffff;
+  --sp-surface-hover:   #fafafa;
+  --sp-surface-subtle:  rgba(0,0,0,0.02);
+  --sp-border:          #e4e4e4;
+  --sp-border-hover:    #d0d0d0;
+  --sp-text:            #1a1a1a;
+  --sp-text-2:          #666666;
+  --sp-text-dim:        #999999;
+  --sp-green:           #388e3c;
+  --sp-blue:            #1e88e5;
+  --sp-orange:          #ef6c00;
+  --sp-term-bg:         #f6f8fa;
+  --sp-term-border:     #e1e4e8;
+  --sp-code-text:       #24292e;
+  --sp-tag-official-bg: rgba(212,74,26,0.08);
+  --sp-tag-official-fg: #d44a1a;
+  --sp-tag-mirror-bg:   rgba(56,142,60,0.08);
+  --sp-tag-mirror-fg:   #388e3c;
+  --sp-step-num-bg:     rgba(0,0,0,0.04);
+  --sp-step-num-fg:     #888888;
+  --sp-tab-active-bg:   rgba(212,74,26,0.08);
+  --sp-tab-active-fg:   #d44a1a;
+  --sp-mirror-active-bg: rgba(56,142,60,0.08);
+  --sp-mirror-active-fg: #388e3c;
+  --sp-btn-hover-bg:    rgba(0,0,0,0.03);
+  --sp-btn-hover-bg-2:  rgba(0,0,0,0.04);
+  --sp-copy-bg:         rgba(0,0,0,0.03);
+  --sp-copy-border:     #e4e4e4;
+  --sp-copy-fg:         #888888;
+  --sp-copy-hover-bg:   rgba(0,0,0,0.05);
+  --sp-copy-done-bg:    rgba(56,142,60,0.08);
+  --sp-copy-done-border: rgba(56,142,60,0.30);
+  --sp-copy-done-fg:    #388e3c;
+  --sp-shadow:          0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+}
+
+/* ===================== 变量：系统暗黑 ===================== */
+
+@media (prefers-color-scheme: dark) {
+  .sp-panel {
+    --sp-surface:         #141414;
+    --sp-surface-hover:   #191919;
+    --sp-surface-subtle:  rgba(255,255,255,0.02);
+    --sp-border:          #1e1e1e;
+    --sp-border-hover:    #2a2a2a;
+    --sp-text:            #e8e4df;
+    --sp-text-2:          #8a8580;
+    --sp-text-dim:        #4a4744;
+    --sp-green:           #4caf50;
+    --sp-blue:            #42a5f5;
+    --sp-orange:          #ff9800;
+    --sp-term-bg:         #0d1117;
+    --sp-term-border:     #1b2230;
+    --sp-code-text:       #c9d1d9;
+    --sp-tag-official-bg: rgba(233,84,32,0.10);
+    --sp-tag-official-fg: #e95420;
+    --sp-tag-mirror-bg:   rgba(76,175,80,0.10);
+    --sp-tag-mirror-fg:   #4caf50;
+    --sp-step-num-bg:     rgba(255,255,255,0.05);
+    --sp-step-num-fg:     #6b6660;
+    --sp-tab-active-bg:   rgba(233,84,32,0.10);
+    --sp-tab-active-fg:   #e95420;
+    --sp-mirror-active-bg: rgba(76,175,80,0.10);
+    --sp-mirror-active-fg: #4caf50;
+    --sp-btn-hover-bg:    rgba(255,255,255,0.03);
+    --sp-btn-hover-bg-2:  rgba(255,255,255,0.04);
+    --sp-copy-bg:         rgba(255,255,255,0.03);
+    --sp-copy-border:     #2a2a2a;
+    --sp-copy-fg:         #6b6660;
+    --sp-copy-hover-bg:   rgba(255,255,255,0.05);
+    --sp-copy-done-bg:    rgba(76,175,80,0.10);
+    --sp-copy-done-border: rgba(76,175,80,0.30);
+    --sp-copy-done-fg:    #4caf50;
+    --sp-shadow:          none;
+  }
+}
+
+/* ===================== panel ===================== */
+
+.sp-panel {
+  background: var(--sp-surface);
+  border: 1px solid var(--sp-border);
+  border-radius: 10px;
+  padding: 24px;
+  margin: 2em 0;
+  box-shadow: var(--sp-shadow);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+
+.sp-panel-head {
+  margin-bottom: 20px;
+}
+
+.sp-panel-title {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--sp-text);
+  margin: 0 0 4px;
+}
+
+.sp-panel-config {
+  font-size: 0.82em;
+  color: var(--sp-text-2);
+  margin: 4px 0 0;
+  font-family: var(--mono, 'SFMono-Regular', Consolas, monospace);
+
+  i { margin-right: 4px; font-size: 0.95em; }
+}
+
+.sp-panel-note {
+  font-size: 0.82em;
+  color: var(--sp-text-2);
+  margin: 8px 0 0;
+  line-height: 1.5;
+
+  i { margin-right: 4px; }
+}
+
+/* ===================== distro tabs ===================== */
+
+.sp-distro-bar {
+  display: inline-flex;
+  gap: 3px;
+  padding: 3px;
+  background: var(--sp-surface-subtle);
+  border: 1px solid var(--sp-border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.sp-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sp-text-dim);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  white-space: nowrap;
+
+  // Font Awesome icon in tab
+  > i {
+    font-size: 15px;
+    line-height: 1;
+    transition: color 0.2s ease;
+  }
+
+  // Letter avatar fallback
+  .sp-tab-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    font-family: var(--mono, 'SFMono-Regular', Consolas, monospace);
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    color: var(--sp-text);
+    background: var(--sp-btn-hover-bg);
+  }
+
+  &.active {
+    background: var(--sp-tab-active-bg);
+    color: var(--sp-tab-active-fg);
+
+    > i { color: inherit; }
+  }
+}
+
+/* ===================== mirror bar ===================== */
+
+.sp-mirror-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  background: var(--sp-surface-subtle);
+  border: 1px solid var(--sp-border);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.sp-mirror-label {
+  font-size: 12px;
+  color: var(--sp-text-2);
+  margin-right: 4px;
+  white-space: nowrap;
+
+  i { margin-right: 4px; }
+}
+
+.sp-mirror-btn {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sp-text-dim);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+
+  &:hover {
+    color: var(--sp-text);
+    background: var(--sp-btn-hover-bg-2);
+  }
+
+  &.active {
+    background: var(--sp-mirror-active-bg);
+    color: var(--sp-mirror-active-fg);
+  }
+}
+
+/* ===================== content ===================== */
+
+.sp-content {}
+
+.sp-mirror-section {
+  &.is-hidden  { display: none; }
+  &.is-visible { display: block; }
+}
+
+/* ===================== mirror head ===================== */
+
+.sp-mirror-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.sp-mirror-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--sp-text);
+}
+
+.sp-mirror-tag {
+  padding: 2px 9px;
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: var(--mono, 'SFMono-Regular', Consolas, monospace);
+
+  &--official { background: var(--sp-tag-official-bg); color: var(--sp-tag-official-fg); }
+  &--mirror   { background: var(--sp-tag-mirror-bg);   color: var(--sp-tag-mirror-fg); }
+}
+
+/* ===================== step ===================== */
+
+.sp-step {
+  margin-bottom: 12px;
+
+  &:last-of-type { margin-bottom: 0; }
+}
+
+.sp-step-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: var(--sp-text-2);
+}
+
+.sp-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--sp-step-num-bg);
+  border: 1px solid var(--sp-border);
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--mono, 'SFMono-Regular', Consolas, monospace);
+  color: var(--sp-step-num-fg);
+  flex-shrink: 0;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* ===================== code block ===================== */
+
+.sp-code {
+  background: var(--sp-term-bg);
+  border: 1px solid var(--sp-term-border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  overflow-x: auto;
+  margin: 0 0 0 28px;
+  line-height: 1.55;
+  transition: background 0.3s ease, border-color 0.3s ease;
+
+  code {
+    font-family: var(--mono, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace);
+    font-size: 12.5px;
+    color: var(--sp-code-text);
+    white-space: pre-wrap;
+    word-break: break-all;
+    background: none;
+    padding: 0;
+    transition: color 0.3s ease;
+  }
+
+  .token.prompt {
+    color: var(--sp-green);
+    font-weight: 600;
+    user-select: none;
+  }
+}
+
+/* ===================== mirror note ===================== */
+
+.sp-mirror-note {
+  margin: 12px 0 14px 28px;
+  font-size: 12px;
+  color: var(--sp-text-dim);
+  line-height: 1.5;
+
+  i { margin-right: 4px; color: var(--sp-orange); }
+}
+
+/* ===================== copy all ===================== */
+
+.sp-copy-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 7px 14px;
+  border: 1px solid var(--sp-copy-border);
+  border-radius: 6px;
+  background: var(--sp-copy-bg);
+  color: var(--sp-copy-fg);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  svg {
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  &:hover {
+    background: var(--sp-copy-hover-bg);
+    color: var(--sp-text-2);
+    border-color: var(--sp-border-hover);
+
+    svg { opacity: 1; }
+  }
+
+  &.sp-copy-done {
+    background: var(--sp-copy-done-bg);
+    border-color: var(--sp-copy-done-border);
+    color: var(--sp-copy-done-fg);
+
+    svg { opacity: 1; }
+  }
+}
+
+/* ===================== verify ===================== */
+
+.sp-verify {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--sp-border);
+  transition: border-color 0.3s ease;
+}
+
+.sp-verify-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sp-text);
+  margin-bottom: 10px;
+
+  i { margin-right: 4px; color: var(--sp-blue); }
+}
+
+/* ===================== responsive ===================== */
+
+@media (max-width: 600px) {
+  .sp-panel       { padding: 16px; }
+  .sp-distro-bar  { width: 100%; }
+  .sp-tab-btn     { padding: 6px 10px; font-size: 12px; gap: 5px; }
+  .sp-tab-btn > i { font-size: 13px; }
+  .sp-tab-avatar  { width: 16px; height: 16px; font-size: 9px; }
+  .sp-mirror-bar  { gap: 4px; }
+  .sp-mirror-btn  { padding: 4px 8px; font-size: 11px; }
+  .sp-code        { margin-left: 0; padding: 10px 12px; }
+  .sp-code code   { font-size: 11px; }
+}

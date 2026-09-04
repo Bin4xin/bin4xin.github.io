@@ -4,10 +4,10 @@ title: "异常行为检测与狩猎"
 short_title: "检测狩猎"
 order: 2
 icon: "fas fa-user-shield"
-status: "new"
+status: "stable"
 tags: [UEBA, 内部威胁, 威胁狩猎, 行为分析, 基线]
 author: sentryCyberSec
-version: "2.0"
+version: "3.0"
 description: "UEBA 驱动的内部异常行为狩猎技战法，涵盖数据采集基线构建、异常行为检测狩猎和调查响应模型迭代三个阶段。"
 ---
 

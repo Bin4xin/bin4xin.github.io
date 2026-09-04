@@ -4,10 +4,10 @@ title: "泄露发现与紧急响应"
 short_title: "发现响应"
 order: 1
 icon: "fas fa-user-secret"
-status: "new"
+status: "stable"
 tags: [数据泄露, 内部威胁, 应急溯源, 取证, DLP]
 author: sentryCyberSec
-version: "2.0"
+version: "3.0"
 description: "企业内部数据泄露应急溯源与取证技战法，涵盖泄露发现、流转溯源和影响评估三个阶段。"
 ---
 

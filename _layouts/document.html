@@ -130,6 +130,65 @@
             v{{ page.version }}
           </span>
           {% endif %}
+          {% comment %} ── Normalize status to array ── {% endcomment %}
+          {% if page.status.first %}
+            {% assign statuses = page.status %}
+          {% elsif page.status %}
+            {% assign statuses = page.status | split: "," %}
+          {% else %}
+            {% assign statuses = "" %}
+          {% endif %}
+
+          {% for s in statuses %}
+            {% assign st = s | strip %}
+            {% case st %}
+              {% when "draft" %}
+                {% assign badge_text = "DRAFT" %}
+                {% assign badge_icon = "fa-pencil" %}
+                {% assign badge_cls  = "doc-nav-badge--draft" %}
+              {% when "new" %}
+                {% assign badge_text = "NEW" %}
+                {% assign badge_icon = "fa-star" %}
+                {% assign badge_cls  = "doc-nav-badge--new" %}
+              {% when "updated" %}
+                {% assign badge_text = "UPD" %}
+                {% assign badge_icon = "fa-arrows-rotate" %}
+                {% assign badge_cls  = "doc-nav-badge--updated" %}
+              {% when "stable" %}
+                {% assign badge_text = "STABLE" %}
+                {% assign badge_icon = "fa-shield-halved" %}
+                {% assign badge_cls  = "doc-nav-badge--stable" %}
+              {% when "deprecated" %}
+                {% assign badge_text = "EOL" %}
+                {% assign badge_icon = "fa-circle-xmark" %}
+                {% assign badge_cls  = "doc-nav-badge--deprecated" %}
+              {% when "wip" %}
+                {% assign badge_text = "WIP" %}
+                {% assign badge_icon = "fa-hammer" %}
+                {% assign badge_cls  = "doc-nav-badge--wip" %}
+              {% when "review" %}
+                {% assign badge_text = "REV" %}
+                {% assign badge_icon = "fa-magnifying-glass" %}
+                {% assign badge_cls  = "doc-nav-badge--review" %}
+              {% when "hot" %}
+                {% assign badge_text = "HOT" %}
+                {% assign badge_icon = "fa-fire" %}
+                {% assign badge_cls  = "doc-nav-badge--hot" %}
+              {% when "todo" %}
+                {% assign badge_text = "TODO" %}
+                {% assign badge_icon = "fa-list-check" %}
+                {% assign badge_cls  = "doc-nav-badge--todo" %}
+              {% else %}
+                {% assign badge_text = "" %}
+                {% assign badge_icon = "" %}
+                {% assign badge_cls  = "" %}
+            {% endcase %}
+            {% if badge_text != "" %}
+              <em class="doc-nav-badge {{ badge_cls }}" title="{{ badge_text }}">
+                <i class="fas {{ badge_icon }}"></i> {{ badge_text }}
+              </em>
+            {% endif %}
+          {% endfor %}
         </div>
         {% if page.tags and page.tags.size > 0 %}
         <div class="doc-tags">
