@@ -17,9 +17,6 @@
 <meta name="description" content="本站由哨兵安全实验室支持创办">
 
     <meta name="baidu-site-verification" content="codeva-Bt0LqEvH6L" />
-    <!-- Google tag (gtag.js) -->
-<!--<script defer src="https://www.googletagmanager.com/gtag/js?id=G-TJ5SFQ4KCM"></script>-->
-<!--<script defer src="/assets/js/gta.js"></script>-->
 <link rel="shortcut icon" href="/assets/img/favicon.png">
 <link type="application/atom+xml" rel="alternate" href="/feed.xml" title="© 哨兵" />
 
@@ -128,7 +125,7 @@
 
   <!-- Mobile sidebar toggle -->
   <button class="doc-mobile-toggle" id="doc-mobile-toggle">
-    <i class="fas fa-bars"></i>
+    <i class="fas fa-bars-progress"></i>
   </button>
 
   <!-- Mobile TOC button -->
@@ -1280,25 +1277,7 @@
     <main class="doc-content-wrap">
       <!-- Breadcrumb -->
       <div class="doc-breadcrumb">
-        <a href="/">Home</a>
-        <span class="doc-breadcrumb-sep">/</span>
-      
-        
-          <a href="/document/" class="is-active">Document</a>
-          <span class="doc-breadcrumb-sep">|</span>
-          <a href="/blog/">Blog</a>
-          <span class="doc-breadcrumb-sep">|</span>
-          <a href="/categories/">Categories</a>
-          <span class="doc-breadcrumb-sep">|</span>
-          <a href="/daily/">Daily</a>
-          <span class="doc-breadcrumb-sep">|</span>
-          <a href="/newest/">Newest</a>
-          <span class="doc-breadcrumb-sep">|</span>
-          <a href="/about/">Research</a>
-          <span class="doc-breadcrumb-sep">|</span>
-          <a href="/feed.xml">RSS</a>
-        
-      
+        <a class="is-active">Docs</a>
         
         
           
@@ -1308,7 +1287,94 @@
           
         
           
-        
+        <span class="doc-breadcrumb-sep">|</span>
+        <div role="navigation">
+    <nav class="sentinel-nav">
+        <div class="sentinel-nav-inner">
+          
+          
+          <!-- Mobile toggle -->
+          <button class="sentinel-nav-toggle" id="sentinel-nav-toggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <!-- Nav items -->
+          <div class="sentinel-nav-list-wrap" id="sentinel-nav-list-wrap">
+            <ul class="sentinel-nav-list">
+
+              
+
+                <li class="sentinel-nav-item ">
+                  <a href="/">
+                    <i class="fas fa-home"></i> Home
+                  </a>
+                </li>
+                <li class="sentinel-nav-item ">
+                  <a href="/blog/">
+                    <i class="fas fa-pen-nib"></i> Blog
+                  </a>
+                </li>
+                
+                
+                <span class="sentinel-nav-sep"></span>
+
+                <li class="sentinel-nav-item ">
+                  <a href="/categories/">
+                    <i class="fas fa-layer-group"></i> Categories
+                  </a>
+                </li>
+                <li class="sentinel-nav-item ">
+                  <a href="/daily/">
+                    <i class="fas fa-calendar"></i> Daily
+                  </a>
+                </li>
+                <li class="sentinel-nav-item ">
+                  <a href="/newest">
+                    <i class="fas fa-bolt"></i> Newest
+                  </a>
+                </li>
+
+                <span class="sentinel-nav-sep"></span>
+
+                <li class="sentinel-nav-item ">
+                  <a href="/about/">
+                    <i class="fas fa-flask"></i> Research
+                  </a>
+                </li>
+                <li class="sentinel-nav-item">
+                  <a href="/feed.xml">
+                    <i class="fas fa-rss"></i> RSS
+                  </a>
+                </li>
+
+              
+
+            </ul>
+          </div>
+
+          <!-- Right side -->
+          <div class="sentinel-nav-right">
+            <a href="/search" title="搜索"><i class="fas fa-search"></i></a>
+            <a href="/changelog/" title="更新日志"><i class="fas fa-book"></i></a>
+          </div>
+
+        </div>
+    </nav>
+</div>
+<script>
+    (function(){
+      var toggle = document.getElementById('sentinel-nav-toggle');
+      var wrap   = document.getElementById('sentinel-nav-list-wrap');
+      if(toggle && wrap){
+        toggle.addEventListener('click', function(){
+          wrap.classList.toggle('is-open');
+          var icon = this.querySelector('i');
+          icon.classList.toggle('fa-bars-progress');
+          icon.classList.toggle('fa-xmark-circle');
+        });
+      }
+    })();
+</script>
       </div>
       
       <!-- Article Header -->
