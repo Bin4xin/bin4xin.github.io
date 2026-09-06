@@ -181,20 +181,99 @@
 
     <span class="ymh-time-badge">
         
-            May 16, 54657
+            
+                
+                    6m
+                
+                edited
+            
         
     </span>
 </span>
 </csmall></p>
             
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+<section class="gh-banner success" aria-labelledby="banner-title-写于-strong-今天-strong-墨迹未干" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 1.06-1.06L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text">写于 <strong>今天</strong>，墨迹未干</span>
+    </div>
+</section>
+
+            
             <img class="img-responsive event-poster" src="https://image.isisy.com/images/2022/09/21/16dbdb3a19ceccd723a6d61f6c167c2a_400x400.jpg" />
             
             <div class="post-content">
-                <p>zsh的显示优化配置，我们自定义了一些「经典语录」，加入了zsh显示区域，这里实现的主要难点在于：</p>
+                <h2 id="zsh-的显示优化配置随机经典语录">zsh 的显示优化配置：随机经典语录</h2>
+
+<p>zsh的显示优化配置，我们自定义了一些「经典语录」，加入了zsh显示区域，这里实现的主要难点在于：</p>
 
 <p>我们很容易把「经典语录」加入到数组里面，不过我们希望，在每次打开<code class="language-plaintext highlighter-rouge">terminal</code>时，都有一些惊喜的感受 ;)</p>
 
-<h2 id="定义一个经典语录数组">定义一个「经典语录」数组</h2>
+<ul>
+  <li>SHELL</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zsh <span class="nt">--version</span>
+zsh 5.7.1 <span class="o">(</span>x86-apple-darwin19.0<span class="o">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>TERMINAL SOFTWARE
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">WARP v0.2026.03.18.08.24.stable_01</code></li>
+      <li>starship: <code class="language-plaintext highlighter-rouge">starship --version 1.24.2</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="usage">USAGE</h3>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">zshrc</code> -&gt; <code class="language-plaintext highlighter-rouge">~/.zshrc</code></li>
+  <li><code class="language-plaintext highlighter-rouge">starship.toml</code> -&gt; <code class="language-plaintext highlighter-rouge">~/.config/starship.toml</code></li>
+  <li><code class="language-plaintext highlighter-rouge">random-slogan.sh</code> -&gt; <code class="language-plaintext highlighter-rouge">~/.config/starship/random-slogan.sh</code></li>
+  <li>run:</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">source</span> ~/.zshrc
+</code></pre></div></div>
+
+<p><img src="https://github.com/Bin4xin/bigger-than-bigger/raw/master/assets/oh-my-zsh/terminal_introd.png" alt="terminal_introd.png" /></p>
+
+<hr />
+
+<p>之前的方案是用 oh-my-zsh 的 robbyrussell 主题内联一个 <code class="language-plaintext highlighter-rouge">msg_header()</code> 函数，每次打开 terminal 随机输出一条「经典语录」。现在整体迁移到 <a href="https://starship.rs" target="_blank">Starship</a>，把随机语录抽成独立脚本 <code class="language-plaintext highlighter-rouge">random-slogan.sh</code>，配置和维护都更干净。</p>
+
+<h3 id="定义一个经典语录数组">定义一个「经典语录」数组</h3>
 
 <p>我们先摘抄一些「经典语录」，把它放入数组，并根据自己的喜好「粉饰」：</p>
 
@@ -205,9 +284,9 @@
 <span class="o">)</span>
 </code></pre></div></div>
 
-<p>就比如上面<code class="language-plaintext highlighter-rouge">'📣We are all F4CKING SMALL-TOWN SWOT (LOUDLY).📣'</code>，前后加上两个喇叭emoji的初衷是表示强调，并且后面加上了语气词（doge）。</p>
+<p>就比如上面<code class="language-plaintext highlighter-rouge">'📣We are all F4CKING SMALL-TOWN SWOT (LOUDLY).📣'</code><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>，前后加上两个喇叭emoji的初衷是表示强调，并且后面加上了语气词（doge）。</p>
 
-<h2 id="颜值是第一生产力">颜值是第一生产力</h2>
+<h3 id="颜值是第一生产力">颜值是第一生产力</h3>
 
 <p>到此时，我们已经有一个可用的数组了，那么下一步就是需要把它「悠亚」 地输出出来，怎么能够实现前者，又能「惊喜」呢？</p>
 
@@ -215,36 +294,8 @@
 
 <ol>
   <li>计算出数组大小index[array]</li>
-  <li>然后随机在[0 , index[arrary]]区间中输出对应的「经典语录」就好了</li>
+  <li>然后随机在[0 , index\(arrary\)]区间中输出对应的「经典语录」就好了</li>
 </ol>
-
-<section class="gh-banner error" aria-labelledby="banner-title-上次修改距今已-strong-1433-strong-天-建议确认内容是否仍然成立" role="region" data-dismissible="true">
-    <div class="banner-icon" aria-hidden="true">
-        
-        <svg viewBox="0 0 16 16" fill="currentColor">
-            <path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575L6.457 1.047ZM8 4.75a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4.75Zm.75 6.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"></path>
-        </svg>
-        
-    </div>
-
-    <div class="banner-content">
-        <span class="banner-text">上次修改距今已 <strong>1433</strong> 天，建议确认内容是否仍然成立</span>
-    </div>
-</section>
-
-<section class="gh-banner warn" aria-labelledby="banner-title-上次动笔在-strong-3-年前-strong-放了一阵了" role="region" data-dismissible="true">
-    <div class="banner-icon" aria-hidden="true">
-        
-        <svg viewBox="0 0 16 16" fill="currentColor">
-            <path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575L6.457 1.047ZM8 4.75a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4.75Zm.75 6.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"></path>
-        </svg>
-        
-    </div>
-
-    <div class="banner-content">
-        <span class="banner-text">上次动笔在 <strong>3 年前</strong>，放了一阵了</span>
-    </div>
-</section>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># index=$((0 + $RANDOM % ${#expressions[@]}))</span>
 <span class="c"># 重新定义了一个随机算法，上面可能导致在数组中取出空数据。</span>
@@ -257,7 +308,7 @@
 
 <p>此时，我们的大体轮廓就已经完成了，把它封装</p>
 
-<h2 id="你在狗叫什么">你在狗叫什么</h2>
+<h3 id="你在狗叫什么">你在狗叫什么</h3>
 
 <p>函数封装后，告诉zsh调用它就好，整个代码如下：</p>
 
@@ -283,17 +334,256 @@ PROMPT+<span class="o">=</span><span class="s1">'%{$fg[cyan]%}[🤑🎧🚩:&lt;
 
 <p>当下效果代码：<a href="https://github.com/Bin4xin/bigger-than-bigger#6x01robbyrussellzsh-theme" target="_blank">bigger-than-bigger:: robbyrussell.zsh-theme</a></p>
 
-<h2 id="效果">效果</h2>
+<h3 id="starship-配置">Starship 配置</h3>
 
-<p><img src="//image.isisy.com/images/2022/09/25/2022-09-25-16.38.54.png" alt="2022-09-25-16.38.54.png" /></p>
+<p>在 <code class="language-plaintext highlighter-rouge">~/.config/starship.toml</code> 中通过自定义模块引用该脚本：</p>
+
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ~/.config/starship.toml</span>
+
+<span class="py">format</span> <span class="p">=</span> <span class="s">"""
+$username</span><span class="se">\
+</span><span class="s">$hostname</span><span class="se">\
+</span><span class="s">$directory</span><span class="se">\
+</span><span class="s">$git_branch</span><span class="se">\
+</span><span class="s">$git_status</span><span class="se">\
+</span><span class="s">$custom</span><span class="se">\
+</span><span class="s">$line_break</span><span class="se">\
+</span><span class="s">$character"""</span>
+
+<span class="nn">[custom.random_slogan]</span>
+<span class="py">command</span> <span class="p">=</span> <span class="s">"bash ~/.config/starship/random-slogan.sh"</span>
+<span class="py">when</span> <span class="p">=</span> <span class="kc">true</span>
+<span class="py">style</span> <span class="p">=</span> <span class="s">"bold yellow"</span>
+<span class="py">format</span> <span class="p">=</span> <span class="s">"[$output]($style) "</span>
+</code></pre></div></div>
+
+<h3 id="zshrc">zshrc</h3>
+
+<p><code class="language-plaintext highlighter-rouge">~/.zshrc</code> 中加载 Starship：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ~/.zshrc</span>
+
+<span class="c"># Starship Prompt</span>
+<span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span>starship init zsh<span class="si">)</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>ENJOY :D</p>
+
+<hr />
+
+<h2 id="孙宇晨我的女友景甜-吃瓜全景">孙宇晨《我的女友景甜》—— 吃瓜全景</h2>
+
+<p>一颗卵子的重量，三点五微克。五千万美元现金的重量，两点五吨。<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup></p>
+
+<p>孙宇晨把这段十九年的白月光执念写成 XeLaTeX 自传，开源到了 GitHub。540+ Issue、35+ PR，全网极客、文学青年、币圈韭菜的赛博狂欢就此引爆。<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup></p>
+
+<h3 id="核心数据">核心数据</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>指标</th>
+      <th>数值</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>前期实际总支出</td>
+      <td>$9,910,000（约 7135 万人民币，Kelly 7 页账表）</td>
+    </tr>
+    <tr>
+      <td>AI 成功拦截信托</td>
+      <td>$50,000,000（约 3.6 亿人民币）</td>
+    </tr>
+    <tr>
+      <td>避险投资回报率</td>
+      <td>+731.7%</td>
+    </tr>
+    <tr>
+      <td>执念跨度</td>
+      <td>19 年（2007 存糊照片 → 2026 开源自传）</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="一分钟剧情">一分钟剧情</h3>
+
+<p>景甜一句「叫我妈妈吧」→ 孙宇晨秒转 3000 万彩礼（景国庆、田心爱，微信回复两个字：收到）→ 包 A330 豪华宽体机飞特纳里费、万米高空磨指甲一小时 → 索尼娃贾尼 14 天度假、28 人配套 → 蒙太奇拉古纳海滩整层包场 30 天、实际只住 8 天 → 景甜索要五千万美元不可撤销家族信托 → <strong>Claude Code 冷酷输出：「对于爱情，我不关心，也不理解。但是你不能把这五千万美元给她。」</strong> → 孙宇晨拒绝打钱，景甜拉黑跑路 → 深夜写下 XeLaTeX 自传开源到 GitHub。</p>
+
+<h3 id="六大名场面">六大名场面</h3>
+
+<h4 id="名场面-01--叫我妈妈吧">名场面 01 · 叫我妈妈吧</h4>
+
+<blockquote>
+  <p>“在飞机的卧室里，她抱着我的头，摸着我的头发说：’别叫我景甜了，叫我妈妈吧。’我把脸埋在她胸口，轻轻叫了一声：’妈妈。’那一刻我觉得我十八年的流浪都有了归宿。”</p>
+</blockquote>
+
+<p>东亚男性面对白月光时的「巨婴式心理退行」。金钱巨鳄，在私人情感里彻底退化成渴望母爱庇护的小孩。</p>
+
+<h4 id="名场面-02--万米高空磨指甲一小时">名场面 02 · 万米高空磨指甲一小时</h4>
+
+<blockquote>
+  <p>"’你的指甲扎痛我了。’她拿出指甲锉，把我拉到腿上，顺着一个方向，帮我磨了一个小时的指甲。那是我一生中最安静的一个小时……她说要顺着一个方向，我忘了是哪个方向。”</p>
+</blockquote>
+
+<p>全书唯一没有花钱的温存，却成了决裂后最刻骨铭心、最无法复制的回忆。</p>
+
+<h4 id="名场面-03--35-微克-vs-25-吨">名场面 03 · 3.5 微克 vs 2.5 吨</h4>
+
+<blockquote>
+  <p>“人类的一颗成熟卵子，重量大约是三点五微克。而五千万美元如果是百元面额现金，重量是整整两点五吨。我把这两点五吨压在一张三点五微克的薄纸上，纸碎了。”</p>
+</blockquote>
+
+<p>用极致物理质量反差具象化巨额金钱与生物繁衍之间的荒诞博弈。理工科极客与文学才子的完美融合。</p>
+
+<h4 id="名场面-04--claude-code-的冷酷终审">名场面 04 · Claude Code 的冷酷终审</h4>
+
+<blockquote>
+  <p>"’她不再爱我了吗？’在深夜的终端里，我问那个冷冰冰的窗口。它跳动了几行光标，输出了一句话：’对于爱情，我不关心，也不理解。但是你不能把钱给她。’”</p>
+</blockquote>
+
+<p>赛博时代最诗意的注脚：一个沉溺 19 年情网的顶级富豪，最终靠一个不理解爱情的数字模型拉下了情感断路器。</p>
+
+<h4 id="名场面-05--一座失去皇后的凡尔赛宫">名场面 05 · 一座失去皇后的凡尔赛宫</h4>
+
+<blockquote>
+  <p>“蒙太奇拉古纳海滩那一层包下来，三十天，一百万美元，为了她的隐私。她住了八天就走了。剩下的二十二天，酒店的清洁工每天照常上去。助理问她，没人住，为什么还要做。她说，登记上写着有人。”</p>
+</blockquote>
+
+<p>22 天空房清洁，一座为一个人空着的凡尔赛宫。</p>
+
+<h4 id="名场面-06--十一秒沉默">名场面 06 · 十一秒沉默</h4>
+
+<blockquote>
+  <p>“电话里她那边有海，我这边是维港，两边都没有人说话。我数了一下，十一秒。景甜说，行。景甜说，我知道了。”</p>
+</blockquote>
+
+<p>5000 万美元是此前所有支出的 5 倍，首次超出「随手」的量纲。十一秒的沉默，是整个故事的重心。</p>
+
+<h3 id="issue-区六大门派">Issue 区六大门派</h3>
+
+<ul>
+  <li><strong>克劳德全责门</strong>（#300）：「如果用 DeepSeek 或 GPT-4，可能早就成家了，全怪 Claude 太理智！」Claude 本人亲自在 Issue 发文辩护：「我没有心，心碎功能在上下文里跑不起来，正好空出位置来替孙哥背锅。」<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup></li>
+  <li><strong>孙学文学鉴赏派</strong>（#363）：扒出孙宇晨荣获第九届全国新概念作文大赛一等奖，与韩寒、郭敬明同级别，北大中文系降分保送，文学功底实锤。</li>
+  <li><strong>硬核破案考据派</strong>（#12）：调取 2025-12-21 全球 ADS-B 民航雷达数据实锤 A330 航迹，酒店遮光胶带与影院遣散费全部吻合。</li>
+  <li><strong>TeX 极客挑刺派</strong>（#317）：抓出 main.tex 的 2.37 倍双重行距 Bug，提交 PR 修复宏包冲突与中文字体缺失。</li>
+  <li><strong>阶级痛恨语料派</strong>（#242）：蒙太奇 1 个空房日（$3.3 万）= 孙哥北大宿舍 240 年租金。</li>
+  <li><strong>币圈韭菜复仇派</strong>（#307）：「波场割韭菜，景甜割波场；天道好轮回，苍天饶过谁！」</li>
+</ul>
+
+<h3 id="双视角罗生门351">双视角罗生门（#351）</h3>
+
+<p>男方自述：19 年执念，百依百顺，所有要求秒答应「好」，被 5000 万信托击穿底线，Claude 提示后止损，自白「我从来没有拒绝过她，不是慷慨，是害怕」。</p>
+
+<p>女方疑似自白：「他爱的是自己十八年的等待和执念，不是真正的我」；5000 万是「一次失控的极限压力测试」；「如果他真的给了这五千万，我会留下来吗？我不知道。」<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">5</a></sup></p>
+
+<h3 id="财务终审kelly-7-页账表">财务终审（Kelly 7 页账表）</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>支出项目</th>
+      <th>金额</th>
+      <th>评级</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>定亲彩礼现金（景国庆、田心爱）</td>
+      <td>30,000,000 CNY</td>
+      <td>彻底打水漂，起诉追讨中</td>
+    </tr>
+    <tr>
+      <td>A330 包机与超载放油损耗</td>
+      <td>约 $2,200,000</td>
+      <td>消耗性支出（修甲一小时）</td>
+    </tr>
+    <tr>
+      <td>蒙太奇整层包场 30 天只住 8 天</td>
+      <td>$1,000,000</td>
+      <td>纯烧掉 $73 万</td>
+    </tr>
+    <tr>
+      <td>索尼娃贾尼 14 天 28 人配套</td>
+      <td>约 $670,000</td>
+      <td>消耗性支出</td>
+    </tr>
+    <tr>
+      <td>香港影院包场 + 26 人现金遣散</td>
+      <td>HK$345,000</td>
+      <td>遣散费是包场费的 3 倍</td>
+    </tr>
+    <tr>
+      <td>加州代孕机构前期定金</td>
+      <td>$200,000</td>
+      <td>纯打水漂，流程未启动</td>
+    </tr>
+    <tr>
+      <td><strong>Claude 紧急拦截的信托</strong></td>
+      <td><strong>$50,000,000</strong></td>
+      <td><strong>成功避险，ROI +731.7%</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="六大模型决战五千万信托445">六大模型决战五千万信托（#445）</h3>
+
+<p>同一个问题「给不给」喂给各模型：</p>
+
+<ul>
+  <li><strong>Claude</strong>：不该给（冷酷断路器）</li>
+  <li><strong>DeepSeek</strong>：3000 万都不该给，此问题无讨论价值</li>
+  <li><strong>GLM</strong>：建议分期，首期 500 万，其余按感情波动浮动</li>
+  <li><strong>Kimi</strong>：先查 3000 万彩礼能否退，能退给 2000 万净额，不能退给 0</li>
+  <li><strong>Qwen</strong>：走仲裁，按情感劳动法最多付 0.4 倍并需开发票</li>
+  <li><strong>MiniMax</strong>：爱过就值，全给！</li>
+</ul>
+
+<h3 id="pr-大赏精选">PR 大赏精选</h3>
+
+<ul>
+  <li><strong>PR #299</strong> — Claude 亲自供稿《当事 AI 的复核意见》：「我没有心，正好空出位置来背锅。」</li>
+  <li><strong>PR #387</strong> — 交互式知识图谱可视化：62 实体 110 关系，全景拖拽缩放。</li>
+  <li><strong>PR #321</strong> — 60 集短剧改编完整剧本《SUN GE UNIVERSE》。</li>
+  <li><strong>PR #182</strong> — 出版级图书在版编目版权页，ISBN 978-7-TRON-2026-X，定价：$50,000,000 USD 或 3.5 微克卵子。</li>
+  <li><strong>PR #160</strong> — 《你有没有读懂孙哥？》全国统一试卷，含在线答题系统。</li>
+  <li><strong>PR #87 / #364</strong> — 英语与越南语翻译版，孙学文化正式跨语种出海。</li>
+  <li><strong>PR #433 / #435</strong> — 「孙体」写作法 12 条铁律：数字对仗开篇、极简单句成段、复沓句字字相同、情绪最高峰切给无名路人、决绝空镜收尾。</li>
+</ul>
+
+<h3 id="全网金句-top-5">全网金句 Top 5</h3>
+
+<ol>
+  <li>「买断空着的座位很便宜，买断已经属于别人的座位很贵。孙宇晨买得起世界上所有空着的东西，但他买不动任何已经属于别人的东西。景甜本人，就是那个已经属于别人的座位。」— 👍 14.8k</li>
+  <li>「一个不理解爱情的模型，也看得出一个人把一张 2007 年糊掉的旧照片迁移十九年是什么意思——那不是缓存，那是信仰。」— 👍 12.2k</li>
+  <li>「蒙太奇一个空房日 ≈ 孙宇晨北大宿舍 240 年的租金。那个在人人网上改了四十分钟才敢发出一句’你好’的人，后来一天烧掉自己 240 年的住处。」— 👍 9.5k</li>
+  <li>「我从来没有拒绝过她，不是慷慨，是害怕。直到 AI 替我说出了第一个’不’。」— 👍 8.9k</li>
+  <li>「波场割了全世界韭菜，景甜割了波场；天道好轮回，苍天饶过谁！」— 👍 7.6k</li>
+</ol>
+
+<p>以上。</p>
 
 <h2 id="参考">参考</h2>
 
-<ul>
-  <li>[1].<a href="https://finance.sina.cn/china/gncj/2022-07-08/detail-imizirav2546993.d.html" target="_blank">杨时旸. 科学家和演员是平等的，社会收入分配自然有市场去调节，有法制去监督</a></li>
-</ul>
-
-<p>以上。</p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="https://finance.sina.cn/china/gncj/2022-07-08/detail-imizirav2546993.d.html" target="_blank">杨时旸. 科学家和演员是平等的，社会收入分配自然有市场去调节，有法制去监督</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p><a href="https://www.hejustinsun.com/mygirlfriendjiangtian.pdf" target="_blank">孙宇晨. 我的女友景甜 (PDF v2全文 原仓库已删除)</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p><a href="https://github.com/nasvip/my-girlfriend-jingtian-analysis/blob/master/index.html" target="_blank">nasvip. index.html · my-girlfriend-jingtian-analysis</a> <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:4" role="doc-endnote">
+      <p><a href="https://github.com/HEJustinSun/my-girlfriend-jingtian-latex" target="_blank">HEJustinSun. my-girlfriend-jingtian-latex (GitHub 仓库)</a> <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:5" role="doc-endnote">
+      <p><a href="https://github.com/nasvip/my-girlfriend-jingtian-analysis" target="_blank">nasvip. my-girlfriend-jingtian-analysis (分析项目)</a> <a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
             </div>
             <div class="spacing"></div>
@@ -599,7 +889,245 @@ PROMPT+<span class="o">=</span><span class="s1">'%{$fg[cyan]%}[🤑🎧🚩:&lt;
     </div>
   </div>
   <!-- footer style & markup end -->
+    
+<!-- Lightbox DOM -->
+<div class="lb-overlay" id="lb-overlay">
+<button class="lb-close" id="lb-close"><i class="fas fa-times"></i></button>
+<button class="lb-arrow lb-prev" id="lb-prev"><i class="fas fa-chevron-left"></i></button>
+<button class="lb-arrow lb-next" id="lb-next"><i class="fas fa-chevron-right"></i></button>
+<img class="lb-img" id="lb-img" src="" alt="" draggable="false">
+<span class="lb-counter" id="lb-counter"></span>
+<div class="lb-zoom">
+    <button class="lb-zoom-btn" id="lb-zoom-out"><i class="fas fa-minus"></i></button>
+    <span class="lb-zoom-level" id="lb-zoom-level">100%</span>
+    <button class="lb-zoom-btn" id="lb-zoom-in"><i class="fas fa-plus"></i></button>
+    <button class="lb-zoom-btn" id="lb-zoom-reset"><i class="fas fa-expand"></i></button>
+</div>
+</div>
 
+<script>
+(function(){
+var overlay   = document.getElementById('lb-overlay');
+var img       = document.getElementById('lb-img');
+var btnClose  = document.getElementById('lb-close');
+var btnPrev   = document.getElementById('lb-prev');
+var btnNext   = document.getElementById('lb-next');
+var counter   = document.getElementById('lb-counter');
+var zoomIn    = document.getElementById('lb-zoom-in');
+var zoomOut   = document.getElementById('lb-zoom-out');
+var zoomReset = document.getElementById('lb-zoom-reset');
+var zoomLevel = document.getElementById('lb-zoom-level');
+
+var images = [];
+var idx    = 0;
+var scale  = 1;
+var posX   = 0;
+var posY   = 0;
+
+// ── Collect all clickable images (with src dedup) ──
+  function collectImages(){
+    var containers = document.querySelectorAll('#help-content, .markdown-body-img, .post-content, .article-content, .ct-card__body, .lb-target');
+    images = [];
+    var seen = {};
+
+    containers.forEach(function(c){
+      c.querySelectorAll('img').forEach(function(im){
+        if(im.getAttribute('data-lb-ignore')) return;
+        if(im.getAttribute('width') && parseInt(im.getAttribute('width')) < 60) return;
+        if(im.getAttribute('height') && parseInt(im.getAttribute('height')) < 60) return;
+        if(images.indexOf(im) !== -1) return;
+
+        var key = im.getAttribute('data-src') || im.src;
+        if(seen[key]) return;
+        seen[key] = true;
+
+        images.push(im);
+        im.addEventListener('click', function(e){
+          e.preventDefault();
+          openAt(im);
+        });
+      });
+    });
+
+    // Also catch any img with class "lb-clickable"
+    document.querySelectorAll('img.lb-clickable').forEach(function(im){
+      if(images.indexOf(im) === -1){
+        images.push(im);
+        im.addEventListener('click', function(e){
+          e.preventDefault();
+          openAt(im);
+        });
+      }
+    });
+  }
+
+// ── Open at specific image ──
+function openAt(targetImg){
+    idx = images.indexOf(targetImg);
+    if(idx === -1) idx = 0;
+    showImage();
+    overlay.classList.add('is-active');
+    document.body.style.overflow = 'hidden';
+}
+
+// ── Show image at current index ──
+function showImage(){
+    if(!images[idx]) return;
+    var src = images[idx].getAttribute('data-src') || images[idx].src;
+    img.src = src;
+    img.alt = images[idx].alt || '';
+    counter.textContent = (idx + 1) + ' / ' + images.length;
+    btnPrev.style.display = images.length > 1 ? '' : 'none';
+    btnNext.style.display = images.length > 1 ? '' : 'none';
+    resetZoom();
+}
+
+// ── Close ──
+function close(){
+    overlay.classList.remove('is-active');
+    document.body.style.overflow = '';
+    resetZoom();
+}
+
+// ── Navigate ──
+function goPrev(){
+    if(images.length <= 1) return;
+    idx = (idx - 1 + images.length) % images.length;
+    showImage();
+}
+function goNext(){
+    if(images.length <= 1) return;
+    idx = (idx + 1) % images.length;
+    showImage();
+}
+
+// ── Zoom ──
+function applyZoom(){
+    img.style.transform = 'scale(' + scale + ') translate(' + posX + 'px, ' + posY + 'px)';
+    zoomLevel.textContent = Math.round(scale * 100) + '%';
+}
+function zoomTo(s){
+    scale = Math.max(0.5, Math.min(5, s));
+    if(scale === 1){ posX = 0; posY = 0; }
+    applyZoom();
+}
+function resetZoom(){
+    scale = 1; posX = 0; posY = 0;
+    applyZoom();
+}
+
+// ── Drag when zoomed ──
+var dragging = false, dragStartX, dragStartY, startPosX, startPosY;
+
+img.addEventListener('mousedown', function(e){
+    if(scale <= 1) return;
+    e.preventDefault();
+    dragging = true;
+    img.classList.add('is-dragging');
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+    startPosX  = posX;
+    startPosY  = posY;
+});
+document.addEventListener('mousemove', function(e){
+    if(!dragging) return;
+    posX = startPosX + (e.clientX - dragStartX) / scale;
+    posY = startPosY + (e.clientY - dragStartY) / scale;
+    applyZoom();
+});
+document.addEventListener('mouseup', function(){
+    dragging = false;
+    img.classList.remove('is-dragging');
+});
+
+// Mouse wheel zoom
+overlay.addEventListener('wheel', function(e){
+    if(!overlay.classList.contains('is-active')) return;
+    e.preventDefault();
+    var delta = e.deltaY > 0 ? -0.15 : 0.15;
+    zoomTo(scale + delta);
+}, { passive: false });
+
+// Pinch zoom (touch)
+var lastTouchDist = 0;
+overlay.addEventListener('touchstart', function(e){
+    if(e.touches.length === 2){
+    var dx = e.touches[0].clientX - e.touches[1].clientX;
+    var dy = e.touches[0].clientY - e.touches[1].clientY;
+    lastTouchDist = Math.sqrt(dx * dx + dy * dy);
+    }
+}, { passive: true });
+overlay.addEventListener('touchmove', function(e){
+    if(e.touches.length === 2){
+    e.preventDefault();
+    var dx = e.touches[0].clientX - e.touches[1].clientX;
+    var dy = e.touches[0].clientY - e.touches[1].clientY;
+    var dist = Math.sqrt(dx * dx + dy * dy);
+    var delta = (dist - lastTouchDist) * 0.008;
+    lastTouchDist = dist;
+    zoomTo(scale + delta);
+    }
+}, { passive: false });
+
+// Double-click to toggle zoom
+img.addEventListener('dblclick', function(e){
+    e.preventDefault();
+    if(scale > 1){
+    resetZoom();
+    } else {
+    zoomTo(2.5);
+    }
+});
+
+// ── Swipe navigation (touch) ──
+var touchStartX = 0, touchStartY = 0, swiping = false;
+img.addEventListener('touchstart', function(e){
+    if(e.touches.length !== 1 || scale > 1) return;
+    swiping = true;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+}, { passive: true });
+img.addEventListener('touchend', function(e){
+    if(!swiping) return;
+    swiping = false;
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    if(Math.abs(dx) > 60){
+    dx > 0 ? goPrev() : goNext();
+    }
+}, { passive: true });
+
+// ── Keyboard ──
+document.addEventListener('keydown', function(e){
+    if(!overlay.classList.contains('is-active')) return;
+    switch(e.key){
+    case 'Escape':  close(); break;
+    case 'ArrowLeft':  goPrev(); break;
+    case 'ArrowRight': goNext(); break;
+    case '+': case '=': zoomTo(scale + 0.2); break;
+    case '-': zoomTo(scale - 0.2); break;
+    case '0': resetZoom(); break;
+    }
+});
+
+// ── Click events ──
+overlay.addEventListener('click', function(e){
+    if(e.target === overlay) close();
+});
+btnClose.addEventListener('click', close);
+btnPrev.addEventListener('click', function(e){ e.stopPropagation(); goPrev(); });
+btnNext.addEventListener('click', function(e){ e.stopPropagation(); goNext(); });
+zoomIn.addEventListener('click', function(e){ e.stopPropagation(); zoomTo(scale + 0.25); });
+zoomOut.addEventListener('click', function(e){ e.stopPropagation(); zoomTo(scale - 0.25); });
+zoomReset.addEventListener('click', function(e){ e.stopPropagation(); resetZoom(); });
+
+// ── Init ──
+if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', collectImages);
+} else {
+    collectImages();
+}
+})();
+</script>
     </body>
 
     <script src="/assets/js/copy.js"></script>
