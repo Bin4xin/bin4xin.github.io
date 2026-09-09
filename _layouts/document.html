@@ -8,7 +8,6 @@
 
   {% include head.html %}
   <link rel="stylesheet" href="{{ '/assets/css/all.min.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/cate-document.css' | relative_url }}">
 </head>
 <body>
   {% include common-index/prefers-color-scheme.html %}
@@ -239,6 +238,7 @@
   </div>
 
   {% include components/lightbox.html %}
+  {% include components/code-line-highlight.html %}
 
   <script src="{{ '/assets/js/cate-document.js' | relative_url }}"></script>
 

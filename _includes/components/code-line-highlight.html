@@ -1,0 +1,344 @@
+{% comment %}
+@USAGE:
+╔══════════════════════════════════════════════════════════════╗
+║                  Code Line Highlight v2                      ║
+║            Magic Comment Line Marking System                 ║
+╚══════════════════════════════════════════════════════════════╝
+
+@AUTHOR   Bin4xin
+@VERSION  2.0
+@FILE     _includes/components/code-line-highlight.html
+@STYLE    assets/css/components/code-line-highlight.css
+═══════════════════════════════════════════════════════════════
+  SYNTAX  语法格式
+═══════════════════════════════════════════════════════════════
+
+  魔法注释必须写在代码块的【第一行】，格式：
+    <注释符号> @<指令> <行号> [更多指令...]
+  行号支持：
+      单行    →  @hl 3
+      多行    →  @hl 1,3,5
+      区间    →  @hl 2-5
+      混合    →  @hl 1,3-5,8
+  多指令混合：
+      # @hl 1 @add 3-5 @del 8
+  当多个指令指向同一行时，优先级为：del > add > hl
+═══════════════════════════════════════════════════════════════
+  SUPPORTED COMMENTS  支持的注释风格
+═══════════════════════════════════════════════════════════════
+
+  ┌───────────────┬────────────────────────────────────────────┐
+  │ #             │ Python, Bash, Ruby, YAML, Perl, Makefile   │
+  │ //            │ JavaScript, Java, Go, C, C++, Rust, Swift  │
+  │ /* */         │ CSS, SCSS, Less, Java, C                   │
+  │ <!-- -->      │ HTML, XML, Vue templates                   │
+  │ --            │ SQL, Lua, Haskell                          │
+  │ ;             │ INI, Assembly, Lisp, Clojure               │
+  └───────────────┴────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════
+  EXAMPLES  完整示例
+═══════════════════════════════════════════════════════════════
+
+  ── Example 1: 单行高亮 ──────────────────────────────────
+
+    ```python
+    # @hl 2
+    def hello():
+        print("this line is highlighted")   ← 紫色高亮
+        return True
+    ```
+
+  ── Example 2: 多行 + 区间高亮 ──────────────────────────
+
+    ```bash
+    # @hl 2-4,7
+    #!/bin/bash
+    apt update                                ← 高亮
+    apt install -y nginx                      ← 高亮
+    systemctl start nginx                     ← 高亮
+    systemctl enable nginx
+    echo "done"
+    cat /var/log/nginx/access.log             ← 高亮
+    ```
+    
+    ```bash
+    # @hl 2,4,6-8
+    # 克隆源代码
+    git clone https://github.com/StegHigh/steghide.git
+    # 进入目录
+    cd steghide/
+    # 配置（指定 JPEG 和 libmcrypt 的路径）
+    ./configure \
+    CPPFLAGS="-I/usr/local/Cellar/jpeg/9f/include -I/usr/local/include" \
+    LDFLAGS="-L/usr/local/Cellar/jpeg/9f/lib -L/usr/local/lib -ljpeg -lmcrypt"
+    # 编译（指定使用 glibtool）
+    make LIBTOOL=glibtool
+    # 安装
+    sudo make LIBTOOL=glibtool install
+    ```
+
+    ```yaml
+    # @hl 1 @add 2-3 @del 4
+    server:
+    port: 8080
+    host: 0.0.0.0
+    debug: true
+    ```
+
+
+  ── Example 3: 新增标记 ─────────────────────────────────
+
+    ```bash
+    # @add 2-4
+    # 新增配置
+    worker_processes auto;
+    events { worker_connections 1024; }
+    http { include /etc/nginx/mime.types; }
+    ```
+
+  ── Example 4: 删除标记 ─────────────────────────────────
+
+    ```bash
+    # @del 2,4
+    # 旧配置（已废弃）
+    service nginx start                       ← 红色删除线
+    # 新配置
+    systemctl start nginx
+    ```
+
+  ── Example 5: 增删混合 ────────────────────────────────
+
+    ```nginx
+    # @del 2 @add 4
+    server {
+        # 旧：监听 80 端口
+        listen 80;
+        # 新：监听 443 + SSL
+        listen 443 ssl;
+    }
+    ```
+
+  ── Example 6: 三指令同时使用 ──────────────────────────
+
+    ```yaml
+    # @hl 1 @add 3 @del 5
+    server:
+      port: 8080
+      host: 0.0.0.0
+      ssl: true
+      debug: true                               ← 红色删除
+    ```
+
+  ── Example 7: JavaScript 注释 ────────────────────────
+
+    ```javascript
+    // @add 2,4
+    const config = {
+      port: 8080,                               ← 绿色新增
+      host: '0.0.0.0',
+      ssl: true,                                ← 绿色新增
+      debug: false
+    };
+    ```
+
+  ── Example 8: CSS 注释 ──────────────────────────────
+
+    ```css
+    /* @hl 2,4 */
+    :root {
+      --bg: #000,                               ← 紫色高亮
+      --fg: #fff,
+      --accent: #BF5AF2,                        ← 紫色高亮
+      --border: #222,
+    }
+    ```
+
+  ── Example 9: HTML 注释 ─────────────────────────────
+
+    ```html
+    <!-- @hl 2-3 -->
+    <div class="container">
+      <h1>Title</h1>                            ← 高亮
+      <p>Content</p>                            ← 高亮
+    </div>
+    ```
+
+  ── Example 10: SQL 注释 ─────────────────────────────
+
+    ```sql
+    -- @del 2 @add 3-4
+    SELECT * FROM users
+    WHERE status = 'active'                     ← 红色删除
+    WHERE status = 'active'                     ← 绿色新增
+      AND created_at > '2024-01-01'             ← 绿色新增
+    ORDER BY created_at;
+    ```
+
+  ── Example 11: INI 注释 ─────────────────────────────
+
+    ```ini
+    ; @del 2
+    [server]
+    port = 8080                                 ← 红色删除
+    [server]
+    port = 443
+    ```
+
+═══════════════════════════════════════════════════════════════
+  RENDER  渲染结果
+═══════════════════════════════════════════════════════════════
+
+  魔法注释行被删除后，行号重新从 1 开始计数：
+
+      原文第 1 行 = @hl/@add/@del 指令 → 删除，用户不可见
+      原文第 2 行 = 实际第 1 行
+      原文第 3 行 = 实际第 2 行  ← @hl 2 指的是这一行
+      ...
+      ┌──────────────────────────────────────────────────┐
+      │   # 旧配置                                        │
+      │ − service nginx start                            │  ← @del
+      │   # 新配置                                        │
+      │ + systemctl start nginx                          │  ← @add
+      └──────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════
+  NOTES  注意事项
+═══════════════════════════════════════════════════════════════
+
+  1. 魔法注释必须是代码块的【第一行】，否则不会被识别
+  2. 行号从 1 开始（去掉魔法注释行后重新编号）
+  3. 超出范围的行号会被静默忽略
+  4. 不写 @hl/@add/@del 则代码块完全不受影响
+  5. Copy 按钮复制的是去掉魔法注释后的纯文本
+  6. 本功能不依赖 Kramdown IAL，兼容所有 Markdown 引擎
+
+═══════════════════════════════════════════════════════════════
+
+{% endcomment %}
+<link rel="stylesheet" href="{{ '/assets/css/components/code-line-highlight.css'|relative_url }}">
+<script>
+    (function(){
+  'use strict';
+
+  function parseRange(str){
+    var lines = new Set();
+    if(!str) return lines;
+    str.split(',').forEach(function(part){
+      part = part.trim();
+      if(part.indexOf('-') !== -1){
+        var r = part.split('-');
+        var s = parseInt(r[0], 10);
+        var e = parseInt(r[1], 10);
+        if(!isNaN(s) && !isNaN(e)){
+          for(var i = s; i <= e; i++) lines.add(i);
+        }
+      } else {
+        var n = parseInt(part, 10);
+        if(!isNaN(n)) lines.add(n);
+      }
+    });
+    return lines;
+  }
+
+  function stripTags(html){
+    return html.replace(/<[^>]*>/g, '');
+  }
+
+  // Matches one or more directives:  @hl 2-4  @add 5  @del 6-8
+  //   # @hl 2-4,7 @add 9 @del 12-14
+  //   // @add 1,3
+  //   /* @del 2-5 */
+  //   <!-- @hl 1 @del 4 -->
+  var RE = /^\s*(?:#|\/\/|\/\*;?|<!--|--|;)\s*((?:@(?:hl|add|del)\s+[\d,\-]+\s*)+)(?:\*\/|-->)?\s*$/;
+  var DIR_RE = /@(hl|add|del)\s+([\d,\-]+)/g;
+
+  function init(){
+    document.querySelectorAll('pre').forEach(function(pre){
+      if(pre.dataset.hlDone) return;
+
+      var codeEl = pre.querySelector('code');
+      if(!codeEl) return;
+
+      var rawHTML = codeEl.innerHTML;
+      var htmlLines = rawHTML.split('\n');
+
+      // Remove trailing empty line
+      if(htmlLines.length > 1 && htmlLines[htmlLines.length - 1].trim() === ''){
+        htmlLines.pop();
+      }
+      if(htmlLines.length === 0) return;
+
+      // Check first line
+      var firstLineText = stripTags(htmlLines[0]).trim();
+      var match = firstLineText.match(RE);
+      if(!match) return;
+
+      // Parse all directives
+      var hlLines  = new Set();
+      var addLines = new Set();
+      var delLines = new Set();
+      var dirMatch;
+      while((dirMatch = DIR_RE.exec(match[1])) !== null){
+        var type  = dirMatch[1];
+        var range = parseRange(dirMatch[2]);
+        range.forEach(function(n){
+          if(type === 'hl')  hlLines.add(n);
+          if(type === 'add') addLines.add(n);
+          if(type === 'del') delLines.add(n);
+        });
+      }
+
+      if(hlLines.size === 0 && addLines.size === 0 && delLines.size === 0) return;
+
+      pre.dataset.hlDone = '1';
+
+      // Remove magic comment line
+      var codeHTMLLines = htmlLines.slice(1);
+
+      // Build legend
+    //   var legendItems = [];
+    //   if(hlLines.size  > 0) legendItems.push('<span class="hl-legend-item"><span class="hl-legend-dot hl-legend-dot--hl"></span>Highlight</span>');
+    //   if(addLines.size > 0) legendItems.push('<span class="hl-legend-item"><span class="hl-legend-dot hl-legend-dot--add"></span>Addition</span>');
+    //   if(delLines.size > 0) legendItems.push('<span class="hl-legend-item"><span class="hl-legend-dot hl-legend-dot--del"></span>Deletion</span>');
+
+    //   if(legendItems.length > 0){
+    //     var legend = document.createElement('div');
+    //     legend.className = 'hl-legend';
+    //     legend.innerHTML = legendItems.join('');
+    //     pre.parentNode.insertBefore(legend, pre);
+    //   }
+
+      // Wrap lines
+      var result = codeHTMLLines.map(function(lineHTML, i){
+        var lineNum = i + 1;
+        if(delLines.has(lineNum)){
+          return '<span class="del-line">' + lineHTML + '</span>';
+        }
+        if(addLines.has(lineNum)){
+          return '<span class="add-line">' + lineHTML + '</span>';
+        }
+        if(hlLines.has(lineNum)){
+          return '<span class="hl-line">' + lineHTML + '</span>';
+        }
+        return lineHTML;
+      }).join('\n');
+
+      codeEl.innerHTML = result;
+      pre.classList.add('has-hl-lines');
+    });
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(init, 50); });
+  } else {
+    setTimeout(init, 50);
+  }
+
+  if(typeof MutationObserver !== 'undefined'){
+    var observer = new MutationObserver(function(){ init(); });
+    var target = document.querySelector('.doc-article-body, .post-content, article');
+    if(target) observer.observe(target, { childList: true, subtree: true });
+  }
+})();
+</script>
