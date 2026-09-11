@@ -56,7 +56,6 @@
 </head>
 
   <link rel="stylesheet" href="/assets/css/all.min.css">
-  <link rel="stylesheet" href="/assets/css/cate-document.css">
 </head>
 <body>
     <div class="prefers-cs" role="group" aria-label="切换颜色主题">
@@ -1263,6 +1262,42 @@
   </div>
 
   
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="18_miniapp_android_pacakge">
+    <button class="doc-nav-group-toggle" data-target="doc-group-18_miniapp_android_pacakge">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>MINIAPP ANDROID PACAKGE</span>
+      <em class="doc-nav-count">1</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-18_miniapp_android_pacakge">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/18_miniapp_android_pacakge/00_tech_overview/" title="微信小程序隐私合规检测技术方法总结">
+          <i class="fas fa-clipboard-check"></i>
+          <span class="doc-nav-label">方法总结</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
 </nav>
 
       <div class="doc-sidebar-footer">
@@ -1815,6 +1850,134 @@ if(document.readyState === 'loading'){
 }
 })();
 </script>
+  
+<link rel="stylesheet" href="/assets/css/components/code-line-highlight.css">
+<script>
+    (function(){
+  'use strict';
+
+  function parseRange(str){
+    var lines = new Set();
+    if(!str) return lines;
+    str.split(',').forEach(function(part){
+      part = part.trim();
+      if(part.indexOf('-') !== -1){
+        var r = part.split('-');
+        var s = parseInt(r[0], 10);
+        var e = parseInt(r[1], 10);
+        if(!isNaN(s) && !isNaN(e)){
+          for(var i = s; i <= e; i++) lines.add(i);
+        }
+      } else {
+        var n = parseInt(part, 10);
+        if(!isNaN(n)) lines.add(n);
+      }
+    });
+    return lines;
+  }
+
+  function stripTags(html){
+    return html.replace(/<[^>]*>/g, '');
+  }
+
+  // Matches one or more directives:  @hl 2-4  @add 5  @del 6-8
+  //   # @hl 2-4,7 @add 9 @del 12-14
+  //   // @add 1,3
+  //   /* @del 2-5 */
+  //   <!-- @hl 1 @del 4 -->
+  var RE = /^\s*(?:#|\/\/|\/\*;?|<!--|--|;)\s*((?:@(?:hl|add|del)\s+[\d,\-]+\s*)+)(?:\*\/|-->)?\s*$/;
+  var DIR_RE = /@(hl|add|del)\s+([\d,\-]+)/g;
+
+  function init(){
+    document.querySelectorAll('pre').forEach(function(pre){
+      if(pre.dataset.hlDone) return;
+
+      var codeEl = pre.querySelector('code');
+      if(!codeEl) return;
+
+      var rawHTML = codeEl.innerHTML;
+      var htmlLines = rawHTML.split('\n');
+
+      // Remove trailing empty line
+      if(htmlLines.length > 1 && htmlLines[htmlLines.length - 1].trim() === ''){
+        htmlLines.pop();
+      }
+      if(htmlLines.length === 0) return;
+
+      // Check first line
+      var firstLineText = stripTags(htmlLines[0]).trim();
+      var match = firstLineText.match(RE);
+      if(!match) return;
+
+      // Parse all directives
+      var hlLines  = new Set();
+      var addLines = new Set();
+      var delLines = new Set();
+      var dirMatch;
+      while((dirMatch = DIR_RE.exec(match[1])) !== null){
+        var type  = dirMatch[1];
+        var range = parseRange(dirMatch[2]);
+        range.forEach(function(n){
+          if(type === 'hl')  hlLines.add(n);
+          if(type === 'add') addLines.add(n);
+          if(type === 'del') delLines.add(n);
+        });
+      }
+
+      if(hlLines.size === 0 && addLines.size === 0 && delLines.size === 0) return;
+
+      pre.dataset.hlDone = '1';
+
+      // Remove magic comment line
+      var codeHTMLLines = htmlLines.slice(1);
+
+      // Build legend
+    //   var legendItems = [];
+    //   if(hlLines.size  > 0) legendItems.push('<span class="hl-legend-item"><span class="hl-legend-dot hl-legend-dot--hl"></span>Highlight</span>');
+    //   if(addLines.size > 0) legendItems.push('<span class="hl-legend-item"><span class="hl-legend-dot hl-legend-dot--add"></span>Addition</span>');
+    //   if(delLines.size > 0) legendItems.push('<span class="hl-legend-item"><span class="hl-legend-dot hl-legend-dot--del"></span>Deletion</span>');
+
+    //   if(legendItems.length > 0){
+    //     var legend = document.createElement('div');
+    //     legend.className = 'hl-legend';
+    //     legend.innerHTML = legendItems.join('');
+    //     pre.parentNode.insertBefore(legend, pre);
+    //   }
+
+      // Wrap lines
+      var result = codeHTMLLines.map(function(lineHTML, i){
+        var lineNum = i + 1;
+        if(delLines.has(lineNum)){
+          return '<span class="del-line">' + lineHTML + '</span>';
+        }
+        if(addLines.has(lineNum)){
+          return '<span class="add-line">' + lineHTML + '</span>';
+        }
+        if(hlLines.has(lineNum)){
+          return '<span class="hl-line">' + lineHTML + '</span>';
+        }
+        return lineHTML;
+      }).join('\n');
+
+      codeEl.innerHTML = result;
+      pre.classList.add('has-hl-lines');
+    });
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(init, 50); });
+  } else {
+    setTimeout(init, 50);
+  }
+
+  if(typeof MutationObserver !== 'undefined'){
+    var observer = new MutationObserver(function(){ init(); });
+    var target = document.querySelector('.doc-article-body, .post-content, article');
+    if(target) observer.observe(target, { childList: true, subtree: true });
+  }
+})();
+</script>
+
 
   <script src="/assets/js/cate-document.js"></script>
 
