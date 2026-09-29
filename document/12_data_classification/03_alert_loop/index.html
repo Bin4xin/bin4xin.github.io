@@ -189,7 +189,7 @@
     <button class="doc-nav-group-toggle" data-target="doc-group-00_ctf">
       <i class="fas fa-folder doc-nav-group-icon"></i>
       <span>CTF</span>
-      <em class="doc-nav-count">1</em>
+      <em class="doc-nav-count">5</em>
       <i class="fas fa-chevron-down doc-nav-arrow"></i>
     </button>
 
@@ -202,6 +202,34 @@
         <a href="/document/00_ctf/00_overview/" title="数据安全与AI安全理论赛知识点汇编">
           <i class="fas fa-flag-checkered"></i>
           <span class="doc-nav-label">知识点汇编</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/00_ctf/01_de5er1um_wp/" title="de5er1umWriteUp — ActiveMQ/Camel JMS">
+          <i class="fas fa-bug"></i>
+          <span class="doc-nav-label">de5er1um_wp</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/00_ctf/02_de5er1um_jar_analysis/" title="de5er1um.jar 逆向分析报告">
+          <i class="fas fa-flag-checkered"></i>
+          <span class="doc-nav-label">de5er1um_jar</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/00_ctf/03_echo_server_pwn_wp/" title="echo.rar 逆向分析报告 - 栈溢出漏洞利用">
+          <i class="fas fa-bug"></i>
+          <span class="doc-nav-label">echo溢出分析</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/00_ctf/04_project_backup_analysis/" title="project_backup.zip 逆向分析报告 - Git 仓库取证">
+          <i class="fas fa-code-branch"></i>
+          <span class="doc-nav-label">Git备份分析</span>
         </a>
       </li>
       
@@ -1299,6 +1327,99 @@
 
   
 </nav>
+<script>
+  (function () {
+    'use strict';
+    function initDocSidebarHandle() {
+      var sidebar = document.querySelector('.doc-sidebar');
+      if (!sidebar) return;
+  
+      var wrapper = document.querySelector('.doc-wrapper');
+      if (!wrapper) return;
+  
+      if (sidebar.querySelector('.doc-nav-handle')) return;
+  
+      // 动态插入把手
+      var handle = document.createElement('div');
+      handle.className = 'doc-nav-handle';
+      handle.id = 'doc-nav-handle';
+      handle.title = '点击折叠 / 展开侧边栏';
+      handle.innerHTML =
+        '<span class="doc-nav-handle-bar"></span>' +
+        '<i class="fas fa-chevron-left doc-nav-handle-icon"></i>';
+      sidebar.appendChild(handle);
+  
+      var originalWidth = sidebar.getBoundingClientRect().width;
+      var collapsed = false;
+  
+      // 鼠标靠近右边缘时高亮 border
+      sidebar.addEventListener('mousemove', function (e) {
+        var rect = sidebar.getBoundingClientRect();
+        var distToRight = rect.right - e.clientX;
+        if (distToRight <= 10) {
+          sidebar.classList.add('is-handle-hot');
+          handle.classList.add('is-hot');
+        } else {
+          sidebar.classList.remove('is-handle-hot');
+          handle.classList.remove('is-hot');
+        }
+      });
+  
+      sidebar.addEventListener('mouseleave', function () {
+        sidebar.classList.remove('is-handle-hot');
+        handle.classList.remove('is-hot');
+      });
+  
+      // 点击把手折叠/展开
+      handle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (!collapsed) {
+          sidebar.style.width = originalWidth + 'px';
+          void sidebar.offsetWidth;
+          sidebar.classList.add('is-collapsed');
+          sidebar.style.width = '0px';
+          wrapper.classList.add('is-sidebar-collapsed');
+          collapsed = true;
+        } else {
+          sidebar.classList.remove('is-collapsed');
+          sidebar.style.width = originalWidth + 'px';
+          wrapper.classList.remove('is-sidebar-collapsed');
+          collapsed = false;
+          setTimeout(function () {
+            sidebar.style.width = '';
+          }, 320);
+        }
+        window.dispatchEvent(new CustomEvent('docnav:toggle', {
+          detail: { collapsed: collapsed }
+        }));
+      });
+  
+      // 快捷键 [ 切换
+      document.addEventListener('keydown', function (e) {
+        if (e.key === '[' && !/input|textarea/i.test(e.target.tagName)) {
+          handle.click();
+        }
+      });
+    }
+  
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initDocSidebarHandle);
+    } else {
+      initDocSidebarHandle();
+    }
+  })();
+  function collapseDocSidebar() {
+        var sidebarHandle = document.getElementById('doc-nav-handle');
+        var sidebar = document.querySelector('.doc-sidebar');
+        var wrapper = document.querySelector('.doc-wrapper');
+
+        if (!sidebarHandle || !sidebar || !wrapper) return;
+        if (sidebar.classList.contains('is-collapsed')) return;
+
+        sidebarHandle.click();
+    }
+  window.collapseDocSidebar = collapseDocSidebar;
+  </script>
 
       <div class="doc-sidebar-footer">
         <a href="/">
@@ -1995,9 +2116,8 @@ if(document.readyState === 'loading'){
   
 <link rel="stylesheet" href="/assets/css/components/code-line-highlight.css">
 <script>
-    (function(){
+(function(){
   'use strict';
-
   function parseRange(str){
     var lines = new Set();
     if(!str) return lines;
@@ -2072,19 +2192,6 @@ if(document.readyState === 'loading'){
 
       // Remove magic comment line
       var codeHTMLLines = htmlLines.slice(1);
-
-      // Build legend
-    //   var legendItems = [];
-    //   if(hlLines.size  > 0) legendItems.push('<span class="hl-legend-item"><span class="hl-legend-dot hl-legend-dot--hl"></span>Highlight</span>');
-    //   if(addLines.size > 0) legendItems.push('<span class="hl-legend-item"><span class="hl-legend-dot hl-legend-dot--add"></span>Addition</span>');
-    //   if(delLines.size > 0) legendItems.push('<span class="hl-legend-item"><span class="hl-legend-dot hl-legend-dot--del"></span>Deletion</span>');
-
-    //   if(legendItems.length > 0){
-    //     var legend = document.createElement('div');
-    //     legend.className = 'hl-legend';
-    //     legend.innerHTML = legendItems.join('');
-    //     pre.parentNode.insertBefore(legend, pre);
-    //   }
 
       // Wrap lines
       var result = codeHTMLLines.map(function(lineHTML, i){

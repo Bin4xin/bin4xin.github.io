@@ -1,0 +1,3245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>de5er1um.jar 逆向分析报告 | © 哨兵</title>
+  <meta name="description" content="对 de5er1um.jar Spring Boot Fat JAR 的逆向工程分析报告，涵盖清单文件、类结构、路由配置与安全评估">
+
+  <head>
+<meta charset="utf-8">
+<!--dev siwtch-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name='mobile-web-app-capable' content='yes'/>
+<meta name='full-screen' content='true'/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--dev switch end-->
+<meta name="description" content="本站由哨兵安全实验室支持创办">
+
+    <meta name="baidu-site-verification" content="codeva-Bt0LqEvH6L" />
+<link rel="shortcut icon" href="/assets/img/favicon.png">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="© 哨兵" />
+
+
+
+
+<!-- Open Graph metadata -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="de5er1um.jar 逆向分析报告 | © 哨兵" />
+<meta property="og:description" content="本站由哨兵安全实验室支持创办" />
+<meta property="og:image" content="https://bin4xin.github.io/assets/img/logo-share.png" /> <!-- WeChat requires that thumbnail image is larger than 300x300 -->
+<meta property="og:url" content="https://bin4xin.github.io/document/00_ctf/02_de5er1um_jar_analysis/" />
+<title> de5er1um.jar 逆向分析报告 | © 哨兵 | SENTINEL SECURITY, LAB</title>
+<link rel="stylesheet" href="/assets/css/cate-document.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/pace-minimal.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
+<!-- Bootstrap core CSS -->
+<link href="/assets/css/bootstrap.css" rel="stylesheet">
+<link href="/assets/css/bilibili_icon.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+<link href="/assets/css/font-awesome-v4-shims.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/assets/css/card.css">
+
+<script src="/assets/js/jquery.min.js"></script>
+<!-- #### defer load ####################################################################################-->
+<script src="/assets/js/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+<script defer src="/assets/js/pace.min.js"></script>
+<!-- #### defer load end ################################################################################-->
+
+<script defer src="/assets/js/jquery.sticky/1.0.4/jquery.sticky.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+
+</head>
+
+  <link rel="stylesheet" href="/assets/css/all.min.css">
+</head>
+<body>
+    <div class="prefers-cs" role="group" aria-label="切换颜色主题">
+    <button class="prefers-cs-btn" data-pref="light" title="亮色模式">
+      <i class="fas fa-sun"></i>
+      <span class="prefers-cs-label">Light</span>
+    </button>
+    <button class="prefers-cs-btn" data-pref="auto" title="跟随系统">
+      <i class="fas fa-circle-half-stroke"></i>
+      <span class="prefers-cs-label">Auto</span>
+    </button>
+    <button class="prefers-cs-btn" data-pref="dark" title="暗色模式">
+      <i class="fas fa-moon"></i>
+      <span class="prefers-cs-label">Dark</span>
+    </button>
+  </div>
+  
+  <script>
+  (function(){
+    'use strict';
+  
+    var KEY  = 'prefers-color-scheme';
+    var btns = document.querySelectorAll('.prefers-cs-btn');
+  
+    function getSystemTheme(){
+      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+  
+    function applyTheme(theme){
+      if(theme === 'auto'){
+        theme = getSystemTheme();
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+  
+    function updateActiveState(pref){
+      btns.forEach(function(b){
+        b.classList.toggle('is-active', b.getAttribute('data-pref') === pref);
+      });
+    }
+  
+    // Init
+    var saved = localStorage.getItem(KEY) || 'auto';
+    applyTheme(saved);
+    updateActiveState(saved);
+  
+    // Click handlers
+    btns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var pref = this.getAttribute('data-pref');
+        localStorage.setItem(KEY, pref);
+        applyTheme(pref);
+        updateActiveState(pref);
+      });
+    });
+  
+    // System theme change
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(){
+      var current = localStorage.getItem(KEY) || 'auto';
+      if(current === 'auto'){
+        applyTheme('auto');
+      }
+    });
+  })();
+  </script>
+
+  <!-- Mobile sidebar toggle -->
+  <button class="doc-mobile-toggle" id="doc-mobile-toggle">
+    <i class="fas fa-bars-progress"></i>
+  </button>
+
+  <!-- Mobile TOC button -->
+  <button class="doc-toc-mobile-btn" id="doc-toc-mobile-btn" title="目录导航">
+    <i class="fas fa-list-ul"></i>
+  </button>
+
+  <!-- Mobile TOC overlay -->
+  <div class="doc-toc-mobile-overlay" id="doc-toc-mobile-overlay"></div>
+
+  <!-- Mobile TOC panel -->
+  <div class="doc-toc-mobile-panel" id="doc-toc-mobile-panel">
+    <div class="doc-toc-title">目录</div>
+    <ul class="doc-toc-list" id="doc-toc-mobile-list"></ul>
+  </div>
+
+  <div class="doc-wrapper">
+
+    <!-- Sidebar -->
+    <aside class="doc-sidebar" id="doc-sidebar">
+      <div class="doc-brand">
+        <span class="doc-brand-tag">DOCUMENTATION</span>
+        <div class="doc-brand-title">© 哨兵</div>
+        <p class="doc-brand-sub">技术文档与参考手册</p>
+      </div>
+
+      
+
+
+
+
+
+
+
+
+
+<nav class="doc-nav">
+  <div class="doc-nav-header">
+    <i class="fas fa-book-open"></i>
+    <span>文档导航</span>
+  </div>
+
+  <div class="doc-nav-search">
+    <input type="text" id="doc-search" placeholder="搜索文档..." autocomplete="off" />
+    <i class="fas fa-search"></i>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="00_ctf">
+    <button class="doc-nav-group-toggle" data-target="doc-group-00_ctf">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>CTF</span>
+      <em class="doc-nav-count">5</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-00_ctf">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/00_ctf/00_overview/" title="数据安全与AI安全理论赛知识点汇编">
+          <i class="fas fa-flag-checkered"></i>
+          <span class="doc-nav-label">知识点汇编</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/00_ctf/01_de5er1um_wp/" title="de5er1umWriteUp — ActiveMQ/Camel JMS">
+          <i class="fas fa-bug"></i>
+          <span class="doc-nav-label">de5er1um_wp</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item is-active">
+        <a href="/document/00_ctf/02_de5er1um_jar_analysis/" title="de5er1um.jar 逆向分析报告">
+          <i class="fas fa-flag-checkered"></i>
+          <span class="doc-nav-label">de5er1um_jar</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/00_ctf/03_echo_server_pwn_wp/" title="echo.rar 逆向分析报告 - 栈溢出漏洞利用">
+          <i class="fas fa-bug"></i>
+          <span class="doc-nav-label">echo溢出分析</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/00_ctf/04_project_backup_analysis/" title="project_backup.zip 逆向分析报告 - Git 仓库取证">
+          <i class="fas fa-code-branch"></i>
+          <span class="doc-nav-label">Git备份分析</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="01_ransomware">
+    <button class="doc-nav-group-toggle" data-target="doc-group-01_ransomware">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>RANSOMWARE</span>
+      <em class="doc-nav-count">6</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-01_ransomware">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/01_ransomware/00_overview/" title="勒索病毒应急响应技战法">
+          <i class="fas fa-pump-soap"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/01_ransomware/01_attack_model/" title="勒索病毒攻击传播模型">
+          <i class="fas fa-pump-soap"></i>
+          <span class="doc-nav-label">传播模型</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/01_ransomware/02_isolation/" title="紧急隔离与止血">
+          <i class="fas fa-pump-soap"></i>
+          <span class="doc-nav-label">隔离止血</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/01_ransomware/03_assessment/" title="影响评估与取证">
+          <i class="fas fa-pump-soap"></i>
+          <span class="doc-nav-label">评估取证</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/01_ransomware/04_recovery/" title="数据恢复与业务重建">
+          <i class="fas fa-pump-soap"></i>
+          <span class="doc-nav-label">恢复重建</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/01_ransomware/05_hardening/" title="安全加固与复盘">
+          <i class="fas fa-pump-soap"></i>
+          <span class="doc-nav-label">加固复盘</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="02_data_leak">
+    <button class="doc-nav-group-toggle" data-target="doc-group-02_data_leak">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>DATA LEAK</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-02_data_leak">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/02_data_leak/00_overview/" title="内部数据泄露应急溯源与取证技战法">
+          <i class="fas fa-user-secret"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/02_data_leak/01_discovery/" title="泄露发现与紧急响应">
+          <i class="fas fa-user-secret"></i>
+          <span class="doc-nav-label">发现响应</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/02_data_leak/02_tracing/" title="数据流转溯源与证据固定">
+          <i class="fas fa-user-secret"></i>
+          <span class="doc-nav-label">溯源取证</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/02_data_leak/03_assessment/" title="影响评估与处置建议">
+          <i class="fas fa-user-secret"></i>
+          <span class="doc-nav-label">评估处置</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="03_ddos">
+    <button class="doc-nav-group-toggle" data-target="doc-group-03_ddos">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>DDOS</span>
+      <em class="doc-nav-count">5</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-03_ddos">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/03_ddos/00_overview/" title="DDoS 攻击应急响应技战法">
+          <i class="fas fa-bolt"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/03_ddos/01_detection/" title="攻击发现与紧急响应">
+          <i class="fas fa-bolt"></i>
+          <span class="doc-nav-label">发现响应</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/03_ddos/02_cleaning/" title="流量清洗与分流">
+          <i class="fas fa-bolt"></i>
+          <span class="doc-nav-label">流量清洗</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/03_ddos/03_fallback/" title="业务保底运行">
+          <i class="fas fa-bolt"></i>
+          <span class="doc-nav-label">业务保底</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/03_ddos/04_recovery/" title="恢复与复盘">
+          <i class="fas fa-bolt"></i>
+          <span class="doc-nav-label">恢复复盘</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="04_supply_chain">
+    <button class="doc-nav-group-toggle" data-target="doc-group-04_supply_chain">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>SUPPLY CHAIN</span>
+      <em class="doc-nav-count">5</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-04_supply_chain">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/04_supply_chain/00_overview/" title="供应链攻击生产环境被控应急切换与重建">
+          <i class="fas fa-link"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/04_supply_chain/01_discovery/" title="攻击发现与威胁确认">
+          <i class="fas fa-link"></i>
+          <span class="doc-nav-label">发现确认</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/04_supply_chain/02_isolation/" title="紧急隔离与业务切换">
+          <i class="fas fa-link"></i>
+          <span class="doc-nav-label">隔离切换</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/04_supply_chain/03_cleanup/" title="全面排查与清除">
+          <i class="fas fa-link"></i>
+          <span class="doc-nav-label">排查清除</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/04_supply_chain/04_rebuild/" title="环境重建与加固">
+          <i class="fas fa-link"></i>
+          <span class="doc-nav-label">重建加固</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="05_attck_soc">
+    <button class="doc-nav-group-toggle" data-target="doc-group-05_attck_soc">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>ATTCK SOC</span>
+      <em class="doc-nav-count">5</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-05_attck_soc">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/05_attck_soc/00_overview/" title="ATT&CK 驱动安全运营技战法">
+          <i class="fas fa-crosshairs"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/05_attck_soc/01_mapping/" title="告警映射与 ATT&CK 分类">
+          <i class="fas fa-crosshairs"></i>
+          <span class="doc-nav-label">映射分类</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/05_attck_soc/02_noise_reduction/" title="告警降噪与规则优化">
+          <i class="fas fa-crosshairs"></i>
+          <span class="doc-nav-label">降噪优化</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/05_attck_soc/03_fallback/" title="业务保底运行">
+          <i class="fas fa-crosshairs"></i>
+          <span class="doc-nav-label">业务保底</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/05_attck_soc/04_recovery/" title="恢复与复盘">
+          <i class="fas fa-crosshairs"></i>
+          <span class="doc-nav-label">恢复复盘</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="06_ueba_hunting">
+    <button class="doc-nav-group-toggle" data-target="doc-group-06_ueba_hunting">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>UEBA HUNTING</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-06_ueba_hunting">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/06_ueba_hunting/00_overview/" title="UEBA 驱动内部威胁狩猎技战法">
+          <i class="fas fa-user-shield"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/06_ueba_hunting/01_baseline/" title="数据采集与行为基线构建">
+          <i class="fas fa-user-shield"></i>
+          <span class="doc-nav-label">基线构建</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/06_ueba_hunting/02_hunting/" title="异常行为检测与狩猎">
+          <i class="fas fa-user-shield"></i>
+          <span class="doc-nav-label">检测狩猎</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/06_ueba_hunting/03_investigation/" title="调查响应与模型迭代">
+          <i class="fas fa-user-shield"></i>
+          <span class="doc-nav-label">调查迭代</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="07_hw_exercise">
+    <button class="doc-nav-group-toggle" data-target="doc-group-07_hw_exercise">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>HW EXERCISE</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-07_hw_exercise">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/07_hw_exercise/00_overview/" title="攻防演练防守方协同作战技战法">
+          <i class="fas fa-chess"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/07_hw_exercise/01_preparation/" title="演练前备战">
+          <i class="fas fa-chess"></i>
+          <span class="doc-nav-label">备战</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/07_hw_exercise/02_battle/" title="演练中实战作战">
+          <i class="fas fa-chess"></i>
+          <span class="doc-nav-label">实战</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/07_hw_exercise/03_review/" title="演练后复盘">
+          <i class="fas fa-chess"></i>
+          <span class="doc-nav-label">复盘</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="08_threat_intelligence">
+    <button class="doc-nav-group-toggle" data-target="doc-group-08_threat_intelligence">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>THREAT INTELLIGENCE</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-08_threat_intelligence">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/08_threat_intelligence/00_overview/" title="威胁情报运营技战法">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/08_threat_intelligence/01_collection/" title="情报采集与标准化处理">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">采集标准化</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/08_threat_intelligence/02_hunting/" title="异常行为检测与狩猎">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">检测狩猎</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/08_threat_intelligence/03_investigation/" title="调查响应与模型迭代">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">调查迭代</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="09_vendor_security">
+    <button class="doc-nav-group-toggle" data-target="doc-group-09_vendor_security">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>VENDOR SECURITY</span>
+      <em class="doc-nav-count">5</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-09_vendor_security">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/09_vendor_security/00_overview/" title="第三方供应商安全评估技战法">
+          <i class="fas fa-handshake"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/09_vendor_security/01_threat_model/" title="第三方供应商威胁模型与风险全景">
+          <i class="fas fa-handshake"></i>
+          <span class="doc-nav-label">威胁模型</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/09_vendor_security/02_assessment/" title="供应商安全准入评估">
+          <i class="fas fa-handshake"></i>
+          <span class="doc-nav-label">准入评估</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/09_vendor_security/03_contract/" title="合同约束与安全基线约定">
+          <i class="fas fa-handshake"></i>
+          <span class="doc-nav-label">合同约束</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/09_vendor_security/04_monitoring/" title="持续监控与定期复评">
+          <i class="fas fa-handshake"></i>
+          <span class="doc-nav-label">持续监控</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="10_zero_trust_nac">
+    <button class="doc-nav-group-toggle" data-target="doc-group-10_zero_trust_nac">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>ZERO TRUST NAC</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-10_zero_trust_nac">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/10_zero_trust_nac/00_overview/" title="混合办公终端准入与零信任技战法">
+          <i class="fas fa-shield-alt"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/10_zero_trust_nac/01_asset_baseline/" title="终端资产清查与合规基线">
+          <i class="fas fa-shield-alt"></i>
+          <span class="doc-nav-label">资产清查</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/10_zero_trust_nac/02_nac_deploy/" title="准入控制策略部署与实施">
+          <i class="fas fa-shield-alt"></i>
+          <span class="doc-nav-label">准入部署</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/10_zero_trust_nac/03_zt_deepen/" title="零信任策略深化与持续运营">
+          <i class="fas fa-shield-alt"></i>
+          <span class="doc-nav-label">零信任深化</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="11_vuln_priority">
+    <button class="doc-nav-group-toggle" data-target="doc-group-11_vuln_priority">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>VULN PRIORITY</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-11_vuln_priority">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/11_vuln_priority/00_overview/" title="漏洞修补优先级量化管理技战法">
+          <i class="fas fa-bug"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/11_vuln_priority/01_asset_correlation/" title="漏洞资产关联与信息采集">
+          <i class="fas fa-bug"></i>
+          <span class="doc-nav-label">资产关联</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/11_vuln_priority/02_scoring/" title="漏洞优先级量化评估">
+          <i class="fas fa-bug"></i>
+          <span class="doc-nav-label">量化评估</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/11_vuln_priority/03_patch_loop/" title="修补跟踪与闭环管理">
+          <i class="fas fa-bug"></i>
+          <span class="doc-nav-label">修补闭环</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="12_data_classification">
+    <button class="doc-nav-group-toggle" data-target="doc-group-12_data_classification">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>DATA CLASSIFICATION</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-12_data_classification">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/12_data_classification/00_overview/" title="数据分类分级流转风险监控技战法">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/12_data_classification/01_identification/" title="数据资产识别与分类分级标签化">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">识别标签化</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/12_data_classification/02_flow_monitoring/" title="数据流转路径映射与监控部署">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">流转监控</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/12_data_classification/03_alert_loop/" title="风险预警与处置闭环">
+          <i class="fas fa-database"></i>
+          <span class="doc-nav-label">风险预警</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="13_firewall_policy">
+    <button class="doc-nav-group-toggle" data-target="doc-group-13_firewall_policy">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>FIREWALL POLICY</span>
+      <em class="doc-nav-count">4</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-13_firewall_policy">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/13_firewall_policy/00_overview/" title="防火墙与安全组策略精细化梳理与冗余清理技战法">
+          <i class="fas fa-filter"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/13_firewall_policy/01_discovery/" title="策略规则全量采集与分析">
+          <i class="fas fa-filter"></i>
+          <span class="doc-nav-label">采集分析</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/13_firewall_policy/02_classification/" title="规则分类与优化">
+          <i class="fas fa-filter"></i>
+          <span class="doc-nav-label">分类优化</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/13_firewall_policy/03_cleanup/" title="清理实施与持续治理">
+          <i class="fas fa-filter"></i>
+          <span class="doc-nav-label">清理治理</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="14_linux_baseline">
+    <button class="doc-nav-group-toggle" data-target="doc-group-14_linux_baseline">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>LINUX BASELINE</span>
+      <em class="doc-nav-count">6</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-14_linux_baseline">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/14_linux_baseline/00_overview/" title="Linux服务器安全基线加固技战法">
+          <i class="fas fa-terminal"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/14_linux_baseline/01_baseline_standard/" title="安全基线制定">
+          <i class="fas fa-terminal"></i>
+          <span class="doc-nav-label">基线制定</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/14_linux_baseline/02_hardening/" title="基线配置实施">
+          <i class="fas fa-terminal"></i>
+          <span class="doc-nav-label">安全加固</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/14_linux_baseline/03_compliance/" title="自动化核查与持续合规">
+          <i class="fas fa-terminal"></i>
+          <span class="doc-nav-label">自动化核查</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/14_linux_baseline/04_checklist/" title="基线核查清单速查表">
+          <i class="fas fa-terminal"></i>
+          <span class="doc-nav-label">核查清单</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/14_linux_baseline/05_hardening_script/" title="自动化加固脚本参考">
+          <i class="fas fa-terminal"></i>
+          <span class="doc-nav-label">加固脚本</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="15_k8s_networkpolicy">
+    <button class="doc-nav-group-toggle" data-target="doc-group-15_k8s_networkpolicy">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>K8S NETWORKPOLICY</span>
+      <em class="doc-nav-count">5</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-15_k8s_networkpolicy">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/15_k8s_networkpolicy/00_overview/" title="Kubernetes网络策略精细化隔离技战法">
+          <i class="fas fa-cubes"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/15_k8s_networkpolicy/01_discovery/" title="集群网络通信梳理与分析">
+          <i class="fas fa-cubes"></i>
+          <span class="doc-nav-label">通信梳理</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/15_k8s_networkpolicy/02_design/" title="NetworkPolicy策略设计与部署">
+          <i class="fas fa-cubes"></i>
+          <span class="doc-nav-label">策略设计</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/15_k8s_networkpolicy/03_validate/" title="验证测试与持续维护">
+          <i class="fas fa-cubes"></i>
+          <span class="doc-nav-label">验证维护</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/15_k8s_networkpolicy/04_playbook/" title="策略模板与应急处置手册">
+          <i class="fas fa-cubes"></i>
+          <span class="doc-nav-label">策略模板</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="16_ad_hardening">
+    <button class="doc-nav-group-toggle" data-target="doc-group-16_ad_hardening">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>AD HARDENING</span>
+      <em class="doc-nav-count">5</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-16_ad_hardening">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/16_ad_hardening/00_overview/" title="Windows AD域环境安全加固技战法">
+          <i class="fas fa-network-wired"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/16_ad_hardening/01_assessment/" title="域环境安全评估">
+          <i class="fas fa-network-wired"></i>
+          <span class="doc-nav-label">安全评估</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/16_ad_hardening/02_gpo_hardening/" title="组策略安全加固实施">
+          <i class="fas fa-network-wired"></i>
+          <span class="doc-nav-label">组策略加固</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/16_ad_hardening/03_attack_surface/" title="攻击面验证与持续优化">
+          <i class="fas fa-network-wired"></i>
+          <span class="doc-nav-label">攻击验证</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/16_ad_hardening/04_attack_playbook/" title="攻击手法应急与回退手册">
+          <i class="fas fa-network-wired"></i>
+          <span class="doc-nav-label">应急手册</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="17_container_security">
+    <button class="doc-nav-group-toggle" data-target="doc-group-17_container_security">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>CONTAINER SECURITY</span>
+      <em class="doc-nav-count">6</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-17_container_security">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/17_container_security/00_overview/" title="容器安全全生命周期技战法">
+          <i class="fas fa-box"></i>
+          <span class="doc-nav-label">概述</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/17_container_security/01_assessment/" title="容器环境安全评估">
+          <i class="fas fa-magnifying-glass-chart"></i>
+          <span class="doc-nav-label">环境评估</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/17_container_security/02_predeploy_defense/" title="部署前安全防线">
+          <i class="fas fa-shield-halved"></i>
+          <span class="doc-nav-label">部署前防线</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/17_container_security/03_runtime_monitoring/" title="运行时四维行为监控">
+          <i class="fas fa-eye"></i>
+          <span class="doc-nav-label">运行时监控</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/17_container_security/04_incident_response/" title="应急响应处置管线">
+          <i class="fas fa-bolt"></i>
+          <span class="doc-nav-label">应急响应</span>
+        </a>
+      </li>
+      
+      <li class="doc-nav-item ">
+        <a href="/document/17_container_security/05_lifecycle_defense/" title="容器安全全生命周期防线">
+          <i class="fas fa-layer-group"></i>
+          <span class="doc-nav-label">全生命周期防线</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+  <div class="doc-nav-group" data-dir="18_miniapp_android_pacakge">
+    <button class="doc-nav-group-toggle" data-target="doc-group-18_miniapp_android_pacakge">
+      <i class="fas fa-folder doc-nav-group-icon"></i>
+      <span>MINIAPP ANDROID PACAKGE</span>
+      <em class="doc-nav-count">1</em>
+      <i class="fas fa-chevron-down doc-nav-arrow"></i>
+    </button>
+
+    <ul class="doc-nav-list" id="doc-group-18_miniapp_android_pacakge">
+      
+      
+      
+      
+      <li class="doc-nav-item ">
+        <a href="/document/18_miniapp_android_pacakge/00_tech_overview/" title="微信小程序隐私合规检测技术方法总结">
+          <i class="fas fa-clipboard-check"></i>
+          <span class="doc-nav-label">方法总结</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+
+  
+</nav>
+<script>
+  (function () {
+    'use strict';
+    function initDocSidebarHandle() {
+      var sidebar = document.querySelector('.doc-sidebar');
+      if (!sidebar) return;
+  
+      var wrapper = document.querySelector('.doc-wrapper');
+      if (!wrapper) return;
+  
+      if (sidebar.querySelector('.doc-nav-handle')) return;
+  
+      // 动态插入把手
+      var handle = document.createElement('div');
+      handle.className = 'doc-nav-handle';
+      handle.id = 'doc-nav-handle';
+      handle.title = '点击折叠 / 展开侧边栏';
+      handle.innerHTML =
+        '<span class="doc-nav-handle-bar"></span>' +
+        '<i class="fas fa-chevron-left doc-nav-handle-icon"></i>';
+      sidebar.appendChild(handle);
+  
+      var originalWidth = sidebar.getBoundingClientRect().width;
+      var collapsed = false;
+  
+      // 鼠标靠近右边缘时高亮 border
+      sidebar.addEventListener('mousemove', function (e) {
+        var rect = sidebar.getBoundingClientRect();
+        var distToRight = rect.right - e.clientX;
+        if (distToRight <= 10) {
+          sidebar.classList.add('is-handle-hot');
+          handle.classList.add('is-hot');
+        } else {
+          sidebar.classList.remove('is-handle-hot');
+          handle.classList.remove('is-hot');
+        }
+      });
+  
+      sidebar.addEventListener('mouseleave', function () {
+        sidebar.classList.remove('is-handle-hot');
+        handle.classList.remove('is-hot');
+      });
+  
+      // 点击把手折叠/展开
+      handle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (!collapsed) {
+          sidebar.style.width = originalWidth + 'px';
+          void sidebar.offsetWidth;
+          sidebar.classList.add('is-collapsed');
+          sidebar.style.width = '0px';
+          wrapper.classList.add('is-sidebar-collapsed');
+          collapsed = true;
+        } else {
+          sidebar.classList.remove('is-collapsed');
+          sidebar.style.width = originalWidth + 'px';
+          wrapper.classList.remove('is-sidebar-collapsed');
+          collapsed = false;
+          setTimeout(function () {
+            sidebar.style.width = '';
+          }, 320);
+        }
+        window.dispatchEvent(new CustomEvent('docnav:toggle', {
+          detail: { collapsed: collapsed }
+        }));
+      });
+  
+      // 快捷键 [ 切换
+      document.addEventListener('keydown', function (e) {
+        if (e.key === '[' && !/input|textarea/i.test(e.target.tagName)) {
+          handle.click();
+        }
+      });
+    }
+  
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initDocSidebarHandle);
+    } else {
+      initDocSidebarHandle();
+    }
+  })();
+  function collapseDocSidebar() {
+        var sidebarHandle = document.getElementById('doc-nav-handle');
+        var sidebar = document.querySelector('.doc-sidebar');
+        var wrapper = document.querySelector('.doc-wrapper');
+
+        if (!sidebarHandle || !sidebar || !wrapper) return;
+        if (sidebar.classList.contains('is-collapsed')) return;
+
+        sidebarHandle.click();
+    }
+  window.collapseDocSidebar = collapseDocSidebar;
+  </script>
+
+      <div class="doc-sidebar-footer">
+        <a href="/">
+          <i class="fas fa-arrow-left"></i>
+          返回首页
+        </a>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <main class="doc-content-wrap">
+      <!-- Breadcrumb -->
+      <div class="doc-breadcrumb">
+        <a class="is-active">Docs</a>
+        
+        
+          
+        
+          
+            
+            <span class="doc-breadcrumb-sep">/</span>
+            <span>ctf</span>
+          
+        
+          
+        <span class="doc-breadcrumb-sep">|</span>
+        <div role="navigation">
+    <nav class="sentinel-nav">
+        <div class="sentinel-nav-inner">
+          
+          
+          <!-- Mobile toggle -->
+          <button class="sentinel-nav-toggle" id="sentinel-nav-toggle" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <!-- Nav items -->
+          <div class="sentinel-nav-list-wrap" id="sentinel-nav-list-wrap">
+            <ul class="sentinel-nav-list">
+
+              
+
+                <li class="sentinel-nav-item ">
+                  <a href="/">
+                    <i class="fas fa-home"></i> Home
+                  </a>
+                </li>
+                <li class="sentinel-nav-item ">
+                  <a href="/blog/">
+                    <i class="fas fa-pen-nib"></i> Blog
+                  </a>
+                </li>
+                
+                
+                <span class="sentinel-nav-sep"></span>
+
+                <li class="sentinel-nav-item ">
+                  <a href="/categories/">
+                    <i class="fas fa-layer-group"></i> Categories
+                  </a>
+                </li>
+                <li class="sentinel-nav-item ">
+                  <a href="/daily/">
+                    <i class="fas fa-calendar"></i> Daily
+                  </a>
+                </li>
+                <li class="sentinel-nav-item ">
+                  <a href="/newest">
+                    <i class="fas fa-bolt"></i> Newest
+                  </a>
+                </li>
+
+                <span class="sentinel-nav-sep"></span>
+
+                <li class="sentinel-nav-item ">
+                  <a href="/about/">
+                    <i class="fas fa-flask"></i> Research
+                  </a>
+                </li>
+                <li class="sentinel-nav-item">
+                  <a href="/feed.xml">
+                    <i class="fas fa-rss"></i> RSS
+                  </a>
+                </li>
+
+              
+
+            </ul>
+          </div>
+
+          <!-- Right side -->
+          <div class="sentinel-nav-right">
+            <a href="/search" title="搜索"><i class="fas fa-search"></i></a>
+            <a href="/changelog/" title="更新日志"><i class="fas fa-book"></i></a>
+          </div>
+
+        </div>
+    </nav>
+</div>
+<script>
+    (function(){
+      var toggle = document.getElementById('sentinel-nav-toggle');
+      var wrap   = document.getElementById('sentinel-nav-list-wrap');
+      if(toggle && wrap){
+        toggle.addEventListener('click', function(){
+          wrap.classList.toggle('is-open');
+          var icon = this.querySelector('i');
+          icon.classList.toggle('fa-bars-progress');
+          icon.classList.toggle('fa-xmark-circle');
+        });
+      }
+    })();
+</script>
+      </div>
+      
+      <!-- Article Header -->
+      <header class="doc-article-head">
+        <h1 class="doc-article-title">de5er1um.jar 逆向分析报告</h1>
+        <div class="doc-article-meta">
+          
+          <span class="doc-article-meta-item">
+            <i class="fas fa-calendar-alt"></i>
+            2026/09/15
+          </span>
+          
+          
+          <span class="doc-article-meta-item">
+            
+            
+            <img src="https://avatars.githubusercontent.com/u/57884471?s=24&v=4"
+                alt="Bin4xin"
+                class="doc-author-avatar" />
+            
+            
+              Bin4xin
+            
+          </span>
+          
+          
+          <span class="doc-article-meta-item">
+            <i class="fas fa-code-branch"></i>
+            v1.0
+          </span>
+          
+          
+          
+
+          
+            
+            
+            
+              <em class="doc-nav-badge doc-nav-badge--new" title="NEW">
+                <i class="fas fa-star"></i> NEW
+              </em>
+            
+          
+        </div>
+        
+        <div class="doc-tags">
+          
+            <span class="doc-tag">2026-IDSS-CN</span>
+          
+            <span class="doc-tag">JAR</span>
+          
+            <span class="doc-tag">SpringBoot</span>
+          
+            <span class="doc-tag">ApacheCamel</span>
+          
+            <span class="doc-tag">ReverseEngineering</span>
+          
+            <span class="doc-tag">CTF</span>
+          
+        </div>
+        
+      </header>
+
+      <!-- Content + TOC side by side -->
+      <div class="doc-content-inner">
+
+        <!-- Article Body -->
+        <article class="doc-main doc-article-body">
+          
+<section class="gh-banner info" aria-labelledby="banner-title-i-class-fa-fa-star-i-de5er1um-jar-逆向分析报告-a-href-document-00-ctf-01-de5er1um-wp-de5er1um-wp文章-a-a-href-document-00-ctf-02-de5er1um-jar-analysis-i-class-fa-fa-link-i-de5er1um-jar-下载链接-a" role="region" data-dismissible="true">
+    <div class="banner-icon" aria-hidden="true">
+        
+        <svg viewBox="0 0 16 16" fill="currentColor">
+            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
+        </svg>
+        
+    </div>
+
+    <div class="banner-content">
+        <span class="banner-text"><i class="fa fa-star"></i> de5er1um.jar 逆向分析报告| <a href="/document/00_ctf/01_de5er1um_wp/">de5er1um wp文章</a>| <a href="/document/00_ctf/02_de5er1um_jar_analysis/"><i class="fa fa-link"></i> de5er1um.jar 下载链接</a></span>
+    </div>
+</section>
+
+<h2 id="攻击可视化演示">攻击可视化演示</h2>
+
+<div id="de5er1um-viz">
+  <div class="d5-inner">
+
+    <div class="d5-header">
+      <div class="d5-tag">CVE PoC &mdash; ActiveMQ + Camel Deserialization</div>
+      <h1>de5er1um &middot; Arbitrary File Read Visualization</h1>
+      <p>
+        靶场：<code>Spring Boot 3.5.13</code> + <code>Apache Camel 4.18.2</code> + <code>ActiveMQ 6.1.8</code>，
+        消费 <code>activemq6:queue:gateway.inbound</code>，
+        JMS 开启 <code>setTrustAllPackages(true)</code>。
+      </p>
+    </div>
+
+    <div class="d5-main">
+
+      <!-- Left: vertical flow -->
+      <div class="d5-flow" id="d5-flow-fr">
+        <div class="d5-node" data-id="fr-att"><div class="d5-n">&#9312; 攻击者</div><div class="d5-t">ExploitDe5er1um</div><div class="d5-d">构造 HashMap payload</div></div>
+        <div class="d5-arrow">&rarr;</div>
+        <div class="d5-node" data-id="fr-payload"><div class="d5-n">&#9313; Payload</div><div class="d5-t">HashMap&lt;URL&gt;</div><div class="d5-d">file:///etc/passwd</div></div>
+        <div class="d5-arrow">&rarr;</div>
+        <div class="d5-node" data-id="fr-broker"><div class="d5-n">&#9314; Broker</div><div class="d5-t">ActiveMQ 6.1.8</div><div class="d5-d">tcp://61616</div></div>
+        <div class="d5-arrow">&rarr;</div>
+        <div class="d5-node" data-id="fr-queue"><div class="d5-n">&#9315; 队列</div><div class="d5-t">gateway.inbound</div><div class="d5-d">ObjectMessage</div></div>
+        <div class="d5-arrow">&rarr;</div>
+        <div class="d5-node" data-id="fr-route"><div class="d5-n">&#9316; Camel</div><div class="d5-t">inbound-consumer</div><div class="d5-d">getBody() &rarr; deser</div></div>
+        <div class="d5-arrow">&rarr;</div>
+        <div class="d5-node" data-id="fr-convert"><div class="d5-n">&#9317; Converter</div><div class="d5-t">URL &rarr; InputStream</div><div class="d5-d">&rarr; String</div></div>
+        <div class="d5-arrow">&rarr;</div>
+        <div class="d5-node" data-id="fr-reply"><div class="d5-n">&#9318; 回复</div><div class="d5-t">MapMessage</div><div class="d5-d">key = 文件内容</div></div>
+      </div>
+
+      <!-- Right: controls + log + result -->
+      <div class="d5-right">
+
+        <div class="d5-controls">
+          <button class="d5-run" id="d5-launch-btn">&#9654; 发起攻击</button>
+          <button class="d5-reset-btn" id="d5-reset-btn">重置</button>
+          <span class="d5-status" id="d5-status">空闲</span>
+        </div>
+
+        <div class="d5-card">
+          <h3>实时攻击日志</h3>
+          <div class="d5-log" id="d5-log"></div>
+        </div>
+
+        <div class="d5-card">
+          <h3 id="d5-result-title">文件内容 / FLAG</h3>
+          <div class="d5-result-box" id="d5-result-box">&mdash; 等待攻击结果 &mdash;</div>
+          <div class="d5-steps" id="d5-steps"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var root = document.getElementById('de5er1um-viz');
+  if(!root) return;
+  var $ = function(s){ return root.querySelector(s); };
+
+  /* ── Simulated Data ── */
+  var frLog = [
+    { t: '[*] exploit: ExploitDe5er1um (file-read via HashMap<URL>)', c: 'd5-l', node: 'fr-att' },
+    { t: '[*] target: tcp://192.168.11.141:61616  (ActiveMQ 6.1.8)', c: 'd5-l', node: 'fr-att' },
+    { t: '[*] constructing payload: HashMap<URL("file:///etc/passwd"), "x">', c: '', node: 'fr-payload' },
+    { t: '[*] payload: 264 bytes, url = file:///etc/passwd', c: '', node: 'fr-payload' },
+    { t: '[*] connecting to broker via HTTP transport', c: 'd5-l', node: 'fr-broker' },
+    { t: '[*] credentials: ctf / ctf', c: '', node: 'fr-broker' },
+    { t: '[*] reply queue: queue://flag.exfil.482917', c: '', node: 'fr-broker' },
+    { t: '[STEP 1] ObjectMessage sent to gateway.inbound with JMSReplyTo', c: 'd5-l', node: 'fr-queue' },
+    { t: '[STEP 2] gateway.inbound consumed by Camel route inbound-consumer', c: 'd5-l', node: 'fr-route' },
+    { t: '[STEP 3] Camel getBody() triggers Java deserialization of HashMap<URL>', c: 'd5-l', node: 'fr-route' },
+    { t: '[STEP 4] JMSReplyTo detected \u2192 route prepares reply MapMessage', c: 'd5-l', node: 'fr-route' },
+    { t: '[STEP 5] JmsBinding.populateMapMessage: converting URL key \u2192 String', c: 'd5-l', node: 'fr-convert' },
+    { t: '[STEP 5] Camel TypeConverter: URL \u2192 InputStream \u2192 String chain', c: 'd5-l', node: 'fr-convert' },
+    { t: '[STEP 5] Reading: file:///etc/passwd (remote file on target host)', c: 'd5-w', node: 'fr-convert' },
+    { t: '[STEP 6] Reply received: ActiveMQMapMessage', c: 'd5-g', node: 'fr-reply' },
+    { t: '[+] map key = root:x:0:0:root:/root:/bin/bash', c: 'd5-hi', node: 'fr-reply' },
+    { t: '...', c: 'd5-c', node: 'fr-reply' },
+    { t: 'ctf:x:1001:1001::/home/ctf:/usr/sbin/nologin', c: 'd5-hi', node: 'fr-reply' },
+    { t: '[+] map value = x', c: '', node: 'fr-reply' },
+    { t: '[OK] file read successful \u2014 /etc/passwd exfiltrated', c: 'd5-g', node: 'fr-reply' }
+  ];
+
+  var frFileContent = [
+    'root:x:0:0:root:/root:/bin/bash',
+    '...',
+    'ctf:x:1001:1001::/home/ctf:/usr/sbin/nologin'
+  ].join('\n');
+
+  var frSteps = [
+    'STEP 1 \u00b7 \u6784\u9020 HashMap payload',
+    'STEP 2 \u00b7 \u6295\u9012 ObjectMessage',
+    'STEP 3 \u00b7 Camel \u53cd\u5e8f\u5217\u5316',
+    'STEP 4 \u00b7 JMSReplyTo \u89e6\u53d1\u56de\u590d',
+    'STEP 5 \u00b7 TypeConverter \u8bfb\u6587\u4ef6',
+    'STEP 6 \u00b7 \u6587\u4ef6\u5185\u5bb9\u56de\u4f20'
+  ];
+
+  /* ── Helpers ── */
+  function setStatus(t){ var el = $('#d5-status'); if(el) el.textContent = t; }
+
+  function clearFlowStates(flowId){
+    var flow = root.querySelector('#' + flowId);
+    if(!flow) return;
+    flow.querySelectorAll('.d5-node').forEach(function(n){
+      n.className = 'd5-node';
+    });
+    flow.querySelectorAll('.d5-arrow').forEach(function(a){
+      a.classList.remove('d5-active-arrow');
+    });
+  }
+
+  function appendLog(text, cls){
+    var log = $('#d5-log');
+    var el = document.createElement('div');
+    if(cls) el.className = cls;
+    el.textContent = text;
+    log.appendChild(el);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function buildSteps(items, activeUpTo){
+    var box = $('#d5-steps');
+    box.innerHTML = '';
+    items.forEach(function(label, i){
+      var pill = document.createElement('span');
+      pill.className = 'd5-pill';
+      if(i < activeUpTo) pill.classList.add('d5-pill-on');
+      pill.textContent = label;
+      box.appendChild(pill);
+    });
+  }
+
+  function lightArrowUpTo(flowId, nodeId){
+    var flow = root.querySelector('#' + flowId);
+    if(!flow) return;
+    var nodes = Array.prototype.slice.call(flow.querySelectorAll('.d5-node'));
+    var arrows = Array.prototype.slice.call(flow.querySelectorAll('.d5-arrow'));
+    var idx = -1;
+    for(var k = 0; k < nodes.length; k++){
+      if(nodes[k].getAttribute('data-id') === nodeId){ idx = k; break; }
+    }
+    for(var a = 0; a < idx && a < arrows.length; a++){
+      arrows[a].classList.add('d5-active-arrow');
+    }
+  }
+
+  function lightAllArrows(flowId){
+    var flow = root.querySelector('#' + flowId);
+    if(!flow) return;
+    flow.querySelectorAll('.d5-arrow').forEach(function(a){
+      a.classList.add('d5-active-arrow');
+    });
+  }
+
+  /* ── State ── */
+  var lastNode = null;
+
+  function reset(){
+    setStatus('\u7a7a\u95f2');
+    $('#d5-log').innerHTML = '';
+    $('#d5-result-box').innerHTML = '\u2014 \u7b49\u5f85\u653b\u51fb\u7ed3\u679c \u2014';
+    $('#d5-result-box').className = 'd5-result-box';
+    $('#d5-steps').innerHTML = '';
+    $('#d5-launch-btn').disabled = false;
+    clearFlowStates('d5-flow-fr');
+    lastNode = null;
+    buildSteps(frSteps, 0);
+  }
+
+  /* ── Attack Simulation ── */
+  function launch(){
+    collapseDocSidebar();
+    reset();
+    var btn = $('#d5-launch-btn');
+    btn.disabled = true;
+
+    var flowId = 'd5-flow-fr';
+    setStatus('\u653b\u51fb\u8fdb\u884c\u4e2d\u2026');
+
+    var i = 0;
+    var currentStep = 0;
+
+    function tick(){
+      if(i >= frLog.length){
+        setTimeout(function(){
+          lightAllArrows(flowId);
+          setStatus('\u653b\u51fb\u5b8c\u6210');
+          btn.disabled = false;
+
+          var resultBox = $('#d5-result-box');
+          resultBox.className = 'd5-result-box';
+          resultBox.innerHTML = '$ cat /etc/passwd\n\n' + frFileContent;
+          buildSteps(frSteps, frSteps.length);
+        }, 400);
+        return;
+      }
+
+      var item = frLog[i];
+      appendLog(item.t, item.c);
+
+      if(item.node){
+        if(lastNode && lastNode !== item.node){
+          var prev = root.querySelector('[data-id="'+lastNode+'"]');
+          if(prev){
+            prev.classList.remove('d5-live');
+            prev.classList.add('d5-ok');
+          }
+        }
+        var cur = root.querySelector('[data-id="'+item.node+'"]');
+        if(cur){
+          cur.classList.remove('d5-ok');
+          cur.classList.add('d5-live');
+        }
+        lightArrowUpTo(flowId, item.node);
+        lastNode = item.node;
+      }
+
+      var m = item.t.match(/\[STEP (\d)\]/);
+      if(m){
+        var s = parseInt(m[1], 10);
+        if(s !== currentStep){
+          currentStep = s;
+          buildSteps(frSteps, s);
+        }
+      }
+
+      i++;
+      setTimeout(tick, 450 + Math.random() * 250);
+    }
+
+    tick();
+  }
+
+  $('#d5-launch-btn').addEventListener('click', launch);
+  $('#d5-reset-btn').addEventListener('click', reset);
+
+  buildSteps(frSteps, 0);
+})();
+</script>
+
+<h3 id="1-基本信息">1 基本信息</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>属性</th>
+      <th>值</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>文件名</td>
+      <td><code class="language-plaintext highlighter-rouge">de5er1um.jar</code></td>
+    </tr>
+    <tr>
+      <td>文件大小</td>
+      <td>31,457,532 bytes（约 30 MB）</td>
+    </tr>
+    <tr>
+      <td>最后修改</td>
+      <td>2026-08-04 10:24:26</td>
+    </tr>
+    <tr>
+      <td>构建工具</td>
+      <td>Maven JAR Plugin 3.4.2</td>
+    </tr>
+    <tr>
+      <td>JDK 规格</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <td>Spring Boot 版本</td>
+      <td>3.5.13</td>
+    </tr>
+    <tr>
+      <td>Apache Camel 版本</td>
+      <td>4.18.2</td>
+    </tr>
+    <tr>
+      <td>实现标题</td>
+      <td><code class="language-plaintext highlighter-rouge">camel-app-boot</code></td>
+    </tr>
+    <tr>
+      <td>实现版本</td>
+      <td><code class="language-plaintext highlighter-rouge">1.0</code></td>
+    </tr>
+    <tr>
+      <td>主类</td>
+      <td><code class="language-plaintext highlighter-rouge">org.springframework.boot.loader.launch.JarLauncher</code></td>
+    </tr>
+    <tr>
+      <td>启动类</td>
+      <td><code class="language-plaintext highlighter-rouge">ctf.App</code></td>
+    </tr>
+    <tr>
+      <td>JAR 类型</td>
+      <td>Spring Boot Fat JAR（Executable）</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="2-jar-结构总览">2 JAR 结构总览</h3>
+
+<p>该 JAR 是标准的 Spring Boot Fat JAR 打包格式，共 241 个条目，分为三个主要层级：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>de5er1um.jar
+├── META-INF/
+│   ├── MANIFEST.MF
+│   └── services/
+│       └── java.nio.file.spi.FileSystemProvider
+├── org/springframework/boot/loader/    (Spring Boot 引导加载器)
+│   ├── jar/
+│   ├── jarmode/
+│   ├── launch/
+│   ├── log/
+│   ├── net/protocol/
+│   ├── nio/file/
+│   ├── ref/
+│   └── zip/
+├── BOOT-INF/
+│   ├── classes/                        (应用程序代码)
+│   │   ├── ctf/
+│   │   │   ├── App.class
+│   │   │   ├── HomeController.class
+│   │   │   ├── CtfRoute.class
+│   │   │   └── JmsConfig.class
+│   │   └── application.yml
+│   ├── lib/                            (107 个依赖库)
+│   ├── classpath.idx
+│   └── layers.idx
+└── META-INF/
+</code></pre></div></div>
+
+<h4 id="21-分层索引layersidx">2.1 分层索引（layers.idx）</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>层名</th>
+      <th>内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dependencies</code></td>
+      <td><code class="language-plaintext highlighter-rouge">BOOT-INF/lib/</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">spring-boot-loader</code></td>
+      <td><code class="language-plaintext highlighter-rouge">org/</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">snapshot-dependencies</code></td>
+      <td>（空）</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">application</code></td>
+      <td><code class="language-plaintext highlighter-rouge">BOOT-INF/classes/</code>、<code class="language-plaintext highlighter-rouge">classpath.idx</code>、<code class="language-plaintext highlighter-rouge">layers.idx</code>、<code class="language-plaintext highlighter-rouge">META-INF/</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="3-manifestmf-清单分析">3 MANIFEST.MF 清单分析</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Manifest-Version: 1.0
+Created-By: Maven JAR Plugin 3.4.2
+Build-Jdk-Spec: 21
+Implementation-Title: camel-app-boot
+Implementation-Version: 1.0
+Main-Class: org.springframework.boot.loader.launch.JarLauncher
+Start-Class: ctf.App
+Spring-Boot-Version: 3.5.13
+Spring-Boot-Classes: BOOT-INF/classes/
+Spring-Boot-Lib: BOOT-INF/lib/
+Spring-Boot-Classpath-Index: BOOT-INF/classpath.idx
+Spring-Boot-Layers-Index: BOOT-INF/layers.idx
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Main-Class</code> 指向 Spring Boot 的 <code class="language-plaintext highlighter-rouge">JarLauncher</code>，负责引导加载嵌套 JAR</li>
+  <li><code class="language-plaintext highlighter-rouge">Start-Class: ctf.App</code> 是实际应用入口</li>
+  <li>使用 Spring Boot 3.5.13 + Java 21 构建链</li>
+</ul>
+
+<h3 id="4-应用配置applicationyml">4 应用配置（application.yml）</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># @hl 4-7,9-12</span>
+<span class="na">server</span><span class="pi">:</span>
+  <span class="na">port</span><span class="pi">:</span> <span class="m">8080</span>
+
+<span class="na">broker</span><span class="pi">:</span>
+  <span class="na">url</span><span class="pi">:</span> <span class="s">${BROKER_URL:tcp://localhost:61616}</span>
+  <span class="na">user</span><span class="pi">:</span> <span class="s">${BROKER_USER:ctf}</span>
+  <span class="na">pass</span><span class="pi">:</span> <span class="s">${BROKER_PASS:ctf}</span>
+
+<span class="na">camel</span><span class="pi">:</span>
+  <span class="na">springboot</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">de5er1um-gateway</span>
+    <span class="na">main-run-controller</span><span class="pi">:</span> <span class="no">true</span>
+
+<span class="na">logging</span><span class="pi">:</span>
+  <span class="na">level</span><span class="pi">:</span>
+    <span class="na">org.apache.camel</span><span class="pi">:</span> <span class="s">INFO</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>配置项</th>
+      <th>默认值</th>
+      <th>环境变量覆盖</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>服务端口</td>
+      <td><code class="language-plaintext highlighter-rouge">8080</code></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>Broker URL</td>
+      <td><code class="language-plaintext highlighter-rouge">tcp://localhost:61616</code></td>
+      <td><code class="language-plaintext highlighter-rouge">BROKER_URL</code></td>
+    </tr>
+    <tr>
+      <td>Broker 用户名</td>
+      <td><code class="language-plaintext highlighter-rouge">ctf</code></td>
+      <td><code class="language-plaintext highlighter-rouge">BROKER_USER</code></td>
+    </tr>
+    <tr>
+      <td>Broker 密码</td>
+      <td><code class="language-plaintext highlighter-rouge">ctf</code></td>
+      <td><code class="language-plaintext highlighter-rouge">BROKER_PASS</code></td>
+    </tr>
+    <tr>
+      <td>Camel 应用名</td>
+      <td><code class="language-plaintext highlighter-rouge">de5er1um-gateway</code></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>Camel 运行控制器</td>
+      <td><code class="language-plaintext highlighter-rouge">true</code>（保持进程常驻）</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="5-应用类逆向分析">5 应用类逆向分析</h3>
+
+<h4 id="51-ctfapp--启动入口">5.1 <code class="language-plaintext highlighter-rouge">ctf.App</code> — 启动入口</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>项目</th>
+      <th>内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>父类</td>
+      <td><code class="language-plaintext highlighter-rouge">java.lang.Object</code></td>
+    </tr>
+    <tr>
+      <td>注解</td>
+      <td><code class="language-plaintext highlighter-rouge">@SpringBootApplication</code></td>
+    </tr>
+    <tr>
+      <td>方法</td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;init&gt;()</code>、<code class="language-plaintext highlighter-rouge">main(String[])</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="language-plaintext highlighter-rouge">main</code> 方法调用 <code class="language-plaintext highlighter-rouge">SpringApplication.run(App.class, args)</code> 启动 Spring Boot 上下文。这是标准的 Spring Boot 启动模板，无额外逻辑。</p>
+
+<h4 id="52-ctfhomecontroller--http-控制器">5.2 <code class="language-plaintext highlighter-rouge">ctf.HomeController</code> — HTTP 控制器</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>项目</th>
+      <th>内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>父类</td>
+      <td><code class="language-plaintext highlighter-rouge">java.lang.Object</code></td>
+    </tr>
+    <tr>
+      <td>注解</td>
+      <td><code class="language-plaintext highlighter-rouge">@RestController</code></td>
+    </tr>
+    <tr>
+      <td>依赖</td>
+      <td><code class="language-plaintext highlighter-rouge">CamelContext</code>（构造注入）</td>
+    </tr>
+    <tr>
+      <td>方法</td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;init&gt;(CamelContext)</code>、<code class="language-plaintext highlighter-rouge">index()</code>、<code class="language-plaintext highlighter-rouge">status()</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>路由映射：</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>方法</th>
+      <th>路径</th>
+      <th>HTTP 方法</th>
+      <th>产出类型</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">index()</code></td>
+      <td><code class="language-plaintext highlighter-rouge">/</code></td>
+      <td>GET</td>
+      <td><code class="language-plaintext highlighter-rouge">text/html</code></td>
+      <td>返回静态 HTML 信息页</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">status()</code></td>
+      <td><code class="language-plaintext highlighter-rouge">/actuator-lite</code></td>
+      <td>GET</td>
+      <td><code class="language-plaintext highlighter-rouge">JSON Map</code></td>
+      <td>返回 Camel 运行状态</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong><code class="language-plaintext highlighter-rouge">index()</code> 返回的 HTML 内容：</strong></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;title&gt;</span>de5er1um message gateway<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;style&gt;</span>
+  <span class="nt">body</span><span class="p">{</span><span class="nl">font-family</span><span class="p">:</span><span class="n">ui-monospace</span><span class="p">,</span><span class="n">SFMono-Regular</span><span class="p">,</span><span class="n">Menlo</span><span class="p">,</span><span class="nb">monospace</span><span class="p">;</span>
+       <span class="nl">max-width</span><span class="p">:</span><span class="m">44rem</span><span class="p">;</span><span class="nl">margin</span><span class="p">:</span><span class="m">6rem</span> <span class="nb">auto</span><span class="p">;</span><span class="nl">padding</span><span class="p">:</span><span class="m">0</span> <span class="m">1.5rem</span><span class="p">;</span><span class="nl">line-height</span><span class="p">:</span><span class="m">1.7</span><span class="p">}</span>
+  <span class="nt">h1</span><span class="p">{</span><span class="nl">font-size</span><span class="p">:</span><span class="m">1.4rem</span><span class="p">;</span><span class="nl">letter-spacing</span><span class="p">:</span><span class="m">.02em</span><span class="p">}</span>
+  <span class="nt">code</span><span class="p">{</span><span class="nl">background</span><span class="p">:</span><span class="m">#8881</span><span class="p">;</span><span class="nl">padding</span><span class="p">:</span><span class="m">.1rem</span> <span class="m">.35rem</span><span class="p">;</span><span class="nl">border-radius</span><span class="p">:</span><span class="m">.2rem</span><span class="p">}</span>
+  <span class="nc">.m</span><span class="p">{</span><span class="nl">color</span><span class="p">:</span><span class="m">#888</span><span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;h1&gt;</span>de5er1um message gateway<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"m"</span><span class="nt">&gt;</span>Integration layer for upstream order events.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;p&gt;</span>Status endpoint: <span class="nt">&lt;code&gt;</span>/actuator-lite<span class="nt">&lt;/code&gt;&lt;/p&gt;</span>
+<span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"m"</span><span class="nt">&gt;</span>Inbound traffic is consumed from the broker, not from HTTP.
+This page is informational only.<span class="nt">&lt;/p&gt;</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">status()</code> 返回的状态字段：</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>键</th>
+      <th>数据来源</th>
+      <th>类型</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">camel</code></td>
+      <td><code class="language-plaintext highlighter-rouge">CamelContext.getVersion()</code></td>
+      <td>String（Camel 版本号）</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">context</code></td>
+      <td><code class="language-plaintext highlighter-rouge">CamelContext.getName()</code></td>
+      <td>String（上下文名称）</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">uptimeMillis</code></td>
+      <td><code class="language-plaintext highlighter-rouge">CamelContext.getUptime().toMillis()</code></td>
+      <td>Long（运行时长毫秒）</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">routes</code></td>
+      <td><code class="language-plaintext highlighter-rouge">CamelContext.getRoutes().size()</code></td>
+      <td>Integer（路由数量）</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">status</code></td>
+      <td><code class="language-plaintext highlighter-rouge">CamelContext.getStatus().name()</code></td>
+      <td>String（服务状态名）</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="53-ctfctfroute--camel-路由定义">5.3 <code class="language-plaintext highlighter-rouge">ctf.CtfRoute</code> — Camel 路由定义</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>项目</th>
+      <th>内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>父类</td>
+      <td><code class="language-plaintext highlighter-rouge">org.apache.camel.builder.RouteBuilder</code></td>
+    </tr>
+    <tr>
+      <td>注解</td>
+      <td><code class="language-plaintext highlighter-rouge">@Component</code></td>
+    </tr>
+    <tr>
+      <td>常量</td>
+      <td><code class="language-plaintext highlighter-rouge">INBOUND_QUEUE = "gateway.inbound"</code></td>
+    </tr>
+    <tr>
+      <td>方法</td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;init&gt;()</code>、<code class="language-plaintext highlighter-rouge">configure()</code>、<code class="language-plaintext highlighter-rouge">lambda$configure$0(Exchange)</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>路由配置（<code class="language-plaintext highlighter-rouge">configure</code> 方法）：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// @hl 1,4</span>
+<span class="n">from</span><span class="o">(</span><span class="s">"activemq6:queue:gateway.inbound"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">routeId</span><span class="o">(</span><span class="s">"inbound-consumer"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">process</span><span class="o">(</span><span class="n">ex</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="nc">Object</span> <span class="n">body</span> <span class="o">=</span> <span class="n">ex</span><span class="o">.</span><span class="na">getMessage</span><span class="o">().</span><span class="na">getBody</span><span class="o">();</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"inbound message accepted, payload type = {}"</span><span class="o">,</span>
+                 <span class="n">body</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="s">"null"</span> <span class="o">:</span> <span class="n">body</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+    <span class="o">});</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>路由属性</th>
+      <th>值</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>来源</td>
+      <td><code class="language-plaintext highlighter-rouge">activemq6:queue:gateway.inbound</code></td>
+    </tr>
+    <tr>
+      <td>路由 ID</td>
+      <td><code class="language-plaintext highlighter-rouge">inbound-consumer</code></td>
+    </tr>
+    <tr>
+      <td>处理逻辑</td>
+      <td>记录消息体类型到日志，不做进一步转换或转发</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>该路由仅消费 <code class="language-plaintext highlighter-rouge">gateway.inbound</code> 队列消息并记录日志，<strong>无出站路由、无消息转换、无错误处理</strong>。这是一个典型的消息网关入口点，但当前只做日志记录。</p>
+</blockquote>
+
+<h4 id="54-ctfjmsconfig--jmsactivemq-配置">5.4 <code class="language-plaintext highlighter-rouge">ctf.JmsConfig</code> — JMS/ActiveMQ 配置</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>项目</th>
+      <th>内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>父类</td>
+      <td><code class="language-plaintext highlighter-rouge">java.lang.Object</code></td>
+    </tr>
+    <tr>
+      <td>注解</td>
+      <td><code class="language-plaintext highlighter-rouge">@Configuration</code></td>
+    </tr>
+    <tr>
+      <td>方法</td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;init&gt;()</code>、<code class="language-plaintext highlighter-rouge">activemq6(url, user, pass)</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Bean 定义（<code class="language-plaintext highlighter-rouge">activemq6</code> 方法）：</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// @del 10</span>
+<span class="nd">@Bean</span>
+<span class="nc">ActiveMQComponent</span> <span class="nf">activemq6</span><span class="o">(</span>
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">"${broker.url}"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">url</span><span class="o">,</span>
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">"${broker.user}"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">user</span><span class="o">,</span>
+    <span class="nd">@Value</span><span class="o">(</span><span class="s">"${broker.pass}"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">pass</span>
+<span class="o">)</span> <span class="o">{</span>
+    <span class="nc">ActiveMQConnectionFactory</span> <span class="n">cf</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ActiveMQConnectionFactory</span><span class="o">(</span><span class="n">url</span><span class="o">);</span>
+    <span class="n">cf</span><span class="o">.</span><span class="na">setUserName</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+    <span class="n">cf</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="n">pass</span><span class="o">);</span>
+    <span class="n">cf</span><span class="o">.</span><span class="na">setTrustAllPackages</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>    <span class="c1">// ← 注意</span>
+    <span class="nc">ActiveMQComponent</span> <span class="n">component</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ActiveMQComponent</span><span class="o">();</span>
+    <span class="n">component</span><span class="o">.</span><span class="na">setConnectionFactory</span><span class="o">(</span><span class="n">cf</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">component</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>配置项</th>
+      <th>值</th>
+      <th>来源</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>连接工厂</td>
+      <td><code class="language-plaintext highlighter-rouge">ActiveMQConnectionFactory</code></td>
+      <td>ActiveMQ 6.1.8</td>
+    </tr>
+    <tr>
+      <td>Broker URL</td>
+      <td><code class="language-plaintext highlighter-rouge">tcp://localhost:61616</code></td>
+      <td><code class="language-plaintext highlighter-rouge">${broker.url}</code></td>
+    </tr>
+    <tr>
+      <td>用户名</td>
+      <td><code class="language-plaintext highlighter-rouge">ctf</code></td>
+      <td><code class="language-plaintext highlighter-rouge">${broker.user}</code></td>
+    </tr>
+    <tr>
+      <td>密码</td>
+      <td><code class="language-plaintext highlighter-rouge">ctf</code></td>
+      <td><code class="language-plaintext highlighter-rouge">${broker.pass}</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">setTrustAllPackages</code></td>
+      <td><strong><code class="language-plaintext highlighter-rouge">true</code></strong></td>
+      <td>硬编码</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="6-依赖库分析">6 依赖库分析</h3>
+
+<h4 id="61-核心框架依赖">6.1 核心框架依赖</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>框架</th>
+      <th>版本</th>
+      <th>JAR 数</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Spring Boot</td>
+      <td>3.5.13</td>
+      <td>2</td>
+      <td>核心框架 + 自动配置</td>
+    </tr>
+    <tr>
+      <td>Spring Framework</td>
+      <td>6.2.17</td>
+      <td>7</td>
+      <td>web、beans、aop、context、expression、tx、jms</td>
+    </tr>
+    <tr>
+      <td>Apache Camel</td>
+      <td>4.18.2</td>
+      <td>42</td>
+      <td>核心引擎 + 30+ 组件 starter</td>
+    </tr>
+    <tr>
+      <td>Tomcat Embed</td>
+      <td>10.1.53</td>
+      <td>3</td>
+      <td>core、el、websocket</td>
+    </tr>
+    <tr>
+      <td>Jackson</td>
+      <td>2.21.2</td>
+      <td>5</td>
+      <td>JSON 序列化</td>
+    </tr>
+    <tr>
+      <td>Logback + SLF4J</td>
+      <td>1.5.32 / 2.0.17</td>
+      <td>5</td>
+      <td>日志框架</td>
+    </tr>
+    <tr>
+      <td>ActiveMQ</td>
+      <td>6.1.8</td>
+      <td>2</td>
+      <td>client + hawtbuf</td>
+    </tr>
+    <tr>
+      <td>SnakeYAML</td>
+      <td>2.4</td>
+      <td>1</td>
+      <td>YAML 解析</td>
+    </tr>
+    <tr>
+      <td>Jakarta APIs</td>
+      <td>—</td>
+      <td>3</td>
+      <td>annotation、xml.bind、activation、jms</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="62-camel-组件清单">6.2 Camel 组件清单</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>组件</th>
+      <th>Starter JAR</th>
+      <th>组件 JAR</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>bean</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>Bean 组件</td>
+    </tr>
+    <tr>
+      <td>browse</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>浏览端点</td>
+    </tr>
+    <tr>
+      <td>controlbus</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>控制总线</td>
+    </tr>
+    <tr>
+      <td>dataformat</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>数据格式</td>
+    </tr>
+    <tr>
+      <td>dataset</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>测试数据集</td>
+    </tr>
+    <tr>
+      <td>direct</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>直接调用</td>
+    </tr>
+    <tr>
+      <td>file</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>文件传输</td>
+    </tr>
+    <tr>
+      <td>language</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>语言组件</td>
+    </tr>
+    <tr>
+      <td>log</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>日志端点</td>
+    </tr>
+    <tr>
+      <td>mock</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>测试 Mock</td>
+    </tr>
+    <tr>
+      <td>ref</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>引用端点</td>
+    </tr>
+    <tr>
+      <td>rest</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>REST DSL</td>
+    </tr>
+    <tr>
+      <td>saga</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>分布式事务</td>
+    </tr>
+    <tr>
+      <td>scheduler</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>定时调度</td>
+    </tr>
+    <tr>
+      <td>seda</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>异步队列</td>
+    </tr>
+    <tr>
+      <td>stub</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>桩端点</td>
+    </tr>
+    <tr>
+      <td>timer</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>定时器</td>
+    </tr>
+    <tr>
+      <td>validator</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>验证器</td>
+    </tr>
+    <tr>
+      <td>xpath</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>XPath 表达式</td>
+    </tr>
+    <tr>
+      <td>xslt</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>XSLT 转换</td>
+    </tr>
+    <tr>
+      <td>xml-jaxp</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>XML JAXP</td>
+    </tr>
+    <tr>
+      <td>activemq6</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>ActiveMQ 6 集成</td>
+    </tr>
+    <tr>
+      <td>jms</td>
+      <td>—</td>
+      <td>✓</td>
+      <td>JMS 通用组件</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="7-安全分析">7 安全分析</h3>
+
+<h4 id="71-发现的安全问题">7.1 发现的安全问题</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>级别</th>
+      <th>问题</th>
+      <th>位置</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>高危</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">setTrustAllPackages(true)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">JmsConfig.activemq6()</code></td>
+      <td>ActiveMQ 连接工厂信任所有 Java 包，允许反序列化任意类的对象。如果攻击者能控制 Broker 上的消息内容，可通过构造恶意的序列化对象实现 RCE</td>
+    </tr>
+    <tr>
+      <td><strong>中危</strong></td>
+      <td>默认弱凭据 <code class="language-plaintext highlighter-rouge">ctf/ctf</code></td>
+      <td><code class="language-plaintext highlighter-rouge">application.yml</code></td>
+      <td>Broker 默认用户名和密码均为 <code class="language-plaintext highlighter-rouge">ctf</code>，且通过环境变量覆盖时可能暴露在进程环境或容器编排配置中</td>
+    </tr>
+    <tr>
+      <td><strong>中危</strong></td>
+      <td>消息体无验证/过滤</td>
+      <td><code class="language-plaintext highlighter-rouge">CtfRoute.configure()</code></td>
+      <td>路由直接 <code class="language-plaintext highlighter-rouge">getMessage().getBody()</code> 获取原始消息体，不做类型检查或内容过滤，仅记录日志</td>
+    </tr>
+    <tr>
+      <td><strong>低危</strong></td>
+      <td>状态端点信息泄露</td>
+      <td><code class="language-plaintext highlighter-rouge">HomeController.status()</code></td>
+      <td><code class="language-plaintext highlighter-rouge">/actuator-lite</code> 暴露 Camel 版本号、上下文名、运行时长、路由数和状态，可被用于侦察</td>
+    </tr>
+    <tr>
+      <td><strong>低危</strong></td>
+      <td>无认证/授权</td>
+      <td><code class="language-plaintext highlighter-rouge">HomeController</code></td>
+      <td>所有 HTTP 端点（<code class="language-plaintext highlighter-rouge">/</code> 和 <code class="language-plaintext highlighter-rouge">/actuator-lite</code>）无认证机制，任何能访问 8080 端口的人均可查看</td>
+    </tr>
+    <tr>
+      <td><strong>低危</strong></td>
+      <td>默认 TCP 明文通信</td>
+      <td><code class="language-plaintext highlighter-rouge">application.yml</code></td>
+      <td>Broker 连接使用 <code class="language-plaintext highlighter-rouge">tcp://</code>（非 <code class="language-plaintext highlighter-rouge">ssl://</code>），凭据和消息在传输中为明文</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="72-settrustallpackagestrue-深度分析">7.2 <code class="language-plaintext highlighter-rouge">setTrustAllPackages(true)</code> 深度分析</h4>
+
+<p><code class="language-plaintext highlighter-rouge">ActiveMQConnectionFactory.setTrustAllPackages(true)</code> 会禁用 ActiveMQ 的反序列化过滤器。默认情况下 ActiveMQ 只信任受信任包列表中的类，设置为 <code class="language-plaintext highlighter-rouge">true</code> 后，<strong>所有 Java 序列化对象</strong> 都会被反序列化。</p>
+
+<p><strong>攻击路径：</strong></p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>攻击者控制 ActiveMQ Broker 或中间人攻击
+  └── 向 gateway.inbound 队列发送恶意序列化消息
+      └── Camel 路由消费消息 → getMessage().getBody()
+          └── ActiveMQ 反序列化消息体 → 任意类加载
+              └── 利用 gadget chain → 远程代码执行 (RCE)
+</code></pre></div></div>
+
+<blockquote>
+  <p>此配置在 CTF 场景中通常是刻意设置的漏洞入口。</p>
+</blockquote>
+
+<h4 id="73-攻击面总结">7.3 攻击面总结</h4>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>攻击面
+├── HTTP 端口 8080
+│   ├── GET /              → 信息泄露（HTML 信息页）
+│   └── GET /actuator-lite → 状态信息泄露
+├── ActiveMQ TCP 61616
+│   ├── 默认凭据 ctf/ctf
+│   ├── TrustAllPackages → 反序列化 RCE
+│   └── 向 gateway.inbound 投递恶意消息
+└── 无认证 / 无 TLS / 无输入验证
+</code></pre></div></div>
+
+<h3 id="8-架构与数据流">8 架构与数据流</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                    ┌─────────────────┐
+                    │   HTTP :8080    │
+                    │  (Tomcat Embed) │
+                    ├─────────────────┤
+                    │  GET /          │ → 静态 HTML 信息页
+                    │  GET /actuator  │ → JSON 状态信息
+                    │     -lite       │
+                    └────────┬────────┘
+                             │
+                    ┌────────▼────────┐
+                    │  Spring Boot    │
+                    │  3.5.13 + Camel │
+                    │  4.18.2         │
+                    │  (App.java)     │
+                    └─────────┬───────┘
+                              │
+             ┌────────────────┼──────────────┐
+             │                │              │
+     ┌───────▼──────────┐ ┌───▼────┐ ┌───────▼────────┐
+     │ HomeController   │ │CtfRoute│ │  JmsConfig     │
+     │ (@RestController)│ │(Route  │ │(@Configuration)│
+     │                  │ │Builder)│ │                │
+     │ - CamelContext   │ │        │ │ ActiveMQComp   │
+     │   inject         │ │ from(  │ │ → CF(url,user, │
+     │                  │ │  activ │ │   pass,        │
+     │                  │ │  emq6: │ │   trustAll)    │
+     │                  │ │  queue:│ │                │
+     │                  │ │  gate  │ │                │
+     │                  │ │  way.  │ │                │
+     │                  │ │  inbou │ │                │
+     │                  │ │  nd)   │ │                │
+     │                  │ │ .proc  │ │                │
+     │                  │ │  ess(  │ │                │
+     │                  │ │  log)  │ │                │
+     └──────────────────┘ └───┬────┘ └───────┬────────┘
+                              │              │
+                              │              │
+                  ┌───────────▼──────────────▼──────┐
+                  │     ActiveMQ Broker 6.1.8       │
+                  │     tcp://localhost:61616       │
+                  │     user: ctf / pass: ctf       │
+                  │     trustAllPackages: true      │
+                  │                                 │
+                  │  Queue: gateway.inbound         │
+                  └─────────────────────────────────┘
+</code></pre></div></div>
+
+<h3 id="9-ctf-解题思路推测">9 CTF 解题思路推测</h3>
+
+<p>基于应用名 <code class="language-plaintext highlighter-rouge">de5er1um</code>（谐音 deserium，暗示 deserialize）以及安全分析，推测以下攻击链：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>步骤</th>
+      <th>操作</th>
+      <th>目标</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>访问 <code class="language-plaintext highlighter-rouge">/actuator-lite</code> 获取 Camel 版本和运行状态</td>
+      <td>信息侦察</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>使用默认凭据 <code class="language-plaintext highlighter-rouge">ctf/ctf</code> 连接 ActiveMQ Broker</td>
+      <td>获取 Broker 访问权限</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>向 <code class="language-plaintext highlighter-rouge">gateway.inbound</code> 队列发送恶意序列化消息</td>
+      <td>触发反序列化</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>利用 ActiveMQ <code class="language-plaintext highlighter-rouge">trustAllPackages=true</code> + 已知 gadget chain</td>
+      <td>实现 RCE</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>读取 flag 文件</td>
+      <td>完成 CTF</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>应用名 <code class="language-plaintext highlighter-rouge">de5er1um</code> 明确指向 <strong>Java 反序列化</strong> 攻击，<code class="language-plaintext highlighter-rouge">setTrustAllPackages(true)</code> 是刻意留的漏洞。</p>
+</blockquote>
+
+<h3 id="10-检查清单">10 检查清单</h3>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />JAR 结构完整分析（MANIFEST、BOOT-INF、Spring Boot Loader）</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />应用配置 <code class="language-plaintext highlighter-rouge">application.yml</code> 提取与分析</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />全部 4 个应用类反编译与方法签名提取</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />依赖库清单（107 个 lib JAR）完整列举</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />安全漏洞识别（6 项，1 高危 / 2 中危 / 3 低危）</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />架构数据流图绘制</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />CTF 攻击链推测</li>
+</ul>
+
+        </article>
+
+        <!-- TOC (desktop right sidebar) -->
+        <aside class="doc-toc" id="doc-toc">
+          <div class="doc-toc-title">目录</div>
+          <ul class="doc-toc-list" id="doc-toc-list"></ul>
+        </aside>
+
+      </div>
+
+      <!-- Prev / Next Pager -->
+      
+      
+
+      
+      
+      
+
+      
+      
+      
+      
+
+      
+      <nav class="doc-pager">
+        
+        <a class="doc-pager-item" href="/document/00_ctf/01_de5er1um_wp/">
+          <div class="doc-pager-label"><i class="fas fa-arrow-left"></i> 上一篇</div>
+          <div class="doc-pager-title">de5er1umWriteUp — ActiveMQ/Camel JMS</div>
+        </a>
+        
+        
+        <a class="doc-pager-item doc-pager-item--next" href="/document/00_ctf/03_echo_server_pwn_wp/">
+          <div class="doc-pager-label">下一篇 <i class="fas fa-arrow-right"></i></div>
+          <div class="doc-pager-title">echo.rar 逆向分析报告 - 栈溢出漏洞利用</div>
+        </a>
+        
+      </nav>
+      
+      
+
+
+<div class="doc-suggestion">
+    <!-- 1. 申明模块 -->
+    <section class="doc-suggestion-section">
+      <div class="doc-suggestion-heading">申明</div>
+      <div class="doc-suggestion-links">
+        <a class="doc-suggestion-link" href="https://bin4xin.github.io/document/00_ctf/02_de5er1um_jar_analysis/" target="_blank">
+          <i class="fas fa-fingerprint"></i>
+          转载请申明本文档链接
+        </a>
+        <a class="doc-suggestion-link" href="https://github.com/Bin4xin" target="_blank">
+          <i class="fas fa-hat-wizard"></i>
+          
+          
+            Post by Bin4xin.
+          
+        </a>
+      </div>
+    </section>
+  
+    <!-- 2. 贡献开源文档 -->
+    <section class="doc-suggestion-section">
+      <div class="doc-suggestion-heading">贡献开源文档</div>
+      <div class="doc-suggestion-links">
+        <a class="doc-suggestion-link" href="https://github.com/Bin4xin/bin4xin.github.io/tree/main/_document/00_ctf/02_de5er1um_jar_analysis.md" target="_blank">
+          <i class="fas fa-code-branch"></i>
+          贡献当前文档
+        </a>
+        <a class="doc-suggestion-link" href="https://github.com/Bin4xin/bin4xin.github.io/wiki/Git操作-Git如何贡献仓库代码" target="_blank">
+          <i class="fas fa-seedling"></i>
+          学习开源贡献
+        </a>
+        <a class="doc-suggestion-link" href="https://github.com/github/docs" target="_blank">
+          <i class="fas fa-globe"></i>
+          Learning about open source contributions
+        </a>
+      </div>
+    </section>
+  
+    <!-- 3. 此文档对您有帮助吗 -->
+    <section class="doc-suggestion-section">
+      <div class="doc-suggestion-heading">此文档对您有帮助吗</div>
+      <div class="doc-suggestion-feedback">
+        <a class="doc-suggestion-feedback-btn"
+           href="https://github.com/Bin4xin/bin4xin.github.io/"
+           target="_blank"
+           title="给文档仓库点个赞!">
+          <i class="fas fa-heart"></i>
+        </a>
+        <a class="doc-suggestion-feedback-btn"
+           href="https://github.com/Bin4xin/bin4xin.github.io/issues/new?labels=Service+Issue,research&template=2-bug_report.yaml&title=_document/00_ctf/02_de5er1um_jar_analysis.md&nbsp;de5er1um.jar 逆向分析报告 | © 哨兵 | SENTINEL SECURITY, LAB"
+           target="_blank"
+           title="本文档有问题?">
+          <i class="fas fa-bug"></i>
+        </a>
+        <p class="doc-suggestion-feedback-label">感谢您的反馈</p>
+      </div>
+    </section>
+</div>
+    </main>
+  </div>
+
+  
+<!-- Lightbox DOM -->
+<div class="lb-overlay" id="lb-overlay">
+<button class="lb-close" id="lb-close"><i class="fas fa-times"></i></button>
+<button class="lb-arrow lb-prev" id="lb-prev"><i class="fas fa-chevron-left"></i></button>
+<button class="lb-arrow lb-next" id="lb-next"><i class="fas fa-chevron-right"></i></button>
+<img class="lb-img" id="lb-img" src="" alt="" draggable="false">
+<span class="lb-counter" id="lb-counter"></span>
+<div class="lb-zoom">
+    <button class="lb-zoom-btn" id="lb-zoom-out"><i class="fas fa-minus"></i></button>
+    <span class="lb-zoom-level" id="lb-zoom-level">100%</span>
+    <button class="lb-zoom-btn" id="lb-zoom-in"><i class="fas fa-plus"></i></button>
+    <button class="lb-zoom-btn" id="lb-zoom-reset"><i class="fas fa-expand"></i></button>
+</div>
+</div>
+
+<script>
+(function(){
+var overlay   = document.getElementById('lb-overlay');
+var img       = document.getElementById('lb-img');
+var btnClose  = document.getElementById('lb-close');
+var btnPrev   = document.getElementById('lb-prev');
+var btnNext   = document.getElementById('lb-next');
+var counter   = document.getElementById('lb-counter');
+var zoomIn    = document.getElementById('lb-zoom-in');
+var zoomOut   = document.getElementById('lb-zoom-out');
+var zoomReset = document.getElementById('lb-zoom-reset');
+var zoomLevel = document.getElementById('lb-zoom-level');
+
+var images = [];
+var idx    = 0;
+var scale  = 1;
+var posX   = 0;
+var posY   = 0;
+
+// ── Collect all clickable images (with src dedup) ──
+  function collectImages(){
+    var containers = document.querySelectorAll('#help-content, .markdown-body-img, .post-content, .article-content, .ct-card__body, .lb-target');
+    images = [];
+    var seen = {};
+
+    containers.forEach(function(c){
+      c.querySelectorAll('img').forEach(function(im){
+        if(im.getAttribute('data-lb-ignore')) return;
+        if(im.getAttribute('width') && parseInt(im.getAttribute('width')) < 60) return;
+        if(im.getAttribute('height') && parseInt(im.getAttribute('height')) < 60) return;
+        if(images.indexOf(im) !== -1) return;
+
+        var key = im.getAttribute('data-src') || im.src;
+        if(seen[key]) return;
+        seen[key] = true;
+
+        images.push(im);
+        im.addEventListener('click', function(e){
+          e.preventDefault();
+          openAt(im);
+        });
+      });
+    });
+
+    // Also catch any img with class "lb-clickable"
+    document.querySelectorAll('img.lb-clickable').forEach(function(im){
+      if(images.indexOf(im) === -1){
+        images.push(im);
+        im.addEventListener('click', function(e){
+          e.preventDefault();
+          openAt(im);
+        });
+      }
+    });
+  }
+
+// ── Open at specific image ──
+function openAt(targetImg){
+    idx = images.indexOf(targetImg);
+    if(idx === -1) idx = 0;
+    showImage();
+    overlay.classList.add('is-active');
+    document.body.style.overflow = 'hidden';
+}
+
+// ── Show image at current index ──
+function showImage(){
+    if(!images[idx]) return;
+    var src = images[idx].getAttribute('data-src') || images[idx].src;
+    img.src = src;
+    img.alt = images[idx].alt || '';
+    counter.textContent = (idx + 1) + ' / ' + images.length;
+    btnPrev.style.display = images.length > 1 ? '' : 'none';
+    btnNext.style.display = images.length > 1 ? '' : 'none';
+    resetZoom();
+}
+
+// ── Close ──
+function close(){
+    overlay.classList.remove('is-active');
+    document.body.style.overflow = '';
+    resetZoom();
+}
+
+// ── Navigate ──
+function goPrev(){
+    if(images.length <= 1) return;
+    idx = (idx - 1 + images.length) % images.length;
+    showImage();
+}
+function goNext(){
+    if(images.length <= 1) return;
+    idx = (idx + 1) % images.length;
+    showImage();
+}
+
+// ── Zoom ──
+function applyZoom(){
+    img.style.transform = 'scale(' + scale + ') translate(' + posX + 'px, ' + posY + 'px)';
+    zoomLevel.textContent = Math.round(scale * 100) + '%';
+}
+function zoomTo(s){
+    scale = Math.max(0.5, Math.min(5, s));
+    if(scale === 1){ posX = 0; posY = 0; }
+    applyZoom();
+}
+function resetZoom(){
+    scale = 1; posX = 0; posY = 0;
+    applyZoom();
+}
+
+// ── Drag when zoomed ──
+var dragging = false, dragStartX, dragStartY, startPosX, startPosY;
+
+img.addEventListener('mousedown', function(e){
+    if(scale <= 1) return;
+    e.preventDefault();
+    dragging = true;
+    img.classList.add('is-dragging');
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+    startPosX  = posX;
+    startPosY  = posY;
+});
+document.addEventListener('mousemove', function(e){
+    if(!dragging) return;
+    posX = startPosX + (e.clientX - dragStartX) / scale;
+    posY = startPosY + (e.clientY - dragStartY) / scale;
+    applyZoom();
+});
+document.addEventListener('mouseup', function(){
+    dragging = false;
+    img.classList.remove('is-dragging');
+});
+
+// Mouse wheel zoom
+overlay.addEventListener('wheel', function(e){
+    if(!overlay.classList.contains('is-active')) return;
+    e.preventDefault();
+    var delta = e.deltaY > 0 ? -0.15 : 0.15;
+    zoomTo(scale + delta);
+}, { passive: false });
+
+// Pinch zoom (touch)
+var lastTouchDist = 0;
+overlay.addEventListener('touchstart', function(e){
+    if(e.touches.length === 2){
+    var dx = e.touches[0].clientX - e.touches[1].clientX;
+    var dy = e.touches[0].clientY - e.touches[1].clientY;
+    lastTouchDist = Math.sqrt(dx * dx + dy * dy);
+    }
+}, { passive: true });
+overlay.addEventListener('touchmove', function(e){
+    if(e.touches.length === 2){
+    e.preventDefault();
+    var dx = e.touches[0].clientX - e.touches[1].clientX;
+    var dy = e.touches[0].clientY - e.touches[1].clientY;
+    var dist = Math.sqrt(dx * dx + dy * dy);
+    var delta = (dist - lastTouchDist) * 0.008;
+    lastTouchDist = dist;
+    zoomTo(scale + delta);
+    }
+}, { passive: false });
+
+// Double-click to toggle zoom
+img.addEventListener('dblclick', function(e){
+    e.preventDefault();
+    if(scale > 1){
+    resetZoom();
+    } else {
+    zoomTo(2.5);
+    }
+});
+
+// ── Swipe navigation (touch) ──
+var touchStartX = 0, touchStartY = 0, swiping = false;
+img.addEventListener('touchstart', function(e){
+    if(e.touches.length !== 1 || scale > 1) return;
+    swiping = true;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+}, { passive: true });
+img.addEventListener('touchend', function(e){
+    if(!swiping) return;
+    swiping = false;
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    if(Math.abs(dx) > 60){
+    dx > 0 ? goPrev() : goNext();
+    }
+}, { passive: true });
+
+// ── Keyboard ──
+document.addEventListener('keydown', function(e){
+    if(!overlay.classList.contains('is-active')) return;
+    switch(e.key){
+    case 'Escape':  close(); break;
+    case 'ArrowLeft':  goPrev(); break;
+    case 'ArrowRight': goNext(); break;
+    case '+': case '=': zoomTo(scale + 0.2); break;
+    case '-': zoomTo(scale - 0.2); break;
+    case '0': resetZoom(); break;
+    }
+});
+
+// ── Click events ──
+overlay.addEventListener('click', function(e){
+    if(e.target === overlay) close();
+});
+btnClose.addEventListener('click', close);
+btnPrev.addEventListener('click', function(e){ e.stopPropagation(); goPrev(); });
+btnNext.addEventListener('click', function(e){ e.stopPropagation(); goNext(); });
+zoomIn.addEventListener('click', function(e){ e.stopPropagation(); zoomTo(scale + 0.25); });
+zoomOut.addEventListener('click', function(e){ e.stopPropagation(); zoomTo(scale - 0.25); });
+zoomReset.addEventListener('click', function(e){ e.stopPropagation(); resetZoom(); });
+
+// ── Init ──
+if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', collectImages);
+} else {
+    collectImages();
+}
+})();
+</script>
+  
+<link rel="stylesheet" href="/assets/css/components/code-line-highlight.css">
+<script>
+(function(){
+  'use strict';
+  function parseRange(str){
+    var lines = new Set();
+    if(!str) return lines;
+    str.split(',').forEach(function(part){
+      part = part.trim();
+      if(part.indexOf('-') !== -1){
+        var r = part.split('-');
+        var s = parseInt(r[0], 10);
+        var e = parseInt(r[1], 10);
+        if(!isNaN(s) && !isNaN(e)){
+          for(var i = s; i <= e; i++) lines.add(i);
+        }
+      } else {
+        var n = parseInt(part, 10);
+        if(!isNaN(n)) lines.add(n);
+      }
+    });
+    return lines;
+  }
+
+  function stripTags(html){
+    return html.replace(/<[^>]*>/g, '');
+  }
+
+  // Matches one or more directives:  @hl 2-4  @add 5  @del 6-8
+  //   # @hl 2-4,7 @add 9 @del 12-14
+  //   // @add 1,3
+  //   /* @del 2-5 */
+  //   <!-- @hl 1 @del 4 -->
+  var RE = /^\s*(?:#|\/\/|\/\*;?|<!--|--|;)\s*((?:@(?:hl|add|del)\s+[\d,\-]+\s*)+)(?:\*\/|-->)?\s*$/;
+  var DIR_RE = /@(hl|add|del)\s+([\d,\-]+)/g;
+
+  function init(){
+    document.querySelectorAll('pre').forEach(function(pre){
+      if(pre.dataset.hlDone) return;
+
+      var codeEl = pre.querySelector('code');
+      if(!codeEl) return;
+
+      var rawHTML = codeEl.innerHTML;
+      var htmlLines = rawHTML.split('\n');
+
+      // Remove trailing empty line
+      if(htmlLines.length > 1 && htmlLines[htmlLines.length - 1].trim() === ''){
+        htmlLines.pop();
+      }
+      if(htmlLines.length === 0) return;
+
+      // Check first line
+      var firstLineText = stripTags(htmlLines[0]).trim();
+      var match = firstLineText.match(RE);
+      if(!match) return;
+
+      // Parse all directives
+      var hlLines  = new Set();
+      var addLines = new Set();
+      var delLines = new Set();
+      var dirMatch;
+      while((dirMatch = DIR_RE.exec(match[1])) !== null){
+        var type  = dirMatch[1];
+        var range = parseRange(dirMatch[2]);
+        range.forEach(function(n){
+          if(type === 'hl')  hlLines.add(n);
+          if(type === 'add') addLines.add(n);
+          if(type === 'del') delLines.add(n);
+        });
+      }
+
+      if(hlLines.size === 0 && addLines.size === 0 && delLines.size === 0) return;
+
+      pre.dataset.hlDone = '1';
+
+      // Remove magic comment line
+      var codeHTMLLines = htmlLines.slice(1);
+
+      // Wrap lines
+      var result = codeHTMLLines.map(function(lineHTML, i){
+        var lineNum = i + 1;
+        if(delLines.has(lineNum)){
+          return '<span class="del-line">' + lineHTML + '</span>';
+        }
+        if(addLines.has(lineNum)){
+          return '<span class="add-line">' + lineHTML + '</span>';
+        }
+        if(hlLines.has(lineNum)){
+          return '<span class="hl-line">' + lineHTML + '</span>';
+        }
+        return lineHTML;
+      }).join('\n');
+
+      codeEl.innerHTML = result;
+      pre.classList.add('has-hl-lines');
+    });
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(init, 50); });
+  } else {
+    setTimeout(init, 50);
+  }
+
+  if(typeof MutationObserver !== 'undefined'){
+    var observer = new MutationObserver(function(){ init(); });
+    var target = document.querySelector('.doc-article-body, .post-content, article');
+    if(target) observer.observe(target, { childList: true, subtree: true });
+  }
+})();
+</script>
+
+
+  <script src="/assets/js/cate-document.js"></script>
+
+</body>
+</html>

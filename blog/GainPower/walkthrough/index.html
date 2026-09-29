@@ -212,7 +212,7 @@
 
 
 
-<section class="gh-banner error" aria-labelledby="banner-title-上次修改距今已-strong-2120-strong-天-建议确认内容是否仍然成立" role="region" data-dismissible="true">
+<section class="gh-banner error" aria-labelledby="banner-title-上次修改距今已-strong-2121-strong-天-建议确认内容是否仍然成立" role="region" data-dismissible="true">
     <div class="banner-icon" aria-hidden="true">
         
         <svg viewBox="0 0 16 16" fill="currentColor">
@@ -222,7 +222,7 @@
     </div>
 
     <div class="banner-content">
-        <span class="banner-text">上次修改距今已 <strong>2120</strong> 天，建议确认内容是否仍然成立</span>
+        <span class="banner-text">上次修改距今已 <strong>2121</strong> 天，建议确认内容是否仍然成立</span>
     </div>
 </section>
     
@@ -1417,9 +1417,8 @@ if(document.readyState === 'loading'){
     
 <link rel="stylesheet" href="/assets/css/components/code-line-highlight.css">
 <script>
-    (function(){
+(function(){
   'use strict';
-
   function parseRange(str){
     var lines = new Set();
     if(!str) return lines;
@@ -1494,19 +1493,6 @@ if(document.readyState === 'loading'){
 
       // Remove magic comment line
       var codeHTMLLines = htmlLines.slice(1);
-
-      // Build legend
-    //   var legendItems = [];
-    //   if(hlLines.size  > 0) legendItems.push('<span class="hl-legend-item"><span class="hl-legend-dot hl-legend-dot--hl"></span>Highlight</span>');
-    //   if(addLines.size > 0) legendItems.push('<span class="hl-legend-item"><span class="hl-legend-dot hl-legend-dot--add"></span>Addition</span>');
-    //   if(delLines.size > 0) legendItems.push('<span class="hl-legend-item"><span class="hl-legend-dot hl-legend-dot--del"></span>Deletion</span>');
-
-    //   if(legendItems.length > 0){
-    //     var legend = document.createElement('div');
-    //     legend.className = 'hl-legend';
-    //     legend.innerHTML = legendItems.join('');
-    //     pre.parentNode.insertBefore(legend, pre);
-    //   }
 
       // Wrap lines
       var result = codeHTMLLines.map(function(lineHTML, i){
