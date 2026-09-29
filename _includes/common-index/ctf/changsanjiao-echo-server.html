@@ -1,0 +1,292 @@
+<div id="de5er1um-viz">
+    <div class="d5-inner">
+  
+      <div class="d5-header">
+        <div class="d5-tag">Pwn PoC &mdash; Stack Overflow + ROP + ret2libc</div>
+        <h1>ROP Exploit &middot; 完整利用流程可视化</h1>
+        <p>
+          靶场：<code>fgets</code> 安全 + <code>gets</code> 栈溢出，
+          通过 GOT 泄露 libc，二次溢出执行 <code>system("/bin/sh")</code>。
+        </p>
+      </div>
+  
+      <div class="d5-main">
+  
+        <!-- Left: vertical flow -->
+        <div class="d5-flow" id="d5-flow-rop">
+          <div class="d5-node" data-id="rop-start">
+            <div class="d5-n">&#9312; 启动</div>
+            <div class="d5-t">连接目标</div>
+            <div class="d5-d">nc target port</div>
+          </div>
+          <div class="d5-arrow">&rarr;</div>
+  
+          <div class="d5-node" data-id="rop-menu1">
+            <div class="d5-n">&#9313; 菜单</div>
+            <div class="d5-t">选择 2 &rarr; Leave Message</div>
+            <div class="d5-d">进入留言功能</div>
+          </div>
+          <div class="d5-arrow">&rarr;</div>
+  
+          <div class="d5-node" data-id="rop-name1">
+            <div class="d5-n">&#9314; 姓名</div>
+            <div class="d5-t">fgets(name, 0x40, stdin)</div>
+            <div class="d5-d">&#9989; 安全</div>
+          </div>
+          <div class="d5-arrow">&rarr;</div>
+  
+          <div class="d5-node" data-id="rop-overflow1">
+            <div class="d5-n">&#9315; 留言</div>
+            <div class="d5-t">gets(msg_buf)</div>
+            <div class="d5-d">&#10060; 溢出！填充 'A' * 0x88<br/>ROP: pop_rdi &rarr; puts@got &rarr; puts@plt &rarr; main</div>
+          </div>
+          <div class="d5-arrow">&rarr;</div>
+  
+          <div class="d5-node" data-id="rop-leak">
+            <div class="d5-n">&#9316; 泄露</div>
+            <div class="d5-t">puts 输出 GOT 表中 puts 地址</div>
+            <div class="d5-d">leaked_puts = 0x7f??..????e10</div>
+          </div>
+          <div class="d5-arrow">&rarr;</div>
+  
+          <div class="d5-node" data-id="rop-calc">
+            <div class="d5-n">&#9317; 计算</div>
+            <div class="d5-t">libc_base = leaked_puts - 0x84420</div>
+            <div class="d5-d">system = libc_base + 0x52290<br/>/bin/sh = libc_base + 0x1b45bd</div>
+          </div>
+          <div class="d5-arrow">&rarr;</div>
+  
+          <div class="d5-node" data-id="rop-menu2">
+            <div class="d5-n">&#9318; 菜单</div>
+            <div class="d5-t">程序返回 main，再次选择 2</div>
+            <div class="d5-d">二次进入 Leave Message</div>
+          </div>
+          <div class="d5-arrow">&rarr;</div>
+  
+          <div class="d5-node" data-id="rop-overflow2">
+            <div class="d5-n">&#9319; 留言</div>
+            <div class="d5-t">gets(msg_buf)</div>
+            <div class="d5-d">&#10060; 二次溢出！填充 'B' * 0x88<br/>ROP: ret &rarr; pop_rdi &rarr; /bin/sh &rarr; system</div>
+          </div>
+          <div class="d5-arrow">&rarr;</div>
+  
+          <div class="d5-node" data-id="rop-shell">
+            <div class="d5-n">&#9320; Shell</div>
+            <div class="d5-t">system("/bin/sh") 执行</div>
+            <div class="d5-d">cat /flag &middot; id &middot; ...</div>
+          </div>
+        </div>
+  
+        <!-- Right: controls + log + result -->
+        <div class="d5-right">
+  
+          <div class="d5-controls">
+            <button class="d5-run" id="d5-rop-launch-btn">&#9654; 发起攻击</button>
+            <button class="d5-reset-btn" id="d5-rop-reset-btn">重置</button>
+            <span class="d5-status" id="d5-rop-status">空闲</span>
+          </div>
+  
+          <div class="d5-card">
+            <h3>实时攻击日志</h3>
+            <div class="d5-log" id="d5-rop-log"></div>
+          </div>
+  
+          <div class="d5-card">
+            <h3 id="d5-rop-result-title">Shell 结果 / FLAG</h3>
+            <div class="d5-result-box" id="d5-rop-result-box">&mdash; 等待攻击结果 &mdash;</div>
+            <div class="d5-steps" id="d5-rop-steps"></div>
+          </div>
+  
+        </div>
+  
+      </div>
+  
+    </div>
+  </div>
+  
+<script>
+  (function(){
+    "use strict";
+  
+    var root = document.getElementById('de5er1um-viz');
+    if(!root) return;
+    var $ = function(s){ return root.querySelector(s); };
+  
+    /* ── Simulated Data ── */
+    var ropLog = [
+      { t: '[*] exploit: ret2libc via GOT leak', c: 'd5-l', node: 'rop-start' },
+      { t: '[*] target: ./pwn  (nc 127.0.0.1 1337)', c: 'd5-l', node: 'rop-start' },
+      { t: '[STEP 1] 选择菜单 2 → Leave Message', c: 'd5-l', node: 'rop-menu1' },
+      { t: '[STEP 1] 输入姓名: fgets(name, 0x40, stdin)  ✅ 安全', c: '', node: 'rop-name1' },
+      { t: '[STEP 2] 输入留言: gets(msg_buf)  ❌ 溢出！', c: 'd5-e', node: 'rop-overflow1' },
+      { t: '[STEP 2] payload: A * 0x88 + pop_rdi + puts@got + puts@plt + main', c: '', node: 'rop-overflow1' },
+      { t: '[STEP 3] puts 输出 GOT 表中 puts 的运行时地址', c: 'd5-w', node: 'rop-leak' },
+      { t: '[+] leaked_puts = 0x7f8a3c2e1e10', c: 'd5-hi', node: 'rop-leak' },
+      { t: '[STEP 4] libc_base = leaked_puts - 0x84420', c: 'd5-l', node: 'rop-calc' },
+      { t: '[STEP 4] system    = libc_base + 0x52290', c: '', node: 'rop-calc' },
+      { t: '[STEP 4] /bin/sh   = libc_base + 0x1b45bd', c: '', node: 'rop-calc' },
+      { t: '[STEP 5] 程序返回 main，再次选择 2 → Leave Message', c: 'd5-l', node: 'rop-menu2' },
+      { t: '[STEP 5] 输入姓名: fgets  ✅ 安全', c: '', node: 'rop-name1' },
+      { t: '[STEP 6] 输入留言: gets(msg_buf)  ❌ 二次溢出！', c: 'd5-e', node: 'rop-overflow2' },
+      { t: '[STEP 6] payload: B * 0x88 + ret + pop_rdi + /bin/sh + system', c: '', node: 'rop-overflow2' },
+      { t: '[STEP 7] system("/bin/sh") 执行', c: 'd5-g', node: 'rop-shell' },
+      { t: '[+] shell obtained!', c: 'd5-hi', node: 'rop-shell' },
+      { t: '$ cat /flag', c: 'd5-c', node: 'rop-shell' },
+      { t: 'flag{M5kgyPY1AvuCdXx8ZGKeTpmqJWbh3DC6}', c: 'd5-hi', node: 'rop-shell' },
+      { t: '$ id', c: 'd5-c', node: 'rop-shell' },
+      { t: 'uid=0(root) gid=0(root) groups=0(root)', c: 'd5-hi', node: 'rop-shell' },
+      { t: '[OK] exploit completed — shell + flag', c: 'd5-g', node: 'rop-shell' }
+    ];
+  
+    var ropResult = [
+      '$ cat /flag',
+      'flag{M5kgyPY1AvuCdXx8ZGKeTpmqJWbh3DC6}',
+      '',
+      '$ id',
+      'uid=0(root) gid=0(root) groups=0(root)'
+    ].join('\n');
+  
+    var ropSteps = [
+      'STEP 1 · 进入 Leave Message',
+      'STEP 2 · 第一次溢出 + GOT 泄露',
+      'STEP 3 · 计算 libc_base',
+      'STEP 4 · 返回 main',
+      'STEP 5 · 二次进入 Leave Message',
+      'STEP 6 · 二次溢出 + ret2libc',
+      'STEP 7 · getshell + 读 flag'
+    ];
+  
+    /* ── Helpers ── */
+    function setStatus(t){ var el = $('#d5-rop-status'); if(el) el.textContent = t; }
+  
+    function clearFlowStates(){
+      root.querySelectorAll('#d5-flow-rop .d5-node').forEach(function(n){
+        n.className = 'd5-node';
+      });
+      root.querySelectorAll('#d5-flow-rop .d5-arrow').forEach(function(a){
+        a.classList.remove('d5-active-arrow');
+      });
+    }
+  
+    function appendLog(text, cls){
+      var log = $('#d5-rop-log');
+      var el = document.createElement('div');
+      if(cls) el.className = cls;
+      el.textContent = text;
+      log.appendChild(el);
+      log.scrollTop = log.scrollHeight;
+    }
+  
+    function buildSteps(items, activeUpTo){
+      var box = $('#d5-rop-steps');
+      box.innerHTML = '';
+      items.forEach(function(label, i){
+        var pill = document.createElement('span');
+        pill.className = 'd5-pill';
+        if(i < activeUpTo) pill.classList.add('d5-pill-on');
+        pill.textContent = label;
+        box.appendChild(pill);
+      });
+    }
+  
+    function lightArrowUpTo(nodeId){
+      var flow = $('#d5-flow-rop');
+      if(!flow) return;
+      var nodes = Array.prototype.slice.call(flow.querySelectorAll('.d5-node'));
+      var arrows = Array.prototype.slice.call(flow.querySelectorAll('.d5-arrow'));
+      var idx = -1;
+      for(var k = 0; k < nodes.length; k++){
+        if(nodes[k].getAttribute('data-id') === nodeId){ idx = k; break; }
+      }
+      for(var a = 0; a < idx && a < arrows.length; a++){
+        arrows[a].classList.add('d5-active-arrow');
+      }
+    }
+  
+    function lightAllArrows(){
+      var flow = $('#d5-flow-rop');
+      if(!flow) return;
+      flow.querySelectorAll('.d5-arrow').forEach(function(a){
+        a.classList.add('d5-active-arrow');
+      });
+    }
+  
+    /* ── State ── */
+    var lastNode = null;
+  
+    function reset(){
+      setStatus('空闲');
+      $('#d5-rop-log').innerHTML = '';
+      $('#d5-rop-result-box').innerHTML = '— 等待攻击结果 —';
+      $('#d5-rop-steps').innerHTML = '';
+      $('#d5-rop-launch-btn').disabled = false;
+      clearFlowStates();
+      lastNode = null;
+      buildSteps(ropSteps, 0);
+    }
+  
+    /* ── Attack Simulation ── */
+    function launch(){
+      collapseDocSidebar();
+      reset();
+      var btn = $('#d5-rop-launch-btn');
+      btn.disabled = true;
+      setStatus('攻击进行中…');
+  
+      var i = 0;
+      var currentStep = 0;
+  
+      function tick(){
+        if(i >= ropLog.length){
+          setTimeout(function(){
+            lightAllArrows();
+            setStatus('攻击完成');
+            btn.disabled = false;
+            $('#d5-rop-result-box').textContent = ropResult;
+            buildSteps(ropSteps, ropSteps.length);
+          }, 400);
+          return;
+        }
+  
+        var item = ropLog[i];
+        appendLog(item.t, item.c);
+  
+        if(item.node){
+          if(lastNode && lastNode !== item.node){
+            var prev = root.querySelector('[data-id="'+lastNode+'"]');
+            if(prev){
+              prev.classList.remove('d5-live');
+              prev.classList.add('d5-ok');
+            }
+          }
+          var cur = root.querySelector('[data-id="'+item.node+'"]');
+          if(cur){
+            cur.classList.remove('d5-ok');
+            cur.classList.add('d5-live');
+          }
+          lightArrowUpTo(item.node);
+          lastNode = item.node;
+        }
+  
+        var m = item.t.match(/\[STEP (\d)\]/);
+        if(m){
+          var s = parseInt(m[1], 10);
+          if(s !== currentStep){
+            currentStep = s;
+            buildSteps(ropSteps, s);
+          }
+        }
+  
+        i++;
+        setTimeout(tick, 450 + Math.random() * 250);
+      }
+  
+      tick();
+    }
+  
+    $('#d5-rop-launch-btn').addEventListener('click', launch);
+    $('#d5-rop-reset-btn').addEventListener('click', reset);
+  
+    buildSteps(ropSteps, 0);
+  })();
+</script>

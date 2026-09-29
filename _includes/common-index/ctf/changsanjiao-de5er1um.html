@@ -1,0 +1,248 @@
+<div id="de5er1um-viz">
+  <div class="d5-inner">
+
+    <div class="d5-header">
+      <div class="d5-tag">CVE PoC &mdash; ActiveMQ + Camel Deserialization</div>
+      <h1>de5er1um &middot; Arbitrary File Read Visualization</h1>
+      <p>
+        靶场：<code>Spring Boot 3.5.13</code> + <code>Apache Camel 4.18.2</code> + <code>ActiveMQ 6.1.8</code>，
+        消费 <code>activemq6:queue:gateway.inbound</code>，
+        JMS 开启 <code>setTrustAllPackages(true)</code>。
+      </p>
+    </div>
+
+    <div class="d5-main">
+
+      <!-- Left: vertical flow -->
+      <div class="d5-flow" id="d5-flow-fr">
+        <div class="d5-node" data-id="fr-att"><div class="d5-n">&#9312; 攻击者</div><div class="d5-t">ExploitDe5er1um</div><div class="d5-d">构造 HashMap payload</div></div>
+        <div class="d5-arrow">&rarr;</div>
+        <div class="d5-node" data-id="fr-payload"><div class="d5-n">&#9313; Payload</div><div class="d5-t">HashMap&lt;URL&gt;</div><div class="d5-d">file:///etc/passwd</div></div>
+        <div class="d5-arrow">&rarr;</div>
+        <div class="d5-node" data-id="fr-broker"><div class="d5-n">&#9314; Broker</div><div class="d5-t">ActiveMQ 6.1.8</div><div class="d5-d">tcp://61616</div></div>
+        <div class="d5-arrow">&rarr;</div>
+        <div class="d5-node" data-id="fr-queue"><div class="d5-n">&#9315; 队列</div><div class="d5-t">gateway.inbound</div><div class="d5-d">ObjectMessage</div></div>
+        <div class="d5-arrow">&rarr;</div>
+        <div class="d5-node" data-id="fr-route"><div class="d5-n">&#9316; Camel</div><div class="d5-t">inbound-consumer</div><div class="d5-d">getBody() &rarr; deser</div></div>
+        <div class="d5-arrow">&rarr;</div>
+        <div class="d5-node" data-id="fr-convert"><div class="d5-n">&#9317; Converter</div><div class="d5-t">URL &rarr; InputStream</div><div class="d5-d">&rarr; String</div></div>
+        <div class="d5-arrow">&rarr;</div>
+        <div class="d5-node" data-id="fr-reply"><div class="d5-n">&#9318; 回复</div><div class="d5-t">MapMessage</div><div class="d5-d">key = 文件内容</div></div>
+      </div>
+
+      <!-- Right: controls + log + result -->
+      <div class="d5-right">
+
+        <div class="d5-controls">
+          <button class="d5-run" id="d5-launch-btn">&#9654; 发起攻击</button>
+          <button class="d5-reset-btn" id="d5-reset-btn">重置</button>
+          <span class="d5-status" id="d5-status">空闲</span>
+        </div>
+
+        <div class="d5-card">
+          <h3>实时攻击日志</h3>
+          <div class="d5-log" id="d5-log"></div>
+        </div>
+
+        <div class="d5-card">
+          <h3 id="d5-result-title">文件内容 / FLAG</h3>
+          <div class="d5-result-box" id="d5-result-box">&mdash; 等待攻击结果 &mdash;</div>
+          <div class="d5-steps" id="d5-steps"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var root = document.getElementById('de5er1um-viz');
+  if(!root) return;
+  var $ = function(s){ return root.querySelector(s); };
+
+  /* ── Simulated Data ── */
+  var frLog = [
+    { t: '[*] exploit: ExploitDe5er1um (file-read via HashMap<URL>)', c: 'd5-l', node: 'fr-att' },
+    { t: '[*] target: tcp://192.168.11.141:61616  (ActiveMQ 6.1.8)', c: 'd5-l', node: 'fr-att' },
+    { t: '[*] constructing payload: HashMap<URL("file:///etc/passwd"), "x">', c: '', node: 'fr-payload' },
+    { t: '[*] payload: 264 bytes, url = file:///etc/passwd', c: '', node: 'fr-payload' },
+    { t: '[*] connecting to broker via HTTP transport', c: 'd5-l', node: 'fr-broker' },
+    { t: '[*] credentials: ctf / ctf', c: '', node: 'fr-broker' },
+    { t: '[*] reply queue: queue://flag.exfil.482917', c: '', node: 'fr-broker' },
+    { t: '[STEP 1] ObjectMessage sent to gateway.inbound with JMSReplyTo', c: 'd5-l', node: 'fr-queue' },
+    { t: '[STEP 2] gateway.inbound consumed by Camel route inbound-consumer', c: 'd5-l', node: 'fr-route' },
+    { t: '[STEP 3] Camel getBody() triggers Java deserialization of HashMap<URL>', c: 'd5-l', node: 'fr-route' },
+    { t: '[STEP 4] JMSReplyTo detected \u2192 route prepares reply MapMessage', c: 'd5-l', node: 'fr-route' },
+    { t: '[STEP 5] JmsBinding.populateMapMessage: converting URL key \u2192 String', c: 'd5-l', node: 'fr-convert' },
+    { t: '[STEP 5] Camel TypeConverter: URL \u2192 InputStream \u2192 String chain', c: 'd5-l', node: 'fr-convert' },
+    { t: '[STEP 5] Reading: file:///etc/passwd (remote file on target host)', c: 'd5-w', node: 'fr-convert' },
+    { t: '[STEP 6] Reply received: ActiveMQMapMessage', c: 'd5-g', node: 'fr-reply' },
+    { t: '[+] map key = root:x:0:0:root:/root:/bin/bash', c: 'd5-hi', node: 'fr-reply' },
+    { t: '...', c: 'd5-c', node: 'fr-reply' },
+    { t: 'ctf:x:1001:1001::/home/ctf:/usr/sbin/nologin', c: 'd5-hi', node: 'fr-reply' },
+    { t: '[+] map value = x', c: '', node: 'fr-reply' },
+    { t: '[OK] file read successful \u2014 /etc/passwd exfiltrated', c: 'd5-g', node: 'fr-reply' }
+  ];
+
+  var frFileContent = [
+    'root:x:0:0:root:/root:/bin/bash',
+    '...',
+    'ctf:x:1001:1001::/home/ctf:/usr/sbin/nologin'
+  ].join('\n');
+
+  var frSteps = [
+    'STEP 1 \u00b7 \u6784\u9020 HashMap payload',
+    'STEP 2 \u00b7 \u6295\u9012 ObjectMessage',
+    'STEP 3 \u00b7 Camel \u53cd\u5e8f\u5217\u5316',
+    'STEP 4 \u00b7 JMSReplyTo \u89e6\u53d1\u56de\u590d',
+    'STEP 5 \u00b7 TypeConverter \u8bfb\u6587\u4ef6',
+    'STEP 6 \u00b7 \u6587\u4ef6\u5185\u5bb9\u56de\u4f20'
+  ];
+
+  /* ── Helpers ── */
+  function setStatus(t){ var el = $('#d5-status'); if(el) el.textContent = t; }
+
+  function clearFlowStates(flowId){
+    var flow = root.querySelector('#' + flowId);
+    if(!flow) return;
+    flow.querySelectorAll('.d5-node').forEach(function(n){
+      n.className = 'd5-node';
+    });
+    flow.querySelectorAll('.d5-arrow').forEach(function(a){
+      a.classList.remove('d5-active-arrow');
+    });
+  }
+
+  function appendLog(text, cls){
+    var log = $('#d5-log');
+    var el = document.createElement('div');
+    if(cls) el.className = cls;
+    el.textContent = text;
+    log.appendChild(el);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function buildSteps(items, activeUpTo){
+    var box = $('#d5-steps');
+    box.innerHTML = '';
+    items.forEach(function(label, i){
+      var pill = document.createElement('span');
+      pill.className = 'd5-pill';
+      if(i < activeUpTo) pill.classList.add('d5-pill-on');
+      pill.textContent = label;
+      box.appendChild(pill);
+    });
+  }
+
+  function lightArrowUpTo(flowId, nodeId){
+    var flow = root.querySelector('#' + flowId);
+    if(!flow) return;
+    var nodes = Array.prototype.slice.call(flow.querySelectorAll('.d5-node'));
+    var arrows = Array.prototype.slice.call(flow.querySelectorAll('.d5-arrow'));
+    var idx = -1;
+    for(var k = 0; k < nodes.length; k++){
+      if(nodes[k].getAttribute('data-id') === nodeId){ idx = k; break; }
+    }
+    for(var a = 0; a < idx && a < arrows.length; a++){
+      arrows[a].classList.add('d5-active-arrow');
+    }
+  }
+
+  function lightAllArrows(flowId){
+    var flow = root.querySelector('#' + flowId);
+    if(!flow) return;
+    flow.querySelectorAll('.d5-arrow').forEach(function(a){
+      a.classList.add('d5-active-arrow');
+    });
+  }
+
+  /* ── State ── */
+  var lastNode = null;
+
+  function reset(){
+    setStatus('\u7a7a\u95f2');
+    $('#d5-log').innerHTML = '';
+    $('#d5-result-box').innerHTML = '\u2014 \u7b49\u5f85\u653b\u51fb\u7ed3\u679c \u2014';
+    $('#d5-result-box').className = 'd5-result-box';
+    $('#d5-steps').innerHTML = '';
+    $('#d5-launch-btn').disabled = false;
+    clearFlowStates('d5-flow-fr');
+    lastNode = null;
+    buildSteps(frSteps, 0);
+  }
+
+  /* ── Attack Simulation ── */
+  function launch(){
+    collapseDocSidebar();
+    reset();
+    var btn = $('#d5-launch-btn');
+    btn.disabled = true;
+
+    var flowId = 'd5-flow-fr';
+    setStatus('\u653b\u51fb\u8fdb\u884c\u4e2d\u2026');
+
+    var i = 0;
+    var currentStep = 0;
+
+    function tick(){
+      if(i >= frLog.length){
+        setTimeout(function(){
+          lightAllArrows(flowId);
+          setStatus('\u653b\u51fb\u5b8c\u6210');
+          btn.disabled = false;
+
+          var resultBox = $('#d5-result-box');
+          resultBox.className = 'd5-result-box';
+          resultBox.innerHTML = '$ cat /etc/passwd\n\n' + frFileContent;
+          buildSteps(frSteps, frSteps.length);
+        }, 400);
+        return;
+      }
+
+      var item = frLog[i];
+      appendLog(item.t, item.c);
+
+      if(item.node){
+        if(lastNode && lastNode !== item.node){
+          var prev = root.querySelector('[data-id="'+lastNode+'"]');
+          if(prev){
+            prev.classList.remove('d5-live');
+            prev.classList.add('d5-ok');
+          }
+        }
+        var cur = root.querySelector('[data-id="'+item.node+'"]');
+        if(cur){
+          cur.classList.remove('d5-ok');
+          cur.classList.add('d5-live');
+        }
+        lightArrowUpTo(flowId, item.node);
+        lastNode = item.node;
+      }
+
+      var m = item.t.match(/\[STEP (\d)\]/);
+      if(m){
+        var s = parseInt(m[1], 10);
+        if(s !== currentStep){
+          currentStep = s;
+          buildSteps(frSteps, s);
+        }
+      }
+
+      i++;
+      setTimeout(tick, 450 + Math.random() * 250);
+    }
+
+    tick();
+  }
+
+  $('#d5-launch-btn').addEventListener('click', launch);
+  $('#d5-reset-btn').addEventListener('click', reset);
+
+  buildSteps(frSteps, 0);
+})();
+</script>

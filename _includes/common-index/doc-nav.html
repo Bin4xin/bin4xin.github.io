@@ -91,3 +91,96 @@
 
   {% endfor %}
 </nav>
+<script>
+  (function () {
+    'use strict';
+    function initDocSidebarHandle() {
+      var sidebar = document.querySelector('.doc-sidebar');
+      if (!sidebar) return;
+  
+      var wrapper = document.querySelector('.doc-wrapper');
+      if (!wrapper) return;
+  
+      if (sidebar.querySelector('.doc-nav-handle')) return;
+  
+      // 动态插入把手
+      var handle = document.createElement('div');
+      handle.className = 'doc-nav-handle';
+      handle.id = 'doc-nav-handle';
+      handle.title = '点击折叠 / 展开侧边栏';
+      handle.innerHTML =
+        '<span class="doc-nav-handle-bar"></span>' +
+        '<i class="fas fa-chevron-left doc-nav-handle-icon"></i>';
+      sidebar.appendChild(handle);
+  
+      var originalWidth = sidebar.getBoundingClientRect().width;
+      var collapsed = false;
+  
+      // 鼠标靠近右边缘时高亮 border
+      sidebar.addEventListener('mousemove', function (e) {
+        var rect = sidebar.getBoundingClientRect();
+        var distToRight = rect.right - e.clientX;
+        if (distToRight <= 10) {
+          sidebar.classList.add('is-handle-hot');
+          handle.classList.add('is-hot');
+        } else {
+          sidebar.classList.remove('is-handle-hot');
+          handle.classList.remove('is-hot');
+        }
+      });
+  
+      sidebar.addEventListener('mouseleave', function () {
+        sidebar.classList.remove('is-handle-hot');
+        handle.classList.remove('is-hot');
+      });
+  
+      // 点击把手折叠/展开
+      handle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (!collapsed) {
+          sidebar.style.width = originalWidth + 'px';
+          void sidebar.offsetWidth;
+          sidebar.classList.add('is-collapsed');
+          sidebar.style.width = '0px';
+          wrapper.classList.add('is-sidebar-collapsed');
+          collapsed = true;
+        } else {
+          sidebar.classList.remove('is-collapsed');
+          sidebar.style.width = originalWidth + 'px';
+          wrapper.classList.remove('is-sidebar-collapsed');
+          collapsed = false;
+          setTimeout(function () {
+            sidebar.style.width = '';
+          }, 320);
+        }
+        window.dispatchEvent(new CustomEvent('docnav:toggle', {
+          detail: { collapsed: collapsed }
+        }));
+      });
+  
+      // 快捷键 [ 切换
+      document.addEventListener('keydown', function (e) {
+        if (e.key === '[' && !/input|textarea/i.test(e.target.tagName)) {
+          handle.click();
+        }
+      });
+    }
+  
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initDocSidebarHandle);
+    } else {
+      initDocSidebarHandle();
+    }
+  })();
+  function collapseDocSidebar() {
+        var sidebarHandle = document.getElementById('doc-nav-handle');
+        var sidebar = document.querySelector('.doc-sidebar');
+        var wrapper = document.querySelector('.doc-wrapper');
+
+        if (!sidebarHandle || !sidebar || !wrapper) return;
+        if (sidebar.classList.contains('is-collapsed')) return;
+
+        sidebarHandle.click();
+    }
+  window.collapseDocSidebar = collapseDocSidebar;
+  </script>
